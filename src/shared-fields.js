@@ -91,6 +91,10 @@ export function sharedCandidates(doc,profile,values,audience){
   copy('legal_name',name);copy('inc_country',p.inc_country);copy('signer_0_name',p.auth_name);
   for(const prefix of ['residence','head'])for(const key of ['building','street','district','city','postal','country'])copy(`${prefix}_${key}`,p[prefix==='head'?'also_head':'also_residence']?(key==='postal'?joined(p.postal,p.additional):p[key]):'');
  }
+ if(doc.custom)for(const f of doc.fields){
+  const key=f.shared?.[audience];
+  if(key)copy(f.id,key==='full_name'?name:key==='full_name_en'?fullEn:key==='full_name_ar'?fullAr:key==='full_address'?address:p[key]);
+ }
  return out;
 }
 export function reconcileShared(doc,record,profile,audience){

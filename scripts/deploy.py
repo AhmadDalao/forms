@@ -5,6 +5,8 @@ import ftplib, ssl, shlex, hashlib, json, io
 from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parents[1]
+if (ROOT / 'src/management/main.js').exists():
+    raise SystemExit('Management is a review-only branch. Production deployment is disabled until user approval.')
 config = {}
 for line in (ROOT / '.env.local').read_text().splitlines():
     if '=' in line and not line.lstrip().startswith('#'):

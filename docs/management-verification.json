@@ -1,0 +1,11 @@
+{
+  "branch": "codex/management",
+  "production_deployed": false,
+  "review_url": "http://127.0.0.1:8181/management/",
+  "unit_tests": 29,
+  "existing_chrome_catalogue_layouts": 12,
+  "existing_workflows": ["both audiences", "both languages", "desktop/tablet/mobile", "consent download", "subscription shared fields", "signature upload", "draft reload"],
+  "management_checks": ["owner login", "wrong password", "persistent login throttle", "CSRF rejection", "private file denial", "draft/publication separation", "stale revision rejection", "separate audience order", "title updates", "publish", "restore previous publication", "native text/checkbox/radio/dropdown import", "blank-line suggestions", "English/Arabic labels", "private draft upload", "unreviewed publication blocked", "English/Arabic sample downloads", "draw and drag signature area", "reject out-of-page box", "reject cross-audience shared mapping", "reject malformed upload", "new card 7", "both audience shared fields", "both language customer downloads", "browser draft recovery", "mobile layout"],
+  "pdf_checks": {"samples": 7, "original_pages_retained": true, "static_answers": true, "transparent_overlays": true, "english_and_arabic_visually_reviewed": true},
+  "remaining_boundary": "Local branch is ready for user review. No management code or password has been sent to production. Flat PDFs/scans need human review and manual corrections; importing is not guaranteed to understand every layout."
+}

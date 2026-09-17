@@ -211,3 +211,10 @@ The output is a static PDF for printing, with optional user-uploaded signature i
 - Replaced Arial with Bahij TheSansArabic Plain from Itqan’s published brand assets. Reduced the body to 9 pt and adjusted section spacing, headings, signing lines and officer blocks against the supplied photograph. Exact font metadata cannot be recovered from the photo; this is a visual match.
 - Embedded the editable font in Word and verified the exported one-page PDF contains the matching font subsets, no photograph and no page number 38. Inspected the full latest render.
 - Production build and all 27 HTTPS file hashes passed. Both live audience folders download the revised PDF byte-for-byte.
+
+## Management branch — 2026-09-17
+
+- Added an isolated local `/management/` interface for bilingual titles/descriptions, separate audience ordering, draft saves, explicit publication and rollback. Existing field schemas and customer drafts remain intact.
+- Native text fields, checkboxes, radio buttons and dropdowns import from new PDFs. Flat forms receive blank-line suggestions and a page editor for labels, drawing/moving/resizing fields, signature areas and audience-specific shared mappings. New fillable documents require review; download-only is also available.
+- All 29 unit tests and 12 existing Chrome catalogue layouts passed. The isolated PHP/browser audit passed authentication, CSRF, throttling, private storage, revision conflicts, draft isolation, upload/import, review gates, publication/rollback, shared profiles, both-language customer downloads and recovery. Seven generated PDFs passed page/static/transparent-overlay checks; English/Arabic samples were visually inspected. A signature box was drawn and dragged through the UI, then exported.
+- The test preview is at http://127.0.0.1:8181/management/ and uses local-only data. Management has not been deployed; the branch's deployment script refuses production publishing pending user review. See MANAGEMENT.md and management-verification.json.

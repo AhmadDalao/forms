@@ -7,7 +7,9 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build && node scripts/build-folders.mjs",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "management:preview": "FORMS_DATA_DIR=\"$PWD/management-data\" php -d upload_max_filesize=20M -d post_max_size=24M -S 127.0.0.1:8181 -t dist scripts/management-router.php",
+    "test:management": "node scripts/management-audit.mjs"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",

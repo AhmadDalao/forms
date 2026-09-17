@@ -22,7 +22,7 @@ const slots = {
   ],
   'kyc-corporate': [slot('client', 'Client signature', 'توقيع العميل', 7, [58, 624, 241, 25])],
 };
-export const signatureSlots = doc => slots[doc.id] || [];
+export const signatureSlots = doc => slots[doc.id] || doc.signatureSlots || [];
 
 // Saved images are normalized PNGs only, never external URLs or executable SVGs.
 export function cleanSignatures(doc, saved) {

@@ -6,7 +6,7 @@ import { signatureSlots, signaturePlacement, cleanSignatures } from './signature
 import { appRoot } from './routes.js';
 pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
 const templates = new Map();
-export const templateUrl = doc => `${appRoot}pdfs/${doc.id}.pdf${doc.pdfVersion?'?v='+encodeURIComponent(doc.pdfVersion):''}`;
+export const templateUrl = doc => doc.pdfUrl || `${appRoot}pdfs/${doc.id}.pdf${doc.pdfVersion?'?v='+encodeURIComponent(doc.pdfVersion):''}`;
 export async function original(doc) {
   if (!templates.has(doc.id)) templates.set(doc.id, fetch(templateUrl(doc)).then(async r => { if (!r.ok) throw Error('Could not load the original PDF. Please retry.'); return new Uint8Array(await r.arrayBuffer()); }).catch(e => { templates.delete(doc.id); throw e; }));
   return (await templates.get(doc.id)).slice();
@@ -76,6 +76,9 @@ export async function generate(doc, values, signatures = {}) {
   await document.fonts.ready;
   const pdf=await PDFDocument.load(await original(doc),{updateMetadata:false});
   const errors=[];
+  // Imported widget forms are printed as static blue overlays, like the existing forms.
+  // Flatten only the imported document's original widgets before adding answers.
+  if(doc.importedWidgets)pdf.getForm().flatten({updateFieldAppearances:false});
   // Clip only faint input placeholders from the original artwork. Never paint
   // white rectangles over the paper; borders and other content remain intact.
   for (const [index,page] of pdf.getPages().entries()) {

@@ -10,4 +10,4 @@ const names={
 };
 export function applyCatalogueNames(docs){for(const doc of docs){const [number,title,ar]=names[doc.id];Object.assign(doc,{number,sourceTitle:doc.title,sourceAr:doc.ar,title,ar});if(doc.id==='terms-and-conditions')Object.assign(doc,{description:'Current PDF: Itqan’s general account terms and telephone / fax instructions.',arDescription:'الملف الحالي: شروط إتقان العامة للحساب وتعليمات الهاتف والفاكس.'});}}
 const consent={id:'al-naeem-terms-consent',pdfVersion:'8761415c8304',number:4,title:'Terms and Conditions Consent Form for Al Naeem Real Estate Fund',ar:'نموذج الموافقة على الشروط والأحكام لصندوق النعيم العقاري',group:'shared',pages:1,downloadOnly:true,description:'Download the PDF, then complete and sign it.',arDescription:'نزّل ملف PDF، ثم عبّئه ووقّعه.'};
-export const catalogueFor=(docs,audience)=>[...docs,consent].filter(doc=>visibleIn(doc,audience)).sort((a,b)=>a.number-b.number);
+export const catalogueFor=(docs,audience,cards=null)=>(cards||[...docs,consent]).filter(doc=>visibleIn(doc,audience)).sort((a,b)=>(a.order?.[audience]??a.number)-(b.order?.[audience]??b.number)).map((d,i)=>cards?{...d,number:i+1}:d);
