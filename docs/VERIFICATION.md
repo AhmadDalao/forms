@@ -197,3 +197,11 @@ The output is a static PDF for printing, with optional user-uploaded signature i
 
 - The language button now uses the logo’s purple background with white, semibold text and the existing primary-button hover color. Keyboard focus styling is preserved.
 - Production build passed. Checked both folders and languages at desktop/mobile widths, language switching, hover and keyboard focus. Published through verified FTPS; all 27 public HTTPS files match the build, and the button color and switching passed live in both folders/languages.
+
+
+## Consent page rebuilt from editable Word — 2026-09-17
+
+- Replaced the photograph-based consent PDF with a clean Arabic Word reconstruction, then exported the Word document through bundled LibreOffice. Preserved the source wording, officer names, name/signature/date lines and section order; removed the printed page number 38.
+- Inspected the complete rendered page after correcting RTL alignment and removing an inherited title border. The final DOCX contains native editable text and no images; the final PDF is one page with embedded fonts and no image objects. Verified all source headings, labels and names against the photo.
+- Card 4 remains download-only in both folders. Its URL now includes a content version so browsers fetch the new file. Production build and both local card downloads passed. Published through verified FTPS; all 27 public files match the build, and both live card downloads match the reviewed PDF byte-for-byte.
+- The management feature remains isolated in the separate codex/management worktree.

@@ -1,0 +1,15 @@
+{
+  "pages": 1,
+  "images": 0,
+  "word_text_runs": 11,
+  "page_38_removed": true,
+  "pdf_sha256": "708a9c0d3e2f2fbe3bdd35db456ce7ea34ddec0c876f06ccd814e7ae909b48d1",
+  "docx_sha256": "f38962edd1c8797a7ed1a5c7cb487bad8a1e6145f35eda7933d8e2cba4f4c956",
+  "live_folders": [
+    "individuals",
+    "companies"
+  ],
+  "public_https_files_matching": 27,
+  "transport": "verified FTPS",
+  "visual_review": "complete one-page Word render, exact Arabic wording and officer names compared to supplied photograph"
+}

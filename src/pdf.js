@@ -6,7 +6,7 @@ import { signatureSlots, signaturePlacement, cleanSignatures } from './signature
 import { appRoot } from './routes.js';
 pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
 const templates = new Map();
-export const templateUrl = doc => `${appRoot}pdfs/${doc.id}.pdf`;
+export const templateUrl = doc => `${appRoot}pdfs/${doc.id}.pdf${doc.pdfVersion?'?v='+encodeURIComponent(doc.pdfVersion):''}`;
 export async function original(doc) {
   if (!templates.has(doc.id)) templates.set(doc.id, fetch(templateUrl(doc)).then(async r => { if (!r.ok) throw Error('Could not load the original PDF. Please retry.'); return new Uint8Array(await r.arrayBuffer()); }).catch(e => { templates.delete(doc.id); throw e; }));
   return (await templates.get(doc.id)).slice();

@@ -4,7 +4,7 @@
   "uploaded_file_count": 10,
   "unique_document_count": 8,
   "unique_page_count": 40,
-  "inspection": "Source PDF hashes and page widgets inspected; seven fillable templates use transparent overlays. One additional download-only PDF embeds the supplied photograph unchanged.",
+  "inspection": "Seven unchanged fillable PDF templates and one download-only consent PDF rebuilt from the supplied image as editable Arabic Word text.",
   "documents": [
     {
       "slug": "fatca-crs-corporate",
@@ -453,15 +453,16 @@
         "WhatsApp Image 2026-09-17 at 20.11.26.jpeg"
       ],
       "local_pdf": "reference/pdfs/al-naeem-terms-consent.pdf",
-      "sha256": "80f93c1be8fd938074d9d5302be26237c3455fc35c94699d1c77ae313dcf42be",
-      "bytes": 1075803,
+      "sha256": "708a9c0d3e2f2fbe3bdd35db456ce7ea34ddec0c876f06ccd814e7ae909b48d1",
+      "bytes": 46425,
       "page_count": 1,
       "acroform_field_count": 0,
       "widget_count": 0,
       "mapped_fields": 0,
       "notes": [
-        "One-page photo conversion of printed page 38. Original JPEG embedded byte-for-byte; no text recreated or edited. Download only."
-      ]
+        "Arabic wording, named officers and signing lines recreated as native Word text from the supplied photo. Page number 38 removed as requested. Exported to one-page PDF with embedded fonts and zero images; download only."
+      ],
+      "editable_word": "output/documents/al-naeem-terms-consent.docx"
     }
   ],
   "catalogue_order": [
