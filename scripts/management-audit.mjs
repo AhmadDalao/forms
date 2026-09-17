@@ -65,6 +65,8 @@ try{
  const bad=structuredClone(state.draft);bad.documents.at(-1).fields[0].rect=[590,1,100,20];await call('save',{revision:state.revision,draft:bad},400);assert.equal((await call('state')).revision,state.revision);
  const foreign=structuredClone(state.draft);foreign.documents.at(-1).fields[0].shared={individual:'company_name'};await call('save',{revision:state.revision,draft:foreign},400);
  await admin.reload();await admin.setViewportSize({width:390,height:844});assert.equal(await admin.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await admin.screenshot({path:path.join(out,'management-mobile.png'),fullPage:true});
+ // Overlapping answer boxes cannot be approved, even through a direct API request.
+ state=await call('state');const overlap=structuredClone(state.draft);const target=overlap.documents.at(-1);target.fields.push({...target.fields[0],id:'overlap_test',label:'Overlapping field',ar:'حقل متداخل'});state=await call('save',{revision:state.revision,draft:overlap});const refusal=await call('review',{revision:state.revision,id:target.id},400);assert.match(refusal.error,/overlap/);assert.equal((await call('state')).draft.documents.at(-1).reviewed,false);
  // Persistent password throttling and malformed upload rejection.
  const badUpload=await owner.post('/api/management.php?action=upload',{headers:{'X-CSRF-Token':csrf},multipart:{pdf:{name:'fake.pdf',mimeType:'application/pdf',buffer:Buffer.from('not a pdf document')},revision:String(state.revision),metadata:'{}'}});assert.equal(badUpload.status(),400);
  for(let i=0;i<10;i++)await call('login',{password:'incorrect'},401);await call('login',{password:'incorrect'},429);

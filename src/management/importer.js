@@ -9,7 +9,7 @@ function nearestLabel(items,rect){
 // Conservative suggestions only. Printed words, table borders and scans need review.
 function blankLines(canvas,viewport,items){
  const ctx=canvas.getContext('2d',{willReadFrequently:true}),{data}=ctx.getImageData(0,0,canvas.width,canvas.height),w=canvas.width,h=canvas.height,scale=viewport.scale,found=[];
- const dark=(x,y)=>{const n=(y*w+x)*4;return data[n]<130&&data[n+1]<130&&data[n+2]<130&&data[n+3]>100;};
+ const dark=(x,y)=>{const n=(y*w+x)*4;return Math.max(data[n],data[n+1],data[n+2])<150&&Math.max(data[n],data[n+1],data[n+2])-Math.min(data[n],data[n+1],data[n+2])<30&&data[n+3]>100;};
  for(let y=20*scale;y<h-10*scale;y+=1){
   let start=-1;
   for(let x=0;x<=w;x++){
@@ -17,10 +17,11 @@ function blankLines(canvas,viewport,items){
    if(start>=0){const width=x-start;
     if(width>=45*scale&&width<=400*scale){
      const r=[start/scale,y/scale-13,width/scale,12];
-     if(!found.some(f=>Math.abs(f[1]-r[1])<5&&Math.abs(f[0]-r[0])<8)){
-      let ink=0,total=0;
-      for(let sy=Math.max(0,Math.floor(y-12*scale));sy<y-2*scale;sy+=2)for(let sx=start+3*scale;sx<x-3*scale;sx+=2){total++;if(dark(Math.floor(sx),sy))ink++;}
-      if(ink/Math.max(1,total)<.005&&!items.some(i=>i.str.trim()&&i.x<r[0]+r[2]&&i.x+i.w>r[0]&&i.y>r[1]&&i.y<r[1]+r[3]))found.push(r);
+     if(!found.some(f=>Math.min(f[0]+f[2],r[0]+r[2])-Math.max(f[0],r[0])>.5&&Math.min(f[1]+f[3],r[1]+r[3])-Math.max(f[1],r[1])>.5)){
+      let ink=0;
+      for(let sy=Math.max(0,Math.floor(y-12*scale));sy<y-2*scale;sy++)for(let sx=Math.ceil(start+2*scale);sx<x-2*scale;sx++){const n=(sy*w+sx)*4;if(Math.min(data[n],data[n+1],data[n+2])<210)ink++;}
+      let thick=0;for(let sx=Math.ceil(start+2*scale);sx<x-2*scale;sx++)if(dark(sx,Math.min(h-1,Math.floor(y+3*scale))))thick++;
+      if(ink===0&&thick/width<.1&&!items.some(i=>i.str.trim()&&i.x<r[0]+r[2]&&i.x+i.w>r[0]&&i.y>r[1]&&i.y<r[1]+r[3]))found.push(r);
      }
     }start=-1;
    }

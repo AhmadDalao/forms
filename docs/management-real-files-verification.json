@@ -1,0 +1,96 @@
+{
+  "date": "2026-09-17",
+  "branch": "codex/management",
+  "live_changed": false,
+  "original_documents_uploaded": 8,
+  "original_pages": 40,
+  "profiles": [
+    "English",
+    "Arabic",
+    "long English",
+    "long Arabic",
+    "mixed Arabic/English"
+  ],
+  "generated_sample_pdfs": 30,
+  "rendered_pages": 175,
+  "answer_images": 155,
+  "answer_images_with_clipped_edges": 0,
+  "sample_source_ink_intersection_pixels": 0,
+  "geometric_overlap_pairs": 0,
+  "files_with_no_detected_fields": [
+    "fatca-crs-individual.pdf",
+    "subscription-form.pdf"
+  ],
+  "detection": [
+    {
+      "file": "al-naeem-terms-consent.pdf",
+      "detected_fields": 2,
+      "oversized_value_blocked": true,
+      "samples": 5
+    },
+    {
+      "file": "fatca-crs-corporate.pdf",
+      "detected_fields": 4,
+      "oversized_value_blocked": true,
+      "samples": 5
+    },
+    {
+      "file": "fatca-crs-individual.pdf",
+      "detected_fields": 0,
+      "oversized_value_blocked": null,
+      "samples": 0
+    },
+    {
+      "file": "kyc-corporate.pdf",
+      "detected_fields": 4,
+      "oversized_value_blocked": true,
+      "samples": 5
+    },
+    {
+      "file": "kyc-individual.pdf",
+      "detected_fields": 10,
+      "oversized_value_blocked": true,
+      "samples": 5
+    },
+    {
+      "file": "signature-form.pdf",
+      "detected_fields": 1,
+      "oversized_value_blocked": true,
+      "samples": 5
+    },
+    {
+      "file": "subscription-form.pdf",
+      "detected_fields": 0,
+      "oversized_value_blocked": null,
+      "samples": 0
+    },
+    {
+      "file": "terms-and-conditions.pdf",
+      "detected_fields": 10,
+      "oversized_value_blocked": true,
+      "samples": 5
+    }
+  ],
+  "text_geometry_findings": [
+    {
+      "file": "kyc-corporate.pdf",
+      "findings": [
+        {
+          "field": "field_1",
+          "page": 2,
+          "printed_characters": "/Noم/Yes"
+        }
+      ]
+    }
+  ],
+  "assessment": "The generated sample ink stays in its mapped boxes, but flat-PDF detection is incomplete and sometimes infers incorrect labels or positions. These are draft suggestions, not verified complete forms. Every newly uploaded layout needs one-time manual field and sample review. Zero sample ink collisions is not a guarantee for arbitrary future documents or answers.",
+  "repairs": [
+    "Ignore colored header strips and non-empty answer bands in flat-PDF suggestions",
+    "Deduplicate overlapping suggestions",
+    "Block PDF generation and server-side review/publication when answer boxes overlap",
+    "Highlight overlapping boxes in the editor",
+    "Explicitly require completeness review against every printed field"
+  ],
+  "unit_tests": 31,
+  "management_end_to_end": "passed with direct API overlap rejection"
+}

@@ -76,9 +76,19 @@ function cleanOrders(array $orders,array $documents): array {
     $out=[];foreach(['individual','corporate'] as $group){$ids=array_column(array_filter($documents,fn($d)=>$d['group']===$group||$d['group']==='shared'),'id');$order=$orders[$group]??[];
     if(!is_array($order)||count($order)!==count(array_unique($order))||array_diff($ids,$order)||array_diff($order,$ids))fail('The document order is incomplete.');$out[$group]=array_values($order);}return $out;
 }
+function checkLayout(array $d): void {
+    $boxes=[];
+    foreach($d['fields']??[] as $f){$rects=$f['type']==='choice'?array_column($f['options'],'rect'):[$f['rect']];foreach($rects as $r)$boxes[]=['id'=>$f['id'],'page'=>$f['page'],'rect'=>$r];}
+    foreach($d['signatures']??[] as $f)$boxes[]=$f;
+    for($i=0;$i<count($boxes);$i++)for($j=$i+1;$j<count($boxes);$j++){
+        $a=$boxes[$i];$b=$boxes[$j];if($a['page']!==$b['page'])continue;$r=$a['rect'];$s=$b['rect'];
+        if(min($r[0]+$r[2],$s[0]+$s[2])-max($r[0],$s[0])>.5&&min($r[1]+$r[3],$s[1]+$s[3])-max($r[1],$s[1])>.5)fail('Answer areas overlap on page '.$a['page'].'. Move or resize them before publishing.');
+    }
+}
 function publishable(array $d): void {
     if($d['title']===''||$d['ar']==='')fail('Every document needs an English and Arabic title.');
     if($d['builtin']||$d['downloadOnly'])return;
+    checkLayout($d);
     if(empty($d['reviewed']))fail('Review the new document’s fields and samples before publishing.');
     if(!$d['fields']&&!$d['signatures'])fail('Add fields or choose download only.');
     foreach(array_merge($d['fields'],$d['signatures']) as $f){if($f['label']===''||$f['ar']==='')fail('Every field needs English and Arabic labels.');foreach($f['options']??[] as $o)if($o['label']===''&&$o['ar']==='')fail('A choice label is missing.');}

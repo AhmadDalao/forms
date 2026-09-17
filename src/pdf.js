@@ -4,6 +4,7 @@ import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import { hasValue } from './schema.js';
 import { signatureSlots, signaturePlacement, cleanSignatures } from './signatures.js';
 import { appRoot } from './routes.js';
+import { assertLayout } from './management/layout.js';
 pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
 const templates = new Map();
 export const templateUrl = doc => doc.pdfUrl || `${appRoot}pdfs/${doc.id}.pdf${doc.pdfVersion?'?v='+encodeURIComponent(doc.pdfVersion):''}`;
@@ -72,6 +73,7 @@ export function textImage(value, width, height, f={}) {
   }
 }
 export async function generate(doc, values, signatures = {}) {
+  if(doc.custom)assertLayout(doc);
   await document.fonts.load('10px "Noto Sans Arabic"','العربية English');
   await document.fonts.ready;
   const pdf=await PDFDocument.load(await original(doc),{updateMetadata:false});

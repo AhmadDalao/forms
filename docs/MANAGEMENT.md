@@ -43,3 +43,9 @@ Before any approved production rollout, verify PHP and `mbstring`, the private-d
 ## Verification
 
 `npm test` covers the established form/draft/profile behavior. `node scripts/management-audit.mjs` starts an isolated PHP server with disposable test data and verifies management/API/customer workflows. `scripts/catalogue-audit.mjs` checks the existing form catalogue against the local PHP preview. Test output and credentials stay under ignored temporary directories.
+
+## Limits confirmed with the real source files
+
+The eight-file audit in `management-real-files-verification.json` found incomplete flat-PDF detection. Two actual documents produced no suggestions; the other six still needed missing fields and labels corrected. Do not treat an upload or a successful sample download as proof of a complete form.
+
+The editor highlights overlapping answer boxes, and both the PDF renderer and server refuse them. Long answers are fitted within their assigned box or rejected. These checks cannot determine whether a manually placed box belongs over original printed content: compare every field with the paper and inspect sample answers before approving a new layout. This setup is done once per new document.

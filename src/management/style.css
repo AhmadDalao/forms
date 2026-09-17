@@ -72,3 +72,6 @@ header{padding:18px}
 .document-row{flex-wrap:wrap}
 .document-row .info{min-width:65%}
 }
+
+.box.conflict{border:2px solid #bc2937;background:#c5293720}
+.box.conflict .tag{background:#bc2937}
