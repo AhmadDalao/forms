@@ -205,3 +205,9 @@ The output is a static PDF for printing, with optional user-uploaded signature i
 - Inspected the complete rendered page after correcting RTL alignment and removing an inherited title border. The final DOCX contains native editable text and no images; the final PDF is one page with embedded fonts and no image objects. Verified all source headings, labels and names against the photo.
 - Card 4 remains download-only in both folders. Its URL now includes a content version so browsers fetch the new file. Production build and both local card downloads passed. Published through verified FTPS; all 27 public files match the build, and both live card downloads match the reviewed PDF byte-for-byte.
 - The management feature remains isolated in the separate codex/management worktree.
+
+## Consent typography refinement — 2026-09-17
+
+- Replaced Arial with Bahij TheSansArabic Plain from Itqan’s published brand assets. Reduced the body to 9 pt and adjusted section spacing, headings, signing lines and officer blocks against the supplied photograph. Exact font metadata cannot be recovered from the photo; this is a visual match.
+- Embedded the editable font in Word and verified the exported one-page PDF contains the matching font subsets, no photograph and no page number 38. Inspected the full latest render.
+- Production build and all 27 HTTPS file hashes passed. Both live audience folders download the revised PDF byte-for-byte.

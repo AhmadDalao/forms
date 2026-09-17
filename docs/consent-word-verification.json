@@ -3,13 +3,19 @@
   "images": 0,
   "word_text_runs": 11,
   "page_38_removed": true,
-  "pdf_sha256": "708a9c0d3e2f2fbe3bdd35db456ce7ea34ddec0c876f06ccd814e7ae909b48d1",
-  "docx_sha256": "f38962edd1c8797a7ed1a5c7cb487bad8a1e6145f35eda7933d8e2cba4f4c956",
+  "pdf_sha256": "8761415c8304d31122ef042a65397b27ad8385a653f7a6c57d81fafd6060ab1b",
+  "docx_sha256": "5cddf74c032824e802372f6ffb745bb84297988c5290601acbfa993ea581c02f",
   "live_folders": [
     "individuals",
     "companies"
   ],
   "public_https_files_matching": 27,
   "transport": "verified FTPS",
-  "visual_review": "complete one-page Word render, exact Arabic wording and officer names compared to supplied photograph"
+  "visual_review": "complete one-page Word render, exact Arabic wording and officer names compared to supplied photograph",
+  "font": "Bahij TheSansArabic Plain",
+  "font_source": "https://itqancapital.com/static/alfont_com_ArbFONTS-Bahij_TheSansArabic-Plain-aefc305703c5725c3567d486d22c85e6.ttf",
+  "font_embedded_in_word": true,
+  "body_size_pt": 9,
+  "heading_size_pt": 10.5,
+  "typography_note": "Typeface family chosen from Itqan official website and visually matched; exact photo font metadata is unavailable."
 }

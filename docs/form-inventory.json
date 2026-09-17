@@ -453,14 +453,15 @@
         "WhatsApp Image 2026-09-17 at 20.11.26.jpeg"
       ],
       "local_pdf": "reference/pdfs/al-naeem-terms-consent.pdf",
-      "sha256": "708a9c0d3e2f2fbe3bdd35db456ce7ea34ddec0c876f06ccd814e7ae909b48d1",
-      "bytes": 46425,
+      "sha256": "8761415c8304d31122ef042a65397b27ad8385a653f7a6c57d81fafd6060ab1b",
+      "bytes": 37940,
       "page_count": 1,
       "acroform_field_count": 0,
       "widget_count": 0,
       "mapped_fields": 0,
       "notes": [
-        "Arabic wording, named officers and signing lines recreated as native Word text from the supplied photo. Page number 38 removed as requested. Exported to one-page PDF with embedded fonts and zero images; download only."
+        "Arabic wording, named officers and signing lines recreated as native Word text from the supplied photo. Page number 38 removed as requested. Exported to one-page PDF with embedded fonts and zero images; download only.",
+        "Revised typography uses Bahij TheSansArabic Plain, sourced from Itqan’s website, embedded in Word and PDF; point sizes and spacing visually matched against the photo."
       ],
       "editable_word": "output/documents/al-naeem-terms-consent.docx"
     }
