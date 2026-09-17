@@ -1,0 +1,656 @@
+{
+  "verified_at_utc": "2026-09-17T17:39:41.392132+00:00",
+  "result": "pass",
+  "changes": {
+    "cards_per_audience": 6,
+    "order": [
+      "subscription-form",
+      "audience-specific KYC",
+      "signature-form",
+      "al-naeem-terms-consent",
+      "audience-specific FATCA/CRS",
+      "terms-and-conditions"
+    ],
+    "shared_badges_per_folder": 4,
+    "separate_shared_section": false,
+    "subscription_fields": 35,
+    "subscription_signature_slots": 4,
+    "consent_download_only": true,
+    "original_photo_embedded_unchanged": true
+  },
+  "source_limitation": "Card 6 retains the supplied 13-page Itqan general account terms; the description identifies it. Fund-specific terms were not provided. Keeping the existing PDF is a stated assumption, not a user-confirmed answer.",
+  "unit_tests": 25,
+  "printed_letter_overlap_check": "pass",
+  "source_reference_public_build_hash_checks": 33,
+  "public_credentials_check": "pass",
+  "local_layouts": {
+    "site": "http://127.0.0.1:4173/",
+    "results": [
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 1440
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 820
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 390
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 1440
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 820
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 390
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "en",
+        "width": 1440
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "en",
+        "width": 820
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "en",
+        "width": 390
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 1440
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 820
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 390
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 1440
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 820
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 390
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 1440
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 820
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 390
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "lang": "en",
+        "width": 1440
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "lang": "en",
+        "width": 820
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "lang": "en",
+        "width": 390
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 1440
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 820
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 390
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 1440
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 820
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 390
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 1440
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 820
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 390
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "lang": "en",
+        "width": 1440
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "lang": "en",
+        "width": 820
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "lang": "en",
+        "width": 390
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 1440
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 820
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 390
+      }
+    ]
+  },
+  "local_form_workflows": {
+    "site": "http://127.0.0.1:4173/",
+    "results": [
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "subscription-form",
+        "fields": 35
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "fields": 57
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "fields": 109
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "subscription-form",
+        "fields": 35
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "fatca-crs-corporate",
+        "fields": 76
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "fields": 102
+      }
+    ]
+  },
+  "subscription_pdf_checks": {
+    "chrome": {
+      "checks": {
+        "downloads": 5,
+        "pages": 5,
+        "text_fields": 150,
+        "transparent_text_images": 225,
+        "unmodified_pages": 0
+      },
+      "documents": [
+        {
+          "document": "subscription-form",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 1
+        }
+      ],
+      "result": "pass"
+    },
+    "firefox": {
+      "checks": {
+        "downloads": 5,
+        "pages": 5,
+        "text_fields": 150,
+        "transparent_text_images": 225,
+        "unmodified_pages": 0
+      },
+      "documents": [
+        {
+          "document": "subscription-form",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 1
+        }
+      ],
+      "result": "pass"
+    },
+    "webkit": {
+      "checks": {
+        "downloads": 5,
+        "pages": 5,
+        "text_fields": 150,
+        "transparent_text_images": 225,
+        "unmodified_pages": 0
+      },
+      "documents": [
+        {
+          "document": "subscription-form",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 1
+        }
+      ],
+      "result": "pass"
+    }
+  },
+  "local_signature_checks": {
+    "signed_unsigned_pairs": 6,
+    "placements": 24,
+    "no_ink_outside_slots": true,
+    "no_whiteouts": true
+  },
+  "address_guide_check": {
+    "samples": 15,
+    "result": "answers above printed dotted guides"
+  },
+  "visual_review": [
+    "consent image-to-PDF",
+    "English/Arabic/mixed subscription output",
+    "signature positions",
+    "desktop Arabic and mobile English catalogue"
+  ],
+  "deployment": {
+    "manifest": "deployment-manifest.json",
+    "transport": "verified FTPS",
+    "https": {
+      "date": "20260917T173628Z",
+      "files": [
+        {
+          "path": "assets/index--NVH9M05.css",
+          "sha256": "f1f12755d1442e54579b753d354fac52019af4aee5e4c39bf0e39c016f119a0e",
+          "contentType": "text/css"
+        },
+        {
+          "path": "assets/index-BOUovAPI.js",
+          "sha256": "344ca0002f3385e44bc5c857afa9410bea08bc0eadf49f196c64e8c27c0d0dbd",
+          "contentType": "application/javascript"
+        },
+        {
+          "path": "assets/inter-latin-400-normal-C38fXH4l.woff2",
+          "sha256": "8909904ab6c872eb994093482a88a28eca2cd95912d7b6fecd72103b0dc07edc",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/inter-latin-400-normal-CyCys3Eg.woff",
+          "sha256": "e20fa0b4fd2dd26e4d14b3ac3cc922509c3a63fa5e910e90c614544aa042dd45",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/inter-latin-500-normal-BL9OpVg8.woff",
+          "sha256": "9b42c108da48b5ed55a3072e815ffee2d271562e6c0dd6998910e8f9c09e0a3d",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/inter-latin-500-normal-Cerq10X2.woff2",
+          "sha256": "f3779f1efccc4bdcdf9c0a02ab95bf6bd092ed09c48c08cedc725889edd1d19f",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/inter-latin-600-normal-CiBQ2DWP.woff",
+          "sha256": "6a9cb3a509b4eeaf12b7dda6c4aacac3e85d07f4201bf4dd716e332e692b87bd",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/inter-latin-600-normal-LgqL8muc.woff2",
+          "sha256": "f9a06e79cd3a2a20951c0f0e28f66dd0e6d3fda73911d640a2125c8fcb78f21a",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
+          "sha256": "4e2ca0745c908761dc5c5db951662873887c59366fa1a5693ad22c0864abf1bd",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
+          "sha256": "6d47c7e4dfc76e221d078945ef2bbf47b047f1b316cf87c7663086639814c763",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
+          "sha256": "4cd5ad759d5ee84c12fa9aa6aa8747fb9e2fca225b87292bf42628f67ab3e4db",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
+          "sha256": "52a2cd4b0ff37ac84ef9af585af2eca0a300d49ea4934cf023827de54fdc354f",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/noto-sans-arabic-latin-400-normal-CjsIS08k.woff2",
+          "sha256": "290bdad021425e6ba6263c27d38652403f9b1a9ee74f5bbd2c62905b13f71b8c",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff",
+          "sha256": "86dab403db7f723e9c15de4324c2752c5a350bdd5344458850b2da9b7d2e332e",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/pdf.worker.min-Dswkl-cV.mjs",
+          "sha256": "8ab0e5e30031b4a06ecfddd5ae9562f0227f830ee7ec9ed1a968b134243d2386",
+          "contentType": "application/javascript"
+        },
+        {
+          "path": "companies/index.html",
+          "sha256": "3ae0b7a7a6cfe6f27f433f7a850bd4beca4a8075910f2c0c280de7be52c0187c",
+          "contentType": "text/html"
+        },
+        {
+          "path": "favicon.svg",
+          "sha256": "41c04134da8811ae64b2a60623801cc018d034003c1502fb4189bbf379d757fd",
+          "contentType": "image/svg+xml"
+        },
+        {
+          "path": "index.html",
+          "sha256": "d9bf6b4f45bbc6a1ff93b0b09ca58e50b10cda8dd1db522c9ffab46f7499d73d",
+          "contentType": "text/html"
+        },
+        {
+          "path": "individuals/index.html",
+          "sha256": "5cd04aee22f8e3a67aaa2161c458131cf49adb86c86f66b71a24e6e9e9ba5e26",
+          "contentType": "text/html"
+        },
+        {
+          "path": "pdfs/al-naeem-terms-consent.pdf",
+          "sha256": "80f93c1be8fd938074d9d5302be26237c3455fc35c94699d1c77ae313dcf42be",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/fatca-crs-corporate.pdf",
+          "sha256": "99ca43de54f7080a77f049c7502e280326fd4c0cb0b3169d0381a184d17028d0",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/fatca-crs-individual.pdf",
+          "sha256": "d2347853b761d014e5925812f4e24e32aed0a5dd8a701464b804255dec7ada4b",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/kyc-corporate.pdf",
+          "sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/kyc-individual.pdf",
+          "sha256": "79d7e6298f841bfc69dc627c4594448adb62a09266961087c28514df96b12d51",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/signature-form.pdf",
+          "sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/subscription-form.pdf",
+          "sha256": "00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/terms-and-conditions.pdf",
+          "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+          "contentType": "application/pdf"
+        }
+      ]
+    }
+  },
+  "live_layouts": {
+    "site": "https://forms.ahmaddalao.com/",
+    "results": [
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 1440
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 820
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "en",
+        "width": 390
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 1440
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 820
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "lang": "ar",
+        "width": 390
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "en",
+        "width": 1440
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "en",
+        "width": 820
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "en",
+        "width": 390
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 1440
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 820
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "lang": "ar",
+        "width": 390
+      }
+    ]
+  },
+  "live_signatures": {
+    "result": "pass",
+    "signed_unsigned_pairs": 2,
+    "placements": 8,
+    "no_ink_outside_slots": true,
+    "no_whiteouts": true
+  },
+  "live_subscription_downloads": [
+    {
+      "file": "subscription-form-english.pdf",
+      "sha256": "4a7ca7578f11d27c6d4a89a59b30358e48cfcd7c5d35161d8761ef6ec8e6c9a0",
+      "matches_reviewed_local": true
+    },
+    {
+      "file": "subscription-form-arabic.pdf",
+      "sha256": "2f7670d84b8628202aee2785c2987def4f8be0d25b0fd55cadb10f93453c892e",
+      "matches_reviewed_local": true
+    },
+    {
+      "file": "subscription-form-english-long.pdf",
+      "sha256": "d3b704ad1d8a774b088540dbab3fe2d4ee66b8ad69bc4d23d341a29a2ad81225",
+      "matches_reviewed_local": true
+    },
+    {
+      "file": "subscription-form-arabic-long.pdf",
+      "sha256": "29d337ca560a9049874383d58e7afcaa1f9888c2a45d7cc0804745352f8f873a",
+      "matches_reviewed_local": true
+    },
+    {
+      "file": "subscription-form-mixed.pdf",
+      "sha256": "f5a17d3e2ba687b68b5bf38d11a4c251cfe94cfcab2418089f802137131ae0fa",
+      "matches_reviewed_local": true
+    }
+  ],
+  "live_retry_note": "First full-fill run timed out waiting for the initial page while other live checks ran. A sequential rerun passed all five fills; live catalogue and HTTPS checks also passed.",
+  "scope": "Recorded samples and workflows, not every possible input or device."
+}

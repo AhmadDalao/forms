@@ -1,0 +1,42 @@
+{
+  "local": {
+    "site": "http://127.0.0.1:4173/",
+    "checks": 144,
+    "passed": true
+  },
+  "live": {
+    "site": "https://forms.ahmaddalao.com/",
+    "checks": 144,
+    "passed": true
+  },
+  "live-hashes": {
+    "date": "20260916T195042Z",
+    "verified_files": [
+      "assets/index-Bi-m5Ohm.js",
+      "assets/index-TCjoGILd.css",
+      "assets/inter-latin-400-normal-C38fXH4l.woff2",
+      "assets/inter-latin-400-normal-CyCys3Eg.woff",
+      "assets/inter-latin-500-normal-BL9OpVg8.woff",
+      "assets/inter-latin-500-normal-Cerq10X2.woff2",
+      "assets/inter-latin-600-normal-CiBQ2DWP.woff",
+      "assets/inter-latin-600-normal-LgqL8muc.woff2",
+      "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
+      "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
+      "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
+      "assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
+      "assets/noto-sans-arabic-latin-400-normal-CjsIS08k.woff2",
+      "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff",
+      "assets/pdf.worker.min-Dswkl-cV.mjs",
+      "favicon.svg",
+      "pdfs/fatca-crs-corporate.pdf",
+      "pdfs/fatca-crs-individual.pdf",
+      "pdfs/kyc-corporate.pdf",
+      "pdfs/kyc-individual.pdf",
+      "pdfs/signature-form.pdf",
+      "pdfs/terms-and-conditions.pdf",
+      "companies/index.html",
+      "index.html",
+      "individuals/index.html"
+    ]
+  }
+}

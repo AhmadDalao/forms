@@ -1,0 +1,147 @@
+{
+  "uploaded_at_utc": "20260917T174215Z",
+  "url": "https://forms.ahmaddalao.com/",
+  "transport": "Explicit FTPS with certificate verification",
+  "files": [
+    {
+      "path": "assets/index-B_r7xl5O.js",
+      "bytes": 1016794,
+      "sha256": "344ca0002f3385e44bc5c857afa9410bea08bc0eadf49f196c64e8c27c0d0dbd"
+    },
+    {
+      "path": "assets/index-pdz-XkEd.css",
+      "bytes": 22853,
+      "sha256": "e1c0f1bac4403e41b727a01a3af95688a9f295c31ce3ab31c1598cecf81a2cc9"
+    },
+    {
+      "path": "assets/inter-latin-400-normal-C38fXH4l.woff2",
+      "bytes": 23664,
+      "sha256": "8909904ab6c872eb994093482a88a28eca2cd95912d7b6fecd72103b0dc07edc"
+    },
+    {
+      "path": "assets/inter-latin-400-normal-CyCys3Eg.woff",
+      "bytes": 30696,
+      "sha256": "e20fa0b4fd2dd26e4d14b3ac3cc922509c3a63fa5e910e90c614544aa042dd45"
+    },
+    {
+      "path": "assets/inter-latin-500-normal-BL9OpVg8.woff",
+      "bytes": 31284,
+      "sha256": "9b42c108da48b5ed55a3072e815ffee2d271562e6c0dd6998910e8f9c09e0a3d"
+    },
+    {
+      "path": "assets/inter-latin-500-normal-Cerq10X2.woff2",
+      "bytes": 24272,
+      "sha256": "f3779f1efccc4bdcdf9c0a02ab95bf6bd092ed09c48c08cedc725889edd1d19f"
+    },
+    {
+      "path": "assets/inter-latin-600-normal-CiBQ2DWP.woff",
+      "bytes": 31260,
+      "sha256": "6a9cb3a509b4eeaf12b7dda6c4aacac3e85d07f4201bf4dd716e332e692b87bd"
+    },
+    {
+      "path": "assets/inter-latin-600-normal-LgqL8muc.woff2",
+      "bytes": 24452,
+      "sha256": "f9a06e79cd3a2a20951c0f0e28f66dd0e6d3fda73911d640a2125c8fcb78f21a"
+    },
+    {
+      "path": "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
+      "bytes": 48840,
+      "sha256": "4e2ca0745c908761dc5c5db951662873887c59366fa1a5693ad22c0864abf1bd"
+    },
+    {
+      "path": "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
+      "bytes": 79084,
+      "sha256": "6d47c7e4dfc76e221d078945ef2bbf47b047f1b316cf87c7663086639814c763"
+    },
+    {
+      "path": "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
+      "bytes": 84980,
+      "sha256": "4cd5ad759d5ee84c12fa9aa6aa8747fb9e2fca225b87292bf42628f67ab3e4db"
+    },
+    {
+      "path": "assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
+      "bytes": 53260,
+      "sha256": "52a2cd4b0ff37ac84ef9af585af2eca0a300d49ea4934cf023827de54fdc354f"
+    },
+    {
+      "path": "assets/noto-sans-arabic-latin-400-normal-CjsIS08k.woff2",
+      "bytes": 10748,
+      "sha256": "290bdad021425e6ba6263c27d38652403f9b1a9ee74f5bbd2c62905b13f71b8c"
+    },
+    {
+      "path": "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff",
+      "bytes": 13620,
+      "sha256": "86dab403db7f723e9c15de4324c2752c5a350bdd5344458850b2da9b7d2e332e"
+    },
+    {
+      "path": "assets/pdf.worker.min-Dswkl-cV.mjs",
+      "bytes": 1265413,
+      "sha256": "8ab0e5e30031b4a06ecfddd5ae9562f0227f830ee7ec9ed1a968b134243d2386"
+    },
+    {
+      "path": "favicon.svg",
+      "bytes": 246,
+      "sha256": "41c04134da8811ae64b2a60623801cc018d034003c1502fb4189bbf379d757fd"
+    },
+    {
+      "path": "pdfs/al-naeem-terms-consent.pdf",
+      "bytes": 1075803,
+      "sha256": "80f93c1be8fd938074d9d5302be26237c3455fc35c94699d1c77ae313dcf42be"
+    },
+    {
+      "path": "pdfs/fatca-crs-corporate.pdf",
+      "bytes": 395027,
+      "sha256": "99ca43de54f7080a77f049c7502e280326fd4c0cb0b3169d0381a184d17028d0"
+    },
+    {
+      "path": "pdfs/fatca-crs-individual.pdf",
+      "bytes": 547987,
+      "sha256": "d2347853b761d014e5925812f4e24e32aed0a5dd8a701464b804255dec7ada4b"
+    },
+    {
+      "path": "pdfs/kyc-corporate.pdf",
+      "bytes": 1509241,
+      "sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276"
+    },
+    {
+      "path": "pdfs/kyc-individual.pdf",
+      "bytes": 542853,
+      "sha256": "79d7e6298f841bfc69dc627c4594448adb62a09266961087c28514df96b12d51"
+    },
+    {
+      "path": "pdfs/signature-form.pdf",
+      "bytes": 168493,
+      "sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0"
+    },
+    {
+      "path": "pdfs/subscription-form.pdf",
+      "bytes": 256368,
+      "sha256": "00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a"
+    },
+    {
+      "path": "pdfs/terms-and-conditions.pdf",
+      "bytes": 588565,
+      "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106"
+    },
+    {
+      "path": ".htaccess",
+      "bytes": 536,
+      "sha256": "d0276919ce4210682f355b82c7bc3991dd64d4ee4a98d7d8ce7ccda575b648b3"
+    },
+    {
+      "path": "companies/index.html",
+      "bytes": 767,
+      "sha256": "c9c1f307776300b81594329a92ac6b4c16b59a1739774559b06c5410790d7de8"
+    },
+    {
+      "path": "index.html",
+      "bytes": 735,
+      "sha256": "47397a818d07e90230a0a815ca006e2635e507de456f973aef5118c51b2b8e1c"
+    },
+    {
+      "path": "individuals/index.html",
+      "bytes": 769,
+      "sha256": "4b60a843114ff1e7c4fa627eeb30bc6cecad62dbf2adb8b2ea9ba070bef32a1a"
+    }
+  ]
+}

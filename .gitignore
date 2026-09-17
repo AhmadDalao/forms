@@ -1,0 +1,12 @@
+# Local credentials
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+
+# Local inspection artifacts and generated build files
+tmp/
+node_modules/
+dist/

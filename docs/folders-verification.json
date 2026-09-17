@@ -1,0 +1,334 @@
+{
+  "folders": [
+    "https://forms.ahmaddalao.com/individuals/",
+    "https://forms.ahmaddalao.com/companies/"
+  ],
+  "local_ui": {
+    "site": "http://127.0.0.1:4173/",
+    "results": [
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "fields": 54
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "fields": 109
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "fatca-crs-corporate",
+        "fields": 76
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "fields": 102
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "fields": 54
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "fields": 109
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "doc": "fatca-crs-corporate",
+        "fields": 76
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "fields": 102
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "fields": 54
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "fields": 109
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "doc": "fatca-crs-corporate",
+        "fields": 76
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "fields": 102
+      }
+    ]
+  },
+  "pdf_alignment": {
+    "checks": {
+      "downloads": 30,
+      "pages": 190,
+      "text_fields": 1480,
+      "transparent_text_images": 2260,
+      "unmodified_pages": 80
+    },
+    "documents": [
+      {
+        "document": "signature-form",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 1
+      },
+      {
+        "document": "terms-and-conditions",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 13
+      },
+      {
+        "document": "fatca-crs-individual",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 4
+      },
+      {
+        "document": "fatca-crs-corporate",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 6
+      },
+      {
+        "document": "kyc-individual",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 7
+      },
+      {
+        "document": "kyc-corporate",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 7
+      }
+    ],
+    "result": "pass"
+  },
+  "original_templates_unchanged": true,
+  "mapping_unchanged": true,
+  "answer_ink": "#1456a0",
+  "unit_tests": 16,
+  "live_http": {
+    "uploaded_at_utc": "20260916T181716Z",
+    "public_files_verified": 25,
+    "routes": [
+      {
+        "requested": "https://forms.ahmaddalao.com/individuals",
+        "resolved": "https://forms.ahmaddalao.com/individuals/",
+        "status": 200
+      },
+      {
+        "requested": "https://forms.ahmaddalao.com/companies",
+        "resolved": "https://forms.ahmaddalao.com/companies/",
+        "status": 200
+      },
+      {
+        "requested": "https://ahmaddalao.com/forms/individuals",
+        "resolved": "https://ahmaddalao.com/forms/individuals/",
+        "status": 200
+      },
+      {
+        "requested": "https://ahmaddalao.com/forms/companies",
+        "resolved": "https://ahmaddalao.com/forms/companies/",
+        "status": 200
+      }
+    ]
+  },
+  "signature_preview_regression": {
+    "browser": "Chrome",
+    "result": "pass",
+    "checks": [
+      "upload",
+      "replacement",
+      "signature-only download",
+      "blank original unchanged",
+      "reload",
+      "remove",
+      "invalid images",
+      "preview selected signing slot",
+      "mobile Arabic",
+      "cross-tab clear"
+    ],
+    "signed_unsigned_pairs": 1
+  },
+  "live_ui": {
+    "site": "https://forms.ahmaddalao.com/",
+    "results": [
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "fields": 54
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "fields": 109
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "fatca-crs-corporate",
+        "fields": 76
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "fields": 102
+      }
+    ]
+  },
+  "live_downloads_match_reviewed_local": 8
+}

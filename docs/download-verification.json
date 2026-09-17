@@ -1,0 +1,143 @@
+{
+  "site": "http://127.0.0.1:4173",
+  "results": [
+    {
+      "browser": "chrome",
+      "document": "signature-form",
+      "result": "pass"
+    },
+    {
+      "browser": "chrome",
+      "document": "terms-and-conditions",
+      "result": "pass"
+    },
+    {
+      "browser": "chrome",
+      "document": "fatca-crs-individual",
+      "result": "pass"
+    },
+    {
+      "browser": "chrome",
+      "document": "fatca-crs-corporate",
+      "result": "pass"
+    },
+    {
+      "browser": "chrome",
+      "document": "kyc-individual",
+      "result": "pass"
+    },
+    {
+      "browser": "chrome",
+      "document": "kyc-corporate",
+      "result": "pass"
+    },
+    {
+      "browser": "firefox",
+      "document": "signature-form",
+      "result": "pass"
+    },
+    {
+      "browser": "firefox",
+      "document": "terms-and-conditions",
+      "result": "pass"
+    },
+    {
+      "browser": "firefox",
+      "document": "fatca-crs-individual",
+      "result": "pass"
+    },
+    {
+      "browser": "firefox",
+      "document": "fatca-crs-corporate",
+      "result": "pass"
+    },
+    {
+      "browser": "firefox",
+      "document": "kyc-individual",
+      "result": "pass"
+    },
+    {
+      "browser": "firefox",
+      "document": "kyc-corporate",
+      "result": "pass"
+    },
+    {
+      "browser": "webkit",
+      "document": "signature-form",
+      "result": "pass"
+    },
+    {
+      "browser": "webkit",
+      "document": "terms-and-conditions",
+      "result": "pass"
+    },
+    {
+      "browser": "webkit",
+      "document": "fatca-crs-individual",
+      "result": "pass"
+    },
+    {
+      "browser": "webkit",
+      "document": "fatca-crs-corporate",
+      "result": "pass"
+    },
+    {
+      "browser": "webkit",
+      "document": "kyc-individual",
+      "result": "pass"
+    },
+    {
+      "browser": "webkit",
+      "document": "kyc-corporate",
+      "result": "pass"
+    }
+  ],
+  "pdf_verification": {
+    "pages_checked": 114,
+    "filled_answers_verified": 18,
+    "result": "pass"
+  },
+  "network_and_overflow_recovery": {
+    "chrome": "pass",
+    "firefox": "pass",
+    "webkit": "pass"
+  },
+  "live": {
+    "url": "https://forms.ahmaddalao.com/",
+    "results": [
+      {
+        "browser": "chrome",
+        "document": "signature-form",
+        "result": "pass"
+      },
+      {
+        "browser": "chrome",
+        "document": "terms-and-conditions",
+        "result": "pass"
+      },
+      {
+        "browser": "chrome",
+        "document": "fatca-crs-individual",
+        "result": "pass"
+      },
+      {
+        "browser": "chrome",
+        "document": "fatca-crs-corporate",
+        "result": "pass"
+      },
+      {
+        "browser": "chrome",
+        "document": "kyc-individual",
+        "result": "pass"
+      },
+      {
+        "browser": "chrome",
+        "document": "kyc-corporate",
+        "result": "pass"
+      }
+    ],
+    "public_files_sha256_verified": 23,
+    "filled_pdfs_match_tested_local_outputs": 6,
+    "original_pages_represented": 38
+  }
+}

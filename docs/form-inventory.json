@@ -1,0 +1,476 @@
+{
+  "inspected_on": "2026-09-17",
+  "source_directory": "/Users/ahmaddalao/Downloads",
+  "uploaded_file_count": 10,
+  "unique_document_count": 8,
+  "unique_page_count": 40,
+  "inspection": "Source PDF hashes and page widgets inspected; seven fillable templates use transparent overlays. One additional download-only PDF embeds the supplied photograph unchanged.",
+  "documents": [
+    {
+      "slug": "fatca-crs-corporate",
+      "title": "Corporate FATCA / CRS",
+      "audience": "corporate",
+      "language": "English",
+      "status": "ready_for_field_mapping",
+      "customer_pages": [
+        1,
+        3,
+        4,
+        5,
+        6
+      ],
+      "signature_pages": [
+        6
+      ],
+      "staff_pages": [
+        6
+      ],
+      "sections": [
+        "Entity identity and addresses",
+        "Tax residences and TINs (3 printed rows)",
+        "FATCA classification (one selection)",
+        "CRS classification (one selection)",
+        "Controlling persons (5 printed rows, conditional)",
+        "Signatory names, capacities and date"
+      ],
+      "notes": [
+        "Page 2 names EFG Hermes KSA, unlike the Itqan-branded documents. User explicitly directed use of this exact source unchanged on 2026-09-16. Include it without replacing company names.",
+        "Pages 3 and 4 refer to Appendix 1 and Appendix 2; neither appendix is present in the supplied six pages.",
+        "Addendum 1 is conditional on classifications 11, 12 or 19.",
+        "Page 6 contains account-officer-only fields."
+      ],
+      "source_files": [
+        "FATCA - CRS Corporate.pdf"
+      ],
+      "local_pdf": "reference/pdfs/fatca-crs-corporate.pdf",
+      "sha256": "99ca43de54f7080a77f049c7502e280326fd4c0cb0b3169d0381a184d17028d0",
+      "bytes": 395027,
+      "page_count": 6,
+      "acroform_field_count": 0,
+      "widget_count": 0,
+      "page_sizes_points": [
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ]
+      ],
+      "source_decision": {
+        "date": "2026-09-16",
+        "instruction": "Use the uploaded PDF unchanged",
+        "confirmed_by": "user"
+      }
+    },
+    {
+      "slug": "signature-form",
+      "title": "Signature Form",
+      "audience": "shared",
+      "language": "Arabic / English",
+      "status": "ready_for_field_mapping",
+      "customer_pages": [
+        1
+      ],
+      "signature_pages": [
+        1
+      ],
+      "staff_pages": [
+        1
+      ],
+      "sections": [
+        "Date, client name and known client/account numbers",
+        "Client or authorized signatory",
+        "Signatory name, ID number and ID type",
+        "Joint/individual and limited/unlimited signature instructions"
+      ],
+      "notes": [
+        "Preserve the large specimen signature/fingerprint area without filling it.",
+        "Leave branch, witnessed-signature statement, reviewer and account manager details blank."
+      ],
+      "source_files": [
+        "ItqanSignatureFormV3.11 (1) (1).pdf",
+        "ItqanSignatureFormV3.11 (1).pdf"
+      ],
+      "local_pdf": "reference/pdfs/signature-form.pdf",
+      "sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+      "bytes": 168493,
+      "page_count": 1,
+      "acroform_field_count": 0,
+      "widget_count": 0,
+      "page_sizes_points": [
+        [
+          595.44,
+          841.68
+        ]
+      ]
+    },
+    {
+      "slug": "kyc-corporate",
+      "title": "Corporate KYC",
+      "audience": "corporate",
+      "language": "Arabic / English",
+      "status": "ready_for_field_mapping",
+      "customer_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7
+      ],
+      "signature_pages": [
+        6,
+        7
+      ],
+      "staff_pages": [
+        6
+      ],
+      "sections": [
+        "Company identity, registration, business and address",
+        "Contact, bank account, beneficial owners and directors",
+        "Authorized person, identity, address and custodian",
+        "Investment experience, objectives, risk choices and restrictions",
+        "Currency, horizon and portfolio percentages",
+        "Risk questionnaire and customer name on page 7"
+      ],
+      "notes": [
+        "Page 6 is staff/internal-use only.",
+        "Most Arabic text extraction has broken font character mappings; use rendered pages to transcribe labels.",
+        "Page 7 includes an age question even in the corporate template; preserve wording and do not silently substitute a different question.",
+        "Record the five suitability answers; any score is only the arithmetic sum of the printed points, never a new investment recommendation."
+      ],
+      "source_files": [
+        "KYC-corporate.pdf"
+      ],
+      "local_pdf": "reference/pdfs/kyc-corporate.pdf",
+      "sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+      "bytes": 1509241,
+      "page_count": 7,
+      "acroform_field_count": 0,
+      "widget_count": 0,
+      "page_sizes_points": [
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ]
+      ]
+    },
+    {
+      "slug": "kyc-individual",
+      "title": "Individual KYC",
+      "audience": "individual",
+      "language": "Arabic / English",
+      "status": "ready_for_field_mapping",
+      "customer_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7
+      ],
+      "signature_pages": [
+        3,
+        6,
+        7
+      ],
+      "staff_pages": [
+        6
+      ],
+      "sections": [
+        "Personal identity, contact, address and correspondence",
+        "Income, net worth, employment and banking",
+        "Financial experience, disclosures and special-case representatives",
+        "Investment experience, objectives, risk choices and restrictions",
+        "Currency, horizon, portfolio percentages and custodian",
+        "Risk questionnaire and customer name on page 7"
+      ],
+      "notes": [
+        "Page 6 is staff/internal-use only.",
+        "Page 3 includes a signature area for special cases.",
+        "Record the five suitability answers; any score is only the arithmetic sum of the printed points, never a new investment recommendation."
+      ],
+      "source_files": [
+        "KYC-individuals .pdf"
+      ],
+      "local_pdf": "reference/pdfs/kyc-individual.pdf",
+      "sha256": "79d7e6298f841bfc69dc627c4594448adb62a09266961087c28514df96b12d51",
+      "bytes": 542853,
+      "page_count": 7,
+      "acroform_field_count": 0,
+      "widget_count": 0,
+      "page_sizes_points": [
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ]
+      ]
+    },
+    {
+      "slug": "terms-and-conditions",
+      "title": "Terms and Conditions",
+      "audience": "shared",
+      "language": "Arabic / English",
+      "status": "ready_for_field_mapping",
+      "customer_pages": [
+        11,
+        13
+      ],
+      "signature_pages": [
+        11,
+        13
+      ],
+      "staff_pages": [
+        11,
+        13
+      ],
+      "sections": [
+        "Read original terms and telephone/fax authorization appendix",
+        "Page 11: on-request statement preference, client names and date",
+        "Page 13: telephone/fax authorization choice, customer names and date"
+      ],
+      "notes": [
+        "Keep all 13 pages; most are reading content.",
+        "The two yes/no questions are independent and must not be preselected.",
+        "Each signing page has three name/signature rows; model signers explicitly rather than repeating one name automatically.",
+        "Leave company checklist and acceptance sections blank."
+      ],
+      "source_files": [
+        "T&C (1).pdf",
+        "T&C.pdf"
+      ],
+      "local_pdf": "reference/pdfs/terms-and-conditions.pdf",
+      "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+      "bytes": 588565,
+      "page_count": 13,
+      "acroform_field_count": 0,
+      "widget_count": 0,
+      "page_sizes_points": [
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ]
+      ]
+    },
+    {
+      "slug": "fatca-crs-individual",
+      "title": "Individual Tax Residency / FATCA / CRS",
+      "audience": "individual",
+      "language": "Arabic / English",
+      "status": "ready_for_field_mapping",
+      "customer_pages": [
+        1,
+        2
+      ],
+      "signature_pages": [
+        2,
+        3
+      ],
+      "staff_pages": [
+        3
+      ],
+      "sections": [
+        "Identity, separate Arabic/English names and addresses",
+        "US-person, citizenship, permanent residence and overseas tax-residency questions",
+        "Conditional US TIN entry",
+        "Tax residences, TIN or reason A/B/C and reason B explanations",
+        "Arabic/English signatory names, capacity and date"
+      ],
+      "notes": [
+        "Page 3 starts with RM/CSR-only fields; the remaining content and page 4 contain definitions.",
+        "Preserve all four pages.",
+        "Three tax-residence rows are printed."
+      ],
+      "source_files": [
+        "إتقان كابيتال الإقامة الضريبية.pdf"
+      ],
+      "local_pdf": "reference/pdfs/fatca-crs-individual.pdf",
+      "sha256": "d2347853b761d014e5925812f4e24e32aed0a5dd8a701464b804255dec7ada4b",
+      "bytes": 547987,
+      "page_count": 4,
+      "acroform_field_count": 0,
+      "widget_count": 0,
+      "page_sizes_points": [
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ],
+        [
+          612.0,
+          792.0
+        ]
+      ]
+    },
+    {
+      "slug": "subscription-form",
+      "title": "Subscription Form",
+      "audience": "shared",
+      "language": "Arabic / English",
+      "status": "field_mapped",
+      "source_files": [
+        "ItqanSubscriptionFormV3.11.pdf"
+      ],
+      "local_pdf": "reference/pdfs/subscription-form.pdf",
+      "sha256": "00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a",
+      "bytes": 256368,
+      "page_count": 1,
+      "acroform_field_count": 0,
+      "widget_count": 0,
+      "mapped_fields": 35,
+      "notes": [
+        "Source PDF unchanged; all client, subscription and optional company-use fields remain visible."
+      ]
+    },
+    {
+      "slug": "al-naeem-terms-consent",
+      "title": "Al Naeem Real Estate Fund - Terms and Conditions Consent Form",
+      "audience": "shared",
+      "language": "Arabic",
+      "status": "download_only",
+      "source_files": [
+        "WhatsApp Image 2026-09-17 at 20.11.26.jpeg"
+      ],
+      "local_pdf": "reference/pdfs/al-naeem-terms-consent.pdf",
+      "sha256": "80f93c1be8fd938074d9d5302be26237c3455fc35c94699d1c77ae313dcf42be",
+      "bytes": 1075803,
+      "page_count": 1,
+      "acroform_field_count": 0,
+      "widget_count": 0,
+      "mapped_fields": 0,
+      "notes": [
+        "One-page photo conversion of printed page 38. Original JPEG embedded byte-for-byte; no text recreated or edited. Download only."
+      ]
+    }
+  ],
+  "catalogue_order": [
+    "subscription-form",
+    "audience-specific KYC",
+    "signature-form",
+    "al-naeem-terms-consent",
+    "audience-specific FATCA/CRS",
+    "terms-and-conditions"
+  ],
+  "terms_source_note": "Card 6 currently retains the existing 13-page Itqan general-account terms PDF. Its card description identifies that source; the Al Naeem fund-specific terms were not supplied."
+}

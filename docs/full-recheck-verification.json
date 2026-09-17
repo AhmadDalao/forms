@@ -1,0 +1,1802 @@
+{
+  "date": "2026-09-16",
+  "site": "https://forms.ahmaddalao.com/",
+  "fixes": [
+    "Render text into a padded transparent canvas and measure actual ink before fitting; preserves mixed Arabic/Latin runs in Firefox and Arabic marks in WebKit.",
+    "Place Arabic individual FATCA/CRS tax explanations on the original Arabic explanation lines."
+  ],
+  "source_integrity": {
+    "uploaded_files": 8,
+    "unique_documents": 6,
+    "source_pages": 38,
+    "matching_copies": 26,
+    "source_templates_unchanged": true,
+    "no_secrets_in_public_build": true
+  },
+  "unit_tests": {
+    "passed": 16,
+    "failed": 0
+  },
+  "production_build": "pass",
+  "printed_letter_overlap_scan": "pass",
+  "final_alignment": {
+    "chrome": {
+      "checks": {
+        "downloads": 30,
+        "pages": 190,
+        "text_fields": 1495,
+        "transparent_text_images": 2345,
+        "unmodified_pages": 75
+      },
+      "documents": [
+        {
+          "document": "signature-form",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 1
+        },
+        {
+          "document": "terms-and-conditions",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 4
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 6
+        },
+        {
+          "document": "kyc-individual",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 7
+        },
+        {
+          "document": "kyc-corporate",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 7
+        }
+      ],
+      "result": "pass"
+    },
+    "firefox": {
+      "checks": {
+        "downloads": 30,
+        "pages": 190,
+        "text_fields": 1495,
+        "transparent_text_images": 2345,
+        "unmodified_pages": 75
+      },
+      "documents": [
+        {
+          "document": "signature-form",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 1
+        },
+        {
+          "document": "terms-and-conditions",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 4
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 6
+        },
+        {
+          "document": "kyc-individual",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 7
+        },
+        {
+          "document": "kyc-corporate",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 7
+        }
+      ],
+      "result": "pass"
+    },
+    "webkit": {
+      "checks": {
+        "downloads": 30,
+        "pages": 190,
+        "text_fields": 1495,
+        "transparent_text_images": 2345,
+        "unmodified_pages": 75
+      },
+      "documents": [
+        {
+          "document": "signature-form",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 1
+        },
+        {
+          "document": "terms-and-conditions",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 4
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 6
+        },
+        {
+          "document": "kyc-individual",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 7
+        },
+        {
+          "document": "kyc-corporate",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 7
+        }
+      ],
+      "result": "pass"
+    }
+  },
+  "cross_browser_ink": {
+    "answer_images_checked": 7035,
+    "width_discrepancies": [],
+    "edge_contacts": []
+  },
+  "long_country_names": {
+    "site": "http://127.0.0.1:5173",
+    "results": [
+      {
+        "browser": "chrome",
+        "doc": "fatca-crs-individual",
+        "name": "Saudi Arabia",
+        "file": "chrome-fatca-crs-individual-0.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "chrome",
+        "doc": "fatca-crs-individual",
+        "name": "United States of America",
+        "file": "chrome-fatca-crs-individual-1.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "chrome",
+        "doc": "fatca-crs-individual",
+        "name": "United Arab Emirates",
+        "file": "chrome-fatca-crs-individual-2.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "chrome",
+        "doc": "fatca-crs-individual",
+        "name": "المملكة العربية السعودية",
+        "file": "chrome-fatca-crs-individual-3.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "chrome",
+        "doc": "fatca-crs-individual",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "chrome-fatca-crs-individual-4.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "chrome",
+        "doc": "fatca-crs-corporate",
+        "name": "Saudi Arabia",
+        "file": "chrome-fatca-crs-corporate-0.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "chrome",
+        "doc": "fatca-crs-corporate",
+        "name": "United States of America",
+        "file": "chrome-fatca-crs-corporate-1.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "chrome",
+        "doc": "fatca-crs-corporate",
+        "name": "United Arab Emirates",
+        "file": "chrome-fatca-crs-corporate-2.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "chrome",
+        "doc": "fatca-crs-corporate",
+        "name": "المملكة العربية السعودية",
+        "file": "chrome-fatca-crs-corporate-3.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "chrome",
+        "doc": "fatca-crs-corporate",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "chrome-fatca-crs-corporate-4.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "chrome",
+        "doc": "kyc-individual",
+        "name": "Saudi Arabia",
+        "file": "chrome-kyc-individual-0.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "chrome",
+        "doc": "kyc-individual",
+        "name": "United States of America",
+        "file": "chrome-kyc-individual-1.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "chrome",
+        "doc": "kyc-individual",
+        "name": "United Arab Emirates",
+        "file": "chrome-kyc-individual-2.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "chrome",
+        "doc": "kyc-individual",
+        "name": "المملكة العربية السعودية",
+        "file": "chrome-kyc-individual-3.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "chrome",
+        "doc": "kyc-individual",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "chrome-kyc-individual-4.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "chrome",
+        "doc": "kyc-corporate",
+        "name": "Saudi Arabia",
+        "file": "chrome-kyc-corporate-0.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "chrome",
+        "doc": "kyc-corporate",
+        "name": "United States of America",
+        "file": "chrome-kyc-corporate-1.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "chrome",
+        "doc": "kyc-corporate",
+        "name": "United Arab Emirates",
+        "file": "chrome-kyc-corporate-2.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "chrome",
+        "doc": "kyc-corporate",
+        "name": "المملكة العربية السعودية",
+        "file": "chrome-kyc-corporate-3.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "chrome",
+        "doc": "kyc-corporate",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "chrome-kyc-corporate-4.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "firefox",
+        "doc": "fatca-crs-individual",
+        "name": "Saudi Arabia",
+        "file": "firefox-fatca-crs-individual-0.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "firefox",
+        "doc": "fatca-crs-individual",
+        "name": "United States of America",
+        "file": "firefox-fatca-crs-individual-1.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "firefox",
+        "doc": "fatca-crs-individual",
+        "name": "United Arab Emirates",
+        "file": "firefox-fatca-crs-individual-2.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "firefox",
+        "doc": "fatca-crs-individual",
+        "name": "المملكة العربية السعودية",
+        "file": "firefox-fatca-crs-individual-3.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "firefox",
+        "doc": "fatca-crs-individual",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "firefox-fatca-crs-individual-4.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "firefox",
+        "doc": "fatca-crs-corporate",
+        "name": "Saudi Arabia",
+        "file": "firefox-fatca-crs-corporate-0.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "firefox",
+        "doc": "fatca-crs-corporate",
+        "name": "United States of America",
+        "file": "firefox-fatca-crs-corporate-1.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "firefox",
+        "doc": "fatca-crs-corporate",
+        "name": "United Arab Emirates",
+        "file": "firefox-fatca-crs-corporate-2.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "firefox",
+        "doc": "fatca-crs-corporate",
+        "name": "المملكة العربية السعودية",
+        "file": "firefox-fatca-crs-corporate-3.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "firefox",
+        "doc": "fatca-crs-corporate",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "firefox-fatca-crs-corporate-4.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "firefox",
+        "doc": "kyc-individual",
+        "name": "Saudi Arabia",
+        "file": "firefox-kyc-individual-0.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "firefox",
+        "doc": "kyc-individual",
+        "name": "United States of America",
+        "file": "firefox-kyc-individual-1.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "firefox",
+        "doc": "kyc-individual",
+        "name": "United Arab Emirates",
+        "file": "firefox-kyc-individual-2.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "firefox",
+        "doc": "kyc-individual",
+        "name": "المملكة العربية السعودية",
+        "file": "firefox-kyc-individual-3.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "firefox",
+        "doc": "kyc-individual",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "firefox-kyc-individual-4.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "firefox",
+        "doc": "kyc-corporate",
+        "name": "Saudi Arabia",
+        "file": "firefox-kyc-corporate-0.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "firefox",
+        "doc": "kyc-corporate",
+        "name": "United States of America",
+        "file": "firefox-kyc-corporate-1.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "firefox",
+        "doc": "kyc-corporate",
+        "name": "United Arab Emirates",
+        "file": "firefox-kyc-corporate-2.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "firefox",
+        "doc": "kyc-corporate",
+        "name": "المملكة العربية السعودية",
+        "file": "firefox-kyc-corporate-3.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "firefox",
+        "doc": "kyc-corporate",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "firefox-kyc-corporate-4.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "webkit",
+        "doc": "fatca-crs-individual",
+        "name": "Saudi Arabia",
+        "file": "webkit-fatca-crs-individual-0.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "webkit",
+        "doc": "fatca-crs-individual",
+        "name": "United States of America",
+        "file": "webkit-fatca-crs-individual-1.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "webkit",
+        "doc": "fatca-crs-individual",
+        "name": "United Arab Emirates",
+        "file": "webkit-fatca-crs-individual-2.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "webkit",
+        "doc": "fatca-crs-individual",
+        "name": "المملكة العربية السعودية",
+        "file": "webkit-fatca-crs-individual-3.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "webkit",
+        "doc": "fatca-crs-individual",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "webkit-fatca-crs-individual-4.pdf",
+        "fields": 8
+      },
+      {
+        "browser": "webkit",
+        "doc": "fatca-crs-corporate",
+        "name": "Saudi Arabia",
+        "file": "webkit-fatca-crs-corporate-0.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "webkit",
+        "doc": "fatca-crs-corporate",
+        "name": "United States of America",
+        "file": "webkit-fatca-crs-corporate-1.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "webkit",
+        "doc": "fatca-crs-corporate",
+        "name": "United Arab Emirates",
+        "file": "webkit-fatca-crs-corporate-2.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "webkit",
+        "doc": "fatca-crs-corporate",
+        "name": "المملكة العربية السعودية",
+        "file": "webkit-fatca-crs-corporate-3.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "webkit",
+        "doc": "fatca-crs-corporate",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "webkit-fatca-crs-corporate-4.pdf",
+        "fields": 11
+      },
+      {
+        "browser": "webkit",
+        "doc": "kyc-individual",
+        "name": "Saudi Arabia",
+        "file": "webkit-kyc-individual-0.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "webkit",
+        "doc": "kyc-individual",
+        "name": "United States of America",
+        "file": "webkit-kyc-individual-1.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "webkit",
+        "doc": "kyc-individual",
+        "name": "United Arab Emirates",
+        "file": "webkit-kyc-individual-2.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "webkit",
+        "doc": "kyc-individual",
+        "name": "المملكة العربية السعودية",
+        "file": "webkit-kyc-individual-3.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "webkit",
+        "doc": "kyc-individual",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "webkit-kyc-individual-4.pdf",
+        "fields": 4
+      },
+      {
+        "browser": "webkit",
+        "doc": "kyc-corporate",
+        "name": "Saudi Arabia",
+        "file": "webkit-kyc-corporate-0.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "webkit",
+        "doc": "kyc-corporate",
+        "name": "United States of America",
+        "file": "webkit-kyc-corporate-1.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "webkit",
+        "doc": "kyc-corporate",
+        "name": "United Arab Emirates",
+        "file": "webkit-kyc-corporate-2.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "webkit",
+        "doc": "kyc-corporate",
+        "name": "المملكة العربية السعودية",
+        "file": "webkit-kyc-corporate-3.pdf",
+        "fields": 5
+      },
+      {
+        "browser": "webkit",
+        "doc": "kyc-corporate",
+        "name": "الولايات المتحدة الأمريكية",
+        "file": "webkit-kyc-corporate-4.pdf",
+        "fields": 5
+      }
+    ],
+    "verification": {
+      "downloads": 60,
+      "pages": 360,
+      "populated_fields": 420,
+      "transparent_images": 465
+    }
+  },
+  "signatures_five_samples": {
+    "site": "http://127.0.0.1:4173",
+    "documents": [
+      {
+        "form": "signature-form",
+        "sample": "english",
+        "pages": 1,
+        "signature_slots": 1,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "signature-form",
+        "sample": "arabic",
+        "pages": 1,
+        "signature_slots": 1,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "signature-form",
+        "sample": "english-long",
+        "pages": 1,
+        "signature_slots": 1,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "signature-form",
+        "sample": "arabic-long",
+        "pages": 1,
+        "signature_slots": 1,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "signature-form",
+        "sample": "mixed",
+        "pages": 1,
+        "signature_slots": 1,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "terms-and-conditions",
+        "sample": "english",
+        "pages": 13,
+        "signature_slots": 6,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "terms-and-conditions",
+        "sample": "arabic",
+        "pages": 13,
+        "signature_slots": 6,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "terms-and-conditions",
+        "sample": "english-long",
+        "pages": 13,
+        "signature_slots": 6,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "terms-and-conditions",
+        "sample": "arabic-long",
+        "pages": 13,
+        "signature_slots": 6,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "terms-and-conditions",
+        "sample": "mixed",
+        "pages": 13,
+        "signature_slots": 6,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-individual",
+        "sample": "english",
+        "pages": 4,
+        "signature_slots": 2,
+        "answers": 57,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-individual",
+        "sample": "arabic",
+        "pages": 4,
+        "signature_slots": 2,
+        "answers": 57,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-individual",
+        "sample": "english-long",
+        "pages": 4,
+        "signature_slots": 2,
+        "answers": 57,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-individual",
+        "sample": "arabic-long",
+        "pages": 4,
+        "signature_slots": 2,
+        "answers": 57,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-individual",
+        "sample": "mixed",
+        "pages": 4,
+        "signature_slots": 2,
+        "answers": 57,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-corporate",
+        "sample": "english",
+        "pages": 6,
+        "signature_slots": 2,
+        "answers": 76,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-corporate",
+        "sample": "arabic",
+        "pages": 6,
+        "signature_slots": 2,
+        "answers": 76,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-corporate",
+        "sample": "english-long",
+        "pages": 6,
+        "signature_slots": 2,
+        "answers": 76,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-corporate",
+        "sample": "arabic-long",
+        "pages": 6,
+        "signature_slots": 2,
+        "answers": 76,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-corporate",
+        "sample": "mixed",
+        "pages": 6,
+        "signature_slots": 2,
+        "answers": 76,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-individual",
+        "sample": "english",
+        "pages": 7,
+        "signature_slots": 2,
+        "answers": 108,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-individual",
+        "sample": "arabic",
+        "pages": 7,
+        "signature_slots": 2,
+        "answers": 108,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-individual",
+        "sample": "english-long",
+        "pages": 7,
+        "signature_slots": 2,
+        "answers": 108,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-individual",
+        "sample": "arabic-long",
+        "pages": 7,
+        "signature_slots": 2,
+        "answers": 108,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-individual",
+        "sample": "mixed",
+        "pages": 7,
+        "signature_slots": 2,
+        "answers": 108,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-corporate",
+        "sample": "english",
+        "pages": 7,
+        "signature_slots": 1,
+        "answers": 101,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-corporate",
+        "sample": "arabic",
+        "pages": 7,
+        "signature_slots": 1,
+        "answers": 101,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-corporate",
+        "sample": "english-long",
+        "pages": 7,
+        "signature_slots": 1,
+        "answers": 101,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-corporate",
+        "sample": "arabic-long",
+        "pages": 7,
+        "signature_slots": 1,
+        "answers": 101,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-corporate",
+        "sample": "mixed",
+        "pages": 7,
+        "signature_slots": 1,
+        "answers": 101,
+        "result": "pass"
+      }
+    ],
+    "pages_checked": 190,
+    "signatures_checked": 70,
+    "original_artwork_preserved": true,
+    "changes_confined_to_selected_signature_areas": true,
+    "transparent_backgrounds": true
+  },
+  "signatures_other_engines": {
+    "firefox": {
+      "site": "http://127.0.0.1:4173",
+      "documents": [
+        {
+          "form": "signature-form",
+          "sample": "english",
+          "pages": 1,
+          "signature_slots": 1,
+          "answers": 10,
+          "result": "pass"
+        },
+        {
+          "form": "terms-and-conditions",
+          "sample": "english",
+          "pages": 13,
+          "signature_slots": 6,
+          "answers": 10,
+          "result": "pass"
+        },
+        {
+          "form": "fatca-crs-individual",
+          "sample": "english",
+          "pages": 4,
+          "signature_slots": 2,
+          "answers": 57,
+          "result": "pass"
+        },
+        {
+          "form": "fatca-crs-corporate",
+          "sample": "english",
+          "pages": 6,
+          "signature_slots": 2,
+          "answers": 76,
+          "result": "pass"
+        },
+        {
+          "form": "kyc-individual",
+          "sample": "english",
+          "pages": 7,
+          "signature_slots": 2,
+          "answers": 108,
+          "result": "pass"
+        },
+        {
+          "form": "kyc-corporate",
+          "sample": "english",
+          "pages": 7,
+          "signature_slots": 1,
+          "answers": 101,
+          "result": "pass"
+        }
+      ],
+      "pages_checked": 38,
+      "signatures_checked": 14,
+      "original_artwork_preserved": true,
+      "changes_confined_to_selected_signature_areas": true,
+      "transparent_backgrounds": true
+    },
+    "webkit": {
+      "site": "http://127.0.0.1:4173",
+      "documents": [
+        {
+          "form": "signature-form",
+          "sample": "english",
+          "pages": 1,
+          "signature_slots": 1,
+          "answers": 10,
+          "result": "pass"
+        },
+        {
+          "form": "terms-and-conditions",
+          "sample": "english",
+          "pages": 13,
+          "signature_slots": 6,
+          "answers": 10,
+          "result": "pass"
+        },
+        {
+          "form": "fatca-crs-individual",
+          "sample": "english",
+          "pages": 4,
+          "signature_slots": 2,
+          "answers": 57,
+          "result": "pass"
+        },
+        {
+          "form": "fatca-crs-corporate",
+          "sample": "english",
+          "pages": 6,
+          "signature_slots": 2,
+          "answers": 76,
+          "result": "pass"
+        },
+        {
+          "form": "kyc-individual",
+          "sample": "english",
+          "pages": 7,
+          "signature_slots": 2,
+          "answers": 108,
+          "result": "pass"
+        },
+        {
+          "form": "kyc-corporate",
+          "sample": "english",
+          "pages": 7,
+          "signature_slots": 1,
+          "answers": 101,
+          "result": "pass"
+        }
+      ],
+      "pages_checked": 38,
+      "signatures_checked": 14,
+      "original_artwork_preserved": true,
+      "changes_confined_to_selected_signature_areas": true,
+      "transparent_backgrounds": true
+    }
+  },
+  "signatures_final_renderer": {
+    "site": "http://127.0.0.1:4173",
+    "documents": [
+      {
+        "form": "signature-form",
+        "sample": "english",
+        "pages": 1,
+        "signature_slots": 1,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "terms-and-conditions",
+        "sample": "english",
+        "pages": 13,
+        "signature_slots": 6,
+        "answers": 10,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-individual",
+        "sample": "english",
+        "pages": 4,
+        "signature_slots": 2,
+        "answers": 57,
+        "result": "pass"
+      },
+      {
+        "form": "fatca-crs-corporate",
+        "sample": "english",
+        "pages": 6,
+        "signature_slots": 2,
+        "answers": 76,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-individual",
+        "sample": "english",
+        "pages": 7,
+        "signature_slots": 2,
+        "answers": 108,
+        "result": "pass"
+      },
+      {
+        "form": "kyc-corporate",
+        "sample": "english",
+        "pages": 7,
+        "signature_slots": 1,
+        "answers": 101,
+        "result": "pass"
+      }
+    ],
+    "pages_checked": 38,
+    "signatures_checked": 14,
+    "original_artwork_preserved": true,
+    "changes_confined_to_selected_signature_areas": true,
+    "transparent_backgrounds": true
+  },
+  "folder_ui_all_engines": {
+    "site": "http://127.0.0.1:4173/",
+    "results": [
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "fields": 57
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "fields": 109
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "fatca-crs-corporate",
+        "fields": 76
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "fields": 102
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "fields": 57
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "fields": 109
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "doc": "fatca-crs-corporate",
+        "fields": 76
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "fields": 102
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "fields": 57
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "fields": 109
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "doc": "fatca-crs-corporate",
+        "fields": 76
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "fields": 102
+      }
+    ]
+  },
+  "download_fallback_all_engines": {
+    "site": "http://127.0.0.1:4173",
+    "results": [
+      {
+        "browser": "chrome",
+        "document": "signature-form",
+        "result": "pass"
+      },
+      {
+        "browser": "chrome",
+        "document": "terms-and-conditions",
+        "result": "pass"
+      },
+      {
+        "browser": "chrome",
+        "document": "fatca-crs-individual",
+        "result": "pass"
+      },
+      {
+        "browser": "chrome",
+        "document": "fatca-crs-corporate",
+        "result": "pass"
+      },
+      {
+        "browser": "chrome",
+        "document": "kyc-individual",
+        "result": "pass"
+      },
+      {
+        "browser": "chrome",
+        "document": "kyc-corporate",
+        "result": "pass"
+      },
+      {
+        "browser": "firefox",
+        "document": "signature-form",
+        "result": "pass"
+      },
+      {
+        "browser": "firefox",
+        "document": "terms-and-conditions",
+        "result": "pass"
+      },
+      {
+        "browser": "firefox",
+        "document": "fatca-crs-individual",
+        "result": "pass"
+      },
+      {
+        "browser": "firefox",
+        "document": "fatca-crs-corporate",
+        "result": "pass"
+      },
+      {
+        "browser": "firefox",
+        "document": "kyc-individual",
+        "result": "pass"
+      },
+      {
+        "browser": "firefox",
+        "document": "kyc-corporate",
+        "result": "pass"
+      },
+      {
+        "browser": "webkit",
+        "document": "signature-form",
+        "result": "pass"
+      },
+      {
+        "browser": "webkit",
+        "document": "terms-and-conditions",
+        "result": "pass"
+      },
+      {
+        "browser": "webkit",
+        "document": "fatca-crs-individual",
+        "result": "pass"
+      },
+      {
+        "browser": "webkit",
+        "document": "fatca-crs-corporate",
+        "result": "pass"
+      },
+      {
+        "browser": "webkit",
+        "document": "kyc-individual",
+        "result": "pass"
+      },
+      {
+        "browser": "webkit",
+        "document": "kyc-corporate",
+        "result": "pass"
+      }
+    ]
+  },
+  "additional_passed_checks": [
+    "Actual browser shutdown/relaunch restores language, section, answers and leading zeros in Chrome, Firefox and WebKit.",
+    "Blank originals and downloads from every section in Chrome; first/last sections in Firefox and WebKit.",
+    "Clear one/all/across tabs preserves unrelated localStorage.",
+    "All 364 mapped fields remain visible regardless of selection; formerly conditional values survive reload and export.",
+    "Signature upload/replacement/removal, independent slots, invalid/oversized/blank input, preview, mobile Arabic and cross-tab clearing.",
+    "Signature survives browser restart; full-storage failure warns and keeps the current image downloadable.",
+    "Delayed or failed template requests, blocked storage and overlong answers show errors without losing answers; retries succeed.",
+    "Arabic and Persian portfolio totals, no answer transmission, and no unexpected browser errors.",
+    "144 toolbar layouts across all eight folder/document combinations, both languages and nine widths from 320 to 1600 pixels."
+  ],
+  "visual_review": "English/Arabic filled-page comparisons across all six PDFs, all signature slots and mixed-language crops inspected; no new clipping, misplaced ink or whiteouts in final outputs.",
+  "live_https": {
+    "site": "https://forms.ahmaddalao.com/",
+    "public_files_verified": 25,
+    "files": [
+      {
+        "path": "assets/index-TCjoGILd.css",
+        "status": 200,
+        "bytes": 20364,
+        "sha256": "efe61196deb28a78c5c38395c0810d6ef1ee2d43168b3b090f48569145e82350",
+        "content_type": "text/css"
+      },
+      {
+        "path": "assets/index-h7nwxoaj.js",
+        "status": 200,
+        "bytes": 991129,
+        "sha256": "41f88617896493c561841c708ac21a89a15dc4b9d69b4dfe128ece3350ba4591",
+        "content_type": "application/javascript"
+      },
+      {
+        "path": "assets/inter-latin-400-normal-C38fXH4l.woff2",
+        "status": 200,
+        "bytes": 23664,
+        "sha256": "8909904ab6c872eb994093482a88a28eca2cd95912d7b6fecd72103b0dc07edc",
+        "content_type": "font/woff2"
+      },
+      {
+        "path": "assets/inter-latin-400-normal-CyCys3Eg.woff",
+        "status": 200,
+        "bytes": 30696,
+        "sha256": "e20fa0b4fd2dd26e4d14b3ac3cc922509c3a63fa5e910e90c614544aa042dd45",
+        "content_type": "application/font-woff"
+      },
+      {
+        "path": "assets/inter-latin-500-normal-BL9OpVg8.woff",
+        "status": 200,
+        "bytes": 31284,
+        "sha256": "9b42c108da48b5ed55a3072e815ffee2d271562e6c0dd6998910e8f9c09e0a3d",
+        "content_type": "application/font-woff"
+      },
+      {
+        "path": "assets/inter-latin-500-normal-Cerq10X2.woff2",
+        "status": 200,
+        "bytes": 24272,
+        "sha256": "f3779f1efccc4bdcdf9c0a02ab95bf6bd092ed09c48c08cedc725889edd1d19f",
+        "content_type": "font/woff2"
+      },
+      {
+        "path": "assets/inter-latin-600-normal-CiBQ2DWP.woff",
+        "status": 200,
+        "bytes": 31260,
+        "sha256": "6a9cb3a509b4eeaf12b7dda6c4aacac3e85d07f4201bf4dd716e332e692b87bd",
+        "content_type": "application/font-woff"
+      },
+      {
+        "path": "assets/inter-latin-600-normal-LgqL8muc.woff2",
+        "status": 200,
+        "bytes": 24452,
+        "sha256": "f9a06e79cd3a2a20951c0f0e28f66dd0e6d3fda73911d640a2125c8fcb78f21a",
+        "content_type": "font/woff2"
+      },
+      {
+        "path": "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
+        "status": 200,
+        "bytes": 48840,
+        "sha256": "4e2ca0745c908761dc5c5db951662873887c59366fa1a5693ad22c0864abf1bd",
+        "content_type": "font/woff2"
+      },
+      {
+        "path": "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
+        "status": 200,
+        "bytes": 79084,
+        "sha256": "6d47c7e4dfc76e221d078945ef2bbf47b047f1b316cf87c7663086639814c763",
+        "content_type": "application/font-woff"
+      },
+      {
+        "path": "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
+        "status": 200,
+        "bytes": 84980,
+        "sha256": "4cd5ad759d5ee84c12fa9aa6aa8747fb9e2fca225b87292bf42628f67ab3e4db",
+        "content_type": "application/font-woff"
+      },
+      {
+        "path": "assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
+        "status": 200,
+        "bytes": 53260,
+        "sha256": "52a2cd4b0ff37ac84ef9af585af2eca0a300d49ea4934cf023827de54fdc354f",
+        "content_type": "font/woff2"
+      },
+      {
+        "path": "assets/noto-sans-arabic-latin-400-normal-CjsIS08k.woff2",
+        "status": 200,
+        "bytes": 10748,
+        "sha256": "290bdad021425e6ba6263c27d38652403f9b1a9ee74f5bbd2c62905b13f71b8c",
+        "content_type": "font/woff2"
+      },
+      {
+        "path": "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff",
+        "status": 200,
+        "bytes": 13620,
+        "sha256": "86dab403db7f723e9c15de4324c2752c5a350bdd5344458850b2da9b7d2e332e",
+        "content_type": "application/font-woff"
+      },
+      {
+        "path": "assets/pdf.worker.min-Dswkl-cV.mjs",
+        "status": 200,
+        "bytes": 1265413,
+        "sha256": "8ab0e5e30031b4a06ecfddd5ae9562f0227f830ee7ec9ed1a968b134243d2386",
+        "content_type": "application/javascript"
+      },
+      {
+        "path": "favicon.svg",
+        "status": 200,
+        "bytes": 246,
+        "sha256": "41c04134da8811ae64b2a60623801cc018d034003c1502fb4189bbf379d757fd",
+        "content_type": "image/svg+xml"
+      },
+      {
+        "path": "pdfs/fatca-crs-corporate.pdf",
+        "status": 200,
+        "bytes": 395027,
+        "sha256": "99ca43de54f7080a77f049c7502e280326fd4c0cb0b3169d0381a184d17028d0",
+        "content_type": "application/pdf"
+      },
+      {
+        "path": "pdfs/fatca-crs-individual.pdf",
+        "status": 200,
+        "bytes": 547987,
+        "sha256": "d2347853b761d014e5925812f4e24e32aed0a5dd8a701464b804255dec7ada4b",
+        "content_type": "application/pdf"
+      },
+      {
+        "path": "pdfs/kyc-corporate.pdf",
+        "status": 200,
+        "bytes": 1509241,
+        "sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+        "content_type": "application/pdf"
+      },
+      {
+        "path": "pdfs/kyc-individual.pdf",
+        "status": 200,
+        "bytes": 542853,
+        "sha256": "79d7e6298f841bfc69dc627c4594448adb62a09266961087c28514df96b12d51",
+        "content_type": "application/pdf"
+      },
+      {
+        "path": "pdfs/signature-form.pdf",
+        "status": 200,
+        "bytes": 168493,
+        "sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+        "content_type": "application/pdf"
+      },
+      {
+        "path": "pdfs/terms-and-conditions.pdf",
+        "status": 200,
+        "bytes": 588565,
+        "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+        "content_type": "application/pdf"
+      },
+      {
+        "path": "companies/index.html",
+        "status": 200,
+        "bytes": 767,
+        "sha256": "2d6d6d0d195ed9ed69940e6875c80dd200f1e18dc9b9be253e6faf5671596368",
+        "content_type": "text/html"
+      },
+      {
+        "path": "index.html",
+        "status": 200,
+        "bytes": 735,
+        "sha256": "c3bd5dce56c53bdd92bf06d9992ac2c4fe3ff16d47ba53edd240b57623010168",
+        "content_type": "text/html"
+      },
+      {
+        "path": "individuals/index.html",
+        "status": 200,
+        "bytes": 769,
+        "sha256": "4ee3b95edb507170f10f08570ac38b31fb7b3ce7569847374a93342f2147cb4c",
+        "content_type": "text/html"
+      }
+    ],
+    "routes": [
+      {
+        "url": "https://forms.ahmaddalao.com/",
+        "resolved": "https://forms.ahmaddalao.com/",
+        "status": 200
+      },
+      {
+        "url": "https://forms.ahmaddalao.com/individuals",
+        "resolved": "https://forms.ahmaddalao.com/individuals/",
+        "status": 200
+      },
+      {
+        "url": "https://forms.ahmaddalao.com/companies",
+        "resolved": "https://forms.ahmaddalao.com/companies/",
+        "status": 200
+      },
+      {
+        "url": "https://ahmaddalao.com/forms/individuals",
+        "resolved": "https://ahmaddalao.com/forms/individuals/",
+        "status": 200
+      },
+      {
+        "url": "https://ahmaddalao.com/forms/companies",
+        "resolved": "https://ahmaddalao.com/forms/companies/",
+        "status": 200
+      }
+    ]
+  },
+  "live_download_fallback_firefox": {
+    "site": "https://forms.ahmaddalao.com/",
+    "results": [
+      {
+        "browser": "firefox",
+        "document": "signature-form",
+        "result": "pass"
+      },
+      {
+        "browser": "firefox",
+        "document": "terms-and-conditions",
+        "result": "pass"
+      },
+      {
+        "browser": "firefox",
+        "document": "fatca-crs-individual",
+        "result": "pass"
+      },
+      {
+        "browser": "firefox",
+        "document": "fatca-crs-corporate",
+        "result": "pass"
+      },
+      {
+        "browser": "firefox",
+        "document": "kyc-individual",
+        "result": "pass"
+      },
+      {
+        "browser": "firefox",
+        "document": "kyc-corporate",
+        "result": "pass"
+      }
+    ]
+  },
+  "live_final_checks": "pass",
+  "live_pdf_output": {
+    "site": "https://forms.ahmaddalao.com/",
+    "downloads": 30,
+    "pages": 190,
+    "identical_to_reviewed_local_pdfs": true,
+    "files": [
+      {
+        "file": "signature-form-english.pdf",
+        "sha256": "e79e6f0b3ab7d527b9d32942386b91c93b088c30695daa355af553747a6f79da"
+      },
+      {
+        "file": "signature-form-arabic.pdf",
+        "sha256": "05f2c192fa3ff8c3a1fc1cb13dcf6999ab47466d921ca8fc7ba99920856bc09f"
+      },
+      {
+        "file": "signature-form-english-long.pdf",
+        "sha256": "af2d6088bfcda9f37028f6551eda79b09c36299fe74d39d27e5c976b2cdf9ed4"
+      },
+      {
+        "file": "signature-form-arabic-long.pdf",
+        "sha256": "f4a8960efb9c291cb7ed9d7257f4a008c25b7c0d84c1e64a7bb3fed559a3c28a"
+      },
+      {
+        "file": "signature-form-mixed.pdf",
+        "sha256": "ed860c65e91d34722739b124e7c2e2b9c205fc2b4d3b97952e6411a87ecfec26"
+      },
+      {
+        "file": "terms-and-conditions-english.pdf",
+        "sha256": "74af5cdfc2f0e0272f146f8da2a8e30230cee835a975eb9379f344401fe6b86f"
+      },
+      {
+        "file": "terms-and-conditions-arabic.pdf",
+        "sha256": "82e686c09a4ef958519ef5a7c0c1400d8cf8d3c7a80988be94b1ff9298b7f6fd"
+      },
+      {
+        "file": "terms-and-conditions-english-long.pdf",
+        "sha256": "e39b4617ced56ec47a3b28e70a368e0634a4e7c64c34e2d1001002a092aa9db9"
+      },
+      {
+        "file": "terms-and-conditions-arabic-long.pdf",
+        "sha256": "10fd11171a926df8bd0420c298c49c3f5cb61c0303aff63c256df141f997062a"
+      },
+      {
+        "file": "terms-and-conditions-mixed.pdf",
+        "sha256": "41cbfdedd7fbc5a3df5c3f8107747d219de32fdeedbc30302c2822fb0df506e1"
+      },
+      {
+        "file": "fatca-crs-individual-english.pdf",
+        "sha256": "38ca644f37287cd75d18edc58b5ad31127b3eb9181ce815989d73827b09546d5"
+      },
+      {
+        "file": "fatca-crs-individual-arabic.pdf",
+        "sha256": "f43608e950786b0682a3e37fadceee45ba7941174a2615f5ea18da897ba7f0e2"
+      },
+      {
+        "file": "fatca-crs-individual-english-long.pdf",
+        "sha256": "dd906ff0e1bc3cb4836ae8469d6fcb4e066b54469c76f4f9fab264f04a7d9132"
+      },
+      {
+        "file": "fatca-crs-individual-arabic-long.pdf",
+        "sha256": "50854455fad40783b0bb9b467cd1d0b5075e0a75a63ab46ab8e9b8c5fa801d71"
+      },
+      {
+        "file": "fatca-crs-individual-mixed.pdf",
+        "sha256": "542783c3a9c3cd2539c679e44a2cb335df3512d61dad738cf4e25ebc3fcea33c"
+      },
+      {
+        "file": "fatca-crs-corporate-english.pdf",
+        "sha256": "039b8b40f1501576853f5f89f669591739ab5f7e0a8aa6a6a7005cee0aac17d0"
+      },
+      {
+        "file": "fatca-crs-corporate-arabic.pdf",
+        "sha256": "a5675ad74684e53762b8cb9cd79905f73e935e590719c1d8e4c6cbdc6bafc9e1"
+      },
+      {
+        "file": "fatca-crs-corporate-english-long.pdf",
+        "sha256": "e2355ca3a449db6873fbb544aa18d0301d61133ad052c5d28745e207bd52d850"
+      },
+      {
+        "file": "fatca-crs-corporate-arabic-long.pdf",
+        "sha256": "64b0e23e9e71a7f21d8dfde5e7be049c333f4d26188dfbc184fc5494bb8d7ec4"
+      },
+      {
+        "file": "fatca-crs-corporate-mixed.pdf",
+        "sha256": "4cf9eac35b29935a9ba9a982150780178ec220203a1b5b09672087ea77205f19"
+      },
+      {
+        "file": "kyc-individual-english.pdf",
+        "sha256": "8b2974170795b279760bce5fc2963c69fc111e437924b68d3f680dacc4e8e0e1"
+      },
+      {
+        "file": "kyc-individual-arabic.pdf",
+        "sha256": "c68f424d36bd372b00f19dd41ef8aabd54fa855077dd2e556a17db1a564b3520"
+      },
+      {
+        "file": "kyc-individual-english-long.pdf",
+        "sha256": "64b7f59bf4685de36091b0139734c835f15b62aaf705e9059259516d8b4ff586"
+      },
+      {
+        "file": "kyc-individual-arabic-long.pdf",
+        "sha256": "0cb25a5732f37de3689f82f124995063e38a913ba127126700fdda8b4a6b0bd5"
+      },
+      {
+        "file": "kyc-individual-mixed.pdf",
+        "sha256": "f96c827b5db3f9a4e142c4c531abb8f33881d860934a54d135b0d7706c70b6c0"
+      },
+      {
+        "file": "kyc-corporate-english.pdf",
+        "sha256": "7e2bbdfb13598dd7121e444235c10cc67d42eacb5637c869861f3b13325aef00"
+      },
+      {
+        "file": "kyc-corporate-arabic.pdf",
+        "sha256": "de07f284c5b7ef1cb40d12f469cc23d4578d389d4661e0a0f72b622daa3f7d8a"
+      },
+      {
+        "file": "kyc-corporate-english-long.pdf",
+        "sha256": "fb91d4a34c47a995bebd6e6f813e36b672f04e56442164d4a9fe39776814870a"
+      },
+      {
+        "file": "kyc-corporate-arabic-long.pdf",
+        "sha256": "b6a0c9f315d485a84b0520ac75fb51d23219f991824c3cea18d70c25283e2619"
+      },
+      {
+        "file": "kyc-corporate-mixed.pdf",
+        "sha256": "ed0465f64c788d4feee0d4d4e6160bae54458834a8bb7d7dce55069192d18ad0"
+      }
+    ]
+  },
+  "live_folder_ui": {
+    "site": "https://forms.ahmaddalao.com/",
+    "results": [
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "fields": 57
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "fields": 109
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "signature-form",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "terms-and-conditions",
+        "fields": 10
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "fatca-crs-corporate",
+        "fields": 76
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "fields": 102
+      }
+    ]
+  },
+  "deployed_at_utc": "20260916T201443Z"
+}

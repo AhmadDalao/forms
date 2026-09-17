@@ -1,0 +1,291 @@
+{
+  "site": "http://127.0.0.1:4173",
+  "documents": [
+    {
+      "form": "signature-form",
+      "sample": "english",
+      "pages": 1,
+      "signature_slots": 1,
+      "answers": 10,
+      "result": "pass"
+    },
+    {
+      "form": "signature-form",
+      "sample": "arabic",
+      "pages": 1,
+      "signature_slots": 1,
+      "answers": 10,
+      "result": "pass"
+    },
+    {
+      "form": "signature-form",
+      "sample": "english-long",
+      "pages": 1,
+      "signature_slots": 1,
+      "answers": 10,
+      "result": "pass"
+    },
+    {
+      "form": "signature-form",
+      "sample": "arabic-long",
+      "pages": 1,
+      "signature_slots": 1,
+      "answers": 10,
+      "result": "pass"
+    },
+    {
+      "form": "signature-form",
+      "sample": "mixed",
+      "pages": 1,
+      "signature_slots": 1,
+      "answers": 10,
+      "result": "pass"
+    },
+    {
+      "form": "terms-and-conditions",
+      "sample": "english",
+      "pages": 13,
+      "signature_slots": 6,
+      "answers": 10,
+      "result": "pass"
+    },
+    {
+      "form": "terms-and-conditions",
+      "sample": "arabic",
+      "pages": 13,
+      "signature_slots": 6,
+      "answers": 10,
+      "result": "pass"
+    },
+    {
+      "form": "terms-and-conditions",
+      "sample": "english-long",
+      "pages": 13,
+      "signature_slots": 6,
+      "answers": 10,
+      "result": "pass"
+    },
+    {
+      "form": "terms-and-conditions",
+      "sample": "arabic-long",
+      "pages": 13,
+      "signature_slots": 6,
+      "answers": 10,
+      "result": "pass"
+    },
+    {
+      "form": "terms-and-conditions",
+      "sample": "mixed",
+      "pages": 13,
+      "signature_slots": 6,
+      "answers": 10,
+      "result": "pass"
+    },
+    {
+      "form": "fatca-crs-individual",
+      "sample": "english",
+      "pages": 4,
+      "signature_slots": 1,
+      "answers": 54,
+      "result": "pass"
+    },
+    {
+      "form": "fatca-crs-individual",
+      "sample": "arabic",
+      "pages": 4,
+      "signature_slots": 1,
+      "answers": 54,
+      "result": "pass"
+    },
+    {
+      "form": "fatca-crs-individual",
+      "sample": "english-long",
+      "pages": 4,
+      "signature_slots": 1,
+      "answers": 54,
+      "result": "pass"
+    },
+    {
+      "form": "fatca-crs-individual",
+      "sample": "arabic-long",
+      "pages": 4,
+      "signature_slots": 1,
+      "answers": 54,
+      "result": "pass"
+    },
+    {
+      "form": "fatca-crs-individual",
+      "sample": "mixed",
+      "pages": 4,
+      "signature_slots": 1,
+      "answers": 54,
+      "result": "pass"
+    },
+    {
+      "form": "fatca-crs-corporate",
+      "sample": "english",
+      "pages": 6,
+      "signature_slots": 2,
+      "answers": 76,
+      "result": "pass"
+    },
+    {
+      "form": "fatca-crs-corporate",
+      "sample": "arabic",
+      "pages": 6,
+      "signature_slots": 2,
+      "answers": 76,
+      "result": "pass"
+    },
+    {
+      "form": "fatca-crs-corporate",
+      "sample": "english-long",
+      "pages": 6,
+      "signature_slots": 2,
+      "answers": 76,
+      "result": "pass"
+    },
+    {
+      "form": "fatca-crs-corporate",
+      "sample": "arabic-long",
+      "pages": 6,
+      "signature_slots": 2,
+      "answers": 76,
+      "result": "pass"
+    },
+    {
+      "form": "fatca-crs-corporate",
+      "sample": "mixed",
+      "pages": 6,
+      "signature_slots": 2,
+      "answers": 76,
+      "result": "pass"
+    },
+    {
+      "form": "kyc-individual",
+      "sample": "english",
+      "pages": 7,
+      "signature_slots": 2,
+      "answers": 108,
+      "result": "pass"
+    },
+    {
+      "form": "kyc-individual",
+      "sample": "arabic",
+      "pages": 7,
+      "signature_slots": 2,
+      "answers": 108,
+      "result": "pass"
+    },
+    {
+      "form": "kyc-individual",
+      "sample": "english-long",
+      "pages": 7,
+      "signature_slots": 2,
+      "answers": 108,
+      "result": "pass"
+    },
+    {
+      "form": "kyc-individual",
+      "sample": "arabic-long",
+      "pages": 7,
+      "signature_slots": 2,
+      "answers": 108,
+      "result": "pass"
+    },
+    {
+      "form": "kyc-individual",
+      "sample": "mixed",
+      "pages": 7,
+      "signature_slots": 2,
+      "answers": 108,
+      "result": "pass"
+    },
+    {
+      "form": "kyc-corporate",
+      "sample": "english",
+      "pages": 7,
+      "signature_slots": 1,
+      "answers": 101,
+      "result": "pass"
+    },
+    {
+      "form": "kyc-corporate",
+      "sample": "arabic",
+      "pages": 7,
+      "signature_slots": 1,
+      "answers": 101,
+      "result": "pass"
+    },
+    {
+      "form": "kyc-corporate",
+      "sample": "english-long",
+      "pages": 7,
+      "signature_slots": 1,
+      "answers": 101,
+      "result": "pass"
+    },
+    {
+      "form": "kyc-corporate",
+      "sample": "arabic-long",
+      "pages": 7,
+      "signature_slots": 1,
+      "answers": 101,
+      "result": "pass"
+    },
+    {
+      "form": "kyc-corporate",
+      "sample": "mixed",
+      "pages": 7,
+      "signature_slots": 1,
+      "answers": 101,
+      "result": "pass"
+    }
+  ],
+  "pages_checked": 190,
+  "signatures_checked": 65,
+  "original_artwork_preserved": true,
+  "changes_confined_to_selected_signature_areas": true,
+  "transparent_backgrounds": true,
+  "checks": [
+    "30 complete browser fills, five per form",
+    "65 signature placements; 190 page comparisons",
+    "Original PDF text, geometry and artwork preserved",
+    "Signature changes confined to selected signing rectangles",
+    "No white image backgrounds or whiteout rectangles",
+    "PNG/JPEG upload, replacement, removal and invalid-file handling",
+    "Signature-only and unchanged blank-template downloads",
+    "Saved draft recovery after refresh and actual browser shutdown",
+    "Clear-one, clear-all and cross-tab clearing",
+    "Storage failure warning with working image/PDF download",
+    "English/Arabic desktop and mobile interfaces",
+    "No entered answers or signature images transmitted"
+  ],
+  "browser_verification": {
+    "firefox": {
+      "pages_checked": 38,
+      "signatures_checked": 13,
+      "result": "pass"
+    },
+    "webkit": {
+      "pages_checked": 38,
+      "signatures_checked": 13,
+      "result": "pass"
+    },
+    "firefox-corporate": {
+      "pages_checked": 30,
+      "signatures_checked": 10,
+      "result": "pass"
+    }
+  },
+  "visual_review": "All 13 customer signing slots inspected with all five image variants; Firefox narrow date cells also rendered and inspected.",
+  "deployment": {
+    "url": "https://ahmaddalao.com/forms/",
+    "public_files_sha256_verified": 23,
+    "live_browser_checks": "pass",
+    "live_pages_checked": 38,
+    "live_signature_placements": 13,
+    "live_vs_reviewed_local_page_renders": "38/38 pixel-identical",
+    "javascript_asset": "assets/index-BjEtoVPN.js"
+  }
+}

@@ -1,0 +1,1167 @@
+{
+  "date": "2026-09-17T11:16:08.498683+00:00",
+  "changes": [
+    "Keep shared inputs mounted during keystrokes; update dependent answers without resetting the email caret.",
+    "Use left-to-right email, telephone and date inputs in both interface languages, including corporate authorized-person email.",
+    "Reduce padding inside individual FATCA/CRS Arabic name boxes to fit descenders/marks without changing rectangles or source artwork."
+  ],
+  "unit_tests": 23,
+  "typed_input_checks": 312,
+  "english_arabic_workflows": [
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "lang": "en",
+      "file": "chrome-individuals-signature-form-en.pdf",
+      "sha256": "b43cf0cb3c00a23df4215389a326c4b6027467654a9dfd56e4ad84b16b541bb8"
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "lang": "en",
+      "file": "chrome-individuals-terms-and-conditions-en.pdf",
+      "sha256": "cc92f2dee1beb374bb5f1287a9a4ed9498eb36c287e91e5546a35a0f7f79b77c"
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "lang": "en",
+      "file": "chrome-individuals-fatca-crs-individual-en.pdf",
+      "sha256": "dd159419493fbee232288ac4c8c6f3e1be792b1ed8ac7bfddce4a0b29d826a61"
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "lang": "en",
+      "file": "chrome-individuals-kyc-individual-en.pdf",
+      "sha256": "c5c721c3ff2201a0d79daf9734ddd930de24b518c983b9ca67cbae76e36f5556"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "signature-form",
+      "lang": "en",
+      "file": "chrome-companies-signature-form-en.pdf",
+      "sha256": "b43cf0cb3c00a23df4215389a326c4b6027467654a9dfd56e4ad84b16b541bb8"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "lang": "en",
+      "file": "chrome-companies-terms-and-conditions-en.pdf",
+      "sha256": "cc92f2dee1beb374bb5f1287a9a4ed9498eb36c287e91e5546a35a0f7f79b77c"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "lang": "en",
+      "file": "chrome-companies-fatca-crs-corporate-en.pdf",
+      "sha256": "8591e7bf80ab9cb63b268d307eee52b50e52671332c3af3897bb768195d467bc"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "lang": "en",
+      "file": "chrome-companies-kyc-corporate-en.pdf",
+      "sha256": "7d7f2246b331f3b206c78f09d80beab292a5085cbb73a277e565a30b2aff19df"
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "lang": "ar",
+      "file": "chrome-individuals-signature-form-ar.pdf",
+      "sha256": "9373d6f8d5fac83e82eb42b9dcff56abf63a286195a8bb572194974332868402"
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "lang": "ar",
+      "file": "chrome-individuals-terms-and-conditions-ar.pdf",
+      "sha256": "26bce6fc502f8f822659de2f6a0edfef6cecb131d8bfe7a152138829ed8ae588"
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "lang": "ar",
+      "file": "chrome-individuals-fatca-crs-individual-ar.pdf",
+      "sha256": "1adc8060c49a3c5cb6c1228193b09e6a82d6c2301cc267cc8d979fc1417ec502"
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "lang": "ar",
+      "file": "chrome-individuals-kyc-individual-ar.pdf",
+      "sha256": "01d85e67f02bd43c879b2b7852dff9f483195a1a3efed4b7f5658882d2d77834"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "signature-form",
+      "lang": "ar",
+      "file": "chrome-companies-signature-form-ar.pdf",
+      "sha256": "9373d6f8d5fac83e82eb42b9dcff56abf63a286195a8bb572194974332868402"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "lang": "ar",
+      "file": "chrome-companies-terms-and-conditions-ar.pdf",
+      "sha256": "26bce6fc502f8f822659de2f6a0edfef6cecb131d8bfe7a152138829ed8ae588"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "lang": "ar",
+      "file": "chrome-companies-fatca-crs-corporate-ar.pdf",
+      "sha256": "4793d707c1143fcc046afd07e1294c20db49affa4b2c25657a079f54c4561111"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "lang": "ar",
+      "file": "chrome-companies-kyc-corporate-ar.pdf",
+      "sha256": "78a92c104b70cfb00c57b9a9f0a950b249d693e7e8312a4772c39fc7962c5af3"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "lang": "en",
+      "file": "firefox-individuals-signature-form-en.pdf",
+      "sha256": "ba0c0e40558e3d7605b067ec5c8b825ed8efedc6d022f2876fd8fa49f439221f"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "lang": "en",
+      "file": "firefox-individuals-terms-and-conditions-en.pdf",
+      "sha256": "c3449b57cec2b58b683670117c6a13e5215d28d5147f3c2d87e816a1b32fb760"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "lang": "en",
+      "file": "firefox-individuals-fatca-crs-individual-en.pdf",
+      "sha256": "92ccda33d7ab5c2e3fff79d74f004e8cedef374f9d9b91a05f4bf816ae5d8c78"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "lang": "en",
+      "file": "firefox-individuals-kyc-individual-en.pdf",
+      "sha256": "bbeee967d08dcef1c27696772703acdde438f8c48050388cf6ddbe87d3a56c96"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "signature-form",
+      "lang": "en",
+      "file": "firefox-companies-signature-form-en.pdf",
+      "sha256": "ba0c0e40558e3d7605b067ec5c8b825ed8efedc6d022f2876fd8fa49f439221f"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "lang": "en",
+      "file": "firefox-companies-terms-and-conditions-en.pdf",
+      "sha256": "c3449b57cec2b58b683670117c6a13e5215d28d5147f3c2d87e816a1b32fb760"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "lang": "en",
+      "file": "firefox-companies-fatca-crs-corporate-en.pdf",
+      "sha256": "fa442d696d23c2158b19b0447903402528bbb91d3ae5e1fe8e2c12c5abe3c294"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "lang": "en",
+      "file": "firefox-companies-kyc-corporate-en.pdf",
+      "sha256": "fb1b5e2d93d3a0cf67cf0b0906e94103013b490635b89c47e9f1d47ed7082e68"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "lang": "ar",
+      "file": "firefox-individuals-signature-form-ar.pdf",
+      "sha256": "4beffcc043ae71a81abf2667e8a1208f2f04855370d0c8b74174aede9eb2da51"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "lang": "ar",
+      "file": "firefox-individuals-terms-and-conditions-ar.pdf",
+      "sha256": "ec80db1e2c4d580e40f658d17be56ed5fd0ea6f577554f8737ff2b66427b8364"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "lang": "ar",
+      "file": "firefox-individuals-fatca-crs-individual-ar.pdf",
+      "sha256": "4a3b86c2ecd668113d3905ee42bc0606754334618dd364c087011806c7e6b9b4"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "lang": "ar",
+      "file": "firefox-individuals-kyc-individual-ar.pdf",
+      "sha256": "a99798a589367f42e053484223ba5a300ac269bb78bcb65a082a29c599392db2"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "signature-form",
+      "lang": "ar",
+      "file": "firefox-companies-signature-form-ar.pdf",
+      "sha256": "4beffcc043ae71a81abf2667e8a1208f2f04855370d0c8b74174aede9eb2da51"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "lang": "ar",
+      "file": "firefox-companies-terms-and-conditions-ar.pdf",
+      "sha256": "ec80db1e2c4d580e40f658d17be56ed5fd0ea6f577554f8737ff2b66427b8364"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "lang": "ar",
+      "file": "firefox-companies-fatca-crs-corporate-ar.pdf",
+      "sha256": "dbe352cd4fa3f3de9fdf3852c194dbb4efd7e8362e28b1b19d8fe44ade5c951a"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "lang": "ar",
+      "file": "firefox-companies-kyc-corporate-ar.pdf",
+      "sha256": "45ef9d7cc36242023c066d52b5bef7598e6c3a047ec208046166d31590c62412"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "lang": "en",
+      "file": "webkit-individuals-signature-form-en.pdf",
+      "sha256": "012a7084ddcf4bcdf60163e6e4b803a10199757861905b2a8d5a42d1e4923744"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "lang": "en",
+      "file": "webkit-individuals-terms-and-conditions-en.pdf",
+      "sha256": "1ee2cf2bb25e31765c89cedce1080d6ee05306179db96ea3034959312cac2f2a"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "lang": "en",
+      "file": "webkit-individuals-fatca-crs-individual-en.pdf",
+      "sha256": "84a2adebe34c285c6a01be41748fd307197d857270478d957f84107c095f8c52"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "lang": "en",
+      "file": "webkit-individuals-kyc-individual-en.pdf",
+      "sha256": "4f85a0703d2ee3a786620ffe20201701a969c6e395fa421ae3eb2a7af1464c1f"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "signature-form",
+      "lang": "en",
+      "file": "webkit-companies-signature-form-en.pdf",
+      "sha256": "012a7084ddcf4bcdf60163e6e4b803a10199757861905b2a8d5a42d1e4923744"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "lang": "en",
+      "file": "webkit-companies-terms-and-conditions-en.pdf",
+      "sha256": "1ee2cf2bb25e31765c89cedce1080d6ee05306179db96ea3034959312cac2f2a"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "lang": "en",
+      "file": "webkit-companies-fatca-crs-corporate-en.pdf",
+      "sha256": "d308e3b1cd420a323bdcfdaf3ded626e18f42c30ace06fe9e5563fcdf93269f3"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "lang": "en",
+      "file": "webkit-companies-kyc-corporate-en.pdf",
+      "sha256": "c7136e1944ee03a929470424439c5c3ef1bf5ae763227104d2a4c7077ae8c8a4"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "lang": "ar",
+      "file": "webkit-individuals-signature-form-ar.pdf",
+      "sha256": "f6b31a368462d3edfaacd1f2a0b74724187af9d0fc211984f9a290bb2c391449"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "lang": "ar",
+      "file": "webkit-individuals-terms-and-conditions-ar.pdf",
+      "sha256": "3d1883490544c5307bc17c04ed09d5785fccb6c569db75ea80d4111f6559f5c9"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "lang": "ar",
+      "file": "webkit-individuals-fatca-crs-individual-ar.pdf",
+      "sha256": "ed6d12da868f73740c8cd886c826de71d983c3789040322250b3b6f4d1ee6446"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "lang": "ar",
+      "file": "webkit-individuals-kyc-individual-ar.pdf",
+      "sha256": "6edc9344b603eaa64d32ce8dbe02d3861c9be0d25a5fd43ed02e9a894e92986b"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "signature-form",
+      "lang": "ar",
+      "file": "webkit-companies-signature-form-ar.pdf",
+      "sha256": "f6b31a368462d3edfaacd1f2a0b74724187af9d0fc211984f9a290bb2c391449"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "lang": "ar",
+      "file": "webkit-companies-terms-and-conditions-ar.pdf",
+      "sha256": "3d1883490544c5307bc17c04ed09d5785fccb6c569db75ea80d4111f6559f5c9"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "lang": "ar",
+      "file": "webkit-companies-fatca-crs-corporate-ar.pdf",
+      "sha256": "68b8696b7570e2bae5c14b59aa53355a501dc569d43652713fc3aaea2980c445"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "lang": "ar",
+      "file": "webkit-companies-kyc-corporate-ar.pdf",
+      "sha256": "11af180cd66e1d5c4c3552f55e9d902c2aee40f9488e89d4ef85114b8a59e94c"
+    }
+  ],
+  "input_pdf_checks": [
+    {
+      "downloads": 16,
+      "pages": 104,
+      "text_fields": 88,
+      "transparent_images": 250
+    },
+    {
+      "downloads": 32,
+      "pages": 208,
+      "text_fields": 176,
+      "transparent_images": 500
+    }
+  ],
+  "five_fills_per_pdf": {
+    "checks": {
+      "downloads": 30,
+      "pages": 190,
+      "text_fields": 1495,
+      "transparent_text_images": 2345,
+      "unmodified_pages": 75
+    },
+    "documents": [
+      {
+        "document": "signature-form",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 1
+      },
+      {
+        "document": "terms-and-conditions",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 13
+      },
+      {
+        "document": "fatca-crs-individual",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 4
+      },
+      {
+        "document": "fatca-crs-corporate",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 6
+      },
+      {
+        "document": "kyc-individual",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 7
+      },
+      {
+        "document": "kyc-corporate",
+        "samples": [
+          "english",
+          "arabic",
+          "english-long",
+          "arabic-long",
+          "mixed"
+        ],
+        "pages_each": 7
+      }
+    ],
+    "result": "pass"
+  },
+  "folder_ui": [
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "fields": 10
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "fields": 10
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "fields": 57
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "fields": 109
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "signature-form",
+      "fields": 10
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "fields": 10
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "fields": 76
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "fields": 102
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "fields": 10
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "fields": 10
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "fields": 57
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "fields": 109
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "signature-form",
+      "fields": 10
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "fields": 10
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "fields": 76
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "fields": 102
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "fields": 10
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "fields": 10
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "fields": 57
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "fields": 109
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "signature-form",
+      "fields": 10
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "fields": 10
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "fields": 76
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "fields": 102
+    }
+  ],
+  "shared_field_workflows": [
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "file": "chrome-individuals-signature-form.pdf",
+      "sha256": "4a2429715dc5ed5403071d7ca9b551ee069f8bdc7b352c8bbde53278056c8a3a"
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "file": "chrome-individuals-terms-and-conditions.pdf",
+      "sha256": "ee4d5e33d65efff850834227410f26a23902b7e66e92ea1f64e1a1f6d957f3b7"
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "file": "chrome-individuals-fatca-crs-individual.pdf",
+      "sha256": "58a09cd50c3fccff271fbbac73fd00e51e2bd4367026a5fa0997173ce0f9ae47"
+    },
+    {
+      "browser": "chrome",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "file": "chrome-individuals-kyc-individual.pdf",
+      "sha256": "3779fe4642f1954c6139108b852c5902f229506e5f08f7deaf41ac7c703de426"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "signature-form",
+      "file": "chrome-companies-signature-form.pdf",
+      "sha256": "7bf29cbc33d69e536bde2d89e6c07e98469b6782320eaa2e4ca0f29396506246"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "file": "chrome-companies-terms-and-conditions.pdf",
+      "sha256": "e151d67584783af8684d5ee87dee94be9e6c5ebff6d0c8cbbf2eefe3906634bd"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "file": "chrome-companies-fatca-crs-corporate.pdf",
+      "sha256": "0bb87aa4901e5ff6f55836fdc9190ca0bfd7f1772e305cd0442efc5ba85e907e"
+    },
+    {
+      "browser": "chrome",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "file": "chrome-companies-kyc-corporate.pdf",
+      "sha256": "e5dd52ae75ee442342c64f4336c858246157782acaec381540dc52ab70669265"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "file": "firefox-individuals-signature-form.pdf",
+      "sha256": "b4ca798796afd278ec741481f268c2bab5ab16f7bcf1e69fc008761fb483ee2a"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "file": "firefox-individuals-terms-and-conditions.pdf",
+      "sha256": "62c8e19896d617762a84aad307607031741ad3ae9783266e2f403856f3ff7e44"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "file": "firefox-individuals-fatca-crs-individual.pdf",
+      "sha256": "f9ccb04c9e3084b4d76cb17bbabdcbb0577108e072dd6e6fb2b5450320bd2763"
+    },
+    {
+      "browser": "firefox",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "file": "firefox-individuals-kyc-individual.pdf",
+      "sha256": "eda8f7adb55fb5738d2539d3c5949ddd4b42eee5c9cafa389cc44e0ec8fc3ee8"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "signature-form",
+      "file": "firefox-companies-signature-form.pdf",
+      "sha256": "ba2a90c4cc88063238869f7bb9b13a9628f30340e0ff7a3fc7c896496a4e466a"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "file": "firefox-companies-terms-and-conditions.pdf",
+      "sha256": "a639c95612b1628e1777aba9a13873968844d1f8e0c33e95ecb97dd1e49bf3eb"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "file": "firefox-companies-fatca-crs-corporate.pdf",
+      "sha256": "e5defa21e78aeb54130f7ec2a30ad18c56bd2caa76332460da5dc1a0c7ebe243"
+    },
+    {
+      "browser": "firefox",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "file": "firefox-companies-kyc-corporate.pdf",
+      "sha256": "4a2ce7a1205802c906b3daacfe6ec03bcdc283749546b6d48d37a243a3bb8574"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "signature-form",
+      "file": "webkit-individuals-signature-form.pdf",
+      "sha256": "2337b5657bed25c32a7fbae0362fe27374d33d204cfd252a7092ee41629fe4d2"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "terms-and-conditions",
+      "file": "webkit-individuals-terms-and-conditions.pdf",
+      "sha256": "6875ab6193c733c7b9918e9a72cab862c29efc3e9bc5024ed9bab350d07674f1"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "fatca-crs-individual",
+      "file": "webkit-individuals-fatca-crs-individual.pdf",
+      "sha256": "2471ea4b82fb2c1b2cbcdcb382149dd6abf6c1986dc147c5996fada149869295"
+    },
+    {
+      "browser": "webkit",
+      "folder": "individuals",
+      "doc": "kyc-individual",
+      "file": "webkit-individuals-kyc-individual.pdf",
+      "sha256": "fbd1390d718f5fb7ff0de23847a54f1743e1e9808c268905424ddb3fed9a0905"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "signature-form",
+      "file": "webkit-companies-signature-form.pdf",
+      "sha256": "a1a997c5a7a0c3d61c414d2ace902dde6798780f3f10a124483e92c5bf55b14f"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "terms-and-conditions",
+      "file": "webkit-companies-terms-and-conditions.pdf",
+      "sha256": "d8382286bbf926e4e35b2960c72995c0d4a43003afb66456377fee81ebf203c5"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "fatca-crs-corporate",
+      "file": "webkit-companies-fatca-crs-corporate.pdf",
+      "sha256": "1134981c5c9d1a029c309a8a0a630b57ed8e6e3af564fc1a1870215cfc264e33"
+    },
+    {
+      "browser": "webkit",
+      "folder": "companies",
+      "doc": "kyc-corporate",
+      "file": "webkit-companies-kyc-corporate.pdf",
+      "sha256": "52e7bd32ad9f465fc82c76ed8448a98a5acbe5d179ed81beb7ed082657cc402c"
+    }
+  ],
+  "storage_checks": "Passed real legacy draft restoration, signature isolation, folder-scoped clearing and failed-storage download recovery.",
+  "templates": "Six original PDF files unchanged in reference, public and build directories.",
+  "live": {
+    "workflows": [
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "signature-form",
+        "lang": "en",
+        "file": "chrome-individuals-signature-form-en.pdf",
+        "sha256": "b43cf0cb3c00a23df4215389a326c4b6027467654a9dfd56e4ad84b16b541bb8"
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "terms-and-conditions",
+        "lang": "en",
+        "file": "chrome-individuals-terms-and-conditions-en.pdf",
+        "sha256": "cc92f2dee1beb374bb5f1287a9a4ed9498eb36c287e91e5546a35a0f7f79b77c"
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "lang": "en",
+        "file": "chrome-individuals-fatca-crs-individual-en.pdf",
+        "sha256": "dd159419493fbee232288ac4c8c6f3e1be792b1ed8ac7bfddce4a0b29d826a61"
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "lang": "en",
+        "file": "chrome-individuals-kyc-individual-en.pdf",
+        "sha256": "c5c721c3ff2201a0d79daf9734ddd930de24b518c983b9ca67cbae76e36f5556"
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "signature-form",
+        "lang": "en",
+        "file": "chrome-companies-signature-form-en.pdf",
+        "sha256": "b43cf0cb3c00a23df4215389a326c4b6027467654a9dfd56e4ad84b16b541bb8"
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "terms-and-conditions",
+        "lang": "en",
+        "file": "chrome-companies-terms-and-conditions-en.pdf",
+        "sha256": "cc92f2dee1beb374bb5f1287a9a4ed9498eb36c287e91e5546a35a0f7f79b77c"
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "fatca-crs-corporate",
+        "lang": "en",
+        "file": "chrome-companies-fatca-crs-corporate-en.pdf",
+        "sha256": "8591e7bf80ab9cb63b268d307eee52b50e52671332c3af3897bb768195d467bc"
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "lang": "en",
+        "file": "chrome-companies-kyc-corporate-en.pdf",
+        "sha256": "7d7f2246b331f3b206c78f09d80beab292a5085cbb73a277e565a30b2aff19df"
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "signature-form",
+        "lang": "ar",
+        "file": "chrome-individuals-signature-form-ar.pdf",
+        "sha256": "9373d6f8d5fac83e82eb42b9dcff56abf63a286195a8bb572194974332868402"
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "terms-and-conditions",
+        "lang": "ar",
+        "file": "chrome-individuals-terms-and-conditions-ar.pdf",
+        "sha256": "26bce6fc502f8f822659de2f6a0edfef6cecb131d8bfe7a152138829ed8ae588"
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "lang": "ar",
+        "file": "chrome-individuals-fatca-crs-individual-ar.pdf",
+        "sha256": "1adc8060c49a3c5cb6c1228193b09e6a82d6c2301cc267cc8d979fc1417ec502"
+      },
+      {
+        "browser": "chrome",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "lang": "ar",
+        "file": "chrome-individuals-kyc-individual-ar.pdf",
+        "sha256": "01d85e67f02bd43c879b2b7852dff9f483195a1a3efed4b7f5658882d2d77834"
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "signature-form",
+        "lang": "ar",
+        "file": "chrome-companies-signature-form-ar.pdf",
+        "sha256": "9373d6f8d5fac83e82eb42b9dcff56abf63a286195a8bb572194974332868402"
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "terms-and-conditions",
+        "lang": "ar",
+        "file": "chrome-companies-terms-and-conditions-ar.pdf",
+        "sha256": "26bce6fc502f8f822659de2f6a0edfef6cecb131d8bfe7a152138829ed8ae588"
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "fatca-crs-corporate",
+        "lang": "ar",
+        "file": "chrome-companies-fatca-crs-corporate-ar.pdf",
+        "sha256": "4793d707c1143fcc046afd07e1294c20db49affa4b2c25657a079f54c4561111"
+      },
+      {
+        "browser": "chrome",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "lang": "ar",
+        "file": "chrome-companies-kyc-corporate-ar.pdf",
+        "sha256": "78a92c104b70cfb00c57b9a9f0a950b249d693e7e8312a4772c39fc7962c5af3"
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "lang": "en",
+        "file": "firefox-individuals-fatca-crs-individual-en.pdf",
+        "sha256": "92ccda33d7ab5c2e3fff79d74f004e8cedef374f9d9b91a05f4bf816ae5d8c78"
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "lang": "en",
+        "file": "firefox-individuals-kyc-individual-en.pdf",
+        "sha256": "bbeee967d08dcef1c27696772703acdde438f8c48050388cf6ddbe87d3a56c96"
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "lang": "en",
+        "file": "firefox-companies-kyc-corporate-en.pdf",
+        "sha256": "fb1b5e2d93d3a0cf67cf0b0906e94103013b490635b89c47e9f1d47ed7082e68"
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "lang": "ar",
+        "file": "firefox-individuals-fatca-crs-individual-ar.pdf",
+        "sha256": "4a3b86c2ecd668113d3905ee42bc0606754334618dd364c087011806c7e6b9b4"
+      },
+      {
+        "browser": "firefox",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "lang": "ar",
+        "file": "firefox-individuals-kyc-individual-ar.pdf",
+        "sha256": "a99798a589367f42e053484223ba5a300ac269bb78bcb65a082a29c599392db2"
+      },
+      {
+        "browser": "firefox",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "lang": "ar",
+        "file": "firefox-companies-kyc-corporate-ar.pdf",
+        "sha256": "45ef9d7cc36242023c066d52b5bef7598e6c3a047ec208046166d31590c62412"
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "lang": "en",
+        "file": "webkit-individuals-fatca-crs-individual-en.pdf",
+        "sha256": "84a2adebe34c285c6a01be41748fd307197d857270478d957f84107c095f8c52"
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "lang": "en",
+        "file": "webkit-individuals-kyc-individual-en.pdf",
+        "sha256": "4f85a0703d2ee3a786620ffe20201701a969c6e395fa421ae3eb2a7af1464c1f"
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "lang": "en",
+        "file": "webkit-companies-kyc-corporate-en.pdf",
+        "sha256": "c7136e1944ee03a929470424439c5c3ef1bf5ae763227104d2a4c7077ae8c8a4"
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "fatca-crs-individual",
+        "lang": "ar",
+        "file": "webkit-individuals-fatca-crs-individual-ar.pdf",
+        "sha256": "ed6d12da868f73740c8cd886c826de71d983c3789040322250b3b6f4d1ee6446"
+      },
+      {
+        "browser": "webkit",
+        "folder": "individuals",
+        "doc": "kyc-individual",
+        "lang": "ar",
+        "file": "webkit-individuals-kyc-individual-ar.pdf",
+        "sha256": "6edc9344b603eaa64d32ce8dbe02d3861c9be0d25a5fd43ed02e9a894e92986b"
+      },
+      {
+        "browser": "webkit",
+        "folder": "companies",
+        "doc": "kyc-corporate",
+        "lang": "ar",
+        "file": "webkit-companies-kyc-corporate-ar.pdf",
+        "sha256": "11af180cd66e1d5c4c3552f55e9d902c2aee40f9488e89d4ef85114b8a59e94c"
+      }
+    ],
+    "downloads_match_local": 28,
+    "https": {
+      "date": "20260917T111154Z",
+      "files": [
+        {
+          "path": "assets/index-CdW_I99S.css",
+          "sha256": "99afe327066976c6168a735e246471c9865d687e50b4cffc5ef5da4503e08190",
+          "contentType": "text/css"
+        },
+        {
+          "path": "assets/index-CfOUTRH_.js",
+          "sha256": "4984947f297cfec74ef459005e6c2ca561a70a527643b1c49115bc9f5881543d",
+          "contentType": "application/javascript"
+        },
+        {
+          "path": "assets/inter-latin-400-normal-C38fXH4l.woff2",
+          "sha256": "8909904ab6c872eb994093482a88a28eca2cd95912d7b6fecd72103b0dc07edc",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/inter-latin-400-normal-CyCys3Eg.woff",
+          "sha256": "e20fa0b4fd2dd26e4d14b3ac3cc922509c3a63fa5e910e90c614544aa042dd45",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/inter-latin-500-normal-BL9OpVg8.woff",
+          "sha256": "9b42c108da48b5ed55a3072e815ffee2d271562e6c0dd6998910e8f9c09e0a3d",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/inter-latin-500-normal-Cerq10X2.woff2",
+          "sha256": "f3779f1efccc4bdcdf9c0a02ab95bf6bd092ed09c48c08cedc725889edd1d19f",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/inter-latin-600-normal-CiBQ2DWP.woff",
+          "sha256": "6a9cb3a509b4eeaf12b7dda6c4aacac3e85d07f4201bf4dd716e332e692b87bd",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/inter-latin-600-normal-LgqL8muc.woff2",
+          "sha256": "f9a06e79cd3a2a20951c0f0e28f66dd0e6d3fda73911d640a2125c8fcb78f21a",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
+          "sha256": "4e2ca0745c908761dc5c5db951662873887c59366fa1a5693ad22c0864abf1bd",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
+          "sha256": "6d47c7e4dfc76e221d078945ef2bbf47b047f1b316cf87c7663086639814c763",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
+          "sha256": "4cd5ad759d5ee84c12fa9aa6aa8747fb9e2fca225b87292bf42628f67ab3e4db",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
+          "sha256": "52a2cd4b0ff37ac84ef9af585af2eca0a300d49ea4934cf023827de54fdc354f",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/noto-sans-arabic-latin-400-normal-CjsIS08k.woff2",
+          "sha256": "290bdad021425e6ba6263c27d38652403f9b1a9ee74f5bbd2c62905b13f71b8c",
+          "contentType": "font/woff2"
+        },
+        {
+          "path": "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff",
+          "sha256": "86dab403db7f723e9c15de4324c2752c5a350bdd5344458850b2da9b7d2e332e",
+          "contentType": "application/font-woff"
+        },
+        {
+          "path": "assets/pdf.worker.min-Dswkl-cV.mjs",
+          "sha256": "8ab0e5e30031b4a06ecfddd5ae9562f0227f830ee7ec9ed1a968b134243d2386",
+          "contentType": "application/javascript"
+        },
+        {
+          "path": "companies/index.html",
+          "sha256": "43f64a04f929b12db15eabd257e064e9b22c489cc83bef269e55c7bb889e0cd4",
+          "contentType": "text/html"
+        },
+        {
+          "path": "favicon.svg",
+          "sha256": "41c04134da8811ae64b2a60623801cc018d034003c1502fb4189bbf379d757fd",
+          "contentType": "image/svg+xml"
+        },
+        {
+          "path": "index.html",
+          "sha256": "9630a803b76231cc8d15d4221b3ea4bbe22825d3e3af0639c39781c27e26667a",
+          "contentType": "text/html"
+        },
+        {
+          "path": "individuals/index.html",
+          "sha256": "9c4e965aca1fde5517d364e1135da259cdfaaedc3f07ddee317a61fbeea05df4",
+          "contentType": "text/html"
+        },
+        {
+          "path": "pdfs/fatca-crs-corporate.pdf",
+          "sha256": "99ca43de54f7080a77f049c7502e280326fd4c0cb0b3169d0381a184d17028d0",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/fatca-crs-individual.pdf",
+          "sha256": "d2347853b761d014e5925812f4e24e32aed0a5dd8a701464b804255dec7ada4b",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/kyc-corporate.pdf",
+          "sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/kyc-individual.pdf",
+          "sha256": "79d7e6298f841bfc69dc627c4594448adb62a09266961087c28514df96b12d51",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/signature-form.pdf",
+          "sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+          "contentType": "application/pdf"
+        },
+        {
+          "path": "pdfs/terms-and-conditions.pdf",
+          "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+          "contentType": "application/pdf"
+        }
+      ]
+    }
+  },
+  "result": "pass",
+  "saved_values": "Existing backwards strings are preserved, not guessed or reversed automatically; users must re-enter affected emails."
+}

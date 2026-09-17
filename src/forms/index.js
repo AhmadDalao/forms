@@ -1,0 +1,13 @@
+import './signature.js';
+import './subscription.js';
+import './terms.js';
+import './individual-tax.js';
+import './corporate-tax.js';
+import './kyc-individual.js';
+import './kyc-corporate.js';
+import {docs} from '../schema.js';
+import {applyPaperCopy} from './paper-copy.js';
+import {applyCatalogueNames} from '../catalogue.js';
+applyPaperCopy(docs);
+applyCatalogueNames(docs);
+export {docs};

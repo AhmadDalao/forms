@@ -1,0 +1,82 @@
+{
+  "checks": {
+    "downloads": 30,
+    "pages": 190,
+    "text_fields": 1480,
+    "transparent_text_images": 2260,
+    "unmodified_pages": 80
+  },
+  "documents": [
+    {
+      "document": "signature-form",
+      "samples": [
+        "english",
+        "arabic",
+        "english-long",
+        "arabic-long",
+        "mixed"
+      ],
+      "pages_each": 1
+    },
+    {
+      "document": "terms-and-conditions",
+      "samples": [
+        "english",
+        "arabic",
+        "english-long",
+        "arabic-long",
+        "mixed"
+      ],
+      "pages_each": 13
+    },
+    {
+      "document": "fatca-crs-individual",
+      "samples": [
+        "english",
+        "arabic",
+        "english-long",
+        "arabic-long",
+        "mixed"
+      ],
+      "pages_each": 4
+    },
+    {
+      "document": "fatca-crs-corporate",
+      "samples": [
+        "english",
+        "arabic",
+        "english-long",
+        "arabic-long",
+        "mixed"
+      ],
+      "pages_each": 6
+    },
+    {
+      "document": "kyc-individual",
+      "samples": [
+        "english",
+        "arabic",
+        "english-long",
+        "arabic-long",
+        "mixed"
+      ],
+      "pages_each": 7
+    },
+    {
+      "document": "kyc-corporate",
+      "samples": [
+        "english",
+        "arabic",
+        "english-long",
+        "arabic-long",
+        "mixed"
+      ],
+      "pages_each": 7
+    }
+  ],
+  "result": "pass",
+  "site": "https://ahmaddalao.com/forms/",
+  "verified_at_utc": "2026-09-16T16:56:24.406810+00:00",
+  "live_renders_match_reviewed_local_pages": 110,
+  "partial_placeholders": "pass"
+}

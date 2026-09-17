@@ -1,0 +1,14 @@
+import {document,section,text,choice,option as o} from '../schema.js';
+const d=document('signature-form','Signature form','نموذج التوقيع','shared','Client and authorized signatory details.','بيانات العميل والمفوض بالتوقيع.',1,[1]);
+let s=section(d,'client','Client details','بيانات العميل',1);
+text(d,s,'date','Date','التاريخ',[80,103,164,19],{type:'date',dateParts:[[80,103,50,19],[138,103,50,19],[195,103,48,19]],dateOrder:'dmy'});
+text(d,s,'client_name','Client name','اسم العميل',[308.35,158.35,220.5,16.35]);
+text(d,s,'client_number','Client number (if known)','رقم العميل (إن وجد)',[51,153,228,25],{cells:12,maxLength:12});
+text(d,s,'account_number','Account number (if known)','رقم الحساب (إن وجد)',[45,202,228,25],{cells:12,maxLength:12});
+s=section(d,'signatory','Signatory details','بيانات الموقع',1,'Add a signature image in the optional signature panel, or sign after downloading.','أضف صورة توقيع من قسم التوقيع الاختياري، أو وقّع بعد التنزيل.');
+choice(d,s,'signer_role','Signing as','صفة الموقع',[o('client','Client','العميل',[497.3,238.8,11.5,11.5]),o('authorized','Authorized person','المفوض',[352.7,238.7,11.5,11.5])]);
+text(d,s,'signer_name','Signatory name','اسم الموقع',[312.35,287.67,220.5,16.35]);
+text(d,s,'id_number','ID number','رقم الهوية',[307.35,357.72,122.05,16.35],{maxLength:24});
+text(d,s,'id_type','Type of ID','نوع الهوية',[445.65,358.05,94.5,16.35],{maxLength:32});
+choice(d,s,'signing_mode','Signature instructions','تعليمات التوقيع',[o('joint','Joint','مشترك',[341.6,432,11.5,11.5]),o('individual','Individual','منفرد',[477.8,431.2,11.5,11.5])]);
+choice(d,s,'signing_limits','Authority limits','حدود التوقيع',[o('limited','Limited','بحدود',[341.2,457.9,11.5,11.5]),o('unlimited','Unlimited','بدون حدود',[477.4,456.6,11.5,11.5])]);
