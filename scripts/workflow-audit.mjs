@@ -17,7 +17,26 @@ const shape=row=>({id:row.id,doc_id:row.doc_id,audience:row.audience,version:row
 const subscriptionValues={first_name:'QA',second_name:'Workflow',family_name:'Individual',company_name:'Workflow QA Company',inc_country:'Saudi Arabia',company_id_type:'cr',company_id_number:'4030123456',auth_name:'QA Workflow Company',nationality:'Saudi Arabia',id_type:'national',id_number:'1000012345',mobile:'+966551111111',short_address:'RABC1234',building:'1234',street:'King Fahd Road',additional:'5678',district:'Al Olaya',postal:'12345',city:'Riyadh',country:'المملكة العربية السعودية',email:'workflow-qa@example.com',units:'10',subscription_type:'new',payment_method:'transfer',applicant_name:'QA Workflow',date:'2026-09-19',signature_mode:'manual'};
 async function shot(page,name){assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,'No page overflow: '+name);const target=f.out+'/'+name+'.png';await page.screenshot({path:target,fullPage:true});report.screenshots.push(target);}
 async function language(page,lang){if(await page.locator('html').getAttribute('lang')!==lang){await page.locator('.site-header-language').click();await page.locator('html[lang='+lang+']').waitFor();}}
-async function management(page,lang='en'){await page.goto(f.base+'/management/');await page.locator('.admin-stats').waitFor();await language(page,lang);}
+async function management(page,lang='en'){
+ const actions=[],record=request=>{const url=new URL(request.url());if(url.pathname.endsWith('/api/portal.php'))actions.push(url.searchParams.get('action'));};page.on('request',record);
+ try{await page.goto(f.base+'/management/');await page.locator('.admin-stats').waitFor();await language(page,lang);}finally{page.off('request',record);}
+ assert.ok(actions.includes('admin_dashboard'));assert.equal(actions.includes('admin_workflow'),false,'Initial dashboard gets workflow from its own response without a navigation prefetch');
+}
+async function navigationRace(page,requestedId){
+ let release,started,delayedAction=null;const gate=new Promise(resolve=>release=resolve),blocked=new Promise(resolve=>started=resolve),pattern='**/api/portal.php?**';
+ const delay=async route=>{const action=new URL(route.request().url()).searchParams.get('action');if(delayedAction===null&&['admin_workflow','admin_dashboard'].includes(action)){delayedAction=action;started();await gate;}await route.continue();};
+ await page.route(pattern,delay);
+ try{
+  await page.locator('[data-management-view=overview]').click();await blocked;
+  await page.locator('[data-review-open=signature_required]').click();await page.locator('[data-review-status=signature_required][aria-pressed=true]').waitFor();
+  const completed=page.waitForResponse(response=>new URL(response.url()).searchParams.get('action')==='admin_dashboard');release();await(await completed).finished();
+  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+  assert.equal(delayedAction,'admin_dashboard','Overview reserves its view revision before the first network wait');
+  assert.equal(await page.locator('[data-management-view=reviews][aria-current=page]').count(),1,'A delayed overview must not replace the newer review view');
+  assert.equal(await page.locator('[data-review-status=signature_required][aria-pressed=true]').count(),1);assert.equal(await page.locator('[data-preview="'+requestedId+'"]').count(),1);
+ }finally{release();await page.unroute(pattern,delay);}
+}
+
 async function setting(page,enabled){await page.locator('[data-management-view=workflow]').click();await page.locator('#workflow-settings-form').waitFor();await page.locator('#workflow-settings-form [value="'+enabled+'"]').check();const sent=page.waitForRequest(request=>new URL(request.url()).searchParams.get('action')==='admin_workflow_update'&&request.method()==='POST');await page.locator('#workflow-settings-form [type=submit]').click();const payload=(await sent).postDataJSON();await page.locator('[data-workflow-mode="'+(enabled?'review':'tool')+'"]').waitFor();await page.locator('[data-workflow-status]').filter({hasText:/saved|حفظ/}).waitFor();return payload;}
 async function editor(page,user,doc,{lang='en',width=1440,signed=false}={}){
  const audience=user.account_type,folder=audience==='corporate'?'companies':'individuals',subscription=doc.startsWith('subscription'),values=subscription?subscriptionValues:{client_name:'QA Tool-mode Saved Name'};
@@ -51,7 +70,7 @@ await review(admin,old.id,'approved');const pending=await f.submit(individual,u,
  assert.equal((await workflow(owner)).revision,initial.revision);
  pass('Anonymous, client, regular admin, CSRF, wrong method and invalid workflow updates cannot change mode');
 
- const op=await owner.newPage(),ap=await admin.newPage(),sp=await staleOwner.newPage(),staleSubmit=await individual.newPage();[op,ap,sp,staleSubmit].forEach(track);await management(op);await management(ap);await management(sp);await sp.locator('[data-management-view=workflow]').click();assert.equal(await ap.locator('[data-management-view=workflow]').count(),0);
+ const op=await owner.newPage(),ap=await admin.newPage(),sp=await staleOwner.newPage(),staleSubmit=await individual.newPage();[op,ap,sp,staleSubmit].forEach(track);await management(op);await navigationRace(op,requested.id);pass('Rapid overview-to-signature-required navigation keeps the newest view after a deliberately delayed real API response');await management(op);await management(ap);await management(sp);await sp.locator('[data-management-view=workflow]').click();assert.equal(await ap.locator('[data-management-view=workflow]').count(),0);
  await ap.locator('[data-management-view=reviews]').click();await ap.locator('[data-preview="'+pending.id+'"]').click();await ap.locator('.review-form [name=status]').selectOption('approved');
  const beforeSubmit=await editor(staleSubmit,u,'signature-form',{signed:true});await beforeSubmit.click();await staleSubmit.locator('.submission-dialog [data-confirm]').waitFor();
  const offPayload=await setting(op,false);const off=await workflow(owner);assert.equal(off.review_enabled,false);assert.equal(off.revision,initial.revision+1);
@@ -74,7 +93,7 @@ await review(admin,old.id,'approved');const pending=await f.submit(individual,u,
  await staleSubmit.close();const ip=await individual.newPage(),cp=await corporate.newPage();[ip,cp].forEach(track);
  let toolGeneric,toolIndividual,toolCompany;
  for(const lang of ['en','ar'])for(const width of [1440,390]){
-  await op.setViewportSize({width,height:1000});await management(op,lang);assert.equal(await op.locator('[data-management-view=reviews]').count(),0);assert.equal(await op.locator('#management-notifications').count(),0);await op.locator('[data-management-view=workflow]').click();assert.equal(await op.locator('[name=review_enabled][value=false]').isChecked(),true);await shot(op,'workflow-off-'+lang+'-'+width);
+  await op.setViewportSize({width,height:1000});await management(op,lang);assert.equal(await op.locator('[data-workflow-mode=tool]').count(),1,'Initial off-mode dashboard renders workflow from its own response');assert.equal(await op.locator('[data-management-view=reviews]').count(),0);assert.equal(await op.locator('#management-notifications').count(),0);await op.locator('[data-management-view=workflow]').click();assert.equal(await op.locator('[name=review_enabled][value=false]').isChecked(),true);await shot(op,'workflow-off-'+lang+'-'+width);
   await ap.setViewportSize({width,height:1000});await management(ap,lang);assert.equal(await ap.locator('[data-management-view=reviews],[data-management-view=workflow],#management-notifications').count(),0);await shot(ap,'admin-off-'+lang+'-'+width);
   for(const [page,user,doc] of [[ip,u,'signature-form'],[ip,u,'subscription-form'],[cp,company,'subscription-company']]){
    const button=await editor(page,user,doc,{lang,width});assert.equal(await button.isDisabled(),false);assert.match(await button.textContent(),/Save|حفظ/);assert.equal(await page.locator('.submission-signing-note').count(),0);await shot(page,'tool-'+doc+'-'+lang+'-'+width);

@@ -35,7 +35,7 @@ export function mountReview(node,s,{admin,lang,token,onReviewed}={}){
    form.querySelectorAll('button,select,textarea').forEach(x=>x.disabled=true);
    const message=form.querySelector('[data-review-message]');message.textContent=t('Saving…','جارٍ الحفظ…');
    try{
-    const result=await api('admin_review',payload,{token:token()});Object.assign(s,result.review);render();
+    const result=await api('admin_review',payload,{token:token()});Object.assign(s,result.review);if(result.workflow)s.workflow_enabled=result.workflow.review_enabled;render();
     const notice=document.createElement('p');notice.className='review-success';notice.setAttribute('role','status');notice.textContent=t('Decision saved. The client has an in-app notification.','تم حفظ القرار وإضافة إشعار في حساب العميل.');node.prepend(notice);
     Promise.resolve(onReviewed?.()).catch(()=>{});
    }catch(err){if(err.message==='workflow_disabled'){s.workflow_enabled=false;render();Promise.resolve(onReviewed?.()).catch(()=>{});}else message.textContent=errorText(err,lang);}

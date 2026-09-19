@@ -7,7 +7,7 @@ import '@fontsource/noto-sans-arabic/latin-400.css';
 import './style.css';
 import {siteHeader} from '../branding.js';
 import {createClientDashboard} from '../portal/admin.js';
-import {api as portalApi,language as savedLanguage,setLanguage} from '../portal/api.js';
+import {language as savedLanguage,setLanguage} from '../portal/api.js';
 import {appRoot} from '../routes.js';
 import {generate,loadPreview,renderPage,original,templateUrl} from '../pdf.js';
 import {runtimeDocument} from './catalogue.js';
@@ -49,7 +49,7 @@ function showLogin(){shell(`<main class="panel login"><h1>${t('Management sign i
  bind('#login','submit',async ev=>{ev.preventDefault();const button=ev.target.querySelector('button');button.disabled=true;try{const freshSession=await api('session');csrf=freshSession.csrf;const response=await api('login',{username:document.querySelector('#username').value,password:document.querySelector('#password').value});csrf=response.csrf;managementSession=response;await showDashboard();}finally{if(button.isConnected)button.disabled=false;}});
 }
 async function start(){managementSession=await api('session');csrf=managementSession.csrf;if(!managementSession.configured){shell(`<main class="panel login"><h1>${t('Management setup','إعداد الإدارة')}</h1><p>${t('Management access has not been configured.','لم يتم إعداد حساب الإدارة بعد.')}</p></main>`,{view:'overview'});return;}if(managementSession.authenticated){await showDashboard();return;}showLogin();}
-async function showDashboard(view='overview'){const result=await portalApi('admin_workflow');managementWorkflow=result.workflow;dashboard??=createClientDashboard({shell,token:()=>csrf,language:()=>lang,canChangeAccountType,canManageWorkflow,workflow:()=>managementWorkflow,onWorkflowChanged:value=>{if(value.revision>=managementWorkflow.revision)managementWorkflow=value;},onError:handleError});await dashboard[view]();}
+async function showDashboard(view='overview'){dashboard??=createClientDashboard({shell,token:()=>csrf,language:()=>lang,canChangeAccountType,canManageWorkflow,workflow:()=>managementWorkflow,onWorkflowChanged:value=>{if(value.revision>=managementWorkflow.revision)managementWorkflow=value;},onError:handleError});await dashboard[view]();}
 async function openDocuments(){if(!canManageDocuments())return;dashboard?.cancel();if(!state)state=await api('state');home();}
 function toolbar(title,buttons=''){return `<div class="toolbar"><div><h1>${title}</h1><div class="status-strip"><span id="draft-status">${dirty?'Unsaved changes':'Draft saved'}</span><span>Revision ${state.revision}</span></div></div><div class="actions">${buttons}</div></div>`;}
 async function saveDraft(){state=await api('save',{revision:state.revision,draft:state.draft});dirty=false;if(editing)editing=state.draft.documents.find(d=>d.id===editing.id);return state;}
