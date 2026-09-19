@@ -1,0 +1,132 @@
+{
+  "result": "pass",
+  "source_commit": "972a459b4137f35d11b1f971d3be4c6ed870db08",
+  "scope": "Unified management header navigation with document catalogue changes restricted to a separately provisioned superadmin. Existing administrator retains client operations.",
+  "unit_tests": 65,
+  "local": {
+    "checks": [
+      "Both roles share login; admin cannot read draft state, upload, edit, reorder, review, publish, restore or remove; unpublished PDFs stay private",
+      "Role claims are ignored; spoofing the session identity fails credential binding",
+      "Admin and superadmin retain client statistics, profiles, PDF/ZIP downloads, reviews with correct actor, archived version recovery, account changes and password reset",
+      "Superadmin UI edits bilingual title, reorders, saves private draft, publishes and restores catalogue without client data changes",
+      "chrome admin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+      "chrome superadmin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+      "firefox admin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+      "firefox superadmin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+      "webkit admin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+      "webkit superadmin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout"
+    ],
+    "browser_errors": [],
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "browsers": [
+      "Chrome",
+      "Firefox",
+      "WebKit"
+    ],
+    "widths": [
+      1440,
+      768,
+      390,
+      320
+    ],
+    "visual_review": "Desktop unified nav and Arabic mobile320/390 inspected; no overlap.",
+    "portal_regression": [
+      "Anonymous access, CSRF, phone and confirmation validation",
+      "English browser signup, Saudi phone normalization, account draft migration and duplicate phone",
+      "Private PDF storage, owner checks, malformed PDF rejection and duplicate submission protection",
+      "Signature and both subscription UI submissions, server totals and optional email capture",
+      "Account/admin previews, manual PDF upload, dashboard counts and ZIP exact-byte contents",
+      "Individual Arabic and company English subscription edits, recalculated amounts and prior-PDF preservation",
+      "Client edit/resubmit and reload, separate working draft, signature recovery, immutable originals, archive dates, stale-edit rejection, owner restore, restore retry/CSRF, replacement upload and audience/account version isolation",
+      "Owner reset, strong one-time displayed password, old password/session revocation and mandatory change",
+      "Original side-by-side logos, My applications page in English/Arabic, compatible account links, mobile layouts, role-appropriate management navigation and persistent login throttling"
+    ],
+    "document_regression": "Upload/import, field editing, draft isolation, bilingual samples, order/title publication/restore and both audience customer PDF downloads passed."
+  },
+  "production": {
+    "result": "pass",
+    "site": "https://forms.ahmaddalao.com/management/",
+    "checks": [
+      {
+        "role": "admin",
+        "login": true,
+        "clientNavigation": true,
+        "documentPermission": false,
+        "serverRoleEnforced": true,
+        "layouts": [
+          "en1440",
+          "en390",
+          "en320",
+          "ar1440",
+          "ar390",
+          "ar320"
+        ],
+        "secureSession": true,
+        "logout": true
+      },
+      {
+        "role": "superadmin",
+        "login": true,
+        "clientNavigation": true,
+        "documentPermission": true,
+        "serverRoleEnforced": true,
+        "layouts": [
+          "en1440",
+          "en390",
+          "en320",
+          "ar1440",
+          "ar390",
+          "ar320"
+        ],
+        "secureSession": true,
+        "logout": true
+      }
+    ],
+    "errors": [],
+    "blockedWrites": [],
+    "privateCredentialsProtected": true,
+    "completed": "2026-09-19T17:07:03.035Z",
+    "routes": [
+      {
+        "route": "/register/",
+        "status": 200
+      },
+      {
+        "route": "/login/",
+        "status": 200
+      },
+      {
+        "route": "/my-applications/",
+        "status": 200
+      },
+      {
+        "route": "/management/",
+        "status": 200
+      },
+      {
+        "route": "/individuals/",
+        "status": 200
+      },
+      {
+        "route": "/companies/",
+        "status": 200
+      },
+      {
+        "route": "/_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "route": "/.env.local",
+        "status": 403
+      }
+    ],
+    "deployed_assets_match_build": true,
+    "existing_admin_credentials": "preserved byte-for-byte",
+    "new_superadmin_username": "superadmin",
+    "private_account_and_submission_data": "preserved; no client/catalogue mutations performed by hosted verification"
+  },
+  "verified_at_utc": "2026-09-19T17:07:24.171253+00:00"
+}

@@ -1,14 +1,14 @@
 {
-  "uploaded_at_utc": "20260919T164922Z",
+  "uploaded_at_utc": "20260919T170337Z",
   "url": "https://forms.ahmaddalao.com/",
-  "source_commit": "9043cd7e7a87bf559d029ff16acf6d8e669f53a6",
+  "source_commit": "972a459b4137f35d11b1f971d3be4c6ed870db08",
   "transport": "Explicit FTPS with verified Hostinger certificate",
-  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T164922Z",
+  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T170337Z",
   "files": [
     {
       "path": "index.html",
       "bytes": 755,
-      "sha256": "07a9f0dc5239a5b6d62bde6b4d2ef5de17eef384229f97eb88df447f89380b63"
+      "sha256": "c41b1a2c98a81e94204ae4ebe372fa8cadc5f842d01ac593427aeac088a8e87d"
     },
     {
       "path": ".user.ini",
@@ -28,7 +28,7 @@
     {
       "path": "my-applications/index.html",
       "bytes": 793,
-      "sha256": "e237f683b347c6acdd6a0d313d596c1cecbc691f19e419fa5b54d829267905cd"
+      "sha256": "9537ec7514ad9b8de75232a00382f5d7b5fd8685c58e1048eb88b775c48507fc"
     },
     {
       "path": "branding/wessal.png",
@@ -43,12 +43,12 @@
     {
       "path": "individuals/index.html",
       "bytes": 789,
-      "sha256": "c0b8a929571bb23ced7c8cf0bcbfd35e736de6668c753414a4e3ecb9425cd325"
+      "sha256": "dee209a8b84f9c9263ab41b20d2420e28340fa7923d1a4840297850b819ca832"
     },
     {
       "path": "management/index.html",
       "bytes": 788,
-      "sha256": "aed76a018679932e912cc0c420a1d3cac68408ed076e3b491ba52fd8c1c3f53d"
+      "sha256": "a3cb437ab852ff5521a0b88568e4ed44ad08a979826f0a0d01533252bc973f45"
     },
     {
       "path": "_private/.htaccess",
@@ -58,7 +58,7 @@
     {
       "path": "register/index.html",
       "bytes": 786,
-      "sha256": "7e9eeb8513e100bf4807e3724e3904c2f477fabad9543a7eb76ae6c7bc32aad0"
+      "sha256": "bef0b27191f2c59caa74fa4a89bc83e93e3bdd48a1bdf715592961ee98eec8e7"
     },
     {
       "path": "api/defaults.json",
@@ -87,8 +87,8 @@
     },
     {
       "path": "api/management.php",
-      "bytes": 16054,
-      "sha256": "cb8ada86fc1e51b9b48ffef1f1d1b223dd4b27ba6183caf778ecb0cc737efc27"
+      "bytes": 16875,
+      "sha256": "fa32255a88ccc8480cb90bb797b740d30391280c5a1d7bed63fff4ba23305919"
     },
     {
       "path": "api/portal.php",
@@ -97,8 +97,8 @@
     },
     {
       "path": "api/management-auth.php",
-      "bytes": 979,
-      "sha256": "759e2c07ae67d0f9e89dab99ede99cffc55724ac57010cc0ac80956aa3da83ad"
+      "bytes": 2489,
+      "sha256": "591cfd4f07c09cba26f38964c417f3a0272fc80245131a3e46c9cbba420a2c2c"
     },
     {
       "path": "api/portal-account-types.php",
@@ -158,7 +158,7 @@
     {
       "path": "account/index.html",
       "bytes": 785,
-      "sha256": "451b1ccd2dd8178dbc388336ba8fa56d59c7837ca7284c3db1899b90f8df0182"
+      "sha256": "f057057fe17b9df6fd647f858f8e22ba58f24e21c7043dc6b509bb8d22a05df5"
     },
     {
       "path": "assets/pdf.worker.min-Dswkl-cV.mjs",
@@ -181,19 +181,9 @@
       "sha256": "290bdad021425e6ba6263c27d38652403f9b1a9ee74f5bbd2c62905b13f71b8c"
     },
     {
-      "path": "assets/main-CdLMtDoQ.css",
-      "bytes": 17964,
-      "sha256": "08b823966d10b57a92b93f738fbee9b18047de6c81d23bb7d4b3dfdb40f7bb38"
-    },
-    {
       "path": "assets/inter-latin-500-normal-BL9OpVg8.woff",
       "bytes": 31284,
       "sha256": "9b42c108da48b5ed55a3072e815ffee2d271562e6c0dd6998910e8f9c09e0a3d"
-    },
-    {
-      "path": "assets/index-DD43RPhT.js",
-      "bytes": 1895,
-      "sha256": "a9113eaa9bdb7d167ad952a47d85aeeffb672fd60628822edb7ec9ac7d33adf8"
     },
     {
       "path": "assets/forms-Un2YMEaY.js",
@@ -231,9 +221,19 @@
       "sha256": "59708c16ac2aa694303d686736ec130ecd678eef44fbfd5a0b9fb010268fa6c5"
     },
     {
+      "path": "assets/index-CElARLjU.js",
+      "bytes": 1895,
+      "sha256": "3f852db24207fa75d9f79c0e1c94383e34992dc9bd4fa9ade57223ea27bf242a"
+    },
+    {
       "path": "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
       "bytes": 79084,
       "sha256": "6d47c7e4dfc76e221d078945ef2bbf47b047f1b316cf87c7663086639814c763"
+    },
+    {
+      "path": "assets/main-BlR1KZ7Z.js",
+      "bytes": 47805,
+      "sha256": "1868800f884f950a18973439a01dd66c88483d061209095027a5b4d8383b3749"
     },
     {
       "path": "assets/pdf-Cl2kGZaD.js",
@@ -249,11 +249,6 @@
       "path": "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
       "bytes": 48840,
       "sha256": "4e2ca0745c908761dc5c5db951662873887c59366fa1a5693ad22c0864abf1bd"
-    },
-    {
-      "path": "assets/main-CN9pTMIj.js",
-      "bytes": 45587,
-      "sha256": "248421e9ee6d88d526a476b65b0f43a401fa6dca784ab7b510630b8f9b2702ed"
     },
     {
       "path": "assets/access-d-nGigJL.js",
@@ -311,6 +306,11 @@
       "sha256": "0e4fdba8269b33de65d9364cb945e118505cbf852136953ec6b460446d9f8074"
     },
     {
+      "path": "assets/main-BSu6JKZ0.css",
+      "bytes": 20633,
+      "sha256": "52092bbfca58c291bd7ef80fc970c5644647d9f42907a590ed1f499463ce49e0"
+    },
+    {
       "path": "assets/main-Cba-ZLH7.js",
       "bytes": 27357,
       "sha256": "184d55006e9d2d78d35b583436e2233bac0fbf2c42686f902be2d192d8f39e3d"
@@ -348,12 +348,12 @@
     {
       "path": "login/index.html",
       "bytes": 783,
-      "sha256": "3c69331604e91f02ef5b66ea9d3d9ad4fe7086ff531cf50353c1dce8a258c3a0"
+      "sha256": "5a1f7c77ed3b40231802abbb7f0627915c3195a4e0ee708cd91b32bcb00ad430"
     },
     {
       "path": "companies/index.html",
       "bytes": 787,
-      "sha256": "c05c61ccb20905e68c9a557408f7be9fe2fb72eead06dbebd7d6fa51fb120941"
+      "sha256": "1683483e69a264889c9a2c9b38611000c9cffc3d59c98633a8d66f1cc84f6a03"
     },
     {
       "path": "api/subscription/calculate.php",
@@ -367,11 +367,15 @@
     }
   ],
   "created": [
-    "assets/index-DD43RPhT.js",
-    "assets/main-BZSbOp7Q.css",
-    "assets/main-DmqSh8nY.js"
+    "_private/management/superadmin-username.php",
+    "_private/management/superadmin-password.php",
+    "assets/index-CElARLjU.js",
+    "assets/main-BSu6JKZ0.css",
+    "assets/main-BlR1KZ7Z.js"
   ],
   "replaced": [
+    "api/management-auth.php",
+    "api/management.php",
     "account/index.html",
     "companies/index.html",
     "individuals/index.html",
@@ -386,8 +390,6 @@
     ".htaccess",
     ".user.ini",
     "api/defaults.json",
-    "api/management-auth.php",
-    "api/management.php",
     "api/portal-account-types.php",
     "api/portal-defaults.json",
     "api/portal-reviews.php",
@@ -413,9 +415,9 @@
     "assets/inter-latin-600-normal-CiBQ2DWP.woff",
     "assets/inter-latin-600-normal-LgqL8muc.woff2",
     "assets/latin-400-CkJXGLVG.css",
-    "assets/main-CN9pTMIj.js",
+    "assets/main-BZSbOp7Q.css",
     "assets/main-Cba-ZLH7.js",
-    "assets/main-CdLMtDoQ.css",
+    "assets/main-DmqSh8nY.js",
     "assets/main-_VUuJIYq.css",
     "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
     "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
