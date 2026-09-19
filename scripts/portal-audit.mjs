@@ -25,9 +25,10 @@ try{
  async function assertBrand(page){
   await page.locator('.brand-lockup .brand-itqan').waitFor();
   await page.waitForFunction(()=>[...document.querySelectorAll('.brand-lockup img')].every(i=>i.complete&&i.naturalWidth>0));
-  const wesal=await page.locator('.brand-wessal').boundingBox(),itqan=await page.locator('.brand-itqan').boundingBox();
-  assert.ok(Math.abs(itqan.y+itqan.height/2-wesal.y-wesal.height/2)<2,'Logos must share a vertical centre');
-  assert.ok(itqan.x>=wesal.x+wesal.width||wesal.x>=itqan.x+itqan.width,'Logos must sit beside each other without overlap');
+  assert.equal(await page.locator('.brand-lockup img').count(),1,'Header must contain only the Itqan logo');
+  assert.equal(await page.locator('.brand-lockup > :not(.brand-itqan)').count(),0,'Header must not retain a secondary logo or divider');
+  const itqan=await page.locator('.brand-itqan').boundingBox();
+  assert.ok(itqan.width>0&&itqan.height>0&&Math.abs(itqan.width/itqan.height-1456/552)<0.01,'Itqan logo must retain its original proportions');
  }
  await call(anon,'session');await call(anon,'submissions',null,401);await call(anon,'admin_dashboard',null,401);
  await call(anon,'register',{first_name:'Test',last_name:'Client',phone:'55535445',password,confirm:password},400);
@@ -177,6 +178,6 @@ try{
  assert.equal(await owner.locator('[data-documents],#upload,[data-move]').count(),0,'Ordinary admins cannot manage documents');await owner.locator('#client-dashboard').click();await owner.locator('.admin-stats').waitFor();
  for(let i=0;i<10;i++)await call(anon,'login',{phone:'559999999',password:'incorrect-password'},401);
  await call(anon,'login',{phone:'559999999',password:'incorrect-password'},429);
- assert.deepEqual(errors,[]);checks.push('Original side-by-side logos, My applications page in English/Arabic, compatible account links, mobile layouts, role-appropriate management navigation and persistent login throttling');
+ assert.deepEqual(errors,[]);checks.push('Original Itqan logo without secondary branding, My applications page in English/Arabic, compatible account links, mobile layouts, role-appropriate management navigation and persistent login throttling');
  await fs.writeFile(out+'/results.json',JSON.stringify({checks,submissions:finalCount,clients:2,consoleErrors:errors},null,2));console.log(checks.map(c=>'PASS '+c).join('\n'));
 }finally{await browser?.close();server.kill();await log.close();}

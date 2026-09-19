@@ -1,8 +1,6 @@
-.brand-lockup{display:flex;align-items:center;justify-content:center;gap:14px;width:249px;flex:none;padding:6px;background:#fff;line-height:1;margin:0}
+.brand-lockup{display:flex;align-items:center;justify-content:center;width:150px;flex:none;padding:6px;background:#fff;line-height:1;margin:0}
 .brand-lockup img{display:block;object-fit:contain;flex:none;max-width:100%;height:auto}
-.brand-lockup .brand-wessal{width:70px}
 .brand-lockup .brand-itqan{width:138px}
-.brand-lockup .brand-logo-divider{display:block;flex:none;width:1px;height:40px;background:#e8e1ed;margin:0}
 /* The sign-in header is the shared navigation surface on every page. */
 .site-header{width:calc(100% - 48px);max-width:1192px;min-height:100px;margin:24px auto 28px;padding:16px 24px;border:1px solid #e3dce9;border-radius:16px;background:#fff;color:#493951}
 .site-header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;min-width:0}
@@ -31,10 +29,8 @@
  .site-header-navigation+.site-header-actions{grid-column:2;grid-row:1;border:0;padding:0}
 }
 @media(max-width:600px){
- .brand-lockup{width:171px;padding:4px;gap:10px}
- .brand-lockup .brand-wessal{width:46px}
+ .brand-lockup{width:104px;padding:4px}
  .brand-lockup .brand-itqan{width:96px}
- .brand-lockup .brand-logo-divider{height:30px}
  .site-header{width:calc(100% - 32px);min-height:84px;margin-top:16px;margin-bottom:20px;padding:12px;border-radius:14px}
  .site-header-inner{gap:12px;flex-wrap:wrap}
  .site-header-controls{gap:12px}
