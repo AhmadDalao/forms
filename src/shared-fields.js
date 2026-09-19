@@ -34,6 +34,9 @@ export function sharedGroups(audience){
 export function cleanShared(audience,profile){
  const clean={};
  profile={...profile};
+ for(const [type,detail] of [['id_type','id_other'],['auth_id_type','auth_id_other']])if(profile[type]==='family'){
+  profile[type]='other';profile[detail]='بطاقة عائلية / Family ID';
+ }
  for(const lang of ['en','ar'])if(!(lang+'_second' in profile)&&profile[lang+'_middle'])profile[lang+'_second']=profile[lang+'_middle'];
  for(const f of sharedGroups(audience).flatMap(g=>g.fields)){
   if(!sharedFieldVisible(f,profile))continue;

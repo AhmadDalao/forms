@@ -27,7 +27,7 @@ for(const corporate of [false,true]){
   field('nationality','Nationality','الجنسية',{required:true,sharedKey:'nationality'});
   field('id_type','ID type','نوع الهوية',{type:'select',required:true,sharedKey:'id_type',selectOptions:idOptions});
   field('id_type_label','','',{hidden:true});
-  field('id_number','ID number','رقم الهوية',{required:true,sharedKey:'id_number',dependsOn:'id_type',when:['national','residence','passport','family','other']});
+  field('id_number','ID number','رقم الهوية',{required:true,sharedKey:'id_number',dependsOn:'id_type',when:['national','residence','passport','other']});
   field('id_other','Specify the identity document','بيان نوع الهوية الأخرى',{required:true,sharedKey:'id_other',dependsOn:'id_type',when:['other']});
  }
  field('english_name',corporate?'Company name in English (if different)':'Full name in English (if different)',corporate?'اسم الشركة بالإنجليزية (إن اختلف)':'الاسم الكامل بالإنجليزية (إن اختلف)',{optional:true,wide:true,direction:'ltr'});

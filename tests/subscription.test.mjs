@@ -98,10 +98,12 @@ test('saved legacy subscription names, IDs and applicant correction migrate into
  assert.equal(a.values.first_name,'أحمد');assert.equal(a.values.second_name,'محمد');assert.equal(a.values.third_name,'عبدالله');assert.equal(a.values.family_name,'العلي');assert.equal(a.values.id_number,'00123');assert.ok(a.overrides.includes('applicant_name'));
  assert.equal(b.values.company_name,'شركة النور');assert.equal(b.values.company_id_number,'40301234');assert.equal(b.values.auth_name,'محمد العلي');
 });
-test('shared family IDs are supported and a populated name language is reused',()=>{
+test('retired family IDs retain their details under Other without appearing in dropdowns',()=>{
  const p=cleanShared('individual',{name_language:'ar',en_first:'Alice',en_second:'Jane',en_last:'Smith',id_type:'family',id_number:'001234'});
- const v=sharedCandidates(individual,p,{},'individual');assert.equal(v.first_name,'Alice');assert.equal(v.second_name,'Jane');assert.equal(v.id_type,'family');
- assert.ok(individual.fields.find(f=>f.id==='id_type').selectOptions.some(o=>o[0]==='family'));
+ const v=sharedCandidates(individual,p,{},'individual');assert.equal(v.first_name,'Alice');assert.equal(v.second_name,'Jane');assert.equal(v.id_type,'other');assert.equal(v.id_other,'بطاقة عائلية / Family ID');
+ assert.equal(individual.fields.find(f=>f.id==='id_type').selectOptions.some(o=>o[0]==='family'),false);
+ const legacy=normalizeSubscription(individual,{id_type:'family',id_number:'001234'});assert.equal(legacy.id_type,'other');assert.equal(legacy.id_other,v.id_other);assert.equal(legacy.id_number,'001234');
+ const corporate=cleanShared('corporate',{auth_id_type:'family',auth_id:'001234'});assert.equal(corporate.auth_id_type,'other');assert.equal(corporate.auth_id_other,v.id_other);
  assert.ok(visibleFields(individual,v).some(f=>f.id==='id_number'));
 });
 
