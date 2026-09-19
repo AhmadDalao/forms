@@ -82,6 +82,7 @@ function cleanAnswers(array $def,mixed $input): array {
         }
         $out[$f['id']]=$v;
     }
+    foreach($def['fields']??[] as $field)if(!empty($field['join'])&&array_intersect($field['join'],array_keys($out)))$out[$field['id']]=implode(' ',array_filter(array_map(fn($key)=>trim($out[$key]??''),$field['join']),fn($part)=>$part!==''));
     if(($def['workflow']??'')==='subscription'){
         define('SUBSCRIPTION_LIBRARY',true);require_once __DIR__.'/subscription/calculate.php';
         try{$calculated=subscription_calculate($out['units']??'');}catch(Throwable){reject('units_invalid',422);}

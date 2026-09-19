@@ -1,3 +1,4 @@
+import {nameParts} from './names.js';
 import {hasValue} from './schema.js';
 import {idOptions,titleOptions} from './identity-options.js';
 
@@ -95,7 +96,7 @@ export function sharedCandidates(doc,profile,values,audience){
   copy('city',joined(p.city,p.district));copy('postal_additional',p.additional);
  }
  if(doc.id==='fatca-crs-individual'){
-  for(const key of ['en_first','en_middle','en_last','ar_first','ar_middle','ar_last','title','gender','dob'])copy(key,p[key]);
+  for(const key of ['en_first','en_second','en_third','en_middle','en_last','ar_first','ar_second','ar_third','ar_middle','ar_last','title','gender','dob'])copy(key,p[key]);
   // The original tax form prints an Other box instead of Dr./Eng. boxes.
   if(['dr','eng'].includes(p.title))copy('title','other');
   for(const key of ['building','street','district','city','postal','country']){copy('mail_'+key,p[key]);copy('sa_'+key,p.also_residence?p[key]:'');}
@@ -128,5 +129,6 @@ export function reconcileShared(doc,record,profile,audience){
   if(hasValue(value)){next.values[id]=value;next.shared[id]=value;}
   else if(old!==undefined&&current===old)delete next.values[id];
  }
+ if(doc.id==='fatca-crs-individual')next.values=nameParts(next.values,false);
  return next;
 }

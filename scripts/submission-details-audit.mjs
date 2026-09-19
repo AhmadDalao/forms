@@ -35,6 +35,7 @@ function profileFor(audience){
 }
 function valuesFor(def){
  const values={};for(const [i,f] of def.fields.entries())values[f.id]=f.selectOptions?f.selectOptions[0][0]:f.options?(f.multiple?f.options.slice(0,2).map(o=>o.value):f.options[0].value):f.type==='date'?'2026-09-19':f.type==='email'?'form.snapshot@example.com':f.type==='tel'?'+966559876543':i%9===0?'':i%7===0?'0':i%2?`Arabic English ${i}`:`بيانات الاختبار ${i}`;
+ for(const field of def.fields)if(field.join)values[field.id]=field.join.map(id=>values[id]?.trim()).filter(Boolean).join(' ');
  return values;
 }
 async function assertStored(s,expected){

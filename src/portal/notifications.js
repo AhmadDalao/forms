@@ -3,12 +3,14 @@ import {previewSubmission} from './preview.js';
 import {reviewSummary} from './review.js';
 
 // Refresh only status/notification elements so profile edits and open PDFs stay intact.
-export function mountNotifications(node,{lang,userId,onStatuses}){
+export function mountNotifications(node,{lang,userId,onStatuses,onUnread=()=>{}}){
  const t=(en,ar)=>lang==='ar'?ar:en;
  let stopped=false,busy=false,cursor=null,unread=0,first=true,snapshot='',items=new Map();
  function render(){
-  const open=node.querySelector('details')?.open??unread>0;
+  onUnread(unread);
+  const open=node.querySelector('details')?.open??(location.hash==='#notifications'||unread>0);
   node.innerHTML=`<details class="account-notifications" ${open?'open':''}><summary>${t('Notifications','الإشعارات')}${unread?`<span class="notification-count">${unread} ${t('new','جديد')}</span>`:''}</summary>${items.size?[...items.values()].sort((a,b)=>b.id-a.id).map(n=>`<article class="notification-item ${n.read_at?'':'is-unread'}" data-notification="${n.id}">${reviewSummary(n,lang)}<h3>${e(t(n.title,n.ar))}</h3><p class="review-meta">${t('Version','النسخة')} ${n.version} · ${e(when(n.created_at,lang))} · ${t('Riyadh time','بتوقيت الرياض')}${n.archived_at?' · '+t('Archived version','نسخة مؤرشفة'):''}${n.superseded?' · '+t('Previous decision','قرار سابق'):''}</p><div class="notification-actions"><button class="portal-button" data-notification-preview="${n.submission_id}">${t('View form','عرض النموذج')}</button>${n.read_at?'':`<button class="portal-button" data-notification-read="${n.id}">${t('Mark as read','تحديد كمقروء')}</button>`}</div></article>`).join(''):`<p class="review-meta notification-item">${t('Approval and rejection updates will appear here.','ستظهر هنا تحديثات قبول النماذج أو رفضها.')}</p>`}${cursor?`<button class="portal-button notification-more" data-notification-more>${t('Earlier notifications','الإشعارات السابقة')}</button>`:''}</details><p class="notification-announcement" role="status" aria-live="polite"></p>`;
+  if(location.hash==='#notifications'&&first)requestAnimationFrame(()=>node.scrollIntoView({block:'start'}));
   node.querySelectorAll('[data-notification-preview]').forEach(b=>b.onclick=()=>previewSubmission(b.dataset.notificationPreview,{lang}));
   node.querySelectorAll('[data-notification-read]').forEach(b=>b.onclick=async()=>{
    b.disabled=true;

@@ -123,7 +123,7 @@ export function applyPaperCopy(docs){
  Object.assign(d,{title:'INTERNATIONAL TAX TRANSPARENCY — Self-Certification & Declaration Form (FATCA & CRS) – INDIVIDUAL',ar:'الشفافية الضريبية الدولية — نموذج شهادة إقرار ذاتي (قانون الامتثال الضريبي للحسابات الأجنبية ومعيار الإبلاغ المشترك) – الأفراد'});
  S('identity','Section A – Customer/Account Holder Information','القسم أ - معلومات العميل / صاحب الحساب');
  F('title','Title','اللقب');O('title',[['mr','Mr.','السيد'],['mrs','Mrs.','السيدة'],['miss','Miss.','الآنسة'],['other','Other','آخر']]);
- const nameParts=[['first','First','الأول'],['middle','Middle','الثاني'],['last','Last','الأخير']];
+ const nameParts=[['first','First name','الاسم الأول'],['second','Second name','الاسم الثاني'],['third','Third name (optional)','الاسم الثالث (اختياري)'],['last','Family name','اسم العائلة'],['middle','Second and third names (PDF)','الاسمان الثاني والثالث (PDF)']];
  for(const prefix of ['ar','en'])for(const [id,en,ar]of nameParts)F(prefix+'_'+id,en,ar);
  for(const row of [['dob','Date of Birth: (Gregorian/Western)','تاريخ الميلاد: (الميلادي)'],['gender','Gender','الجنس'],['birth_city','Town or City of Birth','مدينة أو مكان الميلاد'],['birth_country','Country of Birth','بلد الميلاد']])F(...row);
  const addressNames=[['building','Building #','المبنى'],['street','Street Name','اسم الشارع'],['district','District','المنطقة'],['postal','Postal Code','الرمز البريدي'],['city','City','المدينة'],['country','Country','الدولة']];
@@ -133,7 +133,8 @@ export function applyPaperCopy(docs){
   ['If there is residence address outside Saudi Arabia, please indicate:','إذا كان هناك عنوان إقامة خارج المملكة العربية السعودية، فيرجى توضيحه:',addressNames.map(([id])=>'outside_'+id)],
   ['Mailing Address: (if different from the Current Residence) to be included','العنوان البريدي: (في حال اختلافه عن عنوان العميل)',addressNames.map(([id])=>'mail_'+id)],
  ];
- G('identity',['','', 'title'],['Customer Full Name in Arabic (First/Middle/Last)','اسم العميل كاملاً باللغة العربية (الأول / الثاني / الأخير)','ar_first ar_middle ar_last'],['Customer Full Name in English: (First/Middle/Last)','اسم العميل كاملاً باللغة الإنجليزية: (الأول / الثاني / الأخير)','en_first en_middle en_last'],['','', 'dob gender birth_city birth_country'],...addresses);
+ G('identity',['','', 'title'],['Customer name in Arabic','اسم العميل باللغة العربية','ar_first ar_second ar_third ar_last ar_middle'],['Customer name in English','اسم العميل باللغة الإنجليزية','en_first en_second en_third en_last en_middle'],['','', 'dob gender birth_city birth_country'],...addresses);
+ for(const group of d.sections.find(s=>s.id==='identity').paperGroups)if(group.fields.includes('en_first')||group.fields.includes('ar_first'))group.nameRow=true;
  for(const row of [
   ['us_person','Are you a US person?','هل أنت شخص من الولايات المتحدة الأمريكية؟'],
   ['citizenships','If more than one citizenship, please indicate each country of citizenship','في حالة وجود أكثر من جنسية، يرجى الإشارة إلى كل دولة لتلك الجنسيات'],

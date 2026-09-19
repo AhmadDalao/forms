@@ -4,6 +4,11 @@ let s=section(d,'identity','Identity & addresses','الهوية والعناوي
 choice(d,s,'title','Title','اللقب',[o('mr','Mr','السيد',[426.2,131.8,8,9]),o('mrs','Mrs','السيدة',[371.8,131.8,8,9]),o('miss','Miss','الآنسة',[297.3,131.8,8,9]),o('other','Other','آخر',[232.1,131.8,8,9])]);
 for(const [key,en,ar,x]of [['first','First name','الاسم الأول',369],['middle','Middle name','الاسم الأوسط',280],['last','Last name','اسم العائلة',192]])text(d,s,'ar_'+key,`${en} (Arabic)`,`${ar} (بالعربية)`,[x,154,84,11],{direction:'rtl',fontSize:8,minFontSize:6.5,padding:.5});
 for(const [key,en,ar,x]of [['first','First name','الاسم الأول',192],['middle','Middle name','الاسم الأوسط',280],['last','Last name','اسم العائلة',369]])text(d,s,'en_'+key,`${en} (English)`,`${ar} (بالإنجليزية)`,[x,175,84,11],{direction:'ltr',fontSize:8,minFontSize:6.5});
+for(const prefix of ['ar','en']){
+ const middle=d.fields.find(f=>f.id===prefix+'_middle');Object.assign(middle,{hidden:true,join:[prefix+'_second',prefix+'_third'],minFontSize:4.5});
+ text(d,s,prefix+'_second','Second name','الاسم الثاني',null,{uiOnly:true,direction:prefix==='ar'?'rtl':'ltr'});
+ text(d,s,prefix+'_third','Third name (optional)','الاسم الثالث (اختياري)',null,{uiOnly:true,optional:true,direction:prefix==='ar'?'rtl':'ltr'});
+}
 text(d,s,'dob','Date of birth (Gregorian)','تاريخ الميلاد (ميلادي)',[191,187.5,263,19],{type:'date',cells:8,charRects:[[191,188,31,18],[224,188,31,18],[257,188,31,18],[290,188,21,18],[313,188,42,18],[357,188,31,18],[390,188,31,18],[423,188,31,18]]});
 choice(d,s,'gender','Gender','الجنس',[o('female','Female','أنثى',[264.8,212.5,8,9]),o('male','Male','ذكر',[380.8,212.5,8,9])]);
 text(d,s,'birth_city','Town / city of birth','مدينة الميلاد',[193,227,259,15]);
@@ -38,7 +43,7 @@ s=section(d,'staff','Relationship Manager / Customer Service Representative','م
  'For completion by the relationship manager or customer service representative. Leave this section blank if it does not apply. Choose electronic or manual signing for the representative below.',
  'يُعبّأ هذا القسم من قبل مدير العلاقة أو ممثل خدمة العملاء. اتركه فارغًا إذا لم يكن مطلوبًا. اختر التوقيع الإلكتروني أو اليدوي للممثل أدناه.');
 s.signatureSlot='relationship_manager';
-text(d,s,'staff_account_holder','Account Holder Name (First / Middle / Last)','الاسم الكامل لصاحب الحساب (الأول، الثاني، الأخير)',[137,102,340,21],{fontSize:10,wide:true,direction:'auto'});
+text(d,s,'staff_account_holder','Account holder full name','الاسم الكامل لصاحب الحساب',[137,102,340,21],{fontSize:10,wide:true,direction:'auto'});
 text(d,s,'staff_employee_id','Employee ID','الرقم الوظيفي',[134,153,338,11],{fontSize:8,minFontSize:7,direction:'auto'});
 // Fifteen individually ruled cells, measured inside the original borders.
 text(d,s,'staff_cif','Customer Information File #','رقم ملف بيانات العميل',[133.34,166.5,336.31,23],{

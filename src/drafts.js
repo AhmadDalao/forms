@@ -1,3 +1,4 @@
+import {nameParts} from './names.js';
 import {joinedName} from './subscription/model.js';
 import {draftStoragePrefix} from './routes.js';
 import { hasValue } from './schema.js';
@@ -29,6 +30,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     }catch{failedKeys.add(key);return false;}
   }
   function clean(doc,record){
+    if(doc.id==='fatca-crs-individual'&&record?.values)record={...record,values:nameParts(record.values)};
     // Adapt saved subscription names without changing unrelated document drafts.
     if(doc.workflow==='subscription'&&(record?.values?.ar_name||record?.values?.en_name)){
       const old=record.values, next={...old};

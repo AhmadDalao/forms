@@ -16,6 +16,7 @@ export async function original(doc) {
 }
 export function normalizedDate(value) { const [y,m,d] = value.split('-'); return y && m && d ? `${d}/${m}/${y}` : value; }
 export function fieldValue(f, values) {
+  if(f.join&&f.join.some(key=>key in values))return f.join.map(key=>String(values[key]||'').trim()).filter(Boolean).join(' ');
   if (f.sum) return f.sum.every(key => hasValue(values[key])) ? String(f.sum.reduce((n,key) => n + Number(values[key]), 0)) : '';
   return values[f.id];
 }
@@ -100,6 +101,7 @@ export async function generate(doc, values, signatures = {}) {
     page.node.wrapContentStreams(start,end);
   }
   for(const f of doc.fields) {
+    if(f.uiOnly)continue;
     if(isSubscription(doc)&&(!f.rect||f.staticPdf))continue;
     const rawValue=fieldValue(f,values);
     const value=isSubscription(doc)&&(f.money||f.numeric)?formatSubscriptionNumber(rawValue):rawValue;
@@ -133,7 +135,7 @@ export async function generate(doc, values, signatures = {}) {
     }
     for(const [str,[x,y,w,h]] of segments) {
       const rendered=textImage(str||'',w,h,{...f,align:f.cells||f.dateParts?'center':f.align});
-      if(rendered.error) { errors.push(f.id); continue; }
+      if(rendered.error) { errors.push(...(f.join||[f.id])); continue; }
       const png=await pdf.embedPng(rendered.data);
       page.drawImage(png,{x,y:ph-y-h,width:w,height:h});
     }
