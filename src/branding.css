@@ -1,9 +1,9 @@
-.brand-lockup{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:124px;flex:none;padding:6px;background:#fff;line-height:1;margin:0}
+.brand-lockup{display:flex;align-items:center;justify-content:center;gap:14px;width:249px;flex:none;padding:6px;background:#fff;line-height:1;margin:0}
 .brand-lockup img{display:block;object-fit:contain;flex:none;max-width:100%;height:auto}
 .brand-lockup .brand-wessal{width:70px}
-.brand-lockup .brand-itqan{width:112px}
-.brand-lockup .brand-logo-divider{display:block;width:44px;height:1px;background:#e8e1ed;margin:0}
-header.portal-header,.header.branded-header,header.management-header{height:auto;min-height:146px;padding-top:16px;padding-bottom:16px;background:#fff;gap:24px}
+.brand-lockup .brand-itqan{width:138px}
+.brand-lockup .brand-logo-divider{display:block;flex:none;width:1px;height:40px;background:#e8e1ed;margin:0}
+header.portal-header,.header.branded-header,header.management-header{height:auto;min-height:110px;padding-top:16px;padding-bottom:16px;background:#fff;gap:24px}
 .portal-header .portal-brand,.branded-header .brand{flex:none}
 .portal-header .portal-header-actions{justify-content:flex-end;flex-wrap:wrap}
 .portal-header .applications-link{font-size:13px;font-weight:600;color:#48235f;text-decoration:none;padding:9px 12px;border-radius:8px;background:#f2edf6}
@@ -11,11 +11,12 @@ header.portal-header,.header.branded-header,header.management-header{height:auto
 .management-brand{display:flex;align-items:center;gap:28px;min-width:0}
 .management-brand .management-context{font-size:11px;color:#77748b;letter-spacing:.05em;line-height:1.8;max-width:300px}
 @media(max-width:600px){
- .brand-lockup{width:96px;padding:4px;gap:6px}
- .brand-lockup .brand-wessal{width:56px}
- .brand-lockup .brand-itqan{width:88px}
- header.portal-header,.header.branded-header,header.management-header{min-height:124px;padding:14px 20px;gap:16px}
- .portal-header .portal-header-actions,.branded-header .client-header-actions{gap:8px;max-width:calc(100% - 112px)}
+ .brand-lockup{width:171px;padding:4px;gap:10px}
+ .brand-lockup .brand-wessal{width:46px}
+ .brand-lockup .brand-itqan{width:96px}
+ .brand-lockup .brand-logo-divider{height:30px}
+ header.portal-header,.header.branded-header,header.management-header{min-height:94px;padding:14px 20px;gap:12px}
+ .portal-header .portal-header-actions,.branded-header .client-header-actions{gap:8px;max-width:calc(100% - 183px)}
  .portal-header .applications-link{font-size:12px;padding:6px 9px}
  .management-brand{gap:0}
  .management-brand .management-context{display:none}

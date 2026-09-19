@@ -18,7 +18,7 @@ php -d upload_max_filesize=20M -d post_max_size=24M -S 127.0.0.1:8185 -t dist sc
 - `/individuals/` and `/companies/`: the existing form folders. A **Submit form** action appears after PDF review.
 - `/management/`: owner overview, clients and document catalogue. The preview uses the existing management owner login; the original management preview on 8181 stays available.
 
-Portal headers use the original Wessal logo above the original Itqan logo, extracted from the supplied presentation; see `docs/BRANDING.md`.
+Portal headers use the original Wessal logo beside the original Itqan logo, extracted from the supplied presentation; see `docs/BRANDING.md`.
 
 The new preview's client database starts empty. Automated test accounts are isolated under `tmp/portal-audit`, not mixed into the preview database.
 
