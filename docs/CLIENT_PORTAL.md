@@ -14,9 +14,11 @@ php -d upload_max_filesize=20M -d post_max_size=24M -S 127.0.0.1:8185 -t dist sc
 
 - `/register/`: name, Saudi mobile, password and confirmation. No email registration requirement.
 - `/login/`: mobile and password.
-- `/account/`: the client's current submissions and version history, edit/resubmit, PDF previews/downloads, current-only or full-history ZIP, optional profile email, password change, and replacement uploads of manually completed PDFs.
+- `/my-applications/` (also available through `/account/`): the client's current submissions and version history, edit/resubmit, PDF previews/downloads, current-only or full-history ZIP, optional profile email, password change, and replacement uploads of manually completed PDFs.
 - `/individuals/` and `/companies/`: the existing form folders. A **Submit form** action appears after PDF review.
 - `/management/`: owner overview, clients and document catalogue. The preview uses the existing management owner login; the original management preview on 8181 stays available.
+
+Portal headers use the original Wessal logo above the original Itqan logo, extracted from the supplied presentation; see `docs/BRANDING.md`.
 
 The new preview's client database starts empty. Automated test accounts are isolated under `tmp/portal-audit`, not mixed into the preview database.
 

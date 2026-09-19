@@ -14,7 +14,7 @@ test('client account drafts and profiles never read another account or anonymous
  a.clearAll();assert.equal(guest.has('signature-form'),true);
 });
 test('account routes resolve the correct API root at both hosting locations',()=>{
- for(const path of ['login','register','account','management'])for(const end of ['','/']){
+ for(const path of ['login','register','account','management','my-applications'])for(const end of ['','/']){
   assert.equal(rootFor('/'+path+end),'/');assert.equal(rootFor('/forms/'+path+end),'/forms/');
  }
 });

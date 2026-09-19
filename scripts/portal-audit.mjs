@@ -20,6 +20,12 @@ try{
   const res=await ctx.request[options.multipart||data?'post':'get'](base+'/api/portal.php?'+new URLSearchParams({action,...options.params}),{...(data?{data}:{}),...(options.multipart?{multipart:options.multipart}:{}),headers:{'X-CSRF-Token':tokens.get(ctx)||'',...options.headers}});
   assert.equal(res.status(),expected,`${action}: ${await res.text()}`);const json=await res.json();if(json.csrf)tokens.set(ctx,json.csrf);return json;
  }
+ async function assertBrand(page){
+  await page.locator('.brand-lockup .brand-itqan').waitFor();
+  await page.waitForFunction(()=>[...document.querySelectorAll('.brand-lockup img')].every(i=>i.complete&&i.naturalWidth>0));
+  const wesal=await page.locator('.brand-wessal').boundingBox(),itqan=await page.locator('.brand-itqan').boundingBox();
+  assert.ok(itqan.y>=wesal.y+wesal.height,'Itqan logo must stay below Wessal');
+ }
  await call(anon,'session');await call(anon,'submissions',null,401);await call(anon,'admin_dashboard',null,401);
  await call(anon,'register',{name:'Test',phone:'55535445',password,confirm:password},400);
  await call(anon,'register',{name:'Test',phone:'551111111',password,confirm:'different'},400);
@@ -27,7 +33,7 @@ try{
  checks.push('Anonymous access, CSRF, phone and confirmation validation');
  const page=await a.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/individuals/');
  await page.evaluate(()=>{localStorage.setItem('itqan.forms.v1.individual.signature-form',JSON.stringify({values:{client_name:'Guest retained',signer_name:'Ahmad Ali',date:'2026-09-19'},step:1}));localStorage.setItem('itqan.forms.v1.individual.preferences',JSON.stringify({lang:'en',active:'signature-form'}));});
- await page.goto(base+'/register/?lang=en&next=individuals&resume=1');await page.locator('#auth-form').waitFor();await page.screenshot({path:out+'/register-en.png',fullPage:true});
+ await page.goto(base+'/register/?lang=en&next=individuals&resume=1');await page.locator('#auth-form').waitFor();await assertBrand(page);await page.screenshot({path:out+'/register-en.png',fullPage:true});
  await page.locator('[name=name]').fill('Ahmad Mohammed Ali');await page.locator('[name=phone]').fill('0551111111');await page.locator('[name=password]').fill(password);await page.locator('[name=confirm]').fill(password);await page.locator('#auth-form [type=submit]').click();await page.waitForURL('**/individuals/');
  const accountA=(await call(a,'session')).user;assert.equal(accountA.phone,'+966551111111');
  assert.equal(await page.evaluate(id=>JSON.parse(localStorage.getItem('itqan.forms.v1.account.'+id+'.individual.signature-form')).values.client_name,accountA.id),'Guest retained');
@@ -68,12 +74,12 @@ try{
  const forged={account:accountA.id,document:'subscription-form',audience:'individual',requestKey:randomBytes(16).toString('hex'),expectedCurrent:sub.id,values:{...details.answers,total_amount:'1',subscription_fee:'0',unit_price:'1'}};
  const forgedResult=await upload(a,forged,await subscriptionPDF.body());const canonical=(await call(a,'detail',null,200,{params:{id:forgedResult.submission.id}})).submission;assert.equal(canonical.answers.total_amount,'10200');
  checks.push('Signature and both subscription UI submissions, server totals and optional email capture');
- await page.goto(base+'/account/');await page.locator('.client-submission').first().waitFor();await page.screenshot({path:out+'/account-en.png',fullPage:true});
+ await page.goto(base+'/my-applications/');await page.locator('.client-submission').first().waitFor();assert.equal(await page.locator('h1').innerText(),'My applications');await assertBrand(page);await page.screenshot({path:out+'/account-en.png',fullPage:true});
  await page.locator('[data-preview]').first().click();await page.locator('.portal-pdf-pages canvas').first().waitFor();await page.waitForFunction(()=>document.querySelector('.portal-pdf-pages canvas')?.width>100);await page.screenshot({path:out+'/client-preview.png',fullPage:true});await page.locator('.portal-preview [data-close]').click();
  await page.locator('#upload-completed').click();await page.locator('.portal-upload [name=document]').selectOption('al-naeem-terms-consent');await page.locator('.portal-upload [name=pdf]').setInputFiles('public/pdfs/al-naeem-terms-consent.pdf');await page.locator('.portal-upload .primary').click();await page.locator('.portal-upload').waitFor({state:'detached'});assert.equal(await page.locator('.client-submission').count(),6);
- await page.locator('#portal-language').click();await page.locator('html[lang=ar]').waitFor();await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/account-ar-mobile.png',fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
+ await page.locator('#portal-language').click();await page.locator('html[lang=ar]').waitFor();assert.equal(await page.locator('h1').innerText(),'طلباتي');await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/account-ar-mobile.png',fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
  // Admin uses the existing owner login and session, never a client cookie.
- const owner=await admin.newPage();owner.on('pageerror',e=>errors.push(e.message));await owner.goto(base+'/management/');await owner.locator('#password').fill(ownerPassword);await owner.locator('#login button').click();await owner.locator('.admin-stats').waitFor();
+ const owner=await admin.newPage();owner.on('pageerror',e=>errors.push(e.message));await owner.goto(base+'/management/');await owner.locator('#password').fill(ownerPassword);await owner.locator('#login button').click();await owner.locator('.admin-stats').waitFor();await assertBrand(owner);
  const managementSession=await (await admin.request.get(base+'/api/management.php?action=session')).json();tokens.set(admin,managementSession.csrf);
  const stats=await call(admin,'admin_dashboard');assert.equal(stats.stats.users,2);assert.equal(stats.stats.submissions,6);assert.equal(stats.stats.submitted_users,1);assert.equal(stats.counts.find(c=>c.doc_id==='signature-form').count,1);
  await owner.screenshot({path:out+'/admin-overview-en.png',fullPage:true});await owner.locator('[data-users]').first().click();await owner.locator('#client-search').waitFor();await owner.locator('[data-client="'+accountA.id+'"]').click();await owner.locator('.admin-client-facts').waitFor();await owner.screenshot({path:out+'/admin-client-en.png',fullPage:true});
@@ -139,7 +145,7 @@ try{
  checks.push('Client edit/resubmit and reload, separate working draft, signature recovery, immutable originals, archive dates, stale-edit rejection, owner restore, restore retry/CSRF, replacement upload and audience/account version isolation');
  await owner.locator('[data-reset]').click();await owner.locator('[data-generate]').click();await owner.locator('.temporary-password').waitFor();const temp=await owner.locator('.temporary-password').innerText();assert.ok(temp.length>=24&&/[a-z]/.test(temp)&&/[A-Z]/.test(temp)&&/[0-9]/.test(temp));await owner.locator('.client-reset-dialog [data-close]').click();
  await call(a,'submissions',null,401);await call(a,'session');await call(a,'login',{phone:'551111111',password},401);
- await page.goto(base+'/login/?lang=en');await page.locator('[name=phone]').fill('551111111');await page.locator('[name=password]').fill(temp);await page.locator('#auth-form [type=submit]').click();await page.waitForURL('**/account/');await page.locator('#password-form').waitFor();
+ await page.goto(base+'/login/?lang=en');await page.locator('[name=phone]').fill('551111111');await page.locator('[name=password]').fill(temp);await page.locator('#auth-form [type=submit]').click();await page.waitForURL('**/my-applications/');await page.locator('#password-form').waitFor();
  await call(a,'session');await call(a,'submissions',null,403);
  await page.locator('[name=current]').fill(temp);await page.locator('[name=password]').fill('New-client-strong-2026!');await page.locator('[name=confirm]').fill('New-client-strong-2026!');await page.locator('#password-form .primary').click();await page.locator('.account-documents').waitFor();await call(a,'session');assert.equal((await call(a,'submissions')).submissions.length,finalCount);
  checks.push('Owner reset, strong one-time displayed password, old password/session revocation and mandatory change');
@@ -149,6 +155,6 @@ try{
  await owner.locator('[data-documents]').click();await owner.locator('#upload').waitFor();await owner.locator('#client-dashboard').click();await owner.locator('.admin-stats').waitFor();
  for(let i=0;i<10;i++)await call(anon,'login',{phone:'559999999',password:'incorrect-password'},401);
  await call(anon,'login',{phone:'559999999',password:'incorrect-password'},429);
- assert.deepEqual(errors,[]);checks.push('English/Arabic mobile layouts, existing catalogue navigation and persistent login throttling');
+ assert.deepEqual(errors,[]);checks.push('Original stacked logos, My applications page in English/Arabic, compatible account links, mobile layouts, existing catalogue navigation and persistent login throttling');
  await fs.writeFile(out+'/results.json',JSON.stringify({checks,submissions:finalCount,clients:2,consoleErrors:errors},null,2));console.log(checks.map(c=>'PASS '+c).join('\n'));
 }finally{await browser?.close();server.kill();await log.close();}

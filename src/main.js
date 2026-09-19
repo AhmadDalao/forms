@@ -5,6 +5,7 @@ import '@fontsource/noto-sans-arabic/arabic-400.css';
 import '@fontsource/noto-sans-arabic/arabic-600.css';
 import '@fontsource/noto-sans-arabic/latin-400.css';
 import './style.css';
+import {brandLockup} from './branding.js';
 import {api as portalApi,errorText as portalError,session as clientSession,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
 import {submitForm} from './portal/submit.js';
 const client=await clientSession().catch(()=>({user:null}));
@@ -113,8 +114,8 @@ function bindSharedHints(){document.querySelectorAll('[data-shared-use]').forEac
 function updateSharedHints(){document.querySelectorAll('[data-shared-hint]').forEach(el=>el.innerHTML=sharedHint(el.dataset.sharedHint));bindSharedHints();}
 function bindClearChoices(){document.querySelectorAll('[data-clear]').forEach(button=>button.onclick=()=>{delete values[button.dataset.clear];clearDownload();pdfBytes=null;saveDraft(button.dataset.clear);renderEditor();});}
 
-function accountLink(){const next=audience==='individual'?'individuals':audience==='corporate'?'companies':null;return `<a class="client-account-link" href="${appRoot}${client.user?'account/':'login/?'+new URLSearchParams({...(next?{next,resume:'1'}:{}),lang})}">${client.user?t('My account','حسابي'):t('Sign in / Register','دخول / إنشاء حساب')}</a>`;}
-function header(){return `<header class="header"><a href="${appRoot}" class="brand" data-home><span class="brand-symbol">${icon('file',23)}</span><span><b>${t('ITQAN CAPITAL','إتقان كابيتال')}</b><small>${t('CLIENT FORMS','نماذج العملاء')}</small></span></a><div class="client-header-actions">${accountLink()}<button class="language ghost" id="language" lang="${lang==='en'?'ar':'en'}">${lang==='en'?'العربية':'English'}</button></div></header>`;}
+function accountLink(){const next=audience==='individual'?'individuals':audience==='corporate'?'companies':null;return `<a class="client-account-link" href="${appRoot}${client.user?'my-applications/':'login/?'+new URLSearchParams({...(next?{next,resume:'1'}:{}),lang})}">${client.user?t('My applications','طلباتي'):t('Sign in / Register','دخول / إنشاء حساب')}</a>`;}
+function header(){return `<header class="header branded-header"><a href="${appRoot}" class="brand" data-home>${brandLockup()}</a><div class="client-header-actions">${accountLink()}<button class="language ghost" id="language" lang="${lang==='en'?'ar':'en'}">${lang==='en'?'العربية':'English'}</button></div></header>`;}
 function saveLabel(){return drafts.available?t('Saved on this browser','محفوظ في هذا المتصفح'):t('Not saved — browser storage is unavailable','لم يتم الحفظ — تخزين المتصفح غير متاح');}
 function footer(){return `<footer>${icon('lock',15)} <span data-storage-note>${drafts.available?t('Drafts are saved on this browser so you can return later. Use Clear form or Clear all saved forms to remove them.','تُحفظ المسودات في هذا المتصفح لتعود إليها لاحقًا. استخدم «مسح النموذج» أو «مسح جميع النماذج المحفوظة» لحذفها.'):t('Browser saving is unavailable. Keep this tab open or download your PDF before leaving.','الحفظ في المتصفح غير متاح. أبقِ الصفحة مفتوحة أو نزّل المستند قبل المغادرة.')}</span></footer>`;}
 function storageStatus(){document.querySelectorAll('[data-save-status]').forEach(el=>{el.textContent=saveLabel();el.classList.toggle('save-failed',!drafts.available);});document.querySelector('footer')?.replaceWith(document.createRange().createContextualFragment(footer()));}
@@ -125,7 +126,7 @@ function bindCommon(){
  const revision=current&&drafts.get(current.id).revision;
  if(revision){
   const banner=document.createElement('aside');banner.className='revision-banner';
-  banner.innerHTML=`<div><b>${t('Editing submitted version','تعديل النسخة المرسلة')} ${revision.version}</b><p>${t('Your original stays saved. Review and submit to create a new version.','تبقى النسخة الأصلية محفوظة. راجع المستند وأرسله لإنشاء نسخة جديدة.')}</p>${revision.legacySignatures?`<p>${t('If the original PDF contains a signature, upload it again before resubmitting.','إذا كانت النسخة الأصلية تحتوي على توقيع، أعد رفع صورته قبل الإرسال.')}</p>`:''}</div><a href="${appRoot}account/">${t('Back to my account','العودة إلى حسابي')}</a>`;
+  banner.innerHTML=`<div><b>${t('Editing submitted version','تعديل النسخة المرسلة')} ${revision.version}</b><p>${t('Your original stays saved. Review and submit to create a new version.','تبقى النسخة الأصلية محفوظة. راجع المستند وأرسله لإنشاء نسخة جديدة.')}</p>${revision.legacySignatures?`<p>${t('If the original PDF contains a signature, upload it again before resubmitting.','إذا كانت النسخة الأصلية تحتوي على توقيع، أعد رفع صورته قبل الإرسال.')}</p>`:''}</div><a href="${appRoot}my-applications/">${t('Back to my applications','العودة إلى طلباتي')}</a>`;
   document.querySelector('main')?.prepend(banner);
  }
  document.querySelector('#language').onclick=()=>{lang=lang==='en'?'ar':'en';setPortalLanguage(lang);signatureMessage='';drafts.setPreferences({lang});render();};document.querySelector('[data-home]').onclick=ev=>{ev.preventDefault();home();};}
@@ -323,7 +324,7 @@ if(revisionId){
  }catch(err){editError=err;}
 }
 const resume=docs.find(d=>d.id===drafts.preferences.active&&drafts.has(d.id)&&visibleIn(d,audience));
-if(editError){app.innerHTML=header()+`<main class="workspace"><p role="alert">${e(portalError(editError,lang))}</p><a class="button primary" href="${appRoot}account/">${t('Back to my account','العودة إلى حسابي')}</a></main>`;bindCommon();}
+if(editError){app.innerHTML=header()+`<main class="workspace"><p role="alert">${e(portalError(editError,lang))}</p><a class="button primary" href="${appRoot}my-applications/">${t('Back to my applications','العودة إلى طلباتي')}</a></main>`;bindCommon();}
 else if(editing)selectDoc(editing.id);else if(resume)selectDoc(resume.id);else render();
 
 if(import.meta.env.DEV)window.__forms={docs,generate,signatureSlots,prepareSignature};

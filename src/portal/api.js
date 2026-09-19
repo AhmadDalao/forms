@@ -11,7 +11,7 @@ export async function api(action,body,{token=csrf,params={}}={}){
 }
 export const session=()=>api('session');
 export const errors={
- version_conflict:['A newer version was saved while you were editing. Your draft is safe. Open My account to review the latest version before submitting again.','حُفظت نسخة أحدث أثناء تعديلك. مسودتك محفوظة. افتح حسابي لمراجعة أحدث نسخة قبل الإرسال مجددًا.'],
+ version_conflict:['A newer version was saved while you were editing. Your draft is safe. Open My applications to review the latest version before submitting again.','حُفظت نسخة أحدث أثناء تعديلك. مسودتك محفوظة. افتح طلباتي لمراجعة أحدث نسخة قبل الإرسال مجددًا.'],
  signature_invalid:['The signature image could not be saved. Upload a PNG or JPG again.','تعذّر حفظ صورة التوقيع. أعد رفع صورة PNG أو JPG.'],
  phone_invalid:['Enter a Saudi mobile number with 9 digits, starting with 5.','أدخل رقم جوال سعودي من ٩ أرقام يبدأ بـ٥.'],
  password_weak:['Use at least 12 characters (maximum 72 bytes).','استخدم ١٢ حرفًا على الأقل (بحد أقصى ٧٢ بايت).'],
@@ -26,7 +26,7 @@ export const errors={
  login_required:['Please sign in again. Your draft is still saved.','يرجى تسجيل الدخول مجددًا. مسودتك محفوظة.'],
  admin_required:['Your management session expired. Please sign in again.','انتهت جلسة الإدارة. يرجى تسجيل الدخول مجددًا.'],
  account_changed:['Your signed-in account changed. Reload before submitting.','تغيّر الحساب المسجل. أعد تحميل الصفحة قبل الإرسال.'],
- password_change_required:['Change your temporary password in My account first.','غيّر كلمة المرور المؤقتة في حسابي أولاً.'],
+ password_change_required:['Change your temporary password in My applications first.','غيّر كلمة المرور المؤقتة في طلباتي أولاً.'],
  csrf_invalid:['Your session changed. Refresh the page and try again.','تغيّرت الجلسة. حدّث الصفحة وأعد المحاولة.'],
  form_incomplete:['Complete the required form fields before submitting.','أكمل الحقول المطلوبة قبل إرسال النموذج.'],
  units_invalid:['Enter a valid whole number of units.','أدخل عدد وحدات صحيحًا.'],

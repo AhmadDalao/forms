@@ -3,7 +3,7 @@ export function audienceFor(pathname) {
     : /\/companies\/?$/.test(pathname) ? 'corporate' : null;
 }
 export function rootFor(pathname) {
-  const root=pathname.replace(/(?:individuals|companies|management|login|register|account)\/?$/, '');
+  const root=pathname.replace(/(?:individuals|companies|management|login|register|account|my-applications)\/?$/, '');
   return root.endsWith('/') ? root : root+'/';
 }
 export const appRoot = typeof location==='undefined' ? '/' : rootFor(location.pathname);
