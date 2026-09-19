@@ -40,7 +40,7 @@ try{
   assert.ok(archived.archived_at);assert.equal(archived.review_history.length,0);assert.equal(archived.answers.client_name,user.name);
   assert.equal((await call(manager,'admin_review',{id:obsolete.id,status:'approved',reason_code:'',reason_text:'',expectedReview:0,requestKey:randomUUID()},409)).error,'review_archived');
   const recent=(await call(manager,'admin_dashboard')).recent;assert.ok(recent.some(s=>s.id===first.id));assert.ok(recent.every(s=>!s.archived_at&&s.id!==obsolete.id));
-  for(const status of ['pending','approved','rejected','all']){const q=await call(manager,'admin_review_queue',null,200,{params:{status,q:user.phone}});assert.ok(q.submissions.every(s=>!s.archived_at&&s.id!==obsolete.id));assert.equal(q.counts.all,1);assert.equal(q.counts.pending,1);}
+  for(const status of ['pending','signature_required','approved','rejected','all']){const q=await call(manager,'admin_review_queue',null,200,{params:{status,q:user.phone}});assert.ok(q.submissions.every(s=>!s.archived_at&&s.id!==obsolete.id));assert.equal(q.counts.all,1);assert.equal(q.counts.pending,1);}
   clients.push({ctx,user,meta,submit,first,obsolete});
  }
  const page=await manager.newPage();track(page);
@@ -166,8 +166,8 @@ async function auditFilters(manager,clients,call,checks){
  await call(manager,'admin_review',{id:approved.id,status:'approved',reason_code:'',reason_text:'',expectedReview:0,requestKey:randomUUID()});
  const pending=await c.submit({...c.meta,document:'terms-and-conditions',values:{terms_name_0:'QA Individual'},signatures:{terms_0:signature,authorization_0:signature},signatureModes:{terms_0:'electronic',authorization_0:'electronic'},requestKey:randomUUID()});
  const queue=params=>call(manager,'admin_review_queue',null,200,{params});
- const expected={all:3,pending:1,approved:1,rejected:1};
- for(const status of ['pending','approved','rejected','all']){
+ const expected={all:3,pending:1,signature_required:0,approved:1,rejected:1};
+ for(const status of ['pending','signature_required','approved','rejected','all']){
   const result=await queue({status,q:c.user.phone});assert.deepEqual(result.counts,expected);assert.equal(result.total,expected[status]);assert.equal(result.submissions.length,expected[status]);
   assert.ok(result.submissions.every(s=>s.user_id===c.user.id&&!s.archived_at&&(status==='all'||s.review_status===status)));
  }
@@ -176,7 +176,7 @@ async function auditFilters(manager,clients,call,checks){
  }
  for(const q of ['%','_',"' OR 1=1 --",'\\'])assert.equal((await queue({status:'all',q})).total,0);
  assert.equal((await queue({status:'all',q:c.user.phone,audience:'corporate'})).total,0);
- const doc=await queue({status:'all',q:c.user.phone,audience:'individual',doc_id:'kyc-individual'});assert.equal(doc.total,1);assert.equal(doc.submissions[0].id,approved.id);assert.deepEqual(doc.counts,{all:1,pending:0,approved:1,rejected:0});
+ const doc=await queue({status:'all',q:c.user.phone,audience:'individual',doc_id:'kyc-individual'});assert.equal(doc.total,1);assert.equal(doc.submissions[0].id,approved.id);assert.deepEqual(doc.counts,{all:1,pending:0,signature_required:0,approved:1,rejected:0});
  assert.equal((await queue({status:'all',q:other.user.phone,doc_id:'signature-form'})).total,1);
  const oldest=await queue({status:'all',q:c.user.phone,sort:'oldest'}),newest=await queue({status:'all',q:c.user.phone,sort:'newest'});
  assert.deepEqual(oldest.submissions.map(s=>s.id),[c.current.id,approved.id,pending.id]);assert.deepEqual(newest.submissions.map(s=>s.id),oldest.submissions.map(s=>s.id).reverse());
@@ -199,7 +199,7 @@ async function auditFilters(manager,clients,call,checks){
  }$db->commit();`,db],{encoding:'utf8'});assert.equal(seed.status,0,seed.stderr);
  try{
   const first=await queue({status:'all',q:'QA Pagination',doc_id:'qa-pagination',page:1}),second=await queue({status:'all',q:'QA Pagination',doc_id:'qa-pagination',page:2}),empty=await queue({status:'all',q:'QA Pagination',doc_id:'qa-pagination',page:3});
-  assert.equal(first.total,32);assert.equal(first.submissions.length,30);assert.equal(second.submissions.length,2);assert.equal(empty.submissions.length,0);assert.deepEqual(first.counts,{all:32,pending:32,approved:0,rejected:0});
+  assert.equal(first.total,32);assert.equal(first.submissions.length,30);assert.equal(second.submissions.length,2);assert.equal(empty.submissions.length,0);assert.deepEqual(first.counts,{all:32,pending:32,signature_required:0,approved:0,rejected:0});
   assert.equal(new Set([...first.submissions,...second.submissions].map(s=>s.id)).size,32);assert.ok([...first.submissions,...second.submissions].every(s=>!s.archived_at));assert.ok(first.documents.some(d=>d.id==='qa-pagination'));
   const inverse=await queue({status:'all',q:'QA Pagination',doc_id:'qa-pagination',sort:'newest',page:1});assert.equal(inverse.submissions[0].id,second.submissions.at(-1).id);
   checks.push('32 current fixtures paginate 30/2 without duplicates; archived 33rd excluded; legacy submitted document filter remains available');

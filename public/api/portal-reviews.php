@@ -5,22 +5,37 @@ declare(strict_types=1);
 // read_at is only a notification receipt; it never changes the decision.
 function migrateReviews(): void {
     global $db;
-    if((int)$db->query('PRAGMA user_version')->fetchColumn()>=3)return;
+    if((int)$db->query('PRAGMA user_version')->fetchColumn()>=4)return;
     $db->exec('BEGIN IMMEDIATE');
     try {
-        if((int)$db->query('PRAGMA user_version')->fetchColumn()<3){
+        $version=(int)$db->query('PRAGMA user_version')->fetchColumn();
+        if($version<4){
+            // SQLite cannot alter CHECK constraints. Copy the append-only log
+            // inside this transaction, retaining receipts, IDs and its sequence.
+            $sequence=0;
+            if($version>=3){
+                $sequence=(int)execute("SELECT seq FROM sqlite_sequence WHERE name='submission_reviews'")->fetchColumn();
+                $db->exec('ALTER TABLE submission_reviews RENAME TO submission_reviews_previous; DROP INDEX reviews_submission;');
+            }
             $db->exec("CREATE TABLE submission_reviews(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 submission_id TEXT NOT NULL REFERENCES submissions(id) ON DELETE CASCADE,
-                status TEXT NOT NULL CHECK(status IN ('approved','rejected')),
+                status TEXT NOT NULL CHECK(status IN ('approved','rejected','signature_required')),
                 reason_code TEXT NOT NULL DEFAULT '',reason_text TEXT NOT NULL DEFAULT '',
                 admin_username TEXT NOT NULL,created_at TEXT NOT NULL,
                 request_key TEXT NOT NULL,read_at TEXT,
                 CHECK((status='approved' AND reason_code='' AND reason_text='') OR
+                      (status='signature_required' AND reason_code='') OR
                       (status='rejected' AND reason_code IN ('missing_details','incorrect_data','other') AND (reason_code!='other' OR length(trim(reason_text))>0))),
                 UNIQUE(admin_username,request_key));
-                CREATE INDEX reviews_submission ON submission_reviews(submission_id,id DESC);
-                PRAGMA user_version=3;");
+                CREATE INDEX reviews_submission ON submission_reviews(submission_id,id DESC);");
+            if($version>=3){
+                $db->exec('INSERT INTO submission_reviews(id,submission_id,status,reason_code,reason_text,admin_username,created_at,request_key,read_at) SELECT id,submission_id,status,reason_code,reason_text,admin_username,created_at,request_key,read_at FROM submission_reviews_previous; DROP TABLE submission_reviews_previous;');
+                $sequence=max($sequence,(int)execute('SELECT COALESCE(MAX(id),0) FROM submission_reviews')->fetchColumn());
+                execute("DELETE FROM sqlite_sequence WHERE name='submission_reviews'");
+                execute('INSERT INTO sqlite_sequence(name,seq) VALUES(?,CAST(? AS INTEGER))',['submission_reviews',$sequence]);
+            }
+            $db->exec('PRAGMA user_version=4;');
         }
         $db->exec('COMMIT');
     }catch(Throwable $e){$db->exec('ROLLBACK');throw $e;}

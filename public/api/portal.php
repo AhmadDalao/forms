@@ -65,7 +65,7 @@ function catalogue(): array {
 }
 function findDefinition(string $id,string $audience,bool $upload=false): ?array {
     $defs=json_decode(file_get_contents(__DIR__.'/portal-defaults.json'),true,512,JSON_THROW_ON_ERROR);
-    foreach(catalogue() as $d)if($d['id']===$id&&in_array($d['group'],[$audience,'shared'],true)&&($upload||!$d['downloadOnly']))return [...($defs[$id]??$d), 'title'=>$d['title'],'ar'=>$d['ar']];
+    foreach(catalogue() as $d)if($d['id']===$id&&in_array($d['group'],[$audience,'shared'],true)&&($upload||!$d['downloadOnly']))return [...$d,...($defs[$id]??[]), 'title'=>$d['title'],'ar'=>$d['ar']];
     return null;
 }
 function definition(string $id,string $audience,bool $upload=false): array {return findDefinition($id,$audience,$upload)??reject('document_unavailable',404);}
@@ -94,11 +94,43 @@ function cleanAnswers(array $def,mixed $input): array {
 }
 function submissionRows(?string $user=null,?int $limit=null,bool $admin=false,bool $currentOnly=false): array {
     $where=[];if($user!==null)$where[]='s.user_id=?';if($currentOnly)$where[]='s.archived_at IS NULL';
-    return execute('SELECT s.id,s.user_id,s.doc_id,s.title,s.ar,s.audience,s.created_at,s.size,s.sha256,s.version,s.archived_at,s.replaces_id,s.restored_from,s.edited_from,s.source,u.name,u.phone,u.email,u.account_type'.reviewColumns($admin||$user===null).' FROM submissions s JOIN users u ON u.id=s.user_id'.reviewJoin().($where?' WHERE '.implode(' AND ',$where):'').' ORDER BY s.created_at DESC,s.rowid DESC'.($limit?' LIMIT '.$limit:''),$user!==null?[$user]:[])->fetchAll();
+    return withSignatureStates(execute('SELECT s.id,s.user_id,s.doc_id,s.title,s.ar,s.audience,s.created_at,s.size,s.sha256,s.version,s.archived_at,s.replaces_id,s.restored_from,s.edited_from,s.source,u.name,u.phone,u.email,u.account_type'.signatureStateColumns().reviewColumns($admin||$user===null).' FROM submissions s JOIN users u ON u.id=s.user_id'.reviewJoin().($where?' WHERE '.implode(' AND ',$where):'').' ORDER BY s.created_at DESC,s.rowid DESC'.($limit?' LIMIT '.$limit:''),$user!==null?[$user]:[])->fetchAll());
+}
+function signatureStateColumns(): string {return ',s.answers AS signature_answers,s.profile AS signature_profile,s.signatures AS signature_images';}
+function withSignatureStates(array $rows): array {
+    $definitions=[];
+    foreach($rows as &$row){
+        $key=$row['doc_id'].'/'.$row['audience'];
+        if(!array_key_exists($key,$definitions))$definitions[$key]=findDefinition($row['doc_id'],$row['audience'],true);
+        $snapshot=[...$row,'answers'=>$row['signature_answers'],'profile'=>$row['signature_profile'],'signatures'=>$row['signature_images']];
+        $allowed=$row['archived_at']===null&&$row['audience']===$row['account_type'];
+        $row=array_merge($row,submissionSignatureState($snapshot,$definitions[$key]),[
+            'can_replace'=>$allowed&&$definitions[$key]!==null,
+            'can_sign_electronically'=>$allowed&&submissionSigningCapability($snapshot,$definitions[$key])['can_sign_electronically']]);
+        unset($row['signature_answers'],$row['signature_profile'],$row['signature_images']);
+    }unset($row);return $rows;
+}
+function submissionDetails(array $s,bool $admin): array {
+    $s=array_merge($s,reviewDetails($s['id'],$admin));unset($s['request_key']);
+    $definition=findDefinition($s['doc_id'],$s['audience'],true);
+    $s['answers']=json_decode($s['answers'],true);$s['profile']=submissionProfileDetails(json_decode($s['profile'],true),$definition,$s['audience']);$s['signatures']=$s['signatures']===null?null:json_decode($s['signatures'],true);
+    $s['current_id']=execute('SELECT id FROM submissions WHERE user_id=? AND doc_id=? AND audience=? AND archived_at IS NULL',[$s['user_id'],$s['doc_id'],$s['audience']])->fetchColumn()?:null;
+    $allowed=$s['archived_at']===null&&$s['audience']===execute('SELECT account_type FROM users WHERE id=?',[$s['user_id']])->fetchColumn();
+    return array_merge($s,submissionSignatureState($s,$definition),[
+        'can_replace'=>$allowed&&$definition!==null,
+        'can_sign_electronically'=>$allowed&&submissionSigningCapability($s,$definition)['can_sign_electronically']]);
 }
 function fileName(string $name): string {return mb_substr(trim(preg_replace('/[^\p{L}\p{N}_ -]/u','',$name)),0,100)?:'client';}
 function attachment(string $type,string $name,bool $inline=false): void {
     header('Content-Type: '.$type);header('Content-Disposition: '.($inline?'inline':'attachment').'; filename="document.'.($type==='application/zip'?'zip':'pdf').'"; filename*=UTF-8\'\''.rawurlencode($name));
+}
+function submittedPdf(): array {
+    $f=$_FILES['pdf']??null;if(!$f||$f['error']!==UPLOAD_ERR_OK||!is_uploaded_file($f['tmp_name']))reject('upload_failed');
+    if($f['size']<50)reject('pdf_invalid');
+    if($f['size']>20971520)reject('request_large',413);
+    $bytes=file_get_contents($f['tmp_name']);
+    if(!str_starts_with($bytes,'%PDF-')||!str_contains(substr($bytes,-2048),'%%EOF')||(new finfo(FILEINFO_MIME_TYPE))->buffer($bytes)!=='application/pdf')reject('pdf_invalid');
+    return $f;
 }
 try {
     $dataDir=getenv('FORMS_PORTAL_DATA_DIR')?:__DIR__.'/../_private/portal';
@@ -121,7 +153,7 @@ try {
     $_SESSION['csrf']??=bin2hex(random_bytes(24));
     if($admin)ownerRequired();
     if($_SERVER['REQUEST_METHOD']==='POST'&&(empty($_SERVER['HTTP_X_CSRF_TOKEN'])||!hash_equals($_SESSION['csrf'],$_SERVER['HTTP_X_CSRF_TOKEN'])))reject('csrf_invalid',403);
-    $mutations=['register','login','logout','password','profile','submit','admin_reset','admin_restore','admin_account_type','admin_review','notification_read'];
+    $mutations=['register','login','logout','password','profile','submit','sign_submission','admin_reset','admin_restore','admin_account_type','admin_review','notification_read'];
     if(in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='POST')reject('method',405);
     if(!in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='GET')reject('method',405);
     $now=gmdate('Y-m-d\TH:i:s\Z');$ip=$_SERVER['REMOTE_ADDR']??'local';
@@ -155,7 +187,7 @@ try {
     }
     if($action==='admin_review_queue'){
         $status=$_GET['status']??'pending';$audience=$_GET['audience']??'all';$sort=$_GET['sort']??'oldest';
-        if(!in_array($status,['pending','approved','rejected','all'],true)||!in_array($audience,['individual','corporate','all'],true)||!in_array($sort,['oldest','newest'],true))reject('invalid_request');
+        if(!in_array($status,['pending','approved','rejected','signature_required','all'],true)||!in_array($audience,['individual','corporate','all'],true)||!in_array($sort,['oldest','newest'],true))reject('invalid_request');
         $document=textValue($_GET['doc_id']??'all',100);$query=textValue($_GET['q']??'',160);
         $pageValue=$_GET['page']??'1';if(!is_string($pageValue)||!preg_match('/^[0-9]{1,6}$/D',$pageValue))reject('invalid_request');
         $page=max(1,min(100000,(int)$pageValue));$offset=($page-1)*30;
@@ -168,11 +200,11 @@ try {
             array_push($params,$search,$search,$search);
         }
         $from=' FROM submissions s JOIN users u ON u.id=s.user_id'.reviewJoin();
-        $counts=['all'=>0,'pending'=>0,'approved'=>0,'rejected'=>0];
+        $counts=['all'=>0,'pending'=>0,'approved'=>0,'rejected'=>0,'signature_required'=>0];
         foreach(execute("SELECT COALESCE(r.status,'pending') AS status,COUNT(*) AS count".$from.$where.' GROUP BY status',$params)->fetchAll() as $count){$counts[$count['status']]=(int)$count['count'];$counts['all']+=(int)$count['count'];}
         if($status!=='all'){$where.=" AND COALESCE(r.status,'pending')=?";$params[]=$status;}
         $direction=$sort==='newest'?' DESC':' ASC';
-        $rows=execute('SELECT s.id,s.user_id,s.title,s.ar,s.doc_id,s.audience,s.created_at,s.version,s.archived_at,s.restored_from,u.name,u.phone,u.account_type'.reviewColumns(true).$from.$where.' ORDER BY s.created_at'.$direction.',s.rowid'.$direction.' LIMIT 30 OFFSET '.$offset,$params)->fetchAll();
+        $rows=withSignatureStates(execute('SELECT s.id,s.user_id,s.title,s.ar,s.doc_id,s.audience,s.created_at,s.version,s.archived_at,s.restored_from,s.source,s.sha256,u.name,u.phone,u.account_type'.signatureStateColumns().reviewColumns(true).$from.$where.' ORDER BY s.created_at'.$direction.',s.rowid'.$direction.' LIMIT 30 OFFSET '.$offset,$params)->fetchAll());
         $documents=[];foreach(catalogue() as $document)$documents[$document['id']]=array_intersect_key($document,array_flip(['id','title','ar']));
         foreach(execute('SELECT doc_id,title,ar FROM submissions WHERE rowid IN (SELECT MAX(rowid) FROM submissions GROUP BY doc_id) ORDER BY rowid DESC')->fetchAll() as $document)if(!isset($documents[$document['doc_id']]))$documents[$document['doc_id']]=['id'=>$document['doc_id'],'title'=>$document['title'],'ar'=>$document['ar']];
         reply(['submissions'=>$rows,'total'=>$counts[$status],'page'=>$page,'counts'=>$counts,'documents'=>array_values($documents)]);
@@ -180,9 +212,10 @@ try {
     if($action==='admin_review'){
         $b=body();$id=textValue($b['id']??'',40);$key=requestKey($b);
         $status=$b['status']??null;$code=textValue($b['reason_code']??'',40);$reason=textValue($b['reason_text']??'',2000);$expected=$b['expectedReview']??null;
-        if(!in_array($status,['approved','rejected'],true)||!is_int($expected)||$expected<0)reject('invalid_request');
+        if(!in_array($status,['approved','rejected','signature_required'],true)||!is_int($expected)||$expected<0)reject('invalid_request');
         if($status==='rejected'&&(!in_array($code,['missing_details','incorrect_data','other'],true)||($code==='other'&&$reason==='')))reject('review_reason_required');
         if($status==='approved'&&($code!==''||$reason!==''))reject('invalid_request');
+        if($status==='signature_required'&&$code!=='')reject('invalid_request');
         rate('review:'.$_SESSION['owner_username'],60,60);
         reply(recordReview($id,$status,$code,$reason,$expected,$key,$_SESSION['owner_username']));
     }
@@ -238,6 +271,43 @@ try {
         execute('UPDATE submission_reviews SET read_at=COALESCE(read_at,?) WHERE id=?',[$now,$id]);reply(['ok'=>true]);
     }
     if($action==='submissions')reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'])]);
+    if($action==='signing_details'){
+        $s=execute('SELECT * FROM submissions WHERE id=? AND user_id=?',[textValue($_GET['id']??'',40),$u['id']])->fetch();if(!$s)reject('not_found',404);
+        if($s['audience']!==$u['account_type'])reject('account_type_restricted',403);
+        if($s['archived_at']!==null)reject('version_conflict',409);
+        $doc=findDefinition($s['doc_id'],$s['audience'],true);
+        reply(['signing'=>submissionSigningCapability($s,$doc),'submission'=>submissionDetails($s,false)]);
+    }
+    if($action==='sign_submission'){
+        rate('submit:'.$u['id'],30,60);
+        if((int)($_SERVER['CONTENT_LENGTH']??0)>24500000)reject('request_large',413);
+        try{$meta=json_decode($_POST['metadata']??'',true,32,JSON_THROW_ON_ERROR);}catch(Throwable){reject('invalid_request');}
+        if(!is_array($meta)||strlen($_POST['metadata']??'')>3500000)reject('invalid_request');
+        if(($meta['account']??'')!==$u['id'])reject('account_changed',409);
+        $key=requestKey($meta);$expected=expectedCurrent($meta);
+        $s=execute('SELECT * FROM submissions WHERE id=? AND user_id=?',[textValue($meta['sourceId']??'',40),$u['id']])->fetch();if(!$s)reject('not_found',404);
+        if($s['audience']!==$u['account_type'])reject('account_type_restricted',403);
+        if(($meta['sourceSha256']??null)!==$s['sha256'])reject('version_conflict',409);
+        if($old=execute('SELECT id,created_at,version,archived_at,edited_from FROM submissions WHERE user_id=? AND request_key=?',[$u['id'],$key])->fetch()){
+            if($old['edited_from']!==$s['id'])reject('version_conflict',409);unset($old['edited_from']);reply(['submission'=>$old,'duplicate'=>true]);
+        }
+        if($s['archived_at']!==null||$expected!==$s['id'])reject('version_conflict',409);
+        $doc=findDefinition($s['doc_id'],$s['audience'],true);
+        if(!submissionSigningCapability($s,$doc)['can_sign_electronically'])reject('electronic_signing_unavailable',422);
+        $answers=json_decode($s['answers'],true);$profile=json_decode($s['profile'],true);
+        $signingAnswers=$answers;if(($doc['workflow']??'')==='subscription')$signingAnswers['signature_mode']='electronic';
+        $signatures=cleanSignatureImages($doc,$meta['signatures']??[],$signingAnswers);
+        requireOnlineSignatures($doc,$signatures,$signingAnswers,[]);
+        $f=submittedPdf();
+        // The browser overlays these images on the authenticated original PDF;
+        // retain its snapshot and provenance, including PDF-only upload source.
+        if(($doc['workflow']??'')==='subscription'&&$s['source']==='online')$answers['signature_mode']='electronic';
+        $profile['electronic_signature']=['source_id'=>$s['id'],'source_sha256'=>$s['sha256']];
+        $profile['signature_submission_policy']=signatureSubmissionPolicy($doc);
+        $s['answers']=json_encode($answers,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);$s['profile']=json_encode($profile,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
+        $s['signatures']=json_encode((object)$signatures,JSON_THROW_ON_ERROR);$s['request_key']=$key;$s['edited_from']=$s['id'];$s['restored_from']=null;
+        $result=saveVersion($s,$f['tmp_name'],$expected,null,true);reply($result,empty($result['duplicate'])?201:200);
+    }
     if($action==='submit'){
         rate('submit:'.$u['id'],30,60);
         if((int)($_SERVER['CONTENT_LENGTH']??0)>24500000)reject('request_large',413);
@@ -259,11 +329,7 @@ try {
         $profile=submissionProfileSnapshot($doc,$audience,$meta['profile']??[],$source);
         if($source==='upload')$profile['signed_confirmed']=true;
         $email=$profile['email']??($answers['email']??'');if($email!==''&&!filter_var($email,FILTER_VALIDATE_EMAIL))reject('email_invalid');
-        $f=$_FILES['pdf']??null;if(!$f||$f['error']!==UPLOAD_ERR_OK||!is_uploaded_file($f['tmp_name']))reject('upload_failed');
-        if($f['size']<50)reject('pdf_invalid');
-        if($f['size']>20971520)reject('request_large',413);
-        $bytes=file_get_contents($f['tmp_name']);
-        if(!str_starts_with($bytes,'%PDF-')||!str_contains(substr($bytes,-2048),'%%EOF')||(new finfo(FILEINFO_MIME_TYPE))->buffer($bytes)!=='application/pdf')reject('pdf_invalid');
+        $f=submittedPdf();
         $result=saveVersion(['user_id'=>$u['id'],'doc_id'=>$doc['id'],'title'=>$doc['title'],'ar'=>$doc['ar'],'audience'=>$audience,'answers'=>json_encode($answers,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'profile'=>json_encode($profile,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'request_key'=>$key,'source'=>$source,'signatures'=>json_encode((object)$signatures,JSON_THROW_ON_ERROR),'edited_from'=>$editedFrom],$f['tmp_name'],$expected,null,true);
         if($email!==''&&$u['email']==='')execute('UPDATE users SET email=? WHERE id=?',[$email,$u['id']]);
         reply($result,empty($result['duplicate'])?201:200);
@@ -271,7 +337,7 @@ try {
     if(in_array($action,['detail','admin_detail','pdf','admin_pdf'],true)){
         $s=execute('SELECT * FROM submissions WHERE id=?',[$_GET['id']??''])->fetch();
         if(!$s||(!$admin&&$s['user_id']!==$u['id']))reject('not_found',404);
-        if(str_ends_with($action,'detail')){$s=array_merge($s,reviewDetails($s['id'],$admin));unset($s['request_key']);$s['answers']=json_decode($s['answers'],true);$s['profile']=submissionProfileDetails(json_decode($s['profile'],true),findDefinition($s['doc_id'],$s['audience'],true),$s['audience']);$s['signatures']=$s['signatures']===null?null:json_decode($s['signatures'],true);$s['current_id']=execute('SELECT id FROM submissions WHERE user_id=? AND doc_id=? AND audience=? AND archived_at IS NULL',[$s['user_id'],$s['doc_id'],$s['audience']])->fetchColumn()?:null;reply(['submission'=>$s]);}
+        if(str_ends_with($action,'detail'))reply(['submission'=>submissionDetails($s,$admin)]);
         $path=$dataDir.'/pdfs/'.$s['id'].'.pdf';if(!is_file($path))reject('not_found',404);
         attachment('application/pdf',fileName($s['title']).'-v'.$s['version'].'-'.substr($s['created_at'],0,10).'.pdf',($_GET['inline']??'')==='1');
         header("Content-Security-Policy: sandbox; default-src 'none'; frame-ancestors 'self'");header('Content-Length: '.filesize($path));session_write_close();readfile($path);exit;

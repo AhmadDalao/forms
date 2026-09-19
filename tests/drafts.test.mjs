@@ -69,3 +69,15 @@ test('a failed signature save retains the image in memory and reports the failur
  assert.equal(store.has('signature-form'),true);assert.equal(store.available,false);
  assert.equal(store.get('signature-form').signatures.specimen,samplePNG);
 });
+
+test('a signature request clears rejected images once without losing a replacement draft or original snapshot',()=>{
+ const disk=memoryStorage(),account='a'.repeat(32),version='b'.repeat(32),original={id:version,current_id:version,version:1,answers:{client_name:'Original name'},profile:{email:'original@example.com'},signatures:{specimen:samplePNG}};
+ const normal=createDraftStore(docs,()=>disk,'individual',account);normal.save('signature-form',{client_name:'Separate draft'},0,{specimen:samplePNG});
+ const store=createDraftStore(docs,()=>disk,'individual',account,version);store.loadSubmission('signature-form',original);store.beginSignatureRequest('signature-form',10);
+ assert.deepEqual(store.get('signature-form').signatures,{});assert.equal(store.get('signature-form').signatureModes.specimen,'electronic');assert.equal(store.get('signature-form').values.client_name,'Original name');
+ store.save('signature-form',store.get('signature-form').values,1,{specimen:samplePNG});
+ const reopened=createDraftStore(docs,()=>disk,'individual',account,version);reopened.loadSubmission('signature-form',original);reopened.beginSignatureRequest('signature-form',10);
+ assert.equal(reopened.get('signature-form').signatures.specimen,samplePNG,'Reload does not erase a newly uploaded replacement');
+ reopened.beginSignatureRequest('signature-form',11);assert.deepEqual(reopened.get('signature-form').signatures,{});
+ assert.equal(original.signatures.specimen,samplePNG);assert.equal(normal.get('signature-form').values.client_name,'Separate draft');assert.equal(normal.get('signature-form').signatures.specimen,samplePNG);
+});

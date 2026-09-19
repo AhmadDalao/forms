@@ -12,6 +12,8 @@ export async function api(action,body,{token=csrf,params={}}={}){
 }
 export const session=()=>api('session');
 export const errors={
+ electronic_signing_unavailable:['Use Upload signed form for this version. Electronic placement is not available for this PDF.','استخدم رفع النموذج الموقّع لهذه النسخة. إضافة التوقيع الإلكتروني غير متاحة لهذا الملف.'],
+ signing_layout_mismatch:['This PDF layout does not match its signature positions. Download it, sign it, and upload the complete signed PDF instead.','تخطيط هذا الملف لا يطابق مواضع التوقيع. نزّله ووقّعه ثم ارفع ملف PDF الموقّع كاملًا.'],
  signature_required:['Sign electronically before submitting, or download the PDF, sign it and upload the signed form from My applications.','وقّع إلكترونيًا قبل الإرسال، أو نزّل ملف PDF ووقّعه ثم ارفع النموذج الموقّع من صفحة طلباتي.'],
  signed_confirmation_required:['Confirm that you have signed the uploaded form before submitting it.','أكّد أنك وقّعت النموذج المرفوع قبل إرساله.'],
  review_reason_required:['Choose a rejection reason and add an explanation when selecting Other.','اختر سبب الرفض واكتب توضيحًا عند اختيار «أخرى».'],

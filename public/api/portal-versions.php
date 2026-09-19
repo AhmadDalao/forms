@@ -41,24 +41,72 @@ function cleanSignatureImages(array $def,mixed $images,array $answers): array {
     }
     return $out;
 }
+function requiredSubmissionSignatureSlots(array $def,array $answers): array {
+    return array_values(array_filter($def['signatureSlots']??$def['signatures']??[],function($slot)use($answers){
+        if(($slot['requiredForSubmission']??true)!==false)return true;
+        foreach($slot['requireWhenFields']??[] as $field){
+            $value=$answers[$field]??'';
+            if(is_array($value)?count($value)>0:trim((string)$value)!=='')return true;
+        }
+        return false;
+    }));
+}
+function signatureSubmissionPolicy(array $def): array {
+    return ['workflow'=>$def['workflow']??null,'signatureSlots'=>array_map(fn($slot)=>array_intersect_key($slot,array_flip(['id','requiredForSubmission','requireWhenFields'])),$def['signatureSlots']??$def['signatures']??[])];
+}
+function submissionSignatureState(array $submission,?array $definition=null): array {
+    $requested=($submission['review_status']??'')==='signature_required';
+    if($requested)return ['signature_state'=>'unsigned','signature_requested'=>true];
+    $profile=$submission['profile']??[];$images=$submission['signatures']??null;$answers=$submission['answers']??[];
+    if(is_string($profile))$profile=json_decode($profile,true)??[];
+    if(is_string($images))$images=json_decode($images,true);
+    if(is_string($answers))$answers=json_decode($answers,true)??[];
+    $electronicOverlay=isset($profile['electronic_signature']['source_id'],$profile['electronic_signature']['source_sha256']);
+    if(($submission['source']??'online')==='upload'&&!$electronicOverlay)$state=($profile['signed_confirmed']??false)===true?'uploaded':'unknown';
+    elseif($images===null)$state='unknown';
+    else{
+        $policy=$profile['signature_submission_policy']??$definition;
+        if(!$policy)$state=$images?'unknown':'unsigned';
+        else{
+            $required=requiredSubmissionSignatureSlots($policy,$answers);$state=$required?'electronic':'unsigned';
+            foreach($required as $slot)if(!is_string($images[$slot['id']]??null)||!str_starts_with($images[$slot['id']],'data:image/png;base64,')){$state='unsigned';break;}
+            if(($policy['workflow']??'')==='subscription'&&!$electronicOverlay&&($answers['signature_mode']??'')!=='electronic')$state='unsigned';
+        }
+    }
+    return ['signature_state'=>$state,'signature_requested'=>false];
+}
+function submissionSigningCapability(array $submission,?array $definition): array {
+    $pages=$definition['pages']??null;$slots=$definition['signatureSlots']??$definition['signatures']??[];
+    $safe=$definition!==null&&empty($definition['downloadOnly'])&&is_int($pages)&&$pages>0&&$slots!==[];
+    $profile=$submission['profile']??[];if(is_string($profile))$profile=json_decode($profile,true)??[];
+    if(($submission['source']??'online')==='upload'&&isset($profile['electronic_signature']))$safe=false;
+    foreach($slots as $slot){
+        $rect=$slot['rect']??[];$page=$slot['page']??null;
+        if(!is_int($page)||$page<1||$page>$pages||!is_array($rect)||count($rect)!==4){$safe=false;break;}
+        foreach($rect as $number)if((!is_int($number)&&!is_float($number))||!is_finite((float)$number)){$safe=false;break;}
+        if(!$safe||$rect[0]<0||$rect[1]<0||$rect[2]<=0||$rect[3]<=0){$safe=false;break;}
+        $size=$definition['pageSizes'][$page-1]??null;
+        if($size&&($rect[0]+$rect[2]>$size[0]||$rect[1]+$rect[3]>$size[1])){$safe=false;break;}
+    }
+    $answers=$submission['answers']??[];if(is_string($answers))$answers=json_decode($answers,true)??[];
+    $required=$definition?array_column(requiredSubmissionSignatureSlots($definition,$answers),'id'):[];
+    $safe=$safe&&$required!==[];
+    return ['sourceId'=>$submission['id'],'sourceSha256'=>$submission['sha256'],'expectedCurrent'=>$submission['id'],
+        'expectedPages'=>$pages,'signatureSlots'=>$safe?array_values(array_map(fn($slot)=>array_intersect_key($slot,array_flip(['id','label','ar','page','rect','requiredForSubmission','requireWhenFields'])),$slots)):[],
+        'requiredSignatureIds'=>$safe?$required:[],'can_sign_electronically'=>$safe];
+}
 function requireOnlineSignatures(array $def,array $images,array $answers,mixed $modes): void {
     if(!is_array($modes)||count($modes)>20)reject('signature_invalid');
     if(($def['workflow']??'')==='subscription'&&($answers['signature_mode']??'')!=='electronic')reject('signature_required',422);
-    $required=0;
+    $required=requiredSubmissionSignatureSlots($def,$answers);
     foreach($def['signatureSlots']??$def['signatures']??[] as $slot){
         $id=$slot['id'];$mode=$modes[$id]??(isset($images[$id])?'electronic':null);
         if($mode!==null&&!in_array($mode,['manual','electronic'],true))reject('signature_invalid');
-        $applies=($slot['requiredForSubmission']??true)!==false;
-        foreach($slot['requireWhenFields']??[] as $field){
-            $value=$answers[$field]??'';
-            if(is_array($value)?count($value)>0:trim((string)$value)!=='')$applies=true;
-        }
-        if(!$applies)continue;
-        $required++;
+        if(!in_array($id,array_column($required,'id'),true))continue;
         if($mode!=='electronic'||!isset($images[$id]))reject('signature_required',422);
     }
     // An online form with no configured customer signing area must use a signed PDF upload.
-    if($required===0)reject('signature_required',422);
+    if(!$required)reject('signature_required',422);
 }
 function saveVersion(array $s,string $sourcePath,?string $expected,?string $audit=null,bool $clientSubmission=false): array {
     global $db,$dataDir;

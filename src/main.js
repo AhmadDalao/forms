@@ -21,7 +21,7 @@ import {appRoot,audience,visibleIn} from './routes.js';
 import {createDraftStore,DRAFT_PREFIX} from './drafts.js';
 import {sharedGroups,sharedCandidates,sharedFieldVisible} from './shared-fields.js';
 import {parseNumber} from './numbers.js';
-import {signatureSlots,sectionSignatureSlots,prepareSignature,submissionSigningState} from './signatures.js';
+import {signatureSlots,sectionSignatureSlots,prepareSignature,submissionSigningState,requiredSignatureSlots} from './signatures.js';
 import {generate,original,loadPreview,renderPage,templateUrl,fieldValue} from './pdf.js';
 
 const app=document.querySelector('#app');
@@ -40,7 +40,7 @@ function manualSigningGuide(force=false,downloaded=false){
  if(!signingState().manual||(!force&&manualGuideShown))return;
  manualGuideShown=true;showSigningGuide({doc:current,lang,onDownload:!downloaded&&pdfBytes?download:null});
 }
-let lang=drafts.preferences.lang||portalLanguage();
+let lang=['en','ar'].includes(pageParams.get('lang'))?pageParams.get('lang'):drafts.preferences.lang||portalLanguage();
 let current=null,step=0,values={},signatures={},signatureMessages={},pageNumber=1,pdf=null,pdfBytes=null,review=false,busy=false,errors=[],generation=0,downloadFile=null,previewVisible=false;
 
 const t=(en,ar)=>lang==='ar'?(ar||en):(en||ar);
@@ -351,6 +351,15 @@ if(revisionId){
   editing=docs.find(d=>d.id===s.doc_id&&!d.downloadOnly&&visibleIn(d,audience));
   if(!editing||s.audience!==audience||s.source==='upload')throw Error('document_unavailable');
   drafts.loadSubmission(editing.id,s);
+  if(pageParams.get('sign')==='1'){
+   if(s.review_status==='signature_required')drafts.beginSignatureRequest(editing.id,s.review_revision);
+   const saved=drafts.get(editing.id),required=requiredSignatureSlots(editing,saved.values),first=required.find(slot=>!saved.signatures[slot.id])||required[0];
+   if(first){
+    for(const slot of required)drafts.setSignatureMode(editing.id,slot.id,'electronic');
+    const index=editing.workflow==='subscription'?editing.sections.findIndex(section=>section.id==='applicant'):editing.sections.findIndex(section=>sectionSignatureSlots(editing,section).some(slot=>slot.id===first.id));
+    drafts.save(editing.id,{...saved.values,...(editing.workflow==='subscription'?{signature_mode:'electronic'}:{})},Math.max(0,index),saved.signatures);
+   }
+  }
  }catch(err){editError=err;}
 }
 const resume=docs.find(d=>d.id===drafts.preferences.active&&drafts.has(d.id)&&visibleIn(d,audience));

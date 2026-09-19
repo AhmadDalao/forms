@@ -3,7 +3,7 @@ import {joinedName} from './subscription/model.js';
 import {draftStoragePrefix} from './routes.js';
 import { hasValue } from './schema.js';
 import { defaultDates } from './dates.js';
-import { cleanSignatures, cleanSignatureModes, signatureSlots } from './signatures.js';
+import { cleanSignatures, cleanSignatureModes, signatureSlots, requiredSignatureSlots } from './signatures.js';
 import { cleanShared, reconcileShared, sharedCandidates } from './shared-fields.js';
 
 export const DRAFT_PREFIX = draftStoragePrefix;
@@ -131,6 +131,13 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       // Blank submitted fields are deliberate too; shared data cannot refill them.
       const autoApplicant=doc.workflow==='subscription'&&snapshot.answers.applicant_name===(doc.group==='individual'?joinedName(snapshot.answers):snapshot.answers.auth_name);
       return persist(doc,clean(doc,{values:snapshot.answers,signatures:snapshot.signatures||{},step:0,overrides:doc.fields.map(f=>f.id).filter(id=>id!=='applicant_name'||!autoApplicant),revision:{sourceId:snapshot.id,expectedCurrent:snapshot.current_id,version:snapshot.version,legacySignatures:snapshot.signatures===null,profile:snapshot.profile}}));
+    },
+    beginSignatureRequest(id,reviewRevision){
+      const doc=documents.find(d=>d.id===id),record=this.get(id);
+      if(!doc||!record.revision||record.revision.signatureReviewRevision===reviewRevision)return;
+      const signatures={...record.signatures},signatureModes={...record.signatureModes};
+      for(const slot of requiredSignatureSlots(doc,record.values)){delete signatures[slot.id];signatureModes[slot.id]='electronic';}
+      return persist(doc,{...record,signatures,signatureModes,revision:{...record.revision,signatureReviewRevision:reviewRevision}});
     },
     submitted(id,snapshot){
       const doc=documents.find(d=>d.id===id),record=this.get(id);if(!doc||!record.revision)return;
