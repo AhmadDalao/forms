@@ -89,7 +89,7 @@ function cleanAnswers(array $def,mixed $input): array {
     return $out;
 }
 function submissionRows(?string $user=null,?int $limit=null): array {
-    return execute('SELECT s.id,s.user_id,s.doc_id,s.title,s.ar,s.audience,s.created_at,s.size,s.sha256,s.version,s.archived_at,s.replaces_id,s.restored_from,s.edited_from,s.source,u.name,u.phone,u.email FROM submissions s JOIN users u ON u.id=s.user_id'.($user?' WHERE s.user_id=?':'').' ORDER BY s.created_at DESC,s.rowid DESC'.($limit?' LIMIT '.$limit:''),$user?[$user]:[])->fetchAll();
+    return execute('SELECT s.id,s.user_id,s.doc_id,s.title,s.ar,s.audience,s.created_at,s.size,s.sha256,s.version,s.archived_at,s.replaces_id,s.restored_from,s.edited_from,s.source,u.name,u.phone,u.email,u.account_type FROM submissions s JOIN users u ON u.id=s.user_id'.($user?' WHERE s.user_id=?':'').' ORDER BY s.created_at DESC,s.rowid DESC'.($limit?' LIMIT '.$limit:''),$user?[$user]:[])->fetchAll();
 }
 function fileName(string $name): string {return mb_substr(trim(preg_replace('/[^\p{L}\p{N}_ -]/u','',$name)),0,100)?:'client';}
 function attachment(string $type,string $name,bool $inline=false): void {
