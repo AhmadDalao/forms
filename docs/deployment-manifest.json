@@ -1,14 +1,14 @@
 {
-  "uploaded_at_utc": "20260919T180046Z",
+  "uploaded_at_utc": "20260919T181400Z",
   "url": "https://forms.ahmaddalao.com/",
-  "source_commit": "063e8699a67556032814d5a836ddbb63d992ea78",
+  "source_commit": "fb507752a6b7e4d3ffeec616236565d63a6ea90b",
   "transport": "Explicit FTPS with verified Hostinger certificate",
-  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T180046Z",
+  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T181400Z",
   "files": [
     {
       "path": "index.html",
       "bytes": 755,
-      "sha256": "6d3eb65cb2a05144d96c0861fdc996e8db51e62d173cb9a352e469256d1ed3bd"
+      "sha256": "5399e1774fed4606317bddb7c0918407945dccd4675975252d47a501a1684ccd"
     },
     {
       "path": ".user.ini",
@@ -28,7 +28,7 @@
     {
       "path": "my-applications/index.html",
       "bytes": 793,
-      "sha256": "e795d291d3b2c384127aeebbf2bb867d06f63d1ba80f19bf8f5a8d658d0305ab"
+      "sha256": "37f3e8c556503c25c00e1eaac7959666bba6e1ddbd38af099e6ba238c9784e35"
     },
     {
       "path": "branding/wessal.png",
@@ -43,12 +43,12 @@
     {
       "path": "individuals/index.html",
       "bytes": 789,
-      "sha256": "66fc3adfb607bcbe6cb316737aeb697a751f543a377a56c79934af954cb45fa2"
+      "sha256": "0ef16c30a62b38a49dec620c0e516265bb519acd1214a7b3e96284fb2e801bb2"
     },
     {
       "path": "management/index.html",
       "bytes": 788,
-      "sha256": "aa4f138c3c79a1fea1434accf042d20dbc66d9203142f62435189777dc11b043"
+      "sha256": "77441c21a75dda005850e8708d24b23786869e52cd7355bf59f5ff10ac2b27ff"
     },
     {
       "path": "_private/.htaccess",
@@ -58,7 +58,7 @@
     {
       "path": "register/index.html",
       "bytes": 786,
-      "sha256": "7a6235912ae3ac37521b9d7ef933124f3b5f4528ad631d7694fb90bef89e6e1c"
+      "sha256": "8937b27205113f4936e1995f9955de7bccd0b6c4b53eb0c39e49cb0781219f57"
     },
     {
       "path": "api/defaults.json",
@@ -102,8 +102,8 @@
     },
     {
       "path": "api/portal.php",
-      "bytes": 25398,
-      "sha256": "d743ada6d924998a9dd6caaf7fd376e15c094bc4e18c02e2cfd30fa3696e493c"
+      "bytes": 27349,
+      "sha256": "df08a9be9e952fd8e15b1a19c7980dc6edaf347091ef027d8b1683460d0a497e"
     },
     {
       "path": "api/management-auth.php",
@@ -168,17 +168,12 @@
     {
       "path": "account/index.html",
       "bytes": 785,
-      "sha256": "d68d92f3edae67a5aa2945718d17ffbdb0df29076e3b79f0464cd41cc497d55e"
+      "sha256": "480282a9bce97683ded4be59ee9f0c7eecdbf9b7414f8ac07de60d53f9289a75"
     },
     {
       "path": "assets/forms-BJ54EuWX.js",
       "bytes": 106543,
       "sha256": "0eba1496a93c78c0d434946cd38992f2be76844f80d044a08bd71923228693b6"
-    },
-    {
-      "path": "assets/main-Bit4SPb0.js",
-      "bytes": 50874,
-      "sha256": "0ee3a9100cc42d906117a47fa505a2bcdd1403e8ac17f26f62599417aa8a1961"
     },
     {
       "path": "assets/shared-fields-Dzs3ZFXx.css",
@@ -211,9 +206,14 @@
       "sha256": "3f897a7ed83cc138a34c33d8ac8628172d3f55214a208e4d49332497ab895e89"
     },
     {
-      "path": "assets/preview-UMrcZuUG.css",
-      "bytes": 5854,
-      "sha256": "427fd3e20807bea067e213b16767e84512c59bc0ac82c7957594d39fc4dfe96e"
+      "path": "assets/main-D8PVt_A8.css",
+      "bytes": 25474,
+      "sha256": "78cd2f2060e5592f36c561665999edd7fd3811491cbbf733fa90485a5d99ca16"
+    },
+    {
+      "path": "assets/preview-8XSvTkK0.css",
+      "bytes": 5925,
+      "sha256": "4f1a0cd8ecce2ffcf744805f26e0dcd01cc5780872ae4a05784814e30d206eda"
     },
     {
       "path": "assets/latin-400-CkJXGLVG.css",
@@ -221,19 +221,24 @@
       "sha256": "3df0f0359068fa8cd5a8af39c80c6d49e107f1fb918f3bf6f30fe4d3cb85b354"
     },
     {
+      "path": "assets/index-CvnsV9Q6.js",
+      "bytes": 1915,
+      "sha256": "00a5ce2ccb95a5c56208c0446931a2630a89175229c77e851531602dd90df40f"
+    },
+    {
       "path": "assets/catalogue-C-ww6a4j.js",
       "bytes": 70,
       "sha256": "48b318a8c09ba0c8fbd8ef2dad110371f34d9d41bd9033e88e29e4745c42b4d4"
     },
     {
+      "path": "assets/main-Gl4bbHY6.js",
+      "bytes": 56011,
+      "sha256": "6690c3f609d2e93c9a51f18868a36b264d88a1ddd77f61ee6e5fb0829ad8cc91"
+    },
+    {
       "path": "assets/catalogue-DlpGEFii.js",
       "bytes": 71,
       "sha256": "089569cee1788b1927753e22b442560068797c454fae088d23353007000f9fe3"
-    },
-    {
-      "path": "assets/main-Ba3B56-8.css",
-      "bytes": 21772,
-      "sha256": "891ceb945504e58415a5845acfc5afbdd8c2064d47f9eb02aa9b51ac28683e4c"
     },
     {
       "path": "assets/api-DThsRkn2.js",
@@ -251,6 +256,11 @@
       "sha256": "12b1acfa7962fb832ad073141fedd25b26e243c0534f5537794a4561697181b9"
     },
     {
+      "path": "assets/preview-CwGTFEU5.js",
+      "bytes": 14014,
+      "sha256": "cf1f802027f5a8f69e8846dc1682f3ec77b80c1e6d9b3d7cd9dbe1ce38fede6e"
+    },
+    {
       "path": "assets/catalogue-Ct32Qvwc.js",
       "bytes": 2631,
       "sha256": "fb6f4028d2ed11521d50da817e39c0534c17507baafbab5b7b25acf6b6cec671"
@@ -266,24 +276,19 @@
       "sha256": "52a2cd4b0ff37ac84ef9af585af2eca0a300d49ea4934cf023827de54fdc354f"
     },
     {
-      "path": "assets/main-QVVrFfUA.js",
-      "bytes": 27788,
-      "sha256": "432aab599d202a4541d622155b0e3dac02ab7a33402744c452cdb0e21f76133b"
-    },
-    {
       "path": "assets/routes-VETtnQjc.js",
       "bytes": 660,
       "sha256": "6c3436c95c68b54206953e92017d9a0edb4c1fdcb4823b5c27e236c2b02232fb"
     },
     {
+      "path": "assets/main-leeaEqH-.js",
+      "bytes": 27802,
+      "sha256": "fcf75041c821fc53e3b42711056919261ea26f89b97acd5098de8ecb9739b57c"
+    },
+    {
       "path": "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
       "bytes": 84980,
       "sha256": "4cd5ad759d5ee84c12fa9aa6aa8747fb9e2fca225b87292bf42628f67ab3e4db"
-    },
-    {
-      "path": "assets/index-CEYVUMix.js",
-      "bytes": 1915,
-      "sha256": "15138b341eecfe3a858c20f8d1a65ee1c389880b46881c7f40ef8dbdf1052ce4"
     },
     {
       "path": "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff",
@@ -314,11 +319,6 @@
       "path": "assets/preload-helper-uBIymjUX.js",
       "bytes": 1233,
       "sha256": "e1a22f3f73566f21ff932e058d32243e4a118f3491b91e96893aa5ab7eb49a00"
-    },
-    {
-      "path": "assets/preview-BuAcT_U1.js",
-      "bytes": 13534,
-      "sha256": "29be04fedde8df3a131ddb5cf9075fca01826e58344cd1873bcbc99b12e6649a"
     },
     {
       "path": "assets/inter-latin-400-normal-CyCys3Eg.woff",
@@ -358,12 +358,12 @@
     {
       "path": "login/index.html",
       "bytes": 783,
-      "sha256": "e9581198aad29e22e1c91dca4e48e7730ecaaabf113a892cfb2b500aecd4abd0"
+      "sha256": "05320a1fd5e476acbb6900e9c3eb89f0843613b6edcd719a0df5da7241f1e19a"
     },
     {
       "path": "companies/index.html",
       "bytes": 787,
-      "sha256": "5fc4dbb52ebb1d547b8c9366f78c71de91582944d6a0b7e82e2e917a4d354ae4"
+      "sha256": "9895cfe1fb50138c7d368851e2e7c31fab6c1eb284cba87d43ec6d037459446e"
     },
     {
       "path": "api/subscription/calculate.php",
@@ -377,19 +377,14 @@
     }
   ],
   "created": [
-    "assets/forms-BJ54EuWX.js",
-    "assets/forms-DTZWV59S.js",
-    "assets/index-CEYVUMix.js",
-    "assets/main-BIjAkmDj.js",
-    "assets/main-Bit4SPb0.js",
-    "assets/main-BuaLkwGP.css",
-    "assets/main-QVVrFfUA.js",
-    "assets/preview-BuAcT_U1.js",
-    "assets/shared-fields-Dy2GpfHf.js",
-    "assets/shared-fields-Dzs3ZFXx.css"
+    "assets/index-CvnsV9Q6.js",
+    "assets/main-D8PVt_A8.css",
+    "assets/main-Gl4bbHY6.js",
+    "assets/main-leeaEqH-.js",
+    "assets/preview-8XSvTkK0.css",
+    "assets/preview-CwGTFEU5.js"
   ],
   "replaced": [
-    "api/portal-defaults.json",
     "api/portal.php",
     "account/index.html",
     "companies/index.html",
@@ -409,6 +404,7 @@
     "api/management-auth.php",
     "api/management.php",
     "api/portal-account-types.php",
+    "api/portal-defaults.json",
     "api/portal-details.php",
     "api/portal-reviews.php",
     "api/portal-versions.php",
@@ -423,6 +419,8 @@
     "assets/catalogue-CR_2rN1N.js",
     "assets/catalogue-Ct32Qvwc.js",
     "assets/catalogue-DlpGEFii.js",
+    "assets/forms-BJ54EuWX.js",
+    "assets/forms-DTZWV59S.js",
     "assets/inter-latin-400-normal-C38fXH4l.woff2",
     "assets/inter-latin-400-normal-CyCys3Eg.woff",
     "assets/inter-latin-500-normal-BL9OpVg8.woff",
@@ -430,7 +428,8 @@
     "assets/inter-latin-600-normal-CiBQ2DWP.woff",
     "assets/inter-latin-600-normal-LgqL8muc.woff2",
     "assets/latin-400-CkJXGLVG.css",
-    "assets/main-Ba3B56-8.css",
+    "assets/main-BIjAkmDj.js",
+    "assets/main-BuaLkwGP.css",
     "assets/main-DE87fyXd.css",
     "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
     "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
@@ -440,8 +439,9 @@
     "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff",
     "assets/pdf.worker.min-Dswkl-cV.mjs",
     "assets/preload-helper-uBIymjUX.js",
-    "assets/preview-UMrcZuUG.css",
     "assets/routes-VETtnQjc.js",
+    "assets/shared-fields-Dy2GpfHf.js",
+    "assets/shared-fields-Dzs3ZFXx.css",
     "branding/itqan.png",
     "branding/wessal.png",
     "favicon.svg",
