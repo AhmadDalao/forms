@@ -70,6 +70,9 @@ try{
   assert.equal((await call(ctx,'detail',null,200,{params:{id:first.id}})).submission.review_history[0].admin_username,undefined);
   const next=await submit({...meta,values:{client_name:'Updated name'},expectedCurrent:first.id,editedFrom:first.id,requestKey:randomUUID()});c.current=next;
   const newer=(await call(ctx,'detail',null,200,{params:{id:next.id}})).submission;assert.equal(newer.review_status,'pending');assert.equal(newer.review_history.length,0);
+  await page.goto(base+'/management/');await page.locator('[data-reviews]').click();await page.locator(`[data-preview="${next.id}"]`).click();await page.locator('.review-form').waitFor();
+  assert.equal(await page.locator('.review-form [name=status]').inputValue(),'');assert.equal(await page.locator('.review-form [name=status]').isDisabled(),false);assert.equal(await page.locator('.review-form [type=submit]').isDisabled(),false);await page.locator('.portal-preview [data-close]').click();
+
   const archived=(await call(ctx,'detail',null,200,{params:{id:first.id}})).submission;assert.equal(archived.review_status,'approved');assert.equal(archived.answers.client_name,user.name);assert.equal(archived.review_history.length,2);assert.ok(archived.archived_at);
   await call(manager,'admin_review',{...payload,expectedReview:approved.review.review_revision,requestKey:randomUUID()},409);
   for(const id of [first.id,next.id])assert.equal(digest(await(await ctx.request.get(base+'/api/portal.php?action=pdf&id='+id)).body()),digest(pdf));
@@ -84,7 +87,9 @@ try{
   assert.equal(await page.locator('.review-form').evaluate(f=>f.checkValidity()),false);
   await page.locator('.review-form [name=status]').selectOption('approved');assert.equal(await page.locator('.review-form [data-rejection]').isVisible(),false);await page.locator('.review-form [type=submit]').click();await page.locator('.review-success').waitFor();
   const uiApproved=(await call(manager,'admin_detail',null,200,{params:{id:restore.id}})).submission;assert.equal(uiApproved.review_status,'approved');assert.equal(uiApproved.reason_text,'');assert.equal(uiApproved.review_history.length,2);
-  await page.locator('.portal-preview [data-close]').click();
+  await savedApproval(page);await page.screenshot({path:out+'/'+typeName(c)+'-approved-disabled.png'});await page.locator('.portal-preview [data-close]').click();
+  await page.locator('[data-review-status="approved"]').click();await page.locator(`[data-preview="${restore.id}"]`).click();await page.locator('.review-form').waitFor();await savedApproval(page);await page.locator('.portal-preview [data-close]').click();
+
   await call(manager,'admin_review',{id:restore.id,status:'rejected',reason_code:'incorrect_data',reason_text:'Please correct the name. يرجى تصحيح الاسم.',expectedReview:uiApproved.review_revision,requestKey:randomUUID()});
   const profile=await call(manager,'admin_client',null,200,{params:{id:user.id}});assert.equal(profile.submissions.find(s=>s.id===restore.id).reviewed_by,credentials.username);
   assert.ok(profile.submissions.find(s=>s.id===c.obsolete.id).archived_at);
@@ -94,7 +99,7 @@ try{
   await page.locator('.portal-preview [data-current-version]').click();await page.locator('.portal-preview .review-form').waitFor();assert.equal(await page.locator('.portal-preview .review-archived').count(),0);
   await page.locator('.portal-preview [data-close]').click();
 
-  checks.push(typeName(c)+': replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, resubmit/restore pending, archived history and unchanged PDFs');
+  checks.push(typeName(c)+': replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled after save/reopen, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs');
  }
  if(!remote)await auditFilters(manager,clients,call,checks);
  // Reuse the two synthetic accounts; never create real-client decisions or touch their data.
@@ -144,6 +149,14 @@ try{
  assert.deepEqual(errors,[]);await fs.writeFile(out+'/results.json',JSON.stringify({base,checks,errors,passed:true},null,2));console.log(JSON.stringify({passed:true,checks,errors},null,2));
 }finally{await browser?.close();server?.kill();}
 function typeName(c){return c.user.account_type;}
+async function savedApproval(page){
+ assert.equal(await page.locator('.review-form [name=status]').inputValue(),'approved');
+ assert.equal(await page.locator('.review-form [name=status]').isDisabled(),true);
+ assert.equal(await page.locator('.review-form [type=submit]').isDisabled(),true);
+ assert.equal(await page.locator('.review-form [data-rejection]').isVisible(),false);
+ assert.equal(await page.locator('.review-form [data-rejection] :enabled:visible').count(),0);
+}
+
 
 async function auditFilters(manager,clients,call,checks){
  const c=clients[0],other=clients[1];
