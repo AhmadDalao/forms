@@ -63,8 +63,14 @@ try{
  assert.equal((await anon.request.get(base+'/_private/portal/clients.sqlite')).status(),404);
  checks.push('Private PDF storage, owner checks, malformed PDF rejection and duplicate submission protection');
  // Submit the unchanged signature form, including an editable signature snapshot.
- const signature=await page.evaluate(id=>{const canvas=document.createElement('canvas');canvas.width=180;canvas.height=60;const c=canvas.getContext('2d');c.font='italic 24px serif';c.fillText('Test Signature',4,40);const png=canvas.toDataURL();const key='itqan.forms.v1.account.'+id+'.individual.signature-form',draft=JSON.parse(localStorage.getItem(key));draft.signatures={specimen:png};localStorage.setItem(key,JSON.stringify(draft));return png;},accountA.id);
- await page.reload();await page.locator('#review-tab').click();await page.locator('#submit-form').waitFor();
+ const image=await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=180;canvas.height=60;const c=canvas.getContext('2d');c.font='italic 24px serif';c.fillText('Test Signature',4,40);return canvas.toDataURL().split(',')[1];});
+ await page.locator('[data-step="1"]').click();assert.equal(await page.locator('#signature-panel').count(),0);
+ await page.locator('[data-signature-mode="specimen"][value="electronic"]').check();
+ await page.locator('[data-signature-file="specimen"]').setInputFiles({name:'signature.png',mimeType:'image/png',buffer:Buffer.from(image,'base64')});
+ await page.locator('[data-signature-remove="specimen"]').waitFor();await page.locator('#review-tab:not([disabled])').waitFor();
+ const signature=await page.evaluate(id=>JSON.parse(localStorage.getItem('itqan.forms.v1.account.'+id+'.individual.signature-form')).signatures.specimen,accountA.id);
+ await page.reload();await page.locator('[data-signature-slot="specimen"] img').waitFor();assert.equal(await page.locator('[data-signature-mode="specimen"][value="electronic"]').isChecked(),true);
+ await page.locator('#review-tab').click();await page.locator('#submit-form').waitFor();
  await page.locator('#submit-form').click();await page.locator('[data-confirm]').click();await page.locator('.submitted-mark').waitFor();await page.locator('.submission-dialog [data-close]').click();
  for(const corporate of [false,true]){
   await setType(a,corporate?'corporate':'individual');
@@ -106,6 +112,8 @@ try{
  await page.setViewportSize({width:1440,height:1100});
  await page.evaluate(id=>{const prefix='itqan.forms.v1.account.'+id+'.individual.';localStorage.setItem(prefix+'signature-form',JSON.stringify({values:{client_name:'Unsubmitted work'},step:0}));localStorage.setItem(prefix+'shared-fields',JSON.stringify({name_language:'en',en_first:'Different',en_last:'Profile',id_number:'999999'}));},accountA.id);
  await page.goto(base+'/account/?lang=en');await page.locator('[data-edit="'+signatureOriginal.id+'"]').click();await page.locator('.revision-banner').waitFor();
+ await page.locator('[data-step="1"]').click();await page.locator('[data-signature-slot="specimen"] img').waitFor();assert.equal(await page.locator('[data-signature-mode="specimen"][value="electronic"]').isChecked(),true);assert.equal(await page.locator('[data-signature-slot="specimen"] img').getAttribute('src'),signature);
+ await page.locator('[data-step="0"]').click();
  assert.equal(await page.locator('#f-client_name').inputValue(),original.answers.client_name);
  await page.locator('#f-client_name').fill('Updated client details');await page.reload();await page.locator('#f-client_name').waitFor();assert.equal(await page.locator('#f-client_name').inputValue(),'Updated client details');
  assert.equal(await page.evaluate(id=>JSON.parse(localStorage.getItem('itqan.forms.v1.account.'+id+'.individual.signature-form')).values.client_name,accountA.id),'Unsubmitted work');

@@ -1,7 +1,7 @@
 import {joinedName} from './subscription/model.js';
 import {draftStoragePrefix} from './routes.js';
 import { hasValue } from './schema.js';
-import { cleanSignatures } from './signatures.js';
+import { cleanSignatures, cleanSignatureModes, signatureSlots } from './signatures.js';
 import { cleanShared, reconcileShared, sharedCandidates } from './shared-fields.js';
 
 export const DRAFT_PREFIX = draftStoragePrefix;
@@ -15,7 +15,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
   const prefix=basePrefix+(accountId&&/^[a-f0-9]{32}$/.test(revisionId)?'revision.'+revisionId+'.':'');
   const memory=new Map(),failedKeys=new Set(),legacy=new Map();
   let preferences={},profile={};
-  const empty=()=>({values:{},signatures:{},step:0,shared:{},overrides:[]});
+  const empty=()=>({values:{},signatures:{},signatureModes:{},step:0,shared:{},overrides:[]});
   function read(key,base=prefix){
     let raw;
     try{raw=getStorage().getItem(base+key);}catch{failedKeys.add(key);return null;}
@@ -55,11 +55,13 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       }else if(typeof value==='string')values[field.id]=value;
       if(typeof record?.shared?.[field.id]==='string')shared[field.id]=record.shared[field.id];
     }
-    return {...(record?.revision?{revision:record.revision}:{}),values,shared,overrides:Array.isArray(record?.overrides)?record.overrides.filter(id=>doc.fields.some(f=>f.id===id)):[],signatures:cleanSignatures(doc,record?.signatures),step:Math.max(0,Math.min(doc.sections.length-1,Math.trunc(Number(record?.step))||0))};
+    const signatures=cleanSignatures(doc,record?.signatures),signatureModes=cleanSignatureModes(doc,record?.signatureModes,signatures);
+    for(const [id,mode] of Object.entries(signatureModes))if(mode==='manual')delete signatures[id];
+    return {...(record?.revision?{revision:record.revision}:{}),values,shared,overrides:Array.isArray(record?.overrides)?record.overrides.filter(id=>doc.fields.some(f=>f.id===id)):[],signatures,signatureModes,step:Math.max(0,Math.min(doc.sections.length-1,Math.trunc(Number(record?.step))||0))};
   }
   function persist(doc,record){
     memory.set(doc.id,record);
-    const populated=Object.values(record.values).some(hasValue)||Object.keys(record.signatures).length;
+    const populated=Object.values(record.values).some(hasValue)||Object.keys(record.signatures).length||Object.values(record.signatureModes||{}).includes('electronic');
     return write(doc.id,scoped||populated?{...record,updatedAt:Date.now()}:null);
   }
   function refresh(){
@@ -89,7 +91,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     get preferences(){return preferences;},
     get profile(){return {...profile};},
     get(id){return memory.get(id)||empty();},
-    has(id){const r=this.get(id);return Object.values(r.values).some(hasValue)||Object.keys(r.signatures).length>0;},
+    has(id){const r=this.get(id);return Object.values(r.values).some(hasValue)||Object.keys(r.signatures).length>0||Object.values(r.signatureModes||{}).includes('electronic');},
     hasLegacy(id){const r=legacy.get(id);return Boolean(r&&(Object.values(r.values).some(hasValue)||Object.keys(r.signatures).length));},
     restoreLegacy(id){
       const doc=documents.find(d=>d.id===id&&d.group==='shared');
@@ -103,7 +105,15 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       const doc=documents.find(d=>d.id===id);if(!doc)return false;
       const old=this.get(id),overrides=[...old.overrides];
       if(editedField&&!overrides.includes(editedField))overrides.push(editedField);
-      return persist(doc,reconcileShared(doc,{...old,values:{...values},signatures:cleanSignatures(doc,signatures),step,overrides},profile,audience));
+      const images=cleanSignatures(doc,signatures),signatureModes=cleanSignatureModes(doc,old.signatureModes,images);
+      for(const [slot,mode] of Object.entries(signatureModes))if(mode==='manual')delete images[slot];
+      return persist(doc,reconcileShared(doc,{...old,values:{...values},signatures:images,signatureModes,step,overrides},profile,audience));
+    },
+    setSignatureMode(id,slot,mode){
+      const doc=documents.find(d=>d.id===id);
+      if(!doc||!signatureSlots(doc).some(s=>s.id===slot)||!['manual','electronic'].includes(mode))return false;
+      const old=this.get(id),signatures={...old.signatures};if(mode==='manual')delete signatures[slot];
+      return persist(doc,{...old,signatures,signatureModes:{...old.signatureModes,[slot]:mode}});
     },
     loadSubmission(id,snapshot){
       const doc=documents.find(d=>d.id===id);if(!doc)return false;

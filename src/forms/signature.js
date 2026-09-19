@@ -5,7 +5,7 @@ text(d,s,'date','Date','التاريخ',[80,103,164,19],{type:'date',dateParts:[
 text(d,s,'client_name','Client name','اسم العميل',[308.35,158.35,220.5,16.35]);
 text(d,s,'client_number','Client number (if known)','رقم العميل (إن وجد)',[51,153,228,25],{cells:12,maxLength:12});
 text(d,s,'account_number','Account number (if known)','رقم الحساب (إن وجد)',[45,202,228,25],{cells:12,maxLength:12});
-s=section(d,'signatory','Signatory details','بيانات الموقع',1,'Add a signature image in the optional signature panel, or sign after downloading.','أضف صورة توقيع من قسم التوقيع الاختياري، أو وقّع بعد التنزيل.');
+s=section(d,'signatory','Signatory details','بيانات الموقع',1,'Choose electronic signing to upload your signature here, or choose manual signing after downloading.','اختر التوقيع الإلكتروني لتحميل توقيعك هنا، أو اختر التوقيع اليدوي بعد التنزيل.');
 choice(d,s,'signer_role','Signing as','صفة الموقع',[o('client','Client','العميل',[497.3,238.8,11.5,11.5]),o('authorized','Authorized person','المفوض',[352.7,238.7,11.5,11.5])]);
 text(d,s,'signer_name','Signatory name','اسم الموقع',[312.35,287.67,220.5,16.35]);
 text(d,s,'id_number','ID number','رقم الهوية',[307.35,357.72,122.05,16.35],{maxLength:24});

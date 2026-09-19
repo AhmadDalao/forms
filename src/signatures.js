@@ -1,28 +1,38 @@
 // Signing areas measured on the unchanged source PDFs, in points from top-left.
 // Each person/row is independent, including the explicitly available staff section.
 // Stamp and fingerprint areas are not selectable.
-const slot = (id, label, ar, page, rect) => ({ id, label, ar, page, rect });
+const slot = (id, label, ar, page, rect, section) => ({ id, label, ar, page, rect, section });
 const slots = {
   'subscription-form': [slot('applicant','Applicant signature','توقيع مقدم الطلب',1,[117,574,104,10]),...['manager','entered','approved'].map((id,i)=>slot('staff_'+id,['A/C manager signature','Entered by signature','Reviewer / approver signature'][i],['توقيع مدير الحساب','توقيع مدخل الطلب','توقيع المراجع والمعتمد'][i],1,[101,647.2+i*14.4,116,10]))],
-  'signature-form': [slot('specimen', 'Specimen signature', 'نموذج التوقيع', 1, [55, 267, 232, 249])],
+  'signature-form': [slot('specimen', 'Specimen signature', 'نموذج التوقيع', 1, [55, 267, 232, 249], 'signatory')],
   'terms-and-conditions': [11, 13].flatMap(page => [0, 1, 2].map(i => slot(
     `${page === 11 ? 'terms' : 'authorization'}_${i}`,
     `${page === 11 ? 'Account terms' : 'Telephone / fax authorization'} — signer ${i + 1}`,
     `${page === 11 ? 'شروط الحساب' : 'تفويض الهاتف والفاكس'} — الموقع ${i + 1}`,
-    page, [84, (page === 11 ? 135 : 327.6) + i * 36.5, 206, 28],
+    page, [84, (page === 11 ? 135 : 327.6) + i * 36.5, 206, 28], page === 11 ? 'terms' : 'authorization',
   ))),
   'fatca-crs-individual': [
-    slot('signatory', 'Signatory signature', 'توقيع الموقع', 2, [47, 633, 276, 57]),
-    slot('relationship_manager', 'Relationship Manager / Customer Service Representative signature', 'توقيع مدير العلاقة / ممثل خدمة العملاء', 3, [266, 128, 205, 24]),
+    slot('signatory', 'Signatory signature', 'توقيع الموقع', 2, [47, 633, 276, 57], 'signatory'),
+    slot('relationship_manager', 'Relationship Manager / Customer Service Representative signature', 'توقيع مدير العلاقة / ممثل خدمة العملاء', 3, [266, 128, 205, 24], 'staff'),
   ],
-  'fatca-crs-corporate': [0, 1].map(i => slot(`signatory_${i}`, `Signatory ${i + 1} (${i ? 'right' : 'left'} box)`, `الموقع ${i + 1} (${i ? 'الخانة اليمنى' : 'الخانة اليسرى'})`, 6, [131 + i * 244.2, 277, 187, 34])),
+  'fatca-crs-corporate': [0, 1].map(i => slot(`signatory_${i}`, `Signatory ${i + 1} (${i ? 'right' : 'left'} box)`, `الموقع ${i + 1} (${i ? 'الخانة اليمنى' : 'الخانة اليسرى'})`, 6, [131 + i * 244.2, 277, 187, 34], 'signatories')),
   'kyc-individual': [
-    slot('representative', 'Special cases — representative signature', 'الحالات الخاصة — توقيع الوكيل أو الممثل', 3, [117, 566, 124, 23]),
-    slot('client', 'Client signature', 'توقيع العميل', 7, [58, 624, 241, 25]),
+    slot('representative', 'Special cases — representative signature', 'الحالات الخاصة — توقيع الوكيل أو الممثل', 3, [117, 566, 124, 23], 'disclosures'),
+    slot('client', 'Client signature', 'توقيع العميل', 7, [58, 624, 241, 25], 'suitability'),
   ],
-  'kyc-corporate': [slot('client', 'Client signature', 'توقيع العميل', 7, [58, 624, 241, 25])],
+  'kyc-corporate': [slot('client', 'Client signature', 'توقيع العميل', 7, [58, 624, 241, 25], 'suitability')],
 };
 export const signatureSlots = doc => doc.signatureSlots || slots[doc.id] || [];
+export const sectionSignatureSlots = (doc, section) => signatureSlots(doc).filter(s => s.section ? s.section === section.id : doc.custom && s.page === section.page);
+
+export function cleanSignatureModes(doc, saved, images = {}) {
+  const modes = {};
+  for (const { id } of signatureSlots(doc)) {
+    if (['manual', 'electronic'].includes(saved?.[id])) modes[id] = saved[id];
+    else if (images[id]) modes[id] = 'electronic';
+  }
+  return modes;
+}
 
 // Saved images are normalized PNGs only, never external URLs or executable SVGs.
 export function cleanSignatures(doc, saved) {

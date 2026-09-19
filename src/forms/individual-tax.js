@@ -35,8 +35,8 @@ text(d,s,'capacity_other','Other capacity','صفة أخرى',[344,709,201,14],{f
 text(d,s,'date','Date (Gregorian)','التاريخ (ميلادي)',[133,706,156,18],{type:'date',cells:8,charRects:[[91,706,17,18],[110,706,21,18],[133,706,29,18],[164,706,29,18],[195,706,22,18],[219,706,22,18],[243,706,22,18],[267,706,22,18]]});
 
 s=section(d,'staff','Relationship Manager / Customer Service Representative','مدير العلاقة / ممثل خدمة العملاء',3,
- 'For completion by the relationship manager or customer service representative. Leave this section blank if it does not apply. Use Signature image above to add the representative’s signature, or sign after downloading.',
- 'يُعبّأ هذا القسم من قبل مدير العلاقة أو ممثل خدمة العملاء. اتركه فارغًا إذا لم يكن مطلوبًا. استخدم «صورة التوقيع» أعلاه لإضافة توقيع الممثل، أو وقّع بعد التنزيل.');
+ 'For completion by the relationship manager or customer service representative. Leave this section blank if it does not apply. Choose electronic or manual signing for the representative below.',
+ 'يُعبّأ هذا القسم من قبل مدير العلاقة أو ممثل خدمة العملاء. اتركه فارغًا إذا لم يكن مطلوبًا. اختر التوقيع الإلكتروني أو اليدوي للممثل أدناه.');
 s.signatureSlot='relationship_manager';
 text(d,s,'staff_account_holder','Account Holder Name (First / Middle / Last)','الاسم الكامل لصاحب الحساب (الأول، الثاني، الأخير)',[137,102,340,21],{fontSize:10,wide:true,direction:'auto'});
 text(d,s,'staff_employee_id','Employee ID','الرقم الوظيفي',[134,153,338,11],{fontSize:8,minFontSize:7,direction:'auto'});

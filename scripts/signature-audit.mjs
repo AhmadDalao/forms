@@ -5,7 +5,7 @@ import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {docs} from '../src/forms/index.js';
 import {signatureSlots} from '../src/signatures.js';
-const base=process.env.SITE_URL||'http://127.0.0.1:4173';
+const base=process.env.SITE_URL||'http://127.0.0.1:5173';
 const out=process.env.AUDIT_OUT||'tmp/pdfs/signatures';
 await fs.mkdir(out,{recursive:true});
 const engine=process.env.BROWSER||'chrome';
@@ -15,13 +15,27 @@ const page=await context.newPage(),errors=[],sent=[],records=[];
 page.on('pageerror',e=>errors.push(e.message));
 let entering=false;
 page.on('request',r=>{if(entering&&(!['GET','HEAD'].includes(r.method())||r.url().includes('data:image')))sent.push(r.url());});
-const upload=async(slot,file)=>{
- await page.locator('#signature-panel').evaluate(el=>{el.open=true;});
- await page.locator('#signature-target').selectOption(slot.id);
- await page.locator('#signature-file').setInputFiles(file);
- await page.locator(`[data-signature-preview="${slot.id}"]`).waitFor();
- await page.waitForFunction(()=>!document.querySelector('#signature-choose')?.disabled);
+const signatureDoc=docs.find(d=>d.id==='signature-form');
+let currentDoc=signatureDoc;
+const openSlot=async(slot)=>{
+ const step=currentDoc.sections.findIndex(section=>section.id===slot.section);
+ assert.ok(step>=0,`${currentDoc.id}/${slot.id}: signing section exists`);
+ await page.locator(`[data-step="${step}"]`).click();
+ await page.locator(`[data-signature-slot="${slot.id}"]`).waitFor();
 };
+const upload=async(slot,file)=>{
+ await openSlot(slot);
+ await page.locator(`[data-signature-mode="${slot.id}"][value="electronic"]`).check();
+ await page.locator(`[data-signature-file="${slot.id}"]`).setInputFiles(file);
+ await page.locator(`[data-signature-slot="${slot.id}"] img`).waitFor();
+ await page.locator(`[data-signature-choose="${slot.id}"]:not([disabled])`).waitFor();
+};
+const unsigned=async(slot)=>{
+ await openSlot(slot);
+ await page.locator(`[data-signature-remove="${slot.id}"]`).click();
+ await page.locator(`[data-signature-mode="${slot.id}"][value="manual"]`).check();
+};
+const review=async()=>{await page.locator('#review-tab').click();await page.locator('#download:not([disabled])').waitFor();await page.locator('#loading').waitFor({state:'hidden'});};
 const download=async(selector,file)=>{
  const pending=page.waitForEvent('download',{timeout:60000}).then(d=>({d}),error=>({error}));await page.locator(selector).click();const result=await pending;if(result.error){await page.screenshot({path:`${out}/failure.png`,fullPage:true});throw Error(`${result.error.message}: ${await page.locator('#status').innerText()} / ${await page.locator('[data-field].invalid').evaluateAll(es=>es.map(e=>e.dataset.field))}`);}await result.d.saveAs(file);
 };
@@ -47,46 +61,46 @@ try{
  entering=true;
  // Signature-only export, persistence, replacement, removal and unchanged originals.
  await page.locator('[data-doc="signature-form"]').click();
- await upload(signatureSlots(docs[0])[0],fixturePaths[0]);
+ await upload(signatureSlots(signatureDoc)[0],fixturePaths[0]);
  await download('#download-now',`${out}/signature-only.pdf`);
  assert.equal(await page.locator('#fields').count(),1);
- await page.reload();await page.locator('[data-signature-preview="specimen"]').waitFor();
- assert.equal(await page.locator('[name="client_name"]').inputValue(),'');
+ await page.reload();await page.locator('[data-signature-slot="specimen"] img').waitFor();
+ assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('itqan.forms.v1.individual.signature-form')).values.client_name||''),'');
  const before=await page.evaluate(()=>JSON.parse(localStorage.getItem('itqan.forms.v1.individual.signature-form')).signatures.specimen);
- await upload(signatureSlots(docs[0])[0],fixturePaths[1]);
+ await upload(signatureSlots(signatureDoc)[0],fixturePaths[1]);
  const after=await page.evaluate(()=>JSON.parse(localStorage.getItem('itqan.forms.v1.individual.signature-form')).signatures.specimen);
  assert.notEqual(before,after);
- await page.locator('[data-signature-preview="specimen"]').click();await page.locator('#download:not([disabled])').waitFor();
+ await review();
  await page.locator('#loading').waitFor({state:'hidden'});
  await page.screenshot({path:`${out}/desktop-signature-preview.png`,fullPage:true});
  await download('[data-blank="signature-form"]',`${out}/blank-with-signature.pdf`);
  assert.deepEqual(await fs.readFile(`${out}/blank-with-signature.pdf`),await fs.readFile('reference/pdfs/signature-form.pdf'));
- await page.locator('[data-signature-remove="specimen"]').click();
- assert.equal(await page.locator('.signature-item').count(),0);
+ await unsigned(signatureSlots(signatureDoc)[0]);
+ assert.equal(await page.locator('[data-signature-slot] img').count(),0);
  await download('#download-now',`${out}/removed.pdf`);
  assert.deepEqual(await fs.readFile(`${out}/removed.pdf`),await fs.readFile('reference/pdfs/signature-form.pdf'));
  // Invalid inputs must neither replace a good signature nor prevent downloading.
- await upload(signatureSlots(docs[0])[0],fixturePaths[0]);
+ await upload(signatureSlots(signatureDoc)[0],fixturePaths[0]);
  for(const [name,buffer,message]of [
   ['invalid.svg',Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"></svg>'),'PNG or JPG'],
   ['invalid.png',Buffer.from([137,80,78,71,13,10,26,10,1]),'could not be opened'],
   ['huge.png',Buffer.alloc(5*1024*1024+1),'under 5 MB'],
  ]){
-  await page.locator('#signature-file').setInputFiles({name,mimeType:'image/png',buffer});
+  await page.locator('[data-signature-file="specimen"]').setInputFiles({name,mimeType:'image/png',buffer});
   await page.waitForFunction(text=>document.querySelector('.signature-feedback')?.textContent.includes(text),message);
-  assert.equal(await page.locator('.signature-item').count(),1);
+  assert.equal(await page.locator('[data-signature-slot] img').count(),1);
  }
  const blank=await page.evaluate(()=>{const c=document.createElement('canvas');c.width=400;c.height=100;const x=c.getContext('2d');x.fillStyle='white';x.fillRect(0,0,400,100);return c.toDataURL();});
- await page.locator('#signature-file').setInputFiles({name:'empty.png',mimeType:'image/png',buffer:Buffer.from(blank.split(',')[1],'base64')});
+ await page.locator('[data-signature-file="specimen"]').setInputFiles({name:'empty.png',mimeType:'image/png',buffer:Buffer.from(blank.split(',')[1],'base64')});
  await page.waitForFunction(()=>document.querySelector('.signature-feedback')?.textContent.includes('No signature'));
  await page.locator('#reset').click();await page.locator('#reset-confirm').click();
- assert.equal(await page.locator('.signature-item').count(),0);await page.locator('#back-home').click();
+ assert.equal(await page.locator('[data-signature-slot] img').count(),0);await page.locator('#back-home').click();
  console.log(`${engine}: upload, replacement, signature-only/blank downloads, restore, removal and invalid files passed`);
 
  const cases=['english','arabic','english-long','arabic-long','mixed'];
  for(const doc of docs.filter(d=>d.workflow!=='subscription'&&(!process.env.ONLY_DOCS||process.env.ONLY_DOCS.split(',').includes(d.id))))for(const [i,sample]of cases.entries()){
   if(process.env.SMOKE_ONLY&&i>0)continue;
-  await openDocument(page,base,doc.id);
+  currentDoc=doc;await openDocument(page,base,doc.id);
   const values=JSON.parse(await fs.readFile(`${process.env.ANSWER_OUT||'tmp/pdfs/audit'}/${doc.id}-${sample}.json`,'utf8'));
   for(const [step,section]of doc.sections.entries()){
    await page.locator(`[data-step="${step}"]`).click();
@@ -102,12 +116,12 @@ try{
   }
   const slots=signatureSlots(doc);
   for(const slot of slots)await upload(slot,fixturePaths[i]);
-  assert.equal(await page.locator('.signature-item').count(),slots.length);
   const stored=await page.evaluate(({id,group})=>JSON.parse(localStorage.getItem('itqan.forms.v1.'+(group==='corporate'?'corporate':'individual')+'.'+id)).signatures,doc);
+  assert.equal(Object.keys(stored).length,slots.length);
   const file=`${doc.id}-${sample}.pdf`;
   await download('#download-now',`${out}/${file}`);
   // Compare signed output with an identical set of answers without signatures.
-  for(const slot of slots)await page.locator(`[data-signature-remove="${slot.id}"]`).click();
+  for(const slot of slots)await unsigned(slot);
   await download('#download-now',`${out}/${doc.id}-${sample}-unsigned.pdf`);
   records.push({doc:doc.id,sample,file,slots,signatures:stored,answers:Object.keys(values).length});
   await page.locator('#back-home').click();
@@ -115,9 +129,9 @@ try{
  }
  // One target only on a multi-person document, mirrored tabs and mobile Arabic.
  await openDocument(page,base,'terms-and-conditions');
- const terms=docs.find(d=>d.id==='terms-and-conditions'),target=signatureSlots(terms)[4];
+ const terms=docs.find(d=>d.id==='terms-and-conditions'),target=signatureSlots(terms)[4];currentDoc=terms;
  await upload(target,fixturePaths[1]);
- await page.locator('[data-signature-preview="authorization_1"]').click();await page.locator('#download:not([disabled])').waitFor();
+ await review();
  assert.equal(await page.locator('#page-label').innerText(),'13 / 13');
  const single=await page.evaluate(()=>JSON.parse(localStorage.getItem('itqan.forms.v1.individual.terms-and-conditions')).signatures);
  assert.deepEqual(Object.keys(single),[target.id]);
@@ -125,9 +139,9 @@ try{
  await page.setViewportSize({width:390,height:844});await page.locator('#language').click();await page.locator('#loading').waitFor({state:'hidden'});
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
  await page.screenshot({path:`${out}/mobile-ar-signature-preview.png`,fullPage:true});
- const second=await context.newPage();await second.goto(catalogueUrl(base));await second.locator('[data-signature-preview="authorization_1"]').waitFor();
+ const second=await context.newPage();await second.goto(catalogueUrl(base));await second.locator('[data-signature-slot="authorization_1"] img').waitFor();
  await page.locator('#back-home').click();await page.locator('#clear-all').click();await page.locator('#clear-all-confirm').click();
- await second.waitForFunction(()=>document.querySelectorAll('.signature-item').length===0);await second.close();
+ await second.waitForFunction(()=>document.querySelectorAll('[data-signature-slot] img').length===0);await second.close();
  assert.equal(await page.evaluate(()=>Object.entries(localStorage).filter(([k])=>k.startsWith('itqan.forms.v1.individual.')&&!k.endsWith('preferences')).some(([,raw])=>{const value=JSON.parse(raw);return Object.keys(value?.values||{}).length||Object.keys(value?.signatures||{}).length;})),false);
  assert.deepEqual(errors,[]);assert.deepEqual(sent,[]);
  await fs.writeFile(`${out}/signature-audit.json`,JSON.stringify({site:base,engine,records},null,2));
