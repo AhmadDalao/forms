@@ -92,7 +92,18 @@ try{
     await p.locator(`[data-preview="${c.current.id}"]`).click();await p.locator('.portal-pdf-pages canvas').waitFor();await p.locator('.review-rejected').first().waitFor();await p.locator('.portal-preview [data-close]').click();
     await owner(ctx);await p.goto(base+'/management/');await p.locator('[data-reviews]').click();if((await p.locator('.client-management').getAttribute('dir'))!==(lang==='ar'?'rtl':'ltr'))await p.locator('[data-admin-language]').click();
     await p.locator('[data-review-filter]').selectOption('rejected');await p.locator(`[data-preview="${c.current.id}"]`).click();await p.locator('.review-form').waitFor();assert.equal(await p.locator('.portal-preview').evaluate(el=>el.scrollWidth>el.clientWidth+1),false);
-    await p.screenshot({path:out+'/review-'+name+'-'+lang+'-'+width+'.png'});await ctx.close();
+    await p.screenshot({path:out+'/review-'+name+'-'+lang+'-'+width+'.png'});await p.locator('.portal-preview [data-close]').click();
+    if(!remote&&name==='chrome'&&lang==='en'&&width===1440){
+     let release,seen,finished;const hold=new Promise(r=>release=r),started=new Promise(r=>seen=r),completed=new Promise(r=>finished=r);
+     const pattern='**/api/portal.php?**';
+     const handler=async route=>{const url=new URL(route.request().url());if(url.searchParams.get('action')==='admin_review_queue'&&url.searchParams.get('status')==='pending'){const response=await route.fetch();seen();await hold;await route.fulfill({response});finished();}else await route.continue();};
+     await p.route(pattern,handler);await p.locator('[data-review-filter]').selectOption('pending');await started;
+     const latest=p.waitForResponse(r=>{const u=new URL(r.url());return u.searchParams.get('action')==='admin_review_queue'&&u.searchParams.get('status')==='rejected';});
+     await p.locator('[data-review-filter]').selectOption('rejected');await latest;await p.locator(`[data-preview="${c.current.id}"]`).waitFor();
+     release();await completed;await p.waitForTimeout(250);assert.equal(await p.locator(`[data-preview="${c.current.id}"]`).count(),1);assert.equal(await p.locator('[data-review-filter]').inputValue(),'rejected');await p.unroute(pattern,handler);
+     checks.push('Delayed older review responses cannot overwrite the newest filter/language selection');
+    }
+    await ctx.close();
    }
    checks.push(name+': EN/AR desktop/mobile client notifications, PDF preview, review controls and layout');
   }finally{await engineBrowser.close();}
