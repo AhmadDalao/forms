@@ -1,0 +1,51 @@
+{
+  "tested_at_utc": "2026-09-19T14:22:30.890291+00:00",
+  "url": "https://forms.ahmaddalao.com/",
+  "source_commit": "541ce8b2d4265857e2343c389431315432bba18b",
+  "unit_tests_passed": 56,
+  "local_audits": [
+    "portal-audit.mjs",
+    "management-audit.mjs"
+  ],
+  "hosted_checks": [
+    "Anonymous access, CSRF, phone and confirmation validation",
+    "English browser signup, Saudi phone normalization, account draft migration and duplicate phone",
+    "Private PDF storage, owner checks, malformed PDF rejection and duplicate submission protection",
+    "Signature and both subscription UI submissions, server totals and optional email capture",
+    "Account/admin previews, manual PDF upload, dashboard counts and ZIP exact-byte contents",
+    "Individual Arabic and company English subscription edits, recalculated amounts and prior-PDF preservation",
+    "Client edit/resubmit and reload, separate working draft, signature recovery, immutable originals, archive dates, stale-edit rejection, owner restore, restore retry/CSRF, replacement upload and audience/account version isolation",
+    "Owner reset, strong one-time displayed password, old password/session revocation and mandatory change",
+    "Original side-by-side logos, My applications page in English/Arabic, compatible account links, mobile layouts, existing catalogue navigation and persistent login throttling"
+  ],
+  "console_errors": [],
+  "all_template_hashes_match": true,
+  "public_routes": [
+    "/",
+    "/individuals/",
+    "/companies/",
+    "/register/",
+    "/login/",
+    "/management/"
+  ],
+  "owner_credentials_preserved": true,
+  "private_storage_denied": true,
+  "secure_cookies": true,
+  "api_cache_control": "private, no-store",
+  "synthetic_accounts_removed": 2,
+  "synthetic_submission_pdfs_removed": 14,
+  "database_integrity": "ok",
+  "final_stats": {
+    "users": 1,
+    "submissions": 0,
+    "active_submissions": 0,
+    "submitted_users": 0
+  },
+  "preview_remains_protected": true,
+  "public_build_files": 66,
+  "backup": "/Users/ahmaddalao/Desktop/forms-portal/tmp/deployment-backups/20260919T141438Z",
+  "notes": [
+    "No new document fields or choices were introduced for this release.",
+    "Customer APIs enforce a 20 MB PDF upload limit; Hostinger reports a larger PHP transport limit."
+  ]
+}
