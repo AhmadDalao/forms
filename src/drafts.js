@@ -1,3 +1,4 @@
+import {personNameGroups,normalizePersonNames} from './person-names.js';
 import {nameParts} from './names.js';
 import {joinedName} from './subscription/model.js';
 import {draftStoragePrefix} from './routes.js';
@@ -48,10 +49,15 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       next.signature_mode=record.signatures?.applicant?'electronic':'manual';
       record={...record,values:next,overrides:[...(record.overrides||[]),...(old.applicant_name?['applicant_name']:[])]};
     }
+    if(record){
+      const overrides=[...(record.overrides||[])];
+      for(const group of personNameGroups(doc,audience||doc.group))if(!group.partIds.some(id=>Object.hasOwn(record.values||{},id))&&group.targets.some(target=>overrides.includes(target.id)))overrides.push(...group.partIds);
+      record={...record,overrides:[...new Set(overrides)],values:normalizePersonNames(doc,record.values||{},{audience:audience||doc.group}),shared:normalizePersonNames(doc,record.shared||{},{audience:audience||doc.group})};
+    }
     const values={},shared={},countryDefaults={},countryIds=new Set(countryFields(doc).map(f=>f.id));
     for(const field of doc.fields){
       const value=record?.values?.[field.id];
-      if(countryIds.has(field.id)&&value==='')values[field.id]='';
+      if((countryIds.has(field.id)||field.personNamePart||field.personNameDerived)&&value==='')values[field.id]='';
       if(typeof record?.shared?.[field.id]==='string')shared[field.id]=record.shared[field.id];
       if(field.sum||!hasValue(value))continue;
       if(field.type==='choice'){
@@ -128,6 +134,14 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       const doc=documents.find(d=>d.id===id);if(!doc)return false;
       const old=this.get(id),overrides=[...old.overrides];
       if(editedField&&!overrides.includes(editedField))overrides.push(editedField);
+      values={...values};
+      for(const group of personNameGroups(doc,audience||doc.group)){
+        if(group.partIds.includes(editedField))for(const target of group.targets)if(!overrides.includes(target.id))overrides.push(target.id);
+        if(group.targets.some(target=>target.id===editedField)){
+          for(const id of group.partIds){delete values[id];if(!overrides.includes(id))overrides.push(id);}
+        }
+      }
+      values=normalizePersonNames(doc,values,{audience:audience||doc.group});
       const images=cleanSignatures(doc,signatures),signatureModes=cleanSignatureModes(doc,old.signatureModes,images);
       for(const [slot,mode] of Object.entries(signatureModes))if(mode==='manual')delete images[slot];
       const next=reconcileShared(doc,{...old,values:{...values},signatures:images,signatureModes,step,overrides},profile,audience);
@@ -145,7 +159,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       // Isolated edit drafts never replace the customer's normal working draft.
       // Blank submitted fields are deliberate too; shared data cannot refill them.
       const autoApplicant=doc.workflow==='subscription'&&snapshot.answers.applicant_name===(doc.group==='individual'?joinedName(snapshot.answers):snapshot.answers.auth_name);
-      return persist(doc,clean(doc,{values:snapshot.answers,signatures:snapshot.signatures||{},step:0,overrides:doc.fields.map(f=>f.id).filter(id=>id!=='applicant_name'||!autoApplicant),revision:{sourceId:snapshot.id,expectedCurrent:snapshot.current_id,version:snapshot.version,legacySignatures:snapshot.signatures===null,profile:snapshot.profile}}));
+      return persist(doc,clean(doc,{values:snapshot.answers,signatures:snapshot.signatures||{},step:0,overrides:doc.fields.map(f=>f.id).filter(id=>!autoApplicant||(id!=='applicant_name'&&!doc.personNameGroups?.find(g=>g.id==='applicant_name')?.partIds.includes(id))),revision:{sourceId:snapshot.id,expectedCurrent:snapshot.current_id,version:snapshot.version,legacySignatures:snapshot.signatures===null,profile:snapshot.profile}}));
     },
     beginSignatureRequest(id,reviewRevision){
       const doc=documents.find(d=>d.id===id),record=this.get(id);
@@ -169,8 +183,10 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     },
     useShared(id,field){
       const doc=documents.find(d=>d.id===id);if(!doc)return false;
-      const r=this.get(id),next={...r,values:{...r.values},overrides:r.overrides.filter(k=>k!==field)};
-      delete next.values[field];return persist(doc,reconcileShared(doc,next,profile,audience));
+      const r=this.get(id),group=personNameGroups(doc,audience||doc.group).find(g=>g.targets.some(target=>target.id===field));
+      const keys=group?[...group.partIds,...group.targets.map(target=>target.id)]:[field];
+      const next={...r,values:{...r.values},overrides:r.overrides.filter(k=>!keys.includes(k))};
+      for(const key of keys)delete next.values[key];return persist(doc,reconcileShared(doc,next,profile,audience));
     },
     fillSharedBlanks(id){
       const doc=documents.find(d=>d.id===id);if(!doc)return false;

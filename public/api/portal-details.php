@@ -40,7 +40,7 @@ function cleanSharedSnapshot(string $audience,mixed $input,array $definitions): 
 
 function documentFieldDefinitions(array $doc): array {
     return array_map(function($field){
-        $result=array_intersect_key($field,array_flip(['id','label','ar','type','hidden']));
+        $result=array_intersect_key($field,array_flip(['id','label','ar','type','hidden','uiOnly','joinAudience']));
         if(isset($field['options']))$result['options']=array_map(fn($option)=>array_intersect_key($option,array_flip(['value','label','ar'])),$field['options']);
         if(isset($field['selectOptions']))$result['selectOptions']=array_map(fn($option)=>array_slice($option,0,3),$field['selectOptions']);
         return $result;

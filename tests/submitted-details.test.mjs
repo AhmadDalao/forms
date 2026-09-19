@@ -32,3 +32,11 @@ test('PDF-only submissions explain missing online answers without fabricating bl
  const s=sample({doc_id:'signature-form',source:'upload',answers:{injected:'not online data'},profile:{submission_source:'upload'}});
  const model=submissionDetailsModel(s);assert.equal(model.uploaded,true);assert.equal(model.groups.length,0);assert.equal(model.signatures.length,0);const html=renderSubmissionDetails(s);assert.ok(html.includes('No online form answers were captured'));assert.ok(!html.includes('data-answer-field'));
 });
+test('shared corporate snapshots hide only individual-only UI parts, preserving full and historical answers',()=>{
+ const definitions=[{id:'client_name',label:'Client Name',hidden:true,joinAudience:'individual'},{id:'client_name_first',label:'First name',uiOnly:true,joinAudience:'individual'},{id:'signer_name_first',label:'Signer first name',uiOnly:true}];
+ const corporate=sample({audience:'corporate',answers:{client_name:'Example Company',signer_name_first:'Ali',legacy:'Original answer'},profile:{field_definitions:definitions}});
+ const rows=submissionDetailsModel(corporate).groups.flatMap(g=>g.fields);
+ assert.equal(rows.some(f=>f.id==='client_name_first'),false);assert.equal(rows.find(f=>f.id==='client_name').value,'Example Company');assert.equal(rows.find(f=>f.id==='signer_name_first').value,'Ali');assert.equal(rows.find(f=>f.id==='legacy').value,'Original answer');
+ const individual=submissionDetailsModel({...corporate,audience:'individual',answers:{client_name:'Ali Family',client_name_first:'Ali'}}).groups.flatMap(g=>g.fields);
+ assert.equal(individual.find(f=>f.id==='client_name_first').value,'Ali');
+});

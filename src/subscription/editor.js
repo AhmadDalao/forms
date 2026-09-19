@@ -4,29 +4,34 @@ import {signingNotice,showSigningGuide} from '../portal/signing.js';
 import {normalizeSubscription,visibleFields,sectionProgress,missingRequired} from './model.js';
 import {rules,parseUnits,formatSubscriptionNumber} from './calculations.js';
 import {countryFields} from '../countries.js';
+import {personNameGroups} from '../person-names.js';
 import './style.css';
 import {reviewEnabled,formSaveLabel,toolModeNotice} from '../portal/workflow.js';
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 export function createSubscriptionEditor({root,doc,drafts,audience,header,footer,bindCommon,home,editShared,submit}){
+ const nameGroups=personNameGroups(doc,audience),applicantGroup=nameGroups.find(group=>group.id==='applicant_name');
+ const applicantOverride=record=>record.overrides.includes('applicant_name')||applicantGroup?.partIds.some(id=>record.overrides.includes(id));
  let lang='en',record=drafts.get(doc.id),values,signatures={...record.signatures},step=record.step,review=false,busy=false,pdf=null,pdfBytes=null,downloadUrl=null,token=0,paintToken=0,disposed=false,errors=[],message='';
- let applicantEdited=record.overrides.includes('applicant_name'),manualGuideShown=false;
+ let applicantEdited=applicantOverride(record),manualGuideShown=false;
  const signingState=()=>submissionSigningState(doc,values,signatures);
  function manualSigningGuide(force=false,downloaded=false){if(!reviewEnabled()||!signingState().manual||(!force&&manualGuideShown))return;manualGuideShown=true;showSigningGuide({doc,lang,onDownload:!downloaded&&pdfBytes?download:null});}
  const t=(en,ar)=>lang==='ar'?ar:en;
  const selectionIds=['subscription_type','payment_method'];
  const normalize=()=>{values=normalizeSubscription(doc,values,{applicantEdited});};
- function refresh(){record=drafts.get(doc.id);values={...record.values};signatures={...record.signatures};step=record.step;applicantEdited=record.overrides.includes('applicant_name');normalize();invalidate();}
+ function refresh(){record=drafts.get(doc.id);values={...record.values};signatures={...record.signatures};step=record.step;applicantEdited=applicantOverride(record);normalize();invalidate();}
  refresh();
  function save(edited=null){normalize();drafts.save(doc.id,values,step,signatures,edited);values={...drafts.get(doc.id).values};normalize();}
  function invalidate(){token++;paintToken++;review=false;pdfBytes=null;if(pdf){pdf.loadingTask.destroy();pdf=null;}if(downloadUrl){URL.revokeObjectURL(downloadUrl);downloadUrl=null;}}
  function sharedKey(f){
+  if(f.personNameGroup==='english_name')return f.id;
+  if(f.personNameGroup==='auth_name')return 'auth_'+f.personNamePart;
   if(!f.namePart)return f.sharedKey;
   const p=drafts.profile,preferred=p.name_language||(p.ar_first?'ar':lang),language=p[preferred+'_first']?preferred:p.ar_first?'ar':'en';
   return language+'_'+({first_name:'first',second_name:'second',third_name:'third',family_name:'last'}[f.id]);
  }
  const isShared=f=>{
-  const saved=drafts.get(doc.id),shared=f.id==='english_name'?saved.shared?.english_name:drafts.profile[sharedKey(f)];
+  const saved=drafts.get(doc.id),shared=saved.shared?.[f.id]??(f.id==='english_name'?saved.shared?.english_name:drafts.profile[sharedKey(f)]);
   return !saved.overrides.includes(f.id)&&Boolean(shared&&shared===values[f.id]);
  };
  function shownValue(f){
@@ -45,7 +50,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
  }
  function errorFor(id){return errors.includes(id)?`<small class="field-error">${t('Check this field. It is missing, invalid, or too long for the document.','راجع هذا الحقل: القيمة ناقصة أو غير صحيحة أو أطول من المساحة المتاحة في المستند.')}</small>`:'';}
  function field(f){
-  const value=values[f.id]??'',label=escape(t(f.label,f.ar)),shared=isShared(f),locked=shared&&f.id!=='applicant_name'&&!countryFields(doc).some(country=>country.id===f.id);
+  const value=values[f.id]??'',label=escape(t(f.label,f.ar)),shared=isShared(f),locked=shared&&f.id!=='applicant_name'&&f.personNameGroup!=='applicant_name'&&!countryFields(doc).some(country=>country.id===f.id);
   if(f.type==='signature')return signature();
   if(f.type==='cards')return `<fieldset class="field sub-choice ${errors.includes(f.id)?'invalid':''}" data-field="${f.id}"><legend>${label}</legend><div class="sub-cards">${f.options.map(o=>`<label class="sub-option bilingual-card ${value===o.value?'selected':''}"><input type="radio" name="${f.id}" value="${o.value}" ${value===o.value?'checked':''}><span><b lang="ar" dir="rtl">${escape(o.ar)}</b><i aria-hidden="true"></i><small lang="en" dir="ltr">${escape(o.label)}</small></span></label>`).join('')}</div>${errorFor(f.id)}</fieldset>`;
   let input;
@@ -57,9 +62,16 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
  }
  function fields(){
   const section=doc.sections[step],fs=visibleFields(doc,values,section);
-  if(fs.some(f=>f.namePart)){
-   const start=fs.findIndex(f=>f.namePart),end=fs.findLastIndex(f=>f.namePart);
-   return `<div class="sub-fields">${fs.slice(0,start).map(field).join('')}</div><div class="sub-fields name-row-grid">${fs.slice(start,end+1).map(field).join('')}</div><div class="sub-fields">${fs.slice(end+1).map(field).join('')}</div>`;
+  if(fs.some(f=>f.namePart||f.personNameGroup)){
+   const primary={id:'full_name',partIds:['first_name','second_name','third_name','family_name'],label:'Full name',ar:'الاسم الكامل'},groups=[primary,...nameGroups],rendered=new Set(),chunks=[];let regular=[];
+   const flush=()=>{if(regular.length){chunks.push(`<div class="sub-fields">${regular.map(field).join('')}</div>`);regular=[];}};
+   for(const f of fs){
+    const group=groups.find(group=>group.partIds.includes(f.id));if(!group){regular.push(f);continue;}
+    if(rendered.has(group.id))continue;flush();rendered.add(group.id);
+    const parts=group.partIds.map(id=>fs.find(field=>field.id===id)).filter(Boolean);
+    chunks.push(`<section class="person-name-group" data-person-name-group="${escape(group.id)}"><h3>${escape(t(group.label,group.ar))}${group.required?'<span class="required-mark"> *</span>':''}</h3><div class="sub-fields name-row-grid">${parts.map(field).join('')}</div>${group.id==='applicant_name'?`<p class="sub-help">${t('Filled from your customer details. You can edit how your name appears.','معبّأ من بيانات العميل. يمكنك تعديل طريقة ظهور الاسم.')}</p>`:''}</section>`);
+   }
+   flush();return chunks.join('');
   }
   if(section.id!=='subscription')return `<div class="sub-fields">${fs.map(field).join('')}</div>`;
   const choices=`<div class="sub-selections financial-row"><div class="sub-fields sub-selection-grid">${selectionIds.map(id=>field(fs.find(f=>f.id===id))).join('')}</div><div class="sub-selection-actions"><button type="button" class="clear-choice" data-sub-clear>${t('Clear selection','مسح الاختيار')}</button></div></div>`;
@@ -101,10 +113,10 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
   const units=root.querySelector('[data-field="units"]');if(units)units.classList.toggle('invalid',Boolean(values.units&&!values.total_amount));
   const saveStatus=root.querySelector('[data-sub-save]');if(saveStatus)saveStatus.textContent=drafts.available?t('Saved on this browser','محفوظ في هذا المتصفح'):t('Browser storage unavailable — download before leaving','التخزين غير متاح — نزّل المستند قبل المغادرة');
  }
- function changed(id){invalidate();message='';if(id)errors=errors.filter(e=>e!==id);save(id);update();const status=root.querySelector('#sub-status');if(status)status.textContent='';const result=root.querySelector('#sub-download');if(result)result.hidden=true;}
+ function changed(id){invalidate();message='';if(id){const group=nameGroups.find(group=>group.partIds.includes(id)),changedIds=group?[...group.partIds,...group.targets.map(target=>target.id)]:[id];errors=errors.filter(error=>!changedIds.includes(error));}save(id);update();const status=root.querySelector('#sub-status');if(status)status.textContent='';const result=root.querySelector('#sub-download');if(result)result.hidden=true;}
  function input(ev){
   if(busy)return;const f=doc.fields.find(f=>f.id===ev.target.name);if(!f||f.readOnly)return;
-  values[f.id]=ev.target.value;if(f.id==='applicant_name')applicantEdited=true;
+  values[f.id]=ev.target.value;if(f.id==='applicant_name'||f.personNameGroup==='applicant_name')applicantEdited=true;
   // Inputs remain mounted while typing, including LTR email in the Arabic UI.
   changed(f.id);
   if(['select','cards','signature'].includes(f.type)){if(f.id==='signature_mode'&&values.signature_mode==='manual'){delete signatures.applicant;save();}render();if(f.type==='cards')root.querySelector(`[name="${f.id}"]:checked`)?.focus();}
@@ -120,7 +132,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
  function download(){if(!pdfBytes)return;if(downloadUrl)URL.revokeObjectURL(downloadUrl);downloadUrl=URL.createObjectURL(new Blob([pdfBytes],{type:'application/pdf'}));const box=root.querySelector('#sub-download');box.hidden=false;box.innerHTML=downloadLink();root.querySelector('#sub-save-pdf').click();manualSigningGuide(false,true);}
  async function prepare(downloadNow){
   if(busy)return;if(pdfBytes&&review){if(downloadNow)download();return;}
-  save();errors=downloadNow?[]:missingRequired(doc,values,signatures);
+  save();errors=downloadNow?[]:visibleErrors(missingRequired(doc,values,signatures));
   // Partial downloads stay available; explicitly selected electronic signing needs an image.
   if(values.signature_mode==='electronic'&&!signatures.applicant)errors.push('signature_mode');
   if(errors.length){const index=doc.sections.findIndex(s=>s.fields.some(f=>errors.includes(f.id)));if(index>=0)step=index;message=t('Complete the highlighted required fields before reviewing. You can download your current answers at any time.','أكمل الحقول المطلوبة المحددة قبل المراجعة. يمكنك تنزيل الإجابات الحالية في أي وقت.');render();root.querySelector('.invalid,input[required]:invalid')?.focus();return;}
@@ -132,11 +144,12 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
    if(downloadNow){download();root.querySelector('#sub-status').textContent=t('Your PDF is ready.','المستند جاهز.');}
    else{const loaded=await loadPreview(bytes);if(disposed||id!==token){loaded.loadingTask.destroy();return;}pdf=loaded;review=true;render();manualSigningGuide();}
   }catch(error){
-   if(disposed||id!==token)return;errors=(error.fields||[]).flatMap(field=>field==='full_name'?['first_name','second_name','third_name','family_name']:field.endsWith('_label')?[field.slice(0,-6)]:field==='total_words'?['units']:[field]);
+   if(disposed||id!==token)return;errors=visibleErrors(error.fields||[]);
    const index=doc.sections.findIndex(s=>s.fields.some(f=>errors.includes(f.id)));if(index>=0)step=index;
    message=error.message==='units'?t('Enter a whole number of units from 1 to '+rules.maxUnits+'.','أدخل عدد وحدات صحيحًا من ١ إلى ٩٩٩٬٩٩٩٬٩٩٩.'):error.fields?t('An answer is too long for its space. Check the highlighted field.','إحدى الإجابات أطول من مساحتها. راجع الحقل المحدد.'):t('Could not validate the totals or prepare the PDF. Check your connection and try again; your answers are saved.','تعذّر التحقق من المبالغ أو إعداد المستند. تحقق من الاتصال وأعد المحاولة؛ إجاباتك محفوظة.');render();
   }finally{busy=false;if(!disposed)lock();}
  }
+ function visibleErrors(ids){return [...new Set(ids.flatMap(id=>nameGroups.find(group=>group.targets.some(target=>target.id===id))?.partIds||(id==='full_name'?['first_name','second_name','third_name','family_name']:id.endsWith('_label')?[id.slice(0,-6)]:id==='total_words'?['units']:[id])))];}
  async function paint(){const id=++paintToken;try{for(const canvas of root.querySelectorAll('[data-pdf-page]')){if(disposed||id!==paintToken)return;await renderPage(pdf,Number(canvas.dataset.pdfPage),canvas,1000);}}catch{if(!disposed&&id===paintToken){message=t('Preview could not render. Return to the applicant step and try again.','تعذّر عرض المعاينة. عُد إلى صفحة مقدم الطلب وأعد المحاولة.');root.querySelector('#sub-status').textContent=message;}}}
  return {render,save,workflowChanged(){if(review&&!busy)render();},refresh(){refresh();render();},destroy(){disposed=true;invalidate();},get values(){return {...values};}};
 }

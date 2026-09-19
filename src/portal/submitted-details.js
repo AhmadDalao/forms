@@ -27,22 +27,22 @@ function direction(field,value){
  if(field.direction==='ltr'||/^[\s\d٠-٩۰-۹+().\-/]+$/.test(value)||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))return 'ltr';
  return 'auto';
 }
-function fieldsFor(definitions,values,lang){
- const fields=new Map();
- for(const field of definitions)if(field&&typeof field.id==='string'&&!fields.has(field.id))fields.set(field.id,field);
- for(const id of Object.keys(values))if(!fields.has(id))fields.set(id,{id});
+function fieldsFor(definitions,values,lang,audience){
+ const fields=new Map(),excluded=new Set(definitions.filter(field=>field?.uiOnly&&field.joinAudience&&field.joinAudience!==audience).map(field=>field.id));
+ for(const field of definitions)if(field&&typeof field.id==='string'&&!excluded.has(field.id)&&!fields.has(field.id))fields.set(field.id,field);
+ for(const id of Object.keys(values))if(!excluded.has(id)&&!fields.has(id))fields.set(id,{id});
  return [...fields.values()].map(field=>{const value=answerValue(field,values[field.id],lang);return {id:field.id,label:localized(field,lang,plainLabel(field.id)),value,empty:blank(values[field.id]),direction:direction(field,value)};});
 }
 export function submissionDetailsModel(submission,lang='en'){
  const t=(en,ar)=>lang==='ar'?ar:en,profile=record(submission.profile),answers=record(submission.answers),known=docs.find(d=>d.id===submission.doc_id),uploaded=(submission.source||profile.submission_source)==='upload';
- const definitions=Array.isArray(profile.field_definitions)?profile.field_definitions:known?.fields||[],fields=uploaded?[]:fieldsFor(definitions,answers,lang),byId=new Map(fields.map(field=>[field.id,field]));
+ const definitions=Array.isArray(profile.field_definitions)?profile.field_definitions:known?.fields||[],fields=uploaded?[]:fieldsFor(definitions,answers,lang,submission.audience),byId=new Map(fields.map(field=>[field.id,field]));
  const sections=Array.isArray(profile.section_definitions)?profile.section_definitions:(known?.sections||[]).map(section=>({...section,field_ids:section.fields.map(field=>field.id)}));
  const used=new Set(),groups=[];
  for(const section of sections){const rows=(section.field_ids||[]).filter(id=>byId.has(id)&&!used.has(id)).map(id=>{used.add(id);return byId.get(id);});if(rows.length)groups.push({id:section.id,label:localized({...section,label:section.title},lang,t('Document fields','حقول المستند')),fields:rows});}
  const remaining=fields.filter(field=>!used.has(field.id));if(remaining.length)groups.push({id:'other',label:groups.length?t('Other submitted details','بيانات مرسلة أخرى'):t('Document fields','حقول المستند'),fields:remaining});
  const sharedValues=Object.fromEntries(Object.entries(profile).filter(([id])=>!metadataKeys.has(id))),knownShared=sharedGroups(submission.audience),sharedDefinitions=Array.isArray(profile.shared_field_definitions)?profile.shared_field_definitions:knownShared.flatMap(group=>group.fields);
  // Older snapshots captured only a subset. Do not imply uncaptured fields were submitted blank.
- const sharedFields=fieldsFor(sharedDefinitions.filter(field=>own(sharedValues,field.id)),sharedValues,lang),sharedById=new Map(sharedFields.map(field=>[field.id,field])),sharedUsed=new Set(),shared=[];
+ const sharedFields=fieldsFor(sharedDefinitions.filter(field=>own(sharedValues,field.id)),sharedValues,lang,submission.audience),sharedById=new Map(sharedFields.map(field=>[field.id,field])),sharedUsed=new Set(),shared=[];
  for(const [index,group]of knownShared.entries()){const rows=group.fields.filter(field=>sharedById.has(field.id)).map(field=>{sharedUsed.add(field.id);return sharedById.get(field.id);});if(rows.length)shared.push({id:'shared-'+index,label:localized(group,lang,t('Shared customer details','بيانات العميل المشتركة')),fields:rows});}
  const sharedRemaining=sharedFields.filter(field=>!sharedUsed.has(field.id));if(sharedRemaining.length)shared.push({id:'shared-other',label:t('Other shared details','بيانات مشتركة أخرى'),fields:sharedRemaining});
  const images=record(submission.signatures),signatureDefinitions=Array.isArray(profile.signature_definitions)?profile.signature_definitions:known?signatureSlots(known):[],signatureMap=new Map(signatureDefinitions.map(field=>[field.id,field]));

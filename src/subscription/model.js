@@ -1,31 +1,39 @@
 import {calculateSubscription} from './calculations.js';
 import {appRoot} from '../routes.js';
 import {today} from '../dates.js';
+import {normalizePersonNames,personNameGroups,personNameFieldVisible} from '../person-names.js';
 export {today} from '../dates.js';
 export const isSubscription=doc=>doc?.workflow==='subscription';
 export const joinedName=v=>['first_name','second_name','third_name','family_name'].map(k=>(v[k]||'').trim()).filter(Boolean).join(' ');
 export const visibleField=(f,values)=>!f.when||f.when.includes(values[f.dependsOn]);
 export function normalizeSubscription(doc,input,{applicantEdited=false}={}){
- const values={...input};
+ const values=normalizePersonNames(doc,input,{audience:doc.group});
  if(values.id_type==='family'){values.id_type='other';values.id_other='بطاقة عائلية / Family ID';}
  if(!('date' in values))values.date=today();
  values.signature_mode=values.signature_mode||'manual';
  values.full_name=doc.group==='individual'?joinedName(values):values.company_name||'';
- if(!applicantEdited)values.applicant_name=doc.group==='individual'?values.full_name:values.auth_name||'';
+ if(!applicantEdited){
+  values.applicant_name=doc.group==='individual'?values.full_name:values.auth_name||'';
+  const groups=personNameGroups(doc,doc.group),applicant=groups.find(group=>group.id==='applicant_name');
+  const source=doc.group==='individual'?['first_name','second_name','third_name','family_name']:groups.find(group=>group.id==='auth_name')?.partIds;
+  if(applicant&&source)applicant.partIds.forEach((id,index)=>values[id]=values[source[index]]||'');
+ }
  try{Object.assign(values,calculateSubscription(values.units));}catch{
   Object.assign(values,calculateSubscription(''));values.units=input.units;
  }
  return values;
 }
-export function visibleFields(doc,values,section=null){return (section?.fields||doc.fields).filter(f=>!f.hidden&&visibleField(f,values));}
+export function visibleFields(doc,values,section=null){return (section?.fields||doc.fields).filter(f=>personNameFieldVisible(f,doc.group)&&visibleField(f,values));}
+const answerFields=(doc,values,section=null)=>(section?.fields||doc.fields).filter(f=>!f.uiOnly&&(!f.hidden||f.personNameDerived)&&visibleField(f,values));
 export function sectionProgress(doc,section,values,signatures){
- const fields=visibleFields(doc,values,section).filter(f=>!f.optional);
+ const fields=answerFields(doc,values,section).filter(f=>!f.optional);
  let completed=fields.filter(f=>String(values[f.id]??'').trim()&&!(f.id==='units'&&!values.total_amount)).length,total=fields.length;
  if(section.id==='applicant'&&values.signature_mode==='electronic'){total++;if(signatures.applicant)completed++;}
  return {completed,total};
 }
 export function missingRequired(doc,values,signatures){
- const missing=visibleFields(doc,values).filter(f=>f.required&&!String(values[f.id]??'').trim()).map(f=>f.id);
+ const answers=normalizePersonNames(doc,values,{audience:doc.group});
+ const missing=answerFields(doc,answers).filter(f=>f.required&&!String(answers[f.id]??'').trim()).map(f=>f.id);
  if(values.units&&!values.total_amount)missing.push('units');
  if(values.signature_mode==='electronic'&&!signatures.applicant)missing.push('signature_mode');
  return [...new Set(missing)];

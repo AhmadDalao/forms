@@ -23,7 +23,7 @@ for(const corporate of [false,true]){
   field('auth_id','Authorized signatory ID number','رقم هوية المفوض',{sharedKey:'auth_id'});
  }else{
   for(const [id,en,ar,optional] of [['first_name','First name','الاسم الأول',false],['second_name','Second name','الاسم الثاني',false],['third_name','Third name (optional)','الاسم الثالث (اختياري)',true],['family_name','Family name','اسم العائلة',false]])field(id,en,ar,{required:!optional,optional,namePart:true});
-  field('full_name','','',{hidden:true});
+  field('full_name','','',{hidden:true,join:['first_name','second_name','third_name','family_name']});
   field('nationality','Nationality','الجنسية',{required:true,sharedKey:'nationality'});
   field('id_type','ID type','نوع الهوية',{type:'select',required:true,sharedKey:'id_type',selectOptions:idOptions});
   field('id_type_label','','',{hidden:true});

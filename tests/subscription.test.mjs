@@ -40,7 +40,7 @@ test('third name is optional, applicant auto-follows names until deliberately ed
  const base={first_name:'أحمد',second_name:'محمد',family_name:'العلي',nationality:'سعودي',id_type:'national',id_number:'001234',subscription_type:'new',payment_method:'transfer',units:'10'};
  let v=normalizeSubscription(individual,base);assert.equal(v.full_name,'أحمد محمد العلي');assert.equal(v.applicant_name,v.full_name);assert.deepEqual(missingRequired(individual,v,{}),[]);
  v=normalizeSubscription(individual,{...v,third_name:'عبدالله'});assert.equal(v.applicant_name,'أحمد محمد عبدالله العلي');
- v=normalizeSubscription(individual,{...v,first_name:'علي',applicant_name:'اسم مصحح',date:'2026-10-12'},{applicantEdited:true});assert.equal(v.applicant_name,'اسم مصحح');assert.equal(v.date,'2026-10-12');
+ v=normalizeSubscription(individual,{...v,first_name:'علي',applicant_name_first:'اسم',applicant_name_second:'',applicant_name_third:'',applicant_name_last:'مصحح',date:'2026-10-12'},{applicantEdited:true});assert.equal(v.applicant_name,'اسم مصحح');assert.equal(v.date,'2026-10-12');
 });
 test('nationality precedes the dropdown, ID fields follow the selected type, company details stay separate',()=>{
  assert.ok(individual.fields.findIndex(f=>f.id==='nationality')<individual.fields.findIndex(f=>f.id==='id_type'));
@@ -87,7 +87,7 @@ test('PDF canonicalization requires server agreement and clears hidden ID detail
 });
 test('clearing a migrated middle name does not resurrect the old value',()=>{
  const p=cleanShared('individual',{ar_first:'أحمد',ar_middle:'محمد',ar_last:'علي'});
- const cleared=cleanShared('individual',{...p,ar_second:''});assert.equal(cleared.ar_second,undefined);assert.equal(cleared.ar_middle,undefined);
+ const cleared=cleanShared('individual',{...p,ar_second:''});assert.equal(cleared.ar_second,'');assert.equal(cleared.ar_middle,undefined);
 });
 test('saved legacy subscription names, IDs and applicant correction migrate into each new audience form',()=>{
  const m=new Map();const storage=()=>({getItem:k=>m.get(k)||null,setItem:(k,v)=>m.set(k,v),removeItem:k=>m.delete(k)});

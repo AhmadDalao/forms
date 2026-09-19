@@ -1,3 +1,4 @@
+import {personNameGroups,normalizePersonNames,splitPersonName,joinPersonName} from './person-names.js';
 import {nameParts} from './names.js';
 import {hasValue} from './schema.js';
 import {countryFields,sharedCountryIds} from './countries.js';
@@ -29,13 +30,16 @@ export function sharedGroups(audience){
   {label:'Company details',ar:'بيانات الشركة',fields:[field('company_name','Full legal company name','الاسم القانوني الكامل للشركة'),field('inc_country','Country of incorporation','دولة التأسيس'),field('company_id_type','Registration type','نوع تسجيل الشركة','select',[['cr','Commercial registration','سجل تجاري'],['license','Licence','ترخيص'],['other','Other','أخرى']]),field('company_id_number','Registration / licence number','رقم السجل / الترخيص'),field('client_number','Client number (if known)','رقم العميل (إن وجد)'),field('account_number','Investment account number (if known)','رقم الحساب الاستثماري (إن وجد)')]},
   {label:'Company contact details',ar:'بيانات التواصل مع الشركة',fields:[field('phone','Company phone','هاتف الشركة','tel'),field('mobile','Contact mobile','جوال مسؤول التواصل','tel'),field('email','Contact email','البريد الإلكتروني للتواصل','email')]},
   {label:'Registered address',ar:'العنوان المسجل',fields:[...addressFields(),field('also_residence','Also use as the entity’s current residence address','استخدمه أيضًا عنوانًا للإقامة الحالية للكيان','checkbox'),field('also_head','Also use as the principal office address','استخدمه أيضًا عنوانًا للمكتب الرئيسي','checkbox'),field('also_mail','Also use as the correspondence address','استخدمه أيضًا عنوانًا للمراسلة','checkbox')]},
-  {label:'Primary authorized signatory',ar:'المفوض الرئيسي بالتوقيع',fields:[field('auth_name','Authorized person’s full name','الاسم الكامل للمفوض'),field('auth_id_type','ID type','نوع الهوية','select',idOptions),otherId('auth_id_other','auth_id_type'),field('auth_id','ID number','رقم الهوية')]},
+  {label:'Primary authorized signatory',ar:'المفوض الرئيسي بالتوقيع',fields:[{...field('auth_name','Authorized person’s full name','الاسم الكامل للمفوض'),hidden:true},...['first','second','third','last'].map((part,i)=>({...field('auth_'+part,['First name','Second name','Third name (optional)','Family name'][i],['الاسم الأول','الاسم الثاني','الاسم الثالث (اختياري)','اسم العائلة'][i]),namePart:true})),field('auth_id_type','ID type','نوع الهوية','select',idOptions),otherId('auth_id_other','auth_id_type'),field('auth_id','ID number','رقم الهوية')]},
  ];
  return [];
 }
 export function cleanShared(audience,profile){
  const clean={};
  profile={...profile};
+ const authKeys=['first','second','third','last'].map(part=>'auth_'+part);
+ if(audience==='corporate'&&!authKeys.some(key=>key in profile)&&profile.auth_name){const parts=splitPersonName(profile.auth_name);for(const part of ['first','second','third','last'])profile['auth_'+part]=parts[part];}
+ if(audience==='corporate'&&authKeys.some(key=>key in profile))profile.auth_name=joinPersonName(authKeys.map(key=>profile[key]));
  for(const [type,detail] of [['id_type','id_other'],['auth_id_type','auth_id_other']])if(profile[type]==='family'){
   profile[type]='other';profile[detail]='بطاقة عائلية / Family ID';
  }
@@ -44,7 +48,7 @@ export function cleanShared(audience,profile){
   if(!sharedFieldVisible(f,profile))continue;
   const v=profile?.[f.id];
   if(f.type==='checkbox'){if(typeof v==='boolean')clean[f.id]=v;}
-  else if(typeof v==='string'&&v.length<=2000&&(hasValue(v)||sharedCountryIds(audience).includes(f.id))&&(!f.options||f.options.some(o=>o[0]===v)))clean[f.id]=v;
+  else if(typeof v==='string'&&v.length<=2000&&(hasValue(v)||sharedCountryIds(audience).includes(f.id)||/^(en|ar|auth)_(first|second|third|last)$/.test(f.id)||f.id==='auth_name')&&(!f.options||f.options.some(o=>o[0]===v)))clean[f.id]=v;
  }
  for(const lang of ['en','ar']){const middle=[clean[lang+'_second'],clean[lang+'_third']].filter(Boolean).join(' ');if(middle)clean[lang+'_middle']=middle;}
  return clean;
@@ -58,7 +62,9 @@ export function sharedCandidates(doc,profile,values,audience){
  if(!['individual','corporate'].includes(audience)||(doc.group!=='shared'&&doc.group!==audience))return {};
  const p=profile||{},out={};
  const copy=(id,value)=>{out[id]=value||'';};
- const fullEn=joined(p.en_first,p.en_middle,p.en_last),fullAr=joined(p.ar_first,p.ar_middle,p.ar_last);
+ const partsFor=language=>[p[language+'_first'],...((language+'_second' in p||language+'_third' in p)?[p[language+'_second'],p[language+'_third']]:[p[language+'_middle'],'']),p[language+'_last']].map(value=>value||'');
+ const enParts=partsFor('en'),arParts=partsFor('ar'),authParts=partsFor('auth');
+ const fullEn=joinPersonName(enParts),fullAr=joinPersonName(arParts);
  const name=audience==='individual'?(p.name_language==='ar'?fullAr||fullEn:fullEn||fullAr):p.company_name||'';
  const address=joined(p.building,p.street,p.district,p.city,p.postal,p.additional,p.country);
  if(doc.workflow==='subscription'){
@@ -119,6 +125,15 @@ export function sharedCandidates(doc,profile,values,audience){
   const key=f.shared?.[audience];
   if(key)copy(f.id,key==='full_name'?name:key==='full_name_en'?fullEn:key==='full_name_ar'?fullAr:key==='full_address'?address:p[key]);
  }
+ for(const group of personNameGroups(doc,audience)){
+  if(!group.targets.some(target=>Object.hasOwn(out,target.id)))continue;
+  const full=joinPersonName(group.targets.map(target=>out[target.id]));
+  const sources=group.language==='en'?[[fullEn,enParts]]:group.language==='ar'?[[fullAr,arParts]]:audience==='corporate'?[[joinPersonName(authParts),authParts]]:p.name_language==='ar'?[[fullAr,arParts],[fullEn,enParts]]:[[fullEn,enParts],[fullAr,arParts]];
+  const exact=full&&sources.find(([name])=>name===full)?.[1];
+  const parts=exact||Object.values(splitPersonName(full));
+  group.partIds.forEach((id,index)=>copy(id,parts[index]));
+  for(const target of group.targets)copy(target.id,joinPersonName(target.join.map(id=>out[id])));
+ }
  return out;
 }
 export function reconcileShared(doc,record,profile,audience){
@@ -133,6 +148,7 @@ export function reconcileShared(doc,record,profile,audience){
   if(hasValue(value)||blankCountry){next.values[id]=value;next.shared[id]=value;if(next.countryDefaults)delete next.countryDefaults[id];}
   else if(old!==undefined&&current===old)delete next.values[id];
  }
+ next.values=normalizePersonNames(doc,next.values,{audience});
  if(doc.id==='fatca-crs-individual')next.values=nameParts(next.values,false);
  return next;
 }

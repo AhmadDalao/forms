@@ -11,6 +11,7 @@ require_once __DIR__.'/portal-account-types.php';
 require_once __DIR__.'/portal-reviews.php';
 require_once __DIR__.'/portal-workflow.php';
 require_once __DIR__.'/portal-details.php';
+require_once __DIR__.'/portal-answers.php';
 require_once __DIR__.'/management-auth.php';
 require_once __DIR__.'/session-scope.php';
 function reply(array $data, int $status=200): never { global $workflowReady; if(!empty($workflowReady)&&!isset($data['workflow']))$data['workflow']=workflowSettings(); http_response_code($status); echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR); exit; }
@@ -70,29 +71,6 @@ function findDefinition(string $id,string $audience,bool $upload=false): ?array 
     return null;
 }
 function definition(string $id,string $audience,bool $upload=false): array {return findDefinition($id,$audience,$upload)??reject('document_unavailable',404);}
-function cleanAnswers(array $def,mixed $input): array {
-    if(!is_array($input)||count($input)>500)reject('invalid_request');$out=[];
-    foreach($def['fields']??[] as $f){$v=$input[$f['id']]??null;if($v===null)continue;
-        if(is_array($v)){if(empty($f['multiple'])||count($v)>100)reject('invalid_request');$v=array_map(fn($x)=>textValue($x),$v);}
-        else $v=textValue($v);
-        if($v!==''&&$v!==[]){
-            $allowed=isset($f['selectOptions'])?array_column($f['selectOptions'],0):(isset($f['options'])?array_column($f['options'],'value'):null);
-            if($allowed&&array_diff(is_array($v)?$v:[$v],$allowed))reject('invalid_request');
-            if(($f['type']??'')==='email'&&!filter_var($v,FILTER_VALIDATE_EMAIL))reject('email_invalid');
-            if(($f['type']??'')==='date'&&(!preg_match('/^(\d{4})-(\d{2})-(\d{2})$/D',$v,$parts)||!checkdate((int)$parts[2],(int)$parts[3],(int)$parts[1])))reject('invalid_request');
-        }
-        $out[$f['id']]=$v;
-    }
-    foreach($def['fields']??[] as $field)if(!empty($field['join'])&&array_intersect($field['join'],array_keys($out)))$out[$field['id']]=implode(' ',array_filter(array_map(fn($key)=>trim($out[$key]??''),$field['join']),fn($part)=>$part!==''));
-    if(($def['workflow']??'')==='subscription'){
-        define('SUBSCRIPTION_LIBRARY',true);require_once __DIR__.'/subscription/calculate.php';
-        try{$calculated=subscription_calculate($out['units']??'');}catch(Throwable){reject('units_invalid',422);}
-        if($calculated['units']==='')reject('form_incomplete',422);
-        $out=array_merge($out,$calculated);
-        foreach($def['fields'] as $f)if(!empty($f['required'])&&(empty($f['when'])||in_array($out[$f['dependsOn']]??'',$f['when'],true))&&empty($out[$f['id']]))reject('form_incomplete',422);
-    }
-    return $out;
-}
 // Only a default, never-switched review site accepts legacy clients without a mode revision.
 function requestedWorkflow(array $meta): array {
     $workflow=workflowSettings();$revision=$meta['workflowRevision']??null;
@@ -344,7 +322,7 @@ try {
         if($old=execute('SELECT id,created_at,version,archived_at,profile FROM submissions WHERE user_id=? AND request_key=?',[$u['id'],$key])->fetch())reply(['submission'=>versionReceipt($old),'duplicate'=>true]);
         $workflow=requestedWorkflow($meta);
         $source=($meta['source']??'online')==='upload'?'upload':'online';
-        $doc=definition(textValue($meta['document']??'',100),$audience,$source==='upload');$answers=$source==='upload'?[]:cleanAnswers($doc,$meta['values']??[]);
+        $doc=definition(textValue($meta['document']??'',100),$audience,$source==='upload');$answers=$source==='upload'?[]:cleanAnswers($doc,$meta['values']??[],$audience);
         $editedFrom=$meta['editedFrom']??null;
         if($editedFrom!==null&&!execute('SELECT id FROM submissions WHERE id=? AND user_id=? AND doc_id=? AND audience=?', [textValue($editedFrom,40),$u['id'],$doc['id'],$audience])->fetch())reject('not_found',404);
         $signatures=$source==='upload'?[]:cleanSignatureImages($doc,$meta['signatures']??[],$answers);

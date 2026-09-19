@@ -107,7 +107,7 @@ test('switching signatory role removes only auto-copied personal details',()=>{
 });
 test('old audience-specific drafts migrate once; ambiguous shared drafts require a folder choice',()=>{
  const disk=storage(),old=createDraftStore(docs,()=>disk);old.save('kyc-individual',{name_1:'Existing answer'},2);old.save('signature-form',{client_name:'Old shared client'},1);
- const i=make(disk,'individual'),c=make(disk,'corporate');assert.equal(i.get('kyc-individual').values.name_1,'Existing answer');assert.equal(i.get('kyc-individual').step,2);
+ const i=make(disk,'individual'),c=make(disk,'corporate');assert.equal([i.get('kyc-individual').values.name_1,i.get('kyc-individual').values.name_2].filter(Boolean).join(' '),'Existing answer');assert.equal(i.get('kyc-individual').step,2);
  assert.equal(i.has('signature-form'),false);assert.equal(c.has('signature-form'),false);assert.ok(i.hasLegacy('signature-form'));
  i.setShared(person);const reopened=make(disk,'individual');assert.ok(reopened.hasLegacy('signature-form'));reopened.restoreLegacy('signature-form');
  assert.equal(reopened.get('signature-form').values.client_name,'Old shared client');c.refresh();assert.equal(c.hasLegacy('signature-form'),false);assert.equal(c.has('signature-form'),false);

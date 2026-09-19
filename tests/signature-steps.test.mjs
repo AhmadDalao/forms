@@ -34,7 +34,7 @@ test('legacy signatures migrate to electronic while manual clears only the selec
  // A stale image snapshot cannot reinsert a deliberately cleared signature.
  store.save('kyc-individual',store.get('kyc-individual').values,2,{client:image,representative:image});
  const reopened=createDraftStore(docs,()=>disk,'individual','client-a').get('kyc-individual');
- assert.deepEqual(reopened.signatures,{client:image});assert.equal(reopened.values.name_1,'Saved client');
+ assert.deepEqual(reopened.signatures,{client:image});assert.equal([reopened.values.name_1,reopened.values.name_2].filter(Boolean).join(' '),'Saved client');
  assert.deepEqual(reopened.signatureModes,{representative:'manual',client:'electronic'});
 });
 

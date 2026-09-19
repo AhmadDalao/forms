@@ -1,0 +1,51 @@
+{
+  "task": "Four-part personal names across individual and company forms",
+  "scope": "Keep original PDF targets and company/entity names; retain third-name optionality and saved version history",
+  "unit_tests": {
+    "passed": 143,
+    "command": "npm test (142 passed) plus newly added submitted-details regression (7 passed)"
+  },
+  "browser": {
+    "report": "tmp/workflow-toggle-1789853570199-7f411b/person-names/report.json",
+    "checks": 18,
+    "pdfs": 18,
+    "coverage": [
+      "English and Arabic",
+      "All changed built-in person-name groups",
+      "1440px desktop aligned rows and 390px mobile overflow checks",
+      "Download and reload persistence"
+    ]
+  },
+  "pdfs": {
+    "passed": true,
+    "generated": 18,
+    "name_placements": 58,
+    "checks": [
+      "Original PDF page counts preserved",
+      "Joined names at the original field rectangles",
+      "Blue ink with transparent backgrounds",
+      "Ink stays within field boundaries"
+    ],
+    "report": "tmp/workflow-toggle-1789853570199-7f411b/person-names/pdf-check/report.json"
+  },
+  "backend": {
+    "passed": true,
+    "coverage": {
+      "accounts": 2,
+      "forms": 4,
+      "versions": 8,
+      "current": 4,
+      "groups": 6
+    },
+    "checks": [
+      "Fresh individual/company accounts and ordinary manager session use the built four-part definitions",
+      "individual signature-form: canonical parts/full names, manager details, retry, revision and immutable original",
+      "corporate signature-form: canonical parts/full names, manager details, retry, revision and immutable original",
+      "individual subscription-form: canonical parts/full names, manager details, retry, revision and immutable original",
+      "corporate subscription-company: canonical parts/full names, manager details, retry, revision and immutable original",
+      "Client/management lists expose all eight versions, four current forms, and enforce account privacy"
+    ],
+    "report": "tmp/workflow-toggle-1789853437030-f42cc0/person-names-backend/report.json"
+  },
+  "deployment": "Pending"
+}

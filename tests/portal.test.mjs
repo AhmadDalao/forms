@@ -23,8 +23,8 @@ test('submission editing keeps original blanks and signatures without replacing 
  const normal=createDraftStore(docs,()=>disk,'individual','aaa');normal.setShared({en_first:'New',en_last:'Profile',name_language:'en',id_number:'555'});normal.save('signature-form',{client_name:'Unsubmitted working draft'},0);
  const id='a'.repeat(32),edit=createDraftStore(docs,()=>disk,'individual','aaa',id);
  const original={id,current_id:id,version:1,answers:{client_name:'Original client',signer_name:''},signatures:{},profile:{}};
- edit.loadSubmission('signature-form',original);assert.equal(edit.get('signature-form').values.client_name,'Original client');assert.equal(edit.get('signature-form').values.signer_name,undefined);
- edit.setShared({...edit.profile,en_first:'Changed again'});assert.equal(edit.get('signature-form').values.client_name,'Original client');assert.equal(edit.get('signature-form').values.signer_name,undefined);
+ edit.loadSubmission('signature-form',original);assert.equal(edit.get('signature-form').values.client_name,'Original client');assert.equal(edit.get('signature-form').values.signer_name,'');
+ edit.setShared({...edit.profile,en_first:'Changed again'});assert.equal(edit.get('signature-form').values.client_name,'Original client');assert.equal(edit.get('signature-form').values.signer_name,'');
  edit.save('signature-form',{client_name:'Edited locally'},1,{},'client_name');
  const reload=createDraftStore(docs,()=>disk,'individual','aaa',id);reload.loadSubmission('signature-form',original);assert.equal(reload.get('signature-form').values.client_name,'Edited locally');assert.equal(reload.get('signature-form').step,1);
  assert.equal(createDraftStore(docs,()=>disk,'individual','aaa').get('signature-form').values.client_name,'Unsubmitted working draft');
