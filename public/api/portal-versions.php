@@ -31,7 +31,6 @@ function expectedCurrent(array $b): ?string {
 }
 function cleanSignatureImages(array $def,mixed $images,array $answers): array {
     if(!is_array($images)||count($images)>20)reject('invalid_request');
-    if(($def['workflow']??'')==='subscription'&&($answers['signature_mode']??'manual')==='manual')return [];
     $out=[];$total=0;
     foreach($def['signatureSlots']??$def['signatures']??[] as $slot){
         $value=$images[$slot['id']]??null;if($value===null)continue;
@@ -41,6 +40,25 @@ function cleanSignatureImages(array $def,mixed $images,array $answers): array {
         $total+=strlen($value);if($total>2500000)reject('signature_invalid');$out[$slot['id']]=$value;
     }
     return $out;
+}
+function requireOnlineSignatures(array $def,array $images,array $answers,mixed $modes): void {
+    if(!is_array($modes)||count($modes)>20)reject('signature_invalid');
+    if(($def['workflow']??'')==='subscription'&&($answers['signature_mode']??'')!=='electronic')reject('signature_required',422);
+    $required=0;
+    foreach($def['signatureSlots']??$def['signatures']??[] as $slot){
+        $id=$slot['id'];$mode=$modes[$id]??(isset($images[$id])?'electronic':null);
+        if($mode!==null&&!in_array($mode,['manual','electronic'],true))reject('signature_invalid');
+        $applies=($slot['requiredForSubmission']??true)!==false;
+        foreach($slot['requireWhenFields']??[] as $field){
+            $value=$answers[$field]??'';
+            if(is_array($value)?count($value)>0:trim((string)$value)!=='')$applies=true;
+        }
+        if(!$applies)continue;
+        $required++;
+        if($mode!=='electronic'||!isset($images[$id]))reject('signature_required',422);
+    }
+    // An online form with no configured customer signing area must use a signed PDF upload.
+    if($required===0)reject('signature_required',422);
 }
 function saveVersion(array $s,string $sourcePath,?string $expected,?string $audit=null,bool $clientSubmission=false): array {
     global $db,$dataDir;

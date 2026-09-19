@@ -1,29 +1,39 @@
 // Signing areas measured on the unchanged source PDFs, in points from top-left.
 // Each person/row is independent, including the explicitly available staff section.
 // Stamp and fingerprint areas are not selectable.
-const slot = (id, label, ar, page, rect, section) => ({ id, label, ar, page, rect, section });
+import {hasValue} from './schema.js';
+const slot = (id, label, ar, page, rect, section, submission={}) => ({ id, label, ar, page, rect, section, ...submission });
 const slots = {
-  'subscription-form': [slot('applicant','Applicant signature','توقيع مقدم الطلب',1,[117,574,104,10]),...['manager','entered','approved'].map((id,i)=>slot('staff_'+id,['A/C manager signature','Entered by signature','Reviewer / approver signature'][i],['توقيع مدير الحساب','توقيع مدخل الطلب','توقيع المراجع والمعتمد'][i],1,[101,647.2+i*14.4,116,10]))],
+  'subscription-form': [slot('applicant','Applicant signature','توقيع مقدم الطلب',1,[117,574,104,10]),...['manager','entered','approved'].map((id,i)=>slot('staff_'+id,['A/C manager signature','Entered by signature','Reviewer / approver signature'][i],['توقيع مدير الحساب','توقيع مدخل الطلب','توقيع المراجع والمعتمد'][i],1,[101,647.2+i*14.4,116,10],undefined,{requiredForSubmission:false}))],
   'signature-form': [slot('specimen', 'Specimen signature', 'نموذج التوقيع', 1, [55, 267, 232, 249], 'signatory')],
   'terms-and-conditions': [11, 13].flatMap(page => [0, 1, 2].map(i => slot(
     `${page === 11 ? 'terms' : 'authorization'}_${i}`,
     `${page === 11 ? 'Account terms' : 'Telephone / fax authorization'} — signer ${i + 1}`,
     `${page === 11 ? 'شروط الحساب' : 'تفويض الهاتف والفاكس'} — الموقع ${i + 1}`,
     page, [84, (page === 11 ? 135 : 327.6) + i * 36.5, 206, 28], page === 11 ? 'terms' : 'authorization',
+    i ? {requiredForSubmission:false,requireWhenFields:[`${page===11?'terms':'authorization'}_name_${i}`]} : {},
   ))),
   'fatca-crs-individual': [
     slot('signatory', 'Signatory signature', 'توقيع الموقع', 2, [47, 633, 276, 57], 'signatory'),
-    slot('relationship_manager', 'Relationship Manager / Customer Service Representative signature', 'توقيع مدير العلاقة / ممثل خدمة العملاء', 3, [266, 128, 205, 24], 'staff'),
+    slot('relationship_manager', 'Relationship Manager / Customer Service Representative signature', 'توقيع مدير العلاقة / ممثل خدمة العملاء', 3, [266, 128, 205, 24], 'staff', {requiredForSubmission:false}),
   ],
-  'fatca-crs-corporate': [0, 1].map(i => slot(`signatory_${i}`, `Signatory ${i + 1} (${i ? 'right' : 'left'} box)`, `الموقع ${i + 1} (${i ? 'الخانة اليمنى' : 'الخانة اليسرى'})`, 6, [131 + i * 244.2, 277, 187, 34], 'signatories')),
+  'fatca-crs-corporate': [0, 1].map(i => slot(`signatory_${i}`, `Signatory ${i + 1} (${i ? 'right' : 'left'} box)`, `الموقع ${i + 1} (${i ? 'الخانة اليمنى' : 'الخانة اليسرى'})`, 6, [131 + i * 244.2, 277, 187, 34], 'signatories', i ? {requiredForSubmission:false,requireWhenFields:['signer_1_name','signer_1_capacity']} : {})),
   'kyc-individual': [
-    slot('representative', 'Special cases — representative signature', 'الحالات الخاصة — توقيع الوكيل أو الممثل', 3, [117, 566, 124, 23], 'disclosures'),
+    slot('representative', 'Special cases — representative signature', 'الحالات الخاصة — توقيع الوكيل أو الممثل', 3, [117, 566, 124, 23], 'disclosures', {requiredForSubmission:false,requireWhenFields:['representative_name','rep_id','rep_type','rep_expiry','rep_issue','rep_phone','rep_place','rep_fax']}),
     slot('client', 'Client signature', 'توقيع العميل', 7, [58, 624, 241, 25], 'suitability'),
   ],
   'kyc-corporate': [slot('client', 'Client signature', 'توقيع العميل', 7, [58, 624, 241, 25], 'suitability')],
 };
 export const signatureSlots = doc => doc.signatureSlots || slots[doc.id] || [];
 export const sectionSignatureSlots = (doc, section) => signatureSlots(doc).filter(s => s.section ? s.section === section.id : doc.custom && s.page === section.page);
+
+export const requiredSignatureSlots = (doc, values={}) => signatureSlots(doc).filter(slot=>slot.requiredForSubmission!==false||slot.requireWhenFields?.some(id=>hasValue(values[id])));
+export function submissionSigningState(doc, values={}, images={}, modes={}) {
+  const required=requiredSignatureSlots(doc,values),valid=cleanSignatures(doc,images);
+  const mode=slot=>doc.workflow==='subscription'?(modes[slot.id]==='manual'?'manual':values.signature_mode||'manual'):(modes[slot.id]||(valid[slot.id]?'electronic':'manual'));
+  const missing=required.filter(slot=>mode(slot)!=='electronic'||!valid[slot.id]);
+  return {required,missing,manual:!required.length||required.some(slot=>mode(slot)!=='electronic'),ready:required.length>0&&!missing.length};
+}
 
 export function cleanSignatureModes(doc, saved, images = {}) {
   const modes = {};

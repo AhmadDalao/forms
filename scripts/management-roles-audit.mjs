@@ -95,7 +95,8 @@ try{
 
  await portal(client,'session');const clientPassword=randomBytes(20).toString('base64url')+'aA7!';
  const user=(await portal(client,'register',{data:{first_name:'Role',last_name:'Audit',phone:'59'+String(Math.floor(Math.random()*1e7)).padStart(7,'0'),account_type:'individual',password:clientPassword,confirm:clientPassword},status:201})).user;
- const source=await fs.readFile('public/pdfs/signature-form.pdf'),meta={account:user.id,document:'signature-form',audience:'individual',values:{client_name:user.name},source:'online',expectedCurrent:null,requestKey:randomUUID()};
+ const signature='data:image/png;base64,'+(await fs.readFile('tests/fixtures/signature.png')).toString('base64');
+ const source=await fs.readFile('public/pdfs/signature-form.pdf'),meta={account:user.id,document:'signature-form',audience:'individual',values:{client_name:user.name},source:'online',signatures:{specimen:signature},signatureModes:{specimen:'electronic'},expectedCurrent:null,requestKey:randomUUID()};
  const submit=async m=>(await portal(client,'submit',{multipart:{metadata:JSON.stringify(m),pdf:{name:'role-client.pdf',mimeType:'application/pdf',buffer:source}},status:201})).submission;
  const first=await submit(meta);
  await portal(client,'admin_dashboard',{status:401});await mg(client,'state',{status:401});

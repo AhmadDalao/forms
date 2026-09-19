@@ -12,6 +12,8 @@ export async function api(action,body,{token=csrf,params={}}={}){
 }
 export const session=()=>api('session');
 export const errors={
+ signature_required:['Sign electronically before submitting, or download the PDF, sign it and upload the signed form from My applications.','وقّع إلكترونيًا قبل الإرسال، أو نزّل ملف PDF ووقّعه ثم ارفع النموذج الموقّع من صفحة طلباتي.'],
+ signed_confirmation_required:['Confirm that you have signed the uploaded form before submitting it.','أكّد أنك وقّعت النموذج المرفوع قبل إرساله.'],
  review_reason_required:['Choose a rejection reason and add an explanation when selecting Other.','اختر سبب الرفض واكتب توضيحًا عند اختيار «أخرى».'],
  review_conflict:['This review changed in another window. Close and reopen the document to see the latest decision.','تغيّر القرار في نافذة أخرى. أغلق المستند وأعد فتحه للاطلاع على أحدث قرار.'],
  review_archived:['This version has been archived. Open the current version to review it.','تمت أرشفة هذه النسخة. افتح النسخة الحالية لمراجعتها.'],

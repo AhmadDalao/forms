@@ -253,7 +253,11 @@ try {
         $editedFrom=$meta['editedFrom']??null;
         if($editedFrom!==null&&!execute('SELECT id FROM submissions WHERE id=? AND user_id=? AND doc_id=? AND audience=?', [textValue($editedFrom,40),$u['id'],$doc['id'],$audience])->fetch())reject('not_found',404);
         $signatures=$source==='upload'?[]:cleanSignatureImages($doc,$meta['signatures']??[],$answers);
+        if($source==='upload'){
+            if(($meta['signedConfirmed']??false)!==true)reject('signed_confirmation_required',422);
+        }else requireOnlineSignatures($doc,$signatures,$answers,$meta['signatureModes']??[]);
         $profile=submissionProfileSnapshot($doc,$audience,$meta['profile']??[],$source);
+        if($source==='upload')$profile['signed_confirmed']=true;
         $email=$profile['email']??($answers['email']??'');if($email!==''&&!filter_var($email,FILTER_VALIDATE_EMAIL))reject('email_invalid');
         $f=$_FILES['pdf']??null;if(!$f||$f['error']!==UPLOAD_ERR_OK||!is_uploaded_file($f['tmp_name']))reject('upload_failed');
         if($f['size']<50)reject('pdf_invalid');

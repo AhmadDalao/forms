@@ -1,7 +1,11 @@
 import {api,e,session,errorText} from './api.js';
 import {appRoot} from '../routes.js';
+import {submissionSigningState} from '../signatures.js';
+import {showSigningGuide} from './signing.js';
 import './submit.css';
-export async function submitForm({doc,values,bytes,profile,audience,lang,user,signatures={},revision=null,onSaved=()=>{}}){
+export async function submitForm({doc,values,bytes,profile,audience,lang,user,signatures={},signatureModes={},revision=null,onSaved=()=>{}}){
+ const signing=submissionSigningState(doc,values,signatures,signatureModes);
+ if(!signing.ready){showSigningGuide({doc,lang,manual:signing.manual});return;}
  const t=(en,ar)=>lang==='ar'?ar:en;
  const dialog=document.createElement('dialog');dialog.className='submission-dialog';
  document.body.append(dialog);dialog.dir=lang==='ar'?'rtl':'ltr';let sending=false,closed=false,finished=false;const requestKey=crypto.randomUUID();let expected=revision?.expectedCurrent??null;
@@ -30,7 +34,7 @@ export async function submitForm({doc,values,bytes,profile,audience,lang,user,si
    const fresh=await session();if(!fresh.user)throw Error('login_required');if(fresh.user.id!==user.id)throw Error('account_changed');
    if(fresh.user.account_type!==audience)throw Error('account_type_restricted');
    const form=new FormData();form.set('pdf',new Blob([bytes],{type:'application/pdf'}),doc.id+'.pdf');
-   form.set('metadata',JSON.stringify({account:user.id,document:doc.id,audience,requestKey,values,profile:revision?.profile||profile,signatures,expectedCurrent:expected,editedFrom:revision?.sourceId??null}));
+   form.set('metadata',JSON.stringify({account:user.id,document:doc.id,audience,requestKey,values,profile:revision?.profile||profile,signatures,signatureModes,expectedCurrent:expected,editedFrom:revision?.sourceId??null}));
    const result=await api('submit',form);onSaved(result.submission);finished=true;
    dialog.innerHTML=`<span class="submitted-mark">✓</span><h2>${t('Form submitted','تم إرسال النموذج')}</h2><p>${t('Your form is under review. You will receive the decision in My applications. Earlier versions remain in your archive.','نموذجك قيد المراجعة. سيظهر القرار في طلباتي. تبقى النسخ السابقة في الأرشيف.')}</p><p class="submission-reference">${t('Reference','المرجع')}: ${e(result.submission.id.slice(0,8).toUpperCase())}</p><div class="dialog-actions"><button class="button secondary" data-close>${t('Continue','متابعة')}</button><a class="button primary" href="${appRoot}my-applications/">${t('My applications','طلباتي')}</a></div>`;
    dialog.querySelector('[data-close]').onclick=close;

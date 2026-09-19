@@ -36,6 +36,7 @@ try{
  }
  await call(anon,'admin_account_type',{id:'a'.repeat(32),account_type:'corporate',expected_type:'individual'},401);
  const source=await fs.readFile('public/pdfs/al-naeem-terms-consent.pdf'),digest=b=>createHash('sha256').update(b).digest('hex');
+ const signature='data:image/png;base64,'+(await fs.readFile('tests/fixtures/signature.png')).toString('base64');
  for(const [type,lang] of [['individual','en'],['corporate','ar']]){
   const ctx=await browser.newContext({viewport:{width:390,height:844}});clients.push(ctx);
   const p=await ctx.newPage();p.on('pageerror',err=>errors.push(err.message));
@@ -62,7 +63,7 @@ try{
   await p.locator('.portal-upload [data-close]').click();
   await call(ctx,'profile',{name:u.name,email:'',account_type:type==='individual'?'corporate':'individual'},403);
   await call(ctx,'admin_account_type',{id:u.id,account_type:type,expected_type:type},401);
-  const meta={account:u.id,document:'signature-form',audience:type,source:'online',values:{client_name:u.name},requestKey:randomUUID(),expectedCurrent:null};
+  const meta={account:u.id,document:'signature-form',audience:type,source:'online',values:{client_name:u.name},signatures:{specimen:signature},signatureModes:{specimen:'electronic'},requestKey:randomUUID(),expectedCurrent:null};
   const submit=(m,status=201)=>call(ctx,'submit',null,status,{multipart:{metadata:JSON.stringify(m),pdf:{name:'test.pdf',mimeType:'application/pdf',buffer:source}}});
   await submit({...meta,audience:type==='individual'?'corporate':'individual'},403);
   const saved=(await submit(meta)).submission;

@@ -27,11 +27,12 @@ try{
  const baseline=(await call(manager,'admin_dashboard')).stats;await fs.writeFile(out+'/baseline.json',JSON.stringify(baseline),{mode:0o600});
  await call(anon,'session');await call(anon,'notifications',null,401);await call(anon,'admin_review',{},401);
  const pdf=await fs.readFile('public/pdfs/signature-form.pdf'),digest=b=>createHash('sha256').update(b).digest('hex');
+ const signature='data:image/png;base64,'+(await fs.readFile('tests/fixtures/signature.png')).toString('base64');
  for(const type of ['individual','corporate']){
   const ctx=await browser.newContext({viewport:{width:1440,height:1000}});await call(ctx,'session');
   const user=(await call(ctx,'register',{first_name:'QA',last_name:type==='individual'?'Individual':'Company',account_type:type,phone:'59'+String(Math.floor(Math.random()*1e7)).padStart(7,'0'),password,confirm:password},201)).user;
   accounts.push({id:user.id,name:user.name,phone:user.phone});await fs.writeFile(out+'/test-accounts.json',JSON.stringify(accounts),{mode:0o600});
-  const meta={account:user.id,document:'signature-form',audience:type,values:{client_name:user.name},source:'online',expectedCurrent:null,requestKey:randomUUID()};
+  const meta={account:user.id,document:'signature-form',audience:type,values:{client_name:user.name},source:'online',signatures:{specimen:signature},signatureModes:{specimen:'electronic'},expectedCurrent:null,requestKey:randomUUID()};
   const submit=async(m,status=201)=>(await call(ctx,'submit',null,status,{multipart:{metadata:JSON.stringify(m),pdf:{name:'qa.pdf',mimeType:'application/pdf',buffer:pdf}}})).submission;
   const obsolete=await submit(meta);
   const first=await submit({...meta,expectedCurrent:obsolete.id,editedFrom:obsolete.id,requestKey:randomUUID()});
@@ -160,9 +161,10 @@ async function savedApproval(page){
 
 async function auditFilters(manager,clients,call,checks){
  const c=clients[0],other=clients[1];
- const approved=await c.submit({...c.meta,document:'kyc-individual',values:{name_1:'QA Individual'},requestKey:randomUUID()});
+ const signature=c.meta.signatures.specimen;
+ const approved=await c.submit({...c.meta,document:'kyc-individual',values:{name_1:'QA Individual'},signatures:{client:signature},signatureModes:{client:'electronic'},requestKey:randomUUID()});
  await call(manager,'admin_review',{id:approved.id,status:'approved',reason_code:'',reason_text:'',expectedReview:0,requestKey:randomUUID()});
- const pending=await c.submit({...c.meta,document:'terms-and-conditions',values:{terms_name_0:'QA Individual'},requestKey:randomUUID()});
+ const pending=await c.submit({...c.meta,document:'terms-and-conditions',values:{terms_name_0:'QA Individual'},signatures:{terms_0:signature,authorization_0:signature},signatureModes:{terms_0:'electronic',authorization_0:'electronic'},requestKey:randomUUID()});
  const queue=params=>call(manager,'admin_review_queue',null,200,{params});
  const expected={all:3,pending:1,approved:1,rejected:1};
  for(const status of ['pending','approved','rejected','all']){
