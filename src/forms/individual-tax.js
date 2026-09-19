@@ -37,7 +37,7 @@ text(d,s,'signer_ar','Signatory name in Arabic','اسم الموقع بالعر�
 text(d,s,'signer_en','Signatory name in English','اسم الموقع بالإنجليزية',[198,609,265,13],{direction:'ltr',fontSize:9});
 choice(d,s,'capacity','Capacity of signatory','صفة الموقع',[o('holder','Account holder','صاحب الحساب',[527.4,654.1,10,10]),o('attorney','Power of attorney','الوكيل',[527.4,667.7,10,10]),o('guardian','Guardian','الوصي',[527.4,681.5,10,10]),o('other','Other — specify below','أخرى — حدد أدناه',[0,0,0,0])]);
 text(d,s,'capacity_other','Other capacity','صفة أخرى',[344,709,201,14],{fontSize:8});
-text(d,s,'date','Date (Gregorian)','التاريخ (ميلادي)',[133,706,156,18],{type:'date',cells:8,charRects:[[91,706,17,18],[110,706,21,18],[133,706,29,18],[164,706,29,18],[195,706,22,18],[219,706,22,18],[243,706,22,18],[267,706,22,18]]});
+text(d,s,'date','Date (Gregorian)','التاريخ (ميلادي)',[133,706,156,18],{type:'date',defaultToday:true,cells:8,charRects:[[91,706,17,18],[110,706,21,18],[133,706,29,18],[164,706,29,18],[195,706,22,18],[219,706,22,18],[243,706,22,18],[267,706,22,18]]});
 
 s=section(d,'staff','Relationship Manager / Customer Service Representative','مدير العلاقة / ممثل خدمة العملاء',3,
  'For completion by the relationship manager or customer service representative. Leave this section blank if it does not apply. Choose electronic or manual signing for the representative below.',

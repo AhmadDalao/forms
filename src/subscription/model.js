@@ -1,7 +1,8 @@
 import {calculateSubscription} from './calculations.js';
 import {appRoot} from '../routes.js';
+import {today} from '../dates.js';
+export {today} from '../dates.js';
 export const isSubscription=doc=>doc?.workflow==='subscription';
-export const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;};
 export const joinedName=v=>['first_name','second_name','third_name','family_name'].map(k=>(v[k]||'').trim()).filter(Boolean).join(' ');
 export const visibleField=(f,values)=>!f.when||f.when.includes(values[f.dependsOn]);
 export function normalizeSubscription(doc,input,{applicantEdited=false}={}){

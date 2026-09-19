@@ -31,7 +31,7 @@ for(let i=0;i<2;i++){
  text(d,s,`signer_${i}_name`,`Signatory ${i+1}: name`,`الموقع ${i+1}: الاسم`,[119+i*258,232,193,22]);
  text(d,s,`signer_${i}_capacity`,`Signatory ${i+1}: capacity`,`الموقع ${i+1}: الصفة`,[130+i*245,329,187,19],{fontSize:9});
 }
-text(d,s,'date','Date','التاريخ',[162,404,134,27],{type:'date',cells:8});
+text(d,s,'date','Date','التاريخ',[162,404,134,27],{type:'date',defaultToday:true,cells:8});
 
 // Ownership numbers sit immediately before the original percent signs.
 for(let i=0;i<5;i++)Object.assign(d.fields.find(f=>f.id===`person_${i}_ownership`),{

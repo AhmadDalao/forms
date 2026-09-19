@@ -2,6 +2,7 @@ import {nameParts} from './names.js';
 import {joinedName} from './subscription/model.js';
 import {draftStoragePrefix} from './routes.js';
 import { hasValue } from './schema.js';
+import { defaultDates } from './dates.js';
 import { cleanSignatures, cleanSignatureModes, signatureSlots } from './signatures.js';
 import { cleanShared, reconcileShared, sharedCandidates } from './shared-fields.js';
 
@@ -93,6 +94,12 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     get preferences(){return preferences;},
     get profile(){return {...profile};},
     get(id){return memory.get(id)||empty();},
+    initializeDates(id){
+      const doc=documents.find(d=>d.id===id);if(!doc)return false;
+      const record=this.get(id),values=defaultDates(doc,record);
+      if(Object.keys(values).length===Object.keys(record.values).length)return true;
+      return persist(doc,{...record,values});
+    },
     has(id){const r=this.get(id);return Object.values(r.values).some(hasValue)||Object.keys(r.signatures).length>0||Object.values(r.signatureModes||{}).includes('electronic');},
     hasLegacy(id){const r=legacy.get(id);return Boolean(r&&(Object.values(r.values).some(hasValue)||Object.keys(r.signatures).length));},
     restoreLegacy(id){
