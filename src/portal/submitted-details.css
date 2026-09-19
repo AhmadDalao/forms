@@ -1,21 +1,24 @@
 .submitted-details{color:#3b2f44;min-width:0}
 .submitted-details-note{color:#81718a;font-size:12px;line-height:1.8;margin:0 0 20px}
-.submitted-detail-section{padding:22px 0;border-top:1px solid #e9e1ef}
-.submitted-detail-section:last-child{padding-bottom:0}
-.submitted-detail-section>h3{font-size:15px;line-height:1.8;margin:0 0 18px;color:#533069}
+.submitted-detail-section{padding:0;border-top:1px solid #e9e1ef}
+.submitted-detail-section>summary{padding:18px 0;font-size:15px;font-weight:600;line-height:1.8;color:#533069;cursor:pointer;overflow-wrap:anywhere}
+.submitted-detail-section[open]{padding-bottom:20px}
+.submitted-detail-section>summary:hover,.submitted-shared-group>summary:hover{color:#48235f}
+.submitted-detail-section>summary:focus-visible,.submitted-shared-group>summary:focus-visible{outline:2px solid #78548e;outline-offset:3px;border-radius:4px}
 .submitted-details .submitted-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 28px;margin:0}
 .submitted-field{min-width:0;padding:0 0 14px;border-bottom:1px solid #f0eaf4}
 .submitted-details .submitted-field dt{color:#83728d;font-size:12px;line-height:1.8;overflow-wrap:anywhere}
 .submitted-details .submitted-field dd{margin:7px 0 0;color:#34303f;font-size:14px;line-height:1.8;overflow-wrap:anywhere;white-space:pre-wrap;unicode-bidi:isolate;text-align:start}
 .submitted-details .submitted-field dd.not-provided{color:#9b8fa3;font-size:12px}
-.submitted-shared-group{margin:0 0 22px}.submitted-shared-group:last-child{margin-bottom:0}
-.submitted-shared-group h4{font-size:12px;font-weight:500;color:#776082;margin:0 0 15px;line-height:1.8}
+.submitted-shared-group{margin:0 0 8px;border-top:1px solid #f0eaf4}.submitted-shared-group:last-child{margin-bottom:0}
+.submitted-shared-group>summary{padding:14px 0;font-size:13px;font-weight:500;color:#776082;line-height:1.8;cursor:pointer;overflow-wrap:anywhere}
 .submitted-signatures{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .submitted-signatures figure{margin:0;padding:16px;background:#fcfafd;border:1px solid #e7dfee;border-radius:10px;min-width:0}
 .submitted-signatures figcaption{font-size:12px;line-height:1.8;color:#654575;overflow-wrap:anywhere}
 .submitted-signatures img{display:block;max-width:100%;width:auto;max-height:130px;margin:14px 0;object-fit:contain;background:white;border-radius:6px}
 .submitted-signatures p{font-size:11px;color:#86718f;line-height:1.8;margin:12px 0 0}
 .submitted-upload-only{padding:18px;border:1px solid #e1d5e9;border-radius:10px;background:#f5eff9;color:#62446f;font-size:13px;line-height:1.9}
-@media(max-width:650px){.submitted-details .submitted-fields,.submitted-signatures{grid-template-columns:minmax(0,1fr)}.submitted-details .submitted-fields{gap:14px}.submitted-detail-section{padding:20px 0}.submitted-detail-section>h3{font-size:14px}}
+@media(max-width:650px){.submitted-details .submitted-fields,.submitted-signatures{grid-template-columns:minmax(0,1fr)}.submitted-details .submitted-fields{gap:14px}.submitted-detail-section>summary{font-size:14px}}
 
-.portal-answer-details>summary{font-weight:600;line-height:1.8;margin-bottom:18px}
+.portal-answer-details>summary{font-weight:600;line-height:1.8}
+.portal-answer-details[open]>summary{margin-bottom:18px}
