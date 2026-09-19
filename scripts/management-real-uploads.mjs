@@ -5,13 +5,13 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 const root=process.cwd(),out=path.join(root,'tmp/management-real-files'),data=path.join(out,'uploads-'+Date.now()),password=randomBytes(24).toString('hex');
-const init=spawnSync('php',['scripts/management-init.php',data],{input:password});assert.equal(init.status,0);
+const init=spawnSync('php',['scripts/management-init.php',data,'qa.manager'],{input:password});assert.equal(init.status,0);
 const server=spawn('php',['-d','upload_max_filesize=20M','-d','post_max_size=24M','-S','127.0.0.1:8183','-t','dist','scripts/management-router.php'],{env:{...process.env,FORMS_DATA_DIR:data},stdio:'ignore'});
 const base='http://127.0.0.1:8183';let owner,anon;const report=[];
 try{
  for(let i=0;i<30;i++){try{await fetch(base+'/api/management.php?action=session');break;}catch{await new Promise(r=>setTimeout(r,100));}}
  owner=await request.newContext({baseURL:base});anon=await request.newContext({baseURL:base});let csrf=(await (await owner.get('/api/management.php?action=session')).json()).csrf;
- csrf=(await (await owner.post('/api/management.php?action=login',{data:{password},headers:{'X-CSRF-Token':csrf}})).json()).csrf;
+ csrf=(await (await owner.post('/api/management.php?action=login',{data:{username:'qa.manager',password},headers:{'X-CSRF-Token':csrf}})).json()).csrf;
  let state=await (await owner.get('/api/management.php?action=state')).json();
  const initial=await (await anon.get('/api/management.php?action=catalogue')).json();
  for(const record of JSON.parse(await fs.readFile(out+'/results.json','utf8'))){

@@ -7,7 +7,7 @@ import {randomBytes,createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 const root=process.cwd(),out=path.join(root,'tmp/management-audit'),dataDir=path.join(out,'data-'+Date.now()),base='http://127.0.0.1:8182';
 await fs.mkdir(out,{recursive:true});const password=randomBytes(24).toString('hex');
-const init=spawnSync('php',['scripts/management-init.php',dataDir],{input:password,encoding:'utf8'});assert.equal(init.status,0,init.stderr);
+const init=spawnSync('php',['scripts/management-init.php',dataDir,'qa.manager'],{input:password,encoding:'utf8'});assert.equal(init.status,0,init.stderr);
 const server=spawn('php',['-d','upload_max_filesize=20M','-d','post_max_size=24M','-S','127.0.0.1:8182','-t','dist','scripts/management-router.php'],{cwd:root,env:{...process.env,FORMS_DATA_DIR:dataDir},stdio:['ignore','pipe','pipe']});let logs='';server.stderr.on('data',b=>logs+=b);server.stdout.on('data',b=>logs+=b);
 let browser,owner,anon;
 try{
@@ -16,9 +16,11 @@ try{
  let csrf=(await (await owner.get('/api/management.php?action=session')).json()).csrf;
  const call=async(action,body,status=200,context=owner,token=csrf)=>{const r=body?await context.post('/api/management.php?action='+action,{data:body,headers:{'X-CSRF-Token':token}}):await context.get('/api/management.php?action='+action);assert.equal(r.status(),status,action+': '+await r.text());return r.json();};
  const initial=await call('catalogue',null,200,anon);
- await call('state',null,401,anon);await call('login',{password},403,owner,'wrong');await call('login',{password:'incorrect'},401);
- csrf=(await call('login',{password})).csrf;
- for(const p of ['/_private/management/password.php','/../management-data/password.php','/.env.local'])assert.notEqual((await anon.get(p)).status(),200,p);
+ await call('state',null,401,anon);await call('login',{username:'qa.manager',password},403,owner,'wrong');await call('login',{username:'qa.manager',password:'incorrect'},401);
+ await call('login',{password},401);await call('login',{username:'someone-else',password},401);
+ assert.equal((await call('session')).authenticated,false);
+ csrf=(await call('login',{username:' QA.Manager ',password})).csrf;
+ for(const p of ['/_private/management/password.php','/_private/management/username.php','/../management-data/password.php','/.env.local'])assert.notEqual((await anon.get(p)).status(),200,p);
  let state=await call('state');const original=structuredClone(state.draft);state.draft.documents[0].title='Title changed in draft';state.draft.documents[0].ar='عنوان معدل في المسودة';state.draft.orders.individual.reverse();
  state=await call('save',{revision:state.revision,draft:state.draft});assert.deepEqual(await call('catalogue',null,200,anon),initial);
  await call('save',{revision:0,draft:state.draft},409);
@@ -30,7 +32,7 @@ try{
  const form=pdf.getForm();form.createTextField('Full name').addToPage(page,{x:160,y:700,width:350,height:28});form.createTextField('Email').addToPage(page,{x:160,y:630,width:350,height:28});form.createCheckBox('Agreement').addToPage(page,{x:160,y:570,width:12,height:12});page.drawText('I agree',{x:185,y:572,size:10,font});const radio=form.createRadioGroup('Category');radio.addOptionToPage('Individual',page,{x:160,y:520,width:12,height:12});radio.addOptionToPage('Company',page,{x:300,y:520,width:12,height:12});page.drawText('Individual',{x:185,y:522,size:10,font});page.drawText('Company',{x:325,y:522,size:10,font});const country=form.createDropdown('Country');country.addOptions(['Saudi Arabia','United States of America']);country.addToPage(page,{x:160,y:450,width:350,height:28});form.updateFieldAppearances(font);
  const fixture=path.join(out,'native-form.pdf');await fs.writeFile(fixture,await pdf.save());
  browser=await chromium.launch({channel:'chrome'});const admin=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];admin.on('pageerror',e=>errors.push(e.message));
- await admin.goto(base+'/management/');await admin.locator('#password').fill(password);await admin.locator('#login button').click();await admin.locator('[data-documents]').click();await admin.locator('#upload').waitFor();
+ await admin.goto(base+'/management/');await admin.screenshot({path:path.join(out,'management-login.png'),fullPage:true});await admin.locator('#username').fill('qa.manager');await admin.locator('#password').fill(password);await admin.locator('#login button').click();await admin.locator('[data-documents]').click();await admin.locator('#upload').waitFor();
  await admin.screenshot({path:path.join(out,'management-catalogue.png'),fullPage:true});
  await admin.locator('#upload').click();await admin.locator('input[name=pdf]').setInputFiles(fixture);await admin.locator('input[name=title]').fill('New shared form');await admin.locator('input[name=ar]').fill('نموذج مشترك جديد');await admin.locator('select[name=group]').selectOption('shared');await admin.locator('#upload-submit').click();await admin.locator('#field-properties').waitFor().catch(async err=>{console.log('UI:',await admin.locator('#notice').innerText(),errors);await admin.screenshot({path:path.join(out,'failure.png'),fullPage:true});throw err;});
  assert.equal(await admin.locator('[data-select]').count(),5);await admin.locator('[data-select]').nth(0).click();await admin.locator('[data-prop=ar]').fill('الاسم الكامل');await admin.locator('[data-prop=ar]').blur();await admin.locator('[data-shared=individual]').selectOption('full_name');await admin.locator('[data-shared=corporate]').selectOption('company_name');
@@ -69,7 +71,7 @@ try{
  state=await call('state');const overlap=structuredClone(state.draft);const target=overlap.documents.at(-1);target.fields.push({...target.fields[0],id:'overlap_test',label:'Overlapping field',ar:'حقل متداخل'});state=await call('save',{revision:state.revision,draft:overlap});const refusal=await call('review',{revision:state.revision,id:target.id},400);assert.match(refusal.error,/overlap/);assert.equal((await call('state')).draft.documents.at(-1).reviewed,false);
  // Persistent password throttling and malformed upload rejection.
  const badUpload=await owner.post('/api/management.php?action=upload',{headers:{'X-CSRF-Token':csrf},multipart:{pdf:{name:'fake.pdf',mimeType:'application/pdf',buffer:Buffer.from('not a pdf document')},revision:String(state.revision),metadata:'{}'}});assert.equal(badUpload.status(),400);
- for(let i=0;i<10;i++)await call('login',{password:'incorrect'},401);await call('login',{password:'incorrect'},429);
+ for(let i=0;i<10;i++)await call('login',{username:'qa.manager',password:'incorrect'},401);await call('login',{username:'qa.manager',password:'incorrect'},429);
  assert.deepEqual(errors,[]);console.log('PASS new seventh form, both audiences/languages, shared-field isolation, filled downloads, draft reload and flat-PDF suggestions');
  await fs.writeFile(path.join(out,'report.json'),JSON.stringify({passed:true,date:new Date().toISOString(),checks:['authentication','csrf','private files','draft isolation','revision conflict','publish rollback','native widget import','review gate','EN/AR samples','new card 7','both audiences','shared fields','downloads','draft recovery','flat suggestions'],errors},null,2));
 }finally{await browser?.close();await owner?.dispose();await anon?.dispose();server.kill();await fs.writeFile(path.join(out,'php.log'),logs);}

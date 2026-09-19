@@ -5,6 +5,7 @@ header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
 header('Content-Type: application/json; charset=utf-8');
 const MAX_PDF = 20971520;
+require_once __DIR__.'/management-auth.php';
 $dataDir = getenv('FORMS_DATA_DIR') ?: __DIR__ . '/../_private/management';
 function respond(array $value, int $code = 200): never { http_response_code($code); echo json_encode($value, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR); exit; }
 function fail(string $message, int $code = 400): never { respond(['error'=>$message],$code); }
@@ -25,7 +26,7 @@ function locked(callable $callback, bool $write = false): mixed {
         return $result;
     } finally {flock($lock,LOCK_UN);fclose($lock);}
 }
-function owner(): bool {return isset($_SESSION['owner'],$_SESSION['last'],$_SESSION['started']) && time()-$_SESSION['last']<1800 && time()-$_SESSION['started']<28800;}
+function owner(): bool {global $dataDir;return managementOwner($dataDir);}
 function requireOwner(): void {if(!owner())fail('Please sign in again.',401);$_SESSION['last']=time();}
 function csrf(): void {if(!hash_equals($_SESSION['csrf']??'',$_SERVER['HTTP_X_CSRF_TOKEN']??'')||empty($_SESSION['csrf']))fail('Refresh the page and try again.',403);}
 function expected(array $state,array $body): void {if(($body['revision']??-1)!==$state['revision'])fail('Another window changed this draft. Reload before saving.',409);}
@@ -99,7 +100,8 @@ try {
     $https=(!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off');
     session_name('itqan_management');session_set_cookie_params(['lifetime'=>0,'path'=>'/','secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);ini_set('session.use_strict_mode','1');session_start();
     $_SESSION['csrf']??=bin2hex(random_bytes(24));
-    $configured=is_file($dataDir.'/password.php');
+    $username=managementUsername($dataDir);
+    $configured=is_file($dataDir.'/password.php')&&$username!==null;
     if($action==='session')respond(['authenticated'=>owner(),'configured'=>$configured,'csrf'=>$_SESSION['csrf']]);
     if($action==='document'){
         $id=$_GET['id']??'';if(!preg_match('/^upload_[a-f0-9]{24}$/',$id))fail('Document not found.',404);
@@ -111,13 +113,14 @@ try {
     if(($_SERVER['REQUEST_METHOD']??'GET')==='POST')csrf();
     if($action==='login'){
         if($_SERVER['REQUEST_METHOD']!=='POST')fail('POST required.',405);if(!$configured)fail('Management has not been configured.',503);
-        $body=input();$password=$body['password']??'';if(!is_string($password)||strlen($password)>1000)fail('Invalid password.',401);
+        $body=input();$password=$body['password']??'';$loginUsername=normalizeManagementUsername($body['username']??null);
+        if(!is_string($password)||strlen($password)>1000)$password='';
         // Persistent rate limit survives a new cookie or browser session.
         $rateFile=$dataDir.'/login-'.hash('sha256',$_SERVER['REMOTE_ADDR']??'local').'.json';$lock=fopen($rateFile,'c+');flock($lock,LOCK_EX);$raw=stream_get_contents($lock);$rate=$raw?json_decode($raw,true):['at'=>time(),'count'=>0];
         if(time()-$rate['at']>900)$rate=['at'=>time(),'count'=>0];
         if($rate['count']>=10){flock($lock,LOCK_UN);fclose($lock);fail('Too many attempts. Try again in 15 minutes.',429);}
-        define('FORMS_MANAGEMENT_AUTH',true);$hash=require $dataDir.'/password.php';$ok=password_verify($password,$hash);$rate['count']=$ok?0:$rate['count']+1;rewind($lock);ftruncate($lock,0);fwrite($lock,json_encode($rate));flock($lock,LOCK_UN);fclose($lock);
-        if(!$ok)fail('Incorrect password.',401);session_regenerate_id(true);$_SESSION=['owner'=>true,'last'=>time(),'started'=>time(),'csrf'=>bin2hex(random_bytes(24))];respond(['csrf'=>$_SESSION['csrf']]);
+        $hash=require $dataDir.'/password.php';$passwordOk=password_verify($password,$hash);$ok=$loginUsername!==null&&hash_equals($username,$loginUsername)&&$passwordOk;$rate['count']=$ok?0:$rate['count']+1;rewind($lock);ftruncate($lock,0);fwrite($lock,json_encode($rate));flock($lock,LOCK_UN);fclose($lock);
+        if(!$ok)fail('Incorrect username or password.',401);session_regenerate_id(true);$_SESSION=['owner'=>true,'owner_username'=>$username,'last'=>time(),'started'=>time(),'csrf'=>bin2hex(random_bytes(24))];respond(['csrf'=>$_SESSION['csrf']]);
     }
     requireOwner();
     if($action==='state')respond(locked(fn($s)=>$s));

@@ -10,13 +10,13 @@ Run `npm run build`, then:
 FORMS_DATA_DIR="$PWD/management-data" php -d upload_max_filesize=20M -d post_max_size=24M -S 127.0.0.1:8181 -t dist scripts/management-router.php
 ```
 
-Open `http://127.0.0.1:8181/management/`. The locally generated owner password is in `tmp/management/owner-password.txt` (permissions 0600, ignored by Git). To set a different password, put it in a private file and run:
+Open `http://127.0.0.1:8181/management/`. The locally generated owner password is in `tmp/management/owner-password.txt` (permissions 0600, ignored by Git). Choose a management username. To configure it with a password from a private file, run:
 
 ```sh
-php scripts/management-init.php management-data < /path/to/private-password-file
+php scripts/management-init.php management-data YOUR_USERNAME < /path/to/private-password-file
 ```
 
-Changing the password does not alter the catalogue. Existing logged-in sessions expire after 30 minutes of inactivity or eight hours total; sign out when finished.
+To add or change the username while keeping the existing password, run `php scripts/management-init.php management-data YOUR_USERNAME --keep-password`. There is no default or generated username. Login requires the configured username and password; usernames ignore casing and surrounding spaces. Changing the username signs out existing management sessions. Configuration changes do not alter the catalogue. Existing logged-in sessions expire after 30 minutes of inactivity or eight hours total; sign out when finished.
 
 ## Workflow
 
@@ -34,7 +34,7 @@ The importer does not promise to understand every official document. Label trans
 
 ## Storage and deployment boundary
 
-The PHP service uses one password hash, secure same-site sessions, CSRF tokens, persistent login throttling, optimistic revision checks and locked atomic JSON writes. Only catalogue configuration and uploaded source PDFs reach the server. Customer answers and signature images remain in their browser.
+The PHP service uses one explicitly configured owner username and password hash, secure same-site sessions, CSRF tokens, persistent login throttling, optimistic revision checks and locked atomic JSON writes. Only catalogue configuration and uploaded source PDFs reach the server. Customer answers and signature images remain in their browser.
 
 Production data defaults to `public/_private/management` (the corresponding `_private` directory after deployment), protected by Apache `Require all denied`. `FORMS_DATA_DIR` can instead point outside the web root. Uploaded documents are served through the PHP endpoint only when published, or to the authenticated owner while in draft. The last ten published catalogues are retained for rollback; PDFs are retained so those versions remain available.
 
@@ -49,3 +49,5 @@ Before any approved production rollout, verify PHP and `mbstring`, the private-d
 The eight-file audit in `management-real-files-verification.json` found incomplete flat-PDF detection. Two actual documents produced no suggestions; the other six still needed missing fields and labels corrected. Do not treat an upload or a successful sample download as proof of a complete form.
 
 The editor highlights overlapping answer boxes, and both the PDF renderer and server refuse them. Long answers are fitted within their assigned box or rejected. These checks cannot determine whether a manually placed box belongs over original printed content: compare every field with the paper and inspect sample answers before approving a new layout. This setup is done once per new document.
+
+The client-portal preview on port 8185 uses the same owner configuration directory as the management preview. Its `/management/` login now includes a required username field. Client `/login/` continues to use a Saudi mobile number. Credentials stay outside version control and are not exposed by the session endpoint.

@@ -23,7 +23,7 @@ header span{display:block;color:#77748b;font-size:11px;margin-top:5px}
 .toolbar{justify-content:space-between;margin-bottom:22px}
 .actions{display:flex;gap:8px;flex-wrap:wrap}
 .panel{background:#fff;border:1px solid #e0e0eb;border-radius:14px;padding:24px;margin-bottom:20px}
-.login{max-width:450px;margin:70px auto}
+.login{max-width:450px;margin:70px auto}.login form{display:grid;gap:18px}
 .columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
 .document-row{display:flex;align-items:center;gap:12px;border-top:1px solid #ededf4;padding:16px 0}
 .number{width:30px;height:30px;flex-shrink:0;border-radius:50%;background:#f0eaf5;color:#5e3778;display:grid;place-items:center;font-weight:600}

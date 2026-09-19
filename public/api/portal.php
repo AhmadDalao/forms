@@ -7,6 +7,7 @@ header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: no-referrer');
 umask(0077);
 require_once __DIR__.'/portal-versions.php';
+require_once __DIR__.'/management-auth.php';
 function reply(array $data, int $status=200): never { http_response_code($status); echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR); exit; }
 function reject(string $code,int $status=400): never { reply(['error'=>$code],$status); }
 function body(): array {
@@ -43,7 +44,8 @@ function currentUser(bool $required=true,bool $allowReset=false): ?array {
 }
 function startClient(array $u): void {session_regenerate_id(true);$_SESSION=['client'=>$u['id'],'version'=>$u['session_version'],'csrf'=>bin2hex(random_bytes(24)),'started'=>time(),'last'=>time()];}
 function ownerRequired(): void {
-    if(empty($_SESSION['owner'])||!isset($_SESSION['last'],$_SESSION['started'])||time()-$_SESSION['last']>=1800||time()-$_SESSION['started']>=28800)reject('admin_required',401);
+    global $managementDir;
+    if(!managementOwner($managementDir))reject('admin_required',401);
     $_SESSION['last']=time();
 }
 function catalogue(): array {

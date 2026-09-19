@@ -6,7 +6,7 @@ import {spawn,spawnSync} from 'node:child_process';
 import {randomBytes} from 'node:crypto';
 const out=path.resolve('tmp/portal-audit'),base='http://127.0.0.1:8187',ownerPassword=randomBytes(24).toString('base64url')+'aA7!',password='Client-testing-strong-2026!';
 await fs.rm(out,{recursive:true,force:true});await fs.mkdir(out,{recursive:true});
-assert.equal(spawnSync('php',['scripts/management-init.php',out+'/management'],{input:ownerPassword}).status,0);
+assert.equal(spawnSync('php',['scripts/management-init.php',out+'/management','qa.manager'],{input:ownerPassword}).status,0);
 const log=await fs.open(out+'/server.log','w');
 const server=spawn('php',['-d','upload_max_filesize=20M','-d','post_max_size=24M','-S','127.0.0.1:8187','-t','dist','scripts/management-router.php'],{env:{...process.env,FORMS_DATA_DIR:out+'/management',FORMS_PORTAL_DATA_DIR:out+'/data'},stdio:['ignore',log.fd,log.fd]});
 let browser;const errors=[],checks=[];
@@ -80,7 +80,7 @@ try{
  await page.locator('#upload-completed').click();await page.locator('.portal-upload [name=document]').selectOption('al-naeem-terms-consent');await page.locator('.portal-upload [name=pdf]').setInputFiles('public/pdfs/al-naeem-terms-consent.pdf');await page.locator('.portal-upload .primary').click();await page.locator('.portal-upload').waitFor({state:'detached'});await page.waitForFunction(()=>document.querySelectorAll('.client-submission').length===6);assert.equal(await page.locator('.client-submission').count(),6);
  await page.locator('#portal-language').click();await page.locator('html[lang=ar]').waitFor();assert.equal(await page.locator('h1').innerText(),'طلباتي');await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/account-ar-mobile.png',fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
  // Admin uses the existing owner login and session, never a client cookie.
- const owner=await admin.newPage();owner.on('pageerror',e=>errors.push(e.message));await owner.goto(base+'/management/');await owner.locator('#password').fill(ownerPassword);await owner.locator('#login button').click();await owner.locator('.admin-stats').waitFor();await assertBrand(owner);
+ const owner=await admin.newPage();owner.on('pageerror',e=>errors.push(e.message));await owner.goto(base+'/management/');await owner.locator('#username').fill('qa.manager');await owner.locator('#password').fill(ownerPassword);await owner.locator('#login button').click();await owner.locator('.admin-stats').waitFor();await assertBrand(owner);
  const managementSession=await (await admin.request.get(base+'/api/management.php?action=session')).json();tokens.set(admin,managementSession.csrf);
  const stats=await call(admin,'admin_dashboard');assert.equal(stats.stats.users,2);assert.equal(stats.stats.submissions,6);assert.equal(stats.stats.submitted_users,1);assert.equal(stats.counts.find(c=>c.doc_id==='signature-form').count,1);
  await owner.screenshot({path:out+'/admin-overview-en.png',fullPage:true});await owner.locator('[data-users]').first().click();await owner.locator('#client-search').waitFor();await owner.locator('[data-client="'+accountA.id+'"]').click();await owner.locator('.admin-client-facts').waitFor();await owner.screenshot({path:out+'/admin-client-en.png',fullPage:true});
