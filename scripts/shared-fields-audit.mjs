@@ -7,7 +7,7 @@ const base=process.env.SITE_URL||'http://127.0.0.1:4173/';
 const out=process.env.QA_OUT||'tmp/pdfs/shared-fields';await fs.mkdir(out,{recursive:true});
 const results=[];
 const hash=b=>createHash('sha256').update(b).digest('hex');
-const profiles={individuals:{en_first:'Ahmad',en_middle:'Ali',en_last:'Dalao',ar_first:'أحمد',ar_middle:'علي',ar_last:'دلاو',dob:'1990-01-30',phone:'001234567',mobile:'0551234567',email:'ahmad@example.com',id_number:'0012345678',client_number:'0000123',account_number:'0000405',building:'12',street:'King Road',district:'Noor',city:'Riyadh',postal:'00123',country:'Saudi Arabia'},companies:{company_name:'Example Trading',inc_country:'Saudi Arabia',phone:'920000001',mobile:'0557654321',email:'company@example.com',auth_name:'Company Signer',auth_id:'0012345678',building:'24',street:'Market Road',district:'Centre',city:'Jeddah',postal:'00234',country:'Saudi Arabia'}};
+const profiles={individuals:{en_first:'Ahmad',en_second:'Ali',en_last:'Dalao',ar_first:'أحمد',ar_second:'علي',ar_last:'دلاو',dob:'1990-01-30',phone:'001234567',mobile:'0551234567',email:'ahmad@example.com',id_number:'0012345678',client_number:'0000123',account_number:'0000405',building:'12',street:'King Road',district:'Noor',city:'Riyadh',postal:'00123',country:'Saudi Arabia'},companies:{company_name:'Example Trading',inc_country:'Saudi Arabia',phone:'920000001',mobile:'0557654321',email:'company@example.com',auth_name:'Company Signer',auth_id:'0012345678',building:'24',street:'Market Road',district:'Centre',city:'Jeddah',postal:'00234',country:'Saudi Arabia'}};
 for(const [name,engine]of [['chrome',chromium],['firefox',firefox],['webkit',webkit]]){
  if(process.env.BROWSERS&&!process.env.BROWSERS.split(',').includes(name))continue;
  const profile=await fs.mkdtemp('tmp/shared-browser-');
@@ -60,22 +60,22 @@ for(const [name,engine]of [['chrome',chromium],['firefox',firefox],['webkit',web
   await context.close();context=await launch();page=context.pages()[0];observe(page);
   await goto('individuals');await home();await shared();assert.equal(await page.locator('#shared-en_first').inputValue(),'Ahmad');
   await closeShared();await page.locator('[data-doc="signature-form"]').click();await page.locator('[data-step="0"]').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'Ahmad Ali Dalao');
-  await page.locator('[name="client_name"]').fill('Manual Client');await shared();await page.locator('#shared-en_first').fill('Omar');assert.equal(await page.locator('[name="client_name"]').inputValue(),'Manual Client');
+  await page.locator('[name="client_name"]').fill('Manual Client');await page.locator('#edit-shared-details').click();await shared();await page.locator('#shared-en_first').fill('Omar');await page.locator('[data-doc="signature-form"]').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'Manual Client');
   await page.reload();await page.locator('[name="client_name"]').waitFor();assert.equal(await page.locator('[name="client_name"]').inputValue(),'Manual Client');
   await page.locator('[data-shared-use="client_name"]').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'Omar Ali Dalao');
   const second=await context.newPage();observe(second);await second.goto(new URL('individuals/',base).href);await second.locator('[name="client_name"]').waitFor();
-  await shared();await page.locator('#shared-en_first').fill('Ahmad');await second.waitForFunction(()=>document.querySelector('[name="client_name"]')?.value==='Ahmad Ali Dalao');
+  await page.locator('#edit-shared-details').click();await shared();await page.locator('#shared-en_first').fill('Ahmad');await second.waitForFunction(()=>document.querySelector('[name="client_name"]')?.value==='Ahmad Ali Dalao');
   const corporate=await context.newPage();observe(corporate);await corporate.goto(new URL('companies/',base).href);await corporate.locator('[data-doc="signature-form"]').click();await corporate.locator('[data-step="0"]').click();assert.equal(await corporate.locator('[name="client_name"]').inputValue(),'Example Trading');
   await page.locator('#shared-en_first').fill('Omar');await second.waitForFunction(()=>document.querySelector('[name="client_name"]')?.value==='Omar Ali Dalao');assert.equal(await corporate.locator('[name="client_name"]').inputValue(),'Example Trading');
   await second.close();await corporate.close();
   // A clear form stays blank across reload, and can explicitly reuse shared details later.
-  await closeShared();await page.locator('#reset').click();await page.locator('#reset-confirm').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'');
+  await closeShared();await page.locator('[data-doc="signature-form"]').click();await page.locator('#reset').click();await page.locator('#reset-confirm').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'');
   await page.reload();await page.locator('[data-doc="signature-form"]').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'');
-  await shared();await page.locator('#fill-shared-blanks').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'Omar Ali Dalao');
+  await page.locator('[data-shared-use="client_name"]').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'Omar Ali Dalao');await page.locator('#edit-shared-details').click();
   await page.locator('#language').click();await page.setViewportSize({width:390,height:844});
   assert.ok(!(await page.locator('#shared-fields-panel').innerText()).includes('Shared document fields'));
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await page.locator('#shared-fields-panel').screenshot({path:`${out}/${name}-mobile-ar.png`});
-  await page.locator('#clear-shared').click();await page.locator('#confirm-clear-shared').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'');
+  await page.locator('#clear-shared').click();await page.locator('#confirm-clear-shared').click();await page.locator('[data-doc="signature-form"]').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'');
   await goto('companies');await home();await page.locator('[data-doc="signature-form"]').click();await page.locator('[data-step="0"]').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'Example Trading');
   await home();await page.locator('#clear-all').click();await page.locator('#clear-all-confirm').click();
   await shared();assert.equal(await page.locator('#shared-company_name').inputValue(),'');

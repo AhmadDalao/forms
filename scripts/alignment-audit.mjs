@@ -63,7 +63,7 @@ const selected=process.env.ONLY_DOCS?.split(',');
 const report=previous.filter(r=>!selected.includes(r.doc));
 try{
  await openCatalogue(page,base);
- for(const doc of docs.filter(d=>!selected||selected.includes(d.id)))for(const [i,c]of cases.entries()){
+ for(const doc of docs.filter(d=>d.workflow!=='subscription'&&(!selected||selected.includes(d.id))))for(const [i,c]of cases.entries()){
   await openDocument(page,base,doc.id);
   const values={};
   for(const [step,s] of doc.sections.entries()){

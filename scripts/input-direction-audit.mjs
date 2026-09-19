@@ -48,9 +48,9 @@ for(const [browserName,engine]of [['chrome',chromium],['firefox',firefox],['webk
     assert.equal(await date.evaluate(el=>el.isConnected&&el.value==='1990-01-30'),true);await date.dispose();
    }
    await closeShared();
-   for(const doc of docs.filter(d=>(d.group===audience||d.group==='shared')&&(!process.env.DOCS||process.env.DOCS.split(',').includes(d.id)))){
-    await page.locator(`[data-doc="${doc.id}"]`).click();await shared();
-    await typeStable(page.locator('#shared-email'),'editor+qa@example.com');await closeShared();
+   for(const doc of docs.filter(d=>d.workflow!=='subscription'&&(d.group===audience||d.group==='shared')&&(!process.env.DOCS||process.env.DOCS.split(',').includes(d.id)))){
+    await page.locator(`[data-doc="${doc.id}"]`).click();
+    assert.equal(await page.locator('#shared-fields-panel').count(),0);
     const expected={};
     for(const [step,section]of doc.sections.entries()){
      await page.locator(`[data-step="${step}"]`).click();
@@ -69,11 +69,13 @@ for(const [browserName,engine]of [['chrome',chromium],['firefox',firefox],['webk
     // Editing shared fields from review must invalidate the old download without losing focus.
     if(doc.id.startsWith('kyc-')){
      await page.locator('#review-tab').click();await page.locator('#download:not([disabled])').waitFor();
-     await shared();await emailEditing(page.locator('#shared-email'));
+     await page.locator('#edit-again').click();await page.locator('#edit-shared-details').click();
+     await emailEditing(page.locator('#shared-email'));await closeShared();
+     await page.locator(`[data-doc="${doc.id}"]`).click();
      assert.equal(await page.locator('#review-tab').evaluate(el=>el.classList.contains('active')),false);
      assert.equal(await page.locator('#document-preview').isHidden(),true);
      assert.equal(await page.locator('#fields').count(),1);
-     assert.equal(await page.locator('#download-section').count(),1);await closeShared();
+     assert.equal(await page.locator('#download-section').count(),1);
     }
     await page.reload();await page.locator('.workspace').waitFor();
     for(const [id,value]of Object.entries(expected)){

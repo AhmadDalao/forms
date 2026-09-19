@@ -21,7 +21,7 @@ function blankLines(canvas,viewport,items){
       let ink=0;
       for(let sy=Math.max(0,Math.floor(y-12*scale));sy<y-2*scale;sy++)for(let sx=Math.ceil(start+2*scale);sx<x-2*scale;sx++){const n=(sy*w+sx)*4;if(Math.min(data[n],data[n+1],data[n+2])<210)ink++;}
       let thick=0;for(let sx=Math.ceil(start+2*scale);sx<x-2*scale;sx++)if(dark(sx,Math.min(h-1,Math.floor(y+3*scale))))thick++;
-      if(ink===0&&thick/width<.1&&!items.some(i=>i.str.trim()&&i.x<r[0]+r[2]&&i.x+i.w>r[0]&&i.y>r[1]&&i.y<r[1]+r[3]))found.push(r);
+      if(ink===0&&thick/width<.1&&!items.some(i=>i.str.trim()&&i.x<r[0]+r[2]&&i.x+i.w>r[0]&&i.bottom>r[1]&&i.top<r[1]+r[3]))found.push(r);
      }
     }start=-1;
    }
@@ -42,7 +42,11 @@ export async function inspectPDF(file,onProgress=()=>{}){
    const page=await pdf.getPage(number),view=page.getViewport({scale:1});
    if(page.rotate!==0||page.userUnit!==1||page.view[0]!==0||page.view[1]!==0)throw Error('This PDF uses rotated or cropped pages. Export it as a standard, unrotated PDF before importing.');
    pageSizes.push([view.width,view.height]);
-   const content=await page.getTextContent();const items=content.items.filter(i=>i.str).map(i=>({str:i.str,x:i.transform[4],y:view.height-i.transform[5],w:i.width}));
+   const content=await page.getTextContent();const items=content.items.filter(i=>i.str).map(i=>{
+    const y=view.height-i.transform[5],height=Math.hypot(i.transform[2],i.transform[3]),font=content.styles[i.fontName];
+    // Baselines alone miss glyphs that extend into a proposed answer area.
+    return {str:i.str,x:i.transform[4],y,w:i.width,top:y-height*(font?.ascent??1),bottom:y-height*(font?.descent??-.25)};
+   });
    const annotations=await page.getAnnotations();
    for(const a of annotations.filter(a=>a.subtype==='Widget')){
     widgets++;

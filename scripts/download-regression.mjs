@@ -26,7 +26,7 @@ for(const [name,engine]of [['chrome',chromium],['firefox',firefox],['webkit',web
  try{
   await openCatalogue(page,base);
   assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://forms.ahmaddalao.com/individuals/');
-  for(const doc of docs){
+  for(const doc of docs.filter(d=>d.workflow!=='subscription')){
    await openDocument(page,base,doc.id);
    const field=doc.sections[0].fields.find(f=>!f.cells&&f.type==='text'&&!f.sum&&f.rect[2]>100);
    assert.ok(field,doc.id);await page.locator(`[name="${field.id}"]`).fill('اختبار Test');

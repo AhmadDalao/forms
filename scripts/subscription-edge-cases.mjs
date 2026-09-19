@@ -1,7 +1,7 @@
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 const browser=await chromium.launch({channel:'chrome',headless:true}),page=await browser.newPage();
-const base='http://127.0.0.1:8184';
+const base=process.env.FORMS_BASE_URL||'http://127.0.0.1:8184';
 try{
  await page.goto(base+'/individuals/');await page.locator('[data-doc="subscription-form"]').click();
  await page.locator('[data-review]').click();assert.ok((await page.locator('#sub-status').innerText()).includes('required'));

@@ -28,6 +28,7 @@ for record in records:
     iw=min(x+w-2,c['x1'])-max(x+2,c['x0']);ih=min(y+h-2,c['bottom'])-max(y+2,c['top'])
     if iw>.8 and ih>.8:hits.append(c['text'])
    if hits:placements.append({'field':field['id'],'page':field['page'],'printed_characters':''.join(hits)})
+ if not record.get('importedWidgets'):assert not placements,('Suggested answer area covers printed text',record['file'],placements)
  for sample in record['samples']:
   if not sample.get('output'):continue
   result=pdfium.PdfDocument(root/sample['output']);reader=PdfReader(root/sample['output'])
