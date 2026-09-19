@@ -92,8 +92,9 @@ function cleanAnswers(array $def,mixed $input): array {
     }
     return $out;
 }
-function submissionRows(?string $user=null,?int $limit=null,bool $admin=false): array {
-    return execute('SELECT s.id,s.user_id,s.doc_id,s.title,s.ar,s.audience,s.created_at,s.size,s.sha256,s.version,s.archived_at,s.replaces_id,s.restored_from,s.edited_from,s.source,u.name,u.phone,u.email,u.account_type'.reviewColumns($admin||$user===null).' FROM submissions s JOIN users u ON u.id=s.user_id'.reviewJoin().($user?' WHERE s.user_id=?':'').' ORDER BY s.created_at DESC,s.rowid DESC'.($limit?' LIMIT '.$limit:''),$user?[$user]:[])->fetchAll();
+function submissionRows(?string $user=null,?int $limit=null,bool $admin=false,bool $currentOnly=false): array {
+    $where=[];if($user!==null)$where[]='s.user_id=?';if($currentOnly)$where[]='s.archived_at IS NULL';
+    return execute('SELECT s.id,s.user_id,s.doc_id,s.title,s.ar,s.audience,s.created_at,s.size,s.sha256,s.version,s.archived_at,s.replaces_id,s.restored_from,s.edited_from,s.source,u.name,u.phone,u.email,u.account_type'.reviewColumns($admin||$user===null).' FROM submissions s JOIN users u ON u.id=s.user_id'.reviewJoin().($where?' WHERE '.implode(' AND ',$where):'').' ORDER BY s.created_at DESC,s.rowid DESC'.($limit?' LIMIT '.$limit:''),$user!==null?[$user]:[])->fetchAll();
 }
 function fileName(string $name): string {return mb_substr(trim(preg_replace('/[^\p{L}\p{N}_ -]/u','',$name)),0,100)?:'client';}
 function attachment(string $type,string $name,bool $inline=false): void {
@@ -150,15 +151,31 @@ try {
         $counts=execute('SELECT doc_id,audience,title,ar,COUNT(*) AS count,SUM(archived_at IS NULL) AS active_count,COUNT(DISTINCT user_id) AS clients FROM submissions GROUP BY doc_id,audience')->fetchAll();
         $categories=catalogue();
         foreach($counts as $c)if(!in_array($c['doc_id'],array_column($categories,'id'),true))$categories[]=['id'=>$c['doc_id'],'title'=>$c['title'],'ar'=>$c['ar'],'group'=>'shared','downloadOnly'=>false];
-        reply(['stats'=>$stats,'categories'=>$categories,'counts'=>$counts,'recent'=>submissionRows(null,12),'review_counts'=>execute("SELECT COALESCE(r.status,'pending') AS status,COUNT(*) AS count FROM submissions s".reviewJoin().' WHERE s.archived_at IS NULL GROUP BY status')->fetchAll()]);
+        reply(['stats'=>$stats,'categories'=>$categories,'counts'=>$counts,'recent'=>submissionRows(null,12,true,true),'review_counts'=>execute("SELECT COALESCE(r.status,'pending') AS status,COUNT(*) AS count FROM submissions s".reviewJoin().' WHERE s.archived_at IS NULL GROUP BY status')->fetchAll()]);
     }
     if($action==='admin_review_queue'){
-        $status=$_GET['status']??'pending';if(!in_array($status,['pending','approved','rejected'],true))reject('invalid_request');
-        $page=max(1,min(100000,(int)($_GET['page']??1)));$offset=($page-1)*30;
-        $where=reviewJoin()." WHERE s.archived_at IS NULL AND COALESCE(r.status,'pending')=?";
-        $count=(int)execute('SELECT COUNT(*) FROM submissions s'.$where,[$status])->fetchColumn();
-        $rows=execute('SELECT s.id,s.user_id,s.title,s.ar,s.doc_id,s.audience,s.created_at,s.version,s.archived_at,s.restored_from,u.name,u.phone,u.account_type'.reviewColumns(true).' FROM submissions s JOIN users u ON u.id=s.user_id'.$where.' ORDER BY s.created_at,s.rowid LIMIT 30 OFFSET '.$offset,[$status])->fetchAll();
-        reply(['submissions'=>$rows,'total'=>$count,'page'=>$page]);
+        $status=$_GET['status']??'pending';$audience=$_GET['audience']??'all';$sort=$_GET['sort']??'oldest';
+        if(!in_array($status,['pending','approved','rejected','all'],true)||!in_array($audience,['individual','corporate','all'],true)||!in_array($sort,['oldest','newest'],true))reject('invalid_request');
+        $document=textValue($_GET['doc_id']??'all',100);$query=textValue($_GET['q']??'',160);
+        $pageValue=$_GET['page']??'1';if(!is_string($pageValue)||!preg_match('/^[0-9]{1,6}$/D',$pageValue))reject('invalid_request');
+        $page=max(1,min(100000,(int)$pageValue));$offset=($page-1)*30;
+        $where=' WHERE s.archived_at IS NULL';$params=[];
+        if($audience!=='all'){$where.=' AND s.audience=?';$params[]=$audience;}
+        if($document!==''&&$document!=='all'){$where.=' AND s.doc_id=?';$params[]=$document;}
+        if($query!==''){
+            $search='%'.str_replace(['\\','%','_'],['\\\\','\\%','\\_'],$query).'%';
+            $where.=" AND (u.name LIKE ? ESCAPE '\\' OR u.phone LIKE ? ESCAPE '\\' OR s.id LIKE ? ESCAPE '\\')";
+            array_push($params,$search,$search,$search);
+        }
+        $from=' FROM submissions s JOIN users u ON u.id=s.user_id'.reviewJoin();
+        $counts=['all'=>0,'pending'=>0,'approved'=>0,'rejected'=>0];
+        foreach(execute("SELECT COALESCE(r.status,'pending') AS status,COUNT(*) AS count".$from.$where.' GROUP BY status',$params)->fetchAll() as $count){$counts[$count['status']]=(int)$count['count'];$counts['all']+=(int)$count['count'];}
+        if($status!=='all'){$where.=" AND COALESCE(r.status,'pending')=?";$params[]=$status;}
+        $direction=$sort==='newest'?' DESC':' ASC';
+        $rows=execute('SELECT s.id,s.user_id,s.title,s.ar,s.doc_id,s.audience,s.created_at,s.version,s.archived_at,s.restored_from,u.name,u.phone,u.account_type'.reviewColumns(true).$from.$where.' ORDER BY s.created_at'.$direction.',s.rowid'.$direction.' LIMIT 30 OFFSET '.$offset,$params)->fetchAll();
+        $documents=[];foreach(catalogue() as $document)$documents[$document['id']]=array_intersect_key($document,array_flip(['id','title','ar']));
+        foreach(execute('SELECT doc_id,title,ar FROM submissions WHERE rowid IN (SELECT MAX(rowid) FROM submissions GROUP BY doc_id) ORDER BY rowid DESC')->fetchAll() as $document)if(!isset($documents[$document['doc_id']]))$documents[$document['doc_id']]=['id'=>$document['doc_id'],'title'=>$document['title'],'ar'=>$document['ar']];
+        reply(['submissions'=>$rows,'total'=>$counts[$status],'page'=>$page,'counts'=>$counts,'documents'=>array_values($documents)]);
     }
     if($action==='admin_review'){
         $b=body();$id=textValue($b['id']??'',40);$key=requestKey($b);

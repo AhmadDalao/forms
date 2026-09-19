@@ -33,7 +33,14 @@ try{
   accounts.push({id:user.id,name:user.name,phone:user.phone});await fs.writeFile(out+'/test-accounts.json',JSON.stringify(accounts),{mode:0o600});
   const meta={account:user.id,document:'signature-form',audience:type,values:{client_name:user.name},source:'online',expectedCurrent:null,requestKey:randomUUID()};
   const submit=async(m,status=201)=>(await call(ctx,'submit',null,status,{multipart:{metadata:JSON.stringify(m),pdf:{name:'qa.pdf',mimeType:'application/pdf',buffer:pdf}}})).submission;
-  const first=await submit(meta);clients.push({ctx,user,meta,submit,first});
+  const obsolete=await submit(meta);
+  const first=await submit({...meta,expectedCurrent:obsolete.id,editedFrom:obsolete.id,requestKey:randomUUID()});
+  const archived=(await call(ctx,'detail',null,200,{params:{id:obsolete.id}})).submission;
+  assert.ok(archived.archived_at);assert.equal(archived.review_history.length,0);assert.equal(archived.answers.client_name,user.name);
+  assert.equal((await call(manager,'admin_review',{id:obsolete.id,status:'approved',reason_code:'',reason_text:'',expectedReview:0,requestKey:randomUUID()},409)).error,'review_archived');
+  const recent=(await call(manager,'admin_dashboard')).recent;assert.ok(recent.some(s=>s.id===first.id));assert.ok(recent.every(s=>!s.archived_at&&s.id!==obsolete.id));
+  for(const status of ['pending','approved','rejected','all']){const q=await call(manager,'admin_review_queue',null,200,{params:{status,q:user.phone}});assert.ok(q.submissions.every(s=>!s.archived_at&&s.id!==obsolete.id));assert.equal(q.counts.all,1);assert.equal(q.counts.pending,1);}
+  clients.push({ctx,user,meta,submit,first,obsolete});
  }
  const page=await manager.newPage();track(page);
  for(const [index,c] of clients.entries()){
@@ -72,7 +79,7 @@ try{
   await clientPage.reload();await clientPage.locator('.notification-count').waitFor();assert.equal(await clientPage.evaluate(()=>document.querySelector('[data-account-notifications] script')!==null),false);
   await clientPage.screenshot({path:out+'/'+typeName(c)+'-client-'+lang+'.png',fullPage:true});
   // The approval UI hides rejection fields and does not require their old values.
-  await page.goto(base+'/management/');await page.locator('[data-reviews]').click();await page.locator('[data-review-filter]').selectOption('rejected');await page.locator(`[data-preview="${restore.id}"]`).click();await page.locator('.review-form').waitFor();
+  await page.goto(base+'/management/');await page.locator('[data-reviews]').click();await page.locator('[data-review-status="rejected"]').click();await page.locator(`[data-preview="${restore.id}"]`).click();await page.locator('.review-form').waitFor();
   await page.locator('.review-form [name=status]').selectOption('rejected');await page.locator('.review-form [name=reason_code]').selectOption('other');
   assert.equal(await page.locator('.review-form').evaluate(f=>f.checkValidity()),false);
   await page.locator('.review-form [name=status]').selectOption('approved');assert.equal(await page.locator('.review-form [data-rejection]').isVisible(),false);await page.locator('.review-form [type=submit]').click();await page.locator('.review-success').waitFor();
@@ -80,8 +87,16 @@ try{
   await page.locator('.portal-preview [data-close]').click();
   await call(manager,'admin_review',{id:restore.id,status:'rejected',reason_code:'incorrect_data',reason_text:'Please correct the name. يرجى تصحيح الاسم.',expectedReview:uiApproved.review_revision,requestKey:randomUUID()});
   const profile=await call(manager,'admin_client',null,200,{params:{id:user.id}});assert.equal(profile.submissions.find(s=>s.id===restore.id).reviewed_by,credentials.username);
-  checks.push(typeName(c)+': pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, resubmit/restore pending, archived history and unchanged PDFs');
+  assert.ok(profile.submissions.find(s=>s.id===c.obsolete.id).archived_at);
+  await page.locator('[data-management-view="users"]').click();await page.locator(`[data-client="${user.id}"]`).first().click();await page.locator('.admin-history').waitFor();await page.locator('.admin-history summary').click();
+  const archiveRow=page.locator(`tr:has([data-preview="${c.obsolete.id}"])`);assert.equal(await archiveRow.locator('.review-pending').count(),0);
+  await archiveRow.locator('[data-preview]').click();await page.locator('.portal-pdf-pages canvas').waitFor();assert.equal(await page.locator('.portal-preview .review-pending').count(),0);assert.equal(await page.locator('.portal-preview .review-form').count(),0);
+  await page.locator('.portal-preview [data-current-version]').click();await page.locator('.portal-preview .review-form').waitFor();assert.equal(await page.locator('.portal-preview .review-archived').count(),0);
+  await page.locator('.portal-preview [data-close]').click();
+
+  checks.push(typeName(c)+': replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, resubmit/restore pending, archived history and unchanged PDFs');
  }
+ if(!remote)await auditFilters(manager,clients,call,checks);
  // Reuse the two synthetic accounts; never create real-client decisions or touch their data.
  for(const [engine,name,opts] of [[chromium,'chrome',{channel:'chrome'}],[firefox,'firefox',{}],[webkit,'webkit',{}]]){
   const engineBrowser=await engine.launch({headless:true,...opts});
@@ -91,17 +106,35 @@ try{
     await p.goto(base+'/my-applications/?lang='+lang);await p.locator('.account-notifications').waitFor();assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
     await p.locator(`[data-preview="${c.current.id}"]`).click();await p.locator('.portal-pdf-pages canvas').waitFor();await p.locator('.review-rejected').first().waitFor();await p.locator('.portal-preview [data-close]').click();
     await owner(ctx);await p.goto(base+'/management/');await p.locator('[data-reviews]').click();if((await p.locator('.client-management').getAttribute('dir'))!==(lang==='ar'?'rtl':'ltr'))await p.locator('[data-admin-language]').click();
-    await p.locator('[data-review-filter]').selectOption('rejected');await p.locator(`[data-preview="${c.current.id}"]`).click();await p.locator('.review-form').waitFor();assert.equal(await p.locator('.portal-preview').evaluate(el=>el.scrollWidth>el.clientWidth+1),false);
+    await p.locator('[data-review-status="rejected"]').click();await p.locator(`[data-preview="${c.current.id}"]`).waitFor();
+    await p.locator('#review-filters [name=q]').fill(c.user.phone);await p.locator('#review-filters [type=submit]').click();await p.locator(`[data-preview="${c.current.id}"]`).waitFor();
+    await p.waitForFunction(()=>document.querySelectorAll('.admin-table tbody tr').length===1);assert.equal(await p.locator('.admin-table tbody tr').count(),1);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
+    await p.screenshot({path:out+'/queue-'+name+'-'+lang+'-'+width+'.png',fullPage:true});
+    await p.locator(`[data-client="${c.user.id}"]`).click();await p.locator('[data-client-back]').click();await p.locator('#review-filters').waitFor();assert.equal(await p.locator('#review-filters [name=q]').inputValue(),c.user.phone);assert.equal(await p.locator('[data-review-status="rejected"]').getAttribute('aria-pressed'),'true');
+    await p.locator(`[data-preview="${c.current.id}"]`).click();await p.locator('.review-form').waitFor();assert.equal(await p.locator('.portal-preview').evaluate(el=>el.scrollWidth>el.clientWidth+1),false);
     await p.screenshot({path:out+'/review-'+name+'-'+lang+'-'+width+'.png'});await p.locator('.portal-preview [data-close]').click();
     if(!remote&&name==='chrome'&&lang==='en'&&width===1440){
+     const waitRows=count=>p.waitForFunction(n=>document.querySelectorAll('.admin-review-results tbody tr').length===n,count);
+     await p.locator('[data-review-status="all"]').click();await waitRows(3);
+     await p.locator('[data-review-audience]').selectOption('corporate');await p.locator('.review-empty').waitFor();assert.match(await p.locator('.review-empty').textContent(),/No forms match/);
+     await p.locator('#review-filters [data-clear-review]').click();await waitRows(4);assert.equal(await p.locator('[data-review-status="all"]').getAttribute('aria-pressed'),'true');assert.equal(await p.locator('#review-filters [name=q]').inputValue(),'');
+     await p.locator('[data-review-document]').selectOption('signature-form');await waitRows(2);
+     await Promise.all([p.waitForResponse(r=>{const u=new URL(r.url());return u.searchParams.get('action')==='admin_review_queue'&&u.searchParams.get('sort')==='newest';}),p.locator('[data-review-sort]').selectOption('newest')]);
+     await p.locator('[data-review-audience]').selectOption('individual');await waitRows(1);
+     await p.locator('#review-filters [name=q]').fill('nonexistent-review-client');await p.locator('#review-filters [type=submit]').click();await p.locator('.review-empty').waitFor();
+     await p.locator('#review-filters [data-clear-review]').click();await waitRows(4);assert.equal(await p.locator('[data-review-sort]').inputValue(),'oldest');assert.equal(await p.locator('[data-review-document]').inputValue(),'all');assert.equal(await p.locator('[data-review-audience]').inputValue(),'all');
+     await p.locator('[data-review-status="rejected"]').click();await waitRows(2);await p.locator('#review-filters [name=q]').fill(c.user.phone);await p.locator('#review-filters [type=submit]').click();await waitRows(1);
+     checks.push('Review UI combines status, audience, document, search and sorting; unmatched filters show clear empty state and Reset preserves the selected status');
      let release,seen,finished;const hold=new Promise(r=>release=r),started=new Promise(r=>seen=r),completed=new Promise(r=>finished=r);
      const pattern='**/api/portal.php?**';
      const handler=async route=>{const url=new URL(route.request().url());if(url.searchParams.get('action')==='admin_review_queue'&&url.searchParams.get('status')==='pending'){const response=await route.fetch();seen();await hold;await route.fulfill({response});finished();}else await route.continue();};
-     await p.route(pattern,handler);await p.locator('[data-review-filter]').selectOption('pending');await started;
+     await p.route(pattern,handler);await p.locator('[data-review-status="pending"]').click();await started;
      const latest=p.waitForResponse(r=>{const u=new URL(r.url());return u.searchParams.get('action')==='admin_review_queue'&&u.searchParams.get('status')==='rejected';});
-     await p.locator('[data-review-filter]').selectOption('rejected');await latest;await p.locator(`[data-preview="${c.current.id}"]`).waitFor();
-     release();await completed;await p.waitForTimeout(250);assert.equal(await p.locator(`[data-preview="${c.current.id}"]`).count(),1);assert.equal(await p.locator('[data-review-filter]').inputValue(),'rejected');await p.unroute(pattern,handler);
+     await p.locator('[data-review-status="rejected"]').click();await latest;await p.locator(`[data-preview="${c.current.id}"]`).waitFor();
+     release();await completed;await p.waitForTimeout(250);assert.equal(await p.locator(`[data-preview="${c.current.id}"]`).count(),1);assert.equal(await p.locator('[data-review-status="rejected"]').getAttribute('aria-pressed'),'true');await p.unroute(pattern,handler);
      checks.push('Delayed older review responses cannot overwrite the newest filter/language selection');
+     await p.locator('#management-notifications').click();await p.locator('[data-review-status="pending"][aria-pressed="true"]').waitFor();assert.equal(await p.locator('#review-filters [name=q]').inputValue(),'');assert.equal(await p.locator('[data-review-audience]').inputValue(),'all');
+     checks.push('Management bell returns to unfiltered awaiting-review queue');
     }
     await ctx.close();
    }
@@ -111,3 +144,51 @@ try{
  assert.deepEqual(errors,[]);await fs.writeFile(out+'/results.json',JSON.stringify({base,checks,errors,passed:true},null,2));console.log(JSON.stringify({passed:true,checks,errors},null,2));
 }finally{await browser?.close();server?.kill();}
 function typeName(c){return c.user.account_type;}
+
+async function auditFilters(manager,clients,call,checks){
+ const c=clients[0],other=clients[1];
+ const approved=await c.submit({...c.meta,document:'kyc-individual',values:{name_1:'QA Individual'},requestKey:randomUUID()});
+ await call(manager,'admin_review',{id:approved.id,status:'approved',reason_code:'',reason_text:'',expectedReview:0,requestKey:randomUUID()});
+ const pending=await c.submit({...c.meta,document:'terms-and-conditions',values:{terms_name_0:'QA Individual'},requestKey:randomUUID()});
+ const queue=params=>call(manager,'admin_review_queue',null,200,{params});
+ const expected={all:3,pending:1,approved:1,rejected:1};
+ for(const status of ['pending','approved','rejected','all']){
+  const result=await queue({status,q:c.user.phone});assert.deepEqual(result.counts,expected);assert.equal(result.total,expected[status]);assert.equal(result.submissions.length,expected[status]);
+  assert.ok(result.submissions.every(s=>s.user_id===c.user.id&&!s.archived_at&&(status==='all'||s.review_status===status)));
+ }
+ for(const q of [c.user.name,c.user.phone.slice(-6),c.current.id.slice(0,12)]){
+  const result=await queue({status:'all',q,audience:'individual'});assert.ok(result.submissions.length);assert.ok(result.submissions.every(s=>s.user_id===c.user.id));
+ }
+ for(const q of ['%','_',"' OR 1=1 --",'\\'])assert.equal((await queue({status:'all',q})).total,0);
+ assert.equal((await queue({status:'all',q:c.user.phone,audience:'corporate'})).total,0);
+ const doc=await queue({status:'all',q:c.user.phone,audience:'individual',doc_id:'kyc-individual'});assert.equal(doc.total,1);assert.equal(doc.submissions[0].id,approved.id);assert.deepEqual(doc.counts,{all:1,pending:0,approved:1,rejected:0});
+ assert.equal((await queue({status:'all',q:other.user.phone,doc_id:'signature-form'})).total,1);
+ const oldest=await queue({status:'all',q:c.user.phone,sort:'oldest'}),newest=await queue({status:'all',q:c.user.phone,sort:'newest'});
+ assert.deepEqual(oldest.submissions.map(s=>s.id),[c.current.id,approved.id,pending.id]);assert.deepEqual(newest.submissions.map(s=>s.id),oldest.submissions.map(s=>s.id).reverse());
+ assert.ok(newest.documents.some(d=>d.id==='signature-form'));assert.ok(newest.documents.every(d=>d.id&&d.title&&d.ar));
+ for(const params of [{status:'archived'},{audience:'unknown'},{sort:'random'},{page:'-1'},{page:'1.5'},{page:'abc'},{'q[]':'array'},{q:'x'.repeat(161)},{'status[]':'pending'},{'doc_id[]':'signature-form'}])await call(manager,'admin_review_queue',null,400,{params});
+ assert.ok((await call(manager,'admin_dashboard')).recent.every(s=>!s.archived_at));
+ checks.push('Current-only status counts, combined audience/document/search filters, literal SQL wildcard handling, oldest/newest ordering and invalid filter rejection');
+ // Seed only this isolated QA database to exercise a real second page without
+ // issuing dozens of synthetic registrations or bypassing API rate limits.
+ const db=out+'/data/clients.sqlite';
+ const php=`$db=new PDO('sqlite:'.$argv[1]);$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);$db->exec('PRAGMA foreign_keys=ON');`;
+ const seed=spawnSync('php',['-r',php+`
+ $u=$db->query("SELECT * FROM users LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+ $s=$db->query("SELECT * FROM submissions WHERE archived_at IS NULL LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+ $db->beginTransaction();for($i=0;$i<33;$i++){
+  $user=$u;$user['id']=bin2hex(random_bytes(16));$user['name']='QA Pagination '.$i;$user['phone']='+96658000'.str_pad((string)$i,4,'0',STR_PAD_LEFT);
+  $keys=array_keys($user);$db->prepare('INSERT INTO users('.implode(',',$keys).') VALUES('.implode(',',array_fill(0,count($keys),'?')).')')->execute(array_values($user));
+  $row=$s;$row['id']=bin2hex(random_bytes(16));$row['user_id']=$user['id'];$row['doc_id']='qa-pagination';$row['title']='QA pagination fixture';$row['ar']='اختبار ترقيم الصفحات';$row['request_key']=bin2hex(random_bytes(16));$row['version']=1;$row['created_at']=gmdate('Y-m-d\\TH:i:s\\Z',strtotime('2026-01-01')+$i);$row['archived_at']=$i===32?'2026-02-01T00:00:00Z':null;$row['replaces_id']=$row['restored_from']=$row['edited_from']=null;
+  $keys=array_keys($row);$db->prepare('INSERT INTO submissions('.implode(',',$keys).') VALUES('.implode(',',array_fill(0,count($keys),'?')).')')->execute(array_values($row));
+ }$db->commit();`,db],{encoding:'utf8'});assert.equal(seed.status,0,seed.stderr);
+ try{
+  const first=await queue({status:'all',q:'QA Pagination',doc_id:'qa-pagination',page:1}),second=await queue({status:'all',q:'QA Pagination',doc_id:'qa-pagination',page:2}),empty=await queue({status:'all',q:'QA Pagination',doc_id:'qa-pagination',page:3});
+  assert.equal(first.total,32);assert.equal(first.submissions.length,30);assert.equal(second.submissions.length,2);assert.equal(empty.submissions.length,0);assert.deepEqual(first.counts,{all:32,pending:32,approved:0,rejected:0});
+  assert.equal(new Set([...first.submissions,...second.submissions].map(s=>s.id)).size,32);assert.ok([...first.submissions,...second.submissions].every(s=>!s.archived_at));assert.ok(first.documents.some(d=>d.id==='qa-pagination'));
+  const inverse=await queue({status:'all',q:'QA Pagination',doc_id:'qa-pagination',sort:'newest',page:1});assert.equal(inverse.submissions[0].id,second.submissions.at(-1).id);
+  checks.push('32 current fixtures paginate 30/2 without duplicates; archived 33rd excluded; legacy submitted document filter remains available');
+ }finally{
+  const clean=spawnSync('php',['-r',php+`$db->beginTransaction();$db->exec("DELETE FROM submissions WHERE doc_id='qa-pagination'");$db->exec("DELETE FROM users WHERE name LIKE 'QA Pagination %'");$db->commit();`,db],{encoding:'utf8'});assert.equal(clean.status,0,clean.stderr);
+ }
+}
