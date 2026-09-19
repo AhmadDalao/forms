@@ -1,0 +1,129 @@
+{
+  "status": "passed",
+  "source_commit": "3a5ed3465146d6739a4191d41808af112fd57ce3",
+  "live_url": "https://forms.ahmaddalao.com/",
+  "deployed_at_utc": "20260919T195539Z",
+  "unit_tests": {
+    "passed": 100,
+    "failed": 0
+  },
+  "isolated_http": [
+    "Distinct signature review decision, idempotency/stale protection, filter counts, requested state, actor binding, notification privacy and snapshot preservation",
+    "Configured pages/slots, owner/login/account/current-version/source-hash checks, required valid PNG and malformed PDF rejection leave original untouched",
+    "Electronic signing creates version 2 from exact uploaded bytes, preserves PDF-only source/answers/labels, archives unchanged original and review, exposes pending to management, retries once and blocks repeat overlay",
+    "Full signed-PDF replacement creates version 3 pending review, preserves both archives/decisions, keeps notifications and blocks opposite-category signing/remedies without affecting downloads"
+  ],
+  "isolated_browser": [
+    "Management requests missing signature; normal live polling updates client action/notification and status filter counts",
+    "Uploaded PDF gets actual electronic signature overlay, preview acknowledgement, new pending version and immutable original",
+    "Repeat request for an overlaid upload uses whole signed PDF replacement and retains every version",
+    "Online signed company form remedy focuses electronic signing, clears rejected ink once, preserves fresh upload after reload and resubmits",
+    "Unknown, download-only and unmapped layouts never offer electronic signing"
+  ],
+  "fallback_cases": [
+    "Unavailable online document: no signing, replacement or edit controls; preview preserved and contact-management guidance shown",
+    "Known download-only and no-layout documents: whole signed-PDF upload opens with the correct document",
+    "Changed account category keeps prior submissions visible but hides current edit, signing and replacement actions"
+  ],
+  "review_regression": {
+    "passed": true,
+    "groups": [
+      "individual: replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled after save/reopen, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs",
+      "corporate: replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled after save/reopen, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs",
+      "Current-only status counts, combined audience/document/search filters, literal SQL wildcard handling, oldest/newest ordering and invalid filter rejection",
+      "32 current fixtures paginate 30/2 without duplicates; archived 33rd excluded; legacy submitted document filter remains available",
+      "Review UI combines status, audience, document, search and sorting; unmatched filters show clear empty state and Reset preserves the selected status",
+      "Delayed older review responses cannot overwrite the newest filter/language selection",
+      "Management bell returns to unfiltered awaiting-review queue",
+      "chrome: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+      "firefox: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+      "webkit: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout"
+    ],
+    "browser_errors": []
+  },
+  "live_browser": {
+    "passed": true,
+    "public_cases": 24,
+    "management_cases": 8,
+    "roles": [
+      "admin",
+      "superadmin"
+    ],
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "widths": [
+      1440,
+      390
+    ],
+    "matching_assets": 9,
+    "browser_errors": [],
+    "application_mutations": 0,
+    "decision_control": "Signature required present. The existing approved record remained locked; saving decisions and optional explanations were exercised with isolated fixtures."
+  },
+  "https_verification": {
+    "passed": true,
+    "public_build_matches": [
+      "index.html",
+      "my-applications/index.html",
+      "individuals/index.html",
+      "management/index.html",
+      "register/index.html",
+      "account/index.html",
+      "assets/api-7H6BtKhA.js",
+      "assets/index-CL97c4K8.js",
+      "assets/preview-CK6TZEZ7.css",
+      "assets/access-24-vxmJN.js",
+      "assets/preview-Bqd1jceI.js",
+      "assets/access-Cfy-cUrH.js",
+      "assets/main-bjAfTEJy.js",
+      "assets/main-CjryNwpG.js",
+      "assets/main-Ca5l7q9u.js",
+      "assets/main-M8cxcAYY.css",
+      "assets/shared-fields-CoFohfEE.js",
+      "login/index.html",
+      "companies/index.html"
+    ],
+    "blocked_paths": [
+      {
+        "path": "_private/",
+        "status": 403
+      },
+      {
+        "path": "_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "path": ".env.local",
+        "status": 403
+      }
+    ],
+    "source_commit": "3a5ed3465146d6739a4191d41808af112fd57ce3"
+  },
+  "migration_preservation": {
+    "ok": true,
+    "schema": 4,
+    "preserved_original_records": {
+      "users": 1,
+      "submissions": 2,
+      "submission_reviews": 1,
+      "audit": 1
+    },
+    "original_pdf_hashes_verified": true,
+    "review_sequence_preserved": true,
+    "private_data_exported": false
+  },
+  "backup": {
+    "location": "Hostinger protected private storage",
+    "consistent_sqlite_snapshot": true,
+    "before_schema": 3,
+    "integrity_and_foreign_keys_checked": true,
+    "private_data_exported": false,
+    "temporary_authenticated_helpers_removed": true
+  },
+  "signature_review_scope": "Uploaded signed PDFs require management inspection. An electronic signature image is checked for presence, format, configured placement and current-version ownership; this is not cryptographic verification.",
+  "live_check_retries": [
+    "Hostinger browser challenge completed before successful full smoke. Read-only schema comparison reran after the application initialized its migration."
+  ]
+}
