@@ -9,6 +9,7 @@ umask(0077);
 require_once __DIR__.'/portal-versions.php';
 require_once __DIR__.'/portal-account-types.php';
 require_once __DIR__.'/portal-reviews.php';
+require_once __DIR__.'/portal-details.php';
 require_once __DIR__.'/management-auth.php';
 require_once __DIR__.'/session-scope.php';
 function reply(array $data, int $status=200): never { http_response_code($status); echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR); exit; }
@@ -62,11 +63,12 @@ function catalogue(): array {
     }
     return $published['documents'];
 }
-function definition(string $id,string $audience,bool $upload=false): array {
+function findDefinition(string $id,string $audience,bool $upload=false): ?array {
     $defs=json_decode(file_get_contents(__DIR__.'/portal-defaults.json'),true,512,JSON_THROW_ON_ERROR);
     foreach(catalogue() as $d)if($d['id']===$id&&in_array($d['group'],[$audience,'shared'],true)&&($upload||!$d['downloadOnly']))return [...($defs[$id]??$d), 'title'=>$d['title'],'ar'=>$d['ar']];
-    reject('document_unavailable',404);
+    return null;
 }
+function definition(string $id,string $audience,bool $upload=false): array {return findDefinition($id,$audience,$upload)??reject('document_unavailable',404);}
 function cleanAnswers(array $def,mixed $input): array {
     if(!is_array($input)||count($input)>500)reject('invalid_request');$out=[];
     foreach($def['fields']??[] as $f){$v=$input[$f['id']]??null;if($v===null)continue;
@@ -232,8 +234,7 @@ try {
         $editedFrom=$meta['editedFrom']??null;
         if($editedFrom!==null&&!execute('SELECT id FROM submissions WHERE id=? AND user_id=? AND doc_id=? AND audience=?', [textValue($editedFrom,40),$u['id'],$doc['id'],$audience])->fetch())reject('not_found',404);
         $signatures=$source==='upload'?[]:cleanSignatureImages($doc,$meta['signatures']??[],$answers);
-        $profile=['submission_source'=>$source];foreach(['email','phone','mobile','company_name','full_name','building','street','district','city','postal','country'] as $k)if(isset($meta['profile'][$k]))$profile[$k]=textValue($meta['profile'][$k]);
-        $profile['field_definitions']=array_map(fn($f)=>array_intersect_key($f,array_flip(['id','label','ar','type','hidden','options','selectOptions'])),$doc['fields']??[]);
+        $profile=submissionProfileSnapshot($doc,$audience,$meta['profile']??[],$source);
         $email=$profile['email']??($answers['email']??'');if($email!==''&&!filter_var($email,FILTER_VALIDATE_EMAIL))reject('email_invalid');
         $f=$_FILES['pdf']??null;if(!$f||$f['error']!==UPLOAD_ERR_OK||!is_uploaded_file($f['tmp_name']))reject('upload_failed');
         if($f['size']<50)reject('pdf_invalid');
@@ -247,7 +248,7 @@ try {
     if(in_array($action,['detail','admin_detail','pdf','admin_pdf'],true)){
         $s=execute('SELECT * FROM submissions WHERE id=?',[$_GET['id']??''])->fetch();
         if(!$s||(!$admin&&$s['user_id']!==$u['id']))reject('not_found',404);
-        if(str_ends_with($action,'detail')){$s=array_merge($s,reviewDetails($s['id'],$admin));unset($s['request_key']);$s['answers']=json_decode($s['answers'],true);$s['profile']=json_decode($s['profile'],true);$s['signatures']=$s['signatures']===null?null:json_decode($s['signatures'],true);$s['current_id']=execute('SELECT id FROM submissions WHERE user_id=? AND doc_id=? AND audience=? AND archived_at IS NULL',[$s['user_id'],$s['doc_id'],$s['audience']])->fetchColumn()?:null;reply(['submission'=>$s]);}
+        if(str_ends_with($action,'detail')){$s=array_merge($s,reviewDetails($s['id'],$admin));unset($s['request_key']);$s['answers']=json_decode($s['answers'],true);$s['profile']=submissionProfileDetails(json_decode($s['profile'],true),findDefinition($s['doc_id'],$s['audience'],true),$s['audience']);$s['signatures']=$s['signatures']===null?null:json_decode($s['signatures'],true);$s['current_id']=execute('SELECT id FROM submissions WHERE user_id=? AND doc_id=? AND audience=? AND archived_at IS NULL',[$s['user_id'],$s['doc_id'],$s['audience']])->fetchColumn()?:null;reply(['submission'=>$s]);}
         $path=$dataDir.'/pdfs/'.$s['id'].'.pdf';if(!is_file($path))reject('not_found',404);
         attachment('application/pdf',fileName($s['title']).'-v'.$s['version'].'-'.substr($s['created_at'],0,10).'.pdf',($_GET['inline']??'')==='1');
         header("Content-Security-Policy: sandbox; default-src 'none'; frame-ancestors 'self'");header('Content-Length: '.filesize($path));session_write_close();readfile($path);exit;

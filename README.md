@@ -4,7 +4,7 @@
 
 - Individuals: `/individuals/`; companies: `/companies/`.
 - Client registration/login: `/register/` and `/login/`; submitted forms: `/my-applications/`.
-- Owner dashboard and document management: `/management/`.
+- Admin and superadmin dashboard: `/management/`; document management is superadmin-only.
 - The root page does not list documents. Send clients their audience-specific link.
 
 The light English/Arabic portal supports Saudi mobile registration, first/last names, passwords, separate individual/company shared details, browser drafts, original or explicitly redesigned subscription PDFs, optional signature images, downloads, and private form submission. Client edits create new versions; earlier PDFs remain archived. Management provides customer counts, document category counts, profiles, previews, individual downloads, client ZIP downloads, archived-version recovery, password resets, document titles/order, and reviewed PDF uploads.
@@ -13,14 +13,18 @@ Subscription quantities and totals are calculated in both JavaScript and PHP, us
 
 Shared customer details are edited once on the audience catalogue page. Document sections link back to that editor instead of repeating the shared-fields panel; matching answers still populate automatically, and manual corrections remain specific to the document.
 
+Submitting an online form saves its validated answers, the audience-specific shared customer details supplied with that submission, bilingual field/option/section labels, signature images and PDF as one version linked to the client account. Management’s client profile shows **Submitted details** with a form/version selector; the PDF preview uses the same complete field view. Unanswered fields are shown explicitly rather than silently omitted. Current and archived versions retain their own snapshots, including after restoration. A later profile edit, catalogue edit or form submission does not rewrite earlier data.
+
+Older submissions display their saved answers and available shared details without rewriting historical records. If section metadata was not saved, available definitions are used for display. Uploaded completed PDFs remain downloadable and previewable; no extracted field data is invented for a PDF-only submission.
+
 ## Runtime and private data
 
 The frontend uses Vite, plain JavaScript, PDF.js and pdf-lib with locally hosted fonts. PHP 8.3 requires PDO SQLite, mbstring, fileinfo and ZipArchive. Production uses SQLite; the saved MySQL credentials are not used.
 
 - `public/_private/.htaccess` denies web access to private storage.
-- `_private/management/` contains owner credential hashes, catalogue state and uploaded templates.
+- `_private/management/` contains admin and superadmin credential hashes, catalogue state and uploaded templates.
 - `_private/portal/` contains the account database and immutable submission PDFs.
-- Client PDFs require an authenticated owner or the matching client account.
+- Client PDFs require an authenticated admin/superadmin or the matching client account.
 - `FORMS_DATA_DIR` and `FORMS_PORTAL_DATA_DIR` can place runtime data outside the web directory on hosts that support environment configuration.
 - Production and `/preview-20260919/` have separate cookies, browser drafts and private storage.
 
@@ -34,6 +38,7 @@ npm test
 npm run build
 node scripts/portal-audit.mjs
 node scripts/management-audit.mjs
+node scripts/submission-details-audit.mjs
 ```
 
 The audits use isolated local data directories. They cover signup/login, CSRF and ownership, submissions, PDF/ZIP downloads, immutable edits/archives/restores, password reset, bilingual layouts, catalogue management, uploads and reviewed publication. PDF alignment and browser regression scripts under `scripts/` provide targeted checks for template or rendering changes.

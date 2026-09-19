@@ -41,7 +41,7 @@ export function cleanShared(audience,profile){
  for(const f of sharedGroups(audience).flatMap(g=>g.fields)){
   if(!sharedFieldVisible(f,profile))continue;
   const v=profile?.[f.id];
-  if(f.type==='checkbox'){if(v===true)clean[f.id]=true;}
+  if(f.type==='checkbox'){if(typeof v==='boolean')clean[f.id]=v;}
   else if(typeof v==='string'&&v.length<=2000&&hasValue(v)&&(!f.options||f.options.some(o=>o[0]===v)))clean[f.id]=v;
  }
  for(const lang of ['en','ar']){const middle=[clean[lang+'_second'],clean[lang+'_third']].filter(Boolean).join(' ');if(middle)clean[lang+'_middle']=middle;}

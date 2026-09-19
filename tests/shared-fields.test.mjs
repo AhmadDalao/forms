@@ -6,6 +6,21 @@ import {sharedCandidates,sharedGroups,sharedFieldVisible,cleanShared} from '../s
 const storage=()=>{const m=new Map();return {getItem:k=>m.get(k)??null,setItem:(k,v)=>m.set(k,v),removeItem:k=>m.delete(k),m};};
 const make=(disk,audience)=>createDraftStore(docs,()=>disk,audience);
 const person={en_first:'Ahmad',en_middle:'Ali',en_last:'Dalao',ar_first:'أحمد',ar_middle:'علي',ar_last:'دلاو',phone:'001234567',mobile:'0551234567',email:'client@example.com',id_type:'national',id_number:'0012345678',client_number:'0000123',account_number:'0000405',building:'12',street:'King Road',district:'Noor',city:'Riyadh',postal:'00123',country:'Saudi Arabia'};
+test('explicit false shared choices persist without inventing unanswered choices or crossing audiences',()=>{
+ assert.deepEqual(cleanShared('individual',{}),{});
+ assert.deepEqual(cleanShared('corporate',{}),{});
+ assert.deepEqual(cleanShared('individual',{also_residence:false,also_head:false,also_mail:false}),{also_residence:false});
+ assert.deepEqual(cleanShared('corporate',{also_residence:false,also_head:false,also_mail:true}),{also_residence:false,also_head:false,also_mail:true});
+ for(const invalid of ['false','true',0,1,null])assert.equal(Object.hasOwn(cleanShared('individual',{also_residence:invalid}),'also_residence'),false);
+ const disk=storage(),individual=make(disk,'individual'),company=make(disk,'corporate');
+ individual.setShared({...person,also_residence:true});company.setShared({company_name:'Company',city:'Company city',also_residence:true,also_head:false});
+ assert.equal(individual.get('fatca-crs-individual').values.sa_city,'Riyadh');
+ individual.setShared({...individual.profile,also_residence:false});
+ const reopened=make(disk,'individual');assert.equal(reopened.profile.also_residence,false);
+ assert.equal(reopened.get('fatca-crs-individual').values.sa_city,undefined);assert.equal(reopened.get('fatca-crs-individual').values.mail_city,'Riyadh');
+ assert.equal(make(disk,'corporate').profile.also_residence,true);assert.equal(make(disk,'corporate').profile.also_head,false);
+ assert.equal(Object.hasOwn(make(disk,'corporate').profile,'also_mail'),false);
+});
 test('Other IDs reveal a custom field, persist across forms, and clear when their type changes',()=>{
  const disk=storage(),d=make(disk,'individual');
  const field=sharedGroups('individual').flatMap(g=>g.fields).find(f=>f.id==='id_other');
