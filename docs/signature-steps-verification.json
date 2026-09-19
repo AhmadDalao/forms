@@ -1,0 +1,351 @@
+{
+  "result": "pass",
+  "source_commit": "48c63cae985f4392b2a9b9d2459bbb49fc2ae02a",
+  "scope": "Per-signer electronic/manual signature controls in existing signing steps for all editable documents; subscription flow unchanged.",
+  "unit_tests": 63,
+  "local": {
+    "ui_combinations": 64,
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "viewports": [
+      1440,
+      390
+    ],
+    "browsers": [
+      "Chrome",
+      "Firefox",
+      "WebKit"
+    ],
+    "pdf_exports": 9,
+    "pdf_checks": [
+      {
+        "doc": "signature-form",
+        "pages": 1,
+        "slots": [
+          "specimen"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "terms-and-conditions",
+        "pages": 13,
+        "slots": [
+          "terms_0",
+          "terms_1",
+          "terms_2",
+          "authorization_0",
+          "authorization_1",
+          "authorization_2"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "fatca-crs-individual",
+        "pages": 4,
+        "slots": [
+          "signatory",
+          "relationship_manager"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "kyc-individual",
+        "pages": 7,
+        "slots": [
+          "representative",
+          "client"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "signature-form",
+        "pages": 1,
+        "slots": [
+          "specimen"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "terms-and-conditions",
+        "pages": 13,
+        "slots": [
+          "terms_0",
+          "terms_1",
+          "terms_2",
+          "authorization_0",
+          "authorization_1",
+          "authorization_2"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "fatca-crs-corporate",
+        "pages": 6,
+        "slots": [
+          "signatory_0",
+          "signatory_1"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "kyc-corporate",
+        "pages": 7,
+        "slots": [
+          "client"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "upload_signature_audit",
+        "pages": 1,
+        "slots": [
+          "sign"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      }
+    ],
+    "draft_checks": [
+      {
+        "legacySignaturePreserved": true,
+        "emptyElectronicModeRestored": true,
+        "missingElectronicImageBlocksGeneration": true,
+        "audienceIsolation": true,
+        "transparentInk": true
+      },
+      {
+        "signatureOnlyManagedPage": true,
+        "customOriginalBytesPreserved": true
+      },
+      {
+        "legacySignaturePreserved": true,
+        "emptyElectronicModeRestored": true,
+        "missingElectronicImageBlocksGeneration": true,
+        "audienceIsolation": true,
+        "transparentInk": true
+      }
+    ],
+    "original_pdf_content_streams": "byte-identical",
+    "manual_blank_downloads": "byte-identical to source",
+    "signature_placement": "exact image transforms and transparent alpha masks checked",
+    "visual_review": "English desktop, Arabic desktop/mobile and signed PDF pages inspected",
+    "raster_note": "Supplemental browser raster comparison; antialiasing may vary. Strict content-stream and image-transform checks passed.",
+    "write_requests": []
+  },
+  "portal_regression": {
+    "checks": [
+      "Anonymous access, CSRF, phone and confirmation validation",
+      "English browser signup, Saudi phone normalization, account draft migration and duplicate phone",
+      "Private PDF storage, owner checks, malformed PDF rejection and duplicate submission protection",
+      "Signature and both subscription UI submissions, server totals and optional email capture",
+      "Account/admin previews, manual PDF upload, dashboard counts and ZIP exact-byte contents",
+      "Individual Arabic and company English subscription edits, recalculated amounts and prior-PDF preservation",
+      "Client edit/resubmit and reload, separate working draft, signature recovery, immutable originals, archive dates, stale-edit rejection, owner restore, restore retry/CSRF, replacement upload and audience/account version isolation",
+      "Owner reset, strong one-time displayed password, old password/session revocation and mandatory change",
+      "Original side-by-side logos, My applications page in English/Arabic, compatible account links, mobile layouts, existing catalogue navigation and persistent login throttling"
+    ],
+    "console_errors": [],
+    "isolated_test_data": true
+  },
+  "production": {
+    "result": "pass",
+    "url": "https://forms.ahmaddalao.com/",
+    "ui_combinations": 32,
+    "pdf_exports": 9,
+    "pdf_checks": [
+      {
+        "doc": "signature-form",
+        "pages": 1,
+        "slots": [
+          "specimen"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "terms-and-conditions",
+        "pages": 13,
+        "slots": [
+          "terms_0",
+          "terms_1",
+          "terms_2",
+          "authorization_0",
+          "authorization_1",
+          "authorization_2"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "fatca-crs-individual",
+        "pages": 4,
+        "slots": [
+          "signatory",
+          "relationship_manager"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "kyc-individual",
+        "pages": 7,
+        "slots": [
+          "representative",
+          "client"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "signature-form",
+        "pages": 1,
+        "slots": [
+          "specimen"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "terms-and-conditions",
+        "pages": 13,
+        "slots": [
+          "terms_0",
+          "terms_1",
+          "terms_2",
+          "authorization_0",
+          "authorization_1",
+          "authorization_2"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "fatca-crs-corporate",
+        "pages": 6,
+        "slots": [
+          "signatory_0",
+          "signatory_1"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "kyc-corporate",
+        "pages": 7,
+        "slots": [
+          "client"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      },
+      {
+        "doc": "upload_signature_audit",
+        "pages": 1,
+        "slots": [
+          "sign"
+        ],
+        "originalContentStreamsPreserved": true,
+        "expectedImageCounts": true,
+        "exactPlacementTransforms": true,
+        "transparentAlphaMasks": true
+      }
+    ],
+    "draft_checks": [
+      {
+        "legacySignaturePreserved": true,
+        "emptyElectronicModeRestored": true,
+        "missingElectronicImageBlocksGeneration": true,
+        "audienceIsolation": true,
+        "transparentInk": true
+      },
+      {
+        "signatureOnlyManagedPage": true,
+        "customOriginalBytesPreserved": true
+      }
+    ],
+    "routes": [
+      {
+        "route": "/register/",
+        "status": 200
+      },
+      {
+        "route": "/login/",
+        "status": 200
+      },
+      {
+        "route": "/my-applications/",
+        "status": 200
+      },
+      {
+        "route": "/management/",
+        "status": 200
+      },
+      {
+        "route": "/individuals/",
+        "status": 200
+      },
+      {
+        "route": "/companies/",
+        "status": 200
+      },
+      {
+        "route": "/_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "route": "/.env.local",
+        "status": 403
+      }
+    ],
+    "write_requests": [],
+    "test_accounts_created": 0,
+    "test_submissions_created": 0,
+    "original_templates": "preserved",
+    "visual_review": "Hosted Arabic mobile signing step checked."
+  },
+  "verified_at_utc": "2026-09-19T16:40:00.858509+00:00"
+}
