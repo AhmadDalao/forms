@@ -2,3 +2,11 @@
 @media(min-width:1100px){.sub-form-panel:has(#sub-email) .sub-fields{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:800px){.sub-heading{align-items:stretch;flex-direction:column;gap:12px}.sub-top-actions{flex-wrap:wrap}.subscription-steps{gap:6px}.sub-step{padding:12px 5px}.sub-step b{font-size:11px}.sub-form-panel,.sub-review{padding:22px}.sub-form-panel .section-heading{align-items:flex-start;flex-direction:column;gap:8px}}
 @media(max-width:520px){.subscription-steps{grid-template-columns:repeat(3,minmax(0,1fr))}.sub-fields{grid-template-columns:minmax(0,1fr)}.financial-row:has(#sub-units){grid-template-columns:repeat(2,minmax(0,1fr))}.sub-top-actions .button{flex:1;padding-inline:12px}.sub-form-panel,.sub-review{padding:18px}.sub-option{padding:14px 10px}.bilingual-card b{font-size:15px}.signature-methods .sub-option{font-size:13px}.sub-heading h1{font-size:24px}}
+
+/* Carry the same interaction states into subscription steps. */
+.sub-step:hover:not(.active){border-color:#bba6cc;background:#fcfaff}
+.sub-step:focus-visible,.sub-option:has(input:focus-visible){outline:3px solid #a48ac1;outline-offset:3px}
+.sub-step small{font-variant-numeric:tabular-nums}
+.sub-top-actions .secondary:hover{background:#f7f3fa}
+.sub-form-panel .section-actions{flex-wrap:wrap}
+@media(max-width:520px){.sub-fields .field{min-width:0}.sub-cards,.signature-methods{gap:8px}.sub-step b{overflow-wrap:anywhere}}

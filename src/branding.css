@@ -10,6 +10,11 @@ header.portal-header,.header.branded-header,header.management-header{height:auto
 .branded-header .client-header-actions{justify-content:flex-end;flex-wrap:wrap}
 .management-brand{display:flex;align-items:center;gap:28px;min-width:0}
 .management-brand .management-context{font-size:11px;color:#77748b;letter-spacing:.05em;line-height:1.8;max-width:300px}
+/* Consistent keyboard focus and comfortable header actions across the portal. */
+:where(button,a,summary,input,select,textarea):focus-visible{outline:3px solid #a48ac1;outline-offset:3px}
+:where(button,a,summary){touch-action:manipulation}
+header :where(button,.applications-link,.client-account-link){min-height:44px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 @media(max-width:600px){
  .brand-lockup{width:171px;padding:4px;gap:10px}
  .brand-lockup .brand-wessal{width:46px}
@@ -21,4 +26,6 @@ header.portal-header,.header.branded-header,header.management-header{height:auto
  .management-brand{gap:0}
  .management-brand .management-context{display:none}
  .management-header>.actions{justify-content:flex-end}
+ header.portal-header:has(#portal-logout),header.branded-header:has(.client-account-link){flex-wrap:wrap}
+ .portal-header:has(#portal-logout) .portal-header-actions{max-width:none;width:100%;justify-content:flex-start}
 }

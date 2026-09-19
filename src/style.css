@@ -87,3 +87,25 @@ button.shared-hint{padding:0;text-decoration:underline;text-underline-offset:3px
 .card-open{align-items:flex-start}.card-number{margin-top:2px}.card-arrow{align-self:center}.card-body{min-width:0}.card-body b{overflow-wrap:anywhere}
 
 [dir=rtl] [data-download-doc] .card-arrow{transform:none}
+
+/* Keep form navigation visible and actions comfortable without changing the paper fields. */
+.card-body{min-width:0;overflow-wrap:anywhere}
+.card-open:focus-visible{outline-offset:-4px;border-radius:12px}
+.blank-link{min-height:40px}
+.blank-link:hover{text-decoration:underline;text-underline-offset:4px}
+.secondary:hover:not(:disabled){background:#f7f3fa;border-color:#bda9cc}
+.sections{flex-wrap:wrap;overflow:visible;gap:8px}
+.section-tab{min-height:40px;white-space:normal;text-align:start;line-height:1.6}
+.section-tab>span{flex-shrink:0}
+.section-tab:hover:not(.active){background:#f7f4fa;color:var(--purple)}
+.clear-choice{min-height:36px}
+.form-bottom{flex-wrap:wrap;gap:10px;line-height:1.7}
+.icon-button{width:36px;height:36px}
+@media(max-width:650px){
+ .sections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .field input:not([type=radio],[type=checkbox]),.field select,.field textarea{font-size:16px}
+ .section-title-row{gap:8px}
+ .section-title-row .ghost{padding-inline:0;min-height:40px}
+ .form-bottom{padding:14px 20px}
+ .flow{flex-wrap:wrap;row-gap:12px}
+}

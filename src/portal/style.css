@@ -5,3 +5,43 @@
 
 .auth-name-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.auth-name-row label{min-width:0}.auth-name-row input{min-width:0}
 @media(max-width:360px){.auth-name-row{grid-template-columns:1fr}}
+
+/* Clearer account actions and feedback, retaining the existing light purple palette. */
+.portal-button,.portal-language,.password-eye{transition:background-color .15s,border-color .15s}
+.portal-button:hover:not(:disabled){border-color:#bca6cc}
+.portal-language:hover{background:#603378}
+.password-eye{width:40px;height:40px;border-radius:7px}
+.password-eye:hover{background:#f2edf6;color:#48235f}
+.auth-layout>section,.account-heading>div:first-child{min-width:0}
+.account-heading .portal-muted{overflow-wrap:anywhere}
+.account-total{flex-shrink:0;font-variant-numeric:tabular-nums}
+.portal-row-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));flex:0 0 312px;max-width:312px;gap:8px}
+.portal-row-actions .portal-button{min-height:44px;padding:10px 12px;text-align:center}
+.portal-section-title>span{white-space:nowrap}
+.client-submission p,.client-submission small{color:#756c7f;line-height:1.8}
+.account-settings>summary,.account-history>summary{font-size:16px;font-weight:600;line-height:1.8;color:#574263}
+.account-settings[open]>summary{padding-bottom:18px;border-bottom:1px solid #eee8f2}
+.profile-actions{display:flex;flex-wrap:wrap;gap:10px}
+.account-settings .profile-actions button{margin:0}
+#profile-message:empty{display:none}
+.portal-error:not(:empty),.portal-success:not(:empty){padding:12px 14px;border-radius:8px;margin:0 0 16px;border:1px solid #efd7dd;background:#fff5f6}
+.portal-success:not(:empty){border-color:#cce4d6;background:#edf7f1}
+.portal-preview-head button{width:44px;height:44px;flex-shrink:0;display:grid;place-items:center;padding:0}
+.portal-preview-head h2{line-height:1.5}
+.portal-preview-body h3{line-height:1.7}
+.portal-preview,.portal-upload{overscroll-behavior:contain}
+@media(max-width:850px){.portal-row-actions{flex-basis:100%;max-width:none;margin:0;padding-inline-start:60px}}
+@media(max-width:600px){
+ input,select{font-size:16px}
+ .account-heading{flex-wrap:wrap}
+ .account-total{padding-inline-start:16px}
+ .account-shell>.account-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .account-actions .portal-button{text-align:center}
+ .portal-row-actions{padding-inline-start:0;gap:8px}
+ .portal-section-title{flex-wrap:wrap;gap:8px}
+ .account-settings{padding:20px 16px}
+ .account-history>summary span{display:inline-block}
+ .profile-actions{display:grid;grid-template-columns:1fr;width:100%}
+ .portal-upload{padding:24px 20px}
+ .portal-upload .account-actions{display:flex}
+}

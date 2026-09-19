@@ -4,3 +4,46 @@
 @media(max-width:800px){.client-management{padding:0 16px 40px}.category-stats{grid-template-columns:1fr}.admin-heading{align-items:flex-start}.admin-heading h1{font-size:26px}.admin-stats{gap:10px}.admin-stats article{padding:20px 15px}.admin-stats strong{font-size:34px}.admin-client-facts{grid-template-columns:repeat(2,1fr)}.admin-table td,.admin-table th{padding:16px}.client-management-nav button{padding:9px;font-size:12px}.client-management-nav{margin-bottom:25px}.admin-heading>.admin-row-actions{max-width:150px}.portal-answer-details dl{grid-template-columns:1fr}}
 @media(max-width:500px){.admin-stats{grid-template-columns:1fr}.admin-stats article{display:grid;grid-template-columns:1fr auto;align-items:center}.admin-stats strong{grid-column:2;grid-row:1/3;margin:0}.admin-stats small{margin-top:5px}.admin-client-facts{padding:20px;gap:20px}.admin-heading{flex-wrap:wrap}.admin-heading>.admin-row-actions{max-width:none}.admin-search{gap:8px}.admin-search button{font-size:12px}.category-stats{padding:5px 20px}}
 .admin-history{padding:24px}.admin-history>summary{cursor:pointer;font-weight:600;font-size:18px;list-style-position:inside}.admin-history .history-download{display:inline-block;margin:0 0 20px}.admin-table small.version-badge{display:inline-block;padding:4px 8px;border-radius:6px;background:#f1ecf7;color:#58366f;font-size:11px}.restore-version{color:#58366f;font-weight:600}.admin-history .client-muted{line-height:1.8}
+
+/* Readable client details and mobile rows, with the desktop table preserved. */
+.client-muted{color:#776681}
+.admin-table th{font-size:11px;color:#776681}
+.admin-table small,.category-stats small{color:#7d6d87;line-height:1.7}
+.admin-table td{line-height:1.7}
+.admin-table strong{font-size:13px}
+.admin-table tbody tr:hover{background:#fcfafd}
+.admin-table .client-text-button{text-decoration:underline;text-underline-offset:3px;font-weight:600}
+.admin-row-actions a,.admin-row-actions button{min-height:40px;display:inline-flex;align-items:center;justify-content:center}
+.client-management-nav{padding-top:18px;gap:12px;flex-wrap:wrap}
+.client-management-nav>div{flex-wrap:wrap}
+.admin-stats strong,.category-count,.client-count{font-variant-numeric:tabular-nums}
+.admin-search input{min-width:0}
+.admin-client-facts strong{line-height:1.8}
+.admin-heading h1{overflow-wrap:anywhere;line-height:1.5}
+.admin-section-heading{flex-wrap:wrap;line-height:1.6}
+.portal-preview-head button{width:44px;height:44px;flex-shrink:0;padding:0;display:grid;place-items:center}
+.portal-preview-head h2{line-height:1.5}
+.portal-preview,.client-reset-dialog{overscroll-behavior:contain}
+@media(max-width:650px){
+ .admin-table-wrap{overflow:visible}
+ .admin-table,.admin-table tbody{display:block}
+ .admin-table thead{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+ .admin-table tr{display:block;padding:14px 0;border-bottom:1px solid #e9e1ef}
+ .admin-table tr:last-child{border-bottom:0}
+ .admin-table td{display:grid;grid-template-columns:90px minmax(0,1fr);gap:3px 12px;border:0;padding:8px 18px;font-size:13px;overflow-wrap:anywhere;white-space:normal}
+ .admin-table td::before{content:attr(data-label);grid-column:1;grid-row:1/span 3;color:#85718f;font-size:11px;padding-top:2px}
+ .admin-table td>*{grid-column:2;min-width:0}
+ .admin-table strong{font-size:14px}
+ .admin-table small{margin-top:0;font-size:11px}
+ .admin-table .client-count,.admin-table .version-badge{justify-self:start}
+ .admin-row-actions{gap:8px}
+ .admin-row-actions a,.admin-row-actions button{min-height:44px;white-space:normal;text-align:center;font-size:12px}
+ .admin-history{padding:18px 0}
+ .admin-history>summary,.admin-history>p,.admin-history>.history-download{margin-inline:18px}
+ .admin-history>summary{font-size:16px;line-height:1.8}
+ .client-management-nav{margin-bottom:24px}
+ .client-management-nav button{min-height:44px}
+ .admin-client-facts{grid-template-columns:1fr 1fr;gap:20px 16px}
+ .admin-client-facts strong{font-size:13px}
+ .portal-preview-head,.portal-preview-body{padding:18px}
+}
