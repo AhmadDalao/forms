@@ -1,0 +1,104 @@
+{
+  "verified_at_utc": "2026-09-19T15:17:48.784437+00:00",
+  "result": "pass",
+  "scope": "End-to-end software and regression verification; not regulatory certification",
+  "source_commit": "2dd84cba9340c3e61af1824026776c3031265603",
+  "production_url": "https://forms.ahmaddalao.com/",
+  "unit_tests": 56,
+  "complete_fills": {
+    "templates": 8,
+    "samples_per_template": 5,
+    "total": 40
+  },
+  "original_templates": {
+    "downloads": 30,
+    "pages": 190,
+    "text_fields": 1495,
+    "transparent_text_images": 2345,
+    "unmodified_pages": 75
+  },
+  "subscription_pdf_checks": {
+    "downloads": 10,
+    "pages": 20,
+    "answer_images": 572,
+    "overlap_pixels": 0
+  },
+  "signatures": {
+    "pages_checked": 190,
+    "signatures_checked": 70,
+    "original_artwork_preserved": true,
+    "changes_confined_to_selected_signature_areas": true,
+    "transparent_backgrounds": true
+  },
+  "browsers": [
+    "Chrome",
+    "Firefox",
+    "Playwright WebKit"
+  ],
+  "typing": {
+    "input_checks": 264,
+    "download_cases": 48
+  },
+  "download_browser_cases": 18,
+  "shared_data_browser_cases": 24,
+  "responsive_ui": {
+    "screenshots": 54,
+    "widths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "console_errors": []
+  },
+  "imports": {
+    "files_uploaded": 10,
+    "generated_pdfs": 30,
+    "answer_images": 150,
+    "source_ink_intersection_pixels": 0,
+    "printed_text_placement_intersections": 0
+  },
+  "hosted_cycle": {
+    "checks": [
+      "Anonymous access, CSRF, phone and confirmation validation",
+      "English browser signup, Saudi phone normalization, account draft migration and duplicate phone",
+      "Private PDF storage, owner checks, malformed PDF rejection and duplicate submission protection",
+      "Signature and both subscription UI submissions, server totals and optional email capture",
+      "Account/admin previews, manual PDF upload, dashboard counts and ZIP exact-byte contents",
+      "Individual Arabic and company English subscription edits, recalculated amounts and prior-PDF preservation",
+      "Client edit/resubmit and reload, separate working draft, signature recovery, immutable originals, archive dates, stale-edit rejection, owner restore, restore retry/CSRF, replacement upload and audience/account version isolation",
+      "Owner reset, strong one-time displayed password, old password/session revocation and mandatory change",
+      "Original side-by-side logos, My applications page in English/Arabic, compatible account links, mobile layouts, existing catalogue navigation and persistent login throttling"
+    ],
+    "test_accounts": 2,
+    "test_pdf_versions": 14,
+    "console_errors": []
+  },
+  "cleanup": {
+    "test_accounts_removed": 2,
+    "test_pdfs_removed": 14,
+    "original_counts_restored": true,
+    "database_integrity": "ok"
+  },
+  "hosted_pdf_assets_verified": 10,
+  "post_deployment_checks": [
+    "Current production build: /",
+    "Current production build: /individuals/",
+    "Current production build: /companies/",
+    "Current production build: /login/",
+    "Current production build: /register/",
+    "Current production build: /management/",
+    "Existing owner login; dashboard and catalogue desktop/mobile; modal Escape and focus; English/Arabic; no catalogue/customer changes",
+    "Private storage and credentials remain inaccessible"
+  ],
+  "fix": "PDF importer rejects suggested answer areas intersecting printed glyph bounds.",
+  "limitations": [
+    "New flat PDFs require mapping review; four tested files produced no automatic suggestions.",
+    "Mobile viewport emulation, not physical device testing.",
+    "No load test, complete penetration test or legal compliance certification."
+  ]
+}

@@ -1,14 +1,14 @@
 {
-  "uploaded_at_utc": "20260919T145413Z",
+  "uploaded_at_utc": "20260919T151132Z",
   "url": "https://forms.ahmaddalao.com/",
-  "source_commit": "d390f3c65c07ea628ccaa5717a1e5f8097cc2b07",
+  "source_commit": "2dd84cba9340c3e61af1824026776c3031265603",
   "transport": "Explicit FTPS with verified Hostinger certificate",
-  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T145413Z",
+  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T151132Z",
   "files": [
     {
       "path": "index.html",
       "bytes": 755,
-      "sha256": "bbf95e7b1a7dce414b69725ba0a50da0efca8aae40813955f1f162537afb692a"
+      "sha256": "27caeaaacd8c4e8e992faf194ee31c5409a7e89e64899649a3417c9f94cf5e04"
     },
     {
       "path": ".user.ini",
@@ -28,7 +28,7 @@
     {
       "path": "my-applications/index.html",
       "bytes": 793,
-      "sha256": "39abf4798a95c922ddddd6d13812b9b15685c6bb24b1235f2b173ade8e7ecd11"
+      "sha256": "4854dad0ed92eb3bd4a6378d12fa1245a6175ad21f396803b7d0c0b29944c038"
     },
     {
       "path": "branding/wessal.png",
@@ -43,12 +43,12 @@
     {
       "path": "individuals/index.html",
       "bytes": 789,
-      "sha256": "0151b1bdc36354e7637860ff5226d568d67b61ae22b308c28e60738a9452c662"
+      "sha256": "dda15731f7670d51d6822d9fc5c9acefcfbb215ff3b8c836e063ddb2a633f51c"
     },
     {
       "path": "management/index.html",
       "bytes": 788,
-      "sha256": "3fe821eb397bca87dae41595d6d024107b4878924e488d646013a4f8b619039c"
+      "sha256": "db66fee93810f01dc19a4289b7a534a03f10081f6b589b39cd579c69961bb325"
     },
     {
       "path": "_private/.htaccess",
@@ -58,7 +58,7 @@
     {
       "path": "register/index.html",
       "bytes": 786,
-      "sha256": "91df039635acd2bf99a6984b68dba418256cda2670f9addf26c064b9fa0818e2"
+      "sha256": "6417db590c236cdbefae8f52128ea68314a4489746e33191db863547f7d03f51"
     },
     {
       "path": "api/defaults.json",
@@ -148,7 +148,7 @@
     {
       "path": "account/index.html",
       "bytes": 785,
-      "sha256": "9b2a7846f3b3158dfbac75b8c8a74643ba38b6015a482c85837eab05d3d7cfac"
+      "sha256": "cd163ad4e17039e567f212a0bfc815fcec8de476b0db589fa6164f2197a680eb"
     },
     {
       "path": "assets/main-BomESmun.js",
@@ -171,9 +171,9 @@
       "sha256": "8ab0e5e30031b4a06ecfddd5ae9562f0227f830ee7ec9ed1a968b134243d2386"
     },
     {
-      "path": "assets/index-CoMev2DE.js",
-      "bytes": 1593,
-      "sha256": "2efe63a1383ff2b148c4a27a2cdfd8bbddbbe9b7ae04d64764298303b030f7c9"
+      "path": "assets/main-DaH8qFWq.js",
+      "bytes": 41178,
+      "sha256": "5d82f35fc820b21841f0575ce6591ffb82525ca64724b46f96299a7f61d96748"
     },
     {
       "path": "assets/arabic-600-DfnZHZ36.css",
@@ -246,11 +246,6 @@
       "sha256": "10d83e0e6d57690311262fec8a846746fece7660b71e6fe54a390b2d87949543"
     },
     {
-      "path": "assets/main-DgAguhzb.js",
-      "bytes": 41035,
-      "sha256": "cbd34b5fd354268c8dd8616c7d984052a82c1938c1e8b8b04d64c0976d02a46f"
-    },
-    {
       "path": "assets/pdf-PtpZydTO.js",
       "bytes": 871958,
       "sha256": "50f2ce6c17ea71b670e6191ec583b0dc94cae71591c949a114d92172172d564f"
@@ -279,6 +274,11 @@
       "path": "assets/inter-latin-600-normal-LgqL8muc.woff2",
       "bytes": 24452,
       "sha256": "f9a06e79cd3a2a20951c0f0e28f66dd0e6d3fda73911d640a2125c8fcb78f21a"
+    },
+    {
+      "path": "assets/index-NwTraRcb.js",
+      "bytes": 1593,
+      "sha256": "ef9f04b238e62f73f6bab1b6f883b472a7a496e2ff6c3bfa2fe19e0eb6ed405d"
     },
     {
       "path": "assets/main-D9cNz0t6.css",
@@ -318,12 +318,12 @@
     {
       "path": "login/index.html",
       "bytes": 783,
-      "sha256": "b6462649e6e657e59b74b5e549b3b31d5fa8138e489a6356f6b402d5ddf66d01"
+      "sha256": "8adf5b6cfdad47ac7471bd08b2358bc44d20eec50476146e68e0f674dc182959"
     },
     {
       "path": "companies/index.html",
       "bytes": 787,
-      "sha256": "193184a493a9a2235036c6a3086eb4897b1248832675f29637c552eb293ce355"
+      "sha256": "3490da87133a78114e7887b99f04a918c2c086c86558f890ab9a41499a97fa9a"
     },
     {
       "path": "api/subscription/calculate.php",
@@ -337,16 +337,8 @@
     }
   ],
   "created": [
-    "assets/index-CoMev2DE.js",
-    "assets/main-BH15u8x-.css",
-    "assets/main-Bdqi9XMk.css",
-    "assets/main-Be8FL93k.js",
-    "assets/main-BomESmun.js",
-    "assets/main-D9cNz0t6.css",
-    "assets/main-DgAguhzb.js",
-    "assets/pdf-PtpZydTO.js",
-    "assets/pdf-eVQh_5Cv.css",
-    "assets/preview-DeB1RCF8.js"
+    "assets/index-NwTraRcb.js",
+    "assets/main-DaH8qFWq.js"
   ],
   "replaced": [
     "account/index.html",
@@ -385,14 +377,22 @@
     "assets/inter-latin-600-normal-CiBQ2DWP.woff",
     "assets/inter-latin-600-normal-LgqL8muc.woff2",
     "assets/latin-400-CkJXGLVG.css",
+    "assets/main-BH15u8x-.css",
+    "assets/main-Bdqi9XMk.css",
+    "assets/main-Be8FL93k.js",
+    "assets/main-BomESmun.js",
+    "assets/main-D9cNz0t6.css",
     "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
     "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
     "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
     "assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
     "assets/noto-sans-arabic-latin-400-normal-CjsIS08k.woff2",
     "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff",
+    "assets/pdf-PtpZydTO.js",
+    "assets/pdf-eVQh_5Cv.css",
     "assets/pdf.worker.min-Dswkl-cV.mjs",
     "assets/preload-helper-uBIymjUX.js",
+    "assets/preview-DeB1RCF8.js",
     "assets/routes-BnTiDC-H.js",
     "branding/itqan.png",
     "branding/wessal.png",
