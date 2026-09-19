@@ -47,7 +47,7 @@ function managementOwner(string $directory): bool {
 
 function managementPermissions(string $directory): array {
     $superadmin=(managementIdentity($directory)['role']??null)==='superadmin';
-    return ['manage_documents'=>$superadmin,'change_account_type'=>$superadmin];
+    return ['manage_documents'=>$superadmin,'change_account_type'=>$superadmin,'manage_workflow'=>$superadmin];
 }
 
 function managementCanManageDocuments(string $directory): bool {return managementPermissions($directory)['manage_documents'];}

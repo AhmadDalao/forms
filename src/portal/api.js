@@ -1,4 +1,5 @@
 import {appRoot,draftStoragePrefix,portalStoragePrefix} from '../routes.js';
+import {receiveWorkflow} from './workflow.js';
 export const authChangeKey=portalStoragePrefix+'auth-change';
 export const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let csrf='';
@@ -7,11 +8,18 @@ export async function api(action,body,{token=csrf,params={}}={}){
  const multipart=body instanceof FormData;
  const response=await fetch(endpoint(action,params),{method:body?'POST':'GET',credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(multipart?60000:15000),headers:body?{'X-CSRF-Token':token,...(multipart?{}:{'Content-Type':'application/json'})}:{},body:body?(multipart?body:JSON.stringify(body)):undefined});
  let data;try{data=await response.json();}catch{throw Error('connection_failed');}
+ if(data.workflow)receiveWorkflow(data.workflow);
  if(!response.ok)throw Object.assign(Error(data.error||'server_error'),{status:response.status});
  if(data.csrf)csrf=data.csrf;return data;
 }
 export const session=()=>api('session');
 export const errors={
+ signature_image_required:['Add at least one signature image to save a signed copy.','أضف صورة توقيع واحدة على الأقل لحفظ نسخة موقّعة.'],
+ workflow_disabled:['Management review is currently switched off. Your saved forms and decision history are kept.','المراجعة الإدارية معطّلة حاليًا. تبقى النماذج المحفوظة وسجل القرارات محفوظة.'],
+ workflow_not_required:['This form was saved without review and cannot receive a review decision.','حُفظ هذا النموذج دون مراجعة ولا يمكن اتخاذ قرار مراجعة بشأنه.'],
+ workflow_conflict:['The site workflow changed. Close this window and try again to use the current mode. Your details are saved.','تغيّر سير العمل في الموقع. أغلق هذه النافذة وحاول مجددًا لاستخدام الوضع الحالي. بياناتك محفوظة.'],
+ workflow_forbidden:['Only the superadmin can change the workflow.','يمكن للمشرف الرئيسي فقط تغيير سير العمل.'],
+ workflow_unchanged:['This workflow is already active.','سير العمل هذا مفعّل بالفعل.'],
  electronic_signing_unavailable:['Use Upload signed form for this version. Electronic placement is not available for this PDF.','استخدم رفع النموذج الموقّع لهذه النسخة. إضافة التوقيع الإلكتروني غير متاحة لهذا الملف.'],
  signing_layout_mismatch:['This PDF layout does not match its signature positions. Download it, sign it, and upload the complete signed PDF instead.','تخطيط هذا الملف لا يطابق مواضع التوقيع. نزّله ووقّعه ثم ارفع ملف PDF الموقّع كاملًا.'],
  signature_required:['Sign electronically before submitting, or download the PDF, sign it and upload the signed form from My applications.','وقّع إلكترونيًا قبل الإرسال، أو نزّل ملف PDF ووقّعه ثم ارفع النموذج الموقّع من صفحة طلباتي.'],

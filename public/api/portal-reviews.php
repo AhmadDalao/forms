@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__.'/portal-workflow.php';
 
 // Decisions are append-only and belong to one immutable submission version.
 // read_at is only a notification receipt; it never changes the decision.
@@ -53,6 +54,7 @@ function reviewDetails(string $id,bool $admin): array {
 }
 function recordReview(string $id,string $status,string $code,string $text,int $expected,string $key,string $actor): array {
     global $db;
+    migrateWorkflow();
     $db->exec('BEGIN IMMEDIATE');
     try {
         $old=execute('SELECT * FROM submission_reviews WHERE admin_username=? AND request_key=?',[$actor,$key])->fetch();
@@ -60,9 +62,11 @@ function recordReview(string $id,string $status,string $code,string $text,int $e
             if($old['submission_id']!==$id||$old['status']!==$status||$old['reason_code']!==$code||$old['reason_text']!==$text)throw new DomainException('review_conflict');
             $result=['review'=>reviewDetails($id,true),'duplicate'=>true];$db->exec('COMMIT');return $result;
         }
-        $s=execute('SELECT user_id,archived_at FROM submissions WHERE id=?',[$id])->fetch();
+        if(!workflowSettings()['review_enabled'])throw new DomainException('workflow_disabled');
+        $s=execute('SELECT * FROM submissions WHERE id=?',[$id])->fetch();
         if(!$s)throw new DomainException('not_found');
         if($s['archived_at']!==null)throw new DomainException('review_archived');
+        if(!workflowReviewRequired($s))throw new DomainException('workflow_not_required');
         $last=execute('SELECT * FROM submission_reviews WHERE submission_id=? ORDER BY id DESC LIMIT 1',[$id])->fetch();
         if((int)($last['id']??0)!==$expected)throw new DomainException('review_conflict');
         if($last&&$last['status']===$status&&$last['reason_code']===$code&&$last['reason_text']===$text)throw new DomainException('review_unchanged');

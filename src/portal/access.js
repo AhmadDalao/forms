@@ -24,7 +24,7 @@ let checking=false;
 export async function checkAccountAccess(){
  if(checking||document.hidden)return;
  checking=true;
- try{const fresh=await session();if(fresh.user?.id!==formSession?.user?.id||fresh.user?.account_type!==formSession?.user?.account_type)location.reload();}
+ try{const fresh=await session();if(fresh.user?.id!==formSession?.user?.id||fresh.user?.account_type!==formSession?.user?.account_type)location.reload();else formSession=fresh;}
  catch{/* Keep the local draft available during a network failure; submission rechecks access. */}
  finally{checking=false;}
 }

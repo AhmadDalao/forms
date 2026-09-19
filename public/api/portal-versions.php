@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__.'/portal-workflow.php';
 // An immutable PDF/answer snapshot per version; only archive metadata can change.
 function migrateVersions(): void {
     global $db;
@@ -115,8 +116,10 @@ function saveVersion(array $s,string $sourcePath,?string $expected,?string $audi
         // Recheck under the same lock as the write: management may have changed
         // this account while its PDF was being generated or uploaded.
         if($clientSubmission&&execute('SELECT account_type FROM users WHERE id=?',[$s['user_id']])->fetchColumn()!==$s['audience'])throw new DomainException('account_type_restricted');
-        $old=execute('SELECT id,created_at,version,archived_at FROM submissions WHERE user_id=? AND request_key=?',[$s['user_id'],$s['request_key']])->fetch();
-        if($old){$db->exec('COMMIT');return ['submission'=>$old,'duplicate'=>true];}
+        $old=execute('SELECT id,created_at,version,archived_at,profile FROM submissions WHERE user_id=? AND request_key=?',[$s['user_id'],$s['request_key']])->fetch();
+        if($old){$old['review_required']=workflowReviewRequired($old);unset($old['profile']);$db->exec('COMMIT');return ['submission'=>$old,'duplicate'=>true];}
+        if(array_key_exists('workflow_revision',$s)&&$s['workflow_revision']!==workflowSettings()['revision'])throw new DomainException('workflow_conflict');
+        unset($s['workflow_revision']);
         $chain=[$s['user_id'],$s['doc_id'],$s['audience']];
         $current=execute('SELECT id,version FROM submissions WHERE user_id=? AND doc_id=? AND audience=? AND archived_at IS NULL',$chain)->fetch();
         if(($current['id']??null)!==$expected)throw new DomainException('version_conflict');
@@ -128,6 +131,6 @@ function saveVersion(array $s,string $sourcePath,?string $expected,?string $audi
         $columns=['id','user_id','doc_id','title','ar','audience','created_at','size','sha256','answers','profile','request_key','version','archived_at','replaces_id','restored_from','edited_from','source','signatures'];
         execute('INSERT INTO submissions('.implode(',',$columns).') VALUES('.implode(',',array_fill(0,count($columns),'?')).')',array_map(fn($k)=>$s[$k],$columns));
         if($audit)execute('INSERT INTO audit(client_id,event,created_at) VALUES(?,?,?)',[$s['user_id'],$audit.':'.$s['restored_from'].':'.$s['id'],$s['created_at']]);
-        $db->exec('COMMIT');return ['submission'=>array_intersect_key($s,array_flip(['id','created_at','version','archived_at']))];
+        $db->exec('COMMIT');return ['submission'=>array_intersect_key($s,array_flip(['id','created_at','version','archived_at']))+['review_required'=>workflowReviewRequired($s)]];
     }catch(Throwable $e){$db->exec('ROLLBACK');if($path&&is_file($path))unlink($path);throw $e;}
 }

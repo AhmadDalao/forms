@@ -145,9 +145,12 @@ try:
     for name, data in super_bootstrap.items():
         upload('_private/management/' + name, data, private=True)
     upload('.htaccess', files['.htaccess'])
+    # Existing API entrypoints may still be serving requests during this upload.
+    # Publish the workflow dependency before the version/review helpers use it.
+    upload('api/portal-workflow.php', files['api/portal-workflow.php'])
     # Immutable assets and PHP dependencies precede the new HTML entrypoints.
     for name, data in sorted(files.items(), key=lambda item: (item[0].endswith('.html'), item[0] == 'index.html', item[0])):
-        if name in ['_private/.htaccess', '.htaccess']:
+        if name in ['_private/.htaccess', '.htaccess', 'api/portal-workflow.php']:
             continue
         upload(name, data)
     for name, data in files.items():

@@ -7,17 +7,18 @@ import '@fontsource/noto-sans-arabic/latin-400.css';
 import './style.css';
 import {siteHeader} from '../branding.js';
 import {createClientDashboard} from '../portal/admin.js';
-import {language as savedLanguage,setLanguage} from '../portal/api.js';
+import {api as portalApi,language as savedLanguage,setLanguage} from '../portal/api.js';
 import {appRoot} from '../routes.js';
 import {generate,loadPreview,renderPage,original,templateUrl} from '../pdf.js';
 import {runtimeDocument} from './catalogue.js';
 import {inspectPDF} from './importer.js';
 import {layoutConflicts,assertLayout} from './layout.js';
 const app=document.querySelector('#app'),e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let dashboard=null,managementSession=null,lang=savedLanguage(),activeView='overview';
+let dashboard=null,managementSession=null,managementWorkflow={review_enabled:true,revision:0},lang=savedLanguage(),activeView='overview';
 const t=(en,ar)=>lang==='ar'?ar:en;
 const canManageDocuments=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.manage_documents===true;
 const canChangeAccountType=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.change_account_type===true;
+const canManageWorkflow=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.manage_workflow===true;
 let csrf='',state=null,dirty=false,editing=null,pageNumber=1,selected=null,pdf=null,drawType=null,serial=Date.now(),sampled=new Set(),renderEpoch=0;
 const endpoint=action=>`${appRoot}api/management.php?action=${action}`;
 async function api(action,body){
@@ -35,9 +36,9 @@ function bind(selector,event,handler){document.querySelectorAll(selector).forEac
 function changed(){dirty=true;sampled.clear();const reviewButton=document.querySelector('#review-document');if(reviewButton)reviewButton.disabled=true;const sampleStatus=document.querySelector('#sample-status');if(sampleStatus)sampleStatus.textContent='Layout changed — regenerate both samples.';if(editing)editing.reviewed=false;document.querySelector('#draft-status').textContent='Unsaved changes';}
 function shell(content,{view='documents'}={}){
  activeView=view;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
- const signedIn=managementSession?.authenticated===true,items=[['overview','Overview','نظرة عامة','data-overview id="client-dashboard"'],['reviews','Review forms','مراجعة النماذج','data-reviews'],['users','Clients','العملاء','data-users'],...(canManageDocuments()?[['documents','Documents','المستندات','data-documents']]:[])];
+ const signedIn=managementSession?.authenticated===true,reviewEnabled=managementWorkflow.review_enabled!==false,items=[['overview','Overview','نظرة عامة','data-overview id="client-dashboard"'],...(reviewEnabled?[['reviews','Review forms','مراجعة النماذج','data-reviews']]:[]),['users','Clients','العملاء','data-users'],...(canManageDocuments()?[['documents','Documents','المستندات','data-documents']]:[]),...(canManageWorkflow()?[['workflow','Workflow','سير العمل','data-workflow']]:[])];
  const navigation=signedIn?`<nav class="site-header-navigation management-navigation" aria-label="${t('Management navigation','التنقل في الإدارة')}">${items.map(([id,en,ar,attrs])=>`<button type="button" data-management-view="${id}" ${attrs} ${view===id?'aria-current="page"':''}>${t(en,ar)}</button>`).join('')}</nav>`:'';
- const actions=`${signedIn?`<button type="button" class="notification-bell" id="management-notifications" aria-label="${t('Forms awaiting review','نماذج بانتظار المراجعة')}" title="${t('Forms awaiting review','نماذج بانتظار المراجعة')}">${bellIcon}</button>`:''}<button type="button" class="site-header-language" data-admin-language lang="${lang==='ar'?'en':'ar'}">${t('العربية','English')}</button>${signedIn?`<button type="button" class="site-header-signout" id="logout">${t('Sign out','تسجيل الخروج')}</button>`:''}`;
+ const actions=`${signedIn?`<span class="management-mode-badge" data-workflow-mode="${reviewEnabled?'review':'tool'}">${reviewEnabled?t('Review workflow','سير عمل المراجعة'):t('Form-filling tool','أداة تعبئة النماذج')}</span>${reviewEnabled?`<button type="button" class="notification-bell" id="management-notifications" aria-label="${t('Forms awaiting review','نماذج بانتظار المراجعة')}" title="${t('Forms awaiting review','نماذج بانتظار المراجعة')}">${bellIcon}</button>`:''}`:''}<button type="button" class="site-header-language" data-admin-language lang="${lang==='ar'?'en':'ar'}">${t('العربية','English')}</button>${signedIn?`<button type="button" class="site-header-signout" id="logout">${t('Sign out','تسجيل الخروج')}</button>`:''}`;
  app.innerHTML=siteHeader({lang,className:'management-header',navigation,actions})+`<div id="notice" role="status"></div>${content}`;
  bind('[data-management-view]','click',async(ev,button)=>{if(dirty)await saveDraft();if(button.dataset.managementView==='documents')await openDocuments();else await showDashboard(button.dataset.managementView);});
  bind('[data-admin-language]','click',async()=>{lang=lang==='ar'?'en':'ar';setLanguage(lang);if(!signedIn){showLogin();return;}if(activeView==='documents'){if(editing)await editor();else home();}else await dashboard.refresh();});
@@ -48,7 +49,7 @@ function showLogin(){shell(`<main class="panel login"><h1>${t('Management sign i
  bind('#login','submit',async ev=>{ev.preventDefault();const button=ev.target.querySelector('button');button.disabled=true;try{const freshSession=await api('session');csrf=freshSession.csrf;const response=await api('login',{username:document.querySelector('#username').value,password:document.querySelector('#password').value});csrf=response.csrf;managementSession=response;await showDashboard();}finally{if(button.isConnected)button.disabled=false;}});
 }
 async function start(){managementSession=await api('session');csrf=managementSession.csrf;if(!managementSession.configured){shell(`<main class="panel login"><h1>${t('Management setup','إعداد الإدارة')}</h1><p>${t('Management access has not been configured.','لم يتم إعداد حساب الإدارة بعد.')}</p></main>`,{view:'overview'});return;}if(managementSession.authenticated){await showDashboard();return;}showLogin();}
-async function showDashboard(view='overview'){dashboard??=createClientDashboard({shell,token:()=>csrf,language:()=>lang,canChangeAccountType,onError:handleError});await dashboard[view]();}
+async function showDashboard(view='overview'){const result=await portalApi('admin_workflow');managementWorkflow=result.workflow;dashboard??=createClientDashboard({shell,token:()=>csrf,language:()=>lang,canChangeAccountType,canManageWorkflow,workflow:()=>managementWorkflow,onWorkflowChanged:value=>{if(value.revision>=managementWorkflow.revision)managementWorkflow=value;},onError:handleError});await dashboard[view]();}
 async function openDocuments(){if(!canManageDocuments())return;dashboard?.cancel();if(!state)state=await api('state');home();}
 function toolbar(title,buttons=''){return `<div class="toolbar"><div><h1>${title}</h1><div class="status-strip"><span id="draft-status">${dirty?'Unsaved changes':'Draft saved'}</span><span>Revision ${state.revision}</span></div></div><div class="actions">${buttons}</div></div>`;}
 async function saveDraft(){state=await api('save',{revision:state.revision,draft:state.draft});dirty=false;if(editing)editing=state.draft.documents.find(d=>d.id===editing.id);return state;}
