@@ -1,9 +1,10 @@
 import {joinedName} from './subscription/model.js';
+import {draftStoragePrefix} from './routes.js';
 import { hasValue } from './schema.js';
 import { cleanSignatures } from './signatures.js';
 import { cleanShared, reconcileShared, sharedCandidates } from './shared-fields.js';
 
-export const DRAFT_PREFIX = 'itqan.forms.v1.';
+export const DRAFT_PREFIX = draftStoragePrefix;
 
 // Each audience owns its profile, drafts and signatures, including the two
 // templates that appear in both folders. Unscoped mode reads legacy drafts.

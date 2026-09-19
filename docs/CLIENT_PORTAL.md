@@ -1,6 +1,6 @@
 # Client accounts and submissions
 
-Implemented on `codex/client-portal`, based on the tested subscription branch. This work has not been deployed or merged into the live site.
+Implemented on `codex/client-portal`, based on the tested subscription branch. This work has not been merged into the live site. A separate password-protected hosted test copy is documented in `docs/HOSTED_PREVIEW.md`.
 
 ## Preview
 

@@ -1,4 +1,5 @@
-import {appRoot} from '../routes.js';
+import {appRoot,draftStoragePrefix,portalStoragePrefix} from '../routes.js';
+export const authChangeKey=portalStoragePrefix+'auth-change';
 export const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let csrf='';
 export const endpoint=(action,params={})=>`${appRoot}api/portal.php?${new URLSearchParams({action,...params})}`;
@@ -36,13 +37,13 @@ export const errors={
  no_submissions:['This client has no submitted forms yet.','لم يرسل العميل أي نماذج بعد.'],
 };
 export const errorText=(err,lang='en')=>(errors[err.message]||['Could not complete this request. Please try again.','تعذّر إكمال الطلب. يرجى المحاولة مجددًا.'])[lang==='ar'?1:0];
-export function language(){try{return localStorage.getItem('itqan.portal.language')||(navigator.language.startsWith('ar')?'ar':'en');}catch{return 'en';}}
-export function setLanguage(lang){try{localStorage.setItem('itqan.portal.language',lang);}catch{}}
-export function authChanged(){try{localStorage.setItem('itqan.portal.auth-change',crypto.randomUUID());}catch{}}
+export function language(){try{return localStorage.getItem(portalStoragePrefix+'language')||(navigator.language.startsWith('ar')?'ar':'en');}catch{return 'en';}}
+export function setLanguage(lang){try{localStorage.setItem(portalStoragePrefix+'language',lang);}catch{}}
+export function authChanged(){try{localStorage.setItem(authChangeKey,crypto.randomUUID());}catch{}}
 export function importGuestDrafts(id,folder){
  const audience=folder==='companies'?'corporate':folder==='individuals'?'individual':null;if(!audience)return;
  try{
-  const source='itqan.forms.v1.'+audience+'.',destination='itqan.forms.v1.account.'+id+'.'+audience+'.';
+  const source=draftStoragePrefix+audience+'.',destination=draftStoragePrefix+'account.'+id+'.'+audience+'.';
   for(const key of Object.keys(localStorage).filter(k=>k.startsWith(source))){if(localStorage.getItem(destination+key.slice(source.length))===null){localStorage.setItem(destination+key.slice(source.length),localStorage.getItem(key));localStorage.removeItem(key);}}
  }catch{/* A blocked browser store must not prevent login. */}
 }

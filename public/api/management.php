@@ -6,6 +6,7 @@ header('X-Content-Type-Options: nosniff');
 header('Content-Type: application/json; charset=utf-8');
 const MAX_PDF = 20971520;
 require_once __DIR__.'/management-auth.php';
+require_once __DIR__.'/session-scope.php';
 $dataDir = getenv('FORMS_DATA_DIR') ?: __DIR__ . '/../_private/management';
 function respond(array $value, int $code = 200): never { http_response_code($code); echo json_encode($value, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR); exit; }
 function fail(string $message, int $code = 400): never { respond(['error'=>$message],$code); }
@@ -98,7 +99,7 @@ try {
     $action=$_GET['action']??'session';
     if($action==='catalogue'){respond(locked(fn($s)=>$s['published']));}
     $https=(!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off');
-    session_name('itqan_management');session_set_cookie_params(['lifetime'=>0,'path'=>'/','secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);ini_set('session.use_strict_mode','1');session_start();
+    $scope=sessionScope('itqan_management');session_name($scope['name']);session_set_cookie_params(['lifetime'=>0,'path'=>$scope['path'],'secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);ini_set('session.use_strict_mode','1');session_start();
     $_SESSION['csrf']??=bin2hex(random_bytes(24));
     $username=managementUsername($dataDir);
     $configured=is_file($dataDir.'/password.php')&&$username!==null;

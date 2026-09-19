@@ -6,7 +6,7 @@ import '@fontsource/noto-sans-arabic/arabic-600.css';
 import '@fontsource/noto-sans-arabic/latin-400.css';
 import './style.css';
 import {brandLockup} from './branding.js';
-import {api as portalApi,errorText as portalError,session as clientSession,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
+import {authChangeKey,api as portalApi,errorText as portalError,session as clientSession,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
 import {submitForm} from './portal/submit.js';
 const client=await clientSession().catch(()=>({user:null}));
 import {createSubscriptionEditor} from './subscription/editor.js';
@@ -305,7 +305,7 @@ function savePDF(bytes,name){
 function download(){if(pdfBytes)savePDF(pdfBytes,`${current.id}-filled.pdf`);}
 window.addEventListener('beforeunload',ev=>{if(!drafts.available&&(Object.keys(drafts.profile).length||docs.some(d=>drafts.has(d.id)))){ev.preventDefault();ev.returnValue='';}});
 window.addEventListener('storage',ev=>{
- if(ev.key==='itqan.portal.auth-change'){location.reload();return;}
+ if(ev.key===authChangeKey){location.reload();return;}
  if(ev.key!==null&&!ev.key.startsWith(drafts.prefix)&&ev.key!==drafts.basePrefix+'shared-fields'&&!['signature-form','terms-and-conditions'].some(id=>ev.key===DRAFT_PREFIX+id))return;
  drafts.refresh();
  if(subscriptionEditor){subscriptionEditor.refresh();return;}

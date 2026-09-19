@@ -6,7 +6,7 @@ import '@fontsource/noto-sans-arabic/arabic-600.css';
 import './style.css';
 import {brandLockup} from '../branding.js';
 import {appRoot} from '../routes.js';
-import {api,session,e,errorText,language,setLanguage,authChanged,importGuestDrafts,endpoint,when} from './api.js';
+import {authChangeKey,api,session,e,errorText,language,setLanguage,authChanged,importGuestDrafts,endpoint,when} from './api.js';
 import {previewSubmission} from './preview.js';
 const root=document.querySelector('#app'),params=new URLSearchParams(location.search);
 let lang=['ar','en'].includes(params.get('lang'))?params.get('lang'):language(),user=null;
@@ -77,4 +77,4 @@ async function uploadCompleted(replacement=null){
 try{const s=await session();user=s.user;if(isAccount)await account();else if(user)location.replace(appRoot+'my-applications/');else auth();}catch(err){auth();message(errorText(err,lang));}
 
 window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
-window.addEventListener('storage',event=>{if(event.key==='itqan.portal.auth-change')location.reload();});
+window.addEventListener('storage',event=>{if(event.key===authChangeKey)location.reload();});

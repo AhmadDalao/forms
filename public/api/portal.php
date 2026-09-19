@@ -8,6 +8,7 @@ header('Referrer-Policy: no-referrer');
 umask(0077);
 require_once __DIR__.'/portal-versions.php';
 require_once __DIR__.'/management-auth.php';
+require_once __DIR__.'/session-scope.php';
 function reply(array $data, int $status=200): never { http_response_code($status); echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR); exit; }
 function reject(string $code,int $status=400): never { reply(['error'=>$code],$status); }
 function body(): array {
@@ -108,7 +109,7 @@ try {
     migrateVersions();
     $action=$_GET['action']??'session';$admin=str_starts_with($action,'admin_');
     $https=!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off';
-    session_name($admin?'itqan_management':'itqan_client');ini_set('session.use_strict_mode','1');session_set_cookie_params(['lifetime'=>0,'path'=>'/','secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);session_start();
+    $scope=sessionScope($admin?'itqan_management':'itqan_client');session_name($scope['name']);ini_set('session.use_strict_mode','1');session_set_cookie_params(['lifetime'=>0,'path'=>$scope['path'],'secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);session_start();
     $_SESSION['csrf']??=bin2hex(random_bytes(24));
     if($admin)ownerRequired();
     if($_SERVER['REQUEST_METHOD']==='POST'&&(empty($_SERVER['HTTP_X_CSRF_TOKEN'])||!hash_equals($_SESSION['csrf'],$_SERVER['HTTP_X_CSRF_TOKEN'])))reject('csrf_invalid',403);
