@@ -18,7 +18,7 @@ RUNTIME=Path('/Users/ahmaddalao/.cache/codex-runtimes/codex-primary-runtime/depe
 RENDER=Path('/Users/ahmaddalao/.codex/plugins/cache/openai-primary-runtime/documents/26.904.11930/skills/documents/render_docx.py')
 RULES=json.loads((ROOT/'public/api/subscription/rules.json').read_text())
 FONT='Bahij TheSansArabic Plain'
-PURPLE='482563';INK='242235';MUTED='656575';BORDER='D8DCE5'
+PURPLE='401D58';INK='242235';MUTED='656575';BORDER='9B92A2'
 WIDTH=499.3
 OPEN_AR='بعد الاطلاع على نشرة الشروط والأحكام للصندوق الاستثماري صندوق النعيم العقاري والإحاطة علماً بكل الشروط والأحكام المنظمة للاستثمار، نعلمكم برغبتنا في المشاركة، ونلتزم التزاماً كاملاً بشروط وأحكام الصندوق.'
 OPEN_EN='Having reviewed the terms & conditions of the Al Naeem Real Estate investment fund thereof, I hereby request to participate in your fund and assure I will abide by the terms and conditions of the investment fund.'
@@ -57,6 +57,7 @@ def font_embed(path):
   for n,data in files.items():z.writestr(n,data)
 
 LABELS={
+ 'title_label':('Title','الصفة'),'english_name':('Client’s full name in English','اسم العميل كاملاً بالإنجليزية'),'po_box':('P.O. Box (if applicable)','صندوق البريد (إن وجد)'),
  'client_account':('Client / Account No. (fund manager use)','رقم العميل / الحساب (لاستخدام مدير الصندوق)'),
  'full_name':('Customer full name','اسم العميل كاملاً'), 'company_name':('Full legal company name','الاسم القانوني الكامل للشركة'),
  'nationality':('Nationality','الجنسية'),'inc_country':('Country of incorporation','دولة التأسيس'),
@@ -74,6 +75,8 @@ LABELS={
 
 def build(corporate,probe):
  doc=Document();sec=doc.sections[0];sec.page_width=Mm(210);sec.page_height=Mm(297);sec.top_margin=Pt(37);sec.bottom_margin=Pt(61);sec.left_margin=sec.right_margin=Pt(48);sec.header_distance=Pt(12);sec.footer_distance=Pt(12)
+ title_style=doc.styles['Title']._element
+ for border in title_style.findall('.//'+qn('w:pBdr')):border.getparent().remove(border)
  doc.styles['Normal'].font.name='Arial';doc.styles['Normal'].font.size=Pt(10)
  doc.styles['Normal'].paragraph_format.space_after=Pt(0)
  doc.core_properties.title='طلب الإشتراك في صندوق النعيم العقاري '+('(للشركات)' if corporate else '(للأفراد)');doc.core_properties.author='';doc.core_properties.last_modified_by=''
@@ -87,18 +90,30 @@ def build(corporate,probe):
  def spacer(h=6):
   p=doc.add_paragraph();p.paragraph_format.line_spacing=Pt(h);p.paragraph_format.space_after=Pt(0);run(p,' ',1)
  def brand(page):
-  p=para(doc.add_paragraph(),'إتقان كابيتال',14,True,True,PURPLE,19)
-  para(doc.add_paragraph(),'ITQAN CAPITAL',9,False,True,PURPLE,13)
-  if page==1:
-   para(doc.add_paragraph(),doc.core_properties.title,17,True,True,INK,25)
-   para(doc.add_paragraph(),'Al Naeem Real Estate Fund • Subscription Application • '+('Company' if corporate else 'Individual'),10,False,False,MUTED,17)
-  else:
-   para(doc.add_paragraph(),'صندوق النعيم العقاري | '+('طلب اشتراك للشركات' if corporate else 'طلب اشتراك للأفراد'),14,True,True,INK,22)
-   para(doc.add_paragraph(),'Al Naeem Real Estate Fund • '+('Company' if corporate else 'Individual')+' Subscription',9,False,False,MUTED,14)
-  spacer(7)
+  table=doc.add_table(rows=1,cols=2);table.autofit=False
+  for i,w in enumerate([155,WIDTH-155]):table.columns[i].width=Pt(w);table.cell(0,i).width=Pt(w)
+  logo=table.cell(0,0).paragraphs[0];logo.paragraph_format.space_after=Pt(0)
+  logo.add_run().add_picture(str(ROOT/'public/branding/itqan.png'),width=Pt(142))
+  cell=table.cell(0,1)
+  p=para(cell.paragraphs[0],doc.core_properties.title if page==1 else 'طلب اشتراك '+('(للشركات)' if corporate else '(للأفراد)'),15 if page==1 else 14,True,True,PURPLE,21)
+  p.style=doc.styles['Title']
+  p.paragraph_format.space_before=Pt(0);p.paragraph_format.space_after=Pt(0)
+  p=para(cell.add_paragraph(),'Subscription Form • '+('Company' if corporate else 'Individual'),10,False,True,MUTED,15);p.alignment=WD_ALIGN_PARAGRAPH.RIGHT
+  if page==2:para(cell.add_paragraph(),'صندوق النعيم العقاري',10,True,color=MUTED,leading=14)
+  spacer(8)
  def heading(en,ar):
-  p=para(doc.add_paragraph(),ar,12,True,True,PURPLE,18);p.paragraph_format.space_before=Pt(6)
-  para(doc.add_paragraph(),en,8.5,False,True,MUTED,13);spacer(3)
+  table=doc.add_table(rows=1,cols=2);table.autofit=False
+  for i,txt in enumerate([en,ar]):
+   cell=table.cell(0,i);cell.width=Pt(WIDTH/2);table.columns[i].width=Pt(WIDTH/2)
+   shade=OxmlElement('w:shd');shade.set(qn('w:fill'),PURPLE);cell._tc.get_or_add_tcPr().append(shade)
+   para(cell.paragraphs[0],txt,9 if i==0 else 10.5,bool(i),True,'FFFFFF',19)
+  spacer(3)
+ def bilingual(en,ar):
+  table=doc.add_table(rows=1,cols=2);table.autofit=False
+  for i,txt in enumerate([en,ar]):
+   table.cell(0,i).width=Pt(WIDTH/2);table.columns[i].width=Pt(WIDTH/2)
+   para(table.cell(0,i).paragraphs[0],txt,8 if i==0 else 9,bool(i),leading=11.5 if i==0 else 13)
+  spacer(4)
  def row(ids,height=47,widths=None,fixed=None):
   widths=widths or [WIDTH/len(ids)]*len(ids);table=doc.add_table(rows=1,cols=len(ids));table.autofit=False;table.alignment=WD_TABLE_ALIGNMENT.CENTER
   borders=OxmlElement('w:tblBorders')
@@ -112,7 +127,9 @@ def build(corporate,probe):
    for side,n in [('top',35),('bottom',25),('left',100),('right',100)]:
     el=OxmlElement('w:'+side);el.set(qn('w:w'),str(n));el.set(qn('w:type'),'dxa');margins.append(el)
    cell._tc.get_or_add_tcPr().append(margins)
-   en,ar=LABELS[key];para(cell.paragraphs[0],ar,9.5,True,color=INK,leading=13)
+   en,ar=LABELS[key]
+   if corporate and key=='english_name':en,ar='Company name in English','اسم الشركة بالإنجليزية'
+   para(cell.paragraphs[0],ar,9.5,True,color=INK,leading=13)
    para(cell.add_paragraph(),en,7.5,False,color=MUTED,leading=11)
    p=cell.add_paragraph();p.paragraph_format.line_spacing=Pt(height-28);p.paragraph_format.space_after=Pt(0);p.paragraph_format.space_before=Pt(0)
    token='S'+str(len(markers)+1).zfill(3)+'X';markers[token]={'id':key,'width':w-12,'height':height-29}
@@ -120,46 +137,52 @@ def build(corporate,probe):
    else:run(p,token if probe else ' ',4)
   return table
  brand(1)
- para(doc.add_paragraph(),'السادة / شركة إتقان كابيتال',10,True,True,leading=15)
- para(doc.add_paragraph(),'Messrs.: Itqan Capital Co.',8,False,False,MUTED,12)
- para(doc.add_paragraph(),OPEN_AR,9,True,leading=13)
- para(doc.add_paragraph(),OPEN_EN,8,False,leading=10.5)
- heading('Customer details','تفاصيل العميل')
- row(['client_account'],43)
- row(['company_name' if corporate else 'full_name'],47)
+ bilingual('Messrs.: Itqan Capital Co.','السادة / شركة إتقان كابيتال')
+ bilingual(OPEN_EN,OPEN_AR)
+ heading('Client Details','تفاصيل العميل')
+ row(['client_account'],40)
+ row(['title_label','company_name' if corporate else 'full_name'],46,widths=[105,WIDTH-105])
+ row(['english_name'],46)
  if corporate:
-  row(['inc_country','company_id_type_label'],47)
-  row(['company_id_number','auth_id'],47)
-  row(['auth_name'],47)
+  row(['inc_country','company_id_type_label'],44)
+  row(['company_id_number','auth_id'],44)
+  row(['auth_name'],44)
  else:
-  row(['nationality','id_type_label'],47)
-  row(['id_number','id_other'],47)
- row(['phone','mobile'],47)
- heading('Correspondence address (National Address)','عنوان المراسلة (العنوان الوطني)')
- row(['short_address','building','additional'],47)
- row(['street','district'],47)
- row(['city','postal','country'],47)
- row(['email'],47)
+  row(['nationality','id_type_label'],44)
+  row(['id_number','id_other'],44)
+ row(['phone','mobile'],44)
+ spacer(6)
+ heading('Correspondence Address (National Address)','عنوان المراسلة (العنوان الوطني)')
+ row(['short_address','building','additional'],44)
+ row(['street','district'],44)
+ row(['city','postal','country'],44)
+ row(['email','po_box'],44,widths=[WIDTH*.65,WIDTH*.35])
  doc.add_page_break();brand(2)
- heading('Subscription details','تفاصيل الاشتراك')
- row(['subscription_type_label','payment_method_label'],47)
- row(['fund_name','currency'],47,widths=[WIDTH*.7,WIDTH*.3],fixed={'fund_name':RULES['fundName'],'currency':RULES['currency']})
- row(['units','unit_price'],47,fixed={'unit_price':format(RULES['unitPrice'],',')})
- row(['amount_subscribed','subscription_fee'],47)
- row(['total_amount'],47)
+ heading('Subscription Details','تفاصيل الاشتراك')
+ row(['subscription_type_label','payment_method_label'],44)
+ row(['fund_name','currency'],44,widths=[WIDTH*.7,WIDTH*.3],fixed={'fund_name':RULES['fundName'],'currency':RULES['currency']})
+ row(['units','unit_price'],44,fixed={'unit_price':format(RULES['unitPrice'],',')})
+ row(['amount_subscribed','subscription_fee'],44)
+ row(['total_amount'],42)
  row(['total_words'],53)
  spacer(6)
- para(doc.add_paragraph(),DECL_AR,9,True,leading=13)
- para(doc.add_paragraph(),DECL_EN,8,False,leading=10.5)
- heading('Applicant' if not corporate else 'Authorized applicant','مقدم الطلب' if not corporate else 'مقدم الطلب المفوض')
- row(['applicant_name','date'],47,widths=[WIDTH*.7,WIDTH*.3])
- row(['signature'],66)
+ bilingual(DECL_EN,DECL_AR)
+ heading('Applicant','مقدم الطلب')
+ row(['applicant_name','date'],44,widths=[WIDTH*.7,WIDTH*.3])
+ row(['signature'],55)
  spacer(6)
- # The internal approval block stays on paper; clients do not complete it online.
- para(doc.add_paragraph(),'لاستخدام مدير الصندوق فقط | For fund manager use only',9,True,True,PURPLE,13)
- para(doc.add_paragraph(),'التوقيع مطابق ☐    الفرع: __________________    التاريخ: __________________',8.5,True,leading=15)
- para(doc.add_paragraph(),'مدير الحساب وتوقيعه: __________________    مدخل الطلب وتوقيعه: __________________',8.5,True,leading=15)
- para(doc.add_paragraph(),'المراجع والمعتمد وتوقيعه: __________________',8.5,True,leading=15)
+ # Keep each original internal approval and signature line, unfilled by clients.
+ heading('For Company Use Only','لاستعمال الشركة فقط')
+ para(doc.add_paragraph(),'التوقيع مطابق  ☐   Signature Verified',8.5,True,leading=15)
+ for left,right in [
+  ('Date / التاريخ','Branch / الفرع'),
+  ('Signature / التوقيع','A/C Mgr. / مسؤول الحساب'),
+  ('Signature / التوقيع','Entered by / مدخل الطلب'),
+  ('Signature / التوقيع','Rev. & approved by / مراجعة واعتماد')]:
+  table=doc.add_table(rows=1,cols=2);table.autofit=False
+  for i,label in enumerate([left,right]):
+   table.columns[i].width=Pt(WIDTH/2);table.cell(0,i).width=Pt(WIDTH/2)
+   para(table.cell(0,i).paragraphs[0],label+'  __________________',8,True,leading=18)
  return doc,markers
 
 for corporate in [False,True]:

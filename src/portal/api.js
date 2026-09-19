@@ -17,6 +17,7 @@ export const errors={
  password_weak:['Use at least 12 characters (maximum 72 bytes).','استخدم ١٢ حرفًا على الأقل (بحد أقصى ٧٢ بايت).'],
  password_mismatch:['The passwords do not match.','كلمتا المرور غير متطابقتين.'],
  phone_exists:['This mobile number already has an account. Please sign in.','رقم الجوال مسجل بالفعل. يرجى تسجيل الدخول.'],
+ registration_name_invalid:['Enter your first and last name.','أدخل اسمك الأول واسم العائلة.'],
  name_invalid:['Enter your name.','أدخل اسمك.'],
  login_invalid:['The mobile number or password is incorrect.','رقم الجوال أو كلمة المرور غير صحيحة.'],
  current_password_invalid:['Your current password is incorrect.','كلمة المرور الحالية غير صحيحة.'],

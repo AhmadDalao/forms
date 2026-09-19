@@ -87,3 +87,17 @@ test('shared family IDs are supported and a populated name language is reused',(
  assert.ok(individual.fields.find(f=>f.id==='id_type').selectOptions.some(o=>o[0]==='family'));
  assert.ok(visibleFields(individual,v).some(f=>f.id==='id_number'));
 });
+
+test('restored English names reuse the matching profile and keep deliberate corrections',()=>{
+ const m=new Map(),storage=()=>({getItem:k=>m.get(k)||null,setItem:(k,v)=>m.set(k,v),removeItem:k=>m.delete(k)});
+ const store=createDraftStore(docs,storage,'individual');store.setShared({en_first:'Ahmad',en_second:'Mohammed',en_last:'Ali',ar_first:'أحمد',ar_second:'محمد',ar_last:'علي',name_language:'ar',title:'mr'});
+ assert.equal(store.get(individual.id).values.english_name,'Ahmad Mohammed Ali');assert.equal(store.get(individual.id).values.title,'mr');
+ store.save(individual.id,{...store.get(individual.id).values,english_name:'Ahmed M Ali'},0,{},'english_name');store.setShared({...store.profile,en_first:'New spelling'});
+ assert.equal(store.get(individual.id).values.english_name,'Ahmed M Ali');
+ assert.equal(sharedCandidates(company,store.profile,{},'individual').english_name,undefined);
+});
+test('legacy translated name and P.O. Box survive subscription template migration',()=>{
+ const m=new Map([['itqan.forms.v1.individual.subscription-form',JSON.stringify({values:{ar_name:'أحمد محمد علي',en_name:'Ahmed Mohammed Ali',pob:'001234'}})]]);
+ const store=createDraftStore(docs,()=>({getItem:k=>m.get(k)||null,setItem:(k,v)=>m.set(k,v),removeItem:k=>m.delete(k)}),'individual');
+ assert.equal(store.get(individual.id).values.english_name,'Ahmed Mohammed Ali');assert.equal(store.get(individual.id).values.po_box,'001234');
+});

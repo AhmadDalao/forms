@@ -55,3 +55,25 @@ node scripts/subscription-edge-cases.mjs
 ```
 
 Run `scripts/verify-subscription.py` with the bundled Python runtime after the browser audit to render samples and check transparent overlays. Disposable screenshots, filled samples and reports are under ignored `tmp/subscription/`.
+
+## Original-form correction — 19 September 2026
+
+The current client-portal branch retains the supplied original at `reference/pdfs/subscription-form.pdf` and `public/pdfs/subscription-form.pdf`. Both match the uploaded `ItqanSubscriptionFormV3.11.pdf` byte for byte (SHA-256 `00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a`). The editable sources build on its sections rather than reducing them to a summary.
+
+| Original content | Current editable document |
+| --- | --- |
+| Itqan logo, salutation and participation undertaking | Original logo asset; bilingual undertaking on page 1 |
+| Client/account, title and names | Page 1; restored title and English-name fields |
+| Individual or company identity | Page 1 in the appropriate audience version |
+| Correspondence address | Page 1, with the requested national-address fields plus optional P.O. Box |
+| Subscription Details / تفاصيل الاشتراك | Prominent original-style purple section bar on page 2; all requested calculated amounts |
+| Risk and receipt declaration | Full Arabic and English wording on page 2 |
+| Applicant name, date and signature | Page 2, with the existing electronic/manual signature flow |
+| Company-use approval block | Page 2; signature verification, branch/date, account manager, entered-by, reviewer/approver and three separate staff signature lines retained for completion on paper |
+| Issuer/contact/copy information | Footer on both pages |
+
+The original's combined identity area remains split into individual and company versions as requested. The separate percentage and fee-amount inputs remain consolidated into the single calculated 2% fee. Additional national-address fields and readable answer areas use two pages. Other forms are unchanged.
+
+The corrected PDFs are version 3. Current preview: `http://127.0.0.1:8185/individuals/` and `/companies/`. Registration at `/register/` now asks only for first and last name, mobile, password and confirmation. The official application still collects its required name parts separately and reuses shared values. Existing client accounts and archived PDFs are unchanged.
+
+Validation: 50 unit tests; five complete fills per audience; 20 generated pages checked for answer overlap/transparency; manual signatures remain blank; English/Arabic signup and mobile layouts; submissions, editing, archives, restores, password resets and named ZIP exports. Use `FORMS_BASE_URL=http://127.0.0.1:8185 node scripts/subscription-audit.mjs` for this branch, followed by the bundled-Python `scripts/verify-subscription.py`. The portal audit uses an isolated database on port 8187. No production deployment.

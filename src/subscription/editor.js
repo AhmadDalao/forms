@@ -19,7 +19,10 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
   const p=drafts.profile,preferred=p.name_language||(p.ar_first?'ar':lang),language=p[preferred+'_first']?preferred:p.ar_first?'ar':'en';
   return language+'_'+({first_name:'first',second_name:'second',third_name:'third',family_name:'last'}[f.id]);
  }
- const isShared=f=>!drafts.get(doc.id).overrides.includes(f.id)&&Boolean(sharedKey(f)&&drafts.profile[sharedKey(f)]&&drafts.profile[sharedKey(f)]===values[f.id]);
+ const isShared=f=>{
+  const saved=drafts.get(doc.id),shared=f.id==='english_name'?saved.shared?.english_name:drafts.profile[sharedKey(f)];
+  return !saved.overrides.includes(f.id)&&Boolean(shared&&shared===values[f.id]);
+ };
  function shownValue(f){
   const value=values[f.id]??'';
   if(f.money)return value?Number(value).toLocaleString(lang==='ar'?'ar-SA':'en-US')+' '+t('SAR','ريال سعودي'):'—';

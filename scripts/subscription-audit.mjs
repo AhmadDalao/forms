@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {docs} from '../src/forms/index.js';
 import {calculateSubscription} from '../src/subscription/calculations.js';
-const base='http://127.0.0.1:8184',out='tmp/subscription/audit';await fs.mkdir(out,{recursive:true});
+const base=process.env.FORMS_BASE_URL||'http://127.0.0.1:8184',out='tmp/subscription/audit';await fs.mkdir(out,{recursive:true});
 const browser=await chromium.launch({channel:'chrome',headless:true});const records=[],failures=[];
 const scenarios=[
  {name:'english',lang:'en',units:'10',first:'Ahmad',second:'Mohammed',third:'',last:'Al Ali',company:'Al Noor Investment Company',country:'United States of America',street:'King Fahd Road',city:'Riyadh',signature:false},
@@ -29,12 +29,15 @@ try{
     for(const [name,value] of Object.entries({first_name:scenario.first,second_name:scenario.second,third_name:scenario.third,family_name:scenario.last,nationality:scenario.country}))await page.locator(`[name="${name}"]`).fill(value);
     assert.equal(await page.locator('[name="id_number"]').count(),0);await page.locator('[name="id_type"]').selectOption('other');await page.locator('[name="id_other"]').fill('old hidden detail');await page.locator('[name="id_type"]').selectOption('passport');assert.equal(await page.locator('[name="id_other"]').count(),0);await page.locator('[name="id_number"]').fill('A001234567');
    }
+   if(corporate)await page.locator('[name="title"]').fill('شركة / Company');else await page.locator('[name="title"]').selectOption('mr');
+   await page.locator('[name="english_name"]').fill(corporate?'Al Noor Real Estate Investment and Development Company Limited':'Abdulrahman Mohammed Abdullah Ibrahim Al Abdulaziz Al Qahtani');
    await page.locator('[name="client_account"]').fill('0000123456');await page.locator('[name="phone"]').fill('+966112345678');await page.locator('[name="mobile"]').fill('+966551234567');
   }
   await page.locator('#sub-next').click();
   if(!scenario.shared){
    assert.equal(await page.locator('[name="country"]').inputValue(),'المملكة العربية السعودية');
    for(const [name,value] of Object.entries({short_address:'RABC1234',building:'1234',street:scenario.street,additional:'5678',district:'العليا',postal:'12345',city:scenario.city}))await page.locator(`[name="${name}"]`).fill(value);
+   await page.locator('[name="po_box"]').fill('001234');
    await page.locator('[name="email"]').pressSequentially('first.last+test@example.com');assert.equal(await page.locator('[name="email"]').inputValue(),'first.last+test@example.com');
    assert.equal(await page.locator('[name="email"]').getAttribute('dir'),'ltr');
   }

@@ -39,6 +39,7 @@ export async function canonicalSubscription(doc,values){
  for(const f of doc.fields)if(!visibleField(f,normalized))delete normalized[f.id];
  const id=doc.fields.find(f=>f.id==='id_type');
  return {...normalized,...calculated,...(id?{id_type_label:id.selectOptions.find(o=>o[0]===normalized.id_type)?.slice(1).reverse().join(' / ')||''}:{}),
+  title_label:doc.group==='corporate'?(normalized.title||''):({mr:'Mr. / السيد',mrs:'Mrs. / السيدة',miss:'Miss / الآنسة'})[normalized.title]||'',
   company_id_type_label:doc.fields.find(f=>f.id==='company_id_type')?.selectOptions.find(o=>o[0]===normalized.company_id_type)?.slice(1).reverse().join(' / ')||'',
   subscription_type_label:({'new':'طلب جديد / New Subscription',additional:'إضافة وحدات / Additional Units'})[normalized.subscription_type]||'',
   payment_method_label:({transfer:'حوالة / Bank Transfer',cheque:'شيك / Cheque'})[normalized.payment_method]||''};

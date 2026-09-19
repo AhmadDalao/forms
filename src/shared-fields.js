@@ -56,6 +56,7 @@ export function sharedCandidates(doc,profile,values,audience){
  if(doc.workflow==='subscription'){
   for(const f of doc.fields){if(f.sharedKey)copy(f.id,p[f.sharedKey]);}
   copy('client_account',p.account_number||p.client_number);
+  copy('english_name',audience==='individual'?fullEn:(!/\p{Script=Arabic}/u.test(p.company_name||'')?p.company_name:''));
   if(audience==='individual'){
    const preferred=p.name_language||(p.ar_first?'ar':'en'),language=p[preferred+'_first']?preferred:p.ar_first?'ar':'en';
    for(const [key,part] of [['first_name','first'],['second_name','second'],['third_name','third'],['family_name','last']])copy(key,p[language+'_'+part]);

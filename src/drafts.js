@@ -31,6 +31,8 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     // Adapt saved subscription names without changing unrelated document drafts.
     if(doc.workflow==='subscription'&&(record?.values?.ar_name||record?.values?.en_name)){
       const old=record.values, next={...old};
+      if(!('english_name' in next)&&old.en_name)next.english_name=old.en_name;
+      if(!('po_box' in next)&&old.pob)next.po_box=old.pob;
       const full=(profile.name_language==='en'?old.en_name||old.ar_name:old.ar_name||old.en_name).trim();
       if(doc.group==='individual'&&!next.first_name){
         const parts=full.split(/\s+/);next.first_name=parts.shift()||'';

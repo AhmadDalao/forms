@@ -27,19 +27,20 @@ try{
   assert.ok(itqan.y>=wesal.y+wesal.height,'Itqan logo must stay below Wessal');
  }
  await call(anon,'session');await call(anon,'submissions',null,401);await call(anon,'admin_dashboard',null,401);
- await call(anon,'register',{name:'Test',phone:'55535445',password,confirm:password},400);
- await call(anon,'register',{name:'Test',phone:'551111111',password,confirm:'different'},400);
- await call(anon,'register',{name:'Test',phone:'551111111',password,confirm:password},403,{headers:{'X-CSRF-Token':'wrong'}});
+ await call(anon,'register',{first_name:'Test',last_name:'Client',phone:'55535445',password,confirm:password},400);
+ await call(anon,'register',{first_name:'Test',last_name:'Client',phone:'551111111',password,confirm:'different'},400);
+ await call(anon,'register',{first_name:'Test',last_name:'Client',phone:'551111111',password,confirm:password},403,{headers:{'X-CSRF-Token':'wrong'}});
+ for(const names of [{first_name:'Test'},{last_name:'Client'},{first_name:' ',last_name:'Client'}]){const result=await call(anon,'register',{...names,phone:'551111111',password,confirm:password},400);assert.equal(result.error,'registration_name_invalid');}
  checks.push('Anonymous access, CSRF, phone and confirmation validation');
  const page=await a.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/individuals/');
  await page.evaluate(()=>{localStorage.setItem('itqan.forms.v1.individual.signature-form',JSON.stringify({values:{client_name:'Guest retained',signer_name:'Ahmad Ali',date:'2026-09-19'},step:1}));localStorage.setItem('itqan.forms.v1.individual.preferences',JSON.stringify({lang:'en',active:'signature-form'}));});
- await page.goto(base+'/register/?lang=en&next=individuals&resume=1');await page.locator('#auth-form').waitFor();await assertBrand(page);await page.screenshot({path:out+'/register-en.png',fullPage:true});
- await page.locator('[name=name]').fill('Ahmad Mohammed Ali');await page.locator('[name=phone]').fill('0551111111');await page.locator('[name=password]').fill(password);await page.locator('[name=confirm]').fill(password);await page.locator('#auth-form [type=submit]').click();await page.waitForURL('**/individuals/');
- const accountA=(await call(a,'session')).user;assert.equal(accountA.phone,'+966551111111');
+ await page.goto(base+'/register/?lang=en&next=individuals&resume=1');await page.locator('#auth-form').waitFor();await assertBrand(page);assert.equal(await page.locator('#auth-form [name=name]').count(),0);const firstBox=await page.locator('[name=first_name]').boundingBox(),lastBox=await page.locator('[name=last_name]').boundingBox();assert.ok(Math.abs(firstBox.y-lastBox.y)<2);await page.screenshot({path:out+'/register-en.png',fullPage:true});
+ await page.locator('[name=first_name]').fill('Ahmad');await page.locator('[name=last_name]').fill('Ali');await page.locator('[name=phone]').fill('0551111111');await page.locator('[name=password]').fill(password);await page.locator('[name=confirm]').fill(password);await page.locator('#auth-form [type=submit]').click();await page.waitForURL('**/individuals/');
+ const accountA=(await call(a,'session')).user;assert.equal(accountA.phone,'+966551111111');assert.equal(accountA.name,'Ahmad Ali');
  assert.equal(await page.evaluate(id=>JSON.parse(localStorage.getItem('itqan.forms.v1.account.'+id+'.individual.signature-form')).values.client_name,accountA.id),'Guest retained');
  assert.equal(await page.evaluate(()=>localStorage.getItem('itqan.forms.v1.individual.signature-form')),null);
- await call(b,'session');const accountB=(await call(b,'register',{name:'محمد أحمد القحطاني',phone:'٥٥٢٢٢٢٢٢٢',password,confirm:password},201)).user;
- await call(anon,'register',{name:'Duplicate',phone:'+966551111111',password,confirm:password},409);
+ await call(b,'session');const accountB=(await call(b,'register',{first_name:'محمد',last_name:'القحطاني',phone:'٥٥٢٢٢٢٢٢٢',password,confirm:password},201)).user;
+ await call(anon,'register',{first_name:'Duplicate',last_name:'Client',phone:'+966551111111',password,confirm:password},409);
  await call(a,'admin_dashboard',null,401);
  checks.push('English browser signup, Saudi phone normalization, account draft migration and duplicate phone');
  const pdf=await fs.readFile('public/pdfs/al-naeem-terms-consent.pdf');
@@ -76,7 +77,7 @@ try{
  checks.push('Signature and both subscription UI submissions, server totals and optional email capture');
  await page.goto(base+'/my-applications/');await page.locator('.client-submission').first().waitFor();assert.equal(await page.locator('h1').innerText(),'My applications');await assertBrand(page);await page.screenshot({path:out+'/account-en.png',fullPage:true});
  await page.locator('[data-preview]').first().click();await page.locator('.portal-pdf-pages canvas').first().waitFor();await page.waitForFunction(()=>document.querySelector('.portal-pdf-pages canvas')?.width>100);await page.screenshot({path:out+'/client-preview.png',fullPage:true});await page.locator('.portal-preview [data-close]').click();
- await page.locator('#upload-completed').click();await page.locator('.portal-upload [name=document]').selectOption('al-naeem-terms-consent');await page.locator('.portal-upload [name=pdf]').setInputFiles('public/pdfs/al-naeem-terms-consent.pdf');await page.locator('.portal-upload .primary').click();await page.locator('.portal-upload').waitFor({state:'detached'});assert.equal(await page.locator('.client-submission').count(),6);
+ await page.locator('#upload-completed').click();await page.locator('.portal-upload [name=document]').selectOption('al-naeem-terms-consent');await page.locator('.portal-upload [name=pdf]').setInputFiles('public/pdfs/al-naeem-terms-consent.pdf');await page.locator('.portal-upload .primary').click();await page.locator('.portal-upload').waitFor({state:'detached'});await page.waitForFunction(()=>document.querySelectorAll('.client-submission').length===6);assert.equal(await page.locator('.client-submission').count(),6);
  await page.locator('#portal-language').click();await page.locator('html[lang=ar]').waitFor();assert.equal(await page.locator('h1').innerText(),'طلباتي');await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/account-ar-mobile.png',fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
  // Admin uses the existing owner login and session, never a client cookie.
  const owner=await admin.newPage();owner.on('pageerror',e=>errors.push(e.message));await owner.goto(base+'/management/');await owner.locator('#password').fill(ownerPassword);await owner.locator('#login button').click();await owner.locator('.admin-stats').waitFor();await assertBrand(owner);
@@ -84,7 +85,7 @@ try{
  const stats=await call(admin,'admin_dashboard');assert.equal(stats.stats.users,2);assert.equal(stats.stats.submissions,6);assert.equal(stats.stats.submitted_users,1);assert.equal(stats.counts.find(c=>c.doc_id==='signature-form').count,1);
  await owner.screenshot({path:out+'/admin-overview-en.png',fullPage:true});await owner.locator('[data-users]').first().click();await owner.locator('#client-search').waitFor();await owner.locator('[data-client="'+accountA.id+'"]').click();await owner.locator('.admin-client-facts').waitFor();await owner.screenshot({path:out+'/admin-client-en.png',fullPage:true});
  await owner.locator('[data-preview]').first().click();await owner.locator('.portal-pdf-pages canvas').first().waitFor();await owner.locator('.portal-preview [data-close]').click();
- const zip=await admin.request.get(base+'/api/portal.php?action=admin_zip&id='+accountA.id);assert.equal(zip.status(),200);assert.ok(zip.headers()['content-disposition'].includes('Ahmad%20Mohammed%20Ali.zip'));await fs.writeFile(out+'/client.zip',await zip.body());
+ const zip=await admin.request.get(base+'/api/portal.php?action=admin_zip&id='+accountA.id);assert.equal(zip.status(),200);assert.ok(zip.headers()['content-disposition'].includes('Ahmad%20Ali.zip'));await fs.writeFile(out+'/client.zip',await zip.body());
  const zipResult=spawnSync('php',['-r','$z=new ZipArchive();$z->open($argv[1]);$a=[];for($i=0;$i<$z->numFiles;$i++)$a[]=["name"=>$z->getNameIndex($i),"hash"=>hash("sha256",$z->getFromIndex($i))];echo json_encode($a);',out+'/client.zip'],{encoding:'utf8'});assert.equal(zipResult.status,0);
  const zipped=JSON.parse(zipResult.stdout),all=(await call(a,'submissions')).submissions;assert.equal(zipped.length,4);assert.equal(new Set(zipped.map(z=>z.name)).size,4);assert.deepEqual(zipped.map(z=>z.hash).sort(),all.filter(s=>!s.archived_at).map(s=>s.sha256).sort());
  const historyZip=await admin.request.get(base+'/api/portal.php?action=admin_zip&history=1&id='+accountA.id);await fs.writeFile(out+'/history.zip',await historyZip.body());const historyCount=spawnSync('php',['-r','$z=new ZipArchive();$z->open($argv[1]);echo $z->numFiles;',out+'/history.zip'],{encoding:'utf8'});assert.equal(historyCount.stdout,'6');assert.equal(stats.stats.active_submissions,4);

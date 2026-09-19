@@ -116,7 +116,8 @@ try {
     $now=gmdate('Y-m-d\TH:i:s\Z');$ip=$_SERVER['REMOTE_ADDR']??'local';
     if($action==='session')reply(['user'=>($u=currentUser(false,true))?userView($u):null,'csrf'=>$_SESSION['csrf']]);
     if($action==='register'){
-        rate('register:'.$ip,10,3600);$b=body();$name=textValue($b['name']??'',160);if(mb_strlen($name)<2)reject('name_invalid');
+        rate('register:'.$ip,10,3600);$b=body();$first=textValue($b['first_name']??'',79);$last=textValue($b['last_name']??'',79);
+        if($first===''||$last==='')reject('registration_name_invalid');$name=$first.' '.$last;
         $phone=mobile($b['phone']??'');$password=passwordValue($b['password']??'');if($password!==($b['confirm']??''))reject('password_mismatch');
         $id=bin2hex(random_bytes(16));
         try{execute('INSERT INTO users(id,name,phone,password,created_at,last_login) VALUES(?,?,?,?,?,?)',[$id,$name,$phone,password_hash($password,PASSWORD_DEFAULT),$now,$now]);}

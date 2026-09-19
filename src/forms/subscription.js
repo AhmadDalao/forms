@@ -5,11 +5,13 @@ import {appRoot} from '../routes.js';
 for(const corporate of [false,true]){
  const id=corporate?'subscription-company':'subscription-form',map=corporate?companyLayout:individualLayout;
  const d=document(id,'Subscription Application for Al Naeem Real Estate Fund ('+(corporate?'Company':'Individual')+')','طلب الإشتراك في صندوق النعيم العقاري '+(corporate?'(للشركات)':'(للأفراد)'),corporate?'corporate':'individual','Customer details and fund subscription.','بيانات العميل والاشتراك في الصندوق.',2,[2]);
- Object.assign(d,{workflow:'subscription',typeName:corporate?'Company':'Individual',pdfUrl:appRoot+'pdfs/subscription-'+(corporate?'company':'individual')+'.pdf?v=2'});
+ Object.assign(d,{workflow:'subscription',typeName:corporate?'Company':'Individual',pdfUrl:appRoot+'pdfs/subscription-'+(corporate?'company':'individual')+'.pdf?v=3'});
  d.signatureSlots=[{id:'applicant',label:'Applicant signature',ar:'توقيع مقدم الطلب',...map.signature}];
  let s=section(d,'client','Customer details','تفاصيل العميل',1);
  const field=(id,en,ar,config={})=>text(d,s,id,en,ar,map[id]?.rect||null,{...map[id],fontSize:11,minFontSize:7,padding:2,direction:'auto',...config});
  field('client_account','Client / Account No. (fund manager use)','رقم العميل / الحساب (لاستخدام مدير الصندوق)',{optional:true,sharedKey:'account_number'});
+ field('title','Title (optional)','الصفة (اختياري)',corporate?{optional:true}:{type:'select',optional:true,sharedKey:'title',selectOptions:[['mr','Mr.','السيد'],['mrs','Mrs.','السيدة'],['miss','Miss','الآنسة']]});
+ field('title_label','','',{hidden:true});
  if(corporate){
   field('company_name','Full legal company name','الاسم القانوني الكامل للشركة',{required:true,sharedKey:'company_name',wide:true});
   field('inc_country','Country of incorporation','دولة التأسيس',{required:true,sharedKey:'inc_country'});
@@ -27,10 +29,12 @@ for(const corporate of [false,true]){
   field('id_number','ID number','رقم الهوية',{required:true,sharedKey:'id_number',dependsOn:'id_type',when:['national','residence','passport','family','other']});
   field('id_other','Specify the identity document','بيان نوع الهوية الأخرى',{required:true,dependsOn:'id_type',when:['other']});
  }
+ field('english_name',corporate?'Company name in English (if different)':'Full name in English (if different)',corporate?'اسم الشركة بالإنجليزية (إن اختلف)':'الاسم الكامل بالإنجليزية (إن اختلف)',{optional:true,wide:true,direction:'ltr'});
  field('phone','Telephone (optional)','الهاتف (اختياري)',{type:'tel',direction:'ltr',optional:true,sharedKey:'phone'});
  field('mobile','Mobile','الجوال',{type:'tel',direction:'ltr',sharedKey:'mobile'});
  s=section(d,'address','Correspondence address (National Address)','عنوان المراسلة (العنوان الوطني)',1);
  for(const [id,en,ar] of [['short_address','Short address','العنوان المختصر'],['building','Building number','رقم المبنى'],['street','Street name','اسم الشارع'],['additional','Additional number','الرقم الفرعي'],['district','District','اسم الحي'],['postal','Postal code','الرمز البريدي'],['city','City','المدينة'],['email','Email','البريد الإلكتروني'],['country','Country','البلد']])field(id,en,ar,{sharedKey:id,...(id==='email'?{type:'email',direction:'ltr'}:{})});
+ field('po_box','P.O. Box (if applicable)','صندوق البريد (إن وجد)',{optional:true,direction:'ltr'});
  s=section(d,'subscription','Subscription details','تفاصيل الاشتراك',2);
  field('subscription_type','Subscription type','نوع الاشتراك',{type:'cards',required:true,options:[{value:'new',label:'New Subscription',ar:'طلب جديد'},{value:'additional',label:'Additional Units',ar:'إضافة وحدات'}]});
  field('payment_method','Payment method','طريقة الدفع',{type:'cards',required:true,options:[{value:'transfer',label:'Bank Transfer',ar:'حوالة'},{value:'cheque',label:'Cheque',ar:'شيك'}]});
