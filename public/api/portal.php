@@ -8,6 +8,7 @@ header('Referrer-Policy: no-referrer');
 umask(0077);
 require_once __DIR__.'/portal-versions.php';
 require_once __DIR__.'/portal-account-types.php';
+require_once __DIR__.'/portal-reviews.php';
 require_once __DIR__.'/management-auth.php';
 require_once __DIR__.'/session-scope.php';
 function reply(array $data, int $status=200): never { http_response_code($status); echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR); exit; }
@@ -88,8 +89,8 @@ function cleanAnswers(array $def,mixed $input): array {
     }
     return $out;
 }
-function submissionRows(?string $user=null,?int $limit=null): array {
-    return execute('SELECT s.id,s.user_id,s.doc_id,s.title,s.ar,s.audience,s.created_at,s.size,s.sha256,s.version,s.archived_at,s.replaces_id,s.restored_from,s.edited_from,s.source,u.name,u.phone,u.email,u.account_type FROM submissions s JOIN users u ON u.id=s.user_id'.($user?' WHERE s.user_id=?':'').' ORDER BY s.created_at DESC,s.rowid DESC'.($limit?' LIMIT '.$limit:''),$user?[$user]:[])->fetchAll();
+function submissionRows(?string $user=null,?int $limit=null,bool $admin=false): array {
+    return execute('SELECT s.id,s.user_id,s.doc_id,s.title,s.ar,s.audience,s.created_at,s.size,s.sha256,s.version,s.archived_at,s.replaces_id,s.restored_from,s.edited_from,s.source,u.name,u.phone,u.email,u.account_type'.reviewColumns($admin||$user===null).' FROM submissions s JOIN users u ON u.id=s.user_id'.reviewJoin().($user?' WHERE s.user_id=?':'').' ORDER BY s.created_at DESC,s.rowid DESC'.($limit?' LIMIT '.$limit:''),$user?[$user]:[])->fetchAll();
 }
 function fileName(string $name): string {return mb_substr(trim(preg_replace('/[^\p{L}\p{N}_ -]/u','',$name)),0,100)?:'client';}
 function attachment(string $type,string $name,bool $inline=false): void {
@@ -109,13 +110,14 @@ try {
       CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,client_id TEXT NOT NULL,event TEXT NOT NULL,created_at TEXT NOT NULL);');
     migrateVersions();
     migrateAccountTypes();
+    migrateReviews();
     $action=$_GET['action']??'session';$admin=str_starts_with($action,'admin_');
     $https=!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off';
     $scope=sessionScope($admin?'itqan_management':'itqan_client');session_name($scope['name']);ini_set('session.use_strict_mode','1');session_set_cookie_params(['lifetime'=>0,'path'=>$scope['path'],'secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);session_start();
     $_SESSION['csrf']??=bin2hex(random_bytes(24));
     if($admin)ownerRequired();
     if($_SERVER['REQUEST_METHOD']==='POST'&&(empty($_SERVER['HTTP_X_CSRF_TOKEN'])||!hash_equals($_SESSION['csrf'],$_SERVER['HTTP_X_CSRF_TOKEN'])))reject('csrf_invalid',403);
-    $mutations=['register','login','logout','password','profile','submit','admin_reset','admin_restore','admin_account_type'];
+    $mutations=['register','login','logout','password','profile','submit','admin_reset','admin_restore','admin_account_type','admin_review','notification_read'];
     if(in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='POST')reject('method',405);
     if(!in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='GET')reject('method',405);
     $now=gmdate('Y-m-d\TH:i:s\Z');$ip=$_SERVER['REMOTE_ADDR']??'local';
@@ -145,7 +147,24 @@ try {
         $counts=execute('SELECT doc_id,audience,title,ar,COUNT(*) AS count,SUM(archived_at IS NULL) AS active_count,COUNT(DISTINCT user_id) AS clients FROM submissions GROUP BY doc_id,audience')->fetchAll();
         $categories=catalogue();
         foreach($counts as $c)if(!in_array($c['doc_id'],array_column($categories,'id'),true))$categories[]=['id'=>$c['doc_id'],'title'=>$c['title'],'ar'=>$c['ar'],'group'=>'shared','downloadOnly'=>false];
-        reply(['stats'=>$stats,'categories'=>$categories,'counts'=>$counts,'recent'=>submissionRows(null,12)]);
+        reply(['stats'=>$stats,'categories'=>$categories,'counts'=>$counts,'recent'=>submissionRows(null,12),'review_counts'=>execute("SELECT COALESCE(r.status,'pending') AS status,COUNT(*) AS count FROM submissions s".reviewJoin().' WHERE s.archived_at IS NULL GROUP BY status')->fetchAll()]);
+    }
+    if($action==='admin_review_queue'){
+        $status=$_GET['status']??'pending';if(!in_array($status,['pending','approved','rejected'],true))reject('invalid_request');
+        $page=max(1,min(100000,(int)($_GET['page']??1)));$offset=($page-1)*30;
+        $where=reviewJoin()." WHERE s.archived_at IS NULL AND COALESCE(r.status,'pending')=?";
+        $count=(int)execute('SELECT COUNT(*) FROM submissions s'.$where,[$status])->fetchColumn();
+        $rows=execute('SELECT s.id,s.user_id,s.title,s.ar,s.doc_id,s.audience,s.created_at,s.version,s.archived_at,s.restored_from,u.name,u.phone,u.account_type'.reviewColumns(true).' FROM submissions s JOIN users u ON u.id=s.user_id'.$where.' ORDER BY s.created_at,s.rowid LIMIT 30 OFFSET '.$offset,[$status])->fetchAll();
+        reply(['submissions'=>$rows,'total'=>$count,'page'=>$page]);
+    }
+    if($action==='admin_review'){
+        $b=body();$id=textValue($b['id']??'',40);$key=requestKey($b);
+        $status=$b['status']??null;$code=textValue($b['reason_code']??'',40);$reason=textValue($b['reason_text']??'',2000);$expected=$b['expectedReview']??null;
+        if(!in_array($status,['approved','rejected'],true)||!is_int($expected)||$expected<0)reject('invalid_request');
+        if($status==='rejected'&&(!in_array($code,['missing_details','incorrect_data','other'],true)||($code==='other'&&$reason==='')))reject('review_reason_required');
+        if($status==='approved'&&($code!==''||$reason!==''))reject('invalid_request');
+        rate('review:'.$_SESSION['owner_username'],60,60);
+        reply(recordReview($id,$status,$code,$reason,$expected,$key,$_SESSION['owner_username']));
     }
     if($action==='admin_users'){
         $q=mb_substr((string)($_GET['q']??''),0,160);$q='%'.str_replace(['\\','%','_'],['\\\\','\\%','\\_'],$q).'%';
@@ -157,7 +176,7 @@ try {
     }
     if($action==='admin_client'){
         $u=execute('SELECT * FROM users WHERE id=?',[$_GET['id']??''])->fetch();if(!$u)reject('not_found',404);
-        reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'])]);
+        reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'],null,true)]);
     }
     if($action==='admin_account_type'){
         $b=body();$id=textValue($b['id']??'',40);$type=accountType($b['account_type']??null);$expected=accountType($b['expected_type']??null);
@@ -191,6 +210,12 @@ try {
         $name=textValue($b['name']??'',160);$email=textValue($b['email']??'',254);if(mb_strlen($name)<2)reject('name_invalid');if($email!==''&&!filter_var($email,FILTER_VALIDATE_EMAIL))reject('email_invalid');
         execute('UPDATE users SET name=?,email=? WHERE id=?',[$name,$email,$u['id']]);reply(['ok'=>true]);
     }
+    if($action==='notifications')reply(reviewNotifications($u['id'],max(0,(int)($_GET['before']??0))));
+    if($action==='notification_read'){
+        $b=body();$id=$b['id']??null;if(!is_int($id)||$id<1)reject('invalid_request');
+        if(!execute('SELECT r.id FROM submission_reviews r JOIN submissions s ON s.id=r.submission_id WHERE r.id=? AND s.user_id=?',[$id,$u['id']])->fetch())reject('not_found',404);
+        execute('UPDATE submission_reviews SET read_at=COALESCE(read_at,?) WHERE id=?',[$now,$id]);reply(['ok'=>true]);
+    }
     if($action==='submissions')reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'])]);
     if($action==='submit'){
         rate('submit:'.$u['id'],30,60);
@@ -222,7 +247,7 @@ try {
     if(in_array($action,['detail','admin_detail','pdf','admin_pdf'],true)){
         $s=execute('SELECT * FROM submissions WHERE id=?',[$_GET['id']??''])->fetch();
         if(!$s||(!$admin&&$s['user_id']!==$u['id']))reject('not_found',404);
-        if(str_ends_with($action,'detail')){unset($s['request_key']);$s['answers']=json_decode($s['answers'],true);$s['profile']=json_decode($s['profile'],true);$s['signatures']=$s['signatures']===null?null:json_decode($s['signatures'],true);$s['current_id']=execute('SELECT id FROM submissions WHERE user_id=? AND doc_id=? AND audience=? AND archived_at IS NULL',[$s['user_id'],$s['doc_id'],$s['audience']])->fetchColumn()?:null;reply(['submission'=>$s]);}
+        if(str_ends_with($action,'detail')){$s=array_merge($s,reviewDetails($s['id'],$admin));unset($s['request_key']);$s['answers']=json_decode($s['answers'],true);$s['profile']=json_decode($s['profile'],true);$s['signatures']=$s['signatures']===null?null:json_decode($s['signatures'],true);$s['current_id']=execute('SELECT id FROM submissions WHERE user_id=? AND doc_id=? AND audience=? AND archived_at IS NULL',[$s['user_id'],$s['doc_id'],$s['audience']])->fetchColumn()?:null;reply(['submission'=>$s]);}
         $path=$dataDir.'/pdfs/'.$s['id'].'.pdf';if(!is_file($path))reject('not_found',404);
         attachment('application/pdf',fileName($s['title']).'-v'.$s['version'].'-'.substr($s['created_at'],0,10).'.pdf',($_GET['inline']??'')==='1');
         header("Content-Security-Policy: sandbox; default-src 'none'; frame-ancestors 'self'");header('Content-Length: '.filesize($path));session_write_close();readfile($path);exit;

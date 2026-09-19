@@ -12,6 +12,10 @@ export async function api(action,body,{token=csrf,params={}}={}){
 }
 export const session=()=>api('session');
 export const errors={
+ review_reason_required:['Choose a rejection reason and add an explanation when selecting Other.','اختر سبب الرفض واكتب توضيحًا عند اختيار «أخرى».'],
+ review_conflict:['This review changed in another window. Close and reopen the document to see the latest decision.','تغيّر القرار في نافذة أخرى. أغلق المستند وأعد فتحه للاطلاع على أحدث قرار.'],
+ review_archived:['This version has been archived. Open the current version to review it.','تمت أرشفة هذه النسخة. افتح النسخة الحالية لمراجعتها.'],
+ review_unchanged:['This decision is already saved. Change the decision or its explanation before saving again.','هذا القرار محفوظ بالفعل. غيّر القرار أو توضيحه قبل الحفظ مجددًا.'],
  account_type_invalid:['Select Individual or Company.','اختر فردًا أو شركة.'],
  account_type_restricted:['This form is not available for your account type. Management can change your account type.','هذا النموذج غير متاح لنوع حسابك. يمكن للإدارة تغيير نوع الحساب.'],
  account_type_managed:['Only management can change your account type.','يمكن للإدارة فقط تغيير نوع حسابك.'],

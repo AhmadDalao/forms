@@ -56,3 +56,4 @@
 .account-type-badge.type-individual{background:#f2eafa;border-color:#dfcfed;color:#5b3476}
 .account-type-badge.type-corporate{background:#e7f2fd;border-color:#c6dff5;color:#1f5684}
 .admin-client-facts [data-client-account-type]{margin-top:9px}
+.review-filter{display:flex;align-items:center;gap:14px;margin:20px 0;font-size:13px}.review-filter select{padding:10px 14px;border:1px solid #ddd7e4;border-radius:9px;background:white;color:#493951;font:inherit;min-height:44px}.admin-table .review-reason{max-width:230px;font-size:12px}.admin-table .review-reason p{max-height:100px;overflow:auto;font-size:12px}
