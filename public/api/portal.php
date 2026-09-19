@@ -26,7 +26,7 @@ function mobile(mixed $value): string {
     $v=preg_replace('/[\s()\-]/','',$v);$v=preg_replace('/^(?:\+966|00966|966|0)/','',$v);
     if(!preg_match('/^5[0-9]{8}$/D',$v))reject('phone_invalid');return '+966'.$v;
 }
-function passwordValue(mixed $v): string {if(!is_string($v)||mb_strlen($v)<12||strlen($v)>72)reject('password_weak');return $v;}
+function passwordValue(mixed $v): string {if(!is_string($v)||mb_strlen($v)<8||strlen($v)>72)reject('password_weak');return $v;}
 function execute(string $sql,array $params=[]): PDOStatement {global $db;$s=$db->prepare($sql);$s->execute($params);return $s;}
 function rate(string $key,int $limit,int $seconds): void {
     global $db;$key=hash('sha256',$key);$now=time();

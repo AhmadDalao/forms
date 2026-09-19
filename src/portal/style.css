@@ -46,3 +46,7 @@
  .portal-upload{padding:24px 20px}
  .portal-upload .account-actions{display:flex}
 }
+
+.password-eye [hidden]{display:none}.password-eye:focus-visible{outline:2px solid #785488;outline-offset:2px}
+.password-strength{margin-top:-8px;font-size:12px;color:#756c7f}.password-strength-heading{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}.password-strength [data-strength-label]{font-weight:600}.password-strength-track{height:5px;border-radius:99px;background:#eae5ef;overflow:hidden}.password-strength-track>span{display:block;height:100%;width:0;border-radius:inherit;background:#9f4052;transition:width .15s,background-color .15s}.password-strength[data-score="1"] .password-strength-track>span{width:25%}.password-strength[data-score="2"] .password-strength-track>span{width:50%;background:#a77319}.password-strength[data-score="3"] .password-strength-track>span{width:75%;background:#397b6c}.password-strength[data-score="4"] .password-strength-track>span{width:100%;background:#246744}.password-strength[data-score="1"] [data-strength-label]{color:#a13248}.password-strength[data-score="2"] [data-strength-label]{color:#805b13}.password-strength[data-score="3"] [data-strength-label],.password-strength[data-score="4"] [data-strength-label]{color:#246744}.password-strength p{margin:8px 0 0;font-size:12px;line-height:1.8}.password-panel .password-strength{margin-bottom:0}
+@media(prefers-reduced-motion:reduce){.password-strength-track>span{transition:none}}

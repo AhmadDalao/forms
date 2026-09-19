@@ -24,9 +24,11 @@ The new preview's client database starts empty. Automated test accounts are isol
 
 ## Accounts and storage
 
-Saudi mobiles normalize to `+9665XXXXXXXX`; local `05…`, international prefixes and Arabic digits are accepted. A mobile number is an account identifier. This implementation does not send an SMS or claim to verify possession of that number. Passwords require at least 12 characters and at most 72 UTF-8 bytes and are stored with PHP's password hashing API.
+Saudi mobiles normalize to `+9665XXXXXXXX`; local `05…`, international prefixes and Arabic digits are accepted. A mobile number is an account identifier. This implementation does not send an SMS or claim to verify possession of that number. Client passwords require at least 8 characters and at most 72 UTF-8 bytes and are stored with PHP's password hashing API.
 
 Client and owner sessions use separate HttpOnly, SameSite=Strict cookies, with Secure enabled under HTTPS. Client sessions expire after two hours idle or twelve hours total. Mutation endpoints require a session CSRF token. Persistent rate limits cover registration, sign-in, submissions and password changes. PDF, detail and ZIP endpoints enforce client ownership or a valid owner session.
+
+Signup and password changes include an advisory strength meter computed in the browser from length, variety and common-pattern checks. It does not impose extra character-composition rules; a valid eight-character password is accepted even if rated weak. Login/current-password fields do not enforce new-password length rules. Show/hide controls update the icon and accessible label together.
 
 An owner password reset produces a random temporary password, shows it once, invalidates every existing client session and requires a password change before the client can access submissions again. The application does not message the client; the owner shares the temporary password privately through their normal contact channel. Only a reset audit event is retained, never the temporary plaintext password.
 
@@ -68,7 +70,8 @@ Mutation requests include the current version the user reviewed (`expectedCurren
 - `node scripts/portal-audit.mjs`: isolated PHP/Chrome test with two accounts. Covers registration, authorization, CSRF, phone validation, draft continuation, private PDF ownership, invalid uploads, idempotent retries, both subscription editors and the signature form, backend calculations, client/owner previews, current/history ZIPs, edit/reload/resubmit, signature recovery, immutable original data, stale-version rejection, owner restoration and retry, replacement uploads, individual/company history isolation, Arabic/English subscription edits and mobile history views. Also checks password reset, old-session revocation, forced password change, catalogue navigation and login throttling.
 - `node scripts/management-audit.mjs`: existing catalogue management regression checks, updated to enter Documents from the new overview.
 - `node scripts/account-types-audit.mjs`: isolated signup/category restriction tests in Chrome, Firefox and WebKit, management changes, stale tabs, direct links, upload filtering, access-control rejection and prior-document preservation. `QA_BASE`, `QA_CREDENTIALS` and `QA_OUT` can target an explicitly authorized hosted test; remove the recorded temporary accounts afterward.
-- Screenshots, audit reports and disposable test data stay under ignored `tmp/portal-audit/`.
+- `node scripts/password-audit.mjs`: isolated individual/company signup, login, password change and forced reset cycles, minimum-eight and UTF-8 byte boundaries, changing visibility icons, localized advisory strength and EN/AR desktop/mobile layouts in Chrome, Firefox and WebKit. Supports the same explicit hosted QA variables and records synthetic account identities for cleanup.
+- Screenshots, audit reports and disposable test data stay under ignored `tmp/` directories.
 
 ## Review decisions and client notifications
 
