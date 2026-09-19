@@ -1,0 +1,715 @@
+{
+  "status": "passed for the tested scope",
+  "source_commit": "27e547207c40b00c88961c593fd2a40a4fa0eb08",
+  "deployed_at_utc": "20260919T202009Z",
+  "live_url": "https://forms.ahmaddalao.com/",
+  "fixes": [
+    "Approved submission decisions are now locked at the API as well as in the UI; original approval retries remain safe and a new version can be reviewed.",
+    "Flat-PDF import recognizes explicit English/Arabic signature captions as signature slots and keeps same-row name captions in the correct column. Existing built-in mappings and PDF assets are unchanged."
+  ],
+  "build_and_unit": {
+    "production_build": "passed",
+    "php_syntax": "all public API PHP files passed",
+    "unit_tests_passed": 101,
+    "unit_tests_failed": 0
+  },
+  "documents": {
+    "editors": 8,
+    "schema_fields": 447,
+    "radio_checkbox_options": 239,
+    "select_options": 21,
+    "signature_slots": 16,
+    "full_datasets_per_editor": 5,
+    "full_data_downloads": 40,
+    "full_data_pages": 210,
+    "including_shared_and_direction_downloads": 112,
+    "including_shared_and_direction_pages": 678,
+    "typing_direction_checks": 264,
+    "source_field_review": "No omitted customer questions or incorrect destinations found; includes approved field/name changes and explicitly optional staff inputs.",
+    "original_pdf_verification": {
+      "checks": {
+        "downloads": 30,
+        "pages": 190,
+        "text_fields": 1495,
+        "transparent_text_images": 2345,
+        "unmodified_pages": 75
+      },
+      "documents": [
+        {
+          "document": "signature-form",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 1
+        },
+        {
+          "document": "terms-and-conditions",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 4
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 6
+        },
+        {
+          "document": "kyc-individual",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 7
+        },
+        {
+          "document": "kyc-corporate",
+          "samples": [
+            "english",
+            "arabic",
+            "english-long",
+            "arabic-long",
+            "mixed"
+          ],
+          "pages_each": 7
+        }
+      ],
+      "result": "pass"
+    },
+    "shared_pdf_verification": {
+      "site": "http://127.0.0.1:8234/",
+      "checks": {
+        "downloads": 24,
+        "pages": 156,
+        "text_fields": 261,
+        "transparent_images": 429
+      },
+      "result": "pass"
+    },
+    "direction_pdf_verification": {
+      "site": "http://127.0.0.1:8234/",
+      "checks": {
+        "downloads": 48,
+        "pages": 312,
+        "text_fields": 306,
+        "transparent_images": 948
+      },
+      "result": "pass"
+    }
+  },
+  "client_cycles": {
+    "check_groups": 27,
+    "coverage": [
+      "signup and Saudi-phone normalization",
+      "login/logout, duplicate registration and validation",
+      "password visibility, strength, change, reset and second-session revocation",
+      "idle and absolute expiry",
+      "individual/company restrictions and shared-data isolation",
+      "draft migration, browser restart, storage failure, manual overrides and cross-tab changes",
+      "actual submission, edit/resubmit, current/archive history, restore and stale writes",
+      "PDF ownership, private previews/downloads and exact-byte current/history ZIPs",
+      "profile validation and saved details"
+    ]
+  },
+  "management": {
+    "check_groups": 39,
+    "coverage": [
+      "admin and superadmin server permissions",
+      "client details and immutable submitted snapshots",
+      "catalogue title/order/edit/review/publish/rollback and private imports",
+      "10 actual original-PDF uploads",
+      "30 generated import samples over175pages",
+      "affected final-bundle signature import wizard and client signing download"
+    ],
+    "importer_fix": {
+      "status": "passed",
+      "source": "src/management/importer.js",
+      "regression": "scripts/management-real-files.mjs",
+      "description": "Explicit English/Arabic Signature captions prepare signature uploads; same-row captions stay in their own columns. Seven original suggestions now signatures and one neighboring name caption corrected; all rectangles/counts retained.",
+      "direct_imports_report": "tmp/full-management-audit-1789848167568614000/signature-imports/results.json",
+      "render_report": "tmp/full-management-audit-1789848167568614000/signature-imports/render-checks.json",
+      "ui_report": "tmp/full-management-audit-1789848167568614000/signature-ui/report.json",
+      "ui_checks": [
+        "actual production bundle flat-PDF upload",
+        "signature slot separate from three text/date fields",
+        "signature editor excludes text type selector",
+        "bilingual field labels and samples",
+        "private draft and unreviewed publish gate",
+        "review and publish via UI",
+        "original built-ins and PDF bytes retained",
+        "client electronic upload controls and persistence",
+        "English desktop1440 Arabic mobile390 without overflow",
+        "signed PDF download"
+      ],
+      "remaining_manual_review": "Terms p13 third-row captions are ambiguous slash glyphs; date-border suggestions need manual relocation. Flat PDFs remain incomplete suggestions; existing built-in form mappings are separate."
+    }
+  },
+  "reviews": {
+    "base": "http://127.0.0.1:8196",
+    "checks": [
+      "individual: replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled and API changes rejected, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs",
+      "corporate: replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled and API changes rejected, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs",
+      "Current-only status counts, combined audience/document/search filters, literal SQL wildcard handling, oldest/newest ordering and invalid filter rejection",
+      "32 current fixtures paginate 30/2 without duplicates; archived 33rd excluded; legacy submitted document filter remains available",
+      "Review UI combines status, audience, document, search and sorting; unmatched filters show clear empty state and Reset preserves the selected status",
+      "Delayed older review responses cannot overwrite the newest filter/language selection",
+      "Management bell returns to unfiltered awaiting-review queue",
+      "chrome: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+      "firefox: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+      "webkit: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "signatures": {
+    "ui_cases": 96,
+    "pdf_cases": 9,
+    "placements": 22,
+    "source_streams_dimensions_alpha_and_placement": "passed",
+    "recovery_cycle": "Signature request, client notification, electronic image or whole signed-PDF replacement, new pending version, original archive preservation, retired-document fallback and audience restrictions passed."
+  },
+  "navigation": {
+    "document_language_cases": 12,
+    "responsive_cases": 48,
+    "engines": [
+      "Chrome",
+      "Firefox",
+      "WebKit"
+    ],
+    "languages": [
+      "English",
+      "Arabic"
+    ],
+    "widths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "status": "passed"
+  },
+  "live_verification": {
+    "origin": "https://forms.ahmaddalao.com",
+    "started": "2026-09-19T20:22:24.707Z",
+    "checks": [
+      {
+        "scope": "public",
+        "route": "/",
+        "lang": "en",
+        "width": 1440,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/login/",
+        "lang": "en",
+        "width": 1440,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/register/",
+        "lang": "en",
+        "width": 1440,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/individuals/",
+        "lang": "en",
+        "width": 1440,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/companies/",
+        "lang": "en",
+        "width": 1440,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/my-applications/?upload=signature-form",
+        "lang": "en",
+        "width": 1440,
+        "guestLoginKeepsUpload": true
+      },
+      {
+        "scope": "public",
+        "route": "/",
+        "lang": "en",
+        "width": 390,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/login/",
+        "lang": "en",
+        "width": 390,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/register/",
+        "lang": "en",
+        "width": 390,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/individuals/",
+        "lang": "en",
+        "width": 390,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/companies/",
+        "lang": "en",
+        "width": 390,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/my-applications/?upload=signature-form",
+        "lang": "en",
+        "width": 390,
+        "guestLoginKeepsUpload": true
+      },
+      {
+        "scope": "public",
+        "route": "/",
+        "lang": "ar",
+        "width": 1440,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/login/",
+        "lang": "ar",
+        "width": 1440,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/register/",
+        "lang": "ar",
+        "width": 1440,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/individuals/",
+        "lang": "ar",
+        "width": 1440,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/companies/",
+        "lang": "ar",
+        "width": 1440,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/my-applications/?upload=signature-form",
+        "lang": "ar",
+        "width": 1440,
+        "guestLoginKeepsUpload": true
+      },
+      {
+        "scope": "public",
+        "route": "/",
+        "lang": "ar",
+        "width": 390,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/login/",
+        "lang": "ar",
+        "width": 390,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/register/",
+        "lang": "ar",
+        "width": 390,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/individuals/",
+        "lang": "ar",
+        "width": 390,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/companies/",
+        "lang": "ar",
+        "width": 390,
+        "rendered": true,
+        "noOverflow": true
+      },
+      {
+        "scope": "public",
+        "route": "/my-applications/?upload=signature-form",
+        "lang": "ar",
+        "width": 390,
+        "guestLoginKeepsUpload": true
+      },
+      {
+        "scope": "management",
+        "role": "admin",
+        "lang": "en",
+        "width": 1440,
+        "roleNavigation": true,
+        "signatureRequiredFilter": true,
+        "countsMatchReadOnlyAPI": true,
+        "signatureBadges": 1,
+        "badgeStates": [
+          "unsigned"
+        ],
+        "decisionOption": "present-approved-record-locked",
+        "noOverflow": true
+      },
+      {
+        "scope": "management",
+        "role": "admin",
+        "lang": "en",
+        "width": 390,
+        "roleNavigation": true,
+        "signatureRequiredFilter": true,
+        "countsMatchReadOnlyAPI": true,
+        "signatureBadges": 1,
+        "badgeStates": [
+          "unsigned"
+        ],
+        "decisionOption": "present-approved-record-locked",
+        "noOverflow": true
+      },
+      {
+        "scope": "management",
+        "role": "admin",
+        "lang": "ar",
+        "width": 1440,
+        "roleNavigation": true,
+        "signatureRequiredFilter": true,
+        "countsMatchReadOnlyAPI": true,
+        "signatureBadges": 1,
+        "badgeStates": [
+          "unsigned"
+        ],
+        "decisionOption": "present-approved-record-locked",
+        "noOverflow": true
+      },
+      {
+        "scope": "management",
+        "role": "admin",
+        "lang": "ar",
+        "width": 390,
+        "roleNavigation": true,
+        "signatureRequiredFilter": true,
+        "countsMatchReadOnlyAPI": true,
+        "signatureBadges": 1,
+        "badgeStates": [
+          "unsigned"
+        ],
+        "decisionOption": "present-approved-record-locked",
+        "noOverflow": true
+      },
+      {
+        "scope": "management",
+        "role": "superadmin",
+        "lang": "en",
+        "width": 1440,
+        "roleNavigation": true,
+        "signatureRequiredFilter": true,
+        "countsMatchReadOnlyAPI": true,
+        "signatureBadges": 1,
+        "badgeStates": [
+          "unsigned"
+        ],
+        "decisionOption": "present-approved-record-locked",
+        "noOverflow": true
+      },
+      {
+        "scope": "management",
+        "role": "superadmin",
+        "lang": "en",
+        "width": 390,
+        "roleNavigation": true,
+        "signatureRequiredFilter": true,
+        "countsMatchReadOnlyAPI": true,
+        "signatureBadges": 1,
+        "badgeStates": [
+          "unsigned"
+        ],
+        "decisionOption": "present-approved-record-locked",
+        "noOverflow": true
+      },
+      {
+        "scope": "management",
+        "role": "superadmin",
+        "lang": "ar",
+        "width": 1440,
+        "roleNavigation": true,
+        "signatureRequiredFilter": true,
+        "countsMatchReadOnlyAPI": true,
+        "signatureBadges": 1,
+        "badgeStates": [
+          "unsigned"
+        ],
+        "decisionOption": "present-approved-record-locked",
+        "noOverflow": true
+      },
+      {
+        "scope": "management",
+        "role": "superadmin",
+        "lang": "ar",
+        "width": 390,
+        "roleNavigation": true,
+        "signatureRequiredFilter": true,
+        "countsMatchReadOnlyAPI": true,
+        "signatureBadges": 1,
+        "badgeStates": [
+          "unsigned"
+        ],
+        "decisionOption": "present-approved-record-locked",
+        "noOverflow": true
+      }
+    ],
+    "assets": [
+      {
+        "name": "index-Dc-DFhaS.js",
+        "sha256": "9a2cf1a7d41186ba77ee791ca4571b4eadc71d6036bf3de7502160398cefde87",
+        "matchesBuild": true
+      },
+      {
+        "name": "main-B6QphwVU.css",
+        "sha256": "0ba32730fec41d0f9bef1e2fd1712d37b25bd77d9140dc86c9d4bf3e0a4e4380",
+        "matchesBuild": true
+      },
+      {
+        "name": "main-CACQja_4.js",
+        "sha256": "5e9715a4cc8ce78d938951cafc3d9bb5164235c8ed971c3c42ef3ae0621819a0",
+        "matchesBuild": true
+      },
+      {
+        "name": "main-CS4VPtUz.js",
+        "sha256": "fd132ae09d7ffbbdd2339ec2ede57d44a877e1ab9f31f14d244370203ccc88ed",
+        "matchesBuild": true
+      },
+      {
+        "name": "main-CXH4ErNl.js",
+        "sha256": "070b5bb571fb2df382724689e74bde323a65edd911034f72fcaa0f649ebad91e",
+        "matchesBuild": true
+      },
+      {
+        "name": "main-De8-bcCJ.css",
+        "sha256": "3f0cec7043d125084ef422b84b6e366c80028b891a23c0b4b62bb0dc5e692d56",
+        "matchesBuild": true
+      },
+      {
+        "name": "main-M8cxcAYY.css",
+        "sha256": "183039f2c84f286499473e33f28327d881d898ead0bb25a4c0fde7c247e3c7bd",
+        "matchesBuild": true
+      },
+      {
+        "name": "preview-BMmWn8nT.js",
+        "sha256": "f5cfcd0f057e0c3543e3b2d508df56b4ef5cb7af202035333e50025dfc70794b",
+        "matchesBuild": true
+      },
+      {
+        "name": "preview-CK6TZEZ7.css",
+        "sha256": "5c8d4dcee7b8221e2517c9ef338dc1ad801048b5475f8a78606eb52a3b4dec35",
+        "matchesBuild": true
+      }
+    ],
+    "pdfAssets": [
+      {
+        "name": "al-naeem-terms-consent.pdf",
+        "bytes": 37940,
+        "sha256": "8761415c8304d31122ef042a65397b27ad8385a653f7a6c57d81fafd6060ab1b",
+        "matchesBuild": true
+      },
+      {
+        "name": "fatca-crs-corporate.pdf",
+        "bytes": 395027,
+        "sha256": "99ca43de54f7080a77f049c7502e280326fd4c0cb0b3169d0381a184d17028d0",
+        "matchesBuild": true
+      },
+      {
+        "name": "fatca-crs-individual.pdf",
+        "bytes": 547987,
+        "sha256": "d2347853b761d014e5925812f4e24e32aed0a5dd8a701464b804255dec7ada4b",
+        "matchesBuild": true
+      },
+      {
+        "name": "kyc-corporate.pdf",
+        "bytes": 1509241,
+        "sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+        "matchesBuild": true
+      },
+      {
+        "name": "kyc-individual.pdf",
+        "bytes": 542853,
+        "sha256": "79d7e6298f841bfc69dc627c4594448adb62a09266961087c28514df96b12d51",
+        "matchesBuild": true
+      },
+      {
+        "name": "signature-form.pdf",
+        "bytes": 168493,
+        "sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+        "matchesBuild": true
+      },
+      {
+        "name": "subscription-company.pdf",
+        "bytes": 224122,
+        "sha256": "c72c44c5441994eed7ec8a591fd8b69966b07eb05fa93bfe8d9115c88f8641ef",
+        "matchesBuild": true
+      },
+      {
+        "name": "subscription-form.pdf",
+        "bytes": 256368,
+        "sha256": "00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a",
+        "matchesBuild": true
+      },
+      {
+        "name": "subscription-individual.pdf",
+        "bytes": 222683,
+        "sha256": "d4149689c453464f66388ebcb6a58507aee08109e6684e066c743e5ce9a4e7ef",
+        "matchesBuild": true
+      },
+      {
+        "name": "terms-and-conditions.pdf",
+        "bytes": 588565,
+        "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+        "matchesBuild": true
+      }
+    ],
+    "approvedRecords": {
+      "compared": 1,
+      "unchanged": true
+    },
+    "errors": [],
+    "blockedWrites": [],
+    "allowedAuthRequests": 4,
+    "applicationMutations": 0,
+    "passed": true,
+    "finished": "2026-09-19T20:23:30.790Z"
+  },
+  "https_verification": {
+    "passed": true,
+    "public_build_matches": [
+      "index.html",
+      "my-applications/index.html",
+      "individuals/index.html",
+      "management/index.html",
+      "register/index.html",
+      "account/index.html",
+      "assets/api-BR2iZMbd.js",
+      "assets/main-CACQja_4.js",
+      "assets/main-CXH4ErNl.js",
+      "assets/index-Dc-DFhaS.js",
+      "assets/access-Du5ohJ-H.js",
+      "assets/shared-fields-DtDyiGRB.js",
+      "assets/main-CS4VPtUz.js",
+      "assets/preview-BMmWn8nT.js",
+      "assets/access-D9Xk8C90.js",
+      "login/index.html",
+      "companies/index.html"
+    ],
+    "blocked_paths": [
+      {
+        "path": "_private/",
+        "status": 403
+      },
+      {
+        "path": "_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "path": ".env.local",
+        "status": 403
+      }
+    ],
+    "source_commit": "27e547207c40b00c88961c593fd2a40a4fa0eb08"
+  },
+  "preservation": {
+    "original_pdf_templates_changed": false,
+    "production_test_accounts_created": 0,
+    "production_submissions_created": 0,
+    "production_decisions_changed": 0,
+    "private_storage_preserved": true,
+    "overwritten_public_files_backed_up": true
+  },
+  "limits": [
+    "Software regression and supplied-document/business-rule checks; not legal/regulatory certification.",
+    "Automatic flat-PDF import provides suggestions requiring manual review; ambiguous table captions and date-border placement still need correction before publication. These do not affect existing curated forms.",
+    "Every defined option was checked against source, but not every possible answer or combination was rendered.",
+    "Mobile viewport/browser-engine tests, not physical iOS/Android devices or printers. No load test or full penetration test.",
+    "Uploaded handwritten signatures require management inspection; image presence is not cryptographic authentication."
+  ],
+  "evidence": {
+    "pdf_report": "tmp/pdfs/full-audit-20260919/REPORT.md",
+    "field_inventory": "tmp/pdfs/full-audit-20260919/field-coverage.json",
+    "client_report": "tmp/client-regression-1789848164456/REPORT.md",
+    "management_report": "tmp/full-management-audit-1789848167568614000/summary.json",
+    "final_importer_ui": "tmp/full-management-audit-1789848167568614000/signature-ui/report.json",
+    "reviews": "tmp/full-audit-current/reviews-fixed/results.json",
+    "signatures": "tmp/full-audit-current/signature-steps/report.json",
+    "navigation": "tmp/full-audit-current/navigation/report.json",
+    "live": "tmp/final-production-readonly-1789849344706/report.json"
+  }
+}
