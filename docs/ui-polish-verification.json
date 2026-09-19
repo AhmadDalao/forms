@@ -1,0 +1,97 @@
+{
+  "verified_at_utc": "2026-09-19T14:58:07.524968+00:00",
+  "url": "https://forms.ahmaddalao.com/",
+  "source_commit": "d390f3c65c07ea628ccaa5717a1e5f8097cc2b07",
+  "scope": [
+    "Catalogue and form navigation",
+    "Login and registration",
+    "My applications and profile",
+    "Management dashboard, client profiles, catalogue and dialogs"
+  ],
+  "changes": [
+    "Preserved the existing light theme, purple palette, typography and logos",
+    "Visible wrapping form navigation and larger touch targets",
+    "Aligned client action grids and responsive labelled management rows",
+    "Profile saving state, inline success/error messages, open section and focus preservation",
+    "Native management dialogs with keyboard focus, Escape, and visible upload errors",
+    "Removed obsolete test-branch wording"
+  ],
+  "unit_tests": {
+    "passed": 56,
+    "failed": 0
+  },
+  "portal_workflows": [
+    "Anonymous access, CSRF, phone and confirmation validation",
+    "English browser signup, Saudi phone normalization, account draft migration and duplicate phone",
+    "Private PDF storage, owner checks, malformed PDF rejection and duplicate submission protection",
+    "Signature and both subscription UI submissions, server totals and optional email capture",
+    "Account/admin previews, manual PDF upload, dashboard counts and ZIP exact-byte contents",
+    "Individual Arabic and company English subscription edits, recalculated amounts and prior-PDF preservation",
+    "Client edit/resubmit and reload, separate working draft, signature recovery, immutable originals, archive dates, stale-edit rejection, owner restore, restore retry/CSRF, replacement upload and audience/account version isolation",
+    "Owner reset, strong one-time displayed password, old password/session revocation and mandatory change",
+    "Original side-by-side logos, My applications page in English/Arabic, compatible account links, mobile layouts, existing catalogue navigation and persistent login throttling"
+  ],
+  "management_workflows": [
+    "authentication",
+    "csrf",
+    "private files",
+    "draft isolation",
+    "revision conflict",
+    "publish rollback",
+    "native widget import",
+    "review gate",
+    "EN/AR samples",
+    "new card 7",
+    "both audiences",
+    "shared fields",
+    "downloads",
+    "draft recovery",
+    "flat suggestions"
+  ],
+  "layout": {
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "widths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "screenshots": 54,
+    "console_errors": [],
+    "profile_save_and_focus": "passed",
+    "modal_keyboard_and_error_feedback": "passed",
+    "evidence_directory": "/Users/ahmaddalao/Desktop/forms/tmp/ui-polish"
+  },
+  "hosted": {
+    "checks": [
+      "Current production build: /",
+      "Current production build: /individuals/",
+      "Current production build: /companies/",
+      "Current production build: /login/",
+      "Current production build: /register/",
+      "Current production build: /management/",
+      "Existing owner login; dashboard and catalogue desktop/mobile; modal Escape and focus; English/Arabic; no catalogue/customer changes",
+      "Private storage and credentials remain inaccessible"
+    ],
+    "consoleErrors": [],
+    "customerMutations": false
+  },
+  "hosted_forms": {
+    "combinations": 20,
+    "sections": 78,
+    "filled_pdf_downloads": 20,
+    "errors": []
+  },
+  "deployment": {
+    "completed": true,
+    "public_files": 66,
+    "new_assets": 10,
+    "replaced_entrypoints": 8,
+    "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T145413Z",
+    "private_data": "Preserved; no credentials, clients or submissions overwritten"
+  },
+  "pdf_templates_and_field_definitions_changed": false
+}
