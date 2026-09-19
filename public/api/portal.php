@@ -181,6 +181,7 @@ try {
         reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'],null,true)]);
     }
     if($action==='admin_account_type'){
+        if(!managementPermissions($managementDir)['change_account_type'])reject('account_type_forbidden',403);
         $b=body();$id=textValue($b['id']??'',40);$type=accountType($b['account_type']??null);$expected=accountType($b['expected_type']??null);
         reply(['user'=>userView(changeAccountType($id,$type,$expected))]);
     }

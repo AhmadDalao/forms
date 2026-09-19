@@ -4,7 +4,7 @@
 
 - Individuals: `/individuals/`; companies: `/companies/`.
 - Client registration/login: `/register/` and `/login/`; submitted forms: `/my-applications/`.
-- Admin and superadmin dashboard: `/management/`; document management is superadmin-only.
+- Admin and superadmin dashboard: `/management/`; document management and client account type changes are superadmin-only.
 - The root page does not list documents. Send clients their audience-specific link.
 
 The light English/Arabic portal supports Saudi mobile registration, first/last names, passwords, separate individual/company shared details, browser drafts, original or explicitly redesigned subscription PDFs, optional signature images, downloads, and private form submission. Client edits create new versions; earlier PDFs remain archived. Management provides customer counts, document category counts, profiles, previews, individual downloads, client ZIP downloads, archived-version recovery, password resets, document titles/order, and reviewed PDF uploads.

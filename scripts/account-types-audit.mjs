@@ -5,12 +5,12 @@ import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
 import {randomBytes,randomUUID,createHash} from 'node:crypto';
 const out=path.resolve(process.env.QA_OUT||'tmp/account-types/audit'),base=process.env.QA_BASE||'http://127.0.0.1:8198';
-const remote=!!process.env.QA_BASE,credentials=remote?JSON.parse(await fs.readFile(process.env.QA_CREDENTIALS,'utf8')):{username:'qa.manager',password:randomBytes(24).toString('base64url')+'aA7!'};
+const remote=!!process.env.QA_BASE,credentials=remote?JSON.parse(await fs.readFile(process.env.QA_CREDENTIALS,'utf8')):{username:'qa.superadmin',password:randomBytes(24).toString('base64url')+'aA7!'};
 if(!remote){assert.ok(out.startsWith(path.resolve('tmp')+path.sep));await fs.rm(out,{recursive:true,force:true});}
 await fs.mkdir(out,{recursive:true});
 let server,browser;const checks=[],errors=[],accounts=[];
 if(!remote){
- assert.equal(spawnSync('php',['scripts/management-init.php',out+'/management',credentials.username],{input:credentials.password}).status,0);
+ assert.equal(spawnSync('php',['scripts/management-superadmin-init.php',out+'/management',credentials.username],{input:credentials.password}).status,0);
  const log=await fs.open(out+'/server.log','w');
  server=spawn('php',['-d','upload_max_filesize=20M','-d','post_max_size=24M','-S','127.0.0.1:8198','-t','dist','scripts/management-router.php'],{env:{...process.env,FORMS_DATA_DIR:out+'/management',FORMS_PORTAL_DATA_DIR:out+'/data'},stdio:['ignore',log.fd,log.fd]});
 }
@@ -26,7 +26,7 @@ try{
  }
  const ms=await(await manager.request.get(base+'/api/management.php?action=session')).json();
  assert.equal((await manager.request.post(base+'/api/management.php?action=login',{data:credentials,headers:{'X-CSRF-Token':ms.csrf}})).status(),200);
- tokens.set(manager,(await(await manager.request.get(base+'/api/management.php?action=session')).json()).csrf);
+ const managementSession=await(await manager.request.get(base+'/api/management.php?action=session')).json();assert.equal(managementSession.permissions.change_account_type,true,'Account-type audit needs a superadmin');tokens.set(manager,managementSession.csrf);
  const baseline=(await call(manager,'admin_dashboard')).stats;
  await fs.writeFile(out+'/baseline.json',JSON.stringify(baseline),{mode:0o600});
  await call(anon,'session');

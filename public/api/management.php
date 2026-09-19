@@ -33,7 +33,7 @@ function requireDocumentManager(): void {global $dataDir;if(!managementCanManage
 function sessionResponse(): array {
     global $dataDir;$identity=managementIdentity($dataDir);
     return ['authenticated'=>$identity!==null,'configured'=>count(managementAccounts($dataDir))>0,'csrf'=>$_SESSION['csrf'],
-        'username'=>$identity['username']??null,'role'=>$identity['role']??null,'permissions'=>['manage_documents'=>($identity['role']??null)==='superadmin']];
+        'username'=>$identity['username']??null,'role'=>$identity['role']??null,'permissions'=>managementPermissions($dataDir)];
 }
 function csrf(): void {if(!hash_equals($_SESSION['csrf']??'',$_SERVER['HTTP_X_CSRF_TOKEN']??'')||empty($_SESSION['csrf']))fail('Refresh the page and try again.',403);}
 function expected(array $state,array $body): void {if(($body['revision']??-1)!==$state['revision'])fail('Another window changed this draft. Reload before saving.',409);}

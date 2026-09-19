@@ -4,9 +4,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
 import {randomBytes} from 'node:crypto';
-const out=path.resolve('tmp/portal-audit'),base='http://127.0.0.1:8187',ownerPassword=randomBytes(24).toString('base64url')+'aA7!',password='Client-testing-strong-2026!';
+const out=path.resolve('tmp/portal-audit'),base='http://127.0.0.1:8187',ownerPassword=randomBytes(24).toString('base64url')+'aA7!',accountManagerPassword=randomBytes(24).toString('base64url')+'aA7!',password='Client-testing-strong-2026!';
 await fs.rm(out,{recursive:true,force:true});await fs.mkdir(out,{recursive:true});
 assert.equal(spawnSync('php',['scripts/management-init.php',out+'/management','qa.manager'],{input:ownerPassword}).status,0);
+assert.equal(spawnSync('php',['scripts/management-superadmin-init.php',out+'/management','qa.superadmin'],{input:accountManagerPassword}).status,0);
 const log=await fs.open(out+'/server.log','w');
 const server=spawn('php',['-d','upload_max_filesize=20M','-d','post_max_size=24M','-S','127.0.0.1:8187','-t','dist','scripts/management-router.php'],{env:{...process.env,FORMS_DATA_DIR:out+'/management',FORMS_PORTAL_DATA_DIR:out+'/data'},stdio:['ignore',log.fd,log.fd]});
 let browser;const errors=[],checks=[];
@@ -36,7 +37,8 @@ try{
  checks.push('Anonymous access, CSRF, phone and confirmation validation');
  const accountManager=await context();
  const managerSession=await (await accountManager.request.get(base+'/api/management.php?action=session')).json();
- assert.equal((await accountManager.request.post(base+'/api/management.php?action=login',{data:{username:'qa.manager',password:ownerPassword},headers:{'X-CSRF-Token':managerSession.csrf}})).status(),200);
+ // Only this fixture helper is privileged to change audience; the dashboard/review/reset audit stays an ordinary admin.
+ assert.equal((await accountManager.request.post(base+'/api/management.php?action=login',{data:{username:'qa.superadmin',password:accountManagerPassword},headers:{'X-CSRF-Token':managerSession.csrf}})).status(),200);
  tokens.set(accountManager,(await (await accountManager.request.get(base+'/api/management.php?action=session')).json()).csrf);
  async function setType(ctx,type){const user=(await call(ctx,'session')).user;await call(accountManager,'admin_account_type',{id:user.id,account_type:type,expected_type:user.account_type});}
  const page=await a.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/individuals/');

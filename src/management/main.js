@@ -16,6 +16,7 @@ const app=document.querySelector('#app'),e=s=>String(s??'').replace(/[&<>"']/g,c
 let dashboard=null,managementSession=null,lang=savedLanguage(),activeView='overview';
 const t=(en,ar)=>lang==='ar'?ar:en;
 const canManageDocuments=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.manage_documents===true;
+const canChangeAccountType=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.change_account_type===true;
 let csrf='',state=null,dirty=false,editing=null,pageNumber=1,selected=null,pdf=null,drawType=null,serial=Date.now(),sampled=new Set(),renderEpoch=0;
 const endpoint=action=>`${appRoot}api/management.php?action=${action}`;
 async function api(action,body){
@@ -43,7 +44,7 @@ function showLogin(){shell(`<main class="panel login"><h1>${t('Management sign i
  bind('#login','submit',async ev=>{ev.preventDefault();const button=ev.target.querySelector('button');button.disabled=true;try{const freshSession=await api('session');csrf=freshSession.csrf;const response=await api('login',{username:document.querySelector('#username').value,password:document.querySelector('#password').value});csrf=response.csrf;managementSession=response;await showDashboard();}finally{if(button.isConnected)button.disabled=false;}});
 }
 async function start(){managementSession=await api('session');csrf=managementSession.csrf;if(!managementSession.configured){shell(`<main class="panel login"><h1>${t('Management setup','إعداد الإدارة')}</h1><p>${t('Management access has not been configured.','لم يتم إعداد حساب الإدارة بعد.')}</p></main>`,{view:'overview'});return;}if(managementSession.authenticated){await showDashboard();return;}showLogin();}
-async function showDashboard(view='overview'){dashboard??=createClientDashboard({shell,token:()=>csrf,language:()=>lang,onError:handleError});await dashboard[view]();}
+async function showDashboard(view='overview'){dashboard??=createClientDashboard({shell,token:()=>csrf,language:()=>lang,canChangeAccountType,onError:handleError});await dashboard[view]();}
 async function openDocuments(){if(!canManageDocuments())return;dashboard?.cancel();if(!state)state=await api('state');home();}
 function toolbar(title,buttons=''){return `<div class="toolbar"><div><h1>${title}</h1><div class="status-strip"><span id="draft-status">${dirty?'Unsaved changes':'Draft saved'}</span><span>Revision ${state.revision}</span></div></div><div class="actions">${buttons}</div></div>`;}
 async function saveDraft(){state=await api('save',{revision:state.revision,draft:state.draft});dirty=false;if(editing)editing=state.draft.documents.find(d=>d.id===editing.id);return state;}

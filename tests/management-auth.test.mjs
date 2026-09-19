@@ -11,6 +11,8 @@ const account=(dir,role='admin')=>JSON.parse(execFileSync('php',['-r',
 const sessionFor=record=>({owner:true,owner_username:record.username,owner_credentials:record.credential_version,started:Math.floor(Date.now()/1000),last:Math.floor(Date.now()/1000)});
 const access=(dir,session)=>JSON.parse(execFileSync('php',['-r',
  `require $argv[1];$_SESSION=json_decode($argv[3],true);echo json_encode(['owner'=>managementOwner($argv[2]),'identity'=>managementIdentity($argv[2]),'documents'=>managementCanManageDocuments($argv[2])]);`,library,dir,JSON.stringify(session)],{encoding:'utf8'}));
+const permissions=(dir,session)=>JSON.parse(execFileSync('php',['-r',
+ `require $argv[1];$_SESSION=json_decode($argv[3],true);echo json_encode(managementPermissions($argv[2]));`,library,dir,JSON.stringify(session)],{encoding:'utf8'}));
 
 test('management requires a chosen username; adding it preserves password and rejects old sessions',()=>{
  const dir=mkdtempSync(join(tmpdir(),'forms-management-auth-'));
@@ -67,6 +69,10 @@ test('server credentials determine privileges and credential changes revoke stal
   const admin=sessionFor(account(dir)),superadmin=sessionFor(account(dir,'superadmin'));
   assert.deepEqual(access(dir,admin),{owner:true,identity:{username:'admin',role:'admin'},documents:false});
   assert.deepEqual(access(dir,superadmin),{owner:true,identity:{username:'superadmin',role:'superadmin'},documents:true});
+  assert.deepEqual(permissions(dir,admin),{manage_documents:false,change_account_type:false});
+  assert.deepEqual(permissions(dir,superadmin),{manage_documents:true,change_account_type:true});
+  assert.deepEqual(permissions(dir,{}),{manage_documents:false,change_account_type:false});
+  assert.equal(permissions(dir,{...admin,role:'superadmin',owner_role:'superadmin',permissions:{change_account_type:true}}).change_account_type,false,'Only the authenticated server role can change account type');
   assert.equal(access(dir,{...admin,role:'superadmin',owner_role:'superadmin',permissions:{manage_documents:true}}).documents,false,'Session role claims cannot elevate an admin');
   assert.equal(access(dir,{...admin,owner_username:'superadmin'}).owner,false,'A copied username is not an authenticated identity');
   assert.equal(access(dir,{...superadmin,owner_credentials:admin.owner_credentials}).owner,false);
@@ -81,6 +87,7 @@ test('server credentials determine privileges and credential changes revoke stal
   writeFileSync(superName,php('superadmin'));
   writeFileSync(join(dir,'superadmin-password.php'),php(account(dir).password_hash));
   assert.equal(access(dir,superadmin).owner,false,'Replacing the password revokes existing sessions');
+  assert.equal(permissions(dir,superadmin).change_account_type,false,'Credential changes revoke account-type permission immediately');
   assert.equal(access(dir,admin).owner,true,'Superadmin changes leave ordinary admin access intact');
   unlinkSync(join(dir,'superadmin-password.php'));
   assert.equal(access(dir,superadmin).owner,false,'Removing a credential revokes access immediately');

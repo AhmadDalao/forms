@@ -65,7 +65,7 @@ try{
  const admin=await browser.newContext(),superadmin=await browser.newContext(),anonymous=await browser.newContext(),client=await browser.newContext();
  await login(admin,'admin');await login(superadmin,'superadmin');await mg(anonymous,'session');
  for(const [role,ctx] of [['admin',admin],['superadmin',superadmin]]){
-  const session=await mg(ctx,'session');assert.equal(session.authenticated,true);assert.equal(session.username,credentials[role].username);assert.equal(session.role,role);assert.equal(session.permissions.manage_documents,role==='superadmin');
+  const session=await mg(ctx,'session');assert.equal(session.authenticated,true);assert.equal(session.username,credentials[role].username);assert.equal(session.role,role);assert.equal(session.permissions.manage_documents,role==='superadmin');assert.equal(session.permissions.change_account_type,role==='superadmin');
  }
  await mg(admin,'state',{status:403});await mg(anonymous,'state',{status:401});
  const initial=await mg(superadmin,'state'),published=await mg(anonymous,'catalogue');
@@ -114,11 +114,19 @@ try{
  const restored=(await portal(admin,'admin_restore',{data:{id:first.id,expectedCurrent:next.id,requestKey:randomUUID()},status:201})).submission;
  assert.equal((await portal(superadmin,'admin_detail',{params:{id:first.id}})).submission.review_history.length,2);
  assert.equal((await portal(superadmin,'admin_detail',{params:{id:restored.id}})).submission.answers.client_name,user.name);
- await portal(admin,'admin_account_type',{data:{id:user.id,expected_type:'individual',account_type:'corporate'}});
+ const changeType={id:user.id,expected_type:'individual',account_type:'corporate'};
+ assert.equal((await portal(admin,'admin_account_type',{data:changeType,status:403})).error,'account_type_forbidden');
+ assert.equal((await portal(admin,'admin_client',{params:{id:user.id}})).user.account_type,'individual');
+ assert.equal((await portal(admin,'admin_account_type',{data:{...changeType,role:'superadmin',username:'superadmin',permissions:{manage_documents:true,change_account_type:true}},status:403})).error,'account_type_forbidden');
+ assert.equal((await portal(admin,'admin_client',{params:{id:user.id}})).user.account_type,'individual');
+ await portal(superadmin,'admin_account_type',{data:changeType});
+ assert.equal((await portal(admin,'admin_client',{params:{id:user.id}})).user.account_type,'corporate');
  await portal(superadmin,'admin_account_type',{data:{id:user.id,expected_type:'corporate',account_type:'individual'}});
+ assert.equal((await portal(admin,'admin_client',{params:{id:user.id}})).user.account_type,'individual');
  const reset=await portal(admin,'admin_reset',{data:{id:user.id}});assert.ok(reset.temporary_password.length>=20);
  await portal(client,'detail',{params:{id:first.id},status:401});
- pass('Admin and superadmin retain client statistics, profiles, PDF/ZIP downloads, reviews with correct actor, archived version recovery, account changes and password reset');
+ pass('Only superadmin changes account type in both directions; admin and spoofed-role requests are rejected without mutation while admin can still read the type');
+ pass('Admin and superadmin retain client statistics, profiles, PDF/ZIP downloads, reviews with correct actor, archived version recovery and password reset');
 
  // Exercise catalogue editing through the actual superadmin interface.
  const editor=await superadmin.newPage();editor.on('pageerror',e=>errors.push(e.message));editor.on('dialog',d=>d.accept());
@@ -148,7 +156,21 @@ try{
       await page.locator(`[data-management-view=${view}]`).click();await checkNav(page,role,view);
       if(name==='chrome'&&view==='overview')await screenshot(page,`${role}-${lang}-${width}`);
      }
-     await page.locator('[data-management-view=users]').click();await page.locator(`[data-client="${user.id}"]`).click();await page.locator('#account-type-form').waitFor();await checkNav(page,role,'users');
+     await page.locator('[data-management-view=users]').click();await page.locator(`[data-client="${user.id}"]`).click();await page.locator('.admin-client-facts').waitFor();await checkNav(page,role,'users');
+     assert.equal(await page.locator('#account-type-form').count(),role==='superadmin'?1:0);
+     assert.equal(await page.locator('#client-account-type').count(),role==='superadmin'?1:0);
+     assert.equal(await page.locator('.admin-client-facts [data-account-type="individual"]').count(),1);
+     if(role==='superadmin'&&name==='chrome'&&lang==='en'&&width===1440){
+      const before=(await portal(superadmin,'admin_client',{params:{id:user.id}})).submissions;
+      for(const type of ['corporate','individual']){
+       await page.locator('#client-account-type').selectOption(type);await page.locator('#account-type-form [type=submit]').click();await page.locator('[data-type-status]').filter({hasText:'Account type updated.'}).waitFor();
+       assert.equal((await portal(admin,'admin_client',{params:{id:user.id}})).user.account_type,type);
+       assert.equal(await page.locator(`.admin-client-facts [data-account-type="${type}"]`).count(),1);
+      }
+      assert.deepEqual((await portal(superadmin,'admin_client',{params:{id:user.id}})).submissions,before);
+      assert.equal(digest(await(await admin.request.get(`${base}/api/portal.php?action=admin_pdf&id=${first.id}`)).body()),digest(source));
+      pass('Superadmin UI changes individual/company both ways while all saved and archived submissions and PDF bytes remain unchanged');
+     }
      if(width===390&&name==='chrome')await screenshot(page,`${role}-${lang}-profile`);
     }
    }
@@ -161,6 +183,7 @@ try{
     stateRequests.length=0;await page.locator('#username').fill(credentials.admin.username);await page.locator('#password').fill(credentials.admin.password);await page.locator('#login button').click();await page.locator('.admin-stats').waitFor();await checkNav(page,'admin','overview');
     assert.equal(stateRequests.length,0,'Switching from superadmin must not reuse or request its draft');
     assert.equal((await ctx.request.get(base+'/api/management.php?action=state')).status(),403);
+    await page.locator('[data-management-view=users]').click();await page.locator('#client-search').waitFor();await page.locator(`[data-client="${user.id}"]`).click();await page.locator('.admin-client-facts').waitFor();assert.equal(await page.locator('#account-type-form,#client-account-type').count(),0,'A previous superadmin session must not leave type controls behind');
    }
    await ctx.close();pass(`${name} ${role}: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout`);
   }}finally{await localBrowser.close();}
