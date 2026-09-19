@@ -1,0 +1,60 @@
+{
+  "result": "pass",
+  "consoleErrors": [],
+  "currentAccountTypeVerified": true,
+  "badgeUpdatesAfterManagementChange": true,
+  "desktop_mobile_views_checked": 16,
+  "languages": [
+    "en",
+    "ar"
+  ],
+  "viewports": [
+    1440,
+    390
+  ],
+  "locations": [
+    "Latest submissions",
+    "Client directory",
+    "Client profile"
+  ],
+  "individual": {
+    "label_en": "Individual",
+    "label_ar": "فرد",
+    "background": "#f2eafa",
+    "text": "#5b3476"
+  },
+  "corporate": {
+    "label_en": "Company",
+    "label_ar": "شركة",
+    "background": "#e7f2fd",
+    "text": "#1f5684"
+  },
+  "production": {
+    "result": "pass",
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "widths": [
+      1440,
+      390
+    ],
+    "currentAccountTypeVerified": true,
+    "colors": [
+      {
+        "type": "individual",
+        "background": "rgb(242, 234, 250)",
+        "color": "rgb(91, 52, 118)"
+      },
+      {
+        "type": "corporate",
+        "background": "rgb(231, 242, 253)",
+        "color": "rgb(31, 86, 132)"
+      }
+    ],
+    "customerMutations": false,
+    "consoleErrors": []
+  },
+  "source_commit": "f49bfd2d27607860bf79c82a510f34cd7aa0aef4",
+  "verified_at_utc": "2026-09-19T15:39:30.291651+00:00"
+}
