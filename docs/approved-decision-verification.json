@@ -1,0 +1,136 @@
+{
+  "verified_at": "2026-09-19T18:24:29.437474+00:00",
+  "site": "https://forms.ahmaddalao.com/management/",
+  "source_commit": "1dc5ae7593ab989ee7f1dcbc95546bdb5182998f",
+  "changes": [
+    "Approved remains selected after saving and reopening; the decision field and save button are grey and disabled.",
+    "New submitted versions remain pending and reviewable.",
+    "This is a UI change; existing backend decision history and review policy are unchanged."
+  ],
+  "build": "passed",
+  "local_cycle": {
+    "base": "http://127.0.0.1:8196",
+    "checks": [
+      "individual: replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled after save/reopen, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs",
+      "corporate: replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled after save/reopen, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs",
+      "Current-only status counts, combined audience/document/search filters, literal SQL wildcard handling, oldest/newest ordering and invalid filter rejection",
+      "32 current fixtures paginate 30/2 without duplicates; archived 33rd excluded; legacy submitted document filter remains available",
+      "Review UI combines status, audience, document, search and sorting; unmatched filters show clear empty state and Reset preserves the selected status",
+      "Delayed older review responses cannot overwrite the newest filter/language selection",
+      "Management bell returns to unfiltered awaiting-review queue",
+      "chrome: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+      "firefox: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+      "webkit: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "live": {
+    "checks": [
+      {
+        "role": "admin",
+        "lang": "en",
+        "width": 1440,
+        "approvedSavedAndDisabled": true,
+        "reopenChecked": true,
+        "pendingEnabled": false
+      },
+      {
+        "role": "admin",
+        "lang": "en",
+        "width": 390,
+        "approvedSavedAndDisabled": true,
+        "reopenChecked": true,
+        "pendingEnabled": false
+      },
+      {
+        "role": "admin",
+        "lang": "ar",
+        "width": 1440,
+        "approvedSavedAndDisabled": true,
+        "reopenChecked": true,
+        "pendingEnabled": false
+      },
+      {
+        "role": "admin",
+        "lang": "ar",
+        "width": 390,
+        "approvedSavedAndDisabled": true,
+        "reopenChecked": true,
+        "pendingEnabled": false
+      },
+      {
+        "role": "superadmin",
+        "lang": "en",
+        "width": 1440,
+        "approvedSavedAndDisabled": true,
+        "reopenChecked": true,
+        "pendingEnabled": false
+      },
+      {
+        "role": "superadmin",
+        "lang": "en",
+        "width": 390,
+        "approvedSavedAndDisabled": true,
+        "reopenChecked": true,
+        "pendingEnabled": false
+      },
+      {
+        "role": "superadmin",
+        "lang": "ar",
+        "width": 1440,
+        "approvedSavedAndDisabled": true,
+        "reopenChecked": true,
+        "pendingEnabled": false
+      },
+      {
+        "role": "superadmin",
+        "lang": "ar",
+        "width": 390,
+        "approvedSavedAndDisabled": true,
+        "reopenChecked": true,
+        "pendingEnabled": false
+      }
+    ],
+    "errors": [],
+    "blockedWrites": [],
+    "submissionMutations": 0,
+    "passed": true
+  },
+  "live_routes": [
+    {
+      "route": "/register/",
+      "status": 200
+    },
+    {
+      "route": "/login/",
+      "status": 200
+    },
+    {
+      "route": "/my-applications/",
+      "status": 200
+    },
+    {
+      "route": "/management/",
+      "status": 200
+    },
+    {
+      "route": "/individuals/",
+      "status": 200
+    },
+    {
+      "route": "/companies/",
+      "status": 200
+    },
+    {
+      "route": "/_private/portal/clients.sqlite",
+      "status": 403
+    },
+    {
+      "route": "/.env.local",
+      "status": 403
+    }
+  ],
+  "safety": "Public build only. Production private storage and archived submissions preserved. Overwritten public files backed up by deploy.py. Live checks made no submission or review mutations.",
+  "deployment_manifest": "docs/deployment-manifest.json"
+}
