@@ -47,5 +47,32 @@
     ],
     "report": "tmp/workflow-toggle-1789853437030-f42cc0/person-names-backend/report.json"
   },
-  "deployment": "Pending"
+  "deployment": {
+    "source_commit": "08a5defa197ee2d5c1badd2f8b0493d0f169f1fa",
+    "url": "https://forms.ahmaddalao.com/",
+    "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T213614Z",
+    "private_storage_preserved": true,
+    "live_browser": {
+      "report": "tmp/person-names-live-1789853911954/report.json",
+      "passed": true,
+      "cases": 18,
+      "downloaded_pdfs": 2
+    },
+    "public_https_files_verified": 17,
+    "private_paths_blocked": [
+      {
+        "path": "_private/",
+        "status": 403
+      },
+      {
+        "path": "_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "path": ".env.local",
+        "status": 403
+      }
+    ]
+  },
+  "visual_review": "All 18 rendered name crop sheets inspected; two full-page spot checks, no name clipping, overlap or direction errors."
 }
