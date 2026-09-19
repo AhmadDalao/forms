@@ -1,0 +1,82 @@
+{
+  "verified_at_utc": "2026-09-19T21:18:15.355975+00:00",
+  "source_commit": "f025f5eeac2e520821a61ae072b1df85734668d8",
+  "url": "https://forms.ahmaddalao.com/",
+  "unit_tests": {
+    "passed": 118,
+    "failed": 0,
+    "country_cases": 11,
+    "evidence": "tmp/country-tests-final.log"
+  },
+  "local_browser": {
+    "passed": true,
+    "checks": 19,
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "audiences": [
+      "individual",
+      "corporate"
+    ],
+    "errors": [],
+    "evidence": "tmp/workflow-toggle-1789852283593-b1d37f/country-defaults/report.json"
+  },
+  "pdf_checks": {
+    "passed": true,
+    "filled_pdfs": 12,
+    "unchanged_blank_pdfs": 12,
+    "populated_country_overlays": 32,
+    "country_bounds_and_renderings_verified": true,
+    "evidence": "tmp/workflow-toggle-1789852283593-b1d37f/country-defaults/pdf-check/report.json"
+  },
+  "hosted_browser": {
+    "passed": true,
+    "document_language_cases": 12,
+    "country_inputs_editable": true,
+    "application_mutations": 0,
+    "browser_errors": [],
+    "asset_hashes": [
+      {
+        "name": "index-DjSvJIk4.js",
+        "sha256": "e6e2376c96cbea7b91c69f3ebfccbff2fddd46c1810d954254f264b0234aadf6"
+      },
+      {
+        "name": "main-D0HU2MP7.js",
+        "sha256": "092d34dcf7d6b462ea897c6925bce438645e5c0ba5f54eb6212940704cd4ef11"
+      },
+      {
+        "name": "main-DSSPz9Vq.js",
+        "sha256": "5431ee47e5dfc12d41bcf0fdc46c1af015fff95622edad053921a41dfde2e41b"
+      },
+      {
+        "name": "main-Dbt-h9pM.js",
+        "sha256": "8afb3fc1ddd8a007855997d853ca80e2a9c470c3d9bdd0c9c8f3293ce2891272"
+      },
+      {
+        "name": "shared-fields-C4WdUotL.js",
+        "sha256": "10b3195f11cea7631b8a61a54566eba40001f770a014dee10770afba25933e43"
+      }
+    ],
+    "evidence": "tmp/country-production-1789852593818/report.json"
+  },
+  "public_deployment": {
+    "completed": true,
+    "updated_public_file_hash_matches": 14,
+    "private_paths_blocked": true,
+    "evidence": "tmp/workflow-https.json",
+    "manifest": "docs/deployment-manifest.json"
+  },
+  "preservation": [
+    "Existing non-Saudi country answers and manual blanks remain unchanged.",
+    "Submitted versions are excluded from default initialization.",
+    "Shared profile country values take precedence over automatic fallbacks; form overrides take precedence over shared values.",
+    "Individual/company and account storage remain separate.",
+    "Explicit foreign-only sections and unused optional rows remain blank."
+  ],
+  "limits": [
+    "Browser verification used Chromium/Chrome.",
+    "The hosted audit used fresh anonymous browser sessions and did not submit forms or change accounts.",
+    "Document fields, choices, original PDF templates and production private storage were not modified."
+  ]
+}
