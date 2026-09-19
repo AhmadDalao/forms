@@ -1,0 +1,102 @@
+{
+  "result": "pass",
+  "source_commit": "143006896baa8146b81bce80df81118362d20926",
+  "unit_tests": 58,
+  "portal_regression": "pass",
+  "local_review_cycles": [
+    "individual: pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, resubmit/restore pending, archived history and unchanged PDFs",
+    "corporate: pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, resubmit/restore pending, archived history and unchanged PDFs",
+    "Delayed older review responses cannot overwrite the newest filter/language selection",
+    "chrome: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+    "firefox: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+    "webkit: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout"
+  ],
+  "languages": [
+    "en",
+    "ar"
+  ],
+  "viewports": [
+    1440,
+    390
+  ],
+  "browsers": [
+    "Chrome",
+    "Firefox",
+    "WebKit"
+  ],
+  "notification_delivery": "in-app on My applications; refresh on focus and every 30 seconds while visible",
+  "admin_attribution": "authenticated management username; current installation has one owner login",
+  "tests": {
+    "authorization_csrf": true,
+    "stale_review_conflicts": true,
+    "archived_review_rejection": true,
+    "idempotent_retry": true,
+    "rejection_reason_validation": true,
+    "client_reason_display": true,
+    "persistent_read_receipts": true,
+    "historical_decisions_preserved": true,
+    "resubmission_and_restore_pending": true,
+    "unchanged_pdf_hashes": true,
+    "notification_pagination": true
+  },
+  "production": {
+    "result": "pass",
+    "url": "https://forms.ahmaddalao.com/management/",
+    "checks": [
+      "individual: pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, resubmit/restore pending, archived history and unchanged PDFs",
+      "corporate: pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, resubmit/restore pending, archived history and unchanged PDFs",
+      "chrome: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+      "firefox: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+      "webkit: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout"
+    ],
+    "console_errors": [],
+    "routes": [
+      {
+        "route": "/",
+        "status": 200
+      },
+      {
+        "route": "/management/",
+        "status": 200
+      },
+      {
+        "route": "/my-applications/",
+        "status": 200
+      },
+      {
+        "route": "/individuals/",
+        "status": 200
+      },
+      {
+        "route": "/companies/",
+        "status": 200
+      },
+      {
+        "route": "/_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "route": "/.env.local",
+        "status": 403
+      }
+    ],
+    "cleanup": {
+      "removed_test_users": 2,
+      "removed_test_pdfs": 6,
+      "remaining_users": 1,
+      "remaining_submissions": 1,
+      "integrity": "ok",
+      "php": "8.3.33",
+      "upload_limit": "256M",
+      "post_limit": "256M"
+    },
+    "preservation": {
+      "schema_before": 2,
+      "schema_after": 3,
+      "existing_clients_preserved": 1,
+      "existing_submissions_preserved": 1,
+      "integrity": "ok"
+    }
+  },
+  "verified_at_utc": "2026-09-19T16:04:31.117384+00:00"
+}
