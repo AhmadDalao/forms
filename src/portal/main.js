@@ -6,7 +6,7 @@ import '@fontsource/noto-sans-arabic/arabic-400.css';
 import '@fontsource/noto-sans-arabic/arabic-600.css';
 import './style.css';
 import {passwordField as renderPasswordField,bindPasswordControls} from './passwords.js';
-import {brandLockup} from '../branding.js';
+import {siteHeader} from '../branding.js';
 import {appRoot,accountFolder,canUseAudience} from '../routes.js';
 import {authChangeKey,api,session,e,errorText,language,setLanguage,authChanged,importGuestDrafts,endpoint,when} from './api.js';
 import {mountNotifications} from './notifications.js';
@@ -19,7 +19,7 @@ const t=(en,ar)=>lang==='ar'?ar:en;
 const isRegister=/\/register\/?$/.test(location.pathname),isAccount=/\/(?:account|my-applications)\/?$/.test(location.pathname);
 const next=['individuals','companies'].includes(params.get('next'))?params.get('next'):null;
 const query=new URLSearchParams({...(next?{next}:{}),...(params.get('resume')==='1'?{resume:'1'}:{}),lang});
-function header(){return `<header class="portal-header"><a class="portal-brand" href="${appRoot}${user?'my-applications/':''}">${brandLockup()}</a><div class="portal-header-actions">${user?`<a class="applications-link" href="${appRoot}my-applications/" ${isAccount?'aria-current="page"':''}>${t('My applications','طلباتي')}</a>`:''}${user?notificationBell(lang):''}<button class="portal-language" id="portal-language">${t('العربية','English')}</button>${user?`<button class="portal-button subtle" id="portal-logout">${t('Sign out','تسجيل الخروج')}</button>`:''}</div></header>`;}
+function header(){return siteHeader({lang,className:'portal-header',brandHref:appRoot+(user?'my-applications/':''),actions:`${user?`<a class="site-header-link applications-link" href="${appRoot}my-applications/" ${isAccount?'aria-current="page"':''}>${t('My applications','طلباتي')}</a>`:''}${user?notificationBell(lang):''}<button type="button" class="site-header-language" id="portal-language" lang="${lang==='ar'?'en':'ar'}">${t('العربية','English')}</button>${user?`<button type="button" class="site-header-signout" id="portal-logout">${t('Sign out','تسجيل الخروج')}</button>`:''}`});}
 function shell(content){stopNotifications();document.title=t(isAccount?'My applications · Wessal & Itqan Capital':isRegister?'Create account · Wessal & Itqan Capital':'Sign in · Wessal & Itqan Capital',isAccount?'طلباتي · وصال وإتقان كابيتال':isRegister?'إنشاء حساب · وصال وإتقان كابيتال':'تسجيل الدخول · وصال وإتقان كابيتال');document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.className=isAccount?'client-portal':'client-portal auth-page';root.innerHTML=header()+content;
  root.querySelector('#portal-language').onclick=()=>{lang=lang==='ar'?'en':'ar';setLanguage(lang);query.set('lang',lang);if(isAccount)account();else auth();};
  root.querySelector('#portal-logout')?.addEventListener('click',async()=>{try{await api('logout',{});authChanged();location.href=appRoot+'login/?lang='+lang;}catch(err){message(errorText(err,lang));}});

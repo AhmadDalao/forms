@@ -5,7 +5,7 @@ import '@fontsource/inter/latin-600.css';
 import '@fontsource/noto-sans-arabic/arabic-400.css';
 import '@fontsource/noto-sans-arabic/latin-400.css';
 import './style.css';
-import {brandLockup} from '../branding.js';
+import {siteHeader} from '../branding.js';
 import {createClientDashboard} from '../portal/admin.js';
 import {language as savedLanguage,setLanguage} from '../portal/api.js';
 import {appRoot} from '../routes.js';
@@ -36,7 +36,9 @@ function changed(){dirty=true;sampled.clear();const reviewButton=document.queryS
 function shell(content,{view='documents'}={}){
  activeView=view;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
  const signedIn=managementSession?.authenticated===true,items=[['overview','Overview','نظرة عامة','data-overview id="client-dashboard"'],['reviews','Review forms','مراجعة النماذج','data-reviews'],['users','Clients','العملاء','data-users'],...(canManageDocuments()?[['documents','Documents','المستندات','data-documents']]:[])];
- app.innerHTML=`<header class="management-header" dir="${lang==='ar'?'rtl':'ltr'}"><div class="management-header-inner"><div class="management-brand">${brandLockup()}<small class="management-context" data-management-label>${t('MANAGEMENT','الإدارة')}</small></div><div class="management-controls">${signedIn?`<nav class="management-navigation" aria-label="${t('Management navigation','التنقل في الإدارة')}">${items.map(([id,en,ar,attrs])=>`<button type="button" data-management-view="${id}" ${attrs} ${view===id?'aria-current="page"':''}>${t(en,ar)}</button>`).join('')}</nav>`:''}<div class="management-account-actions">${signedIn?`<button type="button" class="notification-bell" id="management-notifications" aria-label="${t('Forms awaiting review','نماذج بانتظار المراجعة')}" title="${t('Forms awaiting review','نماذج بانتظار المراجعة')}">${bellIcon}</button>`:''}<button type="button" class="management-language" data-admin-language lang="${lang==='ar'?'en':'ar'}">${t('العربية','English')}</button>${signedIn?`<button type="button" id="logout">${t('Sign out','تسجيل الخروج')}</button>`:''}</div></div></div></header><div id="notice" role="status"></div>${content}`;
+ const navigation=signedIn?`<nav class="site-header-navigation management-navigation" aria-label="${t('Management navigation','التنقل في الإدارة')}">${items.map(([id,en,ar,attrs])=>`<button type="button" data-management-view="${id}" ${attrs} ${view===id?'aria-current="page"':''}>${t(en,ar)}</button>`).join('')}</nav>`:'';
+ const actions=`${signedIn?`<button type="button" class="notification-bell" id="management-notifications" aria-label="${t('Forms awaiting review','نماذج بانتظار المراجعة')}" title="${t('Forms awaiting review','نماذج بانتظار المراجعة')}">${bellIcon}</button>`:''}<button type="button" class="site-header-language" data-admin-language lang="${lang==='ar'?'en':'ar'}">${t('العربية','English')}</button>${signedIn?`<button type="button" class="site-header-signout" id="logout">${t('Sign out','تسجيل الخروج')}</button>`:''}`;
+ app.innerHTML=siteHeader({lang,className:'management-header',navigation,actions})+`<div id="notice" role="status"></div>${content}`;
  bind('[data-management-view]','click',async(ev,button)=>{if(dirty)await saveDraft();if(button.dataset.managementView==='documents')await openDocuments();else await showDashboard(button.dataset.managementView);});
  bind('[data-admin-language]','click',async()=>{lang=lang==='ar'?'en':'ar';setLanguage(lang);if(!signedIn){showLogin();return;}if(activeView==='documents'){if(editing)await editor();else home();}else await dashboard.refresh();});
  bind('#management-notifications','click',async()=>{if(dirty)await saveDraft();await showDashboard('pendingReviews');});

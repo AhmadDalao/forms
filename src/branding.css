@@ -3,29 +3,49 @@
 .brand-lockup .brand-wessal{width:70px}
 .brand-lockup .brand-itqan{width:138px}
 .brand-lockup .brand-logo-divider{display:block;flex:none;width:1px;height:40px;background:#e8e1ed;margin:0}
-header.portal-header,.header.branded-header,header.management-header{height:auto;min-height:110px;padding-top:16px;padding-bottom:16px;background:#fff;gap:24px}
-.portal-header .portal-brand,.branded-header .brand{flex:none}
-.portal-header .portal-header-actions{justify-content:flex-end;flex-wrap:wrap}
-.portal-header .applications-link{font-size:13px;font-weight:600;color:#48235f;text-decoration:none;padding:9px 12px;border-radius:8px;background:#f2edf6}
-.branded-header .client-header-actions{justify-content:flex-end;flex-wrap:wrap}
-.management-brand{display:flex;align-items:center;gap:28px;min-width:0}
-.management-brand .management-context{font-size:11px;color:#77748b;letter-spacing:.05em;line-height:1.8;max-width:300px}
-/* Consistent keyboard focus and comfortable header actions across the portal. */
+/* The sign-in header is the shared navigation surface on every page. */
+.site-header{width:calc(100% - 48px);max-width:1192px;min-height:100px;margin:24px auto 28px;padding:16px 24px;border:1px solid #e3dce9;border-radius:16px;background:#fff;color:#493951}
+.site-header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;min-width:0}
+.site-brand{display:inline-flex;align-items:center;flex:none;text-decoration:none;border-radius:6px}
+.site-header-controls{display:flex;align-items:center;justify-content:flex-end;gap:20px;min-width:0}
+.site-header-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap;min-width:0}
+.site-header .site-header-language,.site-header .site-header-link,.site-header .site-header-signout,.site-header-navigation button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border:1px solid transparent;border-radius:9px;font:inherit;font-size:13px;font-weight:500;line-height:1.6;text-decoration:none;white-space:nowrap;cursor:pointer}
+.site-header .site-header-language{background:#48235f;border-color:#48235f;color:#fff;font-weight:600;padding-inline:18px}
+.site-header .site-header-language:hover{background:#603378;border-color:#603378}
+.site-header .site-header-link{background:#f2edf6;color:#48235f;font-weight:600}
+.site-header .site-header-link:hover{background:#eae1f1}
+.site-header .site-header-signout{background:#fff;border-color:#e3dce9;color:#65586d}
+.site-header .site-header-signout:hover{background:#f7f3fa;color:#48235f}
+.site-header-navigation{display:flex;align-items:center;gap:4px;min-width:0}
+.site-header-navigation button{background:transparent;color:#71627c;padding-inline:12px}
+.site-header-navigation button:hover{background:#f6f0f9;color:#49245f}
+.site-header-navigation button[aria-current=page]{background:#f0e7f6;border-color:#dfcee9;color:#49245f;font-weight:600}
+.site-header-navigation+.site-header-actions{border-inline-start:1px solid #e7dfec;padding-inline-start:20px;flex:none}
+/* Consistent keyboard focus and touch targets across the portal. */
 :where(button,a,summary,input,select,textarea):focus-visible{outline:3px solid #a48ac1;outline-offset:3px}
 :where(button,a,summary){touch-action:manipulation}
-header :where(button,.applications-link,.client-account-link){min-height:44px}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+@media(max-width:1100px){
+ .site-header:has(.site-header-navigation) .site-header-inner{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px 24px}
+ .site-header:has(.site-header-navigation) .site-header-controls{display:contents}
+ .site-header-navigation{grid-column:1/-1;grid-row:2;justify-content:flex-start;border-top:1px solid #eee7f2;padding-top:12px}
+ .site-header-navigation+.site-header-actions{grid-column:2;grid-row:1;border:0;padding:0}
+}
 @media(max-width:600px){
  .brand-lockup{width:171px;padding:4px;gap:10px}
  .brand-lockup .brand-wessal{width:46px}
  .brand-lockup .brand-itqan{width:96px}
  .brand-lockup .brand-logo-divider{height:30px}
- header.portal-header,.header.branded-header,header.management-header{min-height:94px;padding:14px 20px;gap:12px}
- .portal-header .portal-header-actions,.branded-header .client-header-actions{gap:8px;max-width:calc(100% - 183px)}
- .portal-header .applications-link{font-size:12px;padding:6px 9px}
- .management-brand{gap:0}
- .management-brand .management-context{display:none}
- .management-header>.actions{justify-content:flex-end}
- header.portal-header:has(#portal-logout),header.branded-header:has(.client-account-link){flex-wrap:wrap}
- .portal-header:has(#portal-logout) .portal-header-actions{max-width:none;width:100%;justify-content:flex-start}
+ .site-header{width:calc(100% - 32px);min-height:84px;margin-top:16px;margin-bottom:20px;padding:12px;border-radius:14px}
+ .site-header-inner{gap:12px;flex-wrap:wrap}
+ .site-header-controls{gap:12px}
+ .site-header:has(.site-header-link,.site-header-signout) .site-header-controls{flex-basis:100%;justify-content:flex-start}
+ .site-header-actions{gap:8px}
+ .site-header .site-header-language,.site-header .site-header-link,.site-header .site-header-signout{font-size:12px;padding-inline:12px}
+ .site-header:has(.site-header-navigation) .site-header-inner{display:flex;gap:12px}
+ .site-header:has(.site-header-navigation) .site-header-controls{display:flex;flex-wrap:wrap;flex-direction:column-reverse;align-items:stretch}
+ .site-header-navigation{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;width:100%;padding-top:12px}
+ .site-header-navigation:not(:has([data-documents])){grid-template-columns:repeat(3,minmax(0,1fr))}
+ .site-header-navigation button{font-size:12px;white-space:normal;padding:10px 8px}
+ .site-header-navigation+.site-header-actions{justify-content:flex-start}
 }
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}

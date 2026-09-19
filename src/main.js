@@ -6,7 +6,7 @@ import '@fontsource/noto-sans-arabic/arabic-400.css';
 import '@fontsource/noto-sans-arabic/arabic-600.css';
 import '@fontsource/noto-sans-arabic/latin-400.css';
 import './style.css';
-import {brandLockup} from './branding.js';
+import {siteHeader} from './branding.js';
 import {authChangeKey,api as portalApi,errorText as portalError,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
 import {submitForm} from './portal/submit.js';
 import {formSession as client,checkAccountAccess} from './portal/access.js';
@@ -118,8 +118,8 @@ function bindSharedHints(){document.querySelectorAll('[data-shared-use]').forEac
 function updateSharedHints(){document.querySelectorAll('[data-shared-hint]').forEach(el=>el.innerHTML=sharedHint(el.dataset.sharedHint));bindSharedHints();}
 function bindClearChoices(){document.querySelectorAll('[data-clear]').forEach(button=>button.onclick=()=>{delete values[button.dataset.clear];clearDownload();pdfBytes=null;saveDraft(button.dataset.clear);renderEditor();});}
 
-function accountLink(){const next=audience==='individual'?'individuals':audience==='corporate'?'companies':null;return `<a class="client-account-link" href="${appRoot}${client.user?'my-applications/':'login/?'+new URLSearchParams({...(next?{next,resume:'1'}:{}),lang})}">${client.user?t('My applications','طلباتي'):t('Sign in / Register','دخول / إنشاء حساب')}</a>`;}
-function header(){return `<header class="header branded-header"><a href="${appRoot}" class="brand" data-home>${brandLockup()}</a><div class="client-header-actions">${accountLink()}${client.user?notificationBell(lang):''}<button class="language ghost" id="language" lang="${lang==='en'?'ar':'en'}">${lang==='en'?'العربية':'English'}</button></div></header>`;}
+function accountLink(){const next=audience==='individual'?'individuals':audience==='corporate'?'companies':null;return `<a class="site-header-link client-account-link" href="${appRoot}${client.user?'my-applications/':'login/?'+new URLSearchParams({...(next?{next,resume:'1'}:{}),lang})}">${client.user?t('My applications','طلباتي'):t('Sign in / Register','دخول / إنشاء حساب')}</a>`;}
+function header(){return siteHeader({lang,className:'header branded-header',brandHref:appRoot,homeAction:true,actions:`${accountLink()}${client.user?notificationBell(lang):''}<button type="button" class="site-header-language" id="language" lang="${lang==='en'?'ar':'en'}">${lang==='en'?'العربية':'English'}</button>`});}
 function saveLabel(){return drafts.available?t('Saved on this browser','محفوظ في هذا المتصفح'):t('Not saved — browser storage is unavailable','لم يتم الحفظ — تخزين المتصفح غير متاح');}
 function footer(){return `<footer>${icon('lock',15)} <span data-storage-note>${drafts.available?t('Drafts are saved on this browser so you can return later. Use Clear form or Clear all saved forms to remove them.','تُحفظ المسودات في هذا المتصفح لتعود إليها لاحقًا. استخدم «مسح النموذج» أو «مسح جميع النماذج المحفوظة» لحذفها.'):t('Browser saving is unavailable. Keep this tab open or download your PDF before leaving.','الحفظ في المتصفح غير متاح. أبقِ الصفحة مفتوحة أو نزّل المستند قبل المغادرة.')}</span></footer>`;}
 function storageStatus(){document.querySelectorAll('[data-save-status]').forEach(el=>{el.textContent=saveLabel();el.classList.toggle('save-failed',!drafts.available);});document.querySelector('footer')?.replaceWith(document.createRange().createContextualFragment(footer()));}
