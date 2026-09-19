@@ -1,5 +1,6 @@
 import {nameParts} from './names.js';
 import {hasValue} from './schema.js';
+import {countryFields,sharedCountryIds} from './countries.js';
 import {idOptions,titleOptions} from './identity-options.js';
 
 const field=(id,label,ar,type='text',options=null)=>({id,label,ar,type,options});
@@ -43,7 +44,7 @@ export function cleanShared(audience,profile){
   if(!sharedFieldVisible(f,profile))continue;
   const v=profile?.[f.id];
   if(f.type==='checkbox'){if(typeof v==='boolean')clean[f.id]=v;}
-  else if(typeof v==='string'&&v.length<=2000&&hasValue(v)&&(!f.options||f.options.some(o=>o[0]===v)))clean[f.id]=v;
+  else if(typeof v==='string'&&v.length<=2000&&(hasValue(v)||sharedCountryIds(audience).includes(f.id))&&(!f.options||f.options.some(o=>o[0]===v)))clean[f.id]=v;
  }
  for(const lang of ['en','ar']){const middle=[clean[lang+'_second'],clean[lang+'_third']].filter(Boolean).join(' ');if(middle)clean[lang+'_middle']=middle;}
  return clean;
@@ -122,11 +123,14 @@ export function sharedCandidates(doc,profile,values,audience){
 }
 export function reconcileShared(doc,record,profile,audience){
  const next={...record,values:{...record.values},shared:{},overrides:[...(record.overrides||[])]};
+ if(record.countryDefaults)next.countryDefaults={...record.countryDefaults};
+ const countries=countryFields(doc);
  for(const [id,value]of Object.entries(sharedCandidates(doc,profile,next.values,audience))){
   if(next.overrides.includes(id))continue;
   const old=record.shared?.[id],current=next.values[id];
-  if(hasValue(current)&&current!==old&&current!==value)continue;
-  if(hasValue(value)){next.values[id]=value;next.shared[id]=value;}
+  if(hasValue(current)&&current!==old&&current!==value&&current!==record.countryDefaults?.[id])continue;
+  const country=countries.find(f=>f.id===id),blankCountry=country?.sharedKey&&profile?.[country.sharedKey]===''&&(!country.whenShared||profile[country.whenShared]);
+  if(hasValue(value)||blankCountry){next.values[id]=value;next.shared[id]=value;if(next.countryDefaults)delete next.countryDefaults[id];}
   else if(old!==undefined&&current===old)delete next.values[id];
  }
  if(doc.id==='fatca-crs-individual')next.values=nameParts(next.values,false);

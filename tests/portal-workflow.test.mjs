@@ -28,6 +28,17 @@ function php(code,{dsn='sqlite::memory:',args=[]}={}){
  const result=spawnSync('php',['-r',prelude+code,...libraries,dsn,...args],{encoding:'utf8',timeout:10000});
  assert.equal(result.status,0,result.stderr||result.error?.message);return JSON.parse(result.stdout);
 }
+function waitForLine(child,line,stdout,stderr){
+ return new Promise((resolve,reject)=>{
+  const cleanup=()=>{clearTimeout(timer);child.stdout.off('data',check);child.off('error',failed);child.off('close',closed);};
+  const failed=error=>{cleanup();reject(error);};
+  const closed=(code,signal)=>failed(Error(`PHP exited before ${line} (code ${code}, signal ${signal}): ${stderr()}${stdout()}`));
+  const check=()=>{if(stdout().split(/\r?\n/).includes(line)){cleanup();resolve();}};
+  const timer=setTimeout(()=>failed(Error(`Timed out waiting for ${line}: ${stderr()}${stdout()}`)),5000);
+  child.stdout.on('data',check);child.once('error',failed);child.once('close',closed);
+  if(child.exitCode!==null||child.signalCode!==null)closed(child.exitCode,child.signalCode);else check();
+ });
+}
 
 test('workflow migration is repeatable, preserves exact legacy data and rolls back a partial migration',()=>{
  const r=php(schema+`
@@ -149,13 +160,14 @@ test('review writes serialize behind a concurrent workflow toggle and observe it
    echo json_encode(updateWorkflow(false,0,'off','owner'));
   `,...libraries,dsn],{stdio:['pipe','pipe','pipe']});
   let toggleOut='',toggleError='';toggle.stdout.on('data',s=>toggleOut+=s);toggle.stderr.on('data',s=>toggleError+=s);
-  await once(toggle.stdout,'data',{signal:AbortSignal.timeout(5000)});assert.match(toggleOut,/locked/);
+  // PHP diagnostics and pipe chunk boundaries can arrive before the lock marker.
+  await waitForLine(toggle,'locked',()=>toggleOut,()=>toggleError);
   review=spawn('php',['-r',prelude+`fwrite(STDOUT,"ready\\n");fflush(STDOUT);echo json_encode(['error'=>failure(fn()=>recordReview('legacy','approved','','',0,'review','admin'))]);`,...libraries,dsn],{stdio:['ignore','pipe','pipe']});
   let reviewOut='',reviewError='';review.stdout.on('data',s=>reviewOut+=s);review.stderr.on('data',s=>reviewError+=s);
   const toggleExit=once(toggle,'close'),reviewExit=once(review,'close');
-  await once(review.stdout,'data',{signal:AbortSignal.timeout(5000)});assert.equal(reviewOut,'ready\n');toggle.stdin.end('x');
+  await waitForLine(review,'ready',()=>reviewOut,()=>reviewError);toggle.stdin.end('x');
   const [[a],[b]]=await Promise.all([toggleExit,reviewExit]);assert.equal(a,0,toggleError);assert.equal(b,0,reviewError);
-  assert.deepEqual(JSON.parse(reviewOut.slice('ready\n'.length)),{error:'workflow_disabled'});
+  assert.deepEqual(JSON.parse(reviewOut.slice(reviewOut.indexOf('ready\n')+'ready\n'.length)),{error:'workflow_disabled'});
   const final=php(`echo json_encode(['workflow'=>workflowSettings(),'reviews'=>execute('SELECT * FROM submission_reviews')->fetchAll(),'audit'=>execute('SELECT * FROM audit')->fetchAll()]);`,{dsn});
   assert.deepEqual(final.workflow,{review_enabled:false,revision:1});assert.deepEqual(final.reviews,[]);assert.deepEqual(final.audit,[]);
  }finally{toggle?.kill();review?.kill();rmSync(dir,{recursive:true,force:true});}

@@ -8,7 +8,6 @@ export const visibleField=(f,values)=>!f.when||f.when.includes(values[f.dependsO
 export function normalizeSubscription(doc,input,{applicantEdited=false}={}){
  const values={...input};
  if(values.id_type==='family'){values.id_type='other';values.id_other='بطاقة عائلية / Family ID';}
- if(!('country' in values))values.country='المملكة العربية السعودية';
  if(!('date' in values))values.date=today();
  values.signature_mode=values.signature_mode||'manual';
  values.full_name=doc.group==='individual'?joinedName(values):values.company_name||'';

@@ -3,6 +3,7 @@ import {joinedName} from './subscription/model.js';
 import {draftStoragePrefix} from './routes.js';
 import { hasValue } from './schema.js';
 import { defaultDates } from './dates.js';
+import {countryFields,defaultCountries,sharedCountryIds,saudiCountry} from './countries.js';
 import { cleanSignatures, cleanSignatureModes, signatureSlots, requiredSignatureSlots } from './signatures.js';
 import { cleanShared, reconcileShared, sharedCandidates } from './shared-fields.js';
 
@@ -16,7 +17,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
   const basePrefix=DRAFT_PREFIX+(accountId?'account.'+accountId+'.':'')+(scoped?audience+'.':'');
   const prefix=basePrefix+(accountId&&/^[a-f0-9]{32}$/.test(revisionId)?'revision.'+revisionId+'.':'');
   const memory=new Map(),failedKeys=new Set(),legacy=new Map();
-  let preferences={},profile={};
+  let preferences={},profile={},countryLanguage=null;
   const empty=()=>({values:{},signatures:{},signatureModes:{},step:0,shared:{},overrides:[]});
   function read(key,base=prefix){
     let raw;
@@ -47,20 +48,22 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       next.signature_mode=record.signatures?.applicant?'electronic':'manual';
       record={...record,values:next,overrides:[...(record.overrides||[]),...(old.applicant_name?['applicant_name']:[])]};
     }
-    const values={},shared={};
+    const values={},shared={},countryDefaults={},countryIds=new Set(countryFields(doc).map(f=>f.id));
     for(const field of doc.fields){
       const value=record?.values?.[field.id];
+      if(countryIds.has(field.id)&&value==='')values[field.id]='';
+      if(typeof record?.shared?.[field.id]==='string')shared[field.id]=record.shared[field.id];
       if(field.sum||!hasValue(value))continue;
       if(field.type==='choice'){
         const allowed=field.options.map(o=>o.value);
         if(field.multiple&&Array.isArray(value))values[field.id]=value.filter(v=>allowed.includes(v));
         else if(allowed.includes(value))values[field.id]=value;
       }else if(typeof value==='string')values[field.id]=value;
-      if(typeof record?.shared?.[field.id]==='string')shared[field.id]=record.shared[field.id];
+      if(countryIds.has(field.id)&&record?.countryDefaults?.[field.id]===value)countryDefaults[field.id]=value;
     }
     const signatures=cleanSignatures(doc,record?.signatures),signatureModes=cleanSignatureModes(doc,record?.signatureModes,signatures);
     for(const [id,mode] of Object.entries(signatureModes))if(mode==='manual')delete signatures[id];
-    return {...(record?.revision?{revision:record.revision}:{}),values,shared,overrides:Array.isArray(record?.overrides)?record.overrides.filter(id=>doc.fields.some(f=>f.id===id)):[],signatures,signatureModes,step:Math.max(0,Math.min(doc.sections.length-1,Math.trunc(Number(record?.step))||0))};
+    return {...(record?.revision?{revision:record.revision}:{}),values,shared,...(Object.keys(countryDefaults).length?{countryDefaults}:{}),overrides:Array.isArray(record?.overrides)?record.overrides.filter(id=>doc.fields.some(f=>f.id===id)):[],signatures,signatureModes,step:Math.max(0,Math.min(doc.sections.length-1,Math.trunc(Number(record?.step))||0))};
   }
   function persist(doc,record){
     memory.set(doc.id,record);
@@ -100,6 +103,17 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       if(Object.keys(values).length===Object.keys(record.values).length)return true;
       return persist(doc,{...record,values});
     },
+    initializeCountries(id,lang='en'){
+      const doc=documents.find(d=>d.id===id);if(!doc)return false;
+      countryLanguage=lang;
+      const record=this.get(id),next=defaultCountries(doc,record,lang);
+      return JSON.stringify(next)===JSON.stringify(record)||persist(doc,next);
+    },
+    initializeSharedCountries(lang='en'){
+      const next={...profile};
+      for(const id of sharedCountryIds(audience))if(!(id in next))next[id]=saudiCountry(lang);
+      return JSON.stringify(next)===JSON.stringify(profile)||this.setShared(next);
+    },
     has(id){const r=this.get(id);return Object.values(r.values).some(hasValue)||Object.keys(r.signatures).length>0||Object.values(r.signatureModes||{}).includes('electronic');},
     hasLegacy(id){const r=legacy.get(id);return Boolean(r&&(Object.values(r.values).some(hasValue)||Object.keys(r.signatures).length));},
     restoreLegacy(id){
@@ -116,7 +130,8 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       if(editedField&&!overrides.includes(editedField))overrides.push(editedField);
       const images=cleanSignatures(doc,signatures),signatureModes=cleanSignatureModes(doc,old.signatureModes,images);
       for(const [slot,mode] of Object.entries(signatureModes))if(mode==='manual')delete images[slot];
-      return persist(doc,reconcileShared(doc,{...old,values:{...values},signatures:images,signatureModes,step,overrides},profile,audience));
+      const next=reconcileShared(doc,{...old,values:{...values},signatures:images,signatureModes,step,overrides},profile,audience);
+      return persist(doc,countryLanguage?defaultCountries(doc,next,countryLanguage):next);
     },
     setSignatureMode(id,slot,mode){
       const doc=documents.find(d=>d.id===id);

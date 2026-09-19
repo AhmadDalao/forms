@@ -3,6 +3,7 @@ import {prepareSignature,submissionSigningState} from '../signatures.js';
 import {signingNotice,showSigningGuide} from '../portal/signing.js';
 import {normalizeSubscription,visibleFields,sectionProgress,missingRequired} from './model.js';
 import {rules,parseUnits,formatSubscriptionNumber} from './calculations.js';
+import {countryFields} from '../countries.js';
 import './style.css';
 import {reviewEnabled,formSaveLabel,toolModeNotice} from '../portal/workflow.js';
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -44,7 +45,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
  }
  function errorFor(id){return errors.includes(id)?`<small class="field-error">${t('Check this field. It is missing, invalid, or too long for the document.','راجع هذا الحقل: القيمة ناقصة أو غير صحيحة أو أطول من المساحة المتاحة في المستند.')}</small>`:'';}
  function field(f){
-  const value=values[f.id]??'',label=escape(t(f.label,f.ar)),shared=isShared(f),locked=shared&&f.id!=='applicant_name';
+  const value=values[f.id]??'',label=escape(t(f.label,f.ar)),shared=isShared(f),locked=shared&&f.id!=='applicant_name'&&!countryFields(doc).some(country=>country.id===f.id);
   if(f.type==='signature')return signature();
   if(f.type==='cards')return `<fieldset class="field sub-choice ${errors.includes(f.id)?'invalid':''}" data-field="${f.id}"><legend>${label}</legend><div class="sub-cards">${f.options.map(o=>`<label class="sub-option bilingual-card ${value===o.value?'selected':''}"><input type="radio" name="${f.id}" value="${o.value}" ${value===o.value?'checked':''}><span><b lang="ar" dir="rtl">${escape(o.ar)}</b><i aria-hidden="true"></i><small lang="en" dir="ltr">${escape(o.label)}</small></span></label>`).join('')}</div>${errorFor(f.id)}</fieldset>`;
   let input;
@@ -90,7 +91,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
   root.querySelector('[data-remove-signature]')?.addEventListener('click',()=>{if(busy)return;delete signatures.applicant;changed();render();});
   root.querySelector('#sub-reset').onclick=()=>root.querySelector('#sub-reset-dialog').showModal();
   root.querySelector('#sub-cancel-reset').onclick=()=>root.querySelector('#sub-reset-dialog').close();
-  root.querySelector('#sub-confirm-reset').onclick=()=>{if(busy)return;drafts.clear(doc.id);drafts.fillSharedBlanks(doc.id);values={...drafts.get(doc.id).values};signatures={};step=0;applicantEdited=false;errors=[];message='';changed();render();};
+  root.querySelector('#sub-confirm-reset').onclick=()=>{if(busy)return;drafts.clear(doc.id);drafts.fillSharedBlanks(doc.id);drafts.initializeCountries(doc.id,lang);values={...drafts.get(doc.id).values};signatures={};step=0;applicantEdited=false;errors=[];message='';changed();render();};
   if(pdf&&review)paint();lock();
  }
  function lock(){root.querySelectorAll('[data-sub-step],[data-review],[data-download],[data-submit],#sub-next,#sub-prev,#sub-home,#sub-edit-shared,#sub-reset,#subscription-fields input,#subscription-fields select,#subscription-fields button,#language,[data-home]').forEach(el=>{el.disabled=busy||(el.hasAttribute('data-submit')&&(!pdfBytes||(reviewEnabled()&&!signingState().ready)))||(el.id==='sub-prev'&&step===0)||(el.hasAttribute('data-sub-clear')&&!selectionIds.some(id=>values[id]));});}
