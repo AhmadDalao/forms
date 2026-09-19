@@ -117,8 +117,11 @@ try{
  await page.goto(base+'/account/?lang=en');await page.locator('[data-edit="'+signatureOriginal.id+'"]').click();await page.locator('.revision-banner').waitFor();
  await page.locator('[data-step="1"]').click();await page.locator('[data-signature-slot="specimen"] img').waitFor();assert.equal(await page.locator('[data-signature-mode="specimen"][value="electronic"]').isChecked(),true);assert.equal(await page.locator('[data-signature-slot="specimen"] img').getAttribute('src'),signature);
  await page.locator('[data-step="0"]').click();
- assert.equal(await page.locator('#f-client_name').inputValue(),original.answers.client_name);
- await page.locator('#f-client_name').fill('Updated client details');await page.reload();await page.locator('#f-client_name').waitFor();assert.equal(await page.locator('#f-client_name').inputValue(),'Updated client details');
+ const nameParts=['first','second','third','last'];
+ const clientName=async()=>{const values=[];for(const part of nameParts)values.push(await page.locator('[name=client_name_'+part+']').inputValue());return values.filter(Boolean).join(' ');};
+ assert.equal(await clientName(),original.answers.client_name);
+ for(const [i,part]of nameParts.entries())await page.locator('[name=client_name_'+part+']').fill(['Updated','client','','details'][i]);
+ await page.reload();await page.locator('[name=client_name_first]').waitFor();assert.equal(await clientName(),'Updated client details');
  assert.equal(await page.evaluate(id=>JSON.parse(localStorage.getItem('itqan.forms.v1.account.'+id+'.individual.signature-form')).values.client_name,accountA.id),'Unsubmitted work');
  await page.locator('#review-tab').click();await page.locator('#submit-form').click();await page.locator('[data-confirm]').click();await page.locator('.submitted-mark').waitFor();await page.locator('.submission-dialog [data-close]').click();
  let versions=(await call(a,'submissions')).submissions;const updated=versions.find(s=>s.doc_id==='signature-form'&&!s.archived_at);assert.equal(updated.version,2);

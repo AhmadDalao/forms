@@ -76,8 +76,8 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     const populated=Object.values(record.values).some(hasValue)||Object.keys(record.signatures).length||Object.values(record.signatureModes||{}).includes('electronic');
     return write(doc.id,scoped||populated?{...record,updatedAt:Date.now()}:null);
   }
-  function refresh(){
-    if(scoped)profile=cleanShared(audience,read('shared-fields',basePrefix));
+  function refresh({preserveShared=false}={}){
+    if(scoped&&!preserveShared)profile=cleanShared(audience,read('shared-fields',basePrefix));
     legacy.clear();
     for(const doc of documents){
       let record=read(doc.id);

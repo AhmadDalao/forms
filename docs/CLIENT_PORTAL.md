@@ -44,9 +44,19 @@ Previous-category submissions remain available to their owner and management for
 
 Anonymous document links and public blank PDFs retain their existing availability. Account categories govern the signed-in workflow and submission authorization; they are not a confidentiality restriction on the original blank templates.
 
+## Shared customer details saved to accounts
+
+Signed-in shared fields autosave to the private account database and hydrate before local defaults on subsequent visits, including a different browser/device. The shared panel is collapsed until opened. Individual and company profiles remain separate; account category changes do not copy either profile into the other. Guests keep browser-only drafts until signing in and choosing to continue them.
+
+`GET shared_profile` requires the current account ID and permitted audience. `POST shared_profile_save` requires authentication, CSRF, the same account/audience, a field patch and its expected revision. SQLite schema 6 stores `client_shared_profiles` separately from submissions. Only declared shared fields are accepted; signature images and arbitrary fields are rejected. Empty/cleared profiles retain a revision so registration details and default countries cannot silently refill them.
+
+The browser keeps pending edits for retry during connectivity failures and displays account save status independently of browser draft status. Concurrent changes to different fields merge; conflicting edits to the same field require choosing the account or browser details. Management can inspect the current saved data in the collapsed **Shared customer details** card on the client profile. Previously saved PDFs, submitted answers and archived snapshots stay unchanged.
+
+Legacy browser shared fields import only when the account has no shared profile yet. Existing account data wins over stale browser caches. Opted-in guest form answers are preserved as document-specific edits when the account already has a profile.
+
 ## Submissions
 
-Online submission explicitly sends the reviewed PDF, entered values and selected shared profile details to the server. Draft editing and signature images remain browser-local until the client submits. Draft keys are separated by account and audience. During sign-in from a guest form, the client can choose to carry over that folder's guest draft; unrelated account drafts are never imported.
+Online submission explicitly sends the reviewed PDF, entered values and selected shared profile details to the server. Document-specific draft edits and signature images remain browser-local until the client submits; shared customer fields autosave separately as described above. Draft keys are separated by account and audience. During sign-in from a guest form, the client can choose to carry over that folder's guest draft; unrelated account drafts are never imported.
 
 Signature controls appear inside the relevant signing step, using the subscription form's electronic/manual choices. There is no separate signature panel or signing-box selector. Each client, representative, staff member and additional signer has an independent choice and image; uploaded documents use the configured signature's page. Manual signing clears that slot's image and leaves its PDF area blank. Electronic signing reveals the upload control and needs an image before PDF review/download. Choices persist in browser draft metadata, independently of document answers. Existing saved images reopen as electronic signatures; submitted versions retain their original images and PDFs. The download-only consent document stays download-only.
 
@@ -81,6 +91,10 @@ Both accounts and management profiles expose **Version history**, including subm
 Mutation requests include the current version the user reviewed (`expectedCurrent`) and an idempotency key. A stale edit/replacement/restore receives HTTP 409 and leaves all existing submissions untouched. Retries reuse their key and do not create extra versions. A partial unique index enforces exactly one current row per chain. On the first API request after upgrade, a transactional, idempotent migration numbers existing submissions chronologically (row order breaks timestamp ties) and archives all but the latest per chain, without rewriting files or answer data.
 
 ## Verification
+
+- `tests/shared-sync.test.mjs` and `tests/portal-shared.test.mjs`: autosave, offline recovery, delayed writes, conflicts, deliberate clears, authenticated scopes and schema-6 migration.
+- `node scripts/shared-profiles-audit.mjs`: isolated real HTTP/API lifecycle, durable reload/restart, authorization, validation, concurrent updates, audience changes and immutable submission snapshots.
+- `node scripts/shared-account-browser-audit.mjs`: isolated real PHP/browser cross-device restore, guest continuation, stale cache, manual overrides, account separation/switching, persistent clearing and management visibility.
 
 - `tests/portal-signatures.test.mjs`: required and conditional signature policy, explicit manual choice, staff exclusions, PNG validation, and browser/server policy parity.
 - `npm test`: unit checks include account/audience draft isolation, separate version-edit drafts, original blank-field preservation, route roots, and legacy database migration without snapshot changes.

@@ -1,0 +1,63 @@
+{
+  "date": "2026-09-20",
+  "feature": "Private account shared customer profile autosave",
+  "unit_tests": {
+    "passed": 168,
+    "failed": 0,
+    "log": "tmp/shared-account-all-tests.log"
+  },
+  "build": {
+    "passed": true,
+    "log": "tmp/shared-account-build.log"
+  },
+  "browser_final": {
+    "groups": 8,
+    "page_errors": 0,
+    "report": "tmp/workflow-toggle-1789855126545-a5e9e8/shared-account-browser/report.json"
+  },
+  "offline_two_tabs": {
+    "passed": true,
+    "report": "tmp/shared-offline-tabs-browser-1789855057710/report.json"
+  },
+  "http_api": {
+    "groups": 6,
+    "report": "tmp/workflow-toggle-1789854647873-9261b0/shared-profiles/report.json"
+  },
+  "full_portal": {
+    "groups": 9,
+    "synthetic_submissions": 13,
+    "clients": 2,
+    "page_errors": 0,
+    "report": "tmp/portal-audit/results.json"
+  },
+  "ui_locales": {
+    "groups": 13,
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "viewports": [
+      1440,
+      390
+    ],
+    "reports": [
+      "tmp/shared-cloud-client-ui-1789854365528/report.json",
+      "tmp/shared-cloud-ui-1789854170671/report.json"
+    ]
+  },
+  "coverage": [
+    "Account and audience privacy",
+    "First save and cross-device hydration",
+    "Legacy and guest data import without replacing existing cloud profiles",
+    "Manual document overrides and frozen submission snapshots",
+    "Offline retry, delayed acknowledgements, two-tab journals and explicit conflict choices",
+    "Persistent deliberate clearing",
+    "Management read-only shared profile",
+    "Arabic and English UI, keyboard focus and mobile layout"
+  ],
+  "boundaries": [
+    "Account mutation tests used isolated local PHP and synthetic users; no test submissions or user-account edits on production.",
+    "Guest drafts and document-specific unfinished edits remain browser-local. Shared profile fields autosave only while signed in.",
+    "Shared autosave excludes signature images. Saved PDF versions remain immutable."
+  ]
+}

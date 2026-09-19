@@ -4,9 +4,9 @@ export const authChangeKey=portalStoragePrefix+'auth-change';
 export const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let csrf='';
 export const endpoint=(action,params={})=>`${appRoot}api/portal.php?${new URLSearchParams({action,...params})}`;
-export async function api(action,body,{token=csrf,params={}}={}){
+export async function api(action,body,{token=csrf,params={},keepalive=false}={}){
  const multipart=body instanceof FormData;
- const response=await fetch(endpoint(action,params),{method:body?'POST':'GET',credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(multipart?60000:15000),headers:body?{'X-CSRF-Token':token,...(multipart?{}:{'Content-Type':'application/json'})}:{},body:body?(multipart?body:JSON.stringify(body)):undefined});
+ const response=await fetch(endpoint(action,params),{method:body?'POST':'GET',credentials:'same-origin',cache:'no-store',keepalive:keepalive&&!multipart&&new TextEncoder().encode(JSON.stringify(body||{})).length<60000,signal:AbortSignal.timeout(multipart?60000:15000),headers:body?{'X-CSRF-Token':token,...(multipart?{}:{'Content-Type':'application/json'})}:{},body:body?(multipart?body:JSON.stringify(body)):undefined});
  let data;try{data=await response.json();}catch{throw Error('connection_failed');}
  if(data.workflow)receiveWorkflow(data.workflow);
  if(!response.ok)throw Object.assign(Error(data.error||'server_error'),{status:response.status});
@@ -66,7 +66,9 @@ export function importGuestDrafts(id,folder){
  const audience=folder==='companies'?'corporate':folder==='individuals'?'individual':null;if(!audience)return;
  try{
   const source=draftStoragePrefix+audience+'.',destination=draftStoragePrefix+'account.'+id+'.'+audience+'.';
-  for(const key of Object.keys(localStorage).filter(k=>k.startsWith(source))){if(localStorage.getItem(destination+key.slice(source.length))===null){localStorage.setItem(destination+key.slice(source.length),localStorage.getItem(key));localStorage.removeItem(key);}}
+  for(const key of Object.keys(localStorage).filter(k=>k.startsWith(source))){if(localStorage.getItem(destination+key.slice(source.length))===null){const suffix=key.slice(source.length);let value=localStorage.getItem(key);
+    if(!['shared-fields','preferences'].includes(suffix)){try{const record=JSON.parse(value);if(record?.values){record.overrides=[...new Set([...(record.overrides||[]),...Object.keys(record.values)])];value=JSON.stringify(record);}}catch{}}
+    localStorage.setItem(destination+suffix,value);localStorage.removeItem(key);}}
  }catch{/* A blocked browser store must not prevent login. */}
 }
 export const when=(value,lang='en')=>value?new Intl.DateTimeFormat(lang==='ar'?'ar-SA':'en-GB',{dateStyle:'medium',timeStyle:'short',timeZone:'Asia/Riyadh',calendar:'gregory'}).format(new Date(value)):'—';

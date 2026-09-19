@@ -1,0 +1,62 @@
+// Isolated private-profile API audit. Run after the final public build.
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import {randomBytes} from 'node:crypto';
+import {request} from 'playwright';
+import {fixture,digest} from './workflow-harness.mjs';
+
+const f=await fixture(),out=f.out+'/shared-profiles',contexts=[];
+await fs.mkdir(out,{recursive:true});
+const report={base:f.base,checks:[],passed:false,limits:['Isolated local build snapshot with synthetic accounts; no production requests.']};
+const api=(ctx,action,options)=>f.call(ctx,'portal',action,options);
+const pass=text=>{report.checks.push(text);console.log('PASS '+text);};
+const get=async(ctx,user,audience=user.account_type)=>(await api(ctx,'shared_profile',{params:{account:user.id,audience}})).shared;
+const save=async(ctx,user,revision,changes,status=200,audience=user.account_type)=>(await api(ctx,'shared_profile_save',{data:{account:user.id,audience,expectedRevision:revision,changes},status}));
+const shape=s=>({answers:s.answers,profile:s.profile,signatures:s.signatures,sha256:s.sha256,version:s.version,created_at:s.created_at});
+try{
+ for(const file of ['portal.php','portal-shared.php'])assert.equal(digest(await fs.readFile(f.out+'/site/api/'+file)),digest(await fs.readFile('public/api/'+file)),file+' must match source');
+ const context=async()=>{const ctx={request:await request.newContext()};contexts.push(ctx);return ctx;};
+ const a=await context(),second=await context(),b=await context(),other=await context(),anon=await context(),admin=await context(),owner=await context();
+ const password=randomBytes(24).toString('base64url')+'aA7!';await api(a,'session');
+ const user=(await api(a,'register',{data:{first_name:'Shared',last_name:'Profile',phone:'551900001',account_type:'individual',password,confirm:password},status:201})).user;
+ const company=await f.client(b,'corporate'),stranger=await f.client(other,'individual');await f.login(admin,'admin');await f.login(owner,'superadmin');
+ await api(second,'session');await api(second,'login',{data:{phone:user.phone,password}});await api(anon,'session');
+ assert.deepEqual(await get(a,user),{profile:{},revision:0,updated_at:null});assert.deepEqual(await get(b,company),{profile:{},revision:0,updated_at:null});
+ assert.equal(Object.hasOwn(await api(a,'session'),'shared'),false);assert.equal(Object.hasOwn(await api(a,'session'),'shared_profiles'),false);
+ await api(anon,'shared_profile',{params:{account:user.id,audience:'individual'},status:401});
+ await api(a,'shared_profile',{params:{account:stranger.id,audience:'individual'},status:409});await api(a,'shared_profile',{params:{account:user.id,audience:'corporate'},status:403});
+ pass('Authenticated account/audience scope, absent revision0, and private profile data excluded from public session');
+ const submission=await f.submit(a,user),original=(await api(a,'detail',{params:{id:submission.id}})).submission;
+ let state=(await save(a,user,0,{en_first:'Abdul ',en_second:' Ali ',en_third:'Hassan',en_last:'Family',city:'Riyadh',country:'',email:'partial@',also_residence:false})).shared;
+ assert.equal(state.profile.en_first,'Abdul ');assert.equal(state.profile.en_second,' Ali ');assert.equal(state.profile.en_middle,'Ali Hassan');assert.equal(state.profile.country,'');assert.equal(state.profile.also_residence,false);assert.equal(state.profile.email,'partial@');assert.equal(state.revision,1);assert.match(state.updated_at,/^20\d\d-/);
+ assert.deepEqual(await get(second,user),state);
+ let companyState=(await save(b,company,0,{company_name:'Independent Company',auth_first:'Authorized ',auth_second:'Second',auth_last:'Family',also_mail:false})).shared;
+ assert.equal(companyState.profile.auth_first,'Authorized ');assert.equal(companyState.profile.auth_name,'Authorized Second Family');assert.equal((await get(other,stranger)).revision,0);
+ pass('Two independent client sessions see durable typed values, blanks, false and canonical name aliases; company data stays separate');
+ const stale=state.revision;state=(await save(a,user,state.revision,{city:'Jeddah'})).shared;
+ assert.equal((await save(second,user,stale,{en_last:'Stale overwrite'},409)).error,'shared_profile_conflict');assert.deepEqual(await get(second,user),state);
+ state=(await save(second,user,state.revision,{postal:'00123'})).shared;assert.equal(state.profile.city,'Jeddah');assert.equal(state.profile.en_last,'Family');assert.equal(state.profile.postal,'00123');
+ pass('Stale autosaves return409 and refreshed patches preserve unrelated device edits');
+ const before=state;
+ for(const changes of [{signatures:{}},{en_middle:'Forged alias'},{company_name:'Wrong audience'},{country:'x'.repeat(2001)},{also_residence:'false'},{title:'invalid'},{country:'data:image/png;base64,AAAA'}])assert.equal((await save(a,user,state.revision,changes,400)).error,'invalid_request');
+ await api(a,'shared_profile_save',{data:{account:user.id,audience:'individual',expectedRevision:state.revision,changes:{city:'CSRF'}},headers:{'X-CSRF-Token':'invalid'},status:403});
+ await api(a,'shared_profile_save',{method:'get',status:405});await api(a,'shared_profile',{data:{account:user.id,audience:'individual'},status:405});
+ assert.deepEqual(await get(a,user),before);
+ pass('Unknown/signature/alias fields, invalid types/options/bounds, wrong methods and CSRF cannot mutate profiles');
+ const schemas=JSON.parse(await fs.readFile(f.out+'/site/api/client-profile-defaults.json','utf8'));
+ const clear=Object.fromEntries(schemas.individual.filter(field=>Object.hasOwn(state.profile,field.id)).map(field=>[field.id,null]));
+ state=(await save(a,user,state.revision,clear)).shared;assert.deepEqual(state.profile,{});assert.ok(state.revision>0);
+ await f.stop();await f.start();assert.deepEqual(await get(second,user),state);
+ const manager=(await api(admin,'admin_client',{params:{id:user.id}}));assert.deepEqual(manager.shared_profiles,[{audience:'individual',...state}]);
+ assert.deepEqual(shape((await api(admin,'admin_detail',{params:{id:original.id}})).submission),shape(original));
+ pass('Deliberate full clear persists as a revisioned tombstone across server restart; admin sees it and submitted snapshots stay unchanged');
+ await api(owner,'admin_account_type',{data:{id:user.id,account_type:'corporate',expected_type:'individual'}});
+ assert.equal((await save(second,user,state.revision,{en_first:'Queued old save'},403)).error,'account_type_restricted');await api(a,'shared_profile',{params:{account:user.id,audience:'individual'},status:403});
+ const switched={...user,account_type:'corporate'};assert.equal((await get(a,switched)).revision,0);
+ const switchedState=(await save(a,switched,0,{company_name:'Same account company'})).shared;
+ const rows=(await api(admin,'admin_client',{params:{id:user.id}})).shared_profiles;assert.deepEqual(rows,[{audience:'corporate',...switchedState},{audience:'individual',...state}]);assert.deepEqual(await get(b,company),companyState);
+ await api(owner,'admin_account_type',{data:{id:user.id,account_type:'individual',expected_type:'corporate'}});assert.deepEqual(await get(second,user),state);
+ pass('Queued saves cannot cross management audience changes; old audience data stays separate and returns intact after switching back');
+ report.passed=true;report.coverage={accounts:3,independentSessionsForSameClient:2,groups:report.checks.length,storedAudienceRows:3,originalSnapshotsPreserved:1};
+}catch(error){report.error=error.stack;throw error;}
+finally{await fs.writeFile(out+'/report.json',JSON.stringify(report,null,2));await Promise.all(contexts.map(ctx=>ctx.request.dispose()));await f.close();console.log('REPORT '+out+'/report.json');}

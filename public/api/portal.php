@@ -12,6 +12,7 @@ require_once __DIR__.'/portal-reviews.php';
 require_once __DIR__.'/portal-workflow.php';
 require_once __DIR__.'/portal-details.php';
 require_once __DIR__.'/portal-answers.php';
+require_once __DIR__.'/portal-shared.php';
 require_once __DIR__.'/management-auth.php';
 require_once __DIR__.'/session-scope.php';
 function reply(array $data, int $status=200): never { global $workflowReady; if(!empty($workflowReady)&&!isset($data['workflow']))$data['workflow']=workflowSettings(); http_response_code($status); echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR); exit; }
@@ -138,13 +139,14 @@ try {
     migrateAccountTypes();
     migrateReviews();
     migrateWorkflow();$workflowReady=true;
+    migrateSharedProfiles();
     $action=$_GET['action']??'session';$admin=str_starts_with($action,'admin_');
     $https=!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off';
     $scope=sessionScope($admin?'itqan_management':'itqan_client');session_name($scope['name']);ini_set('session.use_strict_mode','1');session_set_cookie_params(['lifetime'=>0,'path'=>$scope['path'],'secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);session_start();
     $_SESSION['csrf']??=bin2hex(random_bytes(24));
     if($admin)ownerRequired();
     if($_SERVER['REQUEST_METHOD']==='POST'&&(empty($_SERVER['HTTP_X_CSRF_TOKEN'])||!hash_equals($_SESSION['csrf'],$_SERVER['HTTP_X_CSRF_TOKEN'])))reject('csrf_invalid',403);
-    $mutations=['register','login','logout','password','profile','submit','sign_submission','admin_reset','admin_restore','admin_account_type','admin_review','admin_workflow_update','notification_read'];
+    $mutations=['register','login','logout','password','profile','shared_profile_save','submit','sign_submission','admin_reset','admin_restore','admin_account_type','admin_review','admin_workflow_update','notification_read'];
     if(in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='POST')reject('method',405);
     if(!in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='GET')reject('method',405);
     $now=gmdate('Y-m-d\TH:i:s\Z');$ip=$_SERVER['REMOTE_ADDR']??'local';
@@ -228,7 +230,7 @@ try {
     }
     if($action==='admin_client'){
         $u=execute('SELECT * FROM users WHERE id=?',[$_GET['id']??''])->fetch();if(!$u)reject('not_found',404);
-        reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'],null,true)]);
+        reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'],null,true),'shared_profiles'=>adminSharedProfiles($u['id'])]);
     }
     if($action==='admin_account_type'){
         if(!managementPermissions($managementDir)['change_account_type'])reject('account_type_forbidden',403);
@@ -252,6 +254,16 @@ try {
         reply(saveVersion($s,$dataDir.'/pdfs/'.$s['id'].'.pdf',$expected,'owner_restore'),201);
     }
     $u=$admin?null:currentUser(true,$action==='password');
+    if($action==='shared_profile'||$action==='shared_profile_save'){
+        $b=$action==='shared_profile'?$_GET:body();
+        if(($b['account']??null)!==$u['id'])reject('account_changed',409);
+        $audience=accountType($b['audience']??null);
+        if($audience!==$u['account_type'])reject('account_type_restricted',403);
+        if($action==='shared_profile')reply(['shared'=>clientSharedProfile($u['id'],$audience)]);
+        $revision=$b['expectedRevision']??null;
+        if(!is_int($revision)||$revision<0||!array_key_exists('changes',$b))reject('invalid_request');
+        reply(['shared'=>saveSharedProfile($u['id'],$audience,$revision,$b['changes'])]);
+    }
     if($action==='password'){
         rate('password:'.$u['id'],10,900);$b=body();$old=$b['current']??'';if(!is_string($old)||!password_verify($old,$u['password']))reject('current_password_invalid',401);
         $password=passwordValue($b['password']??'');if($password!==($b['confirm']??''))reject('password_mismatch');if(password_verify($password,$u['password']))reject('password_different');
@@ -355,5 +367,5 @@ try {
         $zip->close();attachment('application/zip',fileName($u['name']).($history?'-history':'').'.zip');header('Content-Length: '.filesize($tmp));session_write_close();readfile($tmp);unlink($tmp);exit;
     }
     reject('not_found',404);
-}catch(DomainException $e){reject($e->getMessage(),match($e->getMessage()){'account_type_restricted'=>403,'not_found'=>404,default=>409});}
+}catch(DomainException $e){reject($e->getMessage(),match($e->getMessage()){'invalid_request'=>400,'account_type_restricted'=>403,'not_found'=>404,default=>409});}
 catch(Throwable $e){error_log('Client portal: '.$e->getMessage());reject('server_error',500);}

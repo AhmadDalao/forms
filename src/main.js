@@ -22,6 +22,7 @@ import {countryFields} from './countries.js';
 import {appRoot,audience,visibleIn} from './routes.js';
 import {createDraftStore,DRAFT_PREFIX} from './drafts.js';
 import {sharedGroups,sharedCandidates,sharedFieldVisible} from './shared-fields.js';
+import {createSharedSync} from './shared-sync.js';
 import {personNameFieldVisible,personNameGroups} from './person-names.js';
 import {parseNumber} from './numbers.js';
 import {signatureSlots,sectionSignatureSlots,prepareSignature,submissionSigningState,requiredSignatureSlots} from './signatures.js';
@@ -30,7 +31,11 @@ import {generate,original,loadPreview,renderPage,templateUrl,fieldValue} from '.
 const app=document.querySelector('#app');
 const pageParams=new URLSearchParams(location.search),revisionId=pageParams.get('submission'),openSharedOnLoad=pageParams.get('shared')==='1';
 const drafts=createDraftStore(docs,undefined,audience,client.user?.id,revisionId);
-if(client.user&&audience==='individual'&&Object.keys(drafts.profile).every(key=>key==='country')){
+let sharedReady=false;
+const sharedSync=client.user&&audience?createSharedSync({account:client.user.id,audience,drafts,api:(action,body,options={})=>portalApi(action,body,{...options,token:client.csrf}),onChange:()=>{if(sharedReady)sharedProfileChanged();},onStatus:()=>{if(sharedReady)sharedStatus();}}):null;
+await sharedSync?.start();
+const initializeShared=!sharedSync||sharedSync.state.canInitialize;
+if(initializeShared&&client.user&&audience==='individual'&&Object.keys(drafts.profile).every(key=>key==='country')){
  const parts=client.user.name.trim().split(/\s+/),first=parts.shift(),last=parts.length?parts.pop():'',second=parts.shift()||'',third=parts.join(' '),language=/\p{Script=Arabic}/u.test(client.user.name)?'ar':'en';
  drafts.setShared({...drafts.profile,[language+'_first']:first,[language+'_second']:second,[language+'_third']:third,[language+'_last']:last,name_language:language,mobile:client.user.phone,...(client.user.email?{email:client.user.email}:{})});
 }
@@ -44,7 +49,7 @@ function manualSigningGuide(force=false,downloaded=false){
  manualGuideShown=true;showSigningGuide({doc:current,lang,onDownload:!downloaded&&pdfBytes?download:null});
 }
 let lang=['en','ar'].includes(pageParams.get('lang'))?pageParams.get('lang'):drafts.preferences.lang||portalLanguage();
-drafts.initializeSharedCountries(lang);
+if(initializeShared){drafts.initializeSharedCountries(lang);sharedSync?.change(drafts.profile);}
 let current=null,step=0,values={},signatures={},signatureMessages={},pageNumber=1,pdf=null,pdfBytes=null,review=false,busy=false,errors=[],generation=0,downloadFile=null,previewVisible=false;
 
 const t=(en,ar)=>lang==='ar'?(ar||en):(en||ar);
@@ -71,11 +76,40 @@ function sharedHTML(){
  if(!audience)return '';
  const profile=drafts.profile,folder=t(audience==='individual'?'Individuals':'Companies',audience==='individual'?'الأفراد':'الشركات');
  return `<details id="shared-fields-panel" class="shared-fields-panel" ${sharedPanelOpen?'open':''}>
- <summary><span><b>${t('Shared document fields','الحقول المشتركة للمستندات')}</b><small>${t('Fill once, reuse in this folder','عبّئ مرة واحدة واستخدمها في هذا المجلد')} · ${folder}</small></span></summary>
+ <summary><span><b>${t('Shared document fields','الحقول المشتركة للمستندات')}</b><small>${t('Fill once, reuse in this folder','عبّئ مرة واحدة واستخدمها في هذا المجلد')} · ${folder}</small><small data-shared-save-status role="status" aria-live="polite">${sharedSaveLabel()}</small></span></summary>
  <div class="shared-fields-content"><p>${t('Matching fields fill automatically in this folder only. Edits inside a form stay specific to that form. Additional clients, witnesses and controlling persons remain separate.','تُعبّأ الحقول المتطابقة تلقائيًا في هذا المجلد فقط. التعديلات داخل النموذج تخص ذلك النموذج وحده. تبقى بيانات العملاء الإضافيين والشهود والأشخاص المسيطرين منفصلة.')}</p>
  <form id="shared-fields-form" novalidate>${sharedGroups(audience).map(group=>sharedGroupHTML(group,profile)).join('')}</form>
- <div class="shared-actions"><span data-save-status>${saveLabel()}</span>${current?`<button class="button secondary" id="fill-shared-blanks">${t('Fill empty fields in this form','تعبئة الحقول الفارغة في هذا النموذج')}</button>`:''}<button class="ghost" id="clear-shared">${t('Clear shared fields','مسح الحقول المشتركة')}</button></div></div></details>
+ <div class="shared-actions"><span data-shared-save-status>${sharedSaveLabel()}</span>${current?`<button class="button secondary" id="fill-shared-blanks">${t('Fill empty fields in this form','تعبئة الحقول الفارغة في هذا النموذج')}</button>`:''}<button class="ghost" id="clear-shared">${t('Clear shared fields','مسح الحقول المشتركة')}</button></div></div></details><div class="shared-sync-notice" data-shared-sync-actions hidden></div>
  <dialog id="clear-shared-dialog"><h2>${t('Clear shared fields?','مسح الحقول المشتركة؟')}</h2><p>${t('Removes this folder’s shared details and their automatically copied answers. Your individual edits and the other folder are kept.','يحذف بيانات هذا المجلد المشتركة والإجابات المنسوخة منها تلقائيًا. يُحتفظ بتعديلاتك الخاصة بكل نموذج وبالمجلد الآخر.')}</p><div class="dialog-actions"><button class="button secondary" id="keep-shared">${t('Keep details','الاحتفاظ بالبيانات')}</button><button class="button primary" id="confirm-clear-shared">${t('Clear shared fields','مسح الحقول المشتركة')}</button></div></dialog>`;
+}
+function sharedSaveLabel(){
+ if(!sharedSync)return t('Sign in to save shared details to your account','سجّل الدخول لحفظ البيانات المشتركة في حسابك');
+ const status=sharedSync.state.status;
+ if(status==='saved')return t('Shared details saved to account','البيانات المشتركة محفوظة في الحساب');
+ if(status==='loading')return t('Loading shared account details…','جارٍ تحميل بيانات الحساب المشتركة…');
+ if(status==='saving')return t('Saving shared details to account…','جارٍ حفظ البيانات المشتركة في الحساب…');
+ if(status==='conflict')return t('Shared details changed on another device','تغيّرت البيانات المشتركة على جهاز آخر');
+ return drafts.available?t('Offline — shared details saved in this browser','غير متصل — البيانات المشتركة محفوظة في هذا المتصفح'):t('Shared details are not saved — keep this tab open','البيانات المشتركة غير محفوظة — أبقِ هذه الصفحة مفتوحة');
+}
+function sharedStatus(){
+ const status=sharedSync?.state.status;
+ document.querySelectorAll('[data-shared-save-status]').forEach(node=>{node.textContent=sharedSaveLabel();node.classList.toggle('save-failed',['offline','conflict'].includes(status));});
+ const actions=document.querySelector('[data-shared-sync-actions]');if(!actions)return;
+ actions.hidden=!['offline','conflict'].includes(status);
+ const markup=status==='conflict'?`<p>${t('Choose which shared details to keep. Your saved PDFs and archived versions stay unchanged.','اختر البيانات المشتركة التي تريد الاحتفاظ بها. تبقى ملفات PDF المحفوظة والنسخ المؤرشفة دون تغيير.')}</p><div><button type="button" class="button secondary" data-shared-resolve="remote">${t('Use account details','استخدام بيانات الحساب')}</button><button type="button" class="button secondary" data-shared-resolve="local">${t('Keep my browser details','الاحتفاظ ببيانات هذا المتصفح')}</button></div>`:status==='offline'?`<p>${t('Account saving is unavailable. Retry to save your shared details to your account.','الحفظ في الحساب غير متاح. أعد المحاولة لحفظ بياناتك المشتركة في الحساب.')}</p><button type="button" class="button secondary" data-shared-retry>${t('Retry account save','إعادة محاولة الحفظ في الحساب')}</button>`:'';
+ if(actions.innerHTML!==markup)actions.innerHTML=markup;
+ const retry=actions.querySelector('[data-shared-retry]');if(retry)retry.onclick=()=>sharedSync.retry();
+ actions.querySelectorAll('[data-shared-resolve]').forEach(button=>button.onclick=()=>sharedSync.resolve(button.dataset.sharedResolve));
+}
+function sharedProfileChanged(){
+ if(subscriptionEditor){subscriptionEditor.refresh();return;}
+ const controls=[...document.querySelectorAll('[data-shared-key]')],profile=drafts.profile;
+ const visible=sharedGroups(audience).flatMap(group=>group.fields).filter(field=>!field.hidden&&sharedFieldVisible(field,profile));
+ if(!current&&controls.length&&controls.length===visible.length&&controls.every(input=>visible.some(field=>field.id===input.dataset.sharedKey))){
+  for(const input of controls){const value=profile[input.dataset.sharedKey]??(input.dataset.sharedKey==='name_language'?'en':'');if(input.type==='checkbox')input.checked=Boolean(value);else if(input.value!==String(value))input.value=value;}
+  refreshAfterShared(true);sharedStatus();return;
+ }
+ refreshAfterShared();
 }
 function refreshAfterShared(typing=false){
  const wasReview=review;
@@ -113,17 +147,20 @@ function bindShared(){
  const panel=document.querySelector('#shared-fields-panel');if(!panel)return;
  panel.ontoggle=()=>{sharedPanelOpen=panel.open;};
  document.querySelector('#shared-fields-form').onsubmit=ev=>ev.preventDefault();
+ document.querySelector('#shared-fields-form').onfocusout=ev=>{if(ev.target.dataset.sharedKey)sharedSync?.flush();};
  document.querySelector('#shared-fields-form').oninput=ev=>{
   const key=ev.target.dataset.sharedKey;if(!key)return;
   sharedPanelOpen=true;
   drafts.setShared({...drafts.profile,[key]:ev.target.type==='checkbox'?ev.target.checked:ev.target.value});
+  sharedSync?.change(drafts.profile);
   const changesFields=sharedGroups(audience).some(g=>g.fields.some(f=>f.dependsOn===key));
   refreshAfterShared(!changesFields);
  };
  document.querySelector('#clear-shared').onclick=()=>document.querySelector('#clear-shared-dialog').showModal();
  document.querySelector('#keep-shared').onclick=()=>document.querySelector('#clear-shared-dialog').close();
- document.querySelector('#confirm-clear-shared').onclick=()=>{drafts.setShared({});refreshAfterShared();};
+ document.querySelector('#confirm-clear-shared').onclick=()=>{drafts.setShared({});sharedSync?.change(drafts.profile);refreshAfterShared();};
  document.querySelector('#fill-shared-blanks')?.addEventListener('click',()=>{drafts.fillSharedBlanks(current.id);refreshAfterShared();});
+ sharedStatus();
 }
 function sharedHint(id){
  if(!current)return '';
@@ -167,7 +204,7 @@ function renderHome(){
   bindCommon();return;
  }
  app.innerHTML=header()+`<main class="home"><div class="intro"><span class="eyebrow">${t('DOCUMENT CENTRE','مركز المستندات')}</span><h1>${audience?t(audience==='individual'?'Individual forms':'Company forms',audience==='individual'?'نماذج الأفراد':'نماذج الشركات'):t('Your forms. Ready to sign.','نماذجك، جاهزة للتوقيع.')}</h1><p>${t('Choose a document, fill in your details, then download your PDF.','اختر المستند، أدخل بياناتك، ثم نزّل ملفك بصيغة PDF.')}</p><div class="flow"><span><b>1</b>${t('Choose','اختر')}</span><i></i><span><b>2</b>${t('Fill & review','عبّئ وراجع')}</span><i></i><span><b>3</b>${reviewEnabled()?t('Download & sign','نزّل ووقّع'):t('Save or download','احفظ أو نزّل')}</span></div></div><div class="saved-controls"><span data-save-status>${saveLabel()}</span><button class="ghost" id="clear-all">${t('Clear all saved forms','مسح جميع النماذج المحفوظة')}</button></div>${sharedHTML()}<div class="catalogue"><div class="cards">${catalogueFor(docs,audience,managedCards).map(cardHTML).join('')}</div></div><aside class="home-note">${icon('file',22)}<div><b>${t('Original documents. Your details.','المستندات الأصلية، ببياناتك.')}</b><p><span data-workflow-home-note>${reviewEnabled()?t('The original layout is preserved. Add electronic signatures to submit online, or download, sign and upload the signed PDF from My applications.','يُحفظ تنسيق المستند الأصلي. أضف التوقيعات الإلكترونية للإرسال المباشر، أو نزّل ملف PDF ووقّعه ثم ارفعه من صفحة طلباتي.'):t('Fill your forms, save a copy to your account, or download them. Signing is optional; management review is switched off.','عبّئ نماذجك واحفظ نسخة في حسابك أو نزّلها. التوقيع اختياري والمراجعة الإدارية معطّلة.')}</span></p></div></aside></main>`+footer()+`<dialog id="clear-all-dialog"><h2>${t('Clear all saved forms?','مسح جميع النماذج المحفوظة؟')}</h2><p>${t('This removes shared fields, drafts and signatures in this folder only. The other folder is kept. Download any PDFs you want to keep first.','ستُحذف الحقول المشتركة والمسودات والتوقيعات في هذا المجلد فقط. يُحتفظ بالمجلد الآخر. نزّل المستندات التي تريد الاحتفاظ بها أولًا.')}</p><div class="dialog-actions"><button class="button secondary" id="clear-all-cancel">${t('Keep drafts','الاحتفاظ بالمسودات')}</button><button class="button primary" id="clear-all-confirm">${t('Clear all','مسح الكل')}</button></div></dialog>`;
- bindCommon();bindShared();document.querySelectorAll('[data-restore-legacy]').forEach(button=>button.onclick=()=>{drafts.restoreLegacy(button.dataset.restoreLegacy);selectDoc(button.dataset.restoreLegacy);});document.querySelector('#clear-all').onclick=()=>document.querySelector('#clear-all-dialog').showModal();document.querySelector('#clear-all-cancel').onclick=()=>document.querySelector('#clear-all-dialog').close();document.querySelector('#clear-all-confirm').onclick=()=>{drafts.clearAll();render();};document.querySelectorAll('[data-doc]').forEach(btn=>btn.onclick=()=>selectDoc(btn.dataset.doc));
+ bindCommon();bindShared();document.querySelectorAll('[data-restore-legacy]').forEach(button=>button.onclick=()=>{drafts.restoreLegacy(button.dataset.restoreLegacy);selectDoc(button.dataset.restoreLegacy);});document.querySelector('#clear-all').onclick=()=>document.querySelector('#clear-all-dialog').showModal();document.querySelector('#clear-all-cancel').onclick=()=>document.querySelector('#clear-all-dialog').close();document.querySelector('#clear-all-confirm').onclick=()=>{drafts.clearAll();sharedSync?.change(drafts.profile);render();};document.querySelectorAll('[data-doc]').forEach(btn=>btn.onclick=()=>selectDoc(btn.dataset.doc));
 }
 async function selectDoc(id){if(!docs.some(d=>d.id===id&&visibleIn(d,audience)))return;previewVisible=false;clearDownload();paintVersion++;if(pdf)pdf.loadingTask.destroy();current=docs.find(d=>d.id===id);manualGuideShown=false;drafts.initializeDates(id);drafts.initializeCountries(id,lang);values={...drafts.get(id).values};signatures={...drafts.get(id).signatures};signatureMessages={};step=drafts.has(id)?drafts.get(id).step:0;pageNumber=current.sections[step].page;drafts.setPreferences({active:id,lang});review=false;pdfBytes=null;errors=[];pdf=null;render();window.scrollTo(0,0);await showOriginal();}
 async function showOriginal(){if(!current||!previewVisible)return;const g=++generation,d=current;try{const loaded=await loadPreview(await original(d));if(g!==generation){loaded.loadingTask.destroy();return;}if(pdf)pdf.loadingTask.destroy();pdf=loaded;await paint();}catch(err){if(g===generation)showStatus(t('Unable to load the PDF. Check your connection and retry.','تعذّر تحميل المستند. تحقق من اتصالك وأعد المحاولة.'),true);}}
@@ -353,9 +390,10 @@ function savePDF(bytes,name){
 function download(){if(pdfBytes){savePDF(pdfBytes,`${current.id}-filled.pdf`);manualSigningGuide(false,true);}}
 window.addEventListener('beforeunload',ev=>{if(!drafts.available&&(Object.keys(drafts.profile).length||docs.some(d=>drafts.has(d.id)))){ev.preventDefault();ev.returnValue='';}});
 window.addEventListener('storage',ev=>{
- if(ev.key===authChangeKey){location.reload();return;}
+ if(ev.key===authChangeKey){sharedSync?.dispose();location.reload();return;}
+ if(sharedSync&&(ev.key===drafts.basePrefix+'shared-fields'||ev.key?.startsWith(drafts.basePrefix+'shared-sync')))return;
  if(ev.key!==null&&!ev.key.startsWith(drafts.prefix)&&ev.key!==drafts.basePrefix+'shared-fields'&&!['signature-form','terms-and-conditions'].some(id=>ev.key===DRAFT_PREFIX+id))return;
- drafts.refresh();
+ drafts.refresh({preserveShared:Boolean(sharedSync)});
  if(subscriptionEditor){subscriptionEditor.refresh();return;}
  if(current&&(ev.key===null||ev.key===drafts.prefix+current.id||ev.key===drafts.prefix+'shared-fields')){
   clearDownload();generation++;paintVersion++;values={...drafts.get(current.id).values};signatures={...drafts.get(current.id).signatures};signatureMessages={};step=drafts.get(current.id).step;pageNumber=current.sections[step].page;review=false;pdfBytes=null;errors=[];render();showOriginal();
@@ -380,6 +418,7 @@ if(revisionId){
   }
  }catch(err){editError=err;}
 }
+sharedReady=true;
 const resume=docs.find(d=>d.id===drafts.preferences.active&&drafts.has(d.id)&&visibleIn(d,audience));
 if(editError){app.innerHTML=header()+`<main class="workspace"><p role="alert">${e(portalError(editError,lang))}</p><a class="button primary" href="${appRoot}my-applications/">${t('Back to my applications','العودة إلى طلباتي')}</a></main>`;bindCommon();}
 else if(editing)selectDoc(editing.id);else if(resume&&!openSharedOnLoad)selectDoc(resume.id);else render();

@@ -75,13 +75,16 @@
 @media(max-width:760px){.shared-fields-content .shared-name-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.shared-fields-content .shared-name-grid{grid-template-columns:minmax(0,1fr)}}
 .shared-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:17px}
-.shared-actions>[data-save-status]{margin-inline-end:auto}.shared-actions .ghost{color:var(--purple);font-size:12px}
+.shared-actions>[data-shared-save-status]{margin-inline-end:auto}.shared-actions .ghost{color:var(--purple);font-size:12px}
+.shared-fields-panel>summary [data-shared-save-status]{font-size:11px;color:var(--purple)}
+.shared-sync-notice{margin:-14px 0 28px;padding:16px 20px;border:1px solid #dccca9;border-radius:10px;background:#fffaf1;color:#6b532e;font-size:13px;line-height:1.8}
+.shared-sync-notice p{margin:0 0 12px}.shared-sync-notice>div{display:flex;flex-wrap:wrap;gap:10px}.shared-sync-notice .button{font-size:12px;white-space:normal;text-align:center}
 .shared-address-option{display:flex!important;align-items:flex-start;gap:10px!important;font-size:13px!important}
 .shared-address-option input{margin-top:4px;accent-color:#1456a0;flex-shrink:0}
 .shared-hint{display:block;margin-top:5px;font-size:11px;color:#6b577b;line-height:1.6}
 button.shared-hint{padding:0;text-decoration:underline;text-underline-offset:3px}
 .card-actions:has(.restore-legacy){justify-content:space-between;gap:12px;flex-wrap:wrap}.restore-legacy{font-size:11px;color:var(--purple);text-align:start}
-@media(max-width:760px){.shared-fields-content{padding:19px}.shared-fields-panel>summary{padding:17px}.shared-actions{align-items:flex-start}.shared-actions>[data-save-status]{width:100%}}
+@media(max-width:760px){.shared-fields-content{padding:19px}.shared-fields-panel>summary{padding:17px}.shared-actions{align-items:flex-start}.shared-actions>[data-shared-save-status]{width:100%}}
 
 /* One ordered catalogue; shared status stays inside its card. */
 .card-number{display:grid;place-items:center;flex-shrink:0;width:40px;height:40px;border-radius:10px;background:#f1edf5;color:var(--purple);font-size:20px;font-weight:600;direction:ltr}
