@@ -1,0 +1,647 @@
+{
+  "site": "https://forms.ahmaddalao.com/",
+  "source_commit": "31de805f7d5d5f6fd30352ec7816688bcf27f040",
+  "changes": [
+    "One shared header renderer and stylesheet across authentication, document catalogues/editors, client accounts/profile/password and management.",
+    "Shared sign-in-style white rounded surface, logos, spacing, purple language button and navigation action styles.",
+    "Existing notification, language, sign-out, form navigation and admin/superadmin controls preserved.",
+    "Removed conflicting page-specific header dimensions and obsolete management header span styling."
+  ],
+  "build": "passed",
+  "local_ui": {
+    "result": "pass",
+    "completed": "2026-09-19T18:47:16.363Z",
+    "localOnly": true,
+    "productionMutations": false,
+    "totalHeaderLayouts": 274,
+    "reports": [
+      {
+        "file": "tmp/unified-header-audit/report.json",
+        "result": "pass",
+        "engine": "chrome",
+        "layouts": 186,
+        "languages": [
+          "en",
+          "ar"
+        ],
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "browserErrors": []
+      },
+      {
+        "file": "tmp/unified-header-audit/breakpoints/report.json",
+        "result": "pass",
+        "engine": "chrome",
+        "layouts": 44,
+        "languages": [
+          "ar"
+        ],
+        "widths": [
+          601,
+          768,
+          1024,
+          1101
+        ],
+        "browserErrors": []
+      },
+      {
+        "file": "tmp/unified-header-audit/firefox-final/report.json",
+        "result": "pass",
+        "engine": "firefox",
+        "layouts": 22,
+        "languages": [
+          "ar"
+        ],
+        "widths": [
+          1440,
+          320
+        ],
+        "browserErrors": []
+      },
+      {
+        "file": "tmp/unified-header-audit/webkit-final/report.json",
+        "result": "pass",
+        "engine": "webkit",
+        "layouts": 22,
+        "languages": [
+          "ar"
+        ],
+        "widths": [
+          1440,
+          320
+        ],
+        "browserErrors": []
+      }
+    ],
+    "checks": [
+      "Same white rounded surface, border, padding and purple language control as sign-in",
+      "Responsive logo and action layout without overlapping/offscreen/clipped header controls",
+      "Working language switch, client notification link/unread count, management pending-review bell and logout",
+      "Individual/company client links retain audience; only superadmin sees document and account-type controls"
+    ],
+    "visualReview": [
+      "Chrome English desktop superadmin",
+      "Chrome Arabic 390px superadmin",
+      "Chrome English 390px client catalogue",
+      "WebKit Arabic 320px superadmin and sign-in",
+      "Firefox Arabic 320px client catalogue"
+    ],
+    "testHarnessNotes": [
+      "One supplemental Firefox attempt collided with dist rebuild (missing dist/api/defaults.json); final supplemental runs use immutable isolated dist snapshots and all passed.",
+      "A WebKit rapid rerender exposed a stale locator in the audit; reading the live DOM atomically fixed the harness.",
+      "Notification count badges deliberately overhang their 44px button; those badges were excluded from the text clipping assertion."
+    ]
+  },
+  "deployment_manifest": "docs/deployment-manifest.json",
+  "verified_at": "2026-09-19T18:51:34.621475+00:00",
+  "live": {
+    "checks": [
+      {
+        "page": "/login/",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/register/",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/individuals/",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/companies/",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "subscription-form",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "kyc-corporate",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/login/",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/register/",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/individuals/",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/companies/",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "subscription-form",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "kyc-corporate",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/login/",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/register/",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/individuals/",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/companies/",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "subscription-form",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "kyc-corporate",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/login/",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/register/",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/individuals/",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "/companies/",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "subscription-form",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "kyc-corporate",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin management",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin reviews",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin clients",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin management",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin reviews",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin clients",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin management",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin reviews",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin clients",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin management",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin reviews",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "admin clients",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin management",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin reviews",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin clients",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin documents",
+        "lang": "en",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin management",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin reviews",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin clients",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin documents",
+        "lang": "en",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin management",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin reviews",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin clients",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin documents",
+        "lang": "ar",
+        "width": 1440,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin management",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin reviews",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin clients",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      },
+      {
+        "page": "superadmin documents",
+        "lang": "ar",
+        "width": 390,
+        "sharedHeader": true,
+        "logos": true,
+        "actionsWithinHeader": true,
+        "noOverflow": true
+      }
+    ],
+    "errors": [],
+    "blockedWrites": [],
+    "submissionMutations": 0,
+    "passed": true
+  },
+  "live_routes": [
+    {
+      "route": "/register/",
+      "status": 200
+    },
+    {
+      "route": "/login/",
+      "status": 200
+    },
+    {
+      "route": "/my-applications/",
+      "status": 200
+    },
+    {
+      "route": "/management/",
+      "status": 200
+    },
+    {
+      "route": "/individuals/",
+      "status": 200
+    },
+    {
+      "route": "/companies/",
+      "status": 200
+    },
+    {
+      "route": "/_private/portal/clients.sqlite",
+      "status": 403
+    },
+    {
+      "route": "/.env.local",
+      "status": 403
+    }
+  ],
+  "safety": "Only public build deployed; overwritten public files backed up. Existing production credentials, private storage, submissions and archived versions preserved. Live checks did not mutate forms, profiles or catalogue data."
+}
