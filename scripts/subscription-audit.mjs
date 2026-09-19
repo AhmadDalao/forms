@@ -42,7 +42,7 @@ try{
    assert.equal(await page.locator('[name="email"]').getAttribute('dir'),'ltr');
   }
   await page.locator('#sub-next').click();
-  assert.equal(await page.locator('[data-sub-clear]').count(),2);
+  assert.equal(await page.locator('[data-sub-clear]').count(),1);
   for(const id of ['unit_price','fund_name','currency','amount_subscribed','subscription_fee','total_amount','total_words'])assert.equal(await page.locator(`input[name="${id}"]`).count(),0);
   await page.locator('[name="subscription_type"][value="additional"]').check();await page.locator('[name="payment_method"][value="cheque"]').check();await page.locator('[name="units"]').fill(scenario.units);
   const calculated=calculateSubscription(scenario.units);assert.equal(await page.locator('[data-computed="total_words"]').innerText(),calculated.total_words);

@@ -9,6 +9,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
  let lang='en',record=drafts.get(doc.id),values,signatures={...record.signatures},step=record.step,review=false,busy=false,pdf=null,pdfBytes=null,downloadUrl=null,token=0,paintToken=0,disposed=false,errors=[],message='';
  let applicantEdited=record.overrides.includes('applicant_name');
  const t=(en,ar)=>lang==='ar'?ar:en;
+ const selectionIds=['subscription_type','payment_method'];
  const normalize=()=>{values=normalizeSubscription(doc,values,{applicantEdited});};
  function refresh(){record=drafts.get(doc.id);values={...record.values};signatures={...record.signatures};step=record.step;applicantEdited=record.overrides.includes('applicant_name');normalize();invalidate();}
  refresh();
@@ -41,7 +42,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
  function field(f){
   const value=values[f.id]??'',label=escape(t(f.label,f.ar)),shared=isShared(f),locked=shared&&f.id!=='applicant_name';
   if(f.type==='signature')return signature();
-  if(f.type==='cards')return `<fieldset class="field sub-choice ${errors.includes(f.id)?'invalid':''}" data-field="${f.id}"><legend>${label}</legend><div class="sub-cards">${f.options.map(o=>`<label class="sub-option bilingual-card ${value===o.value?'selected':''}"><input type="radio" name="${f.id}" value="${o.value}" ${value===o.value?'checked':''}><span><b lang="ar" dir="rtl">${escape(o.ar)}</b><i aria-hidden="true"></i><small lang="en" dir="ltr">${escape(o.label)}</small></span></label>`).join('')}</div><button type="button" class="clear-choice" data-sub-clear="${f.id}">${t('Clear selection','مسح الاختيار')}</button>${errorFor(f.id)}</fieldset>`;
+  if(f.type==='cards')return `<fieldset class="field sub-choice ${errors.includes(f.id)?'invalid':''}" data-field="${f.id}"><legend>${label}</legend><div class="sub-cards">${f.options.map(o=>`<label class="sub-option bilingual-card ${value===o.value?'selected':''}"><input type="radio" name="${f.id}" value="${o.value}" ${value===o.value?'checked':''}><span><b lang="ar" dir="rtl">${escape(o.ar)}</b><i aria-hidden="true"></i><small lang="en" dir="ltr">${escape(o.label)}</small></span></label>`).join('')}</div>${errorFor(f.id)}</fieldset>`;
   let input;
   if(f.readOnly)input=`<output id="sub-${f.id}" data-computed="${f.id}" class="sub-computed" dir="${f.id==='total_words'?'rtl':'auto'}">${escape(shownValue(f)||'—')}</output>`;
   else if(locked){const option=f.selectOptions?.find(o=>o[0]===value);input=`<div class="sub-shared-value" id="sub-${f.id}" dir="${f.direction==='ltr'?'ltr':'auto'}">${escape(option?t(option[1],option[2]):value)}</div><small class="shared-hint">${t('From your shared details','من بياناتك المشتركة')}</small>`;}
@@ -56,8 +57,9 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
    return `<div class="sub-fields">${fs.slice(0,start).map(field).join('')}</div><div class="sub-fields name-row-grid">${fs.slice(start,end+1).map(field).join('')}</div><div class="sub-fields">${fs.slice(end+1).map(field).join('')}</div>`;
   }
   if(section.id!=='subscription')return `<div class="sub-fields">${fs.map(field).join('')}</div>`;
-  const ids=[['subscription_type','payment_method'],['fund_name','currency'],['units','unit_price'],['amount_subscribed','subscription_fee'],['total_amount'],['total_words']];
-  return ids.map(group=>`<div class="sub-fields financial-row">${group.map(id=>field(fs.find(f=>f.id===id))).join('')}</div>`).join('');
+  const choices=`<div class="sub-selections financial-row"><div class="sub-fields sub-selection-grid">${selectionIds.map(id=>field(fs.find(f=>f.id===id))).join('')}</div><div class="sub-selection-actions"><button type="button" class="clear-choice" data-sub-clear>${t('Clear selection','مسح الاختيار')}</button></div></div>`;
+  const ids=[['fund_name','currency'],['units','unit_price'],['amount_subscribed','subscription_fee'],['total_amount'],['total_words']];
+  return choices+ids.map(group=>`<div class="sub-fields financial-row">${group.map(id=>field(fs.find(f=>f.id===id))).join('')}</div>`).join('');
  }
  function render(nextLang=lang){
   if(disposed)return;lang=nextLang;normalize();
@@ -78,7 +80,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
    units.onfocus=()=>{try{units.value=String(parseUnits(units.value)??'');}catch{}};
    units.onblur=()=>{try{units.value=formatSubscriptionNumber(parseUnits(units.value)??'');}catch{}};
   }
-  root.querySelectorAll('[data-sub-clear]').forEach(b=>b.onclick=()=>{if(busy)return;values[b.dataset.subClear]='';changed(b.dataset.subClear);render();});
+  root.querySelector('[data-sub-clear]')?.addEventListener('click',()=>{if(busy)return;for(const id of selectionIds)values[id]='';errors=errors.filter(id=>!selectionIds.includes(id));changed();render();root.querySelector('.sub-selections input')?.focus();});
   root.querySelector('#sub-signature-file')?.addEventListener('change',upload);
   root.querySelector('[data-remove-signature]')?.addEventListener('click',()=>{if(busy)return;delete signatures.applicant;changed();render();});
   root.querySelector('#sub-reset').onclick=()=>root.querySelector('#sub-reset-dialog').showModal();
@@ -86,7 +88,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
   root.querySelector('#sub-confirm-reset').onclick=()=>{if(busy)return;drafts.clear(doc.id);drafts.fillSharedBlanks(doc.id);values={...drafts.get(doc.id).values};signatures={};step=0;applicantEdited=false;errors=[];message='';changed();render();};
   if(pdf&&review)paint();lock();
  }
- function lock(){root.querySelectorAll('[data-sub-step],[data-review],[data-download],[data-submit],#sub-next,#sub-prev,#sub-home,#sub-edit-shared,#sub-reset,#subscription-fields input,#subscription-fields select,#subscription-fields button,#language,[data-home]').forEach(el=>{el.disabled=busy||(el.id==='sub-prev'&&step===0);});}
+ function lock(){root.querySelectorAll('[data-sub-step],[data-review],[data-download],[data-submit],#sub-next,#sub-prev,#sub-home,#sub-edit-shared,#sub-reset,#subscription-fields input,#subscription-fields select,#subscription-fields button,#language,[data-home]').forEach(el=>{el.disabled=busy||(el.id==='sub-prev'&&step===0)||(el.hasAttribute('data-sub-clear')&&!selectionIds.some(id=>values[id]));});}
  function update(){
   normalize();for(const f of doc.fields.filter(f=>f.readOnly)){const out=root.querySelector(`[data-computed="${f.id}"]`);if(out)out.textContent=shownValue(f)||'—';}
   progress().forEach((p,i)=>{const node=root.querySelector(`[data-progress="${i}"]`);if(node)node.textContent=p.completed+'/'+p.total;});
@@ -99,7 +101,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
   values[f.id]=ev.target.value;if(f.id==='applicant_name')applicantEdited=true;
   // Inputs remain mounted while typing, including LTR email in the Arabic UI.
   changed(f.id);
-  if(['select','cards','signature'].includes(f.type)){if(f.id==='signature_mode'&&values.signature_mode==='manual'){delete signatures.applicant;save();}render();}
+  if(['select','cards','signature'].includes(f.type)){if(f.id==='signature_mode'&&values.signature_mode==='manual'){delete signatures.applicant;save();}render();if(f.type==='cards')root.querySelector(`[name="${f.id}"]:checked`)?.focus();}
  }
  function go(index){if(busy||index<0||index>=doc.sections.length)return;invalidate();step=index;message='';save();render();root.querySelector('.subscription-steps').scrollIntoView({behavior:'smooth',block:'start'});}
  async function upload(ev){

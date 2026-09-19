@@ -10,3 +10,21 @@
 .sub-top-actions .secondary:hover{background:#f7f3fa}
 .sub-form-panel .section-actions{flex-wrap:wrap}
 @media(max-width:520px){.sub-fields .field{min-width:0}.sub-cards,.signature-methods{gap:8px}.sub-step b{overflow-wrap:anywhere}}
+
+/* One compact selection area and one reset for both subscription choices. */
+.sub-selections{border-bottom:1px solid #e9e3ee;padding-bottom:16px}
+.sub-selection-grid{gap:24px}
+.sub-selections .sub-choice legend{margin-bottom:10px;font-size:14px}
+.sub-selections .bilingual-card{min-height:96px;padding:12px;gap:10px;transition:background-color .15s,border-color .15s}
+.sub-selections .bilingual-card:hover{border-color:#a88eba;background:#fcfaff}
+.sub-selections .bilingual-card.selected{background:#f3edf8;border-color:#684482}
+.sub-selections .bilingual-card input{width:17px!important;height:17px;margin:0;accent-color:#684482}
+.sub-selections .bilingual-card span{min-width:0;gap:6px;line-height:1.5;text-align:center}
+.sub-selections .bilingual-card b{font-size:16px;line-height:1.6}
+.sub-selections .bilingual-card i{width:28px}
+.sub-selections .bilingual-card small{font-size:12px;line-height:1.5}
+.sub-selection-actions{display:flex;justify-content:flex-end;margin-top:12px}
+.sub-selection-actions .clear-choice{margin:0;padding:5px 0;font-size:12px}
+.sub-selection-actions .clear-choice:disabled{opacity:.45;cursor:default}
+@media(max-width:850px){.sub-selection-grid{grid-template-columns:minmax(0,1fr);gap:20px}}
+@media(max-width:520px){.sub-selections .bilingual-card{padding:12px 10px;gap:8px}.sub-selections .bilingual-card b{font-size:15px}.sub-selections .bilingual-card small{font-size:11px}}
