@@ -1,0 +1,359 @@
+{
+  "site": "https://forms.ahmaddalao.com/management/",
+  "source_commit": "a9c2ead8b7351f20e00e8988946261c45673c2c0",
+  "changes": [
+    "Submitted details outer card remains visible/open.",
+    "Document sections, shared detail groups and signatures start collapsed and expand independently using native keyboard-accessible disclosure controls.",
+    "Original saved answers and version selection are unchanged."
+  ],
+  "build": "passed",
+  "existing_submitted_details_tests": {
+    "passed": 6,
+    "failed": 0
+  },
+  "local_ui": {
+    "synthetic": true,
+    "networkRequests": [],
+    "cases": [
+      {
+        "browser": "chrome",
+        "context": "profile",
+        "lang": "en",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "chrome",
+        "context": "profile",
+        "lang": "en",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "chrome",
+        "context": "profile",
+        "lang": "ar",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "chrome",
+        "context": "profile",
+        "lang": "ar",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "chrome",
+        "context": "admin-preview",
+        "lang": "en",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "chrome",
+        "context": "admin-preview",
+        "lang": "en",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "chrome",
+        "context": "admin-preview",
+        "lang": "ar",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "chrome",
+        "context": "admin-preview",
+        "lang": "ar",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "chrome",
+        "context": "client-preview",
+        "lang": "en",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "chrome",
+        "context": "client-preview",
+        "lang": "en",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "chrome",
+        "context": "client-preview",
+        "lang": "ar",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "chrome",
+        "context": "client-preview",
+        "lang": "ar",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "profile",
+        "lang": "en",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "profile",
+        "lang": "en",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "profile",
+        "lang": "ar",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "profile",
+        "lang": "ar",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "admin-preview",
+        "lang": "en",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "admin-preview",
+        "lang": "en",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "admin-preview",
+        "lang": "ar",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "admin-preview",
+        "lang": "ar",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "client-preview",
+        "lang": "en",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "client-preview",
+        "lang": "en",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "client-preview",
+        "lang": "ar",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "firefox",
+        "context": "client-preview",
+        "lang": "ar",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "profile",
+        "lang": "en",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "profile",
+        "lang": "en",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "profile",
+        "lang": "ar",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "profile",
+        "lang": "ar",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "admin-preview",
+        "lang": "en",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "admin-preview",
+        "lang": "en",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "admin-preview",
+        "lang": "ar",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "admin-preview",
+        "lang": "ar",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "client-preview",
+        "lang": "en",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "client-preview",
+        "lang": "en",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "client-preview",
+        "lang": "ar",
+        "width": 1440,
+        "passed": true
+      },
+      {
+        "browser": "webkit",
+        "context": "client-preview",
+        "lang": "ar",
+        "width": 390,
+        "passed": true
+      }
+    ],
+    "errors": [],
+    "limitations": "Focused actual renderer and CSS audit with synthetic saved snapshot; no authentication, API, production data, or PDF generation.",
+    "passed": true
+  },
+  "visual_checks": [
+    "Arabic desktop/mobile collapsed and expanded screenshots inspected."
+  ],
+  "deployment_manifest": "docs/deployment-manifest.json",
+  "verified_at": "2026-09-19T18:31:13.836757+00:00",
+  "live": {
+    "checks": [
+      {
+        "lang": "en",
+        "width": 1440,
+        "outerCardVisible": true,
+        "sectionsCollapsed": true,
+        "keyboardAndClickToggle": true,
+        "allSavedFieldsPresent": true,
+        "profileAndPreview": true
+      },
+      {
+        "lang": "en",
+        "width": 390,
+        "outerCardVisible": true,
+        "sectionsCollapsed": true,
+        "keyboardAndClickToggle": true,
+        "allSavedFieldsPresent": true,
+        "profileAndPreview": true
+      },
+      {
+        "lang": "ar",
+        "width": 1440,
+        "outerCardVisible": true,
+        "sectionsCollapsed": true,
+        "keyboardAndClickToggle": true,
+        "allSavedFieldsPresent": true,
+        "profileAndPreview": true
+      },
+      {
+        "lang": "ar",
+        "width": 390,
+        "outerCardVisible": true,
+        "sectionsCollapsed": true,
+        "keyboardAndClickToggle": true,
+        "allSavedFieldsPresent": true,
+        "profileAndPreview": true
+      }
+    ],
+    "errors": [],
+    "blockedWrites": [],
+    "submissionMutations": 0,
+    "passed": true
+  },
+  "live_routes": [
+    {
+      "route": "/register/",
+      "status": 200
+    },
+    {
+      "route": "/login/",
+      "status": 200
+    },
+    {
+      "route": "/my-applications/",
+      "status": 200
+    },
+    {
+      "route": "/management/",
+      "status": 200
+    },
+    {
+      "route": "/individuals/",
+      "status": 200
+    },
+    {
+      "route": "/companies/",
+      "status": 200
+    },
+    {
+      "route": "/_private/portal/clients.sqlite",
+      "status": 403
+    },
+    {
+      "route": "/.env.local",
+      "status": 403
+    }
+  ],
+  "safety": "Only public build deployed; overwritten public files backed up. Private storage and archived versions preserved. Read-only live checks confirmed saved answers, profile, signatures and PDF hash unchanged."
+}

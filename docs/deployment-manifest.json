@@ -1,14 +1,14 @@
 {
-  "uploaded_at_utc": "20260919T182049Z",
+  "uploaded_at_utc": "20260919T182845Z",
   "url": "https://forms.ahmaddalao.com/",
-  "source_commit": "1dc5ae7593ab989ee7f1dcbc95546bdb5182998f",
+  "source_commit": "a9c2ead8b7351f20e00e8988946261c45673c2c0",
   "transport": "Explicit FTPS with verified Hostinger certificate",
-  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T182049Z",
+  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T182845Z",
   "files": [
     {
       "path": "index.html",
       "bytes": 755,
-      "sha256": "1cf0c6e2abd24cfa51203ec0ac62da91f20e4f34b3c4b1c00a72db0434318eda"
+      "sha256": "8fa52591a27508210eb314c15618e4f3f1b4780d53b46c390bb28d830b602966"
     },
     {
       "path": ".user.ini",
@@ -28,7 +28,7 @@
     {
       "path": "my-applications/index.html",
       "bytes": 793,
-      "sha256": "c53d83b43b8e57281b13c864912a4febcfa77cec20ed87cfd7758bd9a7e6315b"
+      "sha256": "155aa3b153b7367d3bc9e06e81e24f6a45f874f650ee2e87eafda230814b7398"
     },
     {
       "path": "branding/wessal.png",
@@ -43,12 +43,12 @@
     {
       "path": "individuals/index.html",
       "bytes": 789,
-      "sha256": "3805784b5c064cc541c0aa4f60241cf11c64d322defd6e5eb6171316b7784009"
+      "sha256": "0677f780f5919407383442994ee30b6640174971597bab292e5088bf88f727d3"
     },
     {
       "path": "management/index.html",
       "bytes": 788,
-      "sha256": "6fb013a058117192c9450e34923e1d4a4c53f8b8a26993a6197ec0b6b31edff1"
+      "sha256": "6274d6f163527b08ac3340c46f54accb6c87c745250a3443e83c2943fd9acfb4"
     },
     {
       "path": "_private/.htaccess",
@@ -58,7 +58,7 @@
     {
       "path": "register/index.html",
       "bytes": 786,
-      "sha256": "f87366e792468dcd833b82429e959892e22b09e50dc8f07c0f746e0920284cfd"
+      "sha256": "d8b8df6fbebfa163f2fc7d0bdbe1b39efd69a939b2ba4a1ba1feb59f7ee84b4c"
     },
     {
       "path": "api/defaults.json",
@@ -168,7 +168,7 @@
     {
       "path": "account/index.html",
       "bytes": 785,
-      "sha256": "62628c458a38c270bb346ac76c753500cb823b377ffe88eff3f436c6706730a9"
+      "sha256": "ab32c2361b033b71315a35649bde5aa928d49f82cc365bc0dfba7f1cdbe66d7c"
     },
     {
       "path": "assets/forms-BJ54EuWX.js",
@@ -181,14 +181,14 @@
       "sha256": "8551da01fe985a8ba9a74658e084f5f484aa17d47a2edf8561f299931a233ba0"
     },
     {
+      "path": "assets/preview-BLpwwYQ9.js",
+      "bytes": 14485,
+      "sha256": "87097d95d7a21b601f74d52d909094496c8f7d08206243ade4756a4e7ad8495b"
+    },
+    {
       "path": "assets/pdf.worker.min-Dswkl-cV.mjs",
       "bytes": 1265413,
       "sha256": "8ab0e5e30031b4a06ecfddd5ae9562f0227f830ee7ec9ed1a968b134243d2386"
-    },
-    {
-      "path": "assets/main-C9GO2HIh.js",
-      "bytes": 27802,
-      "sha256": "81f91711fb81f92769c4b97003cdb254a6f39bcd99211ea79a878c180810d620"
     },
     {
       "path": "assets/arabic-600-DfnZHZ36.css",
@@ -206,6 +206,11 @@
       "sha256": "9b42c108da48b5ed55a3072e815ffee2d271562e6c0dd6998910e8f9c09e0a3d"
     },
     {
+      "path": "assets/main-DO1XmP5u.js",
+      "bytes": 27802,
+      "sha256": "1a694b6d2c2a4624c0d8c3f97a935c146c72f24020e59d6f5f13d761b1804c6a"
+    },
+    {
       "path": "assets/forms-DTZWV59S.js",
       "bytes": 58,
       "sha256": "3f897a7ed83cc138a34c33d8ac8628172d3f55214a208e4d49332497ab895e89"
@@ -216,9 +221,9 @@
       "sha256": "78cd2f2060e5592f36c561665999edd7fd3811491cbbf733fa90485a5d99ca16"
     },
     {
-      "path": "assets/main-B5KQ-dkj.js",
-      "bytes": 56011,
-      "sha256": "5dfe600e37b003c36b9d7a1f6a346465ae60d8d747b7aea680b324949a140998"
+      "path": "assets/preview-Bdg-N6y4.css",
+      "bytes": 6463,
+      "sha256": "ca63c4bec5d4ce33f32c7a40ca7cd9f9e6c90b039a32d9e3ae1edfbc96dc11c6"
     },
     {
       "path": "assets/latin-400-CkJXGLVG.css",
@@ -236,14 +241,14 @@
       "sha256": "089569cee1788b1927753e22b442560068797c454fae088d23353007000f9fe3"
     },
     {
-      "path": "assets/preview-Dg1udQSK.css",
-      "bytes": 6092,
-      "sha256": "74388ec25c291f99b32f638bfe32a67ebf0f32018483d2435930055e3fec80fc"
-    },
-    {
       "path": "assets/api-DThsRkn2.js",
       "bytes": 6875,
       "sha256": "bc5701b53eb3df94dad96765fad81edb8c3c558bd78e5fac456aa0f1a98fe55b"
+    },
+    {
+      "path": "assets/index-D25Rhj2v.js",
+      "bytes": 1915,
+      "sha256": "8c1582544832df6fe5a5480380b3254079ddec23d94bc98411e6d9b1f920e690"
     },
     {
       "path": "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
@@ -306,24 +311,19 @@
       "sha256": "cab913374513c37cfca03c05d1cb41bce221ce837f6a74dff731d4a595003ba1"
     },
     {
+      "path": "assets/main-BsTCqqBD.js",
+      "bytes": 56011,
+      "sha256": "cac7dd6f9430752ab07d16aab9fc3be41f26e9e0567e57b137c1ec64d851afe1"
+    },
+    {
       "path": "assets/preload-helper-uBIymjUX.js",
       "bytes": 1233,
       "sha256": "e1a22f3f73566f21ff932e058d32243e4a118f3491b91e96893aa5ab7eb49a00"
     },
     {
-      "path": "assets/index-CjUj5fvc.js",
-      "bytes": 1915,
-      "sha256": "d584cfc9fd2fe5bb01f2736ce465add160f129c4fd21cf572d493490d0509f62"
-    },
-    {
       "path": "assets/inter-latin-400-normal-CyCys3Eg.woff",
       "bytes": 30696,
       "sha256": "e20fa0b4fd2dd26e4d14b3ac3cc922509c3a63fa5e910e90c614544aa042dd45"
-    },
-    {
-      "path": "assets/preview-8-l83r3A.js",
-      "bytes": 14437,
-      "sha256": "84bce43819c5b262ef3dc984a623b92cde5efd1d153f7a52fd65a8c059e19c88"
     },
     {
       "path": "assets/main-DE87fyXd.css",
@@ -358,12 +358,12 @@
     {
       "path": "login/index.html",
       "bytes": 783,
-      "sha256": "4b8d23e54ab761532b52a31c69926e34e6ad0c1e9b495294b5ad0b5c1f966908"
+      "sha256": "2feef2ccdee14d2b3f16c3fad86d8e1e5c5435f94c72de7bb055968af31a783b"
     },
     {
       "path": "companies/index.html",
       "bytes": 787,
-      "sha256": "f2970c92eef6b6dd30c492bb59bfc0dd1a6b77827fcc1f5bc4a8979f821d1c7b"
+      "sha256": "9b37a38fd080c8224a2457cde8c31660a97d7292cba70e8847581ee14cc9e2eb"
     },
     {
       "path": "api/subscription/calculate.php",
@@ -377,11 +377,11 @@
     }
   ],
   "created": [
-    "assets/index-CjUj5fvc.js",
-    "assets/main-B5KQ-dkj.js",
-    "assets/main-C9GO2HIh.js",
-    "assets/preview-8-l83r3A.js",
-    "assets/preview-Dg1udQSK.css"
+    "assets/index-D25Rhj2v.js",
+    "assets/main-BsTCqqBD.js",
+    "assets/main-DO1XmP5u.js",
+    "assets/preview-BLpwwYQ9.js",
+    "assets/preview-Bdg-N6y4.css"
   ],
   "replaced": [
     "account/index.html",
