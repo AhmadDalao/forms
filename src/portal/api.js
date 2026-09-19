@@ -12,6 +12,10 @@ export async function api(action,body,{token=csrf,params={}}={}){
 }
 export const session=()=>api('session');
 export const errors={
+ account_type_invalid:['Select Individual or Company.','اختر فردًا أو شركة.'],
+ account_type_restricted:['This form is not available for your account type. Management can change your account type.','هذا النموذج غير متاح لنوع حسابك. يمكن للإدارة تغيير نوع الحساب.'],
+ account_type_managed:['Only management can change your account type.','يمكن للإدارة فقط تغيير نوع حسابك.'],
+ account_type_conflict:['The account type changed in another window. Reopen this client profile and try again.','تغيّر نوع الحساب في نافذة أخرى. أعد فتح ملف العميل وحاول مجددًا.'],
  version_conflict:['A newer version was saved while you were editing. Your draft is safe. Open My applications to review the latest version before submitting again.','حُفظت نسخة أحدث أثناء تعديلك. مسودتك محفوظة. افتح طلباتي لمراجعة أحدث نسخة قبل الإرسال مجددًا.'],
  signature_invalid:['The signature image could not be saved. Upload a PNG or JPG again.','تعذّر حفظ صورة التوقيع. أعد رفع صورة PNG أو JPG.'],
  phone_invalid:['Enter a Saudi mobile number with 9 digits, starting with 5.','أدخل رقم جوال سعودي من ٩ أرقام يبدأ بـ٥.'],

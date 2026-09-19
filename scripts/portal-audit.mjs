@@ -17,6 +17,7 @@ try{
  const a=await context(),b=await context(),anon=await context(),admin=await context();
  const tokens=new Map();
  async function call(ctx,action,data,expected=200,options={}){
+  if(action==='register')data={account_type:'individual',...data};
   const res=await ctx.request[options.multipart||data?'post':'get'](base+'/api/portal.php?'+new URLSearchParams({action,...options.params}),{...(data?{data}:{}),...(options.multipart?{multipart:options.multipart}:{}),headers:{'X-CSRF-Token':tokens.get(ctx)||'',...options.headers}});
   assert.equal(res.status(),expected,`${action}: ${await res.text()}`);const json=await res.json();if(json.csrf)tokens.set(ctx,json.csrf);return json;
  }
@@ -33,10 +34,15 @@ try{
  await call(anon,'register',{first_name:'Test',last_name:'Client',phone:'551111111',password,confirm:password},403,{headers:{'X-CSRF-Token':'wrong'}});
  for(const names of [{first_name:'Test'},{last_name:'Client'},{first_name:' ',last_name:'Client'}]){const result=await call(anon,'register',{...names,phone:'551111111',password,confirm:password},400);assert.equal(result.error,'registration_name_invalid');}
  checks.push('Anonymous access, CSRF, phone and confirmation validation');
+ const accountManager=await context();
+ const managerSession=await (await accountManager.request.get(base+'/api/management.php?action=session')).json();
+ assert.equal((await accountManager.request.post(base+'/api/management.php?action=login',{data:{username:'qa.manager',password:ownerPassword},headers:{'X-CSRF-Token':managerSession.csrf}})).status(),200);
+ tokens.set(accountManager,(await (await accountManager.request.get(base+'/api/management.php?action=session')).json()).csrf);
+ async function setType(ctx,type){const user=(await call(ctx,'session')).user;await call(accountManager,'admin_account_type',{id:user.id,account_type:type,expected_type:user.account_type});}
  const page=await a.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/individuals/');
  await page.evaluate(()=>{localStorage.setItem('itqan.forms.v1.individual.signature-form',JSON.stringify({values:{client_name:'Guest retained',signer_name:'Ahmad Ali',date:'2026-09-19'},step:1}));localStorage.setItem('itqan.forms.v1.individual.preferences',JSON.stringify({lang:'en',active:'signature-form'}));});
  await page.goto(base+'/register/?lang=en&next=individuals&resume=1');await page.locator('#auth-form').waitFor();await assertBrand(page);assert.equal(await page.locator('#auth-form [name=name]').count(),0);const firstBox=await page.locator('[name=first_name]').boundingBox(),lastBox=await page.locator('[name=last_name]').boundingBox();assert.ok(Math.abs(firstBox.y-lastBox.y)<2);await page.screenshot({path:out+'/register-en.png',fullPage:true});
- await page.locator('[name=first_name]').fill('Ahmad');await page.locator('[name=last_name]').fill('Ali');await page.locator('[name=phone]').fill('0551111111');await page.locator('[name=password]').fill(password);await page.locator('[name=confirm]').fill(password);await page.locator('#auth-form [type=submit]').click();await page.waitForURL('**/individuals/');
+ await page.locator('[name=account_type][value=individual]').check();await page.locator('[name=first_name]').fill('Ahmad');await page.locator('[name=last_name]').fill('Ali');await page.locator('[name=phone]').fill('0551111111');await page.locator('[name=password]').fill(password);await page.locator('[name=confirm]').fill(password);await page.locator('#auth-form [type=submit]').click();await page.waitForURL('**/individuals/');
  const accountA=(await call(a,'session')).user;assert.equal(accountA.phone,'+966551111111');assert.equal(accountA.name,'Ahmad Ali');
  assert.equal(await page.evaluate(id=>JSON.parse(localStorage.getItem('itqan.forms.v1.account.'+id+'.individual.signature-form')).values.client_name,accountA.id),'Guest retained');
  assert.equal(await page.evaluate(()=>localStorage.getItem('itqan.forms.v1.individual.signature-form')),null);
@@ -61,12 +67,14 @@ try{
  await page.reload();await page.locator('#review-tab').click();await page.locator('#submit-form').waitFor();
  await page.locator('#submit-form').click();await page.locator('[data-confirm]').click();await page.locator('.submitted-mark').waitFor();await page.locator('.submission-dialog [data-close]').click();
  for(const corporate of [false,true]){
+  await setType(a,corporate?'corporate':'individual');
   const audience=corporate?'corporate':'individual',folder=corporate?'companies':'individuals',doc=corporate?'subscription-company':'subscription-form';
   const values={first_name:'Ahmad',second_name:'Mohammed',family_name:'Ali',company_name:'Al Noor Investment Company',inc_country:'Saudi Arabia',company_id_type:'cr',company_id_number:'4030123456',auth_name:'Ahmad Mohammed Ali',nationality:'Saudi Arabia',id_type:'national',id_number:'1000012345',mobile:'+966551111111',short_address:'RABC1234',building:'1234',street:'King Fahd Road',additional:'5678',district:'Al Olaya',postal:'12345',city:'Riyadh',country:'المملكة العربية السعودية',email:'client@example.com',units:'10',subscription_type:'new',payment_method:'transfer',applicant_name:'Ahmad Mohammed Ali',date:'2026-09-19',signature_mode:'manual'};
   await page.evaluate(({id,audience,doc,values})=>{const prefix='itqan.forms.v1.account.'+id+'.'+audience+'.';localStorage.setItem(prefix+doc,JSON.stringify({values,step:3}));localStorage.setItem(prefix+'preferences',JSON.stringify({lang:'en',active:doc}));},{id:accountA.id,audience,doc,values});
   await page.goto(base+'/'+folder+'/');await page.locator('#sub-next').click();await page.locator('[data-submit]').waitFor();
   await page.locator('[data-submit]').click();await page.locator('[data-confirm]').click();await page.locator('.submitted-mark').waitFor();await page.screenshot({path:out+'/'+audience+'-submitted.png',fullPage:true});await page.locator('.submission-dialog [data-close]').click();
  }
+ await setType(a,'individual');
  const submissions=(await call(a,'submissions')).submissions;assert.equal(submissions.length,4);
  const sub=submissions.find(s=>s.doc_id==='subscription-form'),details=(await call(a,'detail',null,200,{params:{id:sub.id}})).submission;
  assert.equal(details.answers.total_amount,'10200');assert.equal(details.answers.subscription_fee,'200');assert.equal(details.answers.total_words,'عشرة آلاف ومائتا ريال سعودي');
@@ -124,6 +132,7 @@ try{
  await page.goto(base+'/account/?lang=en');await page.locator('[data-replace="'+again.id+'"]').click();assert.equal(await page.locator('.portal-upload [name=document]').inputValue(),'signature-form');await page.locator('.portal-upload [name=pdf]').setInputFiles('public/pdfs/al-naeem-terms-consent.pdf');await page.locator('.portal-upload .primary').click();await page.locator('.portal-upload').waitFor({state:'detached'});
  versions=(await call(a,'submissions')).submissions;const uploaded=versions.find(s=>s.doc_id==='signature-form'&&!s.archived_at);assert.equal(uploaded.version,5);assert.equal(uploaded.source,'upload');assert.equal(uploaded.replaces_id,again.id);assert.equal(await page.locator('[data-edit="'+uploaded.id+'"]').count(),0);
  // Same shared document in the other audience/account starts its own version chain.
+ await setType(a,'corporate');await setType(b,'corporate');
  const separateMeta={account:accountA.id,document:'signature-form',audience:'corporate',requestKey:randomBytes(16).toString('hex'),expectedCurrent:null,values:{client_name:'Company only'}};
  const separate=(await upload(a,separateMeta)).submission;assert.equal(separate.version,1);
  const other=(await upload(b,{...separateMeta,account:accountB.id,requestKey:randomBytes(16).toString('hex')})).submission;assert.equal(other.version,1);
@@ -132,6 +141,7 @@ try{
  await page.locator('#portal-language').click();await page.locator('html[lang=ar]').waitFor();await page.locator('.account-history summary').click();await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/version-history-ar-mobile.png',fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
  await owner.reload();await owner.locator('[data-users]').first().click();await owner.locator('#client-search').waitFor();await owner.locator('[data-client="'+accountA.id+'"]').click();await owner.locator('.admin-history summary').click();await owner.screenshot({path:out+'/admin-version-history.png',fullPage:true});
  for(const corporate of [false,true]){
+  await setType(a,corporate?'corporate':'individual');
   const current=(await call(a,'submissions')).submissions.find(s=>s.doc_id===(corporate?'subscription-company':'subscription-form')&&!s.archived_at);
   await page.setViewportSize({width:1440,height:1100});await page.goto(base+'/account/?lang='+(!corporate?'ar':'en'));
   await page.locator('[data-edit="'+current.id+'"]').click();await page.locator('.revision-banner').waitFor();

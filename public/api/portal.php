@@ -7,6 +7,7 @@ header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: no-referrer');
 umask(0077);
 require_once __DIR__.'/portal-versions.php';
+require_once __DIR__.'/portal-account-types.php';
 require_once __DIR__.'/management-auth.php';
 require_once __DIR__.'/session-scope.php';
 function reply(array $data, int $status=200): never { http_response_code($status); echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR); exit; }
@@ -36,7 +37,7 @@ function rate(string $key,int $limit,int $seconds): void {
         execute('DELETE FROM rates WHERE expires<?',[$now]);$db->exec('COMMIT');
     }catch(Throwable $e){$db->exec('ROLLBACK');throw $e;}
 }
-function userView(array $u): array {return array_intersect_key($u,array_flip(['id','name','phone','email','created_at','last_login','reset_required']));}
+function userView(array $u): array {return array_intersect_key($u,array_flip(['id','name','phone','email','account_type','created_at','last_login','reset_required']));}
 function currentUser(bool $required=true,bool $allowReset=false): ?array {
     if(!isset($_SESSION['client'],$_SESSION['version'],$_SESSION['started'],$_SESSION['last'])||time()-$_SESSION['last']>7200||time()-$_SESSION['started']>43200){if($required)reject('login_required',401);return null;}
     $u=execute('SELECT * FROM users WHERE id=?',[$_SESSION['client']])->fetch();
@@ -107,13 +108,14 @@ try {
       CREATE TABLE IF NOT EXISTS rates(key TEXT PRIMARY KEY,attempts INTEGER NOT NULL,expires INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,client_id TEXT NOT NULL,event TEXT NOT NULL,created_at TEXT NOT NULL);');
     migrateVersions();
+    migrateAccountTypes();
     $action=$_GET['action']??'session';$admin=str_starts_with($action,'admin_');
     $https=!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off';
     $scope=sessionScope($admin?'itqan_management':'itqan_client');session_name($scope['name']);ini_set('session.use_strict_mode','1');session_set_cookie_params(['lifetime'=>0,'path'=>$scope['path'],'secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);session_start();
     $_SESSION['csrf']??=bin2hex(random_bytes(24));
     if($admin)ownerRequired();
     if($_SERVER['REQUEST_METHOD']==='POST'&&(empty($_SERVER['HTTP_X_CSRF_TOKEN'])||!hash_equals($_SESSION['csrf'],$_SERVER['HTTP_X_CSRF_TOKEN'])))reject('csrf_invalid',403);
-    $mutations=['register','login','logout','password','profile','submit','admin_reset','admin_restore'];
+    $mutations=['register','login','logout','password','profile','submit','admin_reset','admin_restore','admin_account_type'];
     if(in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='POST')reject('method',405);
     if(!in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='GET')reject('method',405);
     $now=gmdate('Y-m-d\TH:i:s\Z');$ip=$_SERVER['REMOTE_ADDR']??'local';
@@ -122,8 +124,9 @@ try {
         rate('register:'.$ip,10,3600);$b=body();$first=textValue($b['first_name']??'',79);$last=textValue($b['last_name']??'',79);
         if($first===''||$last==='')reject('registration_name_invalid');$name=$first.' '.$last;
         $phone=mobile($b['phone']??'');$password=passwordValue($b['password']??'');if($password!==($b['confirm']??''))reject('password_mismatch');
+        $type=accountType($b['account_type']??null);
         $id=bin2hex(random_bytes(16));
-        try{execute('INSERT INTO users(id,name,phone,password,created_at,last_login) VALUES(?,?,?,?,?,?)',[$id,$name,$phone,password_hash($password,PASSWORD_DEFAULT),$now,$now]);}
+        try{execute('INSERT INTO users(id,name,phone,password,created_at,last_login,account_type) VALUES(?,?,?,?,?,?,?)',[$id,$name,$phone,password_hash($password,PASSWORD_DEFAULT),$now,$now,$type]);}
         catch(PDOException $e){if($e->getCode()==='23000')reject('phone_exists',409);throw $e;}
         $u=execute('SELECT * FROM users WHERE id=?',[$id])->fetch();startClient($u);reply(['user'=>userView($u),'csrf'=>$_SESSION['csrf']],201);
     }
@@ -149,12 +152,16 @@ try {
         $page=max(1,min(100000,(int)($_GET['page']??1)));$offset=($page-1)*30;
         $where=" WHERE name LIKE ? ESCAPE '\' OR phone LIKE ? ESCAPE '\' OR email LIKE ? ESCAPE '\'";
         $count=execute('SELECT COUNT(*) FROM users'.$where,[$q,$q,$q])->fetchColumn();
-        $users=execute('SELECT id,name,phone,email,created_at,last_login,reset_required,(SELECT COUNT(*) FROM submissions s WHERE s.user_id=users.id) AS submissions,(SELECT COUNT(*) FROM submissions s WHERE s.user_id=users.id AND archived_at IS NULL) AS active_submissions FROM users'.$where.' ORDER BY created_at DESC,rowid DESC LIMIT 30 OFFSET '.$offset,[$q,$q,$q])->fetchAll();
+        $users=execute('SELECT id,name,phone,email,account_type,created_at,last_login,reset_required,(SELECT COUNT(*) FROM submissions s WHERE s.user_id=users.id) AS submissions,(SELECT COUNT(*) FROM submissions s WHERE s.user_id=users.id AND archived_at IS NULL) AS active_submissions FROM users'.$where.' ORDER BY created_at DESC,rowid DESC LIMIT 30 OFFSET '.$offset,[$q,$q,$q])->fetchAll();
         reply(['users'=>$users,'total'=>(int)$count,'page'=>$page]);
     }
     if($action==='admin_client'){
         $u=execute('SELECT * FROM users WHERE id=?',[$_GET['id']??''])->fetch();if(!$u)reject('not_found',404);
         reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'])]);
+    }
+    if($action==='admin_account_type'){
+        $b=body();$id=textValue($b['id']??'',40);$type=accountType($b['account_type']??null);$expected=accountType($b['expected_type']??null);
+        reply(['user'=>userView(changeAccountType($id,$type,$expected))]);
     }
     if($action==='admin_reset'){
         $b=body();$id=textValue($b['id']??'',40);rate('reset:'.$ip,30,3600);
@@ -180,7 +187,8 @@ try {
         $u=execute('SELECT * FROM users WHERE id=?',[$u['id']])->fetch();startClient($u);reply(['user'=>userView($u),'csrf'=>$_SESSION['csrf']]);
     }
     if($action==='profile'){
-        $b=body();$name=textValue($b['name']??'',160);$email=textValue($b['email']??'',254);if(mb_strlen($name)<2)reject('name_invalid');if($email!==''&&!filter_var($email,FILTER_VALIDATE_EMAIL))reject('email_invalid');
+        $b=body();if(array_key_exists('account_type',$b))reject('account_type_managed',403);
+        $name=textValue($b['name']??'',160);$email=textValue($b['email']??'',254);if(mb_strlen($name)<2)reject('name_invalid');if($email!==''&&!filter_var($email,FILTER_VALIDATE_EMAIL))reject('email_invalid');
         execute('UPDATE users SET name=?,email=? WHERE id=?',[$name,$email,$u['id']]);reply(['ok'=>true]);
     }
     if($action==='submissions')reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'])]);
@@ -190,9 +198,10 @@ try {
         try{$meta=json_decode($_POST['metadata']??'',true,32,JSON_THROW_ON_ERROR);}catch(Throwable){reject('invalid_request');}
         if(!is_array($meta)||strlen($_POST['metadata']??'')>3500000)reject('invalid_request');
         if(($meta['account']??'')!==$u['id'])reject('account_changed',409);
+        $audience=$meta['audience']??'';if(!in_array($audience,['individual','corporate'],true))reject('invalid_request');
+        if($audience!==$u['account_type'])reject('account_type_restricted',403);
         $key=requestKey($meta);$expected=expectedCurrent($meta);
         if($old=execute('SELECT id,created_at,version,archived_at FROM submissions WHERE user_id=? AND request_key=?',[$u['id'],$key])->fetch())reply(['submission'=>$old,'duplicate'=>true]);
-        $audience=$meta['audience']??'';if(!in_array($audience,['individual','corporate'],true))reject('invalid_request');
         $source=($meta['source']??'online')==='upload'?'upload':'online';
         $doc=definition(textValue($meta['document']??'',100),$audience,$source==='upload');$answers=$source==='upload'?[]:cleanAnswers($doc,$meta['values']??[]);
         $editedFrom=$meta['editedFrom']??null;
@@ -206,7 +215,7 @@ try {
         if($f['size']>20971520)reject('request_large',413);
         $bytes=file_get_contents($f['tmp_name']);
         if(!str_starts_with($bytes,'%PDF-')||!str_contains(substr($bytes,-2048),'%%EOF')||(new finfo(FILEINFO_MIME_TYPE))->buffer($bytes)!=='application/pdf')reject('pdf_invalid');
-        $result=saveVersion(['user_id'=>$u['id'],'doc_id'=>$doc['id'],'title'=>$doc['title'],'ar'=>$doc['ar'],'audience'=>$audience,'answers'=>json_encode($answers,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'profile'=>json_encode($profile,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'request_key'=>$key,'source'=>$source,'signatures'=>json_encode((object)$signatures,JSON_THROW_ON_ERROR),'edited_from'=>$editedFrom],$f['tmp_name'],$expected);
+        $result=saveVersion(['user_id'=>$u['id'],'doc_id'=>$doc['id'],'title'=>$doc['title'],'ar'=>$doc['ar'],'audience'=>$audience,'answers'=>json_encode($answers,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'profile'=>json_encode($profile,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'request_key'=>$key,'source'=>$source,'signatures'=>json_encode((object)$signatures,JSON_THROW_ON_ERROR),'edited_from'=>$editedFrom],$f['tmp_name'],$expected,null,true);
         if($email!==''&&$u['email']==='')execute('UPDATE users SET email=? WHERE id=?',[$email,$u['id']]);
         reply($result,empty($result['duplicate'])?201:200);
     }
@@ -227,5 +236,5 @@ try {
         $zip->close();attachment('application/zip',fileName($u['name']).($history?'-history':'').'.zip');header('Content-Length: '.filesize($tmp));session_write_close();readfile($tmp);unlink($tmp);exit;
     }
     reject('not_found',404);
-}catch(DomainException $e){reject($e->getMessage(),409);}
+}catch(DomainException $e){reject($e->getMessage(),match($e->getMessage()){'account_type_restricted'=>403,'not_found'=>404,default=>409});}
 catch(Throwable $e){error_log('Client portal: '.$e->getMessage());reject('server_error',500);}

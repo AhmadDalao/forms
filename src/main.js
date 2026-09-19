@@ -6,9 +6,9 @@ import '@fontsource/noto-sans-arabic/arabic-600.css';
 import '@fontsource/noto-sans-arabic/latin-400.css';
 import './style.css';
 import {brandLockup} from './branding.js';
-import {authChangeKey,api as portalApi,errorText as portalError,session as clientSession,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
+import {authChangeKey,api as portalApi,errorText as portalError,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
 import {submitForm} from './portal/submit.js';
-const client=await clientSession().catch(()=>({user:null}));
+import {formSession as client,checkAccountAccess} from './portal/access.js';
 import {createSubscriptionEditor} from './subscription/editor.js';
 import {docs as builtInDocs} from './forms/index.js';
 import {loadCatalogue} from './management/catalogue.js';
@@ -334,3 +334,5 @@ else if(editing)selectDoc(editing.id);else if(resume&&!openSharedOnLoad)selectDo
 if(import.meta.env.DEV)window.__forms={docs,generate,signatureSlots,prepareSignature};
 
 window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
+window.addEventListener('focus',checkAccountAccess);
+document.addEventListener('visibilitychange',checkAccountAccess);

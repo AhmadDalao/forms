@@ -42,10 +42,13 @@ function cleanSignatureImages(array $def,mixed $images,array $answers): array {
     }
     return $out;
 }
-function saveVersion(array $s,string $sourcePath,?string $expected,?string $audit=null): array {
+function saveVersion(array $s,string $sourcePath,?string $expected,?string $audit=null,bool $clientSubmission=false): array {
     global $db,$dataDir;
     $path=null;$db->exec('BEGIN IMMEDIATE');
     try{
+        // Recheck under the same lock as the write: management may have changed
+        // this account while its PDF was being generated or uploaded.
+        if($clientSubmission&&execute('SELECT account_type FROM users WHERE id=?',[$s['user_id']])->fetchColumn()!==$s['audience'])throw new DomainException('account_type_restricted');
         $old=execute('SELECT id,created_at,version,archived_at FROM submissions WHERE user_id=? AND request_key=?',[$s['user_id'],$s['request_key']])->fetch();
         if($old){$db->exec('COMMIT');return ['submission'=>$old,'duplicate'=>true];}
         $chain=[$s['user_id'],$s['doc_id'],$s['audience']];

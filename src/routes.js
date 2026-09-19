@@ -12,3 +12,5 @@ export const draftStoragePrefix=storagePrefixFor(appRoot,'itqan.forms.v1.');
 export const portalStoragePrefix=storagePrefixFor(appRoot,'itqan.portal.');
 export const audience = typeof location==='undefined' ? null : audienceFor(location.pathname);
 export const visibleIn = (doc, group) => Boolean(group) && (doc.group===group || doc.group==='shared');
+export const accountFolder = user => user.account_type==='corporate'?'companies':'individuals';
+export const canUseAudience = (user,group) => !user || user.account_type===group;

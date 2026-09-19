@@ -47,3 +47,5 @@
  .admin-client-facts strong{font-size:13px}
  .portal-preview-head,.portal-preview-body{padding:18px}
 }
+
+.admin-account-type{padding:24px}.admin-account-type label{display:block;font-weight:600;margin-bottom:12px}.admin-type-controls{display:flex;flex-wrap:wrap;gap:12px;max-width:540px}.admin-type-controls select{flex:1;min-width:140px;min-height:44px;padding:10px 14px;border:1px solid #ddd7e4;border-radius:9px;background:#fff;color:#493951;font:inherit}.admin-account-type .client-muted{margin:14px 0 0}.admin-account-type [data-type-status]{font-size:13px;color:#58366f;margin-bottom:0}.admin-account-type [data-type-status]:empty{display:none}

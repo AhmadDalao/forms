@@ -28,6 +28,7 @@ export async function submitForm({doc,values,bytes,profile,audience,lang,user,si
   const status=dialog.querySelector('[data-message]');status.textContent=t('Submitting…','جارٍ الإرسال…');status.className='';
   try{
    const fresh=await session();if(!fresh.user)throw Error('login_required');if(fresh.user.id!==user.id)throw Error('account_changed');
+   if(fresh.user.account_type!==audience)throw Error('account_type_restricted');
    const form=new FormData();form.set('pdf',new Blob([bytes],{type:'application/pdf'}),doc.id+'.pdf');
    form.set('metadata',JSON.stringify({account:user.id,document:doc.id,audience,requestKey,values,profile:revision?.profile||profile,signatures,expectedCurrent:expected,editedFrom:revision?.sourceId??null}));
    const result=await api('submit',form);onSaved(result.submission);finished=true;

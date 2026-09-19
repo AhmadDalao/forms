@@ -1,6 +1,6 @@
 # Client accounts and submissions
 
-Implemented on `codex/client-portal`, based on the tested subscription branch. This work has not been merged into the live site. A separate password-protected hosted test copy is documented in `docs/HOSTED_PREVIEW.md`.
+Live at https://forms.ahmaddalao.com/. A separate historical password-protected test copy is documented in `docs/HOSTED_PREVIEW.md`.
 
 ## Preview
 
@@ -12,10 +12,10 @@ FORMS_PORTAL_DATA_DIR="$PWD/portal-data" \
 php -d upload_max_filesize=20M -d post_max_size=24M -S 127.0.0.1:8185 -t dist scripts/management-router.php
 ```
 
-- `/register/`: name, Saudi mobile, password and confirmation. No email registration requirement.
+- `/register/`: Individual / Company selection, first and last name, Saudi mobile, password and confirmation. No email registration requirement.
 - `/login/`: mobile and password.
 - `/my-applications/` (also available through `/account/`): the client's current submissions and version history, edit/resubmit, PDF previews/downloads, current-only or full-history ZIP, optional profile email, password change, and replacement uploads of manually completed PDFs.
-- `/individuals/` and `/companies/`: the existing form folders. A **Submit form** action appears after PDF review.
+- `/individuals/` and `/companies/`: signed-in clients can open their assigned folder; opposite-category links redirect to it. A **Submit form** action appears after PDF review.
 - `/management/`: owner overview, clients and document catalogue. The preview uses the existing management owner login; the original management preview on 8181 stays available.
 
 Portal headers use the original Wessal logo beside the original Itqan logo, extracted from the supplied presentation; see `docs/BRANDING.md`.
@@ -30,7 +30,17 @@ Client and owner sessions use separate HttpOnly, SameSite=Strict cookies, with S
 
 An owner password reset produces a random temporary password, shows it once, invalidates every existing client session and requires a password change before the client can access submissions again. The application does not message the client; the owner shares the temporary password privately through their normal contact channel. Only a reset audit event is retained, never the temporary plaintext password.
 
-`public/api/portal.php` stores accounts, metadata, hashed passwords and reset audit events in SQLite and PDF bytes in a private directory. Set `FORMS_PORTAL_DATA_DIR` outside the web root in production. The fallback is `_private/portal`, covered by the existing Apache deny rule. PHP requires PDO SQLite, mbstring, fileinfo and ZipArchive. Set upload limits to at least 20 MB / 24 MB. Back up the entire private portal directory, including both SQLite and `pdfs/`; never overwrite it when deploying assets. A production rollout still needs the existing branch/deployment approval step and host extension/private-storage verification.
+`public/api/portal.php` stores accounts, metadata, hashed passwords and reset audit events in SQLite and PDF bytes in a private directory. Set `FORMS_PORTAL_DATA_DIR` outside the web root in production. The fallback is `_private/portal`, covered by the existing Apache deny rule. PHP requires PDO SQLite, mbstring, fileinfo and ZipArchive. Set upload limits to at least 20 MB / 24 MB. Back up the entire private portal directory, including both SQLite and `pdfs/`; never overwrite it when deploying assets.
+
+## Account category
+
+Signup requires either `individual` or `corporate`. It determines the assigned form folder, signup/continuation destination, My applications form link and completed-PDF upload choices. Clients cannot change their own category through profile updates. Management can change it in **Clients → client profile → Account type**; the API validates the prior category to reject stale changes and records an audit event.
+
+Existing accounts migrate to Individual by default. The migration is transactional and repeatable, preserves passwords, answers and files, and does not reset a category management has already changed. The server reads the current category on requests and checks submission permission again inside the database write transaction. Returning to an open tab refreshes a changed category; stale submissions are rejected even without a refresh.
+
+Previous-category submissions remain available to their owner and management for preview, download and history. Clients cannot edit/resubmit or replace those documents unless management changes their category back. No draft data is copied between individual and company folders. Guest draft migration at sign-in only imports the selected continuation folder when it matches the account category.
+
+Anonymous document links and public blank PDFs retain their existing availability. Account categories govern the signed-in workflow and submission authorization; they are not a confidentiality restriction on the original blank templates.
 
 ## Submissions
 
@@ -57,4 +67,5 @@ Mutation requests include the current version the user reviewed (`expectedCurren
 - `npm test`: unit checks include account/audience draft isolation, separate version-edit drafts, original blank-field preservation, route roots, and legacy database migration without snapshot changes.
 - `node scripts/portal-audit.mjs`: isolated PHP/Chrome test with two accounts. Covers registration, authorization, CSRF, phone validation, draft continuation, private PDF ownership, invalid uploads, idempotent retries, both subscription editors and the signature form, backend calculations, client/owner previews, current/history ZIPs, edit/reload/resubmit, signature recovery, immutable original data, stale-version rejection, owner restoration and retry, replacement uploads, individual/company history isolation, Arabic/English subscription edits and mobile history views. Also checks password reset, old-session revocation, forced password change, catalogue navigation and login throttling.
 - `node scripts/management-audit.mjs`: existing catalogue management regression checks, updated to enter Documents from the new overview.
+- `node scripts/account-types-audit.mjs`: isolated signup/category restriction tests in Chrome, Firefox and WebKit, management changes, stale tabs, direct links, upload filtering, access-control rejection and prior-document preservation. `QA_BASE`, `QA_CREDENTIALS` and `QA_OUT` can target an explicitly authorized hosted test; remove the recorded temporary accounts afterward.
 - Screenshots, audit reports and disposable test data stay under ignored `tmp/portal-audit/`.
