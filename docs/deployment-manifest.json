@@ -1,14 +1,14 @@
 {
-  "uploaded_at_utc": "20260919T163510Z",
+  "uploaded_at_utc": "20260919T164922Z",
   "url": "https://forms.ahmaddalao.com/",
-  "source_commit": "48c63cae985f4392b2a9b9d2459bbb49fc2ae02a",
+  "source_commit": "9043cd7e7a87bf559d029ff16acf6d8e669f53a6",
   "transport": "Explicit FTPS with verified Hostinger certificate",
-  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T163510Z",
+  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T164922Z",
   "files": [
     {
       "path": "index.html",
       "bytes": 755,
-      "sha256": "809be78311118511c6fc4e46e8156ca1738dd5737deb8e3b7d3e7b5809dd0379"
+      "sha256": "07a9f0dc5239a5b6d62bde6b4d2ef5de17eef384229f97eb88df447f89380b63"
     },
     {
       "path": ".user.ini",
@@ -28,7 +28,7 @@
     {
       "path": "my-applications/index.html",
       "bytes": 793,
-      "sha256": "ff914f35c7cd2abfce22adea10932d0eb30736afcbdfe321fb6d2fa800322d5e"
+      "sha256": "e237f683b347c6acdd6a0d313d596c1cecbc691f19e419fa5b54d829267905cd"
     },
     {
       "path": "branding/wessal.png",
@@ -43,12 +43,12 @@
     {
       "path": "individuals/index.html",
       "bytes": 789,
-      "sha256": "59c318a5cd05ad3456bea5d5a5eab168b46a9b65085bbc2b3d4d44fe57da9a37"
+      "sha256": "c0b8a929571bb23ced7c8cf0bcbfd35e736de6668c753414a4e3ecb9425cd325"
     },
     {
       "path": "management/index.html",
       "bytes": 788,
-      "sha256": "40b794fdd262dcb17108ca4663596381222f020cfc0e451999bbb90ae032c529"
+      "sha256": "aed76a018679932e912cc0c420a1d3cac68408ed076e3b491ba52fd8c1c3f53d"
     },
     {
       "path": "_private/.htaccess",
@@ -58,7 +58,7 @@
     {
       "path": "register/index.html",
       "bytes": 786,
-      "sha256": "5622deb381530e04270da8159130b68c6de1a163a6c5a23a97638dcddcce5519"
+      "sha256": "7e9eeb8513e100bf4807e3724e3904c2f477fabad9543a7eb76ae6c7bc32aad0"
     },
     {
       "path": "api/defaults.json",
@@ -158,7 +158,7 @@
     {
       "path": "account/index.html",
       "bytes": 785,
-      "sha256": "c7abbd6c2b350a36a1dd8f80e54e5ff483f50322196940d99909d9994d5c54a0"
+      "sha256": "451b1ccd2dd8178dbc388336ba8fa56d59c7837ca7284c3db1899b90f8df0182"
     },
     {
       "path": "assets/pdf.worker.min-Dswkl-cV.mjs",
@@ -191,6 +191,11 @@
       "sha256": "9b42c108da48b5ed55a3072e815ffee2d271562e6c0dd6998910e8f9c09e0a3d"
     },
     {
+      "path": "assets/index-DD43RPhT.js",
+      "bytes": 1895,
+      "sha256": "a9113eaa9bdb7d167ad952a47d85aeeffb672fd60628822edb7ec9ac7d33adf8"
+    },
+    {
       "path": "assets/forms-Un2YMEaY.js",
       "bytes": 58,
       "sha256": "3814b81b741351049339a80a6470f4b678945bd6def45730c60b3a9598c3bc6e"
@@ -199,11 +204,6 @@
       "path": "assets/access-B6sPbE1L.js",
       "bytes": 735,
       "sha256": "9c374583f3dec9dc1c92355ce71a345ac1373f96dcd81c7c1eee8adc022cb3dc"
-    },
-    {
-      "path": "assets/main-CqFWUFrE.js",
-      "bytes": 78018,
-      "sha256": "14df43ea6a5400ff15b5f7c45612d105daf3afc49725a841cdf9b7c28ff56221"
     },
     {
       "path": "assets/latin-400-CkJXGLVG.css",
@@ -224,11 +224,6 @@
       "path": "assets/catalogue-DlpGEFii.js",
       "bytes": 71,
       "sha256": "089569cee1788b1927753e22b442560068797c454fae088d23353007000f9fe3"
-    },
-    {
-      "path": "assets/index-CGlWeETR.js",
-      "bytes": 1895,
-      "sha256": "cd8e50a6154336e4f6d6b479426fbaa17d9d8583e3e4043b72c9a812079f89b7"
     },
     {
       "path": "assets/forms-BBHefOBx.js",
@@ -286,6 +281,11 @@
       "sha256": "fcdc1cab67b5e57c7fd35697097127c1fd41b0a7be26f31e59ac8dbe92079494"
     },
     {
+      "path": "assets/main-BZSbOp7Q.css",
+      "bytes": 28571,
+      "sha256": "bf74f368dce4ce3ce999f62b20a8ff70e9ebf4b17844a39c4fcb96940f999292"
+    },
+    {
       "path": "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
       "bytes": 84980,
       "sha256": "4cd5ad759d5ee84c12fa9aa6aa8747fb9e2fca225b87292bf42628f67ab3e4db"
@@ -326,14 +326,14 @@
       "sha256": "e20fa0b4fd2dd26e4d14b3ac3cc922509c3a63fa5e910e90c614544aa042dd45"
     },
     {
-      "path": "assets/main-CGqDM_Cs.css",
-      "bytes": 27601,
-      "sha256": "51ab2d994e346dd889f9e0f76f9f82aefa2a37513b769e2479ccd5f41168ae77"
-    },
-    {
       "path": "assets/api-CGj2qq_C.js",
       "bytes": 6703,
       "sha256": "c3c0fc6e51b78b9e23a64483b45175d85240212314d18a6cd2f1dc9abc00747e"
+    },
+    {
+      "path": "assets/main-DmqSh8nY.js",
+      "bytes": 79261,
+      "sha256": "60f6c0500e002186ed9f000c6802af2352e25896ca10eb3672767baff9113af1"
     },
     {
       "path": "assets/inter-latin-400-normal-C38fXH4l.woff2",
@@ -348,12 +348,12 @@
     {
       "path": "login/index.html",
       "bytes": 783,
-      "sha256": "3fc95a5370084556c90655f0a3a8f1da5d29ac5c95fd06c0c3fe8e0ae8349883"
+      "sha256": "3c69331604e91f02ef5b66ea9d3d9ad4fe7086ff531cf50353c1dce8a258c3a0"
     },
     {
       "path": "companies/index.html",
       "bytes": 787,
-      "sha256": "5cc587fa22ee24c6012fe0efd7461b7c46550cb75703a55ac769d3ce72c4a551"
+      "sha256": "c05c61ccb20905e68c9a557408f7be9fe2fb72eead06dbebd7d6fa51fb120941"
     },
     {
       "path": "api/subscription/calculate.php",
@@ -367,18 +367,11 @@
     }
   ],
   "created": [
-    "assets/forms-BBHefOBx.js",
-    "assets/forms-Un2YMEaY.js",
-    "assets/index-CGlWeETR.js",
-    "assets/main-CGqDM_Cs.css",
-    "assets/main-CN9pTMIj.js",
-    "assets/main-Cba-ZLH7.js",
-    "assets/main-CqFWUFrE.js",
-    "assets/pdf-Cl2kGZaD.js",
-    "assets/preview-DNX2XqTW.js"
+    "assets/index-DD43RPhT.js",
+    "assets/main-BZSbOp7Q.css",
+    "assets/main-DmqSh8nY.js"
   ],
   "replaced": [
-    "api/portal-defaults.json",
     "account/index.html",
     "companies/index.html",
     "individuals/index.html",
@@ -396,6 +389,7 @@
     "api/management-auth.php",
     "api/management.php",
     "api/portal-account-types.php",
+    "api/portal-defaults.json",
     "api/portal-reviews.php",
     "api/portal-versions.php",
     "api/portal.php",
@@ -410,6 +404,8 @@
     "assets/catalogue-CR_2rN1N.js",
     "assets/catalogue-Ct32Qvwc.js",
     "assets/catalogue-DlpGEFii.js",
+    "assets/forms-BBHefOBx.js",
+    "assets/forms-Un2YMEaY.js",
     "assets/inter-latin-400-normal-C38fXH4l.woff2",
     "assets/inter-latin-400-normal-CyCys3Eg.woff",
     "assets/inter-latin-500-normal-BL9OpVg8.woff",
@@ -417,6 +413,8 @@
     "assets/inter-latin-600-normal-CiBQ2DWP.woff",
     "assets/inter-latin-600-normal-LgqL8muc.woff2",
     "assets/latin-400-CkJXGLVG.css",
+    "assets/main-CN9pTMIj.js",
+    "assets/main-Cba-ZLH7.js",
     "assets/main-CdLMtDoQ.css",
     "assets/main-_VUuJIYq.css",
     "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
@@ -425,10 +423,12 @@
     "assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
     "assets/noto-sans-arabic-latin-400-normal-CjsIS08k.woff2",
     "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff",
+    "assets/pdf-Cl2kGZaD.js",
     "assets/pdf-eVQh_5Cv.css",
     "assets/pdf.worker.min-Dswkl-cV.mjs",
     "assets/preload-helper-uBIymjUX.js",
     "assets/preview-D1VfSAWp.css",
+    "assets/preview-DNX2XqTW.js",
     "assets/routes-VETtnQjc.js",
     "branding/itqan.png",
     "branding/wessal.png",

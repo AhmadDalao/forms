@@ -1,0 +1,295 @@
+{
+  "result": "pass",
+  "source_commit": "9043cd7e7a87bf559d029ff16acf6d8e669f53a6",
+  "scope": "Readable generic form-step navigation with complete labels, numbered active state, live answer counts and responsive layout. Existing sections and subscription navigation preserved.",
+  "local": {
+    "documents": [
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "signature-form",
+        "sections": 2,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "terms-and-conditions",
+        "sections": 2,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "fatca-crs-individual",
+        "sections": 5,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "fatca-crs-corporate",
+        "sections": 6,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "kyc-individual",
+        "sections": 6,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "kyc-corporate",
+        "sections": 6,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "signature-form",
+        "sections": 2,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "terms-and-conditions",
+        "sections": 2,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "fatca-crs-individual",
+        "sections": 5,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "fatca-crs-corporate",
+        "sections": 6,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "kyc-individual",
+        "sections": 6,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "kyc-corporate",
+        "sections": 6,
+        "reviewReachable": true
+      }
+    ],
+    "responsive_cases": 48,
+    "browsers": [
+      "Chrome",
+      "Firefox",
+      "WebKit"
+    ],
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "viewports": [
+      1440,
+      768,
+      390,
+      320
+    ],
+    "preview_on_and_off": true,
+    "checks": [
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "liveTextCount": true,
+        "choiceClearCount": true,
+        "sharedCount": true,
+        "signatureCountOnce": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "liveTextCount": true,
+        "choiceClearCount": true,
+        "sharedCount": true,
+        "signatureCountOnce": true
+      },
+      {
+        "syntheticManagedSignatureOnlyPage": true,
+        "signatureOnlyStatus": "manual",
+        "reviewReachable": true
+      }
+    ],
+    "visual_review": [
+      "Chrome: desktop KYC all seven cards",
+      "Chrome: English FATCA long labels",
+      "Chrome: Arabic 390px and 320px"
+    ],
+    "test_environment_notes": [
+      "Arabic font ink may extend beyond its CSS line box. Tests assert actual text remains inside cards and is not clipped.",
+      "macOS Safari/WebKit uses Option+Tab to include buttons under the default system keyboard preference; Chrome and Firefox use Tab."
+    ],
+    "errors": []
+  },
+  "production": {
+    "url": "https://forms.ahmaddalao.com/",
+    "result": "pass",
+    "documents": [
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "signature-form",
+        "sections": 2,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "terms-and-conditions",
+        "sections": 2,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "fatca-crs-individual",
+        "sections": 5,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "fatca-crs-corporate",
+        "sections": 6,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "kyc-individual",
+        "sections": 6,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "doc": "kyc-corporate",
+        "sections": 6,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "signature-form",
+        "sections": 2,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "terms-and-conditions",
+        "sections": 2,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "fatca-crs-individual",
+        "sections": 5,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "fatca-crs-corporate",
+        "sections": 6,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "kyc-individual",
+        "sections": 6,
+        "reviewReachable": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "doc": "kyc-corporate",
+        "sections": 6,
+        "reviewReachable": true
+      }
+    ],
+    "responsive_cases": 16,
+    "checks": [
+      {
+        "browser": "chrome",
+        "lang": "en",
+        "liveTextCount": true,
+        "choiceClearCount": true,
+        "sharedCount": true,
+        "signatureCountOnce": true
+      },
+      {
+        "browser": "chrome",
+        "lang": "ar",
+        "liveTextCount": true,
+        "choiceClearCount": true,
+        "sharedCount": true,
+        "signatureCountOnce": true
+      },
+      {
+        "syntheticManagedSignatureOnlyPage": true,
+        "signatureOnlyStatus": "manual",
+        "reviewReachable": true
+      }
+    ],
+    "errors": [],
+    "write_requests": [],
+    "routes": [
+      {
+        "route": "/register/",
+        "status": 200
+      },
+      {
+        "route": "/login/",
+        "status": 200
+      },
+      {
+        "route": "/my-applications/",
+        "status": 200
+      },
+      {
+        "route": "/management/",
+        "status": 200
+      },
+      {
+        "route": "/individuals/",
+        "status": 200
+      },
+      {
+        "route": "/companies/",
+        "status": 200
+      },
+      {
+        "route": "/_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "route": "/.env.local",
+        "status": 403
+      }
+    ],
+    "deployed_assets_match_build": true
+  },
+  "verified_at_utc": "2026-09-19T16:53:29.431908+00:00"
+}
