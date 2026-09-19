@@ -7,7 +7,7 @@ import {randomBytes,createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 const root=process.cwd(),out=path.join(root,'tmp/management-audit'),dataDir=path.join(out,'data-'+Date.now()),base='http://127.0.0.1:8182';
 await fs.mkdir(out,{recursive:true});const password=randomBytes(24).toString('hex');
-const init=spawnSync('php',['scripts/management-init.php',dataDir,'qa.manager'],{input:password,encoding:'utf8'});assert.equal(init.status,0,init.stderr);
+const init=spawnSync('php',['scripts/management-superadmin-init.php',dataDir,'qa.manager'],{input:password,encoding:'utf8'});assert.equal(init.status,0,init.stderr);
 const server=spawn('php',['-d','upload_max_filesize=20M','-d','post_max_size=24M','-S','127.0.0.1:8182','-t','dist','scripts/management-router.php'],{cwd:root,env:{...process.env,FORMS_DATA_DIR:dataDir},stdio:['ignore','pipe','pipe']});let logs='';server.stderr.on('data',b=>logs+=b);server.stdout.on('data',b=>logs+=b);
 let browser,owner,anon;
 try{

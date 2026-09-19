@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-// Single-owner catalogue management. Customer answers never reach this endpoint.
+// Role-protected catalogue management. Customer answers never reach this endpoint.
 header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
 header('Content-Type: application/json; charset=utf-8');
@@ -29,6 +29,12 @@ function locked(callable $callback, bool $write = false): mixed {
 }
 function owner(): bool {global $dataDir;return managementOwner($dataDir);}
 function requireOwner(): void {if(!owner())fail('Please sign in again.',401);$_SESSION['last']=time();}
+function requireDocumentManager(): void {global $dataDir;if(!managementCanManageDocuments($dataDir))fail('Only the superadmin can manage documents.',403);}
+function sessionResponse(): array {
+    global $dataDir;$identity=managementIdentity($dataDir);
+    return ['authenticated'=>$identity!==null,'configured'=>count(managementAccounts($dataDir))>0,'csrf'=>$_SESSION['csrf'],
+        'username'=>$identity['username']??null,'role'=>$identity['role']??null,'permissions'=>['manage_documents'=>($identity['role']??null)==='superadmin']];
+}
 function csrf(): void {if(!hash_equals($_SESSION['csrf']??'',$_SERVER['HTTP_X_CSRF_TOKEN']??'')||empty($_SESSION['csrf']))fail('Refresh the page and try again.',403);}
 function expected(array $state,array $body): void {if(($body['revision']??-1)!==$state['revision'])fail('Another window changed this draft. Reload before saving.',409);}
 function stringValue(mixed $value,int $max=1000): string {if(!is_string($value)||mb_strlen($value)>$max)fail('Invalid text value.');return trim($value);}
@@ -101,12 +107,11 @@ try {
     $https=(!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off');
     $scope=sessionScope('itqan_management');session_name($scope['name']);session_set_cookie_params(['lifetime'=>0,'path'=>$scope['path'],'secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);ini_set('session.use_strict_mode','1');session_start();
     $_SESSION['csrf']??=bin2hex(random_bytes(24));
-    $username=managementUsername($dataDir);
-    $configured=is_file($dataDir.'/password.php')&&$username!==null;
-    if($action==='session')respond(['authenticated'=>owner(),'configured'=>$configured,'csrf'=>$_SESSION['csrf']]);
+    $accounts=managementAccounts($dataDir);$configured=count($accounts)>0;
+    if($action==='session')respond(sessionResponse());
     if($action==='document'){
         $id=$_GET['id']??'';if(!preg_match('/^upload_[a-f0-9]{24}$/',$id))fail('Document not found.',404);
-        $document=locked(function($s)use($id){foreach(owner()?['draft','published']:['published'] as $version)foreach($s[$version]['documents'] as $d)if($d['id']===$id)return $d;return null;});
+        $document=locked(function($s)use($id){global $dataDir;foreach(managementCanManageDocuments($dataDir)?['draft','published']:['published'] as $version)foreach($s[$version]['documents'] as $d)if($d['id']===$id)return $d;return null;});
         if(!$document)fail('Document not found.',404);
         $path=$dataDir.'/uploads/'.$id.'.pdf';if(!is_file($path))fail('Document not found.',404);
         header('Content-Type: application/pdf');header('Content-Disposition: attachment; filename="'.$id.'.pdf"');header('Content-Length: '.filesize($path));session_write_close();readfile($path);exit;
@@ -120,13 +125,16 @@ try {
         $rateFile=$dataDir.'/login-'.hash('sha256',$_SERVER['REMOTE_ADDR']??'local').'.json';$lock=fopen($rateFile,'c+');flock($lock,LOCK_EX);$raw=stream_get_contents($lock);$rate=$raw?json_decode($raw,true):['at'=>time(),'count'=>0];
         if(time()-$rate['at']>900)$rate=['at'=>time(),'count'=>0];
         if($rate['count']>=10){flock($lock,LOCK_UN);fclose($lock);fail('Too many attempts. Try again in 15 minutes.',429);}
-        $hash=require $dataDir.'/password.php';$passwordOk=password_verify($password,$hash);$ok=$loginUsername!==null&&hash_equals($username,$loginUsername)&&$passwordOk;$rate['count']=$ok?0:$rate['count']+1;rewind($lock);ftruncate($lock,0);fwrite($lock,json_encode($rate));flock($lock,LOCK_UN);fclose($lock);
-        if(!$ok)fail('Incorrect username or password.',401);session_regenerate_id(true);$_SESSION=['owner'=>true,'owner_username'=>$username,'last'=>time(),'started'=>time(),'csrf'=>bin2hex(random_bytes(24))];respond(['csrf'=>$_SESSION['csrf']]);
+        $account=null;foreach($accounts as $candidate)if($loginUsername!==null&&hash_equals($candidate['username'],$loginUsername)){$account=$candidate;break;}
+        $dummy='$2y$10$QOt6TWFhTXLW9YnNiS3E6uhYKZeyhKFN3EqfHFCFq3GJ37Rw6xm6e';
+        $passwordOk=password_verify($password,$account['password_hash']??$dummy);$ok=$account!==null&&$passwordOk;$rate['count']=$ok?0:$rate['count']+1;rewind($lock);ftruncate($lock,0);fwrite($lock,json_encode($rate));flock($lock,LOCK_UN);fclose($lock);
+        if(!$ok)fail('Incorrect username or password.',401);session_regenerate_id(true);$_SESSION=['owner'=>true,'owner_username'=>$account['username'],'owner_credentials'=>$account['credential_version'],'last'=>time(),'started'=>time(),'csrf'=>bin2hex(random_bytes(24))];respond(sessionResponse());
     }
     requireOwner();
+    if($action==='logout'){if($_SERVER['REQUEST_METHOD']!=='POST')fail('POST required.',405);$_SESSION=[];session_destroy();respond(['ok'=>true]);}
+    requireDocumentManager();
     if($action==='state')respond(locked(fn($s)=>$s));
     if($_SERVER['REQUEST_METHOD']!=='POST')fail('POST required.',405);
-    if($action==='logout'){$_SESSION=[];session_destroy();respond(['ok'=>true]);}
     if($action==='upload'){
         $file=$_FILES['pdf']??null;if(!$file||$file['error']!==UPLOAD_ERR_OK)fail('Upload failed. Check the PDF size limit.');
         if($file['size']>MAX_PDF||$file['size']<8)fail('PDFs must be smaller than 20 MB.',413);

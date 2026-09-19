@@ -9,6 +9,7 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--production', action='store_true', help='Explicitly select the main site, not the test preview.')
 parser.add_argument('--credentials', type=Path, default=ROOT / '.env.local')
 parser.add_argument('--initialize-management', type=Path, help='Existing owner credential directory; used only if production has no credentials.')
+parser.add_argument('--initialize-superadmin', type=Path, help='Add an explicitly configured superadmin from a private directory; never replace existing credentials.')
 args = parser.parse_args()
 if not args.production:
     parser.error('Pass --production only when the user has authorized publishing to the main site.')
@@ -107,8 +108,19 @@ def upload(name, data, private=False):
         ftp.sendcmd('SITE CHMOD 600 ' + name)
     print('Uploaded ' + name, flush=True)
 
+def credential_username(data):
+    # Evaluate only the guarded credential file produced by our local setup command.
+    local = backup / 'credential-username.php'
+    local.write_bytes(data)
+    try:
+        return subprocess.check_output(['php', '-r', "define('FORMS_MANAGEMENT_AUTH',true); echo mb_strtolower(trim(require $argv[1]),'UTF-8');", str(local)], text=True)
+    finally:
+        local.unlink()
+
 try:
     credentials = {name: read('_private/management/' + name) for name in ['username.php', 'password.php']}
+    super_credentials = {name: read('_private/management/' + name) for name in ['superadmin-username.php', 'superadmin-password.php']}
+    assert args.initialize_superadmin or not any(super_credentials.values()) or all(super_credentials.values()), 'Production superadmin configuration is incomplete; supply the matching private bootstrap to finish it.'
     if any(credentials.values()):
         assert all(credentials.values()), 'Production owner configuration is incomplete; refusing to overwrite it.'
         bootstrap = {}
@@ -116,9 +128,21 @@ try:
         assert args.initialize_management, 'Production needs an explicitly supplied owner credential directory.'
         bootstrap = {name: (args.initialize_management / name).read_bytes() for name in credentials}
         assert all(data.startswith(b'<?php') and b'FORMS_MANAGEMENT_AUTH' in data for data in bootstrap.values())
+    super_bootstrap = {}
+    if args.initialize_superadmin:
+        supplied = {name: (args.initialize_superadmin / name).read_bytes() for name in super_credentials}
+        assert all(data.startswith(b'<?php') and b'FORMS_MANAGEMENT_AUTH' in data for data in supplied.values()), 'Invalid private superadmin credential files.'
+        assert credential_username(supplied['superadmin-username.php']) != credential_username(credentials['username.php'] or bootstrap['username.php']), 'Superadmin and admin usernames must be different.'
+        for name, data in supplied.items():
+            existing = super_credentials[name]
+            assert existing is None or existing == data, 'A different superadmin credential already exists; refusing to overwrite it.'
+            if existing is None:
+                super_bootstrap[name] = data
     # Protect private storage before placing owner credentials or enabling the APIs.
     upload('_private/.htaccess', files['_private/.htaccess'])
     for name, data in bootstrap.items():
+        upload('_private/management/' + name, data, private=True)
+    for name, data in super_bootstrap.items():
         upload('_private/management/' + name, data, private=True)
     upload('.htaccess', files['.htaccess'])
     # Immutable assets and PHP dependencies precede the new HTML entrypoints.
@@ -131,6 +155,9 @@ try:
     for name, original in credentials.items():
         if original:
             assert read('_private/management/' + name) == original, 'Owner credentials changed unexpectedly.'
+    for name, original in {**super_credentials, **super_bootstrap}.items():
+        if original:
+            assert read('_private/management/' + name) == original, 'Superadmin credentials changed unexpectedly.'
     report['completed'] = True
     persist_report()
     (ROOT / 'docs' / 'deployment-manifest.json').write_text(json.dumps(report, indent=2) + '\n')

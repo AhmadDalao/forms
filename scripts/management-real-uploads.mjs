@@ -5,7 +5,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 const root=process.cwd(),out=path.join(root,'tmp/management-real-files'),data=path.join(out,'uploads-'+Date.now()),password=randomBytes(24).toString('hex');
-const init=spawnSync('php',['scripts/management-init.php',data,'qa.manager'],{input:password});assert.equal(init.status,0);
+const init=spawnSync('php',['scripts/management-superadmin-init.php',data,'qa.manager'],{input:password});assert.equal(init.status,0);
 const server=spawn('php',['-d','upload_max_filesize=20M','-d','post_max_size=24M','-S','127.0.0.1:8183','-t','dist','scripts/management-router.php'],{env:{...process.env,FORMS_DATA_DIR:data},stdio:'ignore'});
 const base='http://127.0.0.1:8183';let owner,anon;const report=[];
 try{
