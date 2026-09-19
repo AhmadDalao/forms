@@ -1,0 +1,353 @@
+{
+  "site": "https://forms.ahmaddalao.com/",
+  "source_commit": "26ac7a3a113718d36eb2435182350fd5dddfe6ec",
+  "changes": [
+    "Compact bilingual subscription type and payment method cards, side by side on desktop and stacked groups on smaller screens.",
+    "One Clear selection action resets both choices and saved progress without changing units or calculated amounts.",
+    "Radio keyboard focus retained through rendering; clear action disabled when both groups are empty."
+  ],
+  "existing_subscription_tests": {
+    "passed": 15,
+    "failed": 0
+  },
+  "build": "passed",
+  "local_ui": {
+    "base": "http://127.0.0.1:8191",
+    "results": [
+      {
+        "audience": "individual",
+        "lang": "en",
+        "width": 1440,
+        "image": "individual-en-1440.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      },
+      {
+        "audience": "individual",
+        "lang": "en",
+        "width": 390,
+        "image": "individual-en-390.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      },
+      {
+        "audience": "individual",
+        "lang": "en",
+        "width": 320,
+        "image": "individual-en-320.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      },
+      {
+        "audience": "individual",
+        "lang": "ar",
+        "width": 1440,
+        "image": "individual-ar-1440.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      },
+      {
+        "audience": "individual",
+        "lang": "ar",
+        "width": 390,
+        "image": "individual-ar-390.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      },
+      {
+        "audience": "individual",
+        "lang": "ar",
+        "width": 320,
+        "image": "individual-ar-320.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      },
+      {
+        "audience": "corporate",
+        "lang": "en",
+        "width": 1440,
+        "image": "corporate-en-1440.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      },
+      {
+        "audience": "corporate",
+        "lang": "en",
+        "width": 390,
+        "image": "corporate-en-390.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      },
+      {
+        "audience": "corporate",
+        "lang": "en",
+        "width": 320,
+        "image": "corporate-en-320.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      },
+      {
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 1440,
+        "image": "corporate-ar-1440.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      },
+      {
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 390,
+        "image": "corporate-ar-390.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      },
+      {
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 320,
+        "image": "corporate-ar-320.png",
+        "passed": true,
+        "checks": [
+          "single reset",
+          "disabled when empty",
+          "independent choices",
+          "both cleared",
+          "saved after reload",
+          "totals preserved",
+          "progress count",
+          "audience isolation",
+          "keyboard focus and arrow navigation",
+          "aligned cards",
+          "no overflow"
+        ]
+      }
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "visual_checks": [
+    "English desktop and Arabic/mobile screenshots inspected."
+  ],
+  "deployment_manifest": "docs/deployment-manifest.json",
+  "verified_at": "2026-09-19T18:39:11.974402+00:00",
+  "live": {
+    "checks": [
+      {
+        "audience": "individual",
+        "lang": "en",
+        "width": 1440,
+        "oneClearAction": true,
+        "bothChoicesClear": true,
+        "reloadPreservesClearing": true,
+        "amountsUnchanged": true,
+        "progressUpdated": true,
+        "noOverflow": true
+      },
+      {
+        "audience": "individual",
+        "lang": "ar",
+        "width": 390,
+        "oneClearAction": true,
+        "bothChoicesClear": true,
+        "reloadPreservesClearing": true,
+        "amountsUnchanged": true,
+        "progressUpdated": true,
+        "noOverflow": true
+      },
+      {
+        "audience": "corporate",
+        "lang": "en",
+        "width": 1440,
+        "oneClearAction": true,
+        "bothChoicesClear": true,
+        "reloadPreservesClearing": true,
+        "amountsUnchanged": true,
+        "progressUpdated": true,
+        "noOverflow": true
+      },
+      {
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 390,
+        "oneClearAction": true,
+        "bothChoicesClear": true,
+        "reloadPreservesClearing": true,
+        "amountsUnchanged": true,
+        "progressUpdated": true,
+        "noOverflow": true
+      }
+    ],
+    "errors": [],
+    "blockedWrites": [],
+    "submissionMutations": 0,
+    "passed": true
+  },
+  "live_routes": [
+    {
+      "route": "/register/",
+      "status": 200
+    },
+    {
+      "route": "/login/",
+      "status": 200
+    },
+    {
+      "route": "/my-applications/",
+      "status": 200
+    },
+    {
+      "route": "/management/",
+      "status": 200
+    },
+    {
+      "route": "/individuals/",
+      "status": 200
+    },
+    {
+      "route": "/companies/",
+      "status": 200
+    },
+    {
+      "route": "/_private/portal/clients.sqlite",
+      "status": 403
+    },
+    {
+      "route": "/.env.local",
+      "status": 403
+    }
+  ],
+  "safety": "Public build deployed with backups; private storage and archived submissions preserved. Live checks used anonymous browser-only drafts and made no submission or client-data writes."
+}
