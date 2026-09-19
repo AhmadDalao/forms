@@ -59,5 +59,64 @@
     "Account mutation tests used isolated local PHP and synthetic users; no test submissions or user-account edits on production.",
     "Guest drafts and document-specific unfinished edits remain browser-local. Shared profile fields autosave only while signed in.",
     "Shared autosave excludes signature images. Saved PDF versions remain immutable."
-  ]
+  ],
+  "deployment": {
+    "uploaded_at_utc": "20260919T215954Z",
+    "url": "https://forms.ahmaddalao.com/",
+    "source_commit": "b6e8c74fabe02108b262405f2a7290e5c6dbd686",
+    "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T215954Z",
+    "completed": true
+  },
+  "live_asset_privacy_check": {
+    "passed": true,
+    "public_build_matches": [
+      "index.html",
+      "my-applications/index.html",
+      "individuals/index.html",
+      "management/index.html",
+      "register/index.html",
+      "account/index.html",
+      "assets/main-DQ-iQjQZ.css",
+      "assets/main-CrrkPLAF.js",
+      "assets/preview-BYiez30U.js",
+      "assets/index-vMlrF9fh.js",
+      "assets/main-BNObilhE.js",
+      "assets/access-SxEWQQH8.js",
+      "assets/main-DwsM0G01.css",
+      "assets/main-D0Sh3j6S.js",
+      "assets/shared-fields-hD9PrpOR.js",
+      "assets/api--8d9V50j.js",
+      "assets/access-BFQcegoa.js",
+      "login/index.html",
+      "companies/index.html"
+    ],
+    "blocked_paths": [
+      {
+        "path": "_private/",
+        "status": 403
+      },
+      {
+        "path": "_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "path": ".env.local",
+        "status": 403
+      }
+    ],
+    "source_commit": "b6e8c74fabe02108b262405f2a7290e5c6dbd686"
+  },
+  "live_read_only_smoke": {
+    "passed": true,
+    "checks": [
+      "individuals en: new collapsed shared panel and guest account-save guidance",
+      "companies ar: new collapsed shared panel and guest account-save guidance",
+      "Shared profile endpoint rejects unauthenticated access",
+      "Management login remains available"
+    ],
+    "page_errors": [],
+    "blocked_requests": [],
+    "production_mutations": 0,
+    "hosting_challenge": "Hostinger browser-verification POST allowed; application mutations blocked."
+  }
 }
