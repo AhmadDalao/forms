@@ -65,7 +65,8 @@
 @media(max-width:650px){.options,.options:has(>.option-row:nth-child(2):last-child),.options:has(>.option-row:nth-child(4):last-child){grid-template-columns:1fr}}
 
 .shared-fields-panel{margin:0 0 28px;border:1px solid #d6c8e2;border-radius:12px;background:white;overflow:hidden}
-.form-panel>.shared-fields-panel{margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0}
+.section-title-row{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap}
+.section-title-row .ghost{color:var(--purple);font-size:12px;text-align:start;max-width:100%}
 .shared-fields-panel>summary{padding:19px 24px;cursor:pointer;color:var(--purple);background:#f5f1f9;list-style-position:inside}
 .shared-fields-panel>summary>span{display:inline-flex;flex-direction:column;gap:5px;vertical-align:middle}
 .shared-fields-panel>summary b{font-size:15px;font-weight:600}.shared-fields-panel>summary small{font-size:12px;color:var(--muted)}

@@ -11,6 +11,8 @@ The light English/Arabic portal supports Saudi mobile registration, first/last n
 
 Subscription quantities and totals are calculated in both JavaScript and PHP, using the user's specified SAR 1,000 unit price and 2% fee. Readable number grouping is display-only. Source documents and the user's explicit instructions control all fields and options: do not invent new ones. Uploaded documents need mapping/review before publication; arbitrary documents are not guaranteed to become correct forms automatically.
 
+Shared customer details are edited once on the audience catalogue page. Document sections link back to that editor instead of repeating the shared-fields panel; matching answers still populate automatically, and manual corrections remain specific to the document.
+
 ## Runtime and private data
 
 The frontend uses Vite, plain JavaScript, PDF.js and pdf-lib with locally hosted fonts. PHP 8.3 requires PDO SQLite, mbstring, fileinfo and ZipArchive. Production uses SQLite; the saved MySQL credentials are not used.
