@@ -1,0 +1,161 @@
+{
+  "tested_at_utc": "2026-09-19T14:45:02.491511+00:00",
+  "url": "https://forms.ahmaddalao.com/",
+  "source_commit": "58517eb4968d76d15d874cde3aa3672f55198e03",
+  "unit_tests_passed": 56,
+  "form_language_audience_combinations": 20,
+  "sections_checked": 78,
+  "checks": [
+    "Repeated shared-fields panel absent from every tested form section",
+    "Shared values populate in individual and company forms independently",
+    "Edit shared details opens the audience catalogue editor",
+    "Manual corrections and explicit shared-value restoration are preserved",
+    "Downloads succeed in both languages for all editable catalogue documents",
+    "Direct shared-editor link works even when a saved form would normally reopen",
+    "Arabic mobile layout fits the viewport"
+  ],
+  "console_errors": [],
+  "production_private_data_untouched": true,
+  "results": [
+    {
+      "folder": "individuals",
+      "lang": "en",
+      "id": "subscription-form",
+      "sections": 4,
+      "download": true
+    },
+    {
+      "folder": "individuals",
+      "lang": "en",
+      "id": "kyc-individual",
+      "sections": 6,
+      "download": true
+    },
+    {
+      "folder": "individuals",
+      "lang": "en",
+      "id": "signature-form",
+      "sections": 2,
+      "download": true
+    },
+    {
+      "folder": "individuals",
+      "lang": "en",
+      "id": "fatca-crs-individual",
+      "sections": 5,
+      "download": true
+    },
+    {
+      "folder": "individuals",
+      "lang": "en",
+      "id": "terms-and-conditions",
+      "sections": 2,
+      "download": true
+    },
+    {
+      "folder": "companies",
+      "lang": "en",
+      "id": "subscription-company",
+      "sections": 4,
+      "download": true
+    },
+    {
+      "folder": "companies",
+      "lang": "en",
+      "id": "kyc-corporate",
+      "sections": 6,
+      "download": true
+    },
+    {
+      "folder": "companies",
+      "lang": "en",
+      "id": "signature-form",
+      "sections": 2,
+      "download": true
+    },
+    {
+      "folder": "companies",
+      "lang": "en",
+      "id": "fatca-crs-corporate",
+      "sections": 6,
+      "download": true
+    },
+    {
+      "folder": "companies",
+      "lang": "en",
+      "id": "terms-and-conditions",
+      "sections": 2,
+      "download": true
+    },
+    {
+      "folder": "individuals",
+      "lang": "ar",
+      "id": "subscription-form",
+      "sections": 4,
+      "download": true
+    },
+    {
+      "folder": "individuals",
+      "lang": "ar",
+      "id": "kyc-individual",
+      "sections": 6,
+      "download": true
+    },
+    {
+      "folder": "individuals",
+      "lang": "ar",
+      "id": "signature-form",
+      "sections": 2,
+      "download": true
+    },
+    {
+      "folder": "individuals",
+      "lang": "ar",
+      "id": "fatca-crs-individual",
+      "sections": 5,
+      "download": true
+    },
+    {
+      "folder": "individuals",
+      "lang": "ar",
+      "id": "terms-and-conditions",
+      "sections": 2,
+      "download": true
+    },
+    {
+      "folder": "companies",
+      "lang": "ar",
+      "id": "subscription-company",
+      "sections": 4,
+      "download": true
+    },
+    {
+      "folder": "companies",
+      "lang": "ar",
+      "id": "kyc-corporate",
+      "sections": 6,
+      "download": true
+    },
+    {
+      "folder": "companies",
+      "lang": "ar",
+      "id": "signature-form",
+      "sections": 2,
+      "download": true
+    },
+    {
+      "folder": "companies",
+      "lang": "ar",
+      "id": "fatca-crs-corporate",
+      "sections": 6,
+      "download": true
+    },
+    {
+      "folder": "companies",
+      "lang": "ar",
+      "id": "terms-and-conditions",
+      "sections": 2,
+      "download": true
+    }
+  ]
+}

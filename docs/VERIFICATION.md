@@ -234,3 +234,9 @@ The output is a static PDF for printing, with optional user-uploaded signature i
 - Passed 56 unit tests, isolated portal and management browser audits, and the complete production client workflow: registration, login, submissions, previews, individual and ZIP downloads, edit/resubmit, immutable archives, recovery and password reset. Checked both languages, mobile layouts, logos, document routes, all PDF hashes, no-store API headers and access denial for private files.
 - Removed only the two explicitly tracked synthetic accounts and their 14 test PDFs after verification. Final database integrity check passed; final dashboard had zero users/submissions. The password-protected preview remains separate.
 - Introduced no new form fields or options. Detailed evidence: `live-release-verification.json` and `deployment-manifest.json`.
+
+## 2026-09-19 — Shared customer editor on catalogue pages
+
+- Removed the repeated shared-fields panel from document sections in both audience folders. All regular form sections now link to the catalogue shared editor, following the subscription workflow; shared answers, manual overrides, signatures and PDF fields remain intact.
+- Passed 56 unit tests and local/production checks covering 20 audience/language/document combinations and 78 sections, shared-value edits, overrides, downloads and Arabic mobile layouts. No customer accounts or submissions were created for these checks.
+- Published to the primary Hostinger site with backups and owner credentials/private customer storage preserved. See `shared-panel-verification.json`.
