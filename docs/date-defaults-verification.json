@@ -1,0 +1,94 @@
+{
+  "source_commit": "b523d7a11c100b2368d924102872ce230b1a2388",
+  "deployed_at_utc": "20260919T190235Z",
+  "change": "Default document-completion dates to the local calendar day on opening a form. Preserve chosen dates, deliberate blanks, and submitted revisions. No defaults for birth, incorporation, issue or expiry dates.",
+  "fields": {
+    "terms-and-conditions": [
+      "terms_date",
+      "authorization_date"
+    ],
+    "signature-form": [
+      "date"
+    ],
+    "fatca-crs-individual": [
+      "date"
+    ],
+    "fatca-crs-corporate": [
+      "date"
+    ]
+  },
+  "subscription": "Existing date behavior retained; common local-date formatter reused.",
+  "unit_tests": {
+    "command": "node --test tests/date-defaults.test.mjs tests/drafts.test.mjs tests/subscription.test.mjs",
+    "passed": 31
+  },
+  "build": "passed",
+  "local": {
+    "site": "http://127.0.0.1:8197/",
+    "result": "pass",
+    "document_language_audience_cases": 12,
+    "historical_date_blank_checks": 56,
+    "pdf_downloads": 4,
+    "pdf_checks": "Three transparent date-part images on pages 11 and 13; original page sizes and count preserved.",
+    "saved_custom_dates_preserved": true,
+    "deliberate_blanks_preserved": true,
+    "reset_uses_today": true,
+    "local_timezone_midnight_boundary": true,
+    "browser_errors": [],
+    "server_write_attempts": [],
+    "finished": "2026-09-19T19:02:09.947Z"
+  },
+  "live": {
+    "site": "https://forms.ahmaddalao.com/",
+    "result": "pass",
+    "document_language_audience_cases": 12,
+    "historical_date_blank_checks": 56,
+    "pdf_downloads": 4,
+    "pdf_checks": "Three transparent date-part images on pages 11 and 13; original page sizes and count preserved.",
+    "saved_custom_dates_preserved": true,
+    "deliberate_blanks_preserved": true,
+    "reset_uses_today": true,
+    "local_timezone_midnight_boundary": true,
+    "browser_errors": [],
+    "server_write_attempts": [],
+    "finished": "2026-09-19T19:07:32.292Z"
+  },
+  "https": {
+    "passed": true,
+    "assets_and_routes_match_build": [
+      "index.html",
+      "my-applications/index.html",
+      "individuals/index.html",
+      "management/index.html",
+      "register/index.html",
+      "account/index.html",
+      "assets/forms-CRhIbQXS.js",
+      "assets/main-DZMjFbB0.js",
+      "assets/main-DAtCCfK7.js",
+      "assets/main-DI89RQrF.js",
+      "assets/forms-BcKmFIS4.js",
+      "assets/index-BRn2DgAZ.js",
+      "assets/preview-BXjC07wR.js",
+      "assets/shared-fields-bf0yDvn-.js",
+      "login/index.html",
+      "companies/index.html"
+    ],
+    "private_checks": [
+      {
+        "path": "_private/",
+        "status": 403
+      },
+      {
+        "path": "_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "path": ".env.local",
+        "status": 403
+      }
+    ],
+    "source_commit": "b523d7a11c100b2368d924102872ce230b1a2388"
+  },
+  "production_private_storage": "Preserved by deployment; overwritten public files backed up.",
+  "pending_clarification": "Saudi Arabia request was incomplete; no related field changes made."
+}
