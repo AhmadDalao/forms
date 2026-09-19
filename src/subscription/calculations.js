@@ -1,9 +1,15 @@
 import rules from '../../public/api/subscription/rules.json' with {type:'json'};
 export {rules};
+const numberFormat=new Intl.NumberFormat('en-US',{maximumFractionDigits:0});
+export function formatSubscriptionNumber(value){
+ const text=String(value??'');
+ return /^\d+$/.test(text)&&Number.isSafeInteger(Number(text))?numberFormat.format(Number(text)):text;
+}
 export function parseUnits(value) {
- const normalized=String(value??'').trim().replace(/[٠-٩۰-۹]/g,c=>String(c.charCodeAt(0)-(c<='٩'?1632:1776)));
+ let normalized=String(value??'').trim().replace(/[٠-٩۰-۹]/g,c=>String(c.charCodeAt(0)-(c<='٩'?1632:1776)));
  if(!normalized)return null;
- if(!/^\d+$/.test(normalized))throw Error('units');
+ if(!/^\d+$/.test(normalized)&&!/^\d{1,3}([,٬])\d{3}(?:\1\d{3})*$/.test(normalized))throw Error('units');
+ normalized=normalized.replace(/[,٬]/g,'');
  const units=Number(normalized);
  if(!Number.isSafeInteger(units)||units<1||units>rules.maxUnits)throw Error('units');
  return units;

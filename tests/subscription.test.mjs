@@ -2,20 +2,33 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {docs} from '../src/forms/index.js';
-import {calculateSubscription,arabicRiyals} from '../src/subscription/calculations.js';
+import {calculateSubscription,arabicRiyals,formatSubscriptionNumber} from '../src/subscription/calculations.js';
 import {normalizeSubscription,missingRequired,visibleFields,sectionProgress,canonicalSubscription} from '../src/subscription/model.js';
 import {cleanShared,sharedCandidates} from '../src/shared-fields.js';
 import {createDraftStore} from '../src/drafts.js';
 const individual=docs.find(d=>d.id==='subscription-form'),company=docs.find(d=>d.id==='subscription-company');
 test('the server and browser derive identical totals from units; caller prices are ignored',()=>{
- const input=['','١٠','۱۰','10','1','2','25','101','999','1000','1000001','999999999'];
+ const input=['','١٠','۱۰','10','1','2','25','101','999','1000','1000001','999999999','1,000','1,000,001','١٬٠٠٠','۹۹۹٬۹۹۹٬۹۹۹'];
  const server=JSON.parse(execFileSync('php',['-r',`require 'public/api/subscription/calculate.php';echo json_encode(array_map('subscription_calculate',json_decode($argv[1])));`,JSON.stringify(input)],{encoding:'utf8'}));
  assert.deepEqual(server,input.map(calculateSubscription));
  assert.deepEqual(calculateSubscription('10'),{fund_name:'صندوق النعيم العقاري',currency:'ريال سعودي',unit_price:'1000',units:'10',amount_subscribed:'10000',subscription_fee:'200',total_amount:'10200',total_words:'عشرة آلاف ومائتا ريال سعودي'});
 });
 test('invalid and fractional unit counts never produce trusted totals',()=>{
- for(const value of ['0','-2','1.5','١٫٥','1e3','Infinity','1,000','9999999999','bad'])assert.throws(()=>calculateSubscription(value));
+ const invalid=['0','-2','1.5','١٫٥','1e3','Infinity','1,00','1,5','1,000,','1,000٬000','1 000','9999999999','bad'];
+ for(const value of invalid)assert.throws(()=>calculateSubscription(value));
+ const rejected=JSON.parse(execFileSync('php',['-r',`require 'public/api/subscription/calculate.php';echo json_encode(array_map(function($v){try{subscription_calculate($v);return false;}catch(InvalidArgumentException $e){return true;}},json_decode($argv[1])));`,JSON.stringify(invalid)],{encoding:'utf8'}));
+ assert.ok(rejected.every(Boolean));
  const v=normalizeSubscription(individual,{units:'1.5'});assert.equal(v.total_amount,'');assert.ok(missingRequired(individual,v,{}).includes('units'));
+});
+test('display grouping leaves canonical financial values numeric',()=>{
+ const v=calculateSubscription('1,000');
+ assert.equal(v.units,'1000');assert.equal(v.total_amount,'1020000');
+ assert.equal(formatSubscriptionNumber(v.units),'1,000');
+ assert.equal(formatSubscriptionNumber(v.amount_subscribed),'1,000,000');
+ assert.equal(formatSubscriptionNumber(v.subscription_fee),'20,000');
+ assert.equal(formatSubscriptionNumber(v.total_amount),'1,020,000');
+ assert.equal(formatSubscriptionNumber(calculateSubscription('999999999').total_amount),'1,019,999,998,980');
+ assert.equal(formatSubscriptionNumber(''),'');assert.equal(formatSubscriptionNumber('1.5'),'1.5');
 });
 test('Arabic amount wording handles scale and attached dual forms',()=>{
  assert.equal(arabicRiyals(10200),'عشرة آلاف ومائتا ريال سعودي');

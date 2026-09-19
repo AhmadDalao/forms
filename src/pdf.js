@@ -5,6 +5,7 @@ import { hasValue } from './schema.js';
 import { signatureSlots, signaturePlacement, cleanSignatures } from './signatures.js';
 import { appRoot } from './routes.js';
 import {canonicalSubscription,isSubscription} from './subscription/model.js';
+import {formatSubscriptionNumber} from './subscription/calculations.js';
 import { assertLayout } from './management/layout.js';
 pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
 const templates = new Map();
@@ -100,7 +101,9 @@ export async function generate(doc, values, signatures = {}) {
   }
   for(const f of doc.fields) {
     if(isSubscription(doc)&&(!f.rect||f.staticPdf))continue;
-    const value=fieldValue(f,values); if(!hasValue(value)) continue;
+    const rawValue=fieldValue(f,values);
+    const value=isSubscription(doc)&&(f.money||f.numeric)?formatSubscriptionNumber(rawValue):rawValue;
+    if(!hasValue(value)) continue;
     const page=pdf.getPage(f.page-1), ph=page.getHeight();
     if(f.type==='choice') {
       const selected=Array.isArray(value)?value:[value];

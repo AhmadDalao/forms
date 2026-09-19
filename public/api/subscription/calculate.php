@@ -25,7 +25,9 @@ function subscription_calculate($value): array {
  $value=trim(strtr((string)$value,array_combine(preg_split('//u','٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹',-1,PREG_SPLIT_NO_EMPTY),str_split('01234567890123456789'))));
  $fixed=['fund_name'=>$rules['fundName'],'currency'=>$rules['currency'],'unit_price'=>(string)$rules['unitPrice']];
  if($value==='')return $fixed+['units'=>'','amount_subscribed'=>'','subscription_fee'=>'','total_amount'=>'','total_words'=>''];
- if(!preg_match('/^[0-9]+$/D',$value)||strlen(ltrim($value,'0'))>9)throw new InvalidArgumentException('units');
+ if(!preg_match('/^[0-9]+$/D',$value)&&!preg_match('/^[0-9]{1,3}([,٬])[0-9]{3}(?:\1[0-9]{3})*$/uD',$value))throw new InvalidArgumentException('units');
+ $value=str_replace([',','٬'],'',$value);
+ if(strlen(ltrim($value,'0'))>9)throw new InvalidArgumentException('units');
  $units=(int)$value;if($units<1||$units>$rules['maxUnits'])throw new InvalidArgumentException('units');
  $investment=$units*$rules['unitPrice'];$fee=intdiv($investment*$rules['feePercent'],100);$total=$investment+$fee;
  return $fixed+['units'=>(string)$units,'amount_subscribed'=>(string)$investment,'subscription_fee'=>(string)$fee,'total_amount'=>(string)$total,'total_words'=>subscription_words($total)];

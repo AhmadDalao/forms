@@ -1,7 +1,7 @@
 import {generate,loadPreview,renderPage,templateUrl} from '../pdf.js';
 import {prepareSignature} from '../signatures.js';
 import {normalizeSubscription,visibleFields,sectionProgress,missingRequired} from './model.js';
-import {rules} from './calculations.js';
+import {rules,parseUnits,formatSubscriptionNumber} from './calculations.js';
 import './style.css';
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
@@ -25,7 +25,8 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
  };
  function shownValue(f){
   const value=values[f.id]??'';
-  if(f.money)return value?Number(value).toLocaleString(lang==='ar'?'ar-SA':'en-US')+' '+t('SAR','ريال سعودي'):'—';
+  if(f.money)return value?formatSubscriptionNumber(value)+' '+t('SAR','ريال سعودي'):'—';
+  if(f.numeric)return formatSubscriptionNumber(value);
   if(f.id==='fund_name')return t('Al Naeem Real Estate Fund',value);
   if(f.id==='currency')return t('Saudi Riyal',value);
   return value;
@@ -45,7 +46,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
   if(f.readOnly)input=`<output id="sub-${f.id}" data-computed="${f.id}" class="sub-computed" dir="${f.id==='total_words'?'rtl':'auto'}">${escape(shownValue(f)||'—')}</output>`;
   else if(locked){const option=f.selectOptions?.find(o=>o[0]===value);input=`<div class="sub-shared-value" id="sub-${f.id}" dir="${f.direction==='ltr'?'ltr':'auto'}">${escape(option?t(option[1],option[2]):value)}</div><small class="shared-hint">${t('From your shared details','من بياناتك المشتركة')}</small>`;}
   else if(f.type==='select')input=`<select id="sub-${f.id}" name="${f.id}" ${f.required?'required':''}><option value="">${t('Select…','اختر…')}</option>${f.selectOptions.map(o=>`<option value="${o[0]}" ${o[0]===value?'selected':''}>${escape(t(o[1],o[2]))}</option>`).join('')}</select>`;
-  else input=`<input id="sub-${f.id}" name="${f.id}" type="${['date','email','tel'].includes(f.type)?f.type:'text'}" value="${escape(value)}" dir="${f.direction==='ltr'||f.numeric?'ltr':'auto'}" ${f.numeric?'inputmode="numeric"':''} ${f.required?'required':''} autocomplete="off" spellcheck="false" maxlength="2000">`;
+  else input=`<input id="sub-${f.id}" name="${f.id}" type="${['date','email','tel'].includes(f.type)?f.type:'text'}" value="${escape(shownValue(f))}" dir="${f.direction==='ltr'||f.numeric?'ltr':'auto'}" ${f.numeric?'inputmode="numeric"':''} ${f.required?'required':''} autocomplete="off" spellcheck="false" maxlength="2000">`;
   return `<div class="field ${f.wide?'wide':''} ${errors.includes(f.id)?'invalid':''}" data-field="${f.id}"><label for="sub-${f.id}">${label}${f.required?'<span class="required-mark"> *</span>':''}</label>${input}${f.id==='units'?`<small class="sub-help">${t('Whole units · SAR 1,000 per unit','وحدات صحيحة · ١٬٠٠٠ ريال سعودي للوحدة')}</small>`:''}${f.id==='applicant_name'?`<small class="sub-help">${t('Filled from your customer details. You can edit how your name appears.','معبّأ من بيانات العميل. يمكنك تعديل طريقة ظهور الاسم.')}</small>`:''}${errorFor(f.id)}</div>`;
  }
  function fields(){
@@ -67,6 +68,12 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
   root.querySelector('#sub-next')?.addEventListener('click',()=>step===doc.sections.length-1?prepare(false):go(step+1));
   root.querySelector('#sub-back-review')?.addEventListener('click',()=>go(doc.sections.length-1));
   const form=root.querySelector('#subscription-fields');if(form){form.onsubmit=ev=>ev.preventDefault();form.oninput=input;}
+  const units=root.querySelector('#sub-units');
+  if(units){
+   // Edit plain digits without moving the caret on every keystroke; group on blur.
+   units.onfocus=()=>{try{units.value=String(parseUnits(units.value)??'');}catch{}};
+   units.onblur=()=>{try{units.value=formatSubscriptionNumber(parseUnits(units.value)??'');}catch{}};
+  }
   root.querySelectorAll('[data-sub-clear]').forEach(b=>b.onclick=()=>{if(busy)return;values[b.dataset.subClear]='';changed(b.dataset.subClear);render();});
   root.querySelector('#sub-signature-file')?.addEventListener('change',upload);
   root.querySelector('[data-remove-signature]')?.addEventListener('click',()=>{if(busy)return;delete signatures.applicant;changed();render();});
