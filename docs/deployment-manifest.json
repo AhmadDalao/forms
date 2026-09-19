@@ -1,14 +1,14 @@
 {
-  "uploaded_at_utc": "20260919T190235Z",
+  "uploaded_at_utc": "20260919T191222Z",
   "url": "https://forms.ahmaddalao.com/",
-  "source_commit": "b523d7a11c100b2368d924102872ce230b1a2388",
+  "source_commit": "a82072c5f39eaf4bbc975c418012ba46acb7bbb1",
   "transport": "Explicit FTPS with verified Hostinger certificate",
-  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T190235Z",
+  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T191222Z",
   "files": [
     {
       "path": "index.html",
-      "bytes": 755,
-      "sha256": "f3fc33b681c41f166a7533c4b0cb6e42ade56aa9810e342d7c614e1b821c74ff"
+      "bytes": 746,
+      "sha256": "87b6689beb6e9b5cf9d55fd6e07f138da09ffb366f6b71db537209882ca10d11"
     },
     {
       "path": ".user.ini",
@@ -27,13 +27,8 @@
     },
     {
       "path": "my-applications/index.html",
-      "bytes": 793,
-      "sha256": "705ad9ecca3f5b6700217aebf82d898a5cb252087210b9f9a866bd647f0b9227"
-    },
-    {
-      "path": "branding/wessal.png",
-      "bytes": 29637,
-      "sha256": "c5560fc2284593cd155ddbe358d3c59fb515bf75b45ff20c8421d69fe546e45b"
+      "bytes": 784,
+      "sha256": "d01174d881097bc9472b5e7b3d424aa2872858e3497dd3de2602989993131957"
     },
     {
       "path": "branding/itqan.png",
@@ -42,13 +37,13 @@
     },
     {
       "path": "individuals/index.html",
-      "bytes": 789,
-      "sha256": "05d80a357cb868759e4c8c73cd985118023149523adc0bf1c2a40d0635d5d471"
+      "bytes": 780,
+      "sha256": "1d6660ce5791d8563ff1824ae357710157a4b362b0f0e60727782251a0fd379e"
     },
     {
       "path": "management/index.html",
-      "bytes": 788,
-      "sha256": "343d3c9a906cfe7a0b20c7029be3032097c6e96a7225d53a459f8fdc3179a355"
+      "bytes": 779,
+      "sha256": "fa445f0c1a024a7a604d0c84196ae09366b4c3965f26f1a0575c5a176fb38cc5"
     },
     {
       "path": "_private/.htaccess",
@@ -57,8 +52,8 @@
     },
     {
       "path": "register/index.html",
-      "bytes": 786,
-      "sha256": "e7e11eff0b5a580f49ec6759975b780fd76264a5989c0ca98e5ba786066fb218"
+      "bytes": 777,
+      "sha256": "ab95f4a62760bd22dca58ec0a80335af9db1b640421486f67e64918e01ec7b05"
     },
     {
       "path": "api/defaults.json",
@@ -167,8 +162,13 @@
     },
     {
       "path": "account/index.html",
-      "bytes": 785,
-      "sha256": "c3735a235d4a2cc580a349de550590ee51352fb14cb14a8816ba5d7e97f8e711"
+      "bytes": 776,
+      "sha256": "6b78a1ad12b6ab716a62d9c53708bb36f0b11b56546d3691e0699011c0bf7079"
+    },
+    {
+      "path": "assets/main-CtJk5-Yw.js",
+      "bytes": 27731,
+      "sha256": "8381b93e9fad0c2e4f46c62775bc33608d79e2b2e793df9516ea69681b019b22"
     },
     {
       "path": "assets/forms-CRhIbQXS.js",
@@ -176,9 +176,9 @@
       "sha256": "39e0abfed25f5e96f99a8ddc13f3fa0db10caae38e1c3611cf58179ed470c664"
     },
     {
-      "path": "assets/main-DZMjFbB0.js",
-      "bytes": 71418,
-      "sha256": "e39f5a72d1399b2ebe048f4f6014bbf16fee52ef457151652a5c7312c3738f30"
+      "path": "assets/preview-CWOoSjD_.js",
+      "bytes": 14485,
+      "sha256": "15b4e5573b0e048f4649c4c230f6c0a97feec51900d9542038f2acbb58580720"
     },
     {
       "path": "assets/pdf.worker.min-Dswkl-cV.mjs",
@@ -189,11 +189,6 @@
       "path": "assets/arabic-600-DfnZHZ36.css",
       "bytes": 239,
       "sha256": "4408887cf67093d248dd499577fd4ab9e76c70e453555c1dd6bdaf429834e467"
-    },
-    {
-      "path": "assets/main-DAtCCfK7.js",
-      "bytes": 55791,
-      "sha256": "13569175b7b4af256bb98574ffde2aa0c2fccc01b967bd8fd652fbd95f8f54da"
     },
     {
       "path": "assets/noto-sans-arabic-latin-400-normal-CjsIS08k.woff2",
@@ -241,6 +236,11 @@
       "sha256": "bc5701b53eb3df94dad96765fad81edb8c3c558bd78e5fac456aa0f1a98fe55b"
     },
     {
+      "path": "assets/index-DSmhgsD_.js",
+      "bytes": 1915,
+      "sha256": "06e9f7d1bc9cfdaeb01aadf2f758788afc4150cc5946a1112efc9c8344cb2912"
+    },
+    {
       "path": "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
       "bytes": 79084,
       "sha256": "6d47c7e4dfc76e221d078945ef2bbf47b047f1b316cf87c7663086639814c763"
@@ -249,6 +249,11 @@
       "path": "assets/access-By4JHCR8.js",
       "bytes": 68,
       "sha256": "12b1acfa7962fb832ad073141fedd25b26e243c0534f5537794a4561697181b9"
+    },
+    {
+      "path": "assets/shared-fields-Dh8w9AEg.css",
+      "bytes": 5709,
+      "sha256": "4715b68645d1cf450da0ecca84562db06f755189338e754e13b6f8e6c52da757"
     },
     {
       "path": "assets/catalogue-Ct32Qvwc.js",
@@ -261,6 +266,11 @@
       "sha256": "4e2ca0745c908761dc5c5db951662873887c59366fa1a5693ad22c0864abf1bd"
     },
     {
+      "path": "assets/main-B_JfpvC4.js",
+      "bytes": 55791,
+      "sha256": "c3f6de0c0a29f1053ccd69b0cfee5eef753e9b6eaacad8c0ccfca6e02bff504d"
+    },
+    {
       "path": "assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
       "bytes": 53260,
       "sha256": "52a2cd4b0ff37ac84ef9af585af2eca0a300d49ea4934cf023827de54fdc354f"
@@ -269,16 +279,6 @@
       "path": "assets/routes-VETtnQjc.js",
       "bytes": 660,
       "sha256": "6c3436c95c68b54206953e92017d9a0edb4c1fdcb4823b5c27e236c2b02232fb"
-    },
-    {
-      "path": "assets/main-DI89RQrF.js",
-      "bytes": 27813,
-      "sha256": "5d46759b4ddc41d72ee3892309201be7f06c97ab48ac16ca685954878cfa125f"
-    },
-    {
-      "path": "assets/shared-fields-OGXoyt90.css",
-      "bytes": 5959,
-      "sha256": "c37412d9d39ce031a1e41f32da6f1725c348be7039a4e512463911c32556abf6"
     },
     {
       "path": "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
@@ -316,11 +316,6 @@
       "sha256": "0e4fdba8269b33de65d9364cb945e118505cbf852136953ec6b460446d9f8074"
     },
     {
-      "path": "assets/index-BRn2DgAZ.js",
-      "bytes": 1915,
-      "sha256": "9a27d3653c8389356672bd93613a1dfec6bfcf81736f4ee4297b01665819e40a"
-    },
-    {
       "path": "assets/access-CWnyKpK5.js",
       "bytes": 735,
       "sha256": "cab913374513c37cfca03c05d1cb41bce221ce837f6a74dff731d4a595003ba1"
@@ -331,14 +326,14 @@
       "sha256": "e1a22f3f73566f21ff932e058d32243e4a118f3491b91e96893aa5ab7eb49a00"
     },
     {
+      "path": "assets/shared-fields-DWi43q2I.js",
+      "bytes": 878692,
+      "sha256": "d1f0c43da8fb9e0fd351cfb4ca6756be3e3e64fe478de631dbc760bbb542046b"
+    },
+    {
       "path": "assets/inter-latin-400-normal-CyCys3Eg.woff",
       "bytes": 30696,
       "sha256": "e20fa0b4fd2dd26e4d14b3ac3cc922509c3a63fa5e910e90c614544aa042dd45"
-    },
-    {
-      "path": "assets/preview-BXjC07wR.js",
-      "bytes": 14485,
-      "sha256": "f802f9c9adb01ebaf5a3c986d823df1bc8ef0e09486e3f39d25d3bdeb2431bd9"
     },
     {
       "path": "assets/inter-latin-400-normal-C38fXH4l.woff2",
@@ -351,19 +346,19 @@
       "sha256": "f3779f1efccc4bdcdf9c0a02ab95bf6bd092ed09c48c08cedc725889edd1d19f"
     },
     {
-      "path": "assets/shared-fields-bf0yDvn-.js",
-      "bytes": 878857,
-      "sha256": "09dca69f2212ccd0a59b1337600c7a93decd61d5b4119d5f422c6b040801330e"
+      "path": "assets/main-CYkOkna2.js",
+      "bytes": 71418,
+      "sha256": "a3b679cc10bc267d6c8d7913d5a40835d7fc1bd726ef85763404f38413ad3266"
     },
     {
       "path": "login/index.html",
-      "bytes": 783,
-      "sha256": "c48458e4aaab153d366b90277ab0f3fdadcc5e7865662f4c6a7d54d771f0c71e"
+      "bytes": 774,
+      "sha256": "8bb079fb74feb9d7fd4dcde3489c9189684a23212b85b7067c41309ff2aa7b6c"
     },
     {
       "path": "companies/index.html",
-      "bytes": 787,
-      "sha256": "ea91df7dfd3956ca26fc7bccac5b0be68b82fea7102e6cc6aa5ca40d05c6a2f0"
+      "bytes": 778,
+      "sha256": "c6efe91da2ef897434eb50e6763f051a44f39aaf91119bca951e679b842ac5b8"
     },
     {
       "path": "api/subscription/calculate.php",
@@ -377,17 +372,15 @@
     }
   ],
   "created": [
-    "assets/forms-BcKmFIS4.js",
-    "assets/forms-CRhIbQXS.js",
-    "assets/index-BRn2DgAZ.js",
-    "assets/main-DAtCCfK7.js",
-    "assets/main-DI89RQrF.js",
-    "assets/main-DZMjFbB0.js",
-    "assets/preview-BXjC07wR.js",
-    "assets/shared-fields-bf0yDvn-.js"
+    "assets/index-DSmhgsD_.js",
+    "assets/main-B_JfpvC4.js",
+    "assets/main-CYkOkna2.js",
+    "assets/main-CtJk5-Yw.js",
+    "assets/preview-CWOoSjD_.js",
+    "assets/shared-fields-DWi43q2I.js",
+    "assets/shared-fields-Dh8w9AEg.css"
   ],
   "replaced": [
-    "api/portal-defaults.json",
     "account/index.html",
     "companies/index.html",
     "individuals/index.html",
@@ -406,6 +399,7 @@
     "api/management-auth.php",
     "api/management.php",
     "api/portal-account-types.php",
+    "api/portal-defaults.json",
     "api/portal-details.php",
     "api/portal-reviews.php",
     "api/portal-versions.php",
@@ -421,6 +415,8 @@
     "assets/catalogue-CR_2rN1N.js",
     "assets/catalogue-Ct32Qvwc.js",
     "assets/catalogue-DlpGEFii.js",
+    "assets/forms-BcKmFIS4.js",
+    "assets/forms-CRhIbQXS.js",
     "assets/inter-latin-400-normal-C38fXH4l.woff2",
     "assets/inter-latin-400-normal-CyCys3Eg.woff",
     "assets/inter-latin-500-normal-BL9OpVg8.woff",
@@ -441,9 +437,7 @@
     "assets/preload-helper-uBIymjUX.js",
     "assets/preview-Bdg-N6y4.css",
     "assets/routes-VETtnQjc.js",
-    "assets/shared-fields-OGXoyt90.css",
     "branding/itqan.png",
-    "branding/wessal.png",
     "favicon.svg",
     "pdfs/al-naeem-terms-consent.pdf",
     "pdfs/fatca-crs-corporate.pdf",
@@ -456,5 +450,9 @@
     "pdfs/subscription-individual.pdf",
     "pdfs/terms-and-conditions.pdf"
   ],
-  "completed": true
+  "completed": true,
+  "removed": [
+    "branding/wessal.png"
+  ],
+  "retired_asset_backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T191222Z/removed/branding/wessal.png"
 }

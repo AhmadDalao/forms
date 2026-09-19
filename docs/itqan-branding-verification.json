@@ -1,0 +1,80 @@
+{
+  "source_commit": "a82072c5f39eaf4bbc975c418012ba46acb7bbb1",
+  "deployed_at_utc": "20260919T191222Z",
+  "change": "Use Itqan Capital alone in the shared site header, page titles and auth footers. Remove the secondary logo, divider, unused styles and public logo asset.",
+  "local": {
+    "result": "pass",
+    "header_layouts": 124,
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "widths": [
+      1440,
+      390
+    ],
+    "checks": [
+      "Anonymous root, sign-in, registration, both catalogues, shared fields and subscription/KYC editors use only Itqan branding in EN/AR at 1440/390",
+      "Both client account types retain correct form routes, bell link/unread state, profile/password access and logout",
+      "Admin/superadmin management navigation, active view, pending bell, client page, language switch and logout work; document/account-type controls remain superadmin-only"
+    ],
+    "browser_errors": []
+  },
+  "live": {
+    "result": "pass",
+    "header_checks": 56,
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "widths": [
+      1440,
+      390
+    ],
+    "browser_errors": [],
+    "blocked_write_attempts": [],
+    "client_or_submission_mutations": 0
+  },
+  "https": {
+    "passed": true,
+    "public_build_matches": [
+      "index.html",
+      "my-applications/index.html",
+      "individuals/index.html",
+      "management/index.html",
+      "register/index.html",
+      "account/index.html",
+      "assets/main-CtJk5-Yw.js",
+      "assets/preview-CWOoSjD_.js",
+      "assets/index-DSmhgsD_.js",
+      "assets/shared-fields-Dh8w9AEg.css",
+      "assets/main-B_JfpvC4.js",
+      "assets/shared-fields-DWi43q2I.js",
+      "assets/main-CYkOkna2.js",
+      "login/index.html",
+      "companies/index.html"
+    ],
+    "blocked_paths": [
+      {
+        "path": "branding/wessal.png",
+        "status": 404
+      },
+      {
+        "path": "_private/",
+        "status": 403
+      },
+      {
+        "path": "_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "path": ".env.local",
+        "status": 403
+      }
+    ],
+    "retired_logo_backed_up": true,
+    "source_commit": "a82072c5f39eaf4bbc975c418012ba46acb7bbb1"
+  },
+  "retired_asset_backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T191222Z/removed/branding/wessal.png",
+  "source_documents_and_saved_submissions": "Preserved unchanged."
+}
