@@ -15,3 +15,6 @@ dist/
 management-data/
 public/_private/*
 !public/_private/.htaccess
+
+# Private account database and submitted PDFs
+portal-data/

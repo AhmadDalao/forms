@@ -6,10 +6,10 @@ export const DRAFT_PREFIX = 'itqan.forms.v1.';
 
 // Each audience owns its profile, drafts and signatures, including the two
 // templates that appear in both folders. Unscoped mode reads legacy drafts.
-export function createDraftStore(documents, getStorage = () => window.localStorage, audience = null) {
+export function createDraftStore(documents, getStorage = () => window.localStorage, audience = null, accountId = null) {
   const scoped=['individual','corporate'].includes(audience);
   if(scoped)documents=documents.filter(d=>d.group===audience||d.group==='shared');
-  const prefix=DRAFT_PREFIX+(scoped?audience+'.':'');
+  const prefix=DRAFT_PREFIX+(accountId?'account.'+accountId+'.':'')+(scoped?audience+'.':'');
   const memory=new Map(),failedKeys=new Set(),legacy=new Map();
   let preferences={},profile={};
   const empty=()=>({values:{},signatures:{},step:0,shared:{},overrides:[]});
@@ -64,7 +64,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       let record=read(doc.id);
       // Keep legacy company subscription answers in their company folder.
       if(doc.id==='subscription-company'&&!record)record=read('subscription-form');
-      if(scoped){
+      if(scoped&&!accountId){
         const old=read(doc.id,DRAFT_PREFIX);
         if(old&&!record&&doc.group===audience){
           record=clean(doc,old);
@@ -74,7 +74,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       }
       memory.set(doc.id,reconcileShared(doc,clean(doc,record),profile,audience));
     }
-    const saved=read('preferences')||(scoped?read('preferences',DRAFT_PREFIX):null);
+    const saved=read('preferences')||(scoped&&!accountId?read('preferences',DRAFT_PREFIX):null);
     preferences={lang:['en','ar'].includes(saved?.lang)?saved.lang:null,active:documents.some(d=>d.id===saved?.active)?saved.active:null};
   }
   refresh();

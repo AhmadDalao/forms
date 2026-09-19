@@ -30,7 +30,7 @@ function subscription_calculate($value): array {
  $investment=$units*$rules['unitPrice'];$fee=intdiv($investment*$rules['feePercent'],100);$total=$investment+$fee;
  return $fixed+['units'=>(string)$units,'amount_subscribed'=>(string)$investment,'subscription_fee'=>(string)$fee,'total_amount'=>(string)$total,'total_words'=>subscription_words($total)];
 }
-if(PHP_SAPI==='cli')return;
+if(PHP_SAPI==='cli'||defined('SUBSCRIPTION_LIBRARY'))return;
 header('Content-Type: application/json; charset=utf-8');header('Cache-Control: no-store');header('X-Content-Type-Options: nosniff');
 if($_SERVER['REQUEST_METHOD']!=='POST'){http_response_code(405);header('Allow: POST');echo '{"error":"method"}';exit;}
 if(!str_starts_with(strtolower($_SERVER['CONTENT_TYPE']??''),'application/json')){http_response_code(415);echo '{"error":"content_type"}';exit;}

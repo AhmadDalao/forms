@@ -6,3 +6,5 @@ const documents=all.map(({id,title,ar,group,pages,number,description,arDescripti
 const orders=Object.fromEntries(['individual','corporate'].map(a=>[a,catalogueFor(docs,a).map(d=>d.id)]));
 await fs.mkdir('dist/api',{recursive:true});
 await fs.writeFile('dist/api/defaults.json',JSON.stringify({documents,orders}));
+
+await fs.writeFile('dist/api/portal-defaults.json',JSON.stringify(Object.fromEntries(docs.map(d=>[d.id,{id:d.id,workflow:d.workflow,fields:d.fields}]))));
