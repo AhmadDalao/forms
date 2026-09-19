@@ -1,11 +1,11 @@
 """Verify downloaded answers stay inside blank cells and never cover printed ink."""
 from pathlib import Path
-import json
+import json,os
 import numpy as np
 import pypdfium2 as pdfium
 from pypdf import PdfReader
 import pdfplumber
-ROOT=Path('tmp/subscription/audit')
+ROOT=Path(os.environ.get('QA_OUT','tmp/subscription/audit'))
 records=json.loads((ROOT/'results.json').read_text());report=[]
 for record in records:
  source_path=Path('public/pdfs')/('subscription-company.pdf' if record['audience']=='corporate' else 'subscription-individual.pdf')
@@ -14,6 +14,8 @@ for record in records:
  total=overlap=images=0
  for i in range(2):
   original=np.asarray(source[i].render(scale=2).to_pil().convert('RGB'));rendered=output[i].render(scale=2).to_pil().convert('RGB');pixels=np.asarray(rendered)
+  assert list(old_reader.pages[i].mediabox)==list(reader.pages[i].mediabox),('Changed page geometry',record['file'],i+1)
+  assert ''.join(old_reader.pages[i].extract_text().split())==''.join(reader.pages[i].extract_text().split()),('Changed source text',record['file'],i+1)
   rendered.save(ROOT/(record['file'].replace('.pdf',f'-p{i+1}.png')))
   r,g,b=[pixels[:,:,c].astype(int) for c in range(3)]
   changed=np.abs(pixels.astype(int)-original.astype(int)).max(axis=2)>20

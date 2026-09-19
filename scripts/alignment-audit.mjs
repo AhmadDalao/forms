@@ -19,6 +19,8 @@ const cases=[
 const arabicDigits=s=>s.replace(/[0-9]/g,n=>'٠١٢٣٤٥٦٧٨٩'[n]);
 function answer(f,c,i){
  const id=f.id,w=f.rect?.[2]||200;
+ const namePart=id.match(/^(ar|en)_(first|second|third|last)$/);
+ if(namePart){const parts=namePart[1]==='ar'?(c.long?['عبدالرحمن','محمد','عبدالله','القحطاني']:['أحمد','علي','محمد','العلي']):(c.long?['Abdulrahman','Mohammed','Abdullah','Al Qahtani']:['Omar','Ali','Hassan','Al Ali']);return parts[['first','second','third','last'].indexOf(namePart[2])];}
  if(f.type==='choice')return f.multiple?f.options.filter((_,j)=>(j+i)%2===0).map(o=>o.value):f.options[i%f.options.length].value;
  if(f.type==='select')return f.selectOptions[i%f.selectOptions.length][0];
  if(f.type==='date')return ['1987-02-09','1995-12-31','2001-01-01','2030-11-27','2026-09-16'][i];
@@ -65,11 +67,12 @@ try{
  await openCatalogue(page,base);
  for(const doc of docs.filter(d=>d.workflow!=='subscription'&&(!selected||selected.includes(d.id))))for(const [i,c]of cases.entries()){
   await openDocument(page,base,doc.id);
+  if(await page.locator('html').getAttribute('lang')!==(c.ar?'ar':'en'))await page.locator('#language').click();
   const values={};
   for(const [step,s] of doc.sections.entries()){
    await page.locator(`[data-step="${step}"]`).click();
    for(const f of s.fields){
-    if(f.sum)continue;
+    if(f.sum||f.hidden)continue;
     const value=answer(f,c,i);values[f.id]=value;
     const input=page.locator(`[name="${f.id}"]`);
     if(f.type==='choice'){
@@ -79,6 +82,7 @@ try{
     else {await input.fill(value);assert.equal(await input.inputValue(),value,`${doc.id}/${f.id}: input truncated`);}
    }
   }
+  for(const f of doc.fields.filter(f=>f.join))values[f.id]=f.join.map(id=>values[id]||'').filter(Boolean).join(' ');
   const name=`${doc.id}-${c.id}`;
   await fs.writeFile(`${out}/${name}.json`,JSON.stringify(values,null,2));
   const download=page.waitForEvent('download',{timeout:20000}).then(d=>({d}),e=>({error:e.message}));
@@ -93,6 +97,7 @@ try{
    report.push({doc:doc.id,sample:c.id,file:`${name}.pdf`,answers:Object.keys(values).length});
    console.log('PASS',name);
   }
+  if(await page.locator('.signing-guide[open]').count())await page.locator('.signing-guide [data-close]').click();
   await page.locator('#back-home').click();
  }
  await fs.writeFile(`${out}/downloads.json`,JSON.stringify(report,null,2));

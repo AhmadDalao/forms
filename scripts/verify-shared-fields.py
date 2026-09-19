@@ -6,7 +6,7 @@ from PIL import Image,ImageDraw,ImageChops
 from pypdf import PdfReader
 import pypdfium2 as pdfium
 out=Path(os.environ.get('QA_OUT','tmp/pdfs/shared-fields'))
-schema={d['id']:d for d in json.loads(Path('tmp/pdfs/schema.json').read_text())}
+schema={d['id']:d for d in json.loads(Path(os.environ.get('SCHEMA_PATH','tmp/pdfs/schema.json')).read_text())}
 report=json.loads((out/'report.json').read_text())
 counts={'downloads':0,'pages':0,'text_fields':0,'transparent_images':0}
 for record in report['results']:
@@ -23,7 +23,9 @@ for record in report['results']:
   def mark(painter,rect):
    x,y,w,h=rect;painter.rectangle((int(x*2)-1,int(y*2)-1,int((x+w)*2)+1,int((y+h)*2)+1),fill=255)
   for f in [f for f in doc['fields'] if f['page']==n+1]:
+   if f.get('uiOnly') or f.get('noPrint'):continue
    value=values.get(f['id'])
+   if f.get('join'):value=' '.join(str(values.get(k,'')).strip() for k in f['join'] if str(values.get(k,'')).strip())
    if value in [None,'',[]]:continue
    if f['type']=='choice':
     for option in f['options']:

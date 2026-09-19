@@ -63,12 +63,13 @@ for(const [browserName,engine]of [['chrome',chromium],['firefox',firefox],['webk
     }
     // Check regular Arabic/English name entry too, independent of the shared profile.
     await page.locator('[data-step="0"]').click();
-    const nameField=doc.sections[0].fields.find(f=>f.type==='text'&&!f.sum&&!f.cells&&f.rect[2]>100);
+    const nameField=doc.id==='fatca-crs-individual'?doc.fields.find(f=>f.id===`${lang}_first`):doc.sections[0].fields.find(f=>f.type==='text'&&!f.sum&&!f.hidden&&!f.cells&&f.rect?.[2]>100);
     const nameValue=lang==='ar'?'أحمد علي':'Ahmad Ali';
     await typeStable(page.locator(`[name="${nameField.id}"]`),nameValue);expected[nameField.id]=nameValue;
     // Editing shared fields from review must invalidate the old download without losing focus.
     if(doc.id.startsWith('kyc-')){
      await page.locator('#review-tab').click();await page.locator('#download:not([disabled])').waitFor();
+     if(await page.locator('.signing-guide[open] [data-close]').count())await page.locator('.signing-guide[open] [data-close]').click();
      await page.locator('#edit-again').click();await page.locator('#edit-shared-details').click();
      await emailEditing(page.locator('#shared-email'));await closeShared();
      await page.locator(`[data-doc="${doc.id}"]`).click();
@@ -94,6 +95,7 @@ for(const [browserName,engine]of [['chrome',chromium],['firefox',firefox],['webk
     await fs.writeFile(`${out}/${file.replace('.pdf','.json')}`,JSON.stringify(values,null,2));
     const bytes=await fs.readFile(`${out}/${file}`);assert.equal(bytes.subarray(0,5).toString(),'%PDF-');
     results.push({browser:browserName,folder,doc:doc.id,lang,file,sha256:createHash('sha256').update(bytes).digest('hex')});
+    if(await page.locator('.signing-guide[open] [data-close]').count())await page.locator('.signing-guide[open] [data-close]').click();
     await page.locator('#back-home').click();console.log('PASS',browserName,lang,folder,doc.id);
    }
   }

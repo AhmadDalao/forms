@@ -67,9 +67,9 @@ test('schema 3 review migration is atomic and preserves history, receipts, audit
    ['private','other-client','Private form','خاص',1,null,'private immutable answers','private hash']
   ] as $row)execute('INSERT INTO submissions VALUES(?,?,?,?,?,?,?,?)',$row);
   foreach([
-   [2,'archived','rejected','other','Complete the original','first.admin','2026-09-18T10:00:00Z','old-2','2026-09-18T11:00:00Z'],
+   [2,'archived','approved','','','first.admin','2026-09-18T10:00:00Z','old-2','2026-09-18T11:00:00Z'],
    [7,'active','rejected','missing_details','Complete your name','first.admin','2026-09-19T10:00:00Z','old-7','2026-09-19T11:00:00Z'],
-   [19,'active','approved','','','second.admin','2026-09-19T12:00:00Z','old-19',null],
+   [19,'active','rejected','incorrect_data','Correct the address','second.admin','2026-09-19T12:00:00Z','old-19',null],
    [27,'private','rejected','incorrect_data','Private note','private.admin','2026-09-19T12:30:00Z','old-27',null]
   ] as $row){
    execute('INSERT INTO submission_reviews VALUES(?,?,?,?,?,?,?,?,?)',$row);
@@ -141,4 +141,30 @@ test('schema 3 review migration is atomic and preserves history, receipts, audit
  assert.equal(r.notifications.notifications.find(event=>event.id===7).read_at,'2026-09-19T11:00:00Z');
  assert.equal(r.audit.length,4);assert.deepEqual(r.audit.map(row=>JSON.parse(row.event).review_id),[91,92,93,94]);
  assert.equal(JSON.parse(r.audit[0].event).status,'signature_required');assert.equal(r.snapshotsUnchanged,true);
+});
+
+test('approved versions reject later decisions without changing audit or notifications; retries and new versions still work',()=>{
+ const result=spawnSync('php',['-r',`
+  require $argv[1];
+  $db=new PDO('sqlite::memory:',null,null,[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC]);
+  function execute($sql,$args=[]){global $db;$q=$db->prepare($sql);$q->execute($args);return $q;}
+  $db->exec('PRAGMA foreign_keys=ON; PRAGMA user_version=2; CREATE TABLE submissions(id TEXT PRIMARY KEY,user_id TEXT,title TEXT,ar TEXT,version INTEGER,archived_at TEXT); CREATE TABLE audit(id INTEGER PRIMARY KEY,client_id TEXT,event TEXT,created_at TEXT)');
+  execute('INSERT INTO submissions VALUES(?,?,?,?,?,?)',['approved','client','Form','نموذج',1,null]);migrateReviews();
+  $approved=recordReview('approved','approved','','',0,'approve-key','first.admin');
+  $before=[execute('SELECT * FROM submission_reviews')->fetchAll(),execute('SELECT * FROM audit')->fetchAll(),reviewNotifications('client')];
+  $blocked=[];
+  foreach(['first.admin','second.admin'] as $actor)foreach(['rejected','signature_required'] as $status){
+   try{recordReview('approved',$status,$status==='rejected'?'other':'','New decision',1,$actor.'-'.$status,$actor);$blocked[]=false;}
+   catch(DomainException $e){$blocked[]=$e->getMessage()==='review_locked';}
+  }
+  $unchanged=$before===[execute('SELECT * FROM submission_reviews')->fetchAll(),execute('SELECT * FROM audit')->fetchAll(),reviewNotifications('client')];
+  $retry=recordReview('approved','approved','','',0,'approve-key','first.admin');
+  execute('UPDATE submissions SET archived_at=? WHERE id=?',['2026-09-19T20:00:00Z','approved']);
+  execute('INSERT INTO submissions VALUES(?,?,?,?,?,?)',['new-version','client','Form','نموذج',2,null]);
+  $fresh=recordReview('new-version','signature_required','','Sign page 1',0,'new-key','second.admin');
+  echo json_encode(compact('blocked','unchanged','retry','fresh'));
+ `,path.resolve('public/api/portal-reviews.php')],{encoding:'utf8'});
+ assert.equal(result.status,0,result.stderr);const r=JSON.parse(result.stdout);
+ assert.deepEqual(r.blocked,[true,true,true,true]);assert.equal(r.unchanged,true);assert.equal(r.retry.duplicate,true);
+ assert.equal(r.fresh.review.review_status,'signature_required');assert.equal(r.fresh.review.review_history.length,1);
 });

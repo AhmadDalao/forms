@@ -20,7 +20,7 @@ To add or change the username while keeping the existing password, run `php scri
 
 ## Roles and superadmin setup
 
-Ordinary admins can review submissions, approve/reject with their username recorded, view clients, change client account types, reset client passwords, download PDFs/ZIP files and recover archived versions. They cannot access catalogue drafts or change titles, order, uploaded documents, field mappings or publication. The API enforces these restrictions with 403 responses; hiding buttons alone is not the permission check.
+Ordinary admins can review submissions, approve/reject with their username recorded, view clients, reset client passwords, download PDFs/ZIP files and recover archived versions. They cannot access catalogue drafts or change titles, order, uploaded documents, field mappings or publication. Only the superadmin can change client account types. The API enforces these restrictions with 403 responses; hiding buttons alone is not the permission check.
 
 Create the separate superadmin using a chosen, distinct username and a strong password of 14–72 bytes:
 

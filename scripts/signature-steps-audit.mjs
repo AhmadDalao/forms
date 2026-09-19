@@ -75,6 +75,7 @@ async function getDownload(selector,filename){
  await page.locator(selector).click();
  const download=await waiting;assert.equal(await download.failure(),null);
  await download.saveAs(path.join(out,filename));
+ if(await page.locator('.signing-guide').count())await page.locator('.signing-guide [data-close]').click();
  return fs.readFile(path.join(out,filename));
 }
 async function noOverflow(){assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,'horizontal page overflow');}
@@ -178,6 +179,12 @@ async function matrix(name,browser){
     }
     const comprehensive=name===selected[0]&&lang==='en'&&width===1440;
     if(comprehensive){
+     // Date defaults are ordinary answer ink, not signature ink. Clear them
+     // through the form before comparing signature-only downloads to originals.
+     for(const [index,section]of doc.sections.entries()){
+      await page.locator(`[data-step="${index}"]`).click();
+      for(const field of section.fields.filter(f=>f.type==='date'&&!f.hidden))await page.locator(`[name="${field.id}"]`).fill('');
+     }
      for(const [index,slot]of slots.entries()){
       await go(doc,slot);await upload(slot);
       assert.deepEqual(Object.keys((await saved(audience,doc.id)).signatures).sort(),slots.slice(0,index+1).map(s=>s.id).sort(),`${doc.id}: upload affects only the selected signer`);

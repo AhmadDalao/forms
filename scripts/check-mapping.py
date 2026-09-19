@@ -1,12 +1,13 @@
 """Flag answer rectangles that overlap actual printed letters, not blank dotted lines."""
-import json
+import json,os
 from pathlib import Path
 import pdfplumber
 problems=[]
-for doc in json.loads(Path('tmp/pdfs/schema.json').read_text()):
-    with pdfplumber.open('reference/pdfs/'+doc['id']+'.pdf') as pdf:
+for doc in json.loads(Path(os.environ.get('SCHEMA_PATH','tmp/pdfs/schema.json')).read_text()):
+    template=doc.get('pdfUrl',doc['id']+'.pdf').split('?')[0].split('/')[-1]
+    with pdfplumber.open('public/pdfs/'+template) as pdf:
         for field in doc['fields']:
-            if field['type']=='choice' or field.get('placeholderRects') or field.get('noPrint'): continue
+            if field['type']=='choice' or field.get('placeholderRects') or field.get('noPrint') or field.get('uiOnly') or field.get('staticPdf') or not field.get('rect'): continue
             rectangles=field.get('dateParts') or field.get('charRects') or [field['rect']]+field.get('mirrorRects',[])+([field['rtlRect']] if field.get('rtlRect') else [])
             for x,y,w,h in rectangles:
                 for char in pdf.pages[field['page']-1].chars:

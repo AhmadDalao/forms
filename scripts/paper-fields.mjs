@@ -11,12 +11,12 @@ const errors = [];
 page.on('pageerror', error => errors.push(error.message));
 try {
   await openCatalogue(page,base);
-  for (const doc of docs) {
+  for (const doc of docs.filter(doc=>doc.workflow!=='subscription')) {
     await openDocument(page,base,doc.id);
     for (const [step, section] of doc.sections.entries()) {
       await page.locator(`[data-step="${step}"]`).click();
       const allVisible = async () => {
-        assert.equal(await page.locator('#fields [data-field]:visible').count(), section.fields.length, `${doc.id}/${section.id}`);
+        assert.equal(await page.locator('#fields [data-field]:visible').count(), section.fields.filter(field=>!field.hidden).length, `${doc.id}/${section.id}`);
       };
       await allVisible();
       for (const field of section.fields.filter(f => f.type === 'choice' || f.type === 'select')) {
@@ -52,6 +52,7 @@ try {
   const downloading = page.waitForEvent('download');
   await page.locator('#download-now').click();
   await (await downloading).saveAs('tmp/pdfs/paper-fields-download.pdf');
+  if(await page.locator('.signing-guide[open]').count())await page.locator('.signing-guide [data-close]').click();
   await page.locator('[data-step="1"]').click();
   for (const id of ['ssn', 'itin', 'atin']) assert.equal(await page.locator(`[name="${id}"]`).inputValue(), '012345678');
   assert.deepEqual(errors, []);

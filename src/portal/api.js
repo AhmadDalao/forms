@@ -19,6 +19,7 @@ export const errors={
  review_reason_required:['Choose a rejection reason and add an explanation when selecting Other.','اختر سبب الرفض واكتب توضيحًا عند اختيار «أخرى».'],
  review_conflict:['This review changed in another window. Close and reopen the document to see the latest decision.','تغيّر القرار في نافذة أخرى. أغلق المستند وأعد فتحه للاطلاع على أحدث قرار.'],
  review_archived:['This version has been archived. Open the current version to review it.','تمت أرشفة هذه النسخة. افتح النسخة الحالية لمراجعتها.'],
+ review_locked:['This version has already been approved. Submit a new version if corrections are needed.','تمت الموافقة على هذه النسخة. أرسل نسخة جديدة إذا لزم إجراء تصحيحات.'],
  review_unchanged:['This decision is already saved. Change the decision or its explanation before saving again.','هذا القرار محفوظ بالفعل. غيّر القرار أو توضيحه قبل الحفظ مجددًا.'],
  account_type_invalid:['Select Individual or Company.','اختر فردًا أو شركة.'],
  account_type_forbidden:['Only the superadmin can change a client’s account type.','يمكن للمشرف الرئيسي فقط تغيير نوع حساب العميل.'],

@@ -66,6 +66,7 @@ function recordReview(string $id,string $status,string $code,string $text,int $e
         $last=execute('SELECT * FROM submission_reviews WHERE submission_id=? ORDER BY id DESC LIMIT 1',[$id])->fetch();
         if((int)($last['id']??0)!==$expected)throw new DomainException('review_conflict');
         if($last&&$last['status']===$status&&$last['reason_code']===$code&&$last['reason_text']===$text)throw new DomainException('review_unchanged');
+        if($last&&$last['status']==='approved')throw new DomainException('review_locked');
         $now=gmdate('Y-m-d\TH:i:s\Z');
         execute('INSERT INTO submission_reviews(submission_id,status,reason_code,reason_text,admin_username,created_at,request_key) VALUES(?,?,?,?,?,?,?)',[$id,$status,$code,$text,$actor,$now,$key]);
         $event=(int)$db->lastInsertId();

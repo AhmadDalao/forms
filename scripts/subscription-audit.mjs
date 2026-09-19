@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {docs} from '../src/forms/index.js';
 import {calculateSubscription} from '../src/subscription/calculations.js';
-const base=process.env.FORMS_BASE_URL||'http://127.0.0.1:8184',out='tmp/subscription/audit';await fs.mkdir(out,{recursive:true});
+const base=process.env.FORMS_BASE_URL||'http://127.0.0.1:8184',out=process.env.QA_OUT||'tmp/subscription/audit';await fs.mkdir(out,{recursive:true});
 const browser=await chromium.launch({channel:'chrome',headless:true});const records=[],failures=[];
 const scenarios=[
  {name:'english',lang:'en',units:'10',first:'Ahmad',second:'Mohammed',third:'',last:'Al Ali',company:'Al Noor Investment Company',country:'United States of America',street:'King Fahd Road',city:'Riyadh',signature:false},
@@ -59,12 +59,14 @@ try{
   // The applicant name may be corrected and must survive future steps and reload.
   await page.locator('[name="applicant_name"]').fill([scenario.first,scenario.second,scenario.last].join(' '));
   await page.locator('#sub-next').click();await page.locator('[data-pdf-page="2"]').waitFor();await page.waitForFunction(()=>document.querySelector('[data-pdf-page="2"]').width>400);
+  if(await page.locator('.signing-guide[open]').count())await page.locator('.signing-guide [data-close]').click();
   assert.equal(await page.locator('canvas[data-pdf-page]').count(),2);
   const downloaded=page.waitForEvent('download');await page.locator('[data-download]').last().click();const download=await downloaded;assert.equal(await download.failure(),null);const file=audience+'-'+scenario.name+'.pdf';await download.saveAs(out+'/'+file);
   await page.locator('#sub-back-review').click();assert.equal(await page.locator('[name="date"]').inputValue(),'2026-10-12');
   if(scenario.name==='maximum'){
    await page.locator('[name="signature_mode"][value="manual"]').check();assert.equal(await page.locator('#sub-signature-file').count(),0);
    const manual=page.waitForEvent('download');await page.locator('[data-download]').click();await(await manual).saveAs(out+'/'+audience+'-manual-after-upload.pdf');
+   if(await page.locator('.signing-guide[open]').count())await page.locator('.signing-guide [data-close]').click();
   }
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1);assert.equal(overflow,false);
   records.push({audience,scenario:scenario.name,file,signature:scenario.signature,units:calculated.units,words:calculated.total_words,fields:doc.fields.filter(f=>f.rect&&!f.staticPdf),signatureSlots:doc.signatureSlots});

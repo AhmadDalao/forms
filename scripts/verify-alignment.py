@@ -35,6 +35,7 @@ for doc in schema:
    def mark(painter,rect):
     x,y,w,h=rect;painter.rectangle((int(x*2)-1,int(y*2)-1,int((x+w)*2)+1,int((y+h)*2)+1),fill=255)
    for f in [f for f in doc['fields'] if f['page']==n+1]:
+    if f.get('uiOnly') or f.get('noPrint'):continue
     value=values.get(f['id'])
     if f.get('sum'):value=str(sum(int(values[k]) for k in f['sum']))
     if value in [None,'',[]]:continue

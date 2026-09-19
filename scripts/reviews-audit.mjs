@@ -91,7 +91,10 @@ try{
   await savedApproval(page);await page.screenshot({path:out+'/'+typeName(c)+'-approved-disabled.png'});await page.locator('.portal-preview [data-close]').click();
   await page.locator('[data-review-status="approved"]').click();await page.locator(`[data-preview="${restore.id}"]`).click();await page.locator('.review-form').waitFor();await savedApproval(page);await page.locator('.portal-preview [data-close]').click();
 
-  await call(manager,'admin_review',{id:restore.id,status:'rejected',reason_code:'incorrect_data',reason_text:'Please correct the name. يرجى تصحيح الاسم.',expectedReview:uiApproved.review_revision,requestKey:randomUUID()});
+  for(const status of ['rejected','signature_required'])assert.equal((await call(manager,'admin_review',{id:restore.id,status,reason_code:status==='rejected'?'incorrect_data':'',reason_text:'Cannot override approval',expectedReview:uiApproved.review_revision,requestKey:randomUUID()},409)).error,'review_locked');
+  assert.deepEqual((await call(manager,'admin_detail',null,200,{params:{id:restore.id}})).submission.review_history,uiApproved.review_history);
+  const corrected=await submit({...meta,values:{client_name:'Corrected client name'},expectedCurrent:restore.id,editedFrom:restore.id,requestKey:randomUUID()});c.current=corrected;
+  await call(manager,'admin_review',{id:corrected.id,status:'rejected',reason_code:'incorrect_data',reason_text:'Please correct the name. يرجى تصحيح الاسم.',expectedReview:0,requestKey:randomUUID()});
   const profile=await call(manager,'admin_client',null,200,{params:{id:user.id}});assert.equal(profile.submissions.find(s=>s.id===restore.id).reviewed_by,credentials.username);
   assert.ok(profile.submissions.find(s=>s.id===c.obsolete.id).archived_at);
   await page.locator('[data-management-view="users"]').click();await page.locator(`[data-client="${user.id}"]`).first().click();await page.locator('.admin-history').waitFor();await page.locator('.admin-history summary').click();
@@ -100,7 +103,7 @@ try{
   await page.locator('.portal-preview [data-current-version]').click();await page.locator('.portal-preview .review-form').waitFor();assert.equal(await page.locator('.portal-preview .review-archived').count(),0);
   await page.locator('.portal-preview [data-close]').click();
 
-  checks.push(typeName(c)+': replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled after save/reopen, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs');
+  checks.push(typeName(c)+': replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled and API changes rejected, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs');
  }
  if(!remote)await auditFilters(manager,clients,call,checks);
  // Reuse the two synthetic accounts; never create real-client decisions or touch their data.

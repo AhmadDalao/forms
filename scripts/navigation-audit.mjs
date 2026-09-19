@@ -57,6 +57,7 @@ async function review(){
  await page.waitForFunction(()=>document.querySelector('#review-tab')?.getAttribute('aria-current')==='step'&&!document.querySelector('#review-tab')?.disabled,null,{timeout:90000});
  await currentStep('review');
  assert.equal(await page.locator('#download').isEnabled(),true,'review generated PDF ready');
+ if(await page.locator('.signing-guide').count())await page.locator('.signing-guide [data-close]').click();
 }
 async function layout(label){
  const issues=await page.locator('.sections').evaluate(nav=>{

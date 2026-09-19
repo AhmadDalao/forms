@@ -14,7 +14,7 @@ for(const [name,engine]of [['chrome',chromium],['firefox',firefox],['webkit',web
  const launch=()=>engine.launchPersistentContext(profile,{headless:true,...(name==='chrome'?{channel:'chrome'}:{}),viewport:{width:1360,height:1000}});
  let context=await launch(),page=context.pages()[0];const errors=[];const observe=p=>p.on('pageerror',e=>errors.push(e.message));observe(page);
  const goto=async folder=>{await page.goto(new URL(folder+'/',base).href);await page.locator('.home,.workspace').waitFor();};
- const home=async()=>{if(await page.locator('#back-home').count())await page.locator('#back-home').click();};
+ const home=async()=>{if(await page.locator('.signing-guide[open] [data-close]').count())await page.locator('.signing-guide[open] [data-close]').click();if(await page.locator('#back-home').count())await page.locator('#back-home').click();};
  const shared=async()=>{if(!await page.locator('#shared-fields-panel').evaluate(el=>el.open))await page.locator('#shared-fields-panel>summary').click();};
  const closeShared=async()=>{if(await page.locator('#shared-fields-panel').evaluate(el=>el.open))await page.locator('#shared-fields-panel>summary').click();};
  const answer=async(doc,id)=>{const section=doc.sections.findIndex(s=>s.fields.some(f=>f.id===id));await page.locator(`[data-step="${section}"]`).click();return page.locator(`[name="${id}"]`);};
@@ -70,7 +70,7 @@ for(const [name,engine]of [['chrome',chromium],['firefox',firefox],['webkit',web
   await second.close();await corporate.close();
   // A clear form stays blank across reload, and can explicitly reuse shared details later.
   await closeShared();await page.locator('[data-doc="signature-form"]').click();await page.locator('#reset').click();await page.locator('#reset-confirm').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'');
-  await page.reload();await page.locator('[data-doc="signature-form"]').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'');
+  await page.reload();await page.locator('.home,.workspace').waitFor();await home();await page.locator('[data-doc="signature-form"]').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'');
   await page.locator('[data-shared-use="client_name"]').click();assert.equal(await page.locator('[name="client_name"]').inputValue(),'Omar Ali Dalao');await page.locator('#edit-shared-details').click();
   await page.locator('#language').click();await page.setViewportSize({width:390,height:844});
   assert.ok(!(await page.locator('#shared-fields-panel').innerText()).includes('Shared document fields'));

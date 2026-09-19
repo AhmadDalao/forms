@@ -2,9 +2,16 @@ import {loadPreview} from '../pdf.js';
 const arabic=/[\u0600-\u06ff]/;
 const labelParts=text=>({label:arabic.test(text)?'':text,ar:arabic.test(text)?text:''});
 const classify=text=>/e.?mail|بريد/i.test(text)?'email':/phone|mobile|هاتف|جوال/i.test(text)?'tel':/date|تاريخ/i.test(text)?'date':'text';
+const signatureLabel=text=>/^(?:signature|التوقيع|توقيع)\s*:?\s*$/i.test(text.normalize('NFKC').replace(/[\u0640\u064b-\u065f]/g,''));
 function nearestLabel(items,rect){
  const [x,y,w,h]=rect;
- return items.filter(i=>i.str.trim()).map(i=>({text:i.str.trim(),score:Math.abs(i.y-(y+h/2))*3+Math.min(Math.abs(i.x+i.w-x),Math.abs(i.x-x-w))})).sort((a,b)=>a.score-b.score)[0]?.text||'';
+ const ranked=items.filter(i=>i.str.trim()).map(i=>({...i,text:i.str.trim(),score:Math.abs(i.y-(y+h/2))*3+Math.min(Math.abs(i.x+i.w-x),Math.abs(i.x-x-w))})).sort((a,b)=>a.score-b.score),nearest=ranked[0];
+ // Signature and name captions can share a row; keep each in its own column.
+ if(nearest&&(nearest.x+nearest.w<=x||nearest.x>=x+w)){
+  const own=ranked.find(i=>i.x<x+w&&i.x+i.w>x&&Math.abs(i.y-nearest.y)<2);
+  if(own)return own.text;
+ }
+ return nearest?.text||'';
 }
 // Conservative suggestions only. Printed words, table borders and scans need review.
 function blankLines(canvas,viewport,items){
@@ -66,11 +73,12 @@ export async function inspectPDF(file,onProgress=()=>{}){
    }
    if(!annotations.some(a=>a.subtype==='Widget')){
     const canvas=document.createElement('canvas'),vp=page.getViewport({scale:1.5});canvas.width=Math.ceil(vp.width);canvas.height=Math.ceil(vp.height);await page.render({canvasContext:canvas.getContext('2d'),viewport:vp}).promise;
-    for(const rect of blankLines(canvas,vp,items)){const name=nearestLabel(items,rect);suggestions.push({id:'field_'+(++serial),page:number,...labelParts(name),rect,type:classify(name),direction:'auto',fontSize:10});}
+    for(const rect of blankLines(canvas,vp,items)){const name=nearestLabel(items,rect);suggestions.push({id:'field_'+(++serial),page:number,...labelParts(name),rect,type:signatureLabel(name)?'signature':classify(name),direction:'auto',fontSize:10});}
    }
   }
-  fields.push(...suggestions);if(fields.length>400)throw Error('This PDF exceeds the 400-field limit.');
+  for(const suggestion of suggestions){if(suggestion.type==='signature'){const {type,direction,fontSize,...signature}=suggestion;signatures.push(signature);}else fields.push(suggestion);}
+  if(fields.length+signatures.length>400)throw Error('This PDF exceeds the 400-field limit.');
   fields.sort((a,b)=>a.page-b.page||(a.rect?.[1]||a.options[0].rect[1])-(b.rect?.[1]||b.options[0].rect[1]));
-  return {pageSizes,pages:pdf.numPages,fields,signatures,importedWidgets:widgets>0,detected:fields.length,suggested:suggestions.length};
+  return {pageSizes,pages:pdf.numPages,fields,signatures,importedWidgets:widgets>0,detected:fields.length+signatures.length,suggested:suggestions.length};
  }finally{await pdf.loadingTask.destroy();}
 }
