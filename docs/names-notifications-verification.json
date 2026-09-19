@@ -1,0 +1,210 @@
+{
+  "verified_at": "2026-09-19T18:04:06.898807+00:00",
+  "site": "https://forms.ahmaddalao.com/",
+  "source_commit": "063e8699a67556032814d5a836ddbb63d992ea78",
+  "changes": [
+    "Signed-in clients have a header notification bell linking to existing approval/rejection updates, with unread count and read-state synchronization.",
+    "Management header bell opens forms awaiting review; ordinary admin and superadmin permissions are unchanged.",
+    "Shared English and Arabic names each occupy one four-column desktop row, with responsive two/one-column mobile layout.",
+    "Individual FATCA customer names use first, second, optional third and family fields; second and third are combined in the original middle-name PDF box. Legacy middle text is preserved.",
+    "Subscription customer names use the same four-column row. Redundant type eyebrow removed and Back to forms button added to both form editors."
+  ],
+  "unit_tests": {
+    "passed": 81,
+    "failed": 0
+  },
+  "build": "passed; existing large-chunk advisory only",
+  "php_syntax": "passed",
+  "local": {
+    "review_workflow": {
+      "base": "http://127.0.0.1:8196",
+      "checks": [
+        "individual: pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, resubmit/restore pending, archived history and unchanged PDFs",
+        "corporate: pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, resubmit/restore pending, archived history and unchanged PDFs",
+        "Delayed older review responses cannot overwrite the newest filter/language selection",
+        "chrome: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+        "firefox: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+        "webkit: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout"
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "submission_snapshots": {
+      "passed": true,
+      "checks": [
+        "All eight editable built-in documents: every field, choice array, blank, zero, full audience-specific shared profile and signature saved in actual SQLite/PDF storage; both subscription totals recalculated by server",
+        "Editing archives original answers/profile/signatures/PDF; management restoration copies the exact original snapshot",
+        "Cross-client access and anonymous management snapshot access rejected",
+        "Catalogue title/label/option changes cannot rewrite prior custom-document snapshots",
+        "Actual browser checkbox uncheck survives reload and submit as false; full shared data/signature remains in management after browser storage is cleared",
+        "chrome admin: all stored values, original labels, choice text, shared fields/signatures, blanks and version selection visible directly in EN/AR responsive client profiles",
+        "chrome superadmin: all stored values, original labels, choice text, shared fields/signatures, blanks and version selection visible directly in EN/AR responsive client profiles",
+        "Own-client preview reuses saved snapshots; uploaded PDFs display no fabricated online answers"
+      ],
+      "errors": [],
+      "counts": {
+        "submittedVersions": 19,
+        "currentForms": 13,
+        "clients": 2,
+        "answerEntries": 902
+      }
+    },
+    "shared_names": {
+      "passed": true,
+      "cases": 24,
+      "report": "tmp/shared-name-layout/report.json"
+    },
+    "form_ui_and_pdf": {
+      "passed": true,
+      "responsive_cases": 32,
+      "pdf_samples": 5,
+      "report": "tmp/names-bell-focus/report.json",
+      "visual_review": "All five English/Arabic name PDF samples inspected, including long compound names and legacy middle text. Text stays inside the original boxes with transparent overlays."
+    }
+  },
+  "hosted": {
+    "routes_and_assets": [
+      {
+        "route": "/register/",
+        "status": 200
+      },
+      {
+        "route": "/login/",
+        "status": 200
+      },
+      {
+        "route": "/my-applications/",
+        "status": 200
+      },
+      {
+        "route": "/management/",
+        "status": 200
+      },
+      {
+        "route": "/individuals/",
+        "status": 200
+      },
+      {
+        "route": "/companies/",
+        "status": 200
+      },
+      {
+        "route": "/_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "route": "/.env.local",
+        "status": 403
+      }
+    ],
+    "client_ui": {
+      "passed": true,
+      "checks": [
+        "fatca-crs-individual/en/1440: names, back button, notification icon, no overflow",
+        "subscription-form/en/1440: names, back button, notification icon, no overflow",
+        "fatca-crs-individual/en/390: names, back button, notification icon, no overflow",
+        "subscription-form/en/390: names, back button, notification icon, no overflow",
+        "fatca-crs-individual/ar/1440: names, back button, notification icon, no overflow",
+        "subscription-form/ar/1440: names, back button, notification icon, no overflow",
+        "fatca-crs-individual/ar/390: names, back button, notification icon, no overflow",
+        "subscription-form/ar/390: names, back button, notification icon, no overflow"
+      ],
+      "errors": [],
+      "note": "Hosted assets with a synthetic client session and notification responses; no client account or submission was created."
+    },
+    "management": {
+      "checks": [
+        {
+          "role": "admin",
+          "lang": "en",
+          "width": 1440,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        },
+        {
+          "role": "admin",
+          "lang": "en",
+          "width": 390,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        },
+        {
+          "role": "admin",
+          "lang": "en",
+          "width": 320,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        },
+        {
+          "role": "admin",
+          "lang": "ar",
+          "width": 1440,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        },
+        {
+          "role": "admin",
+          "lang": "ar",
+          "width": 390,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        },
+        {
+          "role": "admin",
+          "lang": "ar",
+          "width": 320,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        },
+        {
+          "role": "superadmin",
+          "lang": "en",
+          "width": 1440,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        },
+        {
+          "role": "superadmin",
+          "lang": "en",
+          "width": 390,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        },
+        {
+          "role": "superadmin",
+          "lang": "en",
+          "width": 320,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        },
+        {
+          "role": "superadmin",
+          "lang": "ar",
+          "width": 1440,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        },
+        {
+          "role": "superadmin",
+          "lang": "ar",
+          "width": 390,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        },
+        {
+          "role": "superadmin",
+          "lang": "ar",
+          "width": 320,
+          "bellOpensPendingReviews": true,
+          "permissionsPreserved": true
+        }
+      ],
+      "errors": [],
+      "blockedWrites": [],
+      "clientDataChanges": 0,
+      "passed": true
+    }
+  },
+  "data_safety": "Only public build files deployed. Existing production credentials, client database, submissions and archived files preserved. Live client UI checks used synthetic intercepted session/notification responses; actual review, read-state, snapshot and access flows were tested against isolated local PHP/SQLite storage. Management checks used authenticated read-only pages.",
+  "deployment_manifest": "docs/deployment-manifest.json"
+}
