@@ -1,67 +1,139 @@
 #!/usr/bin/env python3
-"""Upload only the production static build to the scoped Hostinger FTPS account."""
+"""Deploy the public build to the scoped Hostinger account without replacing user data."""
 from pathlib import Path
-import ftplib, ssl, shlex, hashlib, json, io
+import argparse, ftplib, ssl, shlex, hashlib, json, io, os, subprocess
 from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parents[1]
-if (ROOT / 'src/management/main.js').exists():
-    raise SystemExit('Management is a review-only branch. Production deployment is disabled until user approval.')
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--production', action='store_true', help='Explicitly select the main site, not the test preview.')
+parser.add_argument('--credentials', type=Path, default=ROOT / '.env.local')
+parser.add_argument('--initialize-management', type=Path, help='Existing owner credential directory; used only if production has no credentials.')
+args = parser.parse_args()
+if not args.production:
+    parser.error('Pass --production only when the user has authorized publishing to the main site.')
+os.umask(0o077)
 config = {}
-for line in (ROOT / '.env.local').read_text().splitlines():
+for line in args.credentials.read_text().splitlines():
     if '=' in line and not line.lstrip().startswith('#'):
         key, value = line.split('=', 1)
         config[key.strip()] = shlex.split(value)[0] if value.strip() else ''
 
 build = ROOT / 'dist'
-files = [p for p in build.rglob('*') if p.is_file()]
-allowed = {'.pdf', '.css', '.js', '.mjs', '.woff', '.woff2', '.svg'}
-assert (build / 'index.html').is_file() and (build / '.htaccess').is_file(), 'Run npm run build first.'
-for path in files:
-    rel = path.relative_to(build)
-    assert str(rel) in {'index.html', '.htaccess', 'individuals/index.html', 'companies/index.html'} or (rel.parts[0] in {'assets', 'pdfs'} and path.suffix in allowed) or str(rel) == 'favicon.svg', f'Unexpected public file: {rel}'
-assert len(list((build / 'pdfs').glob('*.pdf'))) == 8
+assert (build / 'index.html').is_file(), 'Run npm run build first.'
+routes = {'index.html', '.htaccess', '.user.ini', 'favicon.svg', '_private/.htaccess'}
+routes.update(folder + '/index.html' for folder in ['individuals', 'companies', 'management', 'login', 'register', 'account', 'my-applications'])
+allowed = {'assets': {'.js', '.mjs', '.css', '.woff', '.woff2', '.svg'}, 'pdfs': {'.pdf'}, 'branding': {'.png', '.svg'}, 'api': {'.php', '.json'}}
+files = {}
+for path in build.rglob('*'):
+    if not path.is_file():
+        continue
+    rel = path.relative_to(build).as_posix()
+    # Development servers can create local databases in dist. Never deploy them.
+    if rel.startswith('_private/') and rel != '_private/.htaccess':
+        continue
+    assert rel in routes or (rel.split('/')[0] in allowed and path.suffix in allowed[rel.split('/')[0]]), f'Unexpected public file: {rel}'
+    assert not path.is_symlink(), f'Unexpected symlink: {rel}'
+    data = path.read_bytes()
+    if path.suffix == '.html':
+        assert b'Test preview' not in data and b'preview-20260919' not in data, 'Preview HTML cannot be published to production.'
+    files[rel] = data
+assert all(name in files for name in routes)
+assert files['_private/.htaccess'].strip() == b'Require all denied'
+for value in [config.get('FTP_PASSWORD'), config.get('DB_PASSWORD')]:
+    if value:
+        assert not any(value.encode() in data for data in files.values()), 'Credential found in public build.'
 
-ftp = ftplib.FTP_TLS(context=ssl.create_default_context(), timeout=45)
-ftp.connect(config['FTP_HOST'], int(config.get('FTP_PORT') or 21))
-# Hostinger's certificate covers its server hostname, not the custom FTP alias.
-# Keep chain + hostname verification enabled for both control and data channels.
-ftp.host = 'cpl90.hosting24.com'
-ftp.login(config['FTP_USERNAME'], config['FTP_PASSWORD'])
-ftp.prot_p()
-assert ftp.pwd() == '/', 'Unexpected FTP starting directory.'
-print('Connected with verified TLS; account root is the forms directory.', flush=True)
 stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
 backup = ROOT / 'tmp' / 'deployment-backups' / stamp
-backup.mkdir(parents=True, exist_ok=True)
-for name in ['index.html', '.htaccess', 'individuals/index.html', 'companies/index.html']:
-    data = io.BytesIO()
-    try:
-        ftp.retrbinary('RETR ' + name, data.write)
-    except ftplib.error_perm as exc:
-        if not str(exc).startswith('550'): raise
-    else:
-        (backup / name).parent.mkdir(parents=True, exist_ok=True)
-        (backup / name).write_bytes(data.getvalue())
-for directory in ['assets', 'pdfs', 'individuals', 'companies']:
-    try: ftp.mkd(directory)
-    except ftplib.error_perm as exc:
-        if not str(exc).startswith('550'): raise
+backup.mkdir(parents=True, exist_ok=False)
+report = {'uploaded_at_utc': stamp, 'url': 'https://forms.ahmaddalao.com/', 'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(), 'transport': 'Explicit FTPS with verified Hostinger certificate', 'backup': str(backup), 'files': [], 'created': [], 'replaced': [], 'unchanged': []}
+ftp = ftplib.FTP_TLS(context=ssl.create_default_context(), timeout=60)
+ftp.connect(config['FTP_HOST'], int(config.get('FTP_PORT') or 21))
+ftp.host = 'hstgr.io'
+ftp.login(config['FTP_USERNAME'], config['FTP_PASSWORD'])
+ftp.prot_p()
+assert ftp.pwd() == '/', 'Unexpected FTP root.'
+known_dirs = {''}
 
-manifest = []
-# Publish the entry point only once every dependency is present.
-files.sort(key=lambda p: (p.name == 'index.html', p.name == '.htaccess', str(p)))
-for path in files:
-    relative = path.relative_to(build).as_posix()
-    content = path.read_bytes()
-    temporary = relative + '.upload-' + stamp
-    ftp.storbinary('STOR ' + temporary, io.BytesIO(content))
+def read(name):
+    output = io.BytesIO()
+    try:
+        ftp.retrbinary('RETR ' + name, output.write)
+    except ftplib.error_perm as exc:
+        if str(exc).startswith('550'):
+            return None
+        raise
+    return output.getvalue()
+
+def mkdirs(name):
+    parent = ''
+    for part in Path(name).parts[:-1]:
+        parent = parent + '/' + part if parent else part
+        if parent in known_dirs:
+            continue
+        try:
+            ftp.mkd(parent)
+        except ftplib.error_perm:
+            # Verify an existing directory, rather than swallowing any permission error.
+            ftp.cwd('/' + parent)
+            ftp.cwd('/')
+        known_dirs.add(parent)
+
+def persist_report():
+    (backup / 'manifest.json').write_text(json.dumps(report, indent=2) + '\n')
+
+def upload(name, data, private=False):
+    previous = read(name)
+    if previous == data:
+        report['unchanged'].append(name)
+        return
+    if previous is not None:
+        saved = backup / name
+        saved.parent.mkdir(parents=True, exist_ok=True)
+        saved.write_bytes(previous)
+        report['replaced'].append(name)
+    else:
+        report['created'].append(name)
+    persist_report()  # Record a recovery path before changing the remote file.
+    mkdirs(name)
+    temporary = name + '.upload-' + stamp
+    ftp.storbinary('STOR ' + temporary, io.BytesIO(data))
     ftp.voidcmd('TYPE I')
-    assert ftp.size(temporary) == len(content), f'Upload size mismatch: {relative}'
-    ftp.rename(temporary, relative)
-    manifest.append({'path': relative, 'bytes': len(content), 'sha256': hashlib.sha256(content).hexdigest()})
-    print('Uploaded ' + relative, flush=True)
-ftp.quit()
-report = {'uploaded_at_utc': stamp, 'url': 'https://forms.ahmaddalao.com/', 'transport': 'Explicit FTPS with certificate verification', 'files': manifest}
-(ROOT / 'docs' / 'deployment-manifest.json').write_text(json.dumps(report, indent=2) + '\n')
-print('Upload complete. Verify the HTTPS site before announcing it live.', flush=True)
+    assert ftp.size(temporary) == len(data), 'Upload size mismatch: ' + name
+    ftp.rename(temporary, name)
+    assert read(name) == data, 'Upload content mismatch: ' + name
+    if private:
+        ftp.sendcmd('SITE CHMOD 600 ' + name)
+    print('Uploaded ' + name, flush=True)
+
+try:
+    credentials = {name: read('_private/management/' + name) for name in ['username.php', 'password.php']}
+    if any(credentials.values()):
+        assert all(credentials.values()), 'Production owner configuration is incomplete; refusing to overwrite it.'
+        bootstrap = {}
+    else:
+        assert args.initialize_management, 'Production needs an explicitly supplied owner credential directory.'
+        bootstrap = {name: (args.initialize_management / name).read_bytes() for name in credentials}
+        assert all(data.startswith(b'<?php') and b'FORMS_MANAGEMENT_AUTH' in data for data in bootstrap.values())
+    # Protect private storage before placing owner credentials or enabling the APIs.
+    upload('_private/.htaccess', files['_private/.htaccess'])
+    for name, data in bootstrap.items():
+        upload('_private/management/' + name, data, private=True)
+    upload('.htaccess', files['.htaccess'])
+    # Immutable assets and PHP dependencies precede the new HTML entrypoints.
+    for name, data in sorted(files.items(), key=lambda item: (item[0].endswith('.html'), item[0] == 'index.html', item[0])):
+        if name in ['_private/.htaccess', '.htaccess']:
+            continue
+        upload(name, data)
+    for name, data in files.items():
+        report['files'].append({'path': name, 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()})
+    for name, original in credentials.items():
+        if original:
+            assert read('_private/management/' + name) == original, 'Owner credentials changed unexpectedly.'
+    report['completed'] = True
+    persist_report()
+    (ROOT / 'docs' / 'deployment-manifest.json').write_text(json.dumps(report, indent=2) + '\n')
+    print('Production upload complete. Verify HTTPS routes, privacy and account workflows.', flush=True)
+finally:
+    ftp.close()
