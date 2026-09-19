@@ -1,0 +1,119 @@
+{
+  "verified_at_utc": "2026-09-19T21:02:16.626634+00:00",
+  "deployment": {
+    "url": "https://forms.ahmaddalao.com/",
+    "source_commit": "ef5024f03393336ff90f902428bb23da5f3a313f",
+    "uploaded_at_utc": "20260919T205759Z",
+    "completed": true,
+    "manifest": "docs/deployment-manifest.json"
+  },
+  "scope": "Review-workflow toggle, mode-aware saving and signing, role permissions, transaction safety, navigation and unchanged default review behavior. Existing document fields/templates were not changed.",
+  "unit_tests": {
+    "passed": 107,
+    "failed": 0,
+    "evidence": "tmp/workflow-unit-tests.log"
+  },
+  "build": {
+    "passed": true,
+    "evidence": "tmp/workflow-build.log"
+  },
+  "php_syntax": {
+    "files": 10,
+    "passed": true
+  },
+  "workflow_cycle": {
+    "passed": true,
+    "groups": 7,
+    "screenshots": 33,
+    "browser_errors": 0,
+    "evidence": "tmp/workflow-toggle-1789850542026-35b9b3/report.json",
+    "checks": [
+      "Default review-on, public metadata safety, legacy-client compatibility, signed submissions, signature enforcement and current/archive fixtures",
+      "Anonymous, client, regular admin, CSRF, wrong method and invalid workflow updates cannot change mode",
+      "Actual superadmin off save persists across restart; optimistic conflict, stale decision and stale save are blocked without new versions, decisions or notifications",
+      "EN/AR desktop/mobile tool UI saves actual unsigned generic and both subscription PDFs with correct totals; saved account views have no active review remedies",
+      "Optional signing rejects an empty request without mutation; actual Arabic mobile upload previews/saves one optional signature while the normally required slot stays blank",
+      "Old/current links, read-only decision history, ownership, current/history ZIP exact hashes and original PDF/answers survive tool mode",
+      "Re-enable preserves decisions and locked approval, never enrolls tool-mode versions, rejects stale mode/unsigned review submissions, and keeps restored tool versions ineligible"
+    ]
+  },
+  "hotfix_regression": {
+    "passed": true,
+    "real_api_navigation_and_initial_boot_cases": 6,
+    "mocked_duplicate_receipt_cases": 4,
+    "browser_errors": 0,
+    "evidence": [
+      "tmp/workflow-toggle-1789851241518-aefc11/navigation-report.json",
+      "tmp/workflow-review-receipt/report.json"
+    ]
+  },
+  "default_review_client_regression": {
+    "passed": true,
+    "groups": 12,
+    "synthetic_accounts": 2,
+    "stored_versions_preserved": 14,
+    "screenshots": 17,
+    "browser_errors": [],
+    "evidence": "tmp/default-on-client-regression-EfH7tp/report.json"
+  },
+  "additional_mocked_ui_checks": {
+    "passed": true,
+    "cases": 16,
+    "browser_errors": 0,
+    "evidence": [
+      "tmp/workflow-management-ui-audit/report.json",
+      "tmp/workflow-client-ui-audit/report.json",
+      "tmp/workflow-copy-refresh-audit/report.json"
+    ]
+  },
+  "hosted_read_only": {
+    "passed": true,
+    "public_route_cases": 24,
+    "management_role_cases": 8,
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "viewport_widths": [
+      1440,
+      390
+    ],
+    "critical_asset_hash_matches": 9,
+    "public_pdf_hash_matches": 10,
+    "application_mutations": 0,
+    "browser_errors": 0,
+    "evidence": "tmp/workflow-production-readonly-1789851600733/report.json",
+    "unchanged_public_route_evidence": "tmp/workflow-production-readonly-1789850914473/report.json"
+  },
+  "migration_integrity": {
+    "passed": true,
+    "schema": 5,
+    "original_record_counts_preserved": {
+      "users": 1,
+      "submissions": 3,
+      "submission_reviews": 1,
+      "audit": 1
+    },
+    "original_pdf_hashes_verified": true,
+    "review_sequence_preserved": true,
+    "private_data_exported": false,
+    "evidence": "tmp/workflow-toggle-migration-live.json"
+  },
+  "public_file_and_storage_verification": {
+    "passed": true,
+    "updated_public_file_hash_matches": 12,
+    "private_paths_blocked": true,
+    "evidence": "tmp/workflow-https.json"
+  },
+  "production_mode": {
+    "review_enabled": true,
+    "revision": 0,
+    "workflow_change_events": 0
+  },
+  "limits": [
+    "Browser checks used Chromium/Chrome.",
+    "Actual mode changes and application mutations were tested only in isolated local fixtures; production workflow mode was not toggled.",
+    "Public-route and unchanged PDF checks reuse the successful pre-hotfix run; final management UI and changed asset hashes were rechecked after the hotfix.",
+    "Production preservation was verified server-side against its private backup; no client data was exported."
+  ]
+}
