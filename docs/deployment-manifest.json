@@ -1,14 +1,14 @@
 {
-  "uploaded_at_utc": "20260919T172201Z",
+  "uploaded_at_utc": "20260919T172934Z",
   "url": "https://forms.ahmaddalao.com/",
-  "source_commit": "3e8c9d83479f2af3cb82b4226b4dbabaf6dc56de",
+  "source_commit": "88bf7645a3efae808bee398536e3e14cbefd21bb",
   "transport": "Explicit FTPS with verified Hostinger certificate",
-  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T172201Z",
+  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260919T172934Z",
   "files": [
     {
       "path": "index.html",
       "bytes": 755,
-      "sha256": "f8afdc1666ae058038e5ea824b093164014ceff846810a5356777d6662f1b12f"
+      "sha256": "eff94e6e0e26ca611fe0f687c79c33eba3c9dd65312289a8494367c9adbd992b"
     },
     {
       "path": ".user.ini",
@@ -28,7 +28,7 @@
     {
       "path": "my-applications/index.html",
       "bytes": 793,
-      "sha256": "baa77649cfea3fe2d2d48f0dc86a74bc3e13b3a50edc9aadb2f879dba9b9aa7a"
+      "sha256": "95d8aac3e571f20eac4c1de2d00de54967c927bfea63b080a4baabc3a399fda3"
     },
     {
       "path": "branding/wessal.png",
@@ -43,12 +43,12 @@
     {
       "path": "individuals/index.html",
       "bytes": 789,
-      "sha256": "a9af33a7c407e385c07000eb19915b00a406ddfe085eb8ee36544e7a5abb33b4"
+      "sha256": "7e10e2b0016406bed670aea0371d60f017aacf7abdf5c00ab0ddebfae8d77901"
     },
     {
       "path": "management/index.html",
       "bytes": 788,
-      "sha256": "f8e2be4daeadf6576e7e7a98ca7f18a6fe50dcb50889b0fad7980c7f5a4e24d2"
+      "sha256": "69c5c601100a79808586085cf2db599854cd8a8d4486d8f49bf5cea3c5ecbc80"
     },
     {
       "path": "_private/.htaccess",
@@ -58,7 +58,7 @@
     {
       "path": "register/index.html",
       "bytes": 786,
-      "sha256": "b0239bc007981c7f7a4e7253e1ff2126cc5de125d2fe11295e6d83caba096424"
+      "sha256": "4f0f4e743d694b7fe861b1f26cb7b3790c2672a0d351d55bde0bfbbee04da926"
     },
     {
       "path": "api/defaults.json",
@@ -168,7 +168,7 @@
     {
       "path": "account/index.html",
       "bytes": 785,
-      "sha256": "f68a57d09ffa5406d394e946b9c7db6ac5926ae9d6356f9a3223243851469f25"
+      "sha256": "6181e612ee5fafd28825e92059911ffa0a0edc2be3c24b3627c22da9e52f81f7"
     },
     {
       "path": "assets/preview-CrBNwdQU.js",
@@ -179,11 +179,6 @@
       "path": "assets/pdf.worker.min-Dswkl-cV.mjs",
       "bytes": 1265413,
       "sha256": "8ab0e5e30031b4a06ecfddd5ae9562f0227f830ee7ec9ed1a968b134243d2386"
-    },
-    {
-      "path": "assets/index-Dhx5PKpG.js",
-      "bytes": 1915,
-      "sha256": "c98ef6c53ade1ebf11d9d76b7518ea323884ad6f111029e8a50c88cc948b9977"
     },
     {
       "path": "assets/arabic-600-DfnZHZ36.css",
@@ -206,6 +201,11 @@
       "sha256": "9b42c108da48b5ed55a3072e815ffee2d271562e6c0dd6998910e8f9c09e0a3d"
     },
     {
+      "path": "assets/main-C3R4juLz.js",
+      "bytes": 27395,
+      "sha256": "30709f71f79221b3d40abbbd4f88b10c65cccf791e2f3b05de14446fef448e8e"
+    },
+    {
       "path": "assets/forms-Un2YMEaY.js",
       "bytes": 58,
       "sha256": "3814b81b741351049339a80a6470f4b678945bd6def45730c60b3a9598c3bc6e"
@@ -214,11 +214,6 @@
       "path": "assets/preview-UMrcZuUG.css",
       "bytes": 5854,
       "sha256": "427fd3e20807bea067e213b16767e84512c59bc0ac82c7957594d39fc4dfe96e"
-    },
-    {
-      "path": "assets/main-DJgcgnWU.js",
-      "bytes": 27367,
-      "sha256": "74e29fa1fbd89a8017bf2dab06544afdb9b7aecd0c6067b6dbd04bd3d0bc3e68"
     },
     {
       "path": "assets/access-B6sPbE1L.js",
@@ -291,14 +286,14 @@
       "sha256": "a4e831def387e2bf34748579ad8e630081bc88eef9a70a8a4405866deefd3678"
     },
     {
+      "path": "assets/index-ZleLV6Mb.js",
+      "bytes": 1915,
+      "sha256": "99c8228a66e12db9af103a54c017633f7a14ac264a35c08cb11ffbdac9cb0d64"
+    },
+    {
       "path": "assets/routes-VETtnQjc.js",
       "bytes": 660,
       "sha256": "6c3436c95c68b54206953e92017d9a0edb4c1fdcb4823b5c27e236c2b02232fb"
-    },
-    {
-      "path": "assets/main-_VUuJIYq.css",
-      "bytes": 16458,
-      "sha256": "fcdc1cab67b5e57c7fd35697097127c1fd41b0a7be26f31e59ac8dbe92079494"
     },
     {
       "path": "assets/main-BZSbOp7Q.css",
@@ -341,6 +336,11 @@
       "sha256": "e20fa0b4fd2dd26e4d14b3ac3cc922509c3a63fa5e910e90c614544aa042dd45"
     },
     {
+      "path": "assets/main-DE87fyXd.css",
+      "bytes": 17227,
+      "sha256": "b32612c1db5e4a1455910c860c454f2d0d3897903c0183afd82764ca7b3bd791"
+    },
+    {
       "path": "assets/api-CGj2qq_C.js",
       "bytes": 6703,
       "sha256": "c3c0fc6e51b78b9e23a64483b45175d85240212314d18a6cd2f1dc9abc00747e"
@@ -358,12 +358,12 @@
     {
       "path": "login/index.html",
       "bytes": 783,
-      "sha256": "4bb5d987a88aa8b7ec650cf20fb2cd88cfeb129ca775dcf07f99e54ff9c2520e"
+      "sha256": "03d544b36ff87e8ff0aaf43a2581f6f07c87f70626092822fa169805b72ace9a"
     },
     {
       "path": "companies/index.html",
       "bytes": 787,
-      "sha256": "0222482951a9ac6eb49f4a5f202c17af39841820227794dab6834a7352749587"
+      "sha256": "8edbb93cb9b1a0ee1fcfeba357f8f005892711cd0bf2a0bd974dbc6f885a455e"
     },
     {
       "path": "api/subscription/calculate.php",
@@ -377,21 +377,11 @@
     }
   ],
   "created": [
-    "api/client-profile-defaults.json",
-    "api/portal-details.php",
-    "assets/index-Dhx5PKpG.js",
-    "assets/main-Ba3B56-8.css",
-    "assets/main-CrjVcim7.js",
-    "assets/main-DJgcgnWU.js",
-    "assets/main-_BA8ayon.js",
-    "assets/preview-CrBNwdQU.js",
-    "assets/preview-UMrcZuUG.css",
-    "assets/shared-fields-Bz6J0VEe.js",
-    "assets/shared-fields-eVQh_5Cv.css"
+    "assets/index-ZleLV6Mb.js",
+    "assets/main-C3R4juLz.js",
+    "assets/main-DE87fyXd.css"
   ],
   "replaced": [
-    "api/portal-defaults.json",
-    "api/portal.php",
     "account/index.html",
     "companies/index.html",
     "individuals/index.html",
@@ -405,12 +395,16 @@
     "_private/.htaccess",
     ".htaccess",
     ".user.ini",
+    "api/client-profile-defaults.json",
     "api/defaults.json",
     "api/management-auth.php",
     "api/management.php",
     "api/portal-account-types.php",
+    "api/portal-defaults.json",
+    "api/portal-details.php",
     "api/portal-reviews.php",
     "api/portal-versions.php",
+    "api/portal.php",
     "api/session-scope.php",
     "api/subscription/calculate.php",
     "api/subscription/rules.json",
@@ -432,7 +426,9 @@
     "assets/inter-latin-600-normal-LgqL8muc.woff2",
     "assets/latin-400-CkJXGLVG.css",
     "assets/main-BZSbOp7Q.css",
-    "assets/main-_VUuJIYq.css",
+    "assets/main-Ba3B56-8.css",
+    "assets/main-CrjVcim7.js",
+    "assets/main-_BA8ayon.js",
     "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
     "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
     "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
@@ -441,7 +437,11 @@
     "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff",
     "assets/pdf.worker.min-Dswkl-cV.mjs",
     "assets/preload-helper-uBIymjUX.js",
+    "assets/preview-CrBNwdQU.js",
+    "assets/preview-UMrcZuUG.css",
     "assets/routes-VETtnQjc.js",
+    "assets/shared-fields-Bz6J0VEe.js",
+    "assets/shared-fields-eVQh_5Cv.css",
     "branding/itqan.png",
     "branding/wessal.png",
     "favicon.svg",

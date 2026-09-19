@@ -1,0 +1,72 @@
+{
+  "result": "pass",
+  "source_commit": "88bf7645a3efae808bee398536e3e14cbefd21bb",
+  "scope": "Align login and signup header/card edges with consistent top and inter-section spacing. Preserve existing purple styling and authentication behavior.",
+  "routes": [
+    "/login/",
+    "/register/"
+  ],
+  "languages": [
+    "en",
+    "ar"
+  ],
+  "widths": [
+    1440,
+    1024,
+    850,
+    768,
+    600,
+    390,
+    320
+  ],
+  "local_cases": 28,
+  "hosted_cases": 28,
+  "checks": [
+    "Matching header/card outer edges at each width",
+    "Desktop header topmargin24 and card gap28; mobile topmargin16 and gap20",
+    "Both original logos and languagebutton stay on one line and within header bounds",
+    "No horizontal overflow",
+    "Language and password visibility controls work",
+    "Next/resume navigation parameters preserved"
+  ],
+  "browser_errors": [],
+  "blocked_writes": [],
+  "visual_review": "Arabic signup1440/390/320 and English login1440 screenshots inspected.",
+  "hosted_routes": [
+    {
+      "route": "/register/",
+      "status": 200
+    },
+    {
+      "route": "/login/",
+      "status": 200
+    },
+    {
+      "route": "/my-applications/",
+      "status": 200
+    },
+    {
+      "route": "/management/",
+      "status": 200
+    },
+    {
+      "route": "/individuals/",
+      "status": 200
+    },
+    {
+      "route": "/companies/",
+      "status": 200
+    },
+    {
+      "route": "/_private/portal/clients.sqlite",
+      "status": 403
+    },
+    {
+      "route": "/.env.local",
+      "status": 403
+    }
+  ],
+  "deployed_assets_match_build": true,
+  "private_storage": "Preserved; public build only, no client data changes.",
+  "verified_at_utc": "2026-09-19T17:36:17.313927+00:00"
+}
