@@ -93,7 +93,7 @@ try{
  const corporate={...u.meta,audience:'corporate',requestKey:randomUUID()};
  const newer=await call(a,'submit',null,201,{multipart:{metadata:JSON.stringify(corporate),pdf:{name:'company.pdf',mimeType:'application/pdf',buffer:source}}});
  assert.equal(newer.submission.version,1);
- await owner.setViewportSize({width:390,height:844});await owner.locator('[data-admin-language]').click();await owner.locator('#account-type-form').waitFor();
+ await owner.setViewportSize({width:390,height:844});await owner.locator('[data-admin-language]').click();await owner.locator('.client-management[dir=rtl] #account-type-form').waitFor();
  assert.equal(await owner.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);await owner.screenshot({path:out+'/management-ar.png',fullPage:true});
  await owner.locator('#client-account-type').selectOption('individual');await owner.locator('#account-type-form [type=submit]').click();await owner.locator('[data-type-status]').filter({hasText:'تم تحديث نوع الحساب.'}).waitFor();
  await p.goto(base+'/companies/');await p.waitForURL('**/individuals/');await p.locator('[data-doc]').first().waitFor();

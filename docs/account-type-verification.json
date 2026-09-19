@@ -1,0 +1,39 @@
+{
+  "verified_at_utc": "2026-09-19T15:34:41.544724+00:00",
+  "result": "pass",
+  "url": "https://forms.ahmaddalao.com/",
+  "source_commit": "33447f588a6b6fd27453dad98398e8f38ac89ec2",
+  "unit_tests": 57,
+  "local_checks": [
+    "individual: signup, assigned landing page, opposite direct-link redirect, catalogue/upload filtering, client self-change rejection and server submission authorization",
+    "corporate: signup, assigned landing page, opposite direct-link redirect, catalogue/upload filtering, client self-change rejection and server submission authorization",
+    "Management changes both directions, CSRF/method/validation/stale-write protection, active-session refresh, old PDF preservation, read-only prior-category history, separate shared fields and permitted new-category submission",
+    "firefox: fresh company login, opposite next/direct-link restrictions, account navigation and mobile layout",
+    "webkit: fresh company login, opposite next/direct-link restrictions, account navigation and mobile layout"
+  ],
+  "live_checks": [
+    "individual: signup, assigned landing page, opposite direct-link redirect, catalogue/upload filtering, client self-change rejection and server submission authorization",
+    "corporate: signup, assigned landing page, opposite direct-link redirect, catalogue/upload filtering, client self-change rejection and server submission authorization",
+    "Management changes both directions, CSRF/method/validation/stale-write protection, active-session refresh, old PDF preservation, read-only prior-category history, separate shared fields and permitted new-category submission",
+    "firefox: fresh company login, opposite next/direct-link restrictions, account navigation and mobile layout",
+    "webkit: fresh company login, opposite next/direct-link restrictions, account navigation and mobile layout"
+  ],
+  "console_errors": [],
+  "existing_records_preserved": {
+    "users": 1,
+    "submissions": 1
+  },
+  "migration_schema": 2,
+  "cleanup": {
+    "test_users_removed": 2,
+    "test_pdfs_removed": 3,
+    "baseline_counts_restored": true,
+    "integrity": "ok"
+  },
+  "notes": [
+    "Existing accounts default to Individual. Only management can change a registered account category.",
+    "Previous-category submissions remain readable but cannot be edited or replaced by the client until the account category matches again.",
+    "Anonymous document links and public blank templates retain their previous availability.",
+    "An earlier QA signup counter reached its configured limit. Only the current QA connection register counter was cleared before rerun and after cleanup."
+  ]
+}
