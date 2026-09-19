@@ -1,0 +1,118 @@
+{
+  "result": "pass",
+  "source_commit": "4498a712a9cee94d0b5b36fbc3759242268d8305",
+  "scope": "Client account type changes restricted to server-authenticated superadmin. Ordinary admin retains read access and existing client operations.",
+  "unit_tests": 78,
+  "local": {
+    "role_checks": [
+      "Both roles share login; admin cannot read draft state, upload, edit, reorder, review, publish, restore or remove; unpublished PDFs stay private",
+      "Role claims are ignored; spoofing the session identity fails credential binding",
+      "Only superadmin changes account type in both directions; admin and spoofed-role requests are rejected without mutation while admin can still read the type",
+      "Admin and superadmin retain client statistics, profiles, PDF/ZIP downloads, reviews with correct actor, archived version recovery and password reset",
+      "Superadmin UI edits bilingual title, reorders, saves private draft, publishes and restores catalogue without client data changes",
+      "chrome admin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+      "Superadmin UI changes individual/company both ways while all saved and archived submissions and PDF bytes remain unchanged",
+      "chrome superadmin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+      "firefox admin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+      "firefox superadmin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+      "webkit admin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+      "webkit superadmin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout"
+    ],
+    "account_type_workflows": [
+      "individual: signup, assigned landing page, opposite direct-link redirect, catalogue/upload filtering, client self-change rejection and server submission authorization",
+      "corporate: signup, assigned landing page, opposite direct-link redirect, catalogue/upload filtering, client self-change rejection and server submission authorization",
+      "Management changes both directions, CSRF/method/validation/stale-write protection, active-session refresh, old PDF preservation, read-only prior-category history, separate shared fields and permitted new-category submission",
+      "firefox: fresh company login, opposite next/direct-link restrictions, account navigation and mobile layout",
+      "webkit: fresh company login, opposite next/direct-link restrictions, account navigation and mobile layout"
+    ],
+    "browsers": [
+      "Chrome",
+      "Firefox",
+      "WebKit"
+    ],
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "browser_errors": []
+  },
+  "hosted": {
+    "result": "pass",
+    "site": "https://forms.ahmaddalao.com/management/",
+    "checks": [
+      {
+        "role": "admin",
+        "permission": false,
+        "profileVisible": true,
+        "editControlsVisible": false,
+        "directSpoofRejected": true,
+        "languages": [
+          "en",
+          "ar"
+        ],
+        "widths": [
+          1440,
+          390
+        ],
+        "existingClientAndSubmissionsUnchanged": true
+      },
+      {
+        "role": "superadmin",
+        "permission": true,
+        "profileVisible": true,
+        "editControlsVisible": true,
+        "directSpoofRejected": false,
+        "languages": [
+          "en",
+          "ar"
+        ],
+        "widths": [
+          1440,
+          390
+        ],
+        "existingClientAndSubmissionsUnchanged": true
+      }
+    ],
+    "errors": [],
+    "blockedWrites": [],
+    "clientDataChanges": 0,
+    "completed": "2026-09-19T17:43:26.590Z",
+    "routes": [
+      {
+        "route": "/register/",
+        "status": 200
+      },
+      {
+        "route": "/login/",
+        "status": 200
+      },
+      {
+        "route": "/my-applications/",
+        "status": 200
+      },
+      {
+        "route": "/management/",
+        "status": 200
+      },
+      {
+        "route": "/individuals/",
+        "status": 200
+      },
+      {
+        "route": "/companies/",
+        "status": 200
+      },
+      {
+        "route": "/_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "route": "/.env.local",
+        "status": 403
+      }
+    ],
+    "deployed_assets_match_build": true,
+    "private_storage": "Preserved. No existing clients or submissions modified by verification."
+  },
+  "verified_at_utc": "2026-09-19T17:43:45.573733+00:00"
+}
