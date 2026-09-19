@@ -6,6 +6,7 @@ header('Cache-Control: no-store, private');
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: no-referrer');
 umask(0077);
+require_once __DIR__.'/portal-versions.php';
 function reply(array $data, int $status=200): never { http_response_code($status); echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR); exit; }
 function reject(string $code,int $status=400): never { reply(['error'=>$code],$status); }
 function body(): array {
@@ -84,7 +85,7 @@ function cleanAnswers(array $def,mixed $input): array {
     return $out;
 }
 function submissionRows(?string $user=null,?int $limit=null): array {
-    return execute('SELECT s.id,s.user_id,s.doc_id,s.title,s.ar,s.audience,s.created_at,s.size,s.sha256,u.name,u.phone,u.email FROM submissions s JOIN users u ON u.id=s.user_id'.($user?' WHERE s.user_id=?':'').' ORDER BY s.created_at DESC,s.rowid DESC'.($limit?' LIMIT '.$limit:''),$user?[$user]:[])->fetchAll();
+    return execute('SELECT s.id,s.user_id,s.doc_id,s.title,s.ar,s.audience,s.created_at,s.size,s.sha256,s.version,s.archived_at,s.replaces_id,s.restored_from,s.edited_from,s.source,u.name,u.phone,u.email FROM submissions s JOIN users u ON u.id=s.user_id'.($user?' WHERE s.user_id=?':'').' ORDER BY s.created_at DESC,s.rowid DESC'.($limit?' LIMIT '.$limit:''),$user?[$user]:[])->fetchAll();
 }
 function fileName(string $name): string {return mb_substr(trim(preg_replace('/[^\p{L}\p{N}_ -]/u','',$name)),0,100)?:'client';}
 function attachment(string $type,string $name,bool $inline=false): void {
@@ -102,13 +103,14 @@ try {
       CREATE INDEX IF NOT EXISTS submissions_user ON submissions(user_id);
       CREATE TABLE IF NOT EXISTS rates(key TEXT PRIMARY KEY,attempts INTEGER NOT NULL,expires INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,client_id TEXT NOT NULL,event TEXT NOT NULL,created_at TEXT NOT NULL);');
+    migrateVersions();
     $action=$_GET['action']??'session';$admin=str_starts_with($action,'admin_');
     $https=!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off';
     session_name($admin?'itqan_management':'itqan_client');ini_set('session.use_strict_mode','1');session_set_cookie_params(['lifetime'=>0,'path'=>'/','secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);session_start();
     $_SESSION['csrf']??=bin2hex(random_bytes(24));
     if($admin)ownerRequired();
     if($_SERVER['REQUEST_METHOD']==='POST'&&(empty($_SERVER['HTTP_X_CSRF_TOKEN'])||!hash_equals($_SESSION['csrf'],$_SERVER['HTTP_X_CSRF_TOKEN'])))reject('csrf_invalid',403);
-    $mutations=['register','login','logout','password','profile','submit','admin_reset'];
+    $mutations=['register','login','logout','password','profile','submit','admin_reset','admin_restore'];
     if(in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='POST')reject('method',405);
     if(!in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='GET')reject('method',405);
     $now=gmdate('Y-m-d\TH:i:s\Z');$ip=$_SERVER['REMOTE_ADDR']??'local';
@@ -132,8 +134,8 @@ try {
     }
     if($action==='logout'){$_SESSION=[];session_destroy();reply(['ok'=>true]);}
     if($action==='admin_dashboard'){
-        $stats=execute('SELECT (SELECT COUNT(*) FROM users) AS users,(SELECT COUNT(*) FROM submissions) AS submissions,(SELECT COUNT(DISTINCT user_id) FROM submissions) AS submitted_users')->fetch();
-        $counts=execute('SELECT doc_id,audience,title,ar,COUNT(*) AS count,COUNT(DISTINCT user_id) AS clients FROM submissions GROUP BY doc_id,audience')->fetchAll();
+        $stats=execute('SELECT (SELECT COUNT(*) FROM users) AS users,(SELECT COUNT(*) FROM submissions) AS submissions,(SELECT COUNT(*) FROM submissions WHERE archived_at IS NULL) AS active_submissions,(SELECT COUNT(DISTINCT user_id) FROM submissions) AS submitted_users')->fetch();
+        $counts=execute('SELECT doc_id,audience,title,ar,COUNT(*) AS count,SUM(archived_at IS NULL) AS active_count,COUNT(DISTINCT user_id) AS clients FROM submissions GROUP BY doc_id,audience')->fetchAll();
         $categories=catalogue();
         foreach($counts as $c)if(!in_array($c['doc_id'],array_column($categories,'id'),true))$categories[]=['id'=>$c['doc_id'],'title'=>$c['title'],'ar'=>$c['ar'],'group'=>'shared','downloadOnly'=>false];
         reply(['stats'=>$stats,'categories'=>$categories,'counts'=>$counts,'recent'=>submissionRows(null,12)]);
@@ -143,7 +145,7 @@ try {
         $page=max(1,min(100000,(int)($_GET['page']??1)));$offset=($page-1)*30;
         $where=" WHERE name LIKE ? ESCAPE '\' OR phone LIKE ? ESCAPE '\' OR email LIKE ? ESCAPE '\'";
         $count=execute('SELECT COUNT(*) FROM users'.$where,[$q,$q,$q])->fetchColumn();
-        $users=execute('SELECT id,name,phone,email,created_at,last_login,reset_required,(SELECT COUNT(*) FROM submissions s WHERE s.user_id=users.id) AS submissions FROM users'.$where.' ORDER BY created_at DESC,rowid DESC LIMIT 30 OFFSET '.$offset,[$q,$q,$q])->fetchAll();
+        $users=execute('SELECT id,name,phone,email,created_at,last_login,reset_required,(SELECT COUNT(*) FROM submissions s WHERE s.user_id=users.id) AS submissions,(SELECT COUNT(*) FROM submissions s WHERE s.user_id=users.id AND archived_at IS NULL) AS active_submissions FROM users'.$where.' ORDER BY created_at DESC,rowid DESC LIMIT 30 OFFSET '.$offset,[$q,$q,$q])->fetchAll();
         reply(['users'=>$users,'total'=>(int)$count,'page'=>$page]);
     }
     if($action==='admin_client'){
@@ -157,6 +159,14 @@ try {
         if(execute('UPDATE users SET password=?,reset_required=1,session_version=session_version+1 WHERE id=?',[password_hash($temporary,PASSWORD_DEFAULT),$id])->rowCount()!==1){$db->rollBack();reject('not_found',404);}
         execute('INSERT INTO audit(client_id,event,created_at) VALUES(?,?,?)',[$id,'owner_password_reset',$now]);$db->commit();
         reply(['temporary_password'=>$temporary]);
+    }
+    if($action==='admin_restore'){
+        $b=body();$key=requestKey($b);$expected=expectedCurrent($b);rate('restore:'.$ip,30,60);
+        $s=execute('SELECT * FROM submissions WHERE id=?',[textValue($b['id']??'',40)])->fetch();if(!$s)reject('not_found',404);
+        if($old=execute('SELECT id,created_at,version,archived_at FROM submissions WHERE user_id=? AND request_key=?',[$s['user_id'],$key])->fetch())reply(['submission'=>$old,'duplicate'=>true]);
+        if($s['archived_at']===null)reject('version_conflict',409);
+        $s['restored_from']=$s['id'];$s['edited_from']=null;$s['request_key']=$key;
+        reply(saveVersion($s,$dataDir.'/pdfs/'.$s['id'].'.pdf',$expected,'owner_restore'),201);
     }
     $u=$admin?null:currentUser(true,$action==='password');
     if($action==='password'){
@@ -172,15 +182,18 @@ try {
     if($action==='submissions')reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'])]);
     if($action==='submit'){
         rate('submit:'.$u['id'],30,60);
-        if((int)($_SERVER['CONTENT_LENGTH']??0)>23000000)reject('request_large',413);
+        if((int)($_SERVER['CONTENT_LENGTH']??0)>24500000)reject('request_large',413);
         try{$meta=json_decode($_POST['metadata']??'',true,32,JSON_THROW_ON_ERROR);}catch(Throwable){reject('invalid_request');}
-        if(!is_array($meta)||strlen($_POST['metadata']??'')>1048576)reject('invalid_request');
+        if(!is_array($meta)||strlen($_POST['metadata']??'')>3500000)reject('invalid_request');
         if(($meta['account']??'')!==$u['id'])reject('account_changed',409);
-        $key=$meta['requestKey']??'';if(!is_string($key)||!preg_match('/^[a-f0-9-]{32,36}$/D',$key))reject('invalid_request');
-        if($old=execute('SELECT id,created_at FROM submissions WHERE user_id=? AND request_key=?',[$u['id'],$key])->fetch())reply(['submission'=>$old,'duplicate'=>true]);
+        $key=requestKey($meta);$expected=expectedCurrent($meta);
+        if($old=execute('SELECT id,created_at,version,archived_at FROM submissions WHERE user_id=? AND request_key=?',[$u['id'],$key])->fetch())reply(['submission'=>$old,'duplicate'=>true]);
         $audience=$meta['audience']??'';if(!in_array($audience,['individual','corporate'],true))reject('invalid_request');
         $source=($meta['source']??'online')==='upload'?'upload':'online';
         $doc=definition(textValue($meta['document']??'',100),$audience,$source==='upload');$answers=$source==='upload'?[]:cleanAnswers($doc,$meta['values']??[]);
+        $editedFrom=$meta['editedFrom']??null;
+        if($editedFrom!==null&&!execute('SELECT id FROM submissions WHERE id=? AND user_id=? AND doc_id=? AND audience=?', [textValue($editedFrom,40),$u['id'],$doc['id'],$audience])->fetch())reject('not_found',404);
+        $signatures=$source==='upload'?[]:cleanSignatureImages($doc,$meta['signatures']??[],$answers);
         $profile=['submission_source'=>$source];foreach(['email','phone','mobile','company_name','full_name','building','street','district','city','postal','country'] as $k)if(isset($meta['profile'][$k]))$profile[$k]=textValue($meta['profile'][$k]);
         $profile['field_definitions']=array_map(fn($f)=>array_intersect_key($f,array_flip(['id','label','ar','type','hidden','options','selectOptions'])),$doc['fields']??[]);
         $email=$profile['email']??($answers['email']??'');if($email!==''&&!filter_var($email,FILTER_VALIDATE_EMAIL))reject('email_invalid');
@@ -189,31 +202,26 @@ try {
         if($f['size']>20971520)reject('request_large',413);
         $bytes=file_get_contents($f['tmp_name']);
         if(!str_starts_with($bytes,'%PDF-')||!str_contains(substr($bytes,-2048),'%%EOF')||(new finfo(FILEINFO_MIME_TYPE))->buffer($bytes)!=='application/pdf')reject('pdf_invalid');
-        $id=bin2hex(random_bytes(16));$path=$dataDir.'/pdfs/'.$id.'.pdf';
-        if(!move_uploaded_file($f['tmp_name'],$path))reject('storage_unavailable',503);
-        try{
-            $db->beginTransaction();
-            execute('INSERT INTO submissions VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',[$id,$u['id'],$doc['id'],$doc['title'],$doc['ar'],$audience,$now,strlen($bytes),hash('sha256',$bytes),json_encode($answers,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),json_encode($profile,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),$key]);
-            if($email!==''&&$u['email']==='')execute('UPDATE users SET email=? WHERE id=?',[$email,$u['id']]);
-            $db->commit();
-        }catch(Throwable $e){if($db->inTransaction())$db->rollBack();unlink($path);throw $e;}
-        reply(['submission'=>['id'=>$id,'created_at'=>$now]],201);
+        $result=saveVersion(['user_id'=>$u['id'],'doc_id'=>$doc['id'],'title'=>$doc['title'],'ar'=>$doc['ar'],'audience'=>$audience,'answers'=>json_encode($answers,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'profile'=>json_encode($profile,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'request_key'=>$key,'source'=>$source,'signatures'=>json_encode((object)$signatures,JSON_THROW_ON_ERROR),'edited_from'=>$editedFrom],$f['tmp_name'],$expected);
+        if($email!==''&&$u['email']==='')execute('UPDATE users SET email=? WHERE id=?',[$email,$u['id']]);
+        reply($result,empty($result['duplicate'])?201:200);
     }
     if(in_array($action,['detail','admin_detail','pdf','admin_pdf'],true)){
         $s=execute('SELECT * FROM submissions WHERE id=?',[$_GET['id']??''])->fetch();
         if(!$s||(!$admin&&$s['user_id']!==$u['id']))reject('not_found',404);
-        if(str_ends_with($action,'detail')){unset($s['request_key']);$s['answers']=json_decode($s['answers'],true);$s['profile']=json_decode($s['profile'],true);reply(['submission'=>$s]);}
+        if(str_ends_with($action,'detail')){unset($s['request_key']);$s['answers']=json_decode($s['answers'],true);$s['profile']=json_decode($s['profile'],true);$s['signatures']=$s['signatures']===null?null:json_decode($s['signatures'],true);$s['current_id']=execute('SELECT id FROM submissions WHERE user_id=? AND doc_id=? AND audience=? AND archived_at IS NULL',[$s['user_id'],$s['doc_id'],$s['audience']])->fetchColumn()?:null;reply(['submission'=>$s]);}
         $path=$dataDir.'/pdfs/'.$s['id'].'.pdf';if(!is_file($path))reject('not_found',404);
-        attachment('application/pdf',fileName($s['title']).'-'.substr($s['created_at'],0,10).'.pdf',($_GET['inline']??'')==='1');
+        attachment('application/pdf',fileName($s['title']).'-v'.$s['version'].'-'.substr($s['created_at'],0,10).'.pdf',($_GET['inline']??'')==='1');
         header("Content-Security-Policy: sandbox; default-src 'none'; frame-ancestors 'self'");header('Content-Length: '.filesize($path));session_write_close();readfile($path);exit;
     }
     if(in_array($action,['zip','admin_zip'],true)){
         if($admin){$u=execute('SELECT * FROM users WHERE id=?',[$_GET['id']??''])->fetch();if(!$u)reject('not_found',404);}
-        $rows=submissionRows($u['id']);if(!$rows)reject('no_submissions',404);
+        $history=($_GET['history']??'')==='1';$rows=array_filter(submissionRows($u['id']),fn($s)=>$history||$s['archived_at']===null);if(!$rows)reject('no_submissions',404);
         $tmp=tempnam($dataDir,'archive-');register_shutdown_function(static function()use($tmp){if(is_file($tmp))unlink($tmp);});
         $zip=new ZipArchive();if($zip->open($tmp,ZipArchive::OVERWRITE)!==true)reject('storage_unavailable',503);
-        foreach($rows as $s){$path=$dataDir.'/pdfs/'.$s['id'].'.pdf';if(!is_file($path))reject('storage_unavailable',503);$zip->addFile($path,fileName($s['title']).'-'.str_replace([':', 'T','Z'],['-','_',''],$s['created_at']).'-'.substr($s['id'],0,8).'.pdf');}
-        $zip->close();attachment('application/zip',fileName($u['name']).'.zip');header('Content-Length: '.filesize($tmp));session_write_close();readfile($tmp);unlink($tmp);exit;
+        foreach($rows as $s){$path=$dataDir.'/pdfs/'.$s['id'].'.pdf';if(!is_file($path))reject('storage_unavailable',503);$zip->addFile($path,fileName($s['title']).'-'.$s['audience'].'-v'.$s['version'].'-'.str_replace([':', 'T','Z'],['-','_',''],$s['created_at']).'-'.substr($s['id'],0,8).'.pdf');}
+        $zip->close();attachment('application/zip',fileName($u['name']).($history?'-history':'').'.zip');header('Content-Length: '.filesize($tmp));session_write_close();readfile($tmp);unlink($tmp);exit;
     }
     reject('not_found',404);
-}catch(Throwable $e){error_log('Client portal: '.$e->getMessage());reject('server_error',500);}
+}catch(DomainException $e){reject($e->getMessage(),409);}
+catch(Throwable $e){error_log('Client portal: '.$e->getMessage());reject('server_error',500);}

@@ -5,7 +5,7 @@ import '@fontsource/noto-sans-arabic/arabic-400.css';
 import '@fontsource/noto-sans-arabic/arabic-600.css';
 import '@fontsource/noto-sans-arabic/latin-400.css';
 import './style.css';
-import {session as clientSession,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
+import {api as portalApi,errorText as portalError,session as clientSession,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
 import {submitForm} from './portal/submit.js';
 const client=await clientSession().catch(()=>({user:null}));
 import {createSubscriptionEditor} from './subscription/editor.js';
@@ -22,7 +22,8 @@ import {signatureSlots,prepareSignature} from './signatures.js';
 import {generate,original,loadPreview,renderPage,templateUrl,fieldValue} from './pdf.js';
 
 const app=document.querySelector('#app');
-const drafts=createDraftStore(docs,undefined,audience,client.user?.id);
+const revisionId=new URLSearchParams(location.search).get('submission');
+const drafts=createDraftStore(docs,undefined,audience,client.user?.id,revisionId);
 if(client.user&&audience==='individual'&&!Object.keys(drafts.profile).length){
  const parts=client.user.name.trim().split(/\s+/),first=parts.shift(),last=parts.length?parts.pop():'',second=parts.shift()||'',third=parts.join(' '),language=/\p{Script=Arabic}/u.test(client.user.name)?'ar':'en';
  drafts.setShared({[language+'_first']:first,[language+'_second']:second,[language+'_third']:third,[language+'_last']:last,name_language:language,mobile:client.user.phone,...(client.user.email?{email:client.user.email}:{})});
@@ -120,8 +121,15 @@ function storageStatus(){document.querySelectorAll('[data-save-status]').forEach
 function saveDraft(editedField=null){if(subscriptionEditor){subscriptionEditor.save(editedField);return;}if(current){drafts.save(current.id,values,step,signatures,editedField);values={...drafts.get(current.id).values};}storageStatus();}
 function blankLink(d,classes='button secondary'){return `<a class="${classes}" data-blank="${d.id}" href="${templateUrl(d)}" download="${d.id}-blank.pdf">${icon('download',16)}${t('Download blank','تنزيل النموذج الفارغ')}</a>`;}
 function setLanguage(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';}
-function bindCommon(){document.querySelector('#language').onclick=()=>{lang=lang==='en'?'ar':'en';setPortalLanguage(lang);signatureMessage='';drafts.setPreferences({lang});render();};document.querySelector('[data-home]').onclick=ev=>{ev.preventDefault();home();};}
-function home(){clearDownload();generation++;if(current)saveDraft();if(subscriptionEditor){subscriptionEditor.destroy();subscriptionEditor=null;}drafts.setPreferences({active:null});current=null;review=false;pdfBytes=null;errors=[];paintVersion++;if(pdf){pdf.loadingTask.destroy();pdf=null;}render();window.scrollTo(0,0);}
+function bindCommon(){
+ const revision=current&&drafts.get(current.id).revision;
+ if(revision){
+  const banner=document.createElement('aside');banner.className='revision-banner';
+  banner.innerHTML=`<div><b>${t('Editing submitted version','تعديل النسخة المرسلة')} ${revision.version}</b><p>${t('Your original stays saved. Review and submit to create a new version.','تبقى النسخة الأصلية محفوظة. راجع المستند وأرسله لإنشاء نسخة جديدة.')}</p>${revision.legacySignatures?`<p>${t('If the original PDF contains a signature, upload it again before resubmitting.','إذا كانت النسخة الأصلية تحتوي على توقيع، أعد رفع صورته قبل الإرسال.')}</p>`:''}</div><a href="${appRoot}account/">${t('Back to my account','العودة إلى حسابي')}</a>`;
+  document.querySelector('main')?.prepend(banner);
+ }
+ document.querySelector('#language').onclick=()=>{lang=lang==='en'?'ar':'en';setPortalLanguage(lang);signatureMessage='';drafts.setPreferences({lang});render();};document.querySelector('[data-home]').onclick=ev=>{ev.preventDefault();home();};}
+function home(){if(revisionId){location.href=appRoot+(audience==='corporate'?'companies/':'individuals/');return;}clearDownload();generation++;if(current)saveDraft();if(subscriptionEditor){subscriptionEditor.destroy();subscriptionEditor=null;}drafts.setPreferences({active:null});current=null;review=false;pdfBytes=null;errors=[];paintVersion++;if(pdf){pdf.loadingTask.destroy();pdf=null;}render();window.scrollTo(0,0);}
 function render(){setLanguage();if(!current){renderHome();return;}renderEditor();}
 function cardHTML(d){
  const body=`<span class="card-number" aria-label="${t('Document','المستند')} ${d.number}">${d.number}</span><span class="card-body">${d.group==='shared'?`<span class="shared-badge">${t('Shared document','مستند مشترك')}</span>`:''}<b>${e(t(d.title,d.ar))}</b><span>${e(t(d.description,d.arDescription))}</span><small>${d.pages} ${t(d.pages===1?'page':'pages',d.pages===1?'صفحة':'صفحات')}${!d.downloadOnly&&drafts.has(d.id)?` · ${t('Saved draft — continue','مسودة محفوظة — متابعة')}`:''}</small></span><span class="card-arrow">${icon(d.downloadOnly?'download':'arrow',18)}</span>`;
@@ -221,11 +229,11 @@ function bindSectionControls(){
  document.querySelector('[data-section-signature]')?.addEventListener('click',ev=>{if(busy)return;signatureTarget=ev.currentTarget.dataset.sectionSignature;signaturePanelOpen=true;renderEditor();document.querySelector('#signature-panel').scrollIntoView({behavior:'smooth',block:'start'});});
  document.querySelector('#download-section')?.addEventListener('click',()=>makeReview(true));
  if(!review){document.querySelector('#previous').onclick=()=>goStep(step-1);document.querySelector('#next').onclick=()=>step===current.sections.length-1?makeReview():goStep(step+1);document.querySelector('#fields').oninput=onInput;document.querySelector('#fields').onsubmit=ev=>ev.preventDefault();bindClearChoices();}
- else {document.querySelector('#download').onclick=download;document.querySelector('#submit-form').onclick=()=>submitForm({doc:current,values:{...values},bytes:pdfBytes,profile:drafts.profile,audience,lang,user:client.user});document.querySelector('#edit-again').onclick=()=>goStep(0);document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>goStep(Number(b.dataset.jump)));}
+ else {document.querySelector('#download').onclick=download;document.querySelector('#submit-form').onclick=()=>submitForm({doc:current,values:{...values},bytes:pdfBytes,signatures:{...signatures},revision:drafts.get(current.id).revision,onSaved:s=>drafts.submitted(current.id,s),profile:drafts.profile,audience,lang,user:client.user});document.querySelector('#edit-again').onclick=()=>goStep(0);document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>goStep(Number(b.dataset.jump)));}
 }
 function renderEditor(){
  if(current.workflow==='subscription'){
-  if(!subscriptionEditor)subscriptionEditor=createSubscriptionEditor({root:app,doc:current,drafts,audience,header,footer,bindCommon,home,submit:(doc,values,bytes)=>submitForm({doc,values,bytes,profile:drafts.profile,audience,lang,user:client.user}),editShared:()=>{sharedPanelOpen=true;home();document.querySelector('#shared-fields-panel')?.scrollIntoView({behavior:'smooth'});}});
+  if(!subscriptionEditor)subscriptionEditor=createSubscriptionEditor({root:app,doc:current,drafts,audience,header,footer,bindCommon,home,submit:(doc,values,bytes,signatures)=>submitForm({doc,values,bytes,signatures,revision:drafts.get(doc.id).revision,onSaved:s=>drafts.submitted(doc.id,s),profile:drafts.profile,audience,lang,user:client.user}),editShared:()=>{sharedPanelOpen=true;home();document.querySelector('#shared-fields-panel')?.scrollIntoView({behavior:'smooth'});}});
   subscriptionEditor.render(lang);return;
  }
  const active=current.fields.filter(f=>!f.sum), completed=active.filter(f=>hasValue(values[f.id])).length;
@@ -297,15 +305,26 @@ function download(){if(pdfBytes)savePDF(pdfBytes,`${current.id}-filled.pdf`);}
 window.addEventListener('beforeunload',ev=>{if(!drafts.available&&(Object.keys(drafts.profile).length||docs.some(d=>drafts.has(d.id)))){ev.preventDefault();ev.returnValue='';}});
 window.addEventListener('storage',ev=>{
  if(ev.key==='itqan.portal.auth-change'){location.reload();return;}
- if(ev.key!==null&&!ev.key.startsWith(drafts.prefix)&&!['signature-form','terms-and-conditions'].some(id=>ev.key===DRAFT_PREFIX+id))return;
+ if(ev.key!==null&&!ev.key.startsWith(drafts.prefix)&&ev.key!==drafts.basePrefix+'shared-fields'&&!['signature-form','terms-and-conditions'].some(id=>ev.key===DRAFT_PREFIX+id))return;
  drafts.refresh();
  if(subscriptionEditor){subscriptionEditor.refresh();return;}
  if(current&&(ev.key===null||ev.key===drafts.prefix+current.id||ev.key===drafts.prefix+'shared-fields')){
   clearDownload();generation++;paintVersion++;values={...drafts.get(current.id).values};signatures={...drafts.get(current.id).signatures};signatureMessage='';step=drafts.get(current.id).step;pageNumber=current.sections[step].page;review=false;pdfBytes=null;errors=[];render();showOriginal();
  }else if(!current)render();
 });
+let editing=null,editError=null;
+if(revisionId){
+ try{
+  if(!client.user)throw Error('login_required');
+  const {submission:s}=await portalApi('detail',undefined,{params:{id:revisionId}});
+  editing=docs.find(d=>d.id===s.doc_id&&!d.downloadOnly&&visibleIn(d,audience));
+  if(!editing||s.audience!==audience||s.source==='upload')throw Error('document_unavailable');
+  drafts.loadSubmission(editing.id,s);
+ }catch(err){editError=err;}
+}
 const resume=docs.find(d=>d.id===drafts.preferences.active&&drafts.has(d.id)&&visibleIn(d,audience));
-if(resume)selectDoc(resume.id);else render();
+if(editError){app.innerHTML=header()+`<main class="workspace"><p role="alert">${e(portalError(editError,lang))}</p><a class="button primary" href="${appRoot}account/">${t('Back to my account','العودة إلى حسابي')}</a></main>`;bindCommon();}
+else if(editing)selectDoc(editing.id);else if(resume)selectDoc(resume.id);else render();
 
 if(import.meta.env.DEV)window.__forms={docs,generate,signatureSlots,prepareSignature};
 

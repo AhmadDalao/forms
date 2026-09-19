@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import {signatureSlots} from '../src/signatures.js';
 import {docs} from '../src/forms/index.js';
 import {catalogueFor} from '../src/catalogue.js';
 const all=[...new Map(['individual','corporate'].flatMap(a=>catalogueFor(docs,a)).map(d=>[d.id,d])).values()];
@@ -7,4 +8,4 @@ const orders=Object.fromEntries(['individual','corporate'].map(a=>[a,catalogueFo
 await fs.mkdir('dist/api',{recursive:true});
 await fs.writeFile('dist/api/defaults.json',JSON.stringify({documents,orders}));
 
-await fs.writeFile('dist/api/portal-defaults.json',JSON.stringify(Object.fromEntries(docs.map(d=>[d.id,{id:d.id,workflow:d.workflow,fields:d.fields}]))));
+await fs.writeFile('dist/api/portal-defaults.json',JSON.stringify(Object.fromEntries(docs.map(d=>[d.id,{id:d.id,workflow:d.workflow,fields:d.fields,signatureSlots:signatureSlots(d)}]))));

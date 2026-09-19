@@ -38,7 +38,7 @@ try{
  checks.push('English browser signup, Saudi phone normalization, account draft migration and duplicate phone');
  const pdf=await fs.readFile('public/pdfs/al-naeem-terms-consent.pdf');
  const upload=(ctx,meta,buffer=pdf,status=201)=>call(ctx,'submit',null,status,{multipart:{metadata:JSON.stringify(meta),pdf:{name:'signed.pdf',mimeType:'application/pdf',buffer}}});
- const metadata={account:accountA.id,document:'al-naeem-terms-consent',audience:'individual',requestKey:randomBytes(16).toString('hex'),source:'upload'};
+ const metadata={account:accountA.id,document:'al-naeem-terms-consent',audience:'individual',requestKey:randomBytes(16).toString('hex'),source:'upload',expectedCurrent:null};
  await upload(a,metadata,Buffer.from('not a pdf'),400);
  await upload(a,{...metadata,account:accountB.id},pdf,409);
  await upload(a,{...metadata,document:'nonexistent'},pdf,404);
@@ -48,7 +48,8 @@ try{
  assert.equal((await anon.request.get(base+'/api/portal.php?action=pdf&id='+first.id)).status(),401);
  assert.equal((await anon.request.get(base+'/_private/portal/clients.sqlite')).status(),404);
  checks.push('Private PDF storage, owner checks, malformed PDF rejection and duplicate submission protection');
- // Submit the unchanged signature form through its actual review UI.
+ // Submit the unchanged signature form, including an editable signature snapshot.
+ const signature=await page.evaluate(id=>{const canvas=document.createElement('canvas');canvas.width=180;canvas.height=60;const c=canvas.getContext('2d');c.font='italic 24px serif';c.fillText('Test Signature',4,40);const png=canvas.toDataURL();const key='itqan.forms.v1.account.'+id+'.individual.signature-form',draft=JSON.parse(localStorage.getItem(key));draft.signatures={specimen:png};localStorage.setItem(key,JSON.stringify(draft));return png;},accountA.id);
  await page.reload();await page.locator('#review-tab').click();await page.locator('#submit-form').waitFor();
  await page.locator('#submit-form').click();await page.locator('[data-confirm]').click();await page.locator('.submitted-mark').waitFor();await page.locator('.submission-dialog [data-close]').click();
  for(const corporate of [false,true]){
@@ -64,7 +65,7 @@ try{
  assert.equal((await call(a,'submissions')).user.email,'client@example.com');
  // Server ignores forged read-only amounts even when metadata is posted outside the UI.
  const subscriptionPDF=await a.request.get(base+'/api/portal.php?action=pdf&id='+sub.id);
- const forged={account:accountA.id,document:'subscription-form',audience:'individual',requestKey:randomBytes(16).toString('hex'),values:{...details.answers,total_amount:'1',subscription_fee:'0',unit_price:'1'}};
+ const forged={account:accountA.id,document:'subscription-form',audience:'individual',requestKey:randomBytes(16).toString('hex'),expectedCurrent:sub.id,values:{...details.answers,total_amount:'1',subscription_fee:'0',unit_price:'1'}};
  const forgedResult=await upload(a,forged,await subscriptionPDF.body());const canonical=(await call(a,'detail',null,200,{params:{id:forgedResult.submission.id}})).submission;assert.equal(canonical.answers.total_amount,'10200');
  checks.push('Signature and both subscription UI submissions, server totals and optional email capture');
  await page.goto(base+'/account/');await page.locator('.client-submission').first().waitFor();await page.screenshot({path:out+'/account-en.png',fullPage:true});
@@ -79,13 +80,68 @@ try{
  await owner.locator('[data-preview]').first().click();await owner.locator('.portal-pdf-pages canvas').first().waitFor();await owner.locator('.portal-preview [data-close]').click();
  const zip=await admin.request.get(base+'/api/portal.php?action=admin_zip&id='+accountA.id);assert.equal(zip.status(),200);assert.ok(zip.headers()['content-disposition'].includes('Ahmad%20Mohammed%20Ali.zip'));await fs.writeFile(out+'/client.zip',await zip.body());
  const zipResult=spawnSync('php',['-r','$z=new ZipArchive();$z->open($argv[1]);$a=[];for($i=0;$i<$z->numFiles;$i++)$a[]=["name"=>$z->getNameIndex($i),"hash"=>hash("sha256",$z->getFromIndex($i))];echo json_encode($a);',out+'/client.zip'],{encoding:'utf8'});assert.equal(zipResult.status,0);
- const zipped=JSON.parse(zipResult.stdout),all=(await call(a,'submissions')).submissions;assert.equal(zipped.length,6);assert.equal(new Set(zipped.map(z=>z.name)).size,6);assert.deepEqual(zipped.map(z=>z.hash).sort(),all.map(s=>s.sha256).sort());
+ const zipped=JSON.parse(zipResult.stdout),all=(await call(a,'submissions')).submissions;assert.equal(zipped.length,4);assert.equal(new Set(zipped.map(z=>z.name)).size,4);assert.deepEqual(zipped.map(z=>z.hash).sort(),all.filter(s=>!s.archived_at).map(s=>s.sha256).sort());
+ const historyZip=await admin.request.get(base+'/api/portal.php?action=admin_zip&history=1&id='+accountA.id);await fs.writeFile(out+'/history.zip',await historyZip.body());const historyCount=spawnSync('php',['-r','$z=new ZipArchive();$z->open($argv[1]);echo $z->numFiles;',out+'/history.zip'],{encoding:'utf8'});assert.equal(historyCount.stdout,'6');assert.equal(stats.stats.active_submissions,4);
  checks.push('Account/admin previews, manual PDF upload, dashboard counts and ZIP exact-byte contents');
+ // Edit a saved online form, keeping its old answers/signature and a separate working draft.
+ const signatureOriginal=all.find(s=>s.doc_id==='signature-form');
+ const original=(await call(a,'detail',null,200,{params:{id:signatureOriginal.id}})).submission;
+ assert.equal(original.signatures.specimen,signature);
+ await page.setViewportSize({width:1440,height:1100});
+ await page.evaluate(id=>{const prefix='itqan.forms.v1.account.'+id+'.individual.';localStorage.setItem(prefix+'signature-form',JSON.stringify({values:{client_name:'Unsubmitted work'},step:0}));localStorage.setItem(prefix+'shared-fields',JSON.stringify({name_language:'en',en_first:'Different',en_last:'Profile',id_number:'999999'}));},accountA.id);
+ await page.goto(base+'/account/?lang=en');await page.locator('[data-edit="'+signatureOriginal.id+'"]').click();await page.locator('.revision-banner').waitFor();
+ assert.equal(await page.locator('#f-client_name').inputValue(),original.answers.client_name);
+ await page.locator('#f-client_name').fill('Updated client details');await page.reload();await page.locator('#f-client_name').waitFor();assert.equal(await page.locator('#f-client_name').inputValue(),'Updated client details');
+ assert.equal(await page.evaluate(id=>JSON.parse(localStorage.getItem('itqan.forms.v1.account.'+id+'.individual.signature-form')).values.client_name,accountA.id),'Unsubmitted work');
+ await page.locator('#review-tab').click();await page.locator('#submit-form').click();await page.locator('[data-confirm]').click();await page.locator('.submitted-mark').waitFor();await page.locator('.submission-dialog [data-close]').click();
+ let versions=(await call(a,'submissions')).submissions;const updated=versions.find(s=>s.doc_id==='signature-form'&&!s.archived_at);assert.equal(updated.version,2);
+ const revised=(await call(a,'detail',null,200,{params:{id:updated.id}})).submission;
+ assert.equal(await page.evaluate(key=>localStorage.getItem(key),'itqan.forms.v1.account.'+accountA.id+'.individual.revision.'+original.id+'.signature-form'),null);
+ assert.equal(revised.answers.client_name,'Updated client details');assert.equal(revised.signatures.specimen,signature);assert.equal(revised.edited_from,original.id);
+ const preserved=(await call(a,'detail',null,200,{params:{id:original.id}})).submission;assert.deepEqual(preserved.answers,original.answers);assert.equal(preserved.sha256,original.sha256);assert.ok(preserved.archived_at);
+ assert.equal(versions.filter(s=>!s.archived_at).length,4);assert.equal(versions.filter(s=>s.doc_id==='subscription-company').length,1);
+ await call(b,'detail',null,404,{params:{id:original.id}});await call(a,'admin_restore',{id:original.id,expectedCurrent:updated.id,requestKey:randomBytes(16).toString('hex')},401);
+ // A stale edit cannot replace the latest version or leave an orphan PDF.
+ const stale={account:accountA.id,document:'signature-form',audience:'individual',requestKey:randomBytes(16).toString('hex'),expectedCurrent:original.id,editedFrom:original.id,values:original.answers,signatures:original.signatures};
+ const filesBefore=(await fs.readdir(out+'/data/pdfs')).length;assert.equal((await upload(a,stale,pdf,409)).error,'version_conflict');assert.equal((await fs.readdir(out+'/data/pdfs')).length,filesBefore);
+ // Owner restores from history in the actual dashboard. Both old versions remain.
+ await owner.reload();await owner.locator('[data-users]').first().click();await owner.locator('#client-search').waitFor();await owner.locator('[data-client="'+accountA.id+'"]').click();await owner.locator('.admin-history summary').click();
+ await owner.locator('[data-restore="'+original.id+'"]').click();await owner.locator('[data-confirm-restore]').click();await owner.locator('.client-reset-dialog').waitFor({state:'detached'});await owner.locator('.admin-client-facts').waitFor();
+ versions=(await call(a,'submissions')).submissions;const restored=versions.find(s=>s.doc_id==='signature-form'&&!s.archived_at);assert.equal(restored.version,3);assert.equal(restored.restored_from,original.id);assert.equal(restored.sha256,original.sha256);assert.equal(restored.replaces_id,updated.id);
+ const restoredDetails=(await call(a,'detail',null,200,{params:{id:restored.id}})).submission;assert.deepEqual(restoredDetails.answers,original.answers);assert.deepEqual(restoredDetails.signatures,original.signatures);
+ const restoreRequest={id:updated.id,expectedCurrent:restored.id,requestKey:randomBytes(16).toString('hex')};await call(admin,'admin_restore',restoreRequest,403,{headers:{'X-CSRF-Token':'wrong'}});
+ const again=(await call(admin,'admin_restore',restoreRequest,201)).submission;assert.equal(again.version,4);assert.equal((await call(admin,'admin_restore',restoreRequest)).duplicate,true);
+ assert.equal((await call(admin,'admin_restore',{...restoreRequest,requestKey:randomBytes(16).toString('hex')},409)).error,'version_conflict');
+ // A replacement upload archives the active online version but leaves it editable in history.
+ await page.goto(base+'/account/?lang=en');await page.locator('[data-replace="'+again.id+'"]').click();assert.equal(await page.locator('.portal-upload [name=document]').inputValue(),'signature-form');await page.locator('.portal-upload [name=pdf]').setInputFiles('public/pdfs/al-naeem-terms-consent.pdf');await page.locator('.portal-upload .primary').click();await page.locator('.portal-upload').waitFor({state:'detached'});
+ versions=(await call(a,'submissions')).submissions;const uploaded=versions.find(s=>s.doc_id==='signature-form'&&!s.archived_at);assert.equal(uploaded.version,5);assert.equal(uploaded.source,'upload');assert.equal(uploaded.replaces_id,again.id);assert.equal(await page.locator('[data-edit="'+uploaded.id+'"]').count(),0);
+ // Same shared document in the other audience/account starts its own version chain.
+ const separateMeta={account:accountA.id,document:'signature-form',audience:'corporate',requestKey:randomBytes(16).toString('hex'),expectedCurrent:null,values:{client_name:'Company only'}};
+ const separate=(await upload(a,separateMeta)).submission;assert.equal(separate.version,1);
+ const other=(await upload(b,{...separateMeta,account:accountB.id,requestKey:randomBytes(16).toString('hex')})).submission;assert.equal(other.version,1);
+ await call(a,'detail',null,404,{params:{id:other.id}});
+ await page.goto(base+'/account/?lang=en');await page.locator('.account-history summary').click();await page.screenshot({path:out+'/version-history-en.png',fullPage:true});
+ await page.locator('#portal-language').click();await page.locator('html[lang=ar]').waitFor();await page.locator('.account-history summary').click();await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/version-history-ar-mobile.png',fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
+ await owner.reload();await owner.locator('[data-users]').first().click();await owner.locator('#client-search').waitFor();await owner.locator('[data-client="'+accountA.id+'"]').click();await owner.locator('.admin-history summary').click();await owner.screenshot({path:out+'/admin-version-history.png',fullPage:true});
+ for(const corporate of [false,true]){
+  const current=(await call(a,'submissions')).submissions.find(s=>s.doc_id===(corporate?'subscription-company':'subscription-form')&&!s.archived_at);
+  await page.setViewportSize({width:1440,height:1100});await page.goto(base+'/account/?lang='+(!corporate?'ar':'en'));
+  await page.locator('[data-edit="'+current.id+'"]').click();await page.locator('.revision-banner').waitFor();
+  assert.equal(await page.locator('#sub-'+(corporate?'company_name':'first_name')).inputValue(),corporate?'Al Noor Investment Company':'Ahmad');
+  await page.locator('[data-sub-step="2"]').click();await page.locator('#sub-units').fill(corporate?'12':'٢١');
+  await page.locator('[data-review]').click();await page.locator('[data-submit]').waitFor();await page.locator('[data-submit]').click();await page.locator('[data-confirm]').click();await page.locator('.submitted-mark').waitFor();await page.locator('.submission-dialog [data-close]').click();
+  const latest=(await call(a,'submissions')).submissions.find(s=>s.doc_id===current.doc_id&&!s.archived_at);
+  assert.equal(latest.version,current.version+1);const detail=(await call(a,'detail',null,200,{params:{id:latest.id}})).submission;
+  assert.equal(detail.answers.total_amount,corporate?'12240':'21420');assert.equal((await call(a,'detail',null,200,{params:{id:current.id}})).submission.sha256,current.sha256);
+ }
+ checks.push('Individual Arabic and company English subscription edits, recalculated amounts and prior-PDF preservation');
+ const finalCount=(await call(a,'submissions')).submissions.length;
+ checks.push('Client edit/resubmit and reload, separate working draft, signature recovery, immutable originals, archive dates, stale-edit rejection, owner restore, restore retry/CSRF, replacement upload and audience/account version isolation');
  await owner.locator('[data-reset]').click();await owner.locator('[data-generate]').click();await owner.locator('.temporary-password').waitFor();const temp=await owner.locator('.temporary-password').innerText();assert.ok(temp.length>=24&&/[a-z]/.test(temp)&&/[A-Z]/.test(temp)&&/[0-9]/.test(temp));await owner.locator('.client-reset-dialog [data-close]').click();
  await call(a,'submissions',null,401);await call(a,'session');await call(a,'login',{phone:'551111111',password},401);
  await page.goto(base+'/login/?lang=en');await page.locator('[name=phone]').fill('551111111');await page.locator('[name=password]').fill(temp);await page.locator('#auth-form [type=submit]').click();await page.waitForURL('**/account/');await page.locator('#password-form').waitFor();
  await call(a,'session');await call(a,'submissions',null,403);
- await page.locator('[name=current]').fill(temp);await page.locator('[name=password]').fill('New-client-strong-2026!');await page.locator('[name=confirm]').fill('New-client-strong-2026!');await page.locator('#password-form .primary').click();await page.locator('.account-documents').waitFor();await call(a,'session');assert.equal((await call(a,'submissions')).submissions.length,6);
+ await page.locator('[name=current]').fill(temp);await page.locator('[name=password]').fill('New-client-strong-2026!');await page.locator('[name=confirm]').fill('New-client-strong-2026!');await page.locator('#password-form .primary').click();await page.locator('.account-documents').waitFor();await call(a,'session');assert.equal((await call(a,'submissions')).submissions.length,finalCount);
  checks.push('Owner reset, strong one-time displayed password, old password/session revocation and mandatory change');
  // Arabic signup/login layout and password visibility, including mobile.
  const empty=await anon.newPage();empty.on('pageerror',e=>errors.push(e.message));await empty.goto(base+'/register/?lang=ar');await empty.locator('#auth-form').waitFor();await empty.screenshot({path:out+'/register-ar.png',fullPage:true});await empty.setViewportSize({width:390,height:844});await empty.screenshot({path:out+'/register-ar-mobile.png',fullPage:true});assert.equal(await empty.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);await empty.goto(base+'/login/?lang=en');await empty.locator('#auth-form').waitFor();await empty.locator('[data-eye=password]').click();assert.equal(await empty.locator('[name=password]').getAttribute('type'),'text');await empty.screenshot({path:out+'/login-en-mobile.png',fullPage:true});
@@ -94,5 +150,5 @@ try{
  for(let i=0;i<10;i++)await call(anon,'login',{phone:'559999999',password:'incorrect-password'},401);
  await call(anon,'login',{phone:'559999999',password:'incorrect-password'},429);
  assert.deepEqual(errors,[]);checks.push('English/Arabic mobile layouts, existing catalogue navigation and persistent login throttling');
- await fs.writeFile(out+'/results.json',JSON.stringify({checks,submissions:6,clients:2,consoleErrors:errors},null,2));console.log(checks.map(c=>'PASS '+c).join('\n'));
+ await fs.writeFile(out+'/results.json',JSON.stringify({checks,submissions:finalCount,clients:2,consoleErrors:errors},null,2));console.log(checks.map(c=>'PASS '+c).join('\n'));
 }finally{await browser?.close();server.kill();await log.close();}

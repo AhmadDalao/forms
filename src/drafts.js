@@ -1,3 +1,4 @@
+import {joinedName} from './subscription/model.js';
 import { hasValue } from './schema.js';
 import { cleanSignatures } from './signatures.js';
 import { cleanShared, reconcileShared, sharedCandidates } from './shared-fields.js';
@@ -6,10 +7,11 @@ export const DRAFT_PREFIX = 'itqan.forms.v1.';
 
 // Each audience owns its profile, drafts and signatures, including the two
 // templates that appear in both folders. Unscoped mode reads legacy drafts.
-export function createDraftStore(documents, getStorage = () => window.localStorage, audience = null, accountId = null) {
+export function createDraftStore(documents, getStorage = () => window.localStorage, audience = null, accountId = null, revisionId = null) {
   const scoped=['individual','corporate'].includes(audience);
   if(scoped)documents=documents.filter(d=>d.group===audience||d.group==='shared');
-  const prefix=DRAFT_PREFIX+(accountId?'account.'+accountId+'.':'')+(scoped?audience+'.':'');
+  const basePrefix=DRAFT_PREFIX+(accountId?'account.'+accountId+'.':'')+(scoped?audience+'.':'');
+  const prefix=basePrefix+(accountId&&/^[a-f0-9]{32}$/.test(revisionId)?'revision.'+revisionId+'.':'');
   const memory=new Map(),failedKeys=new Set(),legacy=new Map();
   let preferences={},profile={};
   const empty=()=>({values:{},signatures:{},step:0,shared:{},overrides:[]});
@@ -50,7 +52,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       }else if(typeof value==='string')values[field.id]=value;
       if(typeof record?.shared?.[field.id]==='string')shared[field.id]=record.shared[field.id];
     }
-    return {values,shared,overrides:Array.isArray(record?.overrides)?record.overrides.filter(id=>doc.fields.some(f=>f.id===id)):[],signatures:cleanSignatures(doc,record?.signatures),step:Math.max(0,Math.min(doc.sections.length-1,Math.trunc(Number(record?.step))||0))};
+    return {...(record?.revision?{revision:record.revision}:{}),values,shared,overrides:Array.isArray(record?.overrides)?record.overrides.filter(id=>doc.fields.some(f=>f.id===id)):[],signatures:cleanSignatures(doc,record?.signatures),step:Math.max(0,Math.min(doc.sections.length-1,Math.trunc(Number(record?.step))||0))};
   }
   function persist(doc,record){
     memory.set(doc.id,record);
@@ -58,7 +60,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     return write(doc.id,scoped||populated?{...record,updatedAt:Date.now()}:null);
   }
   function refresh(){
-    if(scoped)profile=cleanShared(audience,read('shared-fields'));
+    if(scoped)profile=cleanShared(audience,read('shared-fields',basePrefix));
     legacy.clear();
     for(const doc of documents){
       let record=read(doc.id);
@@ -79,7 +81,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
   }
   refresh();
   return {
-    prefix,
+    prefix,basePrefix,
     get available(){return failedKeys.size===0;},
     get preferences(){return preferences;},
     get profile(){return {...profile};},
@@ -100,10 +102,24 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       if(editedField&&!overrides.includes(editedField))overrides.push(editedField);
       return persist(doc,reconcileShared(doc,{...old,values:{...values},signatures:cleanSignatures(doc,signatures),step,overrides},profile,audience));
     },
+    loadSubmission(id,snapshot){
+      const doc=documents.find(d=>d.id===id);if(!doc)return false;
+      if(this.get(id).revision?.sourceId===snapshot.id)return true;
+      // Isolated edit drafts never replace the customer's normal working draft.
+      // Blank submitted fields are deliberate too; shared data cannot refill them.
+      const autoApplicant=doc.workflow==='subscription'&&snapshot.answers.applicant_name===(doc.group==='individual'?joinedName(snapshot.answers):snapshot.answers.auth_name);
+      return persist(doc,clean(doc,{values:snapshot.answers,signatures:snapshot.signatures||{},step:0,overrides:doc.fields.map(f=>f.id).filter(id=>id!=='applicant_name'||!autoApplicant),revision:{sourceId:snapshot.id,expectedCurrent:snapshot.current_id,version:snapshot.version,legacySignatures:snapshot.signatures===null,profile:snapshot.profile}}));
+    },
+    submitted(id,snapshot){
+      const doc=documents.find(d=>d.id===id),record=this.get(id);if(!doc||!record.revision)return;
+      memory.set(id,{...record,revision:{...record.revision,expectedCurrent:snapshot.id}});
+      // A completed edit must not replace the original when opened from history again.
+      write(id,null);
+    },
     setShared(next){
       if(!scoped)return false;
       profile=cleanShared(audience,next);
-      let ok=write('shared-fields',profile);
+      let ok=write('shared-fields',profile,basePrefix);
       for(const doc of documents)if(!persist(doc,reconcileShared(doc,this.get(doc.id),profile,audience)))ok=false;
       return ok;
     },
@@ -120,13 +136,20 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     setPreferences(next){preferences={...preferences,...next};return write('preferences',preferences);},
     clear(id){
       const doc=documents.find(d=>d.id===id);if(!doc)return false;
-      const r=empty();
+      const r={...empty(),...(this.get(id).revision?{revision:this.get(id).revision}:{})};
       if(scoped)r.overrides=Object.keys(sharedCandidates(doc,profile,{},audience));
       return persist(doc,r);
     },
     clearAll(){
       let ok=true;
-      if(scoped){profile={};if(!write('shared-fields',null))ok=false;}
+      if(scoped){profile={};if(!write('shared-fields',null,basePrefix))ok=false;}
+      if(accountId&&prefix===basePrefix){
+        try{
+          const storage=getStorage(),keys=Array.from({length:storage.length},(_,i)=>storage.key(i));
+          for(const key of keys)if(key?.startsWith(basePrefix+'revision.'))storage.removeItem(key);
+          failedKeys.delete('revision-cleanup');
+        }catch{failedKeys.add('revision-cleanup');ok=false;}
+      }
       for(const doc of documents)if(!persist(doc,empty()))ok=false;
       this.setPreferences({active:null});return ok&&this.available;
     },

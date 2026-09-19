@@ -11,6 +11,8 @@ export async function api(action,body,{token=csrf,params={}}={}){
 }
 export const session=()=>api('session');
 export const errors={
+ version_conflict:['A newer version was saved while you were editing. Your draft is safe. Open My account to review the latest version before submitting again.','حُفظت نسخة أحدث أثناء تعديلك. مسودتك محفوظة. افتح حسابي لمراجعة أحدث نسخة قبل الإرسال مجددًا.'],
+ signature_invalid:['The signature image could not be saved. Upload a PNG or JPG again.','تعذّر حفظ صورة التوقيع. أعد رفع صورة PNG أو JPG.'],
  phone_invalid:['Enter a Saudi mobile number with 9 digits, starting with 5.','أدخل رقم جوال سعودي من ٩ أرقام يبدأ بـ٥.'],
  password_weak:['Use at least 12 characters (maximum 72 bytes).','استخدم ١٢ حرفًا على الأقل (بحد أقصى ٧٢ بايت).'],
  password_mismatch:['The passwords do not match.','كلمتا المرور غير متطابقتين.'],

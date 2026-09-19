@@ -19,7 +19,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
   const p=drafts.profile,preferred=p.name_language||(p.ar_first?'ar':lang),language=p[preferred+'_first']?preferred:p.ar_first?'ar':'en';
   return language+'_'+({first_name:'first',second_name:'second',third_name:'third',family_name:'last'}[f.id]);
  }
- const isShared=f=>Boolean(sharedKey(f)&&drafts.profile[sharedKey(f)]&&drafts.profile[sharedKey(f)]===values[f.id]);
+ const isShared=f=>!drafts.get(doc.id).overrides.includes(f.id)&&Boolean(sharedKey(f)&&drafts.profile[sharedKey(f)]&&drafts.profile[sharedKey(f)]===values[f.id]);
  function shownValue(f){
   const value=values[f.id]??'';
   if(f.money)return value?Number(value).toLocaleString(lang==='ar'?'ar-SA':'en-US')+' '+t('SAR','ريال سعودي'):'—';
@@ -58,7 +58,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
   root.querySelectorAll('[data-sub-step]').forEach(b=>b.onclick=()=>go(Number(b.dataset.subStep)));
   root.querySelectorAll('[data-review]').forEach(b=>b.onclick=()=>prepare(false));
   root.querySelectorAll('[data-download]').forEach(b=>b.onclick=()=>prepare(true));
-  root.querySelector('[data-submit]')?.addEventListener('click',()=>submit(doc,{...values},pdfBytes));
+  root.querySelector('[data-submit]')?.addEventListener('click',()=>submit(doc,{...values},pdfBytes,{...signatures}));
   root.querySelector('#sub-edit-shared')?.addEventListener('click',editShared);
   root.querySelector('#sub-prev')?.addEventListener('click',()=>go(step-1));
   root.querySelector('#sub-next')?.addEventListener('click',()=>step===doc.sections.length-1?prepare(false):go(step+1));
