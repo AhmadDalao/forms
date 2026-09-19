@@ -1,0 +1,413 @@
+{
+  "source_commit": "f1aa8062bcee5f64133c1c02d445eb55ada31774",
+  "live_url": "https://forms.ahmaddalao.com/",
+  "deployed_at_utc": "20260919T193100Z",
+  "unit_tests": {
+    "passed": 94,
+    "failed": 0
+  },
+  "editor_checks": {
+    "cases": 16,
+    "checks": 96,
+    "details": [
+      {
+        "id": "subscription-form",
+        "audience": "individual",
+        "subscription": true,
+        "lang": "en",
+        "width": 1440,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "applicant missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "subscription-form",
+        "audience": "individual",
+        "subscription": true,
+        "lang": "en",
+        "width": 390,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "applicant missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "subscription-form",
+        "audience": "individual",
+        "subscription": true,
+        "lang": "ar",
+        "width": 1440,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "applicant missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "subscription-form",
+        "audience": "individual",
+        "subscription": true,
+        "lang": "ar",
+        "width": 390,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "applicant missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "subscription-company",
+        "audience": "corporate",
+        "subscription": true,
+        "lang": "en",
+        "width": 1440,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "applicant missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "subscription-company",
+        "audience": "corporate",
+        "subscription": true,
+        "lang": "en",
+        "width": 390,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "applicant missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "subscription-company",
+        "audience": "corporate",
+        "subscription": true,
+        "lang": "ar",
+        "width": 1440,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "applicant missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "subscription-company",
+        "audience": "corporate",
+        "subscription": true,
+        "lang": "ar",
+        "width": 390,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "applicant missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "signature-form",
+        "audience": "individual",
+        "slot": "specimen",
+        "lang": "en",
+        "width": 1440,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "specimen missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "signature-form",
+        "audience": "individual",
+        "slot": "specimen",
+        "lang": "en",
+        "width": 390,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "specimen missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "signature-form",
+        "audience": "individual",
+        "slot": "specimen",
+        "lang": "ar",
+        "width": 1440,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "specimen missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "signature-form",
+        "audience": "individual",
+        "slot": "specimen",
+        "lang": "ar",
+        "width": 390,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "specimen missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation"
+        ]
+      },
+      {
+        "id": "terms-and-conditions",
+        "audience": "individual",
+        "slot": "terms_0",
+        "terms": true,
+        "lang": "en",
+        "width": 1440,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "terms_0 missing electronic image blocks review/submission",
+          "account-terms signature alone does not replace required authorization signature",
+          "authorization_0 missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation",
+          "named extra signer terms_1 requires a signature",
+          "terms_1 missing electronic image blocks review/submission",
+          "extra signer terms_1 electronic image restores submission",
+          "named extra signer authorization_2 requires a signature",
+          "authorization_2 missing electronic image blocks review/submission",
+          "extra signer authorization_2 electronic image restores submission"
+        ]
+      },
+      {
+        "id": "terms-and-conditions",
+        "audience": "individual",
+        "slot": "terms_0",
+        "terms": true,
+        "lang": "en",
+        "width": 390,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "terms_0 missing electronic image blocks review/submission",
+          "account-terms signature alone does not replace required authorization signature",
+          "authorization_0 missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation",
+          "named extra signer terms_1 requires a signature",
+          "terms_1 missing electronic image blocks review/submission",
+          "extra signer terms_1 electronic image restores submission",
+          "named extra signer authorization_2 requires a signature",
+          "authorization_2 missing electronic image blocks review/submission",
+          "extra signer authorization_2 electronic image restores submission"
+        ]
+      },
+      {
+        "id": "terms-and-conditions",
+        "audience": "individual",
+        "slot": "terms_0",
+        "terms": true,
+        "lang": "ar",
+        "width": 1440,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "terms_0 missing electronic image blocks review/submission",
+          "account-terms signature alone does not replace required authorization signature",
+          "authorization_0 missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation",
+          "named extra signer terms_1 requires a signature",
+          "terms_1 missing electronic image blocks review/submission",
+          "extra signer terms_1 electronic image restores submission",
+          "named extra signer authorization_2 requires a signature",
+          "authorization_2 missing electronic image blocks review/submission",
+          "extra signer authorization_2 electronic image restores submission"
+        ]
+      },
+      {
+        "id": "terms-and-conditions",
+        "audience": "individual",
+        "slot": "terms_0",
+        "terms": true,
+        "lang": "ar",
+        "width": 390,
+        "checks": [
+          "manual review stays blocked after popup closes and async generation finishes",
+          "manual regenerated PDF remains blocked",
+          "terms_0 missing electronic image blocks review/submission",
+          "account-terms signature alone does not replace required authorization signature",
+          "authorization_0 missing electronic image blocks review/submission",
+          "all required electronic images enable Submit and open confirmation",
+          "named extra signer terms_1 requires a signature",
+          "terms_1 missing electronic image blocks review/submission",
+          "extra signer terms_1 electronic image restores submission",
+          "named extra signer authorization_2 requires a signature",
+          "authorization_2 missing electronic image blocks review/submission",
+          "extra signer authorization_2 electronic image restores submission"
+        ]
+      }
+    ],
+    "browser_errors": [],
+    "submission_requests": 0
+  },
+  "signed_upload_lifecycle": [
+    "Backend rejects missing/false/string upload confirmation and unsigned manual online submission without creating records",
+    "Real guest login deep link, checkbox validation, complete signed PDF upload, immutable version archive and exact PDF hashes",
+    "Individual/company upload isolation, private downloads/details and independent version chains",
+    "Management sees current and archived uploads, exact audience separation and saved signing confirmation"
+  ],
+  "portal_regression": [
+    "Anonymous access, CSRF, phone and confirmation validation",
+    "English browser signup, Saudi phone normalization, account draft migration and duplicate phone",
+    "Private PDF storage, owner checks, malformed PDF rejection and duplicate submission protection",
+    "Signature and both subscription UI submissions, server totals and optional email capture",
+    "Account/admin previews, manual PDF upload, dashboard counts and ZIP exact-byte contents",
+    "Individual Arabic and company English subscription edits, recalculated amounts and prior-PDF preservation",
+    "Client edit/resubmit and reload, separate working draft, signature recovery, immutable originals, archive dates, stale-edit rejection, owner restore, restore retry/CSRF, replacement upload and audience/account version isolation",
+    "Owner reset, strong one-time displayed password, old password/session revocation and mandatory change",
+    "Original Itqan logo without secondary branding, My applications page in English/Arabic, compatible account links, mobile layouts, role-appropriate management navigation and persistent login throttling"
+  ],
+  "https_verification": {
+    "passed": true,
+    "public_build_matches": [
+      "index.html",
+      "my-applications/index.html",
+      "individuals/index.html",
+      "management/index.html",
+      "register/index.html",
+      "account/index.html",
+      "assets/preview-BLZtAUK0.js",
+      "assets/index-DZsbi0r3.js",
+      "assets/shared-fields-Bdc2SIGe.js",
+      "assets/main-De8-bcCJ.css",
+      "assets/access-Dm-wh0nc.js",
+      "assets/main-CMIDoOMf.js",
+      "assets/access-DJyHXy1L.js",
+      "assets/main-FN8t-288.js",
+      "assets/main-ifWx0_jV.js",
+      "assets/api-BPXwk7aR.js",
+      "login/index.html",
+      "companies/index.html"
+    ],
+    "blocked_paths": [
+      {
+        "path": "_private/",
+        "status": 403
+      },
+      {
+        "path": "_private/portal/clients.sqlite",
+        "status": 403
+      },
+      {
+        "path": ".env.local",
+        "status": 403
+      }
+    ],
+    "source_commit": "f1aa8062bcee5f64133c1c02d445eb55ada31774"
+  },
+  "preservation": {
+    "private_storage_not_deployed": true,
+    "overwritten_public_files_backed_up": true,
+    "existing_versions_preserved": true
+  },
+  "manual_upload_confirmation": "Client declares the complete PDF is signed; management reviews its contents. The application does not automatically verify handwritten signatures.",
+  "live_browser": {
+    "passed": true,
+    "checks": [
+      {
+        "doc": "signature-form",
+        "audience": "individual",
+        "lang": "en",
+        "width": 1440,
+        "manual_submit_disabled": true,
+        "download_primary": true,
+        "pdf_downloaded": true,
+        "upload_login_link_preserved": true
+      },
+      {
+        "doc": "subscription-form",
+        "audience": "individual",
+        "lang": "en",
+        "width": 1440,
+        "manual_submit_disabled": true,
+        "download_primary": true,
+        "pdf_downloaded": true,
+        "upload_login_link_preserved": true
+      },
+      {
+        "doc": "signature-form",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 390,
+        "manual_submit_disabled": true,
+        "download_primary": true,
+        "pdf_downloaded": true,
+        "upload_login_link_preserved": true
+      },
+      {
+        "doc": "subscription-form",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 390,
+        "manual_submit_disabled": true,
+        "download_primary": true,
+        "pdf_downloaded": true,
+        "upload_login_link_preserved": true
+      },
+      {
+        "doc": "signature-form",
+        "audience": "corporate",
+        "lang": "en",
+        "width": 1440,
+        "manual_submit_disabled": true,
+        "download_primary": true,
+        "pdf_downloaded": true,
+        "upload_login_link_preserved": true
+      },
+      {
+        "doc": "subscription-company",
+        "audience": "corporate",
+        "lang": "en",
+        "width": 1440,
+        "manual_submit_disabled": true,
+        "download_primary": true,
+        "pdf_downloaded": true,
+        "upload_login_link_preserved": true
+      },
+      {
+        "doc": "signature-form",
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 390,
+        "manual_submit_disabled": true,
+        "download_primary": true,
+        "pdf_downloaded": true,
+        "upload_login_link_preserved": true
+      },
+      {
+        "doc": "subscription-company",
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 390,
+        "manual_submit_disabled": true,
+        "download_primary": true,
+        "pdf_downloaded": true,
+        "upload_login_link_preserved": true
+      }
+    ],
+    "errors": [],
+    "blocked": [],
+    "created_live_accounts": 0,
+    "created_live_submissions": 0,
+    "initial_retry": "One Arabic page did not finish loading in a fresh browser context; a targeted rerun and the full eight-case anonymous run then passed without source changes."
+  },
+  "status": "passed"
+}
