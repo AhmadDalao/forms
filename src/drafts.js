@@ -26,6 +26,19 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     }catch{failedKeys.add(key);return false;}
   }
   function clean(doc,record){
+    // Adapt saved subscription names without changing unrelated document drafts.
+    if(doc.workflow==='subscription'&&(record?.values?.ar_name||record?.values?.en_name)){
+      const old=record.values, next={...old};
+      const full=(profile.name_language==='en'?old.en_name||old.ar_name:old.ar_name||old.en_name).trim();
+      if(doc.group==='individual'&&!next.first_name){
+        const parts=full.split(/\s+/);next.first_name=parts.shift()||'';
+        next.family_name=parts.length?parts.pop():'';next.second_name=parts.shift()||'';next.third_name=parts.join(' ');
+      }else if(doc.group==='corporate'){
+        next.company_name=next.company_name||full;next.auth_name=next.auth_name||old.applicant_name||'';
+      }
+      next.signature_mode=record.signatures?.applicant?'electronic':'manual';
+      record={...record,values:next,overrides:[...(record.overrides||[]),...(old.applicant_name?['applicant_name']:[])]};
+    }
     const values={},shared={};
     for(const field of doc.fields){
       const value=record?.values?.[field.id];
@@ -49,6 +62,8 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     legacy.clear();
     for(const doc of documents){
       let record=read(doc.id);
+      // Keep legacy company subscription answers in their company folder.
+      if(doc.id==='subscription-company'&&!record)record=read('subscription-form');
       if(scoped){
         const old=read(doc.id,DRAFT_PREFIX);
         if(old&&!record&&doc.group===audience){

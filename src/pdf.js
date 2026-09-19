@@ -4,6 +4,7 @@ import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import { hasValue } from './schema.js';
 import { signatureSlots, signaturePlacement, cleanSignatures } from './signatures.js';
 import { appRoot } from './routes.js';
+import {canonicalSubscription,isSubscription} from './subscription/model.js';
 import { assertLayout } from './management/layout.js';
 pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
 const templates = new Map();
@@ -74,6 +75,7 @@ export function textImage(value, width, height, f={}) {
 }
 export async function generate(doc, values, signatures = {}) {
   if(doc.custom)assertLayout(doc);
+  if(isSubscription(doc)){values=await canonicalSubscription(doc,values);if(values.signature_mode!=='electronic')signatures={};}
   await document.fonts.load('10px "Noto Sans Arabic"','العربية English');
   await document.fonts.ready;
   const pdf=await PDFDocument.load(await original(doc),{updateMetadata:false});
@@ -97,6 +99,7 @@ export async function generate(doc, values, signatures = {}) {
     page.node.wrapContentStreams(start,end);
   }
   for(const f of doc.fields) {
+    if(isSubscription(doc)&&(!f.rect||f.staticPdf))continue;
     const value=fieldValue(f,values); if(!hasValue(value)) continue;
     const page=pdf.getPage(f.page-1), ph=page.getHeight();
     if(f.type==='choice') {

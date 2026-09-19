@@ -1,0 +1,119 @@
+import {generate,loadPreview,renderPage,templateUrl} from '../pdf.js';
+import {prepareSignature} from '../signatures.js';
+import {normalizeSubscription,visibleFields,sectionProgress,missingRequired} from './model.js';
+import {rules} from './calculations.js';
+import './style.css';
+const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+export function createSubscriptionEditor({root,doc,drafts,audience,header,footer,bindCommon,home,editShared}){
+ let lang='en',record=drafts.get(doc.id),values,signatures={...record.signatures},step=record.step,review=false,busy=false,pdf=null,pdfBytes=null,downloadUrl=null,token=0,paintToken=0,disposed=false,errors=[],message='';
+ let applicantEdited=record.overrides.includes('applicant_name');
+ const t=(en,ar)=>lang==='ar'?ar:en;
+ const normalize=()=>{values=normalizeSubscription(doc,values,{applicantEdited});};
+ function refresh(){record=drafts.get(doc.id);values={...record.values};signatures={...record.signatures};step=record.step;applicantEdited=record.overrides.includes('applicant_name');normalize();invalidate();}
+ refresh();
+ function save(edited=null){normalize();drafts.save(doc.id,values,step,signatures,edited);values={...drafts.get(doc.id).values};normalize();}
+ function invalidate(){token++;paintToken++;review=false;pdfBytes=null;if(pdf){pdf.loadingTask.destroy();pdf=null;}if(downloadUrl){URL.revokeObjectURL(downloadUrl);downloadUrl=null;}}
+ function sharedKey(f){
+  if(!f.namePart)return f.sharedKey;
+  const p=drafts.profile,preferred=p.name_language||(p.ar_first?'ar':lang),language=p[preferred+'_first']?preferred:p.ar_first?'ar':'en';
+  return language+'_'+({first_name:'first',second_name:'second',third_name:'third',family_name:'last'}[f.id]);
+ }
+ const isShared=f=>Boolean(sharedKey(f)&&drafts.profile[sharedKey(f)]&&drafts.profile[sharedKey(f)]===values[f.id]);
+ function shownValue(f){
+  const value=values[f.id]??'';
+  if(f.money)return value?Number(value).toLocaleString(lang==='ar'?'ar-SA':'en-US')+' '+t('SAR','ريال سعودي'):'—';
+  if(f.id==='fund_name')return t('Al Naeem Real Estate Fund',value);
+  if(f.id==='currency')return t('Saudi Riyal',value);
+  return value;
+ }
+ function progress(){return doc.sections.map(s=>sectionProgress(doc,s,values,signatures));}
+ function nav(){const counts=progress();return `<nav class="subscription-steps" aria-label="${t('Form sections','أقسام النموذج')}">${doc.sections.map((s,i)=>`<button type="button" class="sub-step ${i===step&&!review?'active':''}" data-sub-step="${i}" aria-current="${i===step&&!review?'step':'false'}"><span class="sub-step-number">${i+1}</span><b>${escape(t(s.title,s.ar))}</b><small data-progress="${i}" dir="ltr">${counts[i].completed}/${counts[i].total}</small></button>`).join('')}<button type="button" class="sub-step ${review?'active':''}" data-review><span class="sub-step-number">${doc.sections.length+1}</span><b>${t('Review document','مراجعة المستند')}</b><small>${t('Full PDF','المستند كاملاً')}</small></button></nav>`;}
+ function signature(){
+  const f=doc.fields.find(f=>f.id==='signature_mode');
+  return `<fieldset class="sub-signature field wide"><legend>${t('Signature','التوقيع')}</legend><div class="signature-methods">${f.options.map(o=>`<label class="sub-option ${values.signature_mode===o.value?'selected':''}"><input type="radio" name="signature_mode" value="${o.value}" ${values.signature_mode===o.value?'checked':''}><span>${escape(t(o.label,o.ar))}</span></label>`).join('')}</div>${values.signature_mode==='electronic'?`<div class="sub-upload"><label class="button secondary" for="sub-signature-file">${t('Upload signature image','تحميل صورة التوقيع')}</label><input id="sub-signature-file" type="file" accept="image/png,image/jpeg" hidden><small>${t('PNG or JPG, up to 5 MB.','PNG أو JPG، حتى ٥ ميغابايت.')}</small>${signatures.applicant?`<img src="${signatures.applicant}" alt="${t('Uploaded signature','التوقيع المرفوع')}"><button type="button" class="ghost" data-remove-signature>${t('Remove signature','إزالة التوقيع')}</button>`:''}</div>`:`<p class="sub-help">${t('The signature area stays empty so you can sign after downloading or printing.','تُترك خانة التوقيع فارغة لتوقّع بعد التنزيل أو الطباعة.')}</p>`}${errorFor(f.id)}</fieldset>`;
+ }
+ function errorFor(id){return errors.includes(id)?`<small class="field-error">${t('Check this field. It is missing, invalid, or too long for the document.','راجع هذا الحقل: القيمة ناقصة أو غير صحيحة أو أطول من المساحة المتاحة في المستند.')}</small>`:'';}
+ function field(f){
+  const value=values[f.id]??'',label=escape(t(f.label,f.ar)),shared=isShared(f),locked=shared&&f.id!=='applicant_name';
+  if(f.type==='signature')return signature();
+  if(f.type==='cards')return `<fieldset class="field sub-choice ${errors.includes(f.id)?'invalid':''}" data-field="${f.id}"><legend>${label}</legend><div class="sub-cards">${f.options.map(o=>`<label class="sub-option bilingual-card ${value===o.value?'selected':''}"><input type="radio" name="${f.id}" value="${o.value}" ${value===o.value?'checked':''}><span><b lang="ar" dir="rtl">${escape(o.ar)}</b><i aria-hidden="true"></i><small lang="en" dir="ltr">${escape(o.label)}</small></span></label>`).join('')}</div><button type="button" class="clear-choice" data-sub-clear="${f.id}">${t('Clear selection','مسح الاختيار')}</button>${errorFor(f.id)}</fieldset>`;
+  let input;
+  if(f.readOnly)input=`<output id="sub-${f.id}" data-computed="${f.id}" class="sub-computed" dir="${f.id==='total_words'?'rtl':'auto'}">${escape(shownValue(f)||'—')}</output>`;
+  else if(locked){const option=f.selectOptions?.find(o=>o[0]===value);input=`<div class="sub-shared-value" id="sub-${f.id}" dir="${f.direction==='ltr'?'ltr':'auto'}">${escape(option?t(option[1],option[2]):value)}</div><small class="shared-hint">${t('From your shared details','من بياناتك المشتركة')}</small>`;}
+  else if(f.type==='select')input=`<select id="sub-${f.id}" name="${f.id}" ${f.required?'required':''}><option value="">${t('Select…','اختر…')}</option>${f.selectOptions.map(o=>`<option value="${o[0]}" ${o[0]===value?'selected':''}>${escape(t(o[1],o[2]))}</option>`).join('')}</select>`;
+  else input=`<input id="sub-${f.id}" name="${f.id}" type="${['date','email','tel'].includes(f.type)?f.type:'text'}" value="${escape(value)}" dir="${f.direction==='ltr'||f.numeric?'ltr':'auto'}" ${f.numeric?'inputmode="numeric"':''} ${f.required?'required':''} autocomplete="off" spellcheck="false" maxlength="2000">`;
+  return `<div class="field ${f.wide?'wide':''} ${errors.includes(f.id)?'invalid':''}" data-field="${f.id}"><label for="sub-${f.id}">${label}${f.required?'<span class="required-mark"> *</span>':''}</label>${input}${f.id==='units'?`<small class="sub-help">${t('Whole units · SAR 1,000 per unit','وحدات صحيحة · ١٬٠٠٠ ريال سعودي للوحدة')}</small>`:''}${f.id==='applicant_name'?`<small class="sub-help">${t('Filled from your customer details. You can edit how your name appears.','معبّأ من بيانات العميل. يمكنك تعديل طريقة ظهور الاسم.')}</small>`:''}${errorFor(f.id)}</div>`;
+ }
+ function fields(){
+  const section=doc.sections[step],fs=visibleFields(doc,values,section);
+  if(section.id!=='subscription')return `<div class="sub-fields">${fs.map(field).join('')}</div>`;
+  const ids=[['subscription_type','payment_method'],['fund_name','currency'],['units','unit_price'],['amount_subscribed','subscription_fee'],['total_amount'],['total_words']];
+  return ids.map(group=>`<div class="sub-fields financial-row">${group.map(id=>field(fs.find(f=>f.id===id))).join('')}</div>`).join('');
+ }
+ function render(nextLang=lang){
+  if(disposed)return;lang=nextLang;normalize();
+  root.innerHTML=header()+`<main class="workspace subscription-workspace"><button type="button" class="back-link ghost" id="sub-home">${t('All forms','كل النماذج')}</button><div class="sub-heading"><div><span class="eyebrow">${t(doc.typeName,doc.group==='individual'?'للأفراد':'للشركات')}</span><h1>${escape(t(doc.title,doc.ar))}</h1></div><div class="sub-top-actions"><a class="button secondary" href="${templateUrl(doc)}" download="${doc.id}-blank.pdf">${t('Download blank','تنزيل النموذج الفارغ')}</a><button type="button" class="button primary" data-download>${t('Download PDF','تنزيل PDF')}</button></div></div>${nav()}<p id="sub-status" role="status" aria-live="polite" class="status ${message?'error':''}">${escape(message)}</p><div id="sub-download" class="download-result" ${downloadUrl?'':'hidden'}>${downloadUrl?downloadLink():''}</div>${review?`<section class="sub-review"><h2>${t('Your completed document','المستند بعد التعبئة')}</h2><p>${t('Check both pages below. This is the PDF you will download.','راجع الصفحتين أدناه. هذا هو ملف PDF الذي ستنزّله.')}</p><div id="sub-pages">${Array.from({length:doc.pages},(_,i)=>`<figure><figcaption>${t('Page','صفحة')} ${i+1} / ${doc.pages}</figcaption><canvas data-pdf-page="${i+1}" aria-label="${t('Completed document page','صفحة المستند بعد التعبئة')} ${i+1}"></canvas></figure>`).join('')}</div><div class="section-actions"><button class="button secondary" id="sub-back-review">${t('Previous','السابق')}</button><button class="button primary" data-download>${t('Download PDF','تنزيل PDF')}</button></div></section>`:`<section class="sub-form-panel"><div class="section-heading"><h2>${escape(t(doc.sections[step].title,doc.sections[step].ar))}</h2>${step<2?`<button class="ghost" type="button" id="sub-edit-shared">${t('Edit shared customer details','تعديل بيانات العميل المشتركة')}</button>`:''}</div><form id="subscription-fields" novalidate>${fields()}</form><div class="section-actions"><button class="button secondary" id="sub-prev" ${step===0?'disabled':''}>${t('Previous','السابق')}</button><button class="button primary" id="sub-next">${step===doc.sections.length-1?t('Review document','مراجعة المستند'):t('Continue','متابعة')}</button></div></section>`}<div class="form-bottom"><span data-sub-save>${drafts.available?t('Saved on this browser','محفوظ في هذا المتصفح'):t('Browser storage unavailable — download before leaving','التخزين غير متاح — نزّل المستند قبل المغادرة')}</span><button class="ghost" id="sub-reset">${t('Clear form','مسح النموذج')}</button></div></main>`+footer()+`<dialog id="sub-reset-dialog"><h2>${t('Clear this subscription draft?','مسح مسودة الاشتراك؟')}</h2><p>${t('Your shared customer details are kept.','يُحتفظ ببيانات العميل المشتركة.')}</p><div class="dialog-actions"><button class="button secondary" id="sub-cancel-reset">${t('Cancel','إلغاء')}</button><button class="button primary" id="sub-confirm-reset">${t('Clear form','مسح النموذج')}</button></div></dialog>`;
+  bindCommon();root.querySelector('#sub-home').onclick=home;
+  root.querySelectorAll('[data-sub-step]').forEach(b=>b.onclick=()=>go(Number(b.dataset.subStep)));
+  root.querySelectorAll('[data-review]').forEach(b=>b.onclick=()=>prepare(false));
+  root.querySelectorAll('[data-download]').forEach(b=>b.onclick=()=>prepare(true));
+  root.querySelector('#sub-edit-shared')?.addEventListener('click',editShared);
+  root.querySelector('#sub-prev')?.addEventListener('click',()=>go(step-1));
+  root.querySelector('#sub-next')?.addEventListener('click',()=>step===doc.sections.length-1?prepare(false):go(step+1));
+  root.querySelector('#sub-back-review')?.addEventListener('click',()=>go(doc.sections.length-1));
+  const form=root.querySelector('#subscription-fields');if(form){form.onsubmit=ev=>ev.preventDefault();form.oninput=input;}
+  root.querySelectorAll('[data-sub-clear]').forEach(b=>b.onclick=()=>{if(busy)return;values[b.dataset.subClear]='';changed(b.dataset.subClear);render();});
+  root.querySelector('#sub-signature-file')?.addEventListener('change',upload);
+  root.querySelector('[data-remove-signature]')?.addEventListener('click',()=>{if(busy)return;delete signatures.applicant;changed();render();});
+  root.querySelector('#sub-reset').onclick=()=>root.querySelector('#sub-reset-dialog').showModal();
+  root.querySelector('#sub-cancel-reset').onclick=()=>root.querySelector('#sub-reset-dialog').close();
+  root.querySelector('#sub-confirm-reset').onclick=()=>{if(busy)return;drafts.clear(doc.id);drafts.fillSharedBlanks(doc.id);values={...drafts.get(doc.id).values};signatures={};step=0;applicantEdited=false;errors=[];message='';changed();render();};
+  if(pdf&&review)paint();lock();
+ }
+ function lock(){root.querySelectorAll('[data-sub-step],[data-review],[data-download],#sub-next,#sub-prev,#sub-home,#sub-edit-shared,#sub-reset,#subscription-fields input,#subscription-fields select,#subscription-fields button,#language,[data-home]').forEach(el=>{el.disabled=busy||(el.id==='sub-prev'&&step===0);});}
+ function update(){
+  normalize();for(const f of doc.fields.filter(f=>f.readOnly)){const out=root.querySelector(`[data-computed="${f.id}"]`);if(out)out.textContent=shownValue(f)||'—';}
+  progress().forEach((p,i)=>{const node=root.querySelector(`[data-progress="${i}"]`);if(node)node.textContent=p.completed+'/'+p.total;});
+  const units=root.querySelector('[data-field="units"]');if(units)units.classList.toggle('invalid',Boolean(values.units&&!values.total_amount));
+  const saveStatus=root.querySelector('[data-sub-save]');if(saveStatus)saveStatus.textContent=drafts.available?t('Saved on this browser','محفوظ في هذا المتصفح'):t('Browser storage unavailable — download before leaving','التخزين غير متاح — نزّل المستند قبل المغادرة');
+ }
+ function changed(id){invalidate();message='';if(id)errors=errors.filter(e=>e!==id);save(id);update();const status=root.querySelector('#sub-status');if(status)status.textContent='';const result=root.querySelector('#sub-download');if(result)result.hidden=true;}
+ function input(ev){
+  if(busy)return;const f=doc.fields.find(f=>f.id===ev.target.name);if(!f||f.readOnly)return;
+  values[f.id]=ev.target.value;if(f.id==='applicant_name')applicantEdited=true;
+  // Inputs remain mounted while typing, including LTR email in the Arabic UI.
+  changed(f.id);
+  if(['select','cards','signature'].includes(f.type)){if(f.id==='signature_mode'&&values.signature_mode==='manual'){delete signatures.applicant;save();}render();}
+ }
+ function go(index){if(busy||index<0||index>=doc.sections.length)return;invalidate();step=index;message='';save();render();root.querySelector('.subscription-steps').scrollIntoView({behavior:'smooth',block:'start'});}
+ async function upload(ev){
+  const file=ev.target.files?.[0];ev.target.value='';if(!file||busy)return;busy=true;lock();const id=++token;
+  try{const image=await prepareSignature(file);if(disposed||id!==token)return;signatures.applicant=image;changed();}
+  catch{message=t('Choose a clear PNG or JPG signature under 5 MB, on a white or transparent background.','اختر صورة توقيع واضحة بصيغة PNG أو JPG أقل من ٥ ميغابايت، بخلفية بيضاء أو شفافة.');}
+  finally{busy=false;if(!disposed)render();}
+ }
+ function downloadLink(){return `<a class="button primary" id="sub-save-pdf" href="${downloadUrl}" download="${doc.id}-filled.pdf">${t('Save PDF','حفظ PDF')}</a><span>${t('Use this link if your browser did not start the download.','استخدم الرابط إذا لم يبدأ التنزيل تلقائيًا.')}</span>`;}
+ function download(){if(!pdfBytes)return;if(downloadUrl)URL.revokeObjectURL(downloadUrl);downloadUrl=URL.createObjectURL(new Blob([pdfBytes],{type:'application/pdf'}));const box=root.querySelector('#sub-download');box.hidden=false;box.innerHTML=downloadLink();root.querySelector('#sub-save-pdf').click();}
+ async function prepare(downloadNow){
+  if(busy)return;if(pdfBytes&&review){if(downloadNow)download();return;}
+  save();errors=downloadNow?[]:missingRequired(doc,values,signatures);
+  // Partial downloads stay available; explicitly selected electronic signing needs an image.
+  if(values.signature_mode==='electronic'&&!signatures.applicant)errors.push('signature_mode');
+  if(errors.length){const index=doc.sections.findIndex(s=>s.fields.some(f=>errors.includes(f.id)));if(index>=0)step=index;message=t('Complete the highlighted required fields before reviewing. You can download your current answers at any time.','أكمل الحقول المطلوبة المحددة قبل المراجعة. يمكنك تنزيل الإجابات الحالية في أي وقت.');render();root.querySelector('.invalid,input[required]:invalid')?.focus();return;}
+  busy=true;lock();const id=++token;message='';root.querySelector('#sub-status').textContent=t('Preparing your document…','جارٍ إعداد المستند…');
+  try{
+   const bytes=await generate(doc,{...values},values.signature_mode==='electronic'?{...signatures}:{});
+   if(disposed||id!==token)return;
+   pdfBytes=bytes;
+   if(downloadNow){download();root.querySelector('#sub-status').textContent=t('Your PDF is ready.','المستند جاهز.');}
+   else{const loaded=await loadPreview(bytes);if(disposed||id!==token){loaded.loadingTask.destroy();return;}pdf=loaded;review=true;render();}
+  }catch(error){
+   if(disposed||id!==token)return;errors=(error.fields||[]).flatMap(field=>field==='full_name'?['first_name','second_name','third_name','family_name']:field.endsWith('_label')?[field.slice(0,-6)]:field==='total_words'?['units']:[field]);
+   const index=doc.sections.findIndex(s=>s.fields.some(f=>errors.includes(f.id)));if(index>=0)step=index;
+   message=error.message==='units'?t('Enter a whole number of units from 1 to '+rules.maxUnits+'.','أدخل عدد وحدات صحيحًا من ١ إلى ٩٩٩٬٩٩٩٬٩٩٩.'):error.fields?t('An answer is too long for its space. Check the highlighted field.','إحدى الإجابات أطول من مساحتها. راجع الحقل المحدد.'):t('Could not validate the totals or prepare the PDF. Check your connection and try again; your answers are saved.','تعذّر التحقق من المبالغ أو إعداد المستند. تحقق من الاتصال وأعد المحاولة؛ إجاباتك محفوظة.');render();
+  }finally{busy=false;if(!disposed)lock();}
+ }
+ async function paint(){const id=++paintToken;try{for(const canvas of root.querySelectorAll('[data-pdf-page]')){if(disposed||id!==paintToken)return;await renderPage(pdf,Number(canvas.dataset.pdfPage),canvas,1000);}}catch{if(!disposed&&id===paintToken){message=t('Preview could not render. Return to the applicant step and try again.','تعذّر عرض المعاينة. عُد إلى صفحة مقدم الطلب وأعد المحاولة.');root.querySelector('#sub-status').textContent=message;}}}
+ return {render,save,refresh(){refresh();render();},destroy(){disposed=true;invalidate();},get values(){return {...values};}};
+}

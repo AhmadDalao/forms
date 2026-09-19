@@ -2,27 +2,27 @@ import {hasValue} from './schema.js';
 
 const field=(id,label,ar,type='text',options=null)=>({id,label,ar,type,options});
 const addressFields=()=>[
- field('building','Building number','رقم المبنى'),field('street','Street','الشارع'),field('district','District','الحي'),
+ field('short_address','Short address','العنوان المختصر'),field('building','Building number','رقم المبنى'),field('street','Street','الشارع'),field('district','District','الحي'),
  field('city','City','المدينة'),field('postal','Postal code','الرمز البريدي'),field('additional','Additional number','الرقم الإضافي'),field('country','Country','الدولة'),
 ];
 const idOptions=[['national','National ID','هوية وطنية'],['passport','Passport','جواز سفر'],['residence','Residence ID','هوية مقيم'],['family','Family ID','بطاقة عائلية']];
 export function sharedGroups(audience){
  if(audience==='individual')return [
   {label:'Your name',ar:'اسمك',fields:[
-   field('en_first','First name in English','الاسم الأول بالإنجليزية'),field('en_middle','Middle names in English','الأسماء الوسطى بالإنجليزية'),field('en_last','Last name in English','الاسم الأخير بالإنجليزية'),
-   field('ar_first','First name in Arabic','الاسم الأول بالعربية'),field('ar_middle','Middle names in Arabic','الأسماء الوسطى بالعربية'),field('ar_last','Last name in Arabic','الاسم الأخير بالعربية'),
+   field('en_first','First name in English','الاسم الأول بالإنجليزية'),field('en_second','Second name in English','الاسم الثاني بالإنجليزية'),field('en_third','Third name in English (optional)','الاسم الثالث بالإنجليزية (اختياري)'),field('en_last','Last name in English','الاسم الأخير بالإنجليزية'),
+   field('ar_first','First name in Arabic','الاسم الأول بالعربية'),field('ar_second','Second name in Arabic','الاسم الثاني بالعربية'),field('ar_third','Third name in Arabic (optional)','الاسم الثالث بالعربية (اختياري)'),field('ar_last','Last name in Arabic','الاسم الأخير بالعربية'),
    field('name_language','Name language in unlabelled name boxes','لغة الاسم في الخانات غير المحددة بلغة','select',[['en','English','الإنجليزية'],['ar','Arabic','العربية']]),
   ]},
   {label:'Personal and contact details',ar:'البيانات الشخصية وبيانات التواصل',fields:[
    field('title','Title','اللقب','select',[['mr','Mr.','السيد'],['mrs','Mrs.','السيدة'],['miss','Miss','الآنسة']]),
    field('gender','Gender','الجنس','select',[['male','Male','ذكر'],['female','Female','أنثى']]),field('dob','Date of birth','تاريخ الميلاد','date'),
-   field('id_type','ID type','نوع الهوية','select',idOptions),field('id_number','ID number','رقم الهوية'),field('phone','Phone','الهاتف','tel'),field('mobile','Mobile','الجوال','tel'),field('email','Email','البريد الإلكتروني','email'),
+   field('nationality','Nationality','الجنسية'),field('id_type','ID type','نوع الهوية','select',idOptions),field('id_number','ID number','رقم الهوية'),field('phone','Phone','الهاتف','tel'),field('mobile','Mobile','الجوال','tel'),field('email','Email','البريد الإلكتروني','email'),
    field('client_number','Client number (if known)','رقم العميل (إن وجد)'),field('account_number','Investment account number (if known)','رقم الحساب الاستثماري (إن وجد)'),
   ]},
   {label:'Correspondence address',ar:'عنوان المراسلة',fields:[...addressFields(),field('also_residence','Also use this as my current residence in Saudi Arabia','استخدمه أيضًا عنوانًا لإقامتي الحالية في السعودية','checkbox')]},
  ];
  if(audience==='corporate')return [
-  {label:'Company details',ar:'بيانات الشركة',fields:[field('company_name','Full legal company name','الاسم القانوني الكامل للشركة'),field('inc_country','Country of incorporation','دولة التأسيس'),field('client_number','Client number (if known)','رقم العميل (إن وجد)'),field('account_number','Investment account number (if known)','رقم الحساب الاستثماري (إن وجد)')]},
+  {label:'Company details',ar:'بيانات الشركة',fields:[field('company_name','Full legal company name','الاسم القانوني الكامل للشركة'),field('inc_country','Country of incorporation','دولة التأسيس'),field('company_id_type','Registration type','نوع تسجيل الشركة','select',[['cr','Commercial registration','سجل تجاري'],['license','Licence','ترخيص'],['other','Other','أخرى']]),field('company_id_number','Registration / licence number','رقم السجل / الترخيص'),field('client_number','Client number (if known)','رقم العميل (إن وجد)'),field('account_number','Investment account number (if known)','رقم الحساب الاستثماري (إن وجد)')]},
   {label:'Company contact details',ar:'بيانات التواصل مع الشركة',fields:[field('phone','Company phone','هاتف الشركة','tel'),field('mobile','Contact mobile','جوال مسؤول التواصل','tel'),field('email','Contact email','البريد الإلكتروني للتواصل','email')]},
   {label:'Registered address',ar:'العنوان المسجل',fields:[...addressFields(),field('also_residence','Also use as the entity’s current residence address','استخدمه أيضًا عنوانًا للإقامة الحالية للكيان','checkbox'),field('also_head','Also use as the principal office address','استخدمه أيضًا عنوانًا للمكتب الرئيسي','checkbox'),field('also_mail','Also use as the correspondence address','استخدمه أيضًا عنوانًا للمراسلة','checkbox')]},
   {label:'Primary authorized signatory',ar:'المفوض الرئيسي بالتوقيع',fields:[field('auth_name','Authorized person’s full name','الاسم الكامل للمفوض'),field('auth_id_type','ID type','نوع الهوية','select',idOptions),field('auth_id','ID number','رقم الهوية')]},
@@ -31,11 +31,14 @@ export function sharedGroups(audience){
 }
 export function cleanShared(audience,profile){
  const clean={};
+ profile={...profile};
+ for(const lang of ['en','ar'])if(!(lang+'_second' in profile)&&profile[lang+'_middle'])profile[lang+'_second']=profile[lang+'_middle'];
  for(const f of sharedGroups(audience).flatMap(g=>g.fields)){
   const v=profile?.[f.id];
   if(f.type==='checkbox'){if(v===true)clean[f.id]=true;}
   else if(typeof v==='string'&&v.length<=2000&&hasValue(v)&&(!f.options||f.options.some(o=>o[0]===v)))clean[f.id]=v;
  }
+ for(const lang of ['en','ar']){const middle=[clean[lang+'_second'],clean[lang+'_third']].filter(Boolean).join(' ');if(middle)clean[lang+'_middle']=middle;}
  return clean;
 }
 const joined=(...parts)=>parts.filter(hasValue).map(s=>s.trim()).filter(Boolean).join(' ');
@@ -50,7 +53,15 @@ export function sharedCandidates(doc,profile,values,audience){
  const fullEn=joined(p.en_first,p.en_middle,p.en_last),fullAr=joined(p.ar_first,p.ar_middle,p.ar_last);
  const name=audience==='individual'?(p.name_language==='ar'?fullAr||fullEn:fullEn||fullAr):p.company_name||'';
  const address=joined(p.building,p.street,p.district,p.city,p.postal,p.additional,p.country);
- if(doc.id==='subscription-form'){
+ if(doc.workflow==='subscription'){
+  for(const f of doc.fields){if(f.sharedKey)copy(f.id,p[f.sharedKey]);}
+  copy('client_account',p.account_number||p.client_number);
+  if(audience==='individual'){
+   const preferred=p.name_language||(p.ar_first?'ar':'en'),language=p[preferred+'_first']?preferred:p.ar_first?'ar':'en';
+   for(const [key,part] of [['first_name','first'],['second_name','second'],['third_name','third'],['family_name','last']])copy(key,p[language+'_'+part]);
+  }
+ }
+ if(doc.id==='subscription-form'&&!doc.workflow){
   const corporate=audience==='corporate',arabicCompany=/\p{Script=Arabic}/u.test(p.company_name||'');
   copy('ar_name',corporate?(arabicCompany?p.company_name:''):fullAr);
   copy('en_name',corporate?(!arabicCompany?p.company_name:''):fullEn);

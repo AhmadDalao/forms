@@ -1,6 +1,7 @@
 import {visibleIn} from './routes.js';
 const names={
- 'subscription-form':[1,'Subscription Application for Al Naeem Real Estate Fund','طلب الإشتراك في صندوق النعيم العقاري'],
+ 'subscription-form':[1,'Subscription Application for Al Naeem Real Estate Fund (Individual)','طلب الإشتراك في صندوق النعيم العقاري (للأفراد)'],
+ 'subscription-company':[1,'Subscription Application for Al Naeem Real Estate Fund (Company)','طلب الإشتراك في صندوق النعيم العقاري (للشركات)'],
  'kyc-individual':[2,'Know Your Customer and Anti-Money Laundering Forms Applicable in Saudi Arabia','النماذج الخاصة بأنظمة "اعرف عميلك" و "مكافحة غسيل الأموال" المعمول بها في المملكة العربية السعودية'],
  'kyc-corporate':[2,'Know Your Customer and Anti-Money Laundering Forms Applicable in Saudi Arabia','النماذج الخاصة بأنظمة "اعرف عميلك" و "مكافحة غسيل الأموال" المعمول بها في المملكة العربية السعودية'],
  'signature-form':[3,'Signature Form','نموذج التوقيع'],

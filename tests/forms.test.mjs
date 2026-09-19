@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import {docs} from '../src/forms/index.js';
 import {hasValue} from '../src/schema.js';
 const field=(doc,id)=>docs.find(d=>d.id===doc).fields.find(f=>f.id===id);
-test('every printed customer field is available without conditional rules',()=>{
- for(const doc of docs)for(const f of doc.fields){
+test('unchanged documents keep every printed customer field available without conditional rules',()=>{
+ for(const doc of docs.filter(d=>!d.workflow))for(const f of doc.fields){
   assert.equal('when' in f,false,`${doc.id}/${f.id}`);
   assert.equal('whenAll' in f,false,`${doc.id}/${f.id}`);
   assert.equal(f.noPrint,undefined,`${doc.id}/${f.id}`);
@@ -30,7 +30,7 @@ test('zero and identifiers with leading zeros are answers',()=>{
  assert.equal(hasValue('0'),true);assert.equal(hasValue('00001234'),true);
  assert.equal(hasValue('   '),false);assert.equal(hasValue([]),false);
 });
-test('seven fillable documents retain valid page mappings and field IDs',()=>{
- assert.equal(docs.length,7);assert.equal(docs.reduce((n,d)=>n+d.pages,0),39);
+test('eight fillable documents (separate subscription audiences) retain valid page mappings and field IDs',()=>{
+ assert.equal(docs.length,8);assert.equal(docs.reduce((n,d)=>n+d.pages,0),42);
  for(const d of docs){assert.equal(new Set(d.fields.map(f=>f.id)).size,d.fields.length);for(const f of d.fields)assert.ok(f.page>=1&&f.page<=d.pages);}
 });

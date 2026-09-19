@@ -1,55 +1,46 @@
-import {document,section,text,choice,option as o} from '../schema.js';
-const d=document('subscription-form','Subscription Form','طلب إشتراك','shared','Client details and fund subscription.','بيانات العميل والاشتراك في الصندوق.',1,[1]);
-let s=section(d,'client','Client Details','تفاصيل العميل',1);
-const edges=[174.23,193.31,212.4,231.47,250.55,269.63,288.71,307.78,326.87,345.94,365.02,384.1,403.05];
-text(d,s,'client_account','Client / Account No.','رقم العميل / الحساب بالشركة',[174.7,176.2,228,15.7],{cells:12,maxLength:12,direction:'ltr',fontSize:9,charRects:edges.slice(0,-1).map((x,i)=>[x+.5,176.2,edges[i+1]-x-1,15.7])});
-text(d,s,'ar_title','Title','الصفة',[431.4,208,102,16],{direction:'rtl'});
-text(d,s,'ar_name','Client’s Full Name','اسم العميل كاملاً',[52.5,208,369.5,16],{direction:'rtl'});
-text(d,s,'en_title','Title','الصفة',[73.2,243.2,103,15.7],{direction:'ltr'});
-text(d,s,'en_name','Client’s Full Name','اسم العميل كاملاً',[187,243.2,359.5,15.7],{direction:'ltr'});
-text(d,s,'id_number','ID No.','رقم الهوية',[124,273,158,13.5],{fontSize:9});
-text(d,s,'nationality','Nationality','الجنسية',[359,273,102,13.5],{fontSize:9});
-choice(d,s,'id_type','ID Type','نوع الهوية',[
- o('national','Saudi ID','بطاقة أحوال',[418.15,292.88,10.8,10.8]),o('residence','Iqama','إقامة',[325.03,292.83,10.8,10.8]),o('passport','Passport','جواز سفر',[225,292.83,10.8,10.8]),o('other','Other','أخرى',[131.42,292.83,10.8,10.8]),
-]);
-choice(d,s,'company_id_type','ID Type','نوع الهوية',[
- o('cr','CR','سجل تجاري',[370.44,325.08,10.8,10.8]),o('license','License','ترخيص',[290.02,324.98,10.8,10.8]),o('other','Other','أخرى',[199.34,324.68,10.8,10.8]),
-]);
-text(d,s,'company_id_number','Its Number','رقمها',[138,347,384,14],{fontSize:9});
-s.paperGroups=[
- {title:'',ar:'',fields:['client_account']},
- {title:'Client details in Arabic',ar:'بيانات العميل باللغة العربية',fields:['ar_title','ar_name']},
- {title:'Client details in English',ar:'بيانات العميل باللغة الإنجليزية',fields:['en_title','en_name']},
- {title:'For Individuals',ar:'للأفراد',fields:['id_number','nationality','id_type']},
- {title:'For Corporates',ar:'للشركات',fields:['company_id_type','company_id_number']},
-];
-s=section(d,'address','Correspondence Address','عنوان المراسلة',1);
-for(const [id,en,ar,rect]of [
- ['pob','P.O Box','صندوق بريد',[311,379.25,185,7.8]],['postal','Postal code','الرمز البريدي',[96,379.25,104,7.8]],
- ['city','City','المدينة',[311,394.25,185,7.8]],['country','Country','البلد',[96,394.25,104,7.8]],
- ['phone','Tel.','الهاتف',[311,409.25,185,7.8]],['mobile','Mobil','الجوال',[96,409.25,104,7.8]],
-])text(d,s,id,en,ar,rect,{fontSize:6,minFontSize:5,padding:.15,...(['phone','mobile'].includes(id)?{type:'tel'}:{})});
-s.paperGroups=[{title:'',ar:'',fields:['pob','postal','city','country','phone','mobile'],paired:true}];
-s=section(d,'subscription','Subscription Details','تفاصيل الاشتراك',1);
-choice(d,s,'subscription_type','Subscription Details','تفاصيل الاشتراك',[
- o('new','New subscription','اشتراك جديد',[490.62,441.42,10.8,10.8]),o('additional','Add To exiting','إضافة وحدات',[363.54,442.42,10.8,10.8]),
-]);
-choice(d,s,'payment_method','Payment Method','طريقة الدفع',[
- o('cheque','Cheque','شيك',[215.45,442.42,10.8,10.8]),o('transfer','Transfer','حوالة',[142.93,442.42,10.8,10.8]),
-]);
-text(d,s,'fund_name','Fund Name','اسم صندوق الاستثمار',[388,468.5,160,12],{fontSize:8,minFontSize:5.5,padding:.4,mirrorRects:[[175.7,120.2,88,8.7],[305.5,120.2,79,8.7]]});
-for(const [id,en,ar,rect]of [
- ['currency','Currency','العملة',[294,468.5,88,12]],['unit_price','Unit Price','سعر الوحدة',[173,468.5,117,12]],['units','No. Of Units','عدد الوحدات',[47,468.5,122,12]],
- ['amount_subscribed','Amount Subscribed','مبلغ الاستثمار',[443.5,504.8,105.5,11.3]],['fee_percent','Sub. Fee %','رسوم الاشتراك %',[360.5,504.8,79,11.3]],['fee_amount','Sub. Fee Amount','مبلغ رسوم الاشتراك',[257,504.8,100,11.3]],['total_amount','Total Amount','المبلغ الإجمالي',[161,504.8,91,11.3]],['total_words','Total Amount (In words)','المبلغ الإجمالي كتابة',[47,504.8,109.5,11.3]],
-])text(d,s,id,en,ar,rect,{fontSize:8,minFontSize:5.5,padding:.5,...(!['currency','total_words'].includes(id)?{numeric:true}:{})});
-s.paperGroups=[{title:'',ar:'',fields:['subscription_type','payment_method']},{title:'',ar:'',fields:['fund_name','currency','unit_price','units']},{title:'',ar:'',fields:['amount_subscribed','fee_percent','fee_amount','total_amount','total_words']}];
-s=section(d,'applicant','Applicant','مقدم الطلب',1);
-text(d,s,'applicant_name','Name','اسم مقدم الطلب',[348.5,568.2,103,10.5],{fontSize:8,minFontSize:6,padding:.5});
-text(d,s,'date','Date','التاريخ',[351,583.5,96.5,8.5],{type:'date',fontSize:7,minFontSize:5.5,padding:.3,dateParts:[[351,583.5,27,8.5],[382,583.5,32,8.5],[418,583.5,29.5,8.5]]});
-s.signatureSlot='applicant';
-s=section(d,'staff','For company Use Only','للاستعمال الرسمي فقط',1);
-choice(d,s,'signature_verified','Signature Verified','التوقيع مطابق',[o('verified','Signature Verified','التوقيع مطابق',[492.07,621.35,10.8,10.8])],{multiple:true});
-for(const [id,en,ar,rect]of [
- ['staff_branch','Branch','الفرع',[336,632.8,161,10]],['staff_date','Date','التاريخ',[101,632.8,115,10]],
- ['staff_manager','A/C Mgr.','مدير الحساب',[336,647.2,161,10]],['staff_entered','Entered by','مدخل الطلب',[336,661.6,161,10]],['staff_approved','Rev. & approved by','مراجع ومعتمد',[336,676,161,10]],
-])text(d,s,id,en,ar,rect,{fontSize:7,minFontSize:5.5,padding:.4,...(id==='staff_date'?{type:'date'}:{})});
+import {document,section,text} from '../schema.js';
+import individualLayout from '../subscription/subscription-individual-layout.json' with {type:'json'};
+import companyLayout from '../subscription/subscription-company-layout.json' with {type:'json'};
+import {appRoot} from '../routes.js';
+for(const corporate of [false,true]){
+ const id=corporate?'subscription-company':'subscription-form',map=corporate?companyLayout:individualLayout;
+ const d=document(id,'Subscription Application for Al Naeem Real Estate Fund ('+(corporate?'Company':'Individual')+')','طلب الإشتراك في صندوق النعيم العقاري '+(corporate?'(للشركات)':'(للأفراد)'),corporate?'corporate':'individual','Customer details and fund subscription.','بيانات العميل والاشتراك في الصندوق.',2,[2]);
+ Object.assign(d,{workflow:'subscription',typeName:corporate?'Company':'Individual',pdfUrl:appRoot+'pdfs/subscription-'+(corporate?'company':'individual')+'.pdf?v=2'});
+ d.signatureSlots=[{id:'applicant',label:'Applicant signature',ar:'توقيع مقدم الطلب',...map.signature}];
+ let s=section(d,'client','Customer details','تفاصيل العميل',1);
+ const field=(id,en,ar,config={})=>text(d,s,id,en,ar,map[id]?.rect||null,{...map[id],fontSize:11,minFontSize:7,padding:2,direction:'auto',...config});
+ field('client_account','Client / Account No. (fund manager use)','رقم العميل / الحساب (لاستخدام مدير الصندوق)',{optional:true,sharedKey:'account_number'});
+ if(corporate){
+  field('company_name','Full legal company name','الاسم القانوني الكامل للشركة',{required:true,sharedKey:'company_name',wide:true});
+  field('inc_country','Country of incorporation','دولة التأسيس',{required:true,sharedKey:'inc_country'});
+  field('company_id_type','Registration type','نوع تسجيل الشركة',{type:'select',required:true,sharedKey:'company_id_type',selectOptions:[['cr','Commercial registration','سجل تجاري'],['license','Licence','ترخيص'],['other','Other','أخرى']]});
+  field('company_id_type_label','','',{hidden:true});
+  field('company_id_number','Registration / licence number','رقم السجل / الترخيص',{required:true,sharedKey:'company_id_number'});
+  field('auth_name','Authorized signatory name','اسم المفوض بالتوقيع',{required:true,sharedKey:'auth_name',wide:true});
+  field('auth_id','Authorized signatory ID number','رقم هوية المفوض',{sharedKey:'auth_id'});
+ }else{
+  for(const [id,en,ar,optional] of [['first_name','First name','الاسم الأول',false],['second_name','Second name','الاسم الثاني',false],['third_name','Third name (optional)','الاسم الثالث (اختياري)',true],['family_name','Family name','اسم العائلة',false]])field(id,en,ar,{required:!optional,optional,namePart:true});
+  field('full_name','','',{hidden:true});
+  field('nationality','Nationality','الجنسية',{required:true,sharedKey:'nationality'});
+  field('id_type','ID type','نوع الهوية',{type:'select',required:true,sharedKey:'id_type',selectOptions:[['national','National ID','هوية وطنية'],['residence','Residence ID','هوية مقيم'],['passport','Passport','جواز سفر'],['family','Family ID','بطاقة عائلية'],['other','Other','أخرى']]});
+  field('id_type_label','','',{hidden:true});
+  field('id_number','ID number','رقم الهوية',{required:true,sharedKey:'id_number',dependsOn:'id_type',when:['national','residence','passport','family','other']});
+  field('id_other','Specify the identity document','بيان نوع الهوية الأخرى',{required:true,dependsOn:'id_type',when:['other']});
+ }
+ field('phone','Telephone (optional)','الهاتف (اختياري)',{type:'tel',direction:'ltr',optional:true,sharedKey:'phone'});
+ field('mobile','Mobile','الجوال',{type:'tel',direction:'ltr',sharedKey:'mobile'});
+ s=section(d,'address','Correspondence address (National Address)','عنوان المراسلة (العنوان الوطني)',1);
+ for(const [id,en,ar] of [['short_address','Short address','العنوان المختصر'],['building','Building number','رقم المبنى'],['street','Street name','اسم الشارع'],['additional','Additional number','الرقم الفرعي'],['district','District','اسم الحي'],['postal','Postal code','الرمز البريدي'],['city','City','المدينة'],['email','Email','البريد الإلكتروني'],['country','Country','البلد']])field(id,en,ar,{sharedKey:id,...(id==='email'?{type:'email',direction:'ltr'}:{})});
+ s=section(d,'subscription','Subscription details','تفاصيل الاشتراك',2);
+ field('subscription_type','Subscription type','نوع الاشتراك',{type:'cards',required:true,options:[{value:'new',label:'New Subscription',ar:'طلب جديد'},{value:'additional',label:'Additional Units',ar:'إضافة وحدات'}]});
+ field('payment_method','Payment method','طريقة الدفع',{type:'cards',required:true,options:[{value:'transfer',label:'Bank Transfer',ar:'حوالة'},{value:'cheque',label:'Cheque',ar:'شيك'}]});
+ for(const id of ['subscription_type_label','payment_method_label'])field(id,'','',{hidden:true});
+ for(const [id,en,ar] of [['fund_name','Investment fund name','اسم صندوق الاستثمار'],['currency','Currency','العملة']])field(id,en,ar,{readOnly:true,staticPdf:true});
+ field('units','Number of units','عدد الوحدات',{numeric:true,required:true});
+ field('unit_price','Unit price','سعر الوحدة',{readOnly:true,money:true,staticPdf:true});
+ for(const [id,en,ar] of [['amount_subscribed','Investment amount','مبلغ الاستثمار'],['subscription_fee','Subscription fee (2% of investment)','رسوم الاشتراك (2% من مبلغ الاستثمار)'],['total_amount','Total amount','المبلغ الإجمالي'],['total_words','Total amount in words','المبلغ الإجمالي كتابة']])field(id,en,ar,{readOnly:true,money:id!=='total_words',wide:id==='total_words',multiline:id==='total_words',direction:id==='total_words'?'rtl':'ltr'});
+ s=section(d,'applicant','Applicant','مقدم الطلب',2);
+ field('applicant_name','Applicant name','اسم مقدم الطلب',{required:true,wide:true});
+ field('date','Application date','التاريخ',{type:'date',required:true,direction:'ltr'});
+ field('signature_mode','Signature','التوقيع',{type:'signature',options:[{value:'electronic',label:'Electronic signature',ar:'توقيع إلكتروني'},{value:'manual',label:'Manual signature',ar:'توقيع يدوي'}]});
+}

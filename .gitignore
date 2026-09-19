@@ -8,7 +8,7 @@
 
 # Local inspection artifacts and generated build files
 tmp/
-node_modules/
+node_modules
 dist/
 
 # Management credentials, uploads and local state
