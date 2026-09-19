@@ -2,10 +2,39 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {docs} from '../src/forms/index.js';
 import {createDraftStore,DRAFT_PREFIX} from '../src/drafts.js';
-import {sharedCandidates,sharedGroups} from '../src/shared-fields.js';
+import {sharedCandidates,sharedGroups,sharedFieldVisible,cleanShared} from '../src/shared-fields.js';
 const storage=()=>{const m=new Map();return {getItem:k=>m.get(k)??null,setItem:(k,v)=>m.set(k,v),removeItem:k=>m.delete(k),m};};
 const make=(disk,audience)=>createDraftStore(docs,()=>disk,audience);
 const person={en_first:'Ahmad',en_middle:'Ali',en_last:'Dalao',ar_first:'أحمد',ar_middle:'علي',ar_last:'دلاو',phone:'001234567',mobile:'0551234567',email:'client@example.com',id_type:'national',id_number:'0012345678',client_number:'0000123',account_number:'0000405',building:'12',street:'King Road',district:'Noor',city:'Riyadh',postal:'00123',country:'Saudi Arabia'};
+test('Other IDs reveal a custom field, persist across forms, and clear when their type changes',()=>{
+ const disk=storage(),d=make(disk,'individual');
+ const field=sharedGroups('individual').flatMap(g=>g.fields).find(f=>f.id==='id_other');
+ assert.equal(sharedFieldVisible(field,{}),false);
+ assert.equal(sharedFieldVisible(field,{id_type:'other'}),true);
+ d.setShared({...person,id_type:'other',id_other:'Travel document',title:'dr'});
+ d.save('signature-form',{...d.get('signature-form').values,signer_role:'client'},1,{},'signer_role');
+ const reopened=make(disk,'individual');
+ assert.equal(reopened.get('subscription-form').values.id_other,'Travel document');
+ assert.equal(reopened.get('kyc-individual').values.id_other,'Travel document');
+ assert.equal(reopened.get('signature-form').values.id_type,'Travel document');
+ assert.equal(reopened.get('kyc-individual').values.title,'dr');
+ assert.equal(reopened.get('fatca-crs-individual').values.title,'other');
+ reopened.setShared({...reopened.profile,id_type:'passport',title:'eng'});
+ assert.equal(reopened.profile.id_other,undefined);
+ assert.equal(reopened.get('kyc-individual').values.id_other,undefined);
+ assert.equal(reopened.get('signature-form').values.id_type,'Passport');
+ assert.equal(reopened.get('subscription-form').values.title,'eng');
+ assert.equal(make(disk,'corporate').profile.id_other,undefined);
+});
+test('company signatory Other ID stays separate and maps only to supported paper fields',()=>{
+ const p=cleanShared('corporate',{auth_name:'Company Signer',auth_id_type:'other',auth_id_other:'وثيقة سفر',id_other:'Individual only'});
+ assert.equal(p.id_other,undefined);
+ const signature=docs.find(d=>d.id==='signature-form');
+ assert.equal(sharedCandidates(signature,p,{signer_role:'authorized'},'corporate').id_type,'وثيقة سفر');
+ const kyc=docs.find(d=>d.id==='kyc-corporate');
+ assert.equal(sharedCandidates(kyc,p,{},'corporate').auth_id_type,'');
+ assert.equal(cleanShared('corporate',{...p,auth_id_type:'national'}).auth_id_other,undefined);
+});
 test('mapped targets exist and choices accept the shared values for each audience',()=>{
  for(const audience of ['individual','corporate'])for(const doc of docs){
   const p=Object.fromEntries(sharedGroups(audience).flatMap(g=>g.fields).map(f=>[f.id,f.type==='checkbox'?true:f.options?.[0][0]||'Example']));

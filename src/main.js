@@ -17,7 +17,7 @@ import {catalogueFor} from './catalogue.js';
 import {hasValue} from './schema.js';
 import {appRoot,audience,visibleIn} from './routes.js';
 import {createDraftStore,DRAFT_PREFIX} from './drafts.js';
-import {sharedGroups,sharedCandidates} from './shared-fields.js';
+import {sharedGroups,sharedCandidates,sharedFieldVisible} from './shared-fields.js';
 import {parseNumber} from './numbers.js';
 import {signatureSlots,prepareSignature} from './signatures.js';
 import {generate,original,loadPreview,renderPage,templateUrl,fieldValue} from './pdf.js';
@@ -48,7 +48,7 @@ function sharedHTML(){
  return `<details id="shared-fields-panel" class="shared-fields-panel" ${sharedPanelOpen?'open':''}>
  <summary><span><b>${t('Shared document fields','الحقول المشتركة للمستندات')}</b><small>${t('Fill once, reuse in this folder','عبّئ مرة واحدة واستخدمها في هذا المجلد')} · ${folder}</small></span></summary>
  <div class="shared-fields-content"><p>${t('Matching fields fill automatically in this folder only. Edits inside a form stay specific to that form. Additional clients, witnesses and controlling persons remain separate.','تُعبّأ الحقول المتطابقة تلقائيًا في هذا المجلد فقط. التعديلات داخل النموذج تخص ذلك النموذج وحده. تبقى بيانات العملاء الإضافيين والشهود والأشخاص المسيطرين منفصلة.')}</p>
- <form id="shared-fields-form" novalidate>${sharedGroups(audience).map(group=>`<section class="paper-group"><h3>${e(t(group.label,group.ar))}</h3><div class="field-grid">${group.fields.map(f=>{
+ <form id="shared-fields-form" novalidate>${sharedGroups(audience).map(group=>`<section class="paper-group"><h3>${e(t(group.label,group.ar))}</h3><div class="field-grid">${group.fields.filter(f=>sharedFieldVisible(f,profile)).map(f=>{
   const v=profile[f.id]??(f.id==='name_language'?'en':'');
   if(f.type==='checkbox')return `<div class="field wide"><label class="shared-address-option"><input id="shared-${f.id}" data-shared-key="${f.id}" type="checkbox" ${v?'checked':''}><span>${e(t(f.label,f.ar))}</span></label></div>`;
   const control=f.type==='select'?`<select id="shared-${f.id}" data-shared-key="${f.id}"><option value="">${t('Select…','اختر…')}</option>${f.options.map(([id,en,ar])=>`<option value="${id}" ${id===v?'selected':''}>${e(t(en,ar))}</option>`).join('')}</select>`:`<input id="shared-${f.id}" data-shared-key="${f.id}" type="${f.type}" value="${e(v)}" dir="${f.id.startsWith('ar_')?'rtl':f.id.startsWith('en_')||['date','email','tel'].includes(f.type)?'ltr':'auto'}" autocomplete="off" spellcheck="false" maxlength="2000">`;
@@ -96,7 +96,9 @@ function bindShared(){
  document.querySelector('#shared-fields-form').oninput=ev=>{
   const key=ev.target.dataset.sharedKey;if(!key)return;
   sharedPanelOpen=true;
-  drafts.setShared({...drafts.profile,[key]:ev.target.type==='checkbox'?ev.target.checked:ev.target.value});refreshAfterShared(true);
+  drafts.setShared({...drafts.profile,[key]:ev.target.type==='checkbox'?ev.target.checked:ev.target.value});
+  const changesFields=sharedGroups(audience).some(g=>g.fields.some(f=>f.dependsOn===key));
+  refreshAfterShared(!changesFields);
  };
  document.querySelector('#clear-shared').onclick=()=>document.querySelector('#clear-shared-dialog').showModal();
  document.querySelector('#keep-shared').onclick=()=>document.querySelector('#clear-shared-dialog').close();

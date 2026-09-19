@@ -12,7 +12,7 @@ text(d,s,'dob','Date of birth','تاريخ الميلاد',[383,204,176,20],{typ
 choice(d,s,'marital','Marital status','الحالة الاجتماعية',[o('single','Single','أعزب',[546.8,246.5,11.5,13.6]),o('married','Married','متزوج',[458.8,245.9,11.5,13.6])]);
 text(d,s,'dependents','Number of dependents','عدد أفراد الأسرة',[548.25,262.38,8.5,9.65],{numeric:true,maxLength:2,fontSize:7,minFontSize:6,padding:.4,align:'center'});
 choice(d,s,'id_type','Type of ID','نوع الهوية',[o('national','National ID','هوية وطنية',[337.9,246.6,11.5,13.6]),o('passport','Passport','جواز سفر',[181.4,245.8,11.5,13.6]),o('residence','Residence ID','هوية مقيم',[338.1,265.4,11.5,13.6]),o('family','Family registration','بطاقة عائلية',[181,264,11.5,13.6]),o('other','Other','أخرى',[338.1,282.8,11.5,13.6])]);
-text(d,s,'id_other','Other ID type','نوع الهوية الآخر',[263,283,30,13],{fontSize:7});
+text(d,s,'id_other','Other ID type','نوع الهوية الآخر',[262,280,34,20],{fontSize:7,minFontSize:5.5,padding:.5,multiline:true,rows:2,wide:false});
 text(d,s,'id_number','ID number','رقم الهوية',[63,298,178,18]);
 text(d,s,'id_expiry','ID expiry date','تاريخ انتهاء الهوية',[63,321,178,20],{type:'date',dateParts:[[57,325.03,48.75,13.7],[118.85,324.88,48.75,13.7],[182.1,324.88,48.75,13.7]],dateOrder:'ymd',placeholderRects:[[70,328,23,7],[129,328,29,7],[196,328,21,7]]});
 text(d,s,'issue_place','Place of issue','مكان الإصدار',[63,342,178,18]);

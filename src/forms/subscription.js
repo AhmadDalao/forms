@@ -2,6 +2,7 @@ import {document,section,text} from '../schema.js';
 import individualLayout from '../subscription/subscription-individual-layout.json' with {type:'json'};
 import companyLayout from '../subscription/subscription-company-layout.json' with {type:'json'};
 import {appRoot} from '../routes.js';
+import {idOptions,titleOptions} from '../identity-options.js';
 for(const corporate of [false,true]){
  const id=corporate?'subscription-company':'subscription-form',map=corporate?companyLayout:individualLayout;
  const d=document(id,'Subscription Application for Al Naeem Real Estate Fund ('+(corporate?'Company':'Individual')+')','طلب الإشتراك في صندوق النعيم العقاري '+(corporate?'(للشركات)':'(للأفراد)'),corporate?'corporate':'individual','Customer details and fund subscription.','بيانات العميل والاشتراك في الصندوق.',2,[2]);
@@ -10,7 +11,7 @@ for(const corporate of [false,true]){
  let s=section(d,'client','Customer details','تفاصيل العميل',1);
  const field=(id,en,ar,config={})=>text(d,s,id,en,ar,map[id]?.rect||null,{...map[id],fontSize:11,minFontSize:7,padding:2,direction:'auto',...config});
  field('client_account','Client / Account No. (fund manager use)','رقم العميل / الحساب (لاستخدام مدير الصندوق)',{optional:true,sharedKey:'account_number'});
- field('title','Title (optional)','الصفة (اختياري)',corporate?{optional:true}:{type:'select',optional:true,sharedKey:'title',selectOptions:[['mr','Mr.','السيد'],['mrs','Mrs.','السيدة'],['miss','Miss','الآنسة']]});
+ field('title','Title (optional)','الصفة (اختياري)',corporate?{optional:true}:{type:'select',optional:true,sharedKey:'title',selectOptions:titleOptions});
  field('title_label','','',{hidden:true});
  if(corporate){
   field('company_name','Full legal company name','الاسم القانوني الكامل للشركة',{required:true,sharedKey:'company_name',wide:true});
@@ -24,10 +25,10 @@ for(const corporate of [false,true]){
   for(const [id,en,ar,optional] of [['first_name','First name','الاسم الأول',false],['second_name','Second name','الاسم الثاني',false],['third_name','Third name (optional)','الاسم الثالث (اختياري)',true],['family_name','Family name','اسم العائلة',false]])field(id,en,ar,{required:!optional,optional,namePart:true});
   field('full_name','','',{hidden:true});
   field('nationality','Nationality','الجنسية',{required:true,sharedKey:'nationality'});
-  field('id_type','ID type','نوع الهوية',{type:'select',required:true,sharedKey:'id_type',selectOptions:[['national','National ID','هوية وطنية'],['residence','Residence ID','هوية مقيم'],['passport','Passport','جواز سفر'],['family','Family ID','بطاقة عائلية'],['other','Other','أخرى']]});
+  field('id_type','ID type','نوع الهوية',{type:'select',required:true,sharedKey:'id_type',selectOptions:idOptions});
   field('id_type_label','','',{hidden:true});
   field('id_number','ID number','رقم الهوية',{required:true,sharedKey:'id_number',dependsOn:'id_type',when:['national','residence','passport','family','other']});
-  field('id_other','Specify the identity document','بيان نوع الهوية الأخرى',{required:true,dependsOn:'id_type',when:['other']});
+  field('id_other','Specify the identity document','بيان نوع الهوية الأخرى',{required:true,sharedKey:'id_other',dependsOn:'id_type',when:['other']});
  }
  field('english_name',corporate?'Company name in English (if different)':'Full name in English (if different)',corporate?'اسم الشركة بالإنجليزية (إن اختلف)':'الاسم الكامل بالإنجليزية (إن اختلف)',{optional:true,wide:true,direction:'ltr'});
  field('phone','Telephone (optional)','الهاتف (اختياري)',{type:'tel',direction:'ltr',optional:true,sharedKey:'phone'});
