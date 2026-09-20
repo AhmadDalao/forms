@@ -344,7 +344,11 @@ try {
         $profile=submissionProfileSnapshot($doc,$audience,$meta['profile']??[],$source);
         $profile['review_required']=$workflow['review_enabled'];
         if($source==='upload')$profile['signed_confirmed']=($meta['signedConfirmed']??false)===true;
-        $email=$profile['email']??($answers['email']??'');if($email!==''&&!filter_var($email,FILTER_VALIDATE_EMAIL))reject('email_invalid');
+        // cleanAnswers validates this document's email fields. Shared autosave
+        // may contain unfinished answers from other forms; retain that snapshot
+        // without blocking this save or promoting an invalid account email.
+        $email=$answers['email']??($profile['email']??'');
+        if(!filter_var($email,FILTER_VALIDATE_EMAIL))$email='';
         $f=submittedPdf();
         $result=saveVersion(['workflow_revision'=>$workflow['revision'],'user_id'=>$u['id'],'doc_id'=>$doc['id'],'title'=>$doc['title'],'ar'=>$doc['ar'],'audience'=>$audience,'answers'=>json_encode($answers,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'profile'=>json_encode($profile,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'request_key'=>$key,'source'=>$source,'signatures'=>json_encode((object)$signatures,JSON_THROW_ON_ERROR),'edited_from'=>$editedFrom],$f['tmp_name'],$expected,null,true);
         if($email!==''&&$u['email']==='')execute('UPDATE users SET email=? WHERE id=?',[$email,$u['id']]);
