@@ -16,4 +16,10 @@ The live cold automated-browser baseline also observed a Hostinger challenge tak
 
 Validation: production build and 194 unit tests passed. Focused browser workflows cover individual/company forms in English and Arabic, generated PDF previews/downloads/saves, saved-account PDF previews, uploaded-PDF signing, and management native-widget import/sample generation. Initial My applications visits make one session request.
 
-Evidence is private and excluded from deployment: `tmp/performance-before/report.json`, `tmp/performance-after-local/report.json`, and `tmp/performance-unit.log`.
+The final focused audit passed 9 workflow groups across 14 initial page loads with no PDF-engine/worker requests. It awaited complete saved-PDF rendering and reported zero runtime or console errors. Six My applications visits each made one session request. Evidence: `tmp/workflow-toggle-1789921949631-482c81/lazy-pdf-smoke-report.json`.
+
+Production release `b484f92` was deployed with backups and without backend/private-data changes. Live byte-count reductions matched the table above. In single cold samples, application-ready time after the final Hostinger navigation decreased from 1,240 to 733 ms (English login) and 1,244 to 815 ms (Arabic login). These are illustrative single samples, not a repeatable timing guarantee. The live original/generated PDF previews rendered successfully with engines/worker fetched on demand; no JavaScript errors occurred.
+
+The Hostinger challenge remains independent of the application fix: the management sample waited approximately 31 seconds before its final document navigation, then the application became ready in 1,143 ms. It had no missing assets or JavaScript errors. No hosting security configuration was changed. Live measurement used isolated anonymous contexts and management template preview only, with no client-data access or submissions.
+
+Evidence is private and excluded from deployment: `tmp/performance-before/report.json`, `tmp/performance-after-local/report.json`, `tmp/performance-after/report.json`, and `tmp/performance-unit.log`.
