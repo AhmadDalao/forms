@@ -12,3 +12,5 @@ Validation:
 - Repeat the focused audit after building with `node scripts/form-save-email-repro.mjs`. It uses synthetic accounts and isolated local storage.
 
 The reported symptom did not specify an error or document. This corrects a reproduced blocker; it does not establish that every possible save failure shares this cause.
+
+Production: source `2bace78` deployed successfully. Only `api/portal.php` changed; its previous version was backed up under `tmp/deployment-backups/20260920T161922Z`. All 79 public build files were verified over FTPS and private storage was preserved. Live English/Arabic login, session JSON, anonymous-save rejection and protected form/PDF routes passed (`tmp/save-email-live/report.json`). Live checks did not access or change client records; actual saving and archive checks ran against the isolated fixture described above.

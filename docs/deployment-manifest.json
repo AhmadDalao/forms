@@ -1,9 +1,9 @@
 {
-  "uploaded_at_utc": "20260920T153525Z",
+  "uploaded_at_utc": "20260920T161922Z",
   "url": "https://forms.ahmaddalao.com/",
-  "source_commit": "3722e575a28f126d0bcaf2e39093f8c3b6ef3b6d",
+  "source_commit": "2bace7883ce99d68dd5a8a5364a712fa537f738e",
   "transport": "Explicit FTPS with verified Hostinger certificate",
-  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260920T153525Z",
+  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260920T161922Z",
   "files": [
     {
       "path": "index.html",
@@ -102,8 +102,8 @@
     },
     {
       "path": "api/portal.php",
-      "bytes": 34285,
-      "sha256": "2cd90a2ab6b4ae78c8bbd6452ebaf7d8046cdff0c0602a28bbebdc239dac661c"
+      "bytes": 34505,
+      "sha256": "a64c56406f073574bf99bc83cd830018d411f15c5da9fc9ee15fdc8067a373da"
     },
     {
       "path": "api/form-access.php",
@@ -401,26 +401,9 @@
       "sha256": "7d9951843cf9db7a24c22c87872cc32570413012133c702d18018bcb8f2378b7"
     }
   ],
-  "created": [
-    "assets/access-C2Md0YA4.js",
-    "assets/access-CFLi-D3T.js",
-    "assets/api-MUmATFP9.js",
-    "assets/index-xSc7zqfE.js",
-    "assets/main-4C_JjagL.js",
-    "assets/main-DxSKircE.js",
-    "assets/main-iYs6xxT5.js",
-    "assets/preview-D9ETRIag.js",
-    "assets/shared-fields-B_jgbntG.js"
-  ],
+  "created": [],
   "replaced": [
-    "account/index.html",
-    "companies/index.html",
-    "individuals/index.html",
-    "login/index.html",
-    "management/index.html",
-    "my-applications/index.html",
-    "register/index.html",
-    "index.html"
+    "api/portal.php"
   ],
   "unchanged": [
     "_private/.htaccess",
@@ -441,10 +424,12 @@
     "api/portal-reviews.php",
     "api/portal-shared.php",
     "api/portal-versions.php",
-    "api/portal.php",
     "api/session-scope.php",
     "api/subscription/calculate.php",
     "api/subscription/rules.json",
+    "assets/access-C2Md0YA4.js",
+    "assets/access-CFLi-D3T.js",
+    "assets/api-MUmATFP9.js",
     "assets/arabic-600-DfnZHZ36.css",
     "assets/catalogue-C-ww6a4j.js",
     "assets/catalogue-CR_2rN1N.js",
@@ -452,6 +437,7 @@
     "assets/catalogue-DlpGEFii.js",
     "assets/forms-BYcw9uKH.js",
     "assets/forms-Bp-YSMBP.js",
+    "assets/index-xSc7zqfE.js",
     "assets/inter-latin-400-normal-C38fXH4l.woff2",
     "assets/inter-latin-400-normal-CyCys3Eg.woff",
     "assets/inter-latin-500-normal-BL9OpVg8.woff",
@@ -459,9 +445,12 @@
     "assets/inter-latin-600-normal-CiBQ2DWP.woff",
     "assets/inter-latin-600-normal-LgqL8muc.woff2",
     "assets/latin-400-CkJXGLVG.css",
+    "assets/main-4C_JjagL.js",
     "assets/main-B6BOlInu.css",
     "assets/main-B6QphwVU.css",
     "assets/main-DwsM0G01.css",
+    "assets/main-DxSKircE.js",
+    "assets/main-iYs6xxT5.js",
     "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
     "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
     "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
@@ -470,8 +459,10 @@
     "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff",
     "assets/pdf.worker.min-Dswkl-cV.mjs",
     "assets/preload-helper-uBIymjUX.js",
+    "assets/preview-D9ETRIag.js",
     "assets/preview-DIAMOlgv.css",
     "assets/routes-VETtnQjc.js",
+    "assets/shared-fields-B_jgbntG.js",
     "assets/shared-fields-Dh8w9AEg.css",
     "branding/itqan.png",
     "favicon.svg",
@@ -484,14 +475,15 @@
     "pdfs/subscription-company.pdf",
     "pdfs/subscription-form.pdf",
     "pdfs/subscription-individual.pdf",
-    "pdfs/terms-and-conditions.pdf"
+    "pdfs/terms-and-conditions.pdf",
+    "account/index.html",
+    "companies/index.html",
+    "individuals/index.html",
+    "login/index.html",
+    "management/index.html",
+    "my-applications/index.html",
+    "register/index.html",
+    "index.html"
   ],
-  "static_only": true,
-  "baseline": {
-    "uploaded_at_utc": "20260920T151938Z",
-    "source_commit": "bc99c8ea65aa90972301cb656b87887e54f40b21",
-    "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260920T151938Z"
-  },
-  "verification": "Changed static files verified over FTPS; unchanged build files retained from the recorded release.",
   "completed": true
 }
