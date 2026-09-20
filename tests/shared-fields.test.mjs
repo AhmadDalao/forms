@@ -36,7 +36,7 @@ test('Other IDs reveal a custom field, persist across forms, and clear when thei
  assert.equal(reopened.get('fatca-crs-individual').values.title,'other');
  reopened.setShared({...reopened.profile,id_type:'passport',title:'eng'});
  assert.equal(reopened.profile.id_other,undefined);
- assert.equal(reopened.get('kyc-individual').values.id_other,undefined);
+ assert.ok(!reopened.get('kyc-individual').values.id_other);
  assert.equal(reopened.get('signature-form').values.id_type,'Passport');
  assert.equal(reopened.get('subscription-form').values.title,'eng');
  assert.equal(make(disk,'corporate').profile.id_other,undefined);
@@ -84,17 +84,19 @@ test('individual/company shared documents, preferences, signatures and clear-all
  i.clearAll();assert.equal(make(disk,'individual').has('signature-form'),false);assert.equal(make(disk,'corporate').get('signature-form').values.client_name,'Example Company');
  i.setShared({en_first:'New client'});assert.equal(i.get('signature-form').values.client_name,'New client');
 });
-test('shared updates propagate while manual overrides and deliberately blank fields survive reload',()=>{
+test('shared updates propagate and explicit common blanks persist until the next common edit',()=>{
  const disk=storage(),d=make(disk,'individual');d.setShared(person);
- d.save('signature-form',{...d.get('signature-form').values,client_name:'Different Client'},0,{},'client_name');
+ d.save('signature-form',{...d.get('signature-form').values,client_name_first:'Different'},0,{},'client_name_first');
  d.save('kyc-individual',{...d.get('kyc-individual').values,phone:''},0,{},'phone');
+ assert.equal(d.profile.en_first,'Different');assert.equal(d.profile.phone,'');
+ assert.ok(!make(disk,'individual').get('subscription-form').values.phone);
  d.setShared({...person,en_first:'Omar',phone:'9988'});
- assert.equal(d.get('signature-form').values.client_name,'Different Client');assert.equal(d.get('kyc-individual').values.phone,'');assert.equal(d.get('terms-and-conditions').values.terms_name_0,'Omar Ali Dalao');
- const reopened=make(disk,'individual');assert.equal(reopened.get('signature-form').values.client_name,'Different Client');assert.equal(reopened.get('kyc-individual').values.phone,undefined);
+ assert.equal(d.get('signature-form').values.client_name,'Omar Ali Dalao');assert.equal(d.get('kyc-individual').values.phone,'9988');assert.equal(d.get('terms-and-conditions').values.terms_name_0,'Omar Ali Dalao');
+ const reopened=make(disk,'individual');assert.equal(reopened.get('signature-form').values.client_name,'Omar Ali Dalao');assert.equal(reopened.get('kyc-individual').values.phone,'9988');
  reopened.useShared('signature-form','client_name');assert.equal(reopened.get('signature-form').values.client_name,'Omar Ali Dalao');
  reopened.clear('terms-and-conditions');assert.equal(make(disk,'individual').get('terms-and-conditions').values.terms_name_0,undefined);
  reopened.fillSharedBlanks('terms-and-conditions');assert.equal(reopened.get('terms-and-conditions').values.terms_name_0,'Omar Ali Dalao');
- reopened.setShared({});assert.equal(reopened.get('terms-and-conditions').values.terms_name_0,undefined);assert.equal(reopened.get('signature-form').values.client_name,undefined);
+ reopened.setShared({});assert.ok(!reopened.get('terms-and-conditions').values.terms_name_0);assert.ok(!reopened.get('signature-form').values.client_name);
 });
 test('switching signatory role removes only auto-copied personal details',()=>{
  const d=make(storage(),'individual');d.setShared(person);

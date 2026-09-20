@@ -7,6 +7,7 @@ header('Content-Type: application/json; charset=utf-8');
 const MAX_PDF = 20971520;
 require_once __DIR__.'/management-auth.php';
 require_once __DIR__.'/session-scope.php';
+require_once __DIR__.'/form-access.php';
 $dataDir = getenv('FORMS_DATA_DIR') ?: __DIR__ . '/../_private/management';
 function respond(array $value, int $code = 200): never { http_response_code($code); echo json_encode($value, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR); exit; }
 function fail(string $message, int $code = 400): never { respond(['error'=>$message],$code); }
@@ -103,19 +104,29 @@ function publishable(array $d): void {
 }
 try {
     $action=$_GET['action']??'session';
-    if($action==='catalogue'){respond(locked(fn($s)=>$s['published']));}
+    if(in_array($action,['catalogue','document'],true)){
+        $reader=requireFormAccess();
+        if($action==='catalogue'){
+            $catalogue=locked(fn($s)=>$s['published']);
+            if($reader['role']==='client'){
+                $catalogue['documents']=array_values(array_filter($catalogue['documents'],fn($d)=>formDocumentAllowed($reader,$d)));
+                $ids=array_column($catalogue['documents'],'id');
+                $catalogue['orders']=[$reader['account_type']=>array_values(array_intersect($catalogue['orders'][$reader['account_type']]??[],$ids))];
+            }
+            respond($catalogue);
+        }
+        $id=$_GET['id']??'';if(!is_string($id)||!preg_match('/^upload_[a-f0-9]{24}$/D',$id))fail('Document not found.',404);
+        $document=locked(function($s)use($id,$reader){foreach($reader['role']==='superadmin'?['draft','published']:['published'] as $version)foreach($s[$version]['documents'] as $d)if($d['id']===$id)return $d;return null;});
+        if(!$document)fail('Document not found.',404);
+        if(!formDocumentAllowed($reader,$document))formAccessError('account_type_restricted',403);
+        $path=$dataDir.'/uploads/'.$id.'.pdf';if(!is_file($path))fail('Document not found.',404);
+        header('Cache-Control: private, no-store');header('Content-Type: application/pdf');header('Content-Disposition: attachment; filename="'.$id.'.pdf"');header('Content-Length: '.filesize($path));readfile($path);exit;
+    }
     $https=(!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off');
     $scope=sessionScope('itqan_management');session_name($scope['name']);session_set_cookie_params(['lifetime'=>0,'path'=>$scope['path'],'secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);ini_set('session.use_strict_mode','1');session_start();
     $_SESSION['csrf']??=bin2hex(random_bytes(24));
     $accounts=managementAccounts($dataDir);$configured=count($accounts)>0;
     if($action==='session')respond(sessionResponse());
-    if($action==='document'){
-        $id=$_GET['id']??'';if(!preg_match('/^upload_[a-f0-9]{24}$/',$id))fail('Document not found.',404);
-        $document=locked(function($s)use($id){global $dataDir;foreach(managementCanManageDocuments($dataDir)?['draft','published']:['published'] as $version)foreach($s[$version]['documents'] as $d)if($d['id']===$id)return $d;return null;});
-        if(!$document)fail('Document not found.',404);
-        $path=$dataDir.'/uploads/'.$id.'.pdf';if(!is_file($path))fail('Document not found.',404);
-        header('Content-Type: application/pdf');header('Content-Disposition: attachment; filename="'.$id.'.pdf"');header('Content-Length: '.filesize($path));session_write_close();readfile($path);exit;
-    }
     if(($_SERVER['REQUEST_METHOD']??'GET')==='POST')csrf();
     if($action==='login'){
         if($_SERVER['REQUEST_METHOD']!=='POST')fail('POST required.',405);if(!$configured)fail('Management has not been configured.',503);

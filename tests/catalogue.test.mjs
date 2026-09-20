@@ -22,6 +22,6 @@ test('subscription shares only matching audience details; entity IDs and other p
  assert.equal(i.first_name,'أحمد');assert.equal(i.family_name,'علي');assert.equal(i.client_account,'000123');assert.equal(i.id_number,'001234');assert.equal(i.id_type,'national');assert.equal(i.phone,'+966551234567');
  assert.equal(c.company_name,'شركة النور');assert.equal(c.auth_name,'فهد');assert.equal(c.id_number,undefined);assert.equal(c.company_id_number,undefined);assert.equal(c.phone,'920001111');
  assert.equal(i.fund_name,undefined);assert.equal(i.signature_verified,undefined);assert.equal(i.staff_manager,undefined);
- individual.save('subscription-form',{...i,phone:'MANUAL'},0,{},'phone');individual.setShared({phone:'SHARED'});assert.equal(individual.get('subscription-form').values.phone,'MANUAL');
+ individual.save('subscription-form',{...i,phone:'MANUAL'},0,{},'phone');assert.equal(individual.profile.phone,'MANUAL');individual.setShared({phone:'SHARED'});assert.equal(individual.get('subscription-form').values.phone,'SHARED');
  individual.clearAll();assert.equal(corporate.get('subscription-company').values.phone,'920001111');
 });

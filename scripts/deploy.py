@@ -144,13 +144,16 @@ try:
         upload('_private/management/' + name, data, private=True)
     for name, data in super_bootstrap.items():
         upload('_private/management/' + name, data, private=True)
+    # Install the authenticated document/page gateway before activating rewrites.
+    for name in ['api/form-access.php', 'api/page.php', 'api/template.php']:
+        upload(name, files[name])
     upload('.htaccess', files['.htaccess'])
     # Existing API entrypoints may still be serving requests during this upload.
     # Publish the workflow dependency before the version/review helpers use it.
     upload('api/portal-workflow.php', files['api/portal-workflow.php'])
     # Immutable assets and PHP dependencies precede the new HTML entrypoints.
     for name, data in sorted(files.items(), key=lambda item: (item[0].endswith('.html'), item[0] == 'index.html', item[0])):
-        if name in ['_private/.htaccess', '.htaccess', 'api/portal-workflow.php']:
+        if name in ['_private/.htaccess', '.htaccess', 'api/portal-workflow.php', 'api/form-access.php', 'api/page.php', 'api/template.php']:
             continue
         upload(name, data)
     for name, data in files.items():

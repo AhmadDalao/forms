@@ -1,5 +1,15 @@
 DirectoryIndex index.html default.php
 Options -Indexes
+RewriteEngine On
+# Retired public previews must use the protected live entrypoints too.
+RewriteRule ^preview-20260919(?:/(.*))?$ https://forms.ahmaddalao.com/$1 [R=302,END,NE]
+# Gate both directory URLs and explicit index files before Apache serves them.
+RewriteRule ^(?:index\.html)?$ api/page.php [END,QSA]
+RewriteRule ^(individuals|companies)(?:/index\.html|/)?$ api/page.php?route=$1 [END,QSA]
+RewriteRule ^pdfs/([a-z][a-z0-9-]+)\.pdf$ api/template.php?id=$1 [END,QSA]
+RewriteRule ^pdfs/ - [F,END]
+# Schema/default files are server dependencies, not public document APIs.
+RewriteRule ^api/(?:defaults|portal-defaults|client-profile-defaults)\.json$ - [F,END]
 <FilesMatch "^(?:\.env.*|\.user\.ini)$|\.(?:sqlite|sqlite3|db|log|bak)$">
   Require all denied
 </FilesMatch>

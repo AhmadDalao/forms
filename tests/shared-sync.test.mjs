@@ -30,7 +30,7 @@ test('stale disjoint edits merge while same-field conflicts require an explicit 
 });
 test('offline edits remain queued across reopening and blanks/clear survive new devices',async()=>{
  const h=harness({remote:{en_first:'Name',email:'old@example.com'},revision:1});await h.sync.start();h.offline=true;h.edit({email:'',en_first:'New'});await h.sync.flush();assert.equal(h.sync.state.status,'offline');h.sync.dispose();
- const reopened=harness({remote:h.server.profile,revision:1,local:h.profile,storage:h.storage});await reopened.sync.start();await reopened.sync.flush();assert.equal(reopened.server.profile.en_first,'New');assert.equal(reopened.server.profile.email,undefined);reopened.replace({});await reopened.sync.flush();assert.deepEqual(reopened.server.profile,{});assert.ok(reopened.server.revision>1);reopened.sync.dispose();
+ const reopened=harness({remote:h.server.profile,revision:1,local:h.profile,storage:h.storage});await reopened.sync.start();await reopened.sync.flush();assert.equal(reopened.server.profile.en_first,'New');assert.equal(reopened.server.profile.email,'');reopened.replace({});await reopened.sync.flush();assert.deepEqual(reopened.server.profile,{});assert.ok(reopened.server.revision>1);reopened.sync.dispose();
 });
 test('clearing an unsaved initial profile records an empty cloud tombstone',async()=>{
  const h=harness({local:{en_first:'Imported'}});await h.sync.start();h.replace({});await h.sync.flush();assert.equal(h.server.revision,1);assert.deepEqual(h.server.profile,{});h.sync.dispose();

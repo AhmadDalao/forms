@@ -8,7 +8,7 @@ import {spawn,spawnSync} from 'node:child_process';
 import {randomBytes,randomUUID,createHash} from 'node:crypto';
 
 export const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
-export async function fixture(){
+export async function fixture({protectedRoutes=false}={}){
  const out=path.resolve('tmp/workflow-toggle-'+Date.now()+'-'+randomBytes(3).toString('hex'));
  await fs.mkdir(out+'/sessions',{recursive:true,mode:0o700});
  await fs.cp('dist',out+'/site',{recursive:true});
@@ -22,9 +22,11 @@ export async function fixture(){
   assert.equal(result.status,0,result.stderr);
  }
  const nonce=randomBytes(16).toString('hex');
+ const protectedRouter=path.resolve('scripts/protected-router.php').replaceAll("'","\\'");
  await fs.writeFile(out+'/router.php',`<?php
  $path=parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH);
  if($path==='/qa-health-${nonce}'){header('Content-Type: application/json');echo json_encode(['nonce'=>'${nonce}']);return;}
+ ${protectedRoutes?`$root=realpath(__DIR__.'/site');return require '${protectedRouter}';`:''}
  if(preg_match('~(?:^|/)[._]~',rawurldecode($path))){http_response_code(404);exit;}
  $root=realpath(__DIR__.'/site');$target=realpath($root.$path);
  if($target===false||($target!==$root&&!str_starts_with($target,$root.'/'))){http_response_code(404);exit;}

@@ -112,7 +112,7 @@ test('restored English names reuse the matching profile and keep deliberate corr
  const store=createDraftStore(docs,storage,'individual');store.setShared({en_first:'Ahmad',en_second:'Mohammed',en_last:'Ali',ar_first:'أحمد',ar_second:'محمد',ar_last:'علي',name_language:'ar',title:'mr'});
  assert.equal(store.get(individual.id).values.english_name,'Ahmad Mohammed Ali');assert.equal(store.get(individual.id).values.title,'mr');
  store.save(individual.id,{...store.get(individual.id).values,english_name:'Ahmed M Ali'},0,{},'english_name');store.setShared({...store.profile,en_first:'New spelling'});
- assert.equal(store.get(individual.id).values.english_name,'Ahmed M Ali');
+ assert.equal(store.get(individual.id).values.english_name,'New spelling M Ali');
  assert.equal(sharedCandidates(company,store.profile,{},'individual').english_name,undefined);
 });
 test('legacy translated name and P.O. Box survive subscription template migration',()=>{

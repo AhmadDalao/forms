@@ -79,6 +79,8 @@
 .shared-fields-panel>summary [data-shared-save-status]{font-size:11px;color:var(--purple)}
 .shared-sync-notice{margin:-14px 0 28px;padding:16px 20px;border:1px solid #dccca9;border-radius:10px;background:#fffaf1;color:#6b532e;font-size:13px;line-height:1.8}
 .shared-sync-notice p{margin:0 0 12px}.shared-sync-notice>div{display:flex;flex-wrap:wrap;gap:10px}.shared-sync-notice .button{font-size:12px;white-space:normal;text-align:center}
+.shared-save-summary{max-width:1440px;margin:24px auto 0;padding:0 28px;color:var(--muted);text-align:center;line-height:1.7}
+.shared-save-summary+.shared-sync-notice{max-width:900px;margin:16px auto 24px}
 .shared-address-option{display:flex!important;align-items:flex-start;gap:10px!important;font-size:13px!important}
 .shared-address-option input{margin-top:4px;accent-color:#1456a0;flex-shrink:0}
 .shared-hint{display:block;margin-top:5px;font-size:11px;color:#6b577b;line-height:1.6}

@@ -6,7 +6,7 @@ import { hasValue } from './schema.js';
 import { defaultDates } from './dates.js';
 import {countryFields,defaultCountries,sharedCountryIds,saudiCountry} from './countries.js';
 import { cleanSignatures, cleanSignatureModes, signatureSlots, requiredSignatureSlots } from './signatures.js';
-import { cleanShared, reconcileShared, sharedCandidates } from './shared-fields.js';
+import { cleanShared, reconcileShared, sharedCandidates, sharedEdit } from './shared-fields.js';
 
 export const DRAFT_PREFIX = draftStoragePrefix;
 
@@ -91,7 +91,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
           if(write(doc.id,record))write(doc.id,null,DRAFT_PREFIX);
         }else if(old&&doc.group==='shared')legacy.set(doc.id,clean(doc,old));
       }
-      memory.set(doc.id,reconcileShared(doc,clean(doc,record),profile,audience));
+      memory.set(doc.id,reconcileShared(doc,clean(doc,record),profile,audience,{preserveMissing:preserveShared}));
     }
     const saved=read('preferences')||(scoped&&!accountId?read('preferences',DRAFT_PREFIX):null);
     preferences={lang:['en','ar'].includes(saved?.lang)?saved.lang:null,active:documents.some(d=>d.id===saved?.active)?saved.active:null};
@@ -142,10 +142,30 @@ export function createDraftStore(documents, getStorage = () => window.localStora
         }
       }
       values=normalizePersonNames(doc,values,{audience:audience||doc.group});
+      let sharedSaved=true,sharedChanges=[];
+      if(scoped){
+        const patch=sharedEdit(doc,values,profile,audience,editedField,{seedMissing:prefix===basePrefix&&!old.revision});
+        if(Object.keys(patch).length){
+          sharedChanges=Object.keys(patch);
+          if(prefix!==basePrefix){
+            // Only a deliberate field edit updates live customer details. The
+            // historical revision stays frozen to its own answers; apply the
+            // edit to ordinary drafts through their separate storage scope.
+            const normal=createDraftStore(documents,getStorage,audience,accountId);
+            sharedSaved=normal.setShared({...normal.profile,...patch},{editedKeys:sharedChanges});
+            profile=normal.profile;
+          }else{
+            profile=cleanShared(audience,{...profile,...patch});
+            sharedSaved=write('shared-fields',profile,basePrefix);
+            for(const other of documents)if(other.id!==id&&!persist(other,reconcileShared(other,this.get(other.id),profile,audience,{changed:sharedChanges})))sharedSaved=false;
+          }
+        }
+      }
       const images=cleanSignatures(doc,signatures),signatureModes=cleanSignatureModes(doc,old.signatureModes,images);
       for(const [slot,mode] of Object.entries(signatureModes))if(mode==='manual')delete images[slot];
-      const next=reconcileShared(doc,{...old,values:{...values},signatures:images,signatureModes,step,overrides},profile,audience);
-      return persist(doc,countryLanguage?defaultCountries(doc,next,countryLanguage):next);
+      const next=reconcileShared(doc,{...old,values:{...values},signatures:images,signatureModes,step,overrides},profile,audience,{changed:sharedChanges});
+      const saved=persist(doc,countryLanguage?defaultCountries(doc,next,countryLanguage):next);
+      return saved&&sharedSaved;
     },
     setSignatureMode(id,slot,mode){
       const doc=documents.find(d=>d.id===id);
@@ -174,11 +194,13 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       // A completed edit must not replace the original when opened from history again.
       write(id,null);
     },
-    setShared(next){
+    setShared(next,{editedKeys=[]}={}){
       if(!scoped)return false;
-      profile=cleanShared(audience,next);
+      const cleaned=cleanShared(audience,next),keys=new Set([...Object.keys(profile),...Object.keys(cleaned),...editedKeys]);
+      const changed=[...keys].filter(key=>editedKeys.includes(key)||profile[key]!==cleaned[key]);
+      profile=cleaned;
       let ok=write('shared-fields',profile,basePrefix);
-      for(const doc of documents)if(!persist(doc,reconcileShared(doc,this.get(doc.id),profile,audience)))ok=false;
+      for(const doc of documents)if(!persist(doc,reconcileShared(doc,this.get(doc.id),profile,audience,{changed})))ok=false;
       return ok;
     },
     useShared(id,field){

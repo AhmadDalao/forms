@@ -18,10 +18,8 @@ import {loadCatalogue} from './management/catalogue.js';
 const {docs, cards:managedCards}=await loadCatalogue(builtInDocs);
 import {catalogueFor} from './catalogue.js';
 import {hasValue} from './schema.js';
-import {countryFields} from './countries.js';
 import {appRoot,audience,visibleIn} from './routes.js';
 import {createDraftStore,DRAFT_PREFIX} from './drafts.js';
-import {sharedGroups,sharedCandidates,sharedFieldVisible} from './shared-fields.js';
 import {createSharedSync} from './shared-sync.js';
 import {personNameFieldVisible,personNameGroups} from './person-names.js';
 import {parseNumber} from './numbers.js';
@@ -29,7 +27,7 @@ import {signatureSlots,sectionSignatureSlots,prepareSignature,submissionSigningS
 import {generate,original,loadPreview,renderPage,templateUrl,fieldValue} from './pdf.js';
 
 const app=document.querySelector('#app');
-const pageParams=new URLSearchParams(location.search),revisionId=pageParams.get('submission'),openSharedOnLoad=pageParams.get('shared')==='1';
+const pageParams=new URLSearchParams(location.search),revisionId=pageParams.get('submission');
 const drafts=createDraftStore(docs,undefined,audience,client.user?.id,revisionId);
 let sharedReady=false;
 const sharedSync=client.user&&audience?createSharedSync({account:client.user.id,audience,drafts,api:(action,body,options={})=>portalApi(action,body,{...options,token:client.csrf}),onChange:()=>{if(sharedReady)sharedProfileChanged();},onStatus:()=>{if(sharedReady)sharedStatus();}}):null;
@@ -40,7 +38,6 @@ if(initializeShared&&client.user&&audience==='individual'&&Object.keys(drafts.pr
  drafts.setShared({...drafts.profile,[language+'_first']:first,[language+'_second']:second,[language+'_third']:third,[language+'_last']:last,name_language:language,mobile:client.user.phone,...(client.user.email?{email:client.user.email}:{})});
 }
 let stopHeaderNotifications=()=>{};
-let sharedPanelOpen=openSharedOnLoad;
 let subscriptionEditor=null;
 let manualGuideShown=false;
 const signingState=()=>submissionSigningState(current,values,signatures,drafts.get(current.id).signatureModes);
@@ -60,32 +57,13 @@ function bilingual(en,ar,inline=false){
  if(lang==='ar'&&bits.length===2)bits.reverse();
  return `<span class="bilingual ${inline?'inline':''}">${bits.join(inline?'<span class="language-divider" aria-hidden="true"> / </span>':'')}</span>`;
 }
-function sharedControlHTML(f,profile){
- const v=profile[f.id]??(f.id==='name_language'?'en':'');
- if(f.type==='checkbox')return `<div class="field wide"><label class="shared-address-option"><input id="shared-${f.id}" data-shared-key="${f.id}" type="checkbox" ${v?'checked':''}><span>${e(t(f.label,f.ar))}</span></label></div>`;
- const control=f.type==='select'?`<select id="shared-${f.id}" data-shared-key="${f.id}"><option value="">${t('Select…','اختر…')}</option>${f.options.map(([id,en,ar])=>`<option value="${id}" ${id===v?'selected':''}>${e(t(en,ar))}</option>`).join('')}</select>`:`<input id="shared-${f.id}" data-shared-key="${f.id}" type="${f.type}" value="${e(v)}" dir="${f.id.startsWith('ar_')?'rtl':f.id.startsWith('en_')||['date','email','tel'].includes(f.type)?'ltr':'auto'}" autocomplete="off" spellcheck="false" maxlength="2000">`;
- return `<div class="field ${f.id==='name_language'?'wide':''}"><label for="shared-${f.id}">${e(t(f.label,f.ar))}</label>${control}</div>`;
-}
-function sharedGroupHTML(group,profile){
- const fields=group.fields.filter(f=>!f.hidden&&sharedFieldVisible(f,profile)),nameIds=['auth_first','auth_second','auth_third','auth_last'];
- const names=fields.filter(f=>nameIds.includes(f.id)),rest=fields.filter(f=>!nameIds.includes(f.id)),target=group.fields.find(f=>f.id==='auth_name');
- const nameRow=names.length?`<fieldset class="field" data-shared-person-name="auth_name"><legend>${e(t(target?.label||group.label,target?.ar||group.ar))}</legend><div class="field-grid shared-name-grid">${names.map(f=>sharedControlHTML(f,profile)).join('')}</div></fieldset>`:'';
- return `<section class="paper-group"><h3>${e(t(group.label,group.ar))}</h3>${nameRow}<div class="field-grid ${rest.some(f=>f.id==='en_first')?'shared-name-grid':''}">${rest.map(f=>sharedControlHTML(f,profile)).join('')}</div></section>`;
-}
-function sharedHTML(){
- if(!audience)return '';
- const profile=drafts.profile,folder=t(audience==='individual'?'Individuals':'Companies',audience==='individual'?'الأفراد':'الشركات');
- return `<details id="shared-fields-panel" class="shared-fields-panel" ${sharedPanelOpen?'open':''}>
- <summary><span><b>${t('Shared document fields','الحقول المشتركة للمستندات')}</b><small>${t('Fill once, reuse in this folder','عبّئ مرة واحدة واستخدمها في هذا المجلد')} · ${folder}</small><small data-shared-save-status role="status" aria-live="polite">${sharedSaveLabel()}</small></span></summary>
- <div class="shared-fields-content"><p>${t('Matching fields fill automatically in this folder only. Edits inside a form stay specific to that form. Additional clients, witnesses and controlling persons remain separate.','تُعبّأ الحقول المتطابقة تلقائيًا في هذا المجلد فقط. التعديلات داخل النموذج تخص ذلك النموذج وحده. تبقى بيانات العملاء الإضافيين والشهود والأشخاص المسيطرين منفصلة.')}</p>
- <form id="shared-fields-form" novalidate>${sharedGroups(audience).map(group=>sharedGroupHTML(group,profile)).join('')}</form>
- <div class="shared-actions"><span data-shared-save-status>${sharedSaveLabel()}</span>${current?`<button class="button secondary" id="fill-shared-blanks">${t('Fill empty fields in this form','تعبئة الحقول الفارغة في هذا النموذج')}</button>`:''}<button class="ghost" id="clear-shared">${t('Clear shared fields','مسح الحقول المشتركة')}</button></div></div></details><div class="shared-sync-notice" data-shared-sync-actions hidden></div>
- <dialog id="clear-shared-dialog"><h2>${t('Clear shared fields?','مسح الحقول المشتركة؟')}</h2><p>${t('Removes this folder’s shared details and their automatically copied answers. Your individual edits and the other folder are kept.','يحذف بيانات هذا المجلد المشتركة والإجابات المنسوخة منها تلقائيًا. يُحتفظ بتعديلاتك الخاصة بكل نموذج وبالمجلد الآخر.')}</p><div class="dialog-actions"><button class="button secondary" id="keep-shared">${t('Keep details','الاحتفاظ بالبيانات')}</button><button class="button primary" id="confirm-clear-shared">${t('Clear shared fields','مسح الحقول المشتركة')}</button></div></dialog>`;
+function sharedStatusHTML(){
+ return `<div class="shared-save-summary"><small data-shared-save-status role="status" aria-live="polite">${sharedSaveLabel()}</small></div><div class="shared-sync-notice" data-shared-sync-actions hidden></div>`;
 }
 function sharedSaveLabel(){
- if(!sharedSync)return t('Sign in to save shared details to your account','سجّل الدخول لحفظ البيانات المشتركة في حسابك');
+ if(!sharedSync)return saveLabel();
  const status=sharedSync.state.status;
- if(status==='saved')return t('Shared details saved to account','البيانات المشتركة محفوظة في الحساب');
+ if(status==='saved')return drafts.available?t('Matching details saved in this browser and your account','البيانات المتطابقة محفوظة في هذا المتصفح وحسابك'):t('Matching details saved to your account — browser storage unavailable','البيانات المتطابقة محفوظة في حسابك — تخزين المتصفح غير متاح');
  if(status==='loading')return t('Loading shared account details…','جارٍ تحميل بيانات الحساب المشتركة…');
  if(status==='saving')return t('Saving shared details to account…','جارٍ حفظ البيانات المشتركة في الحساب…');
  if(status==='conflict')return t('Shared details changed on another device','تغيّرت البيانات المشتركة على جهاز آخر');
@@ -102,86 +80,41 @@ function sharedStatus(){
  actions.querySelectorAll('[data-shared-resolve]').forEach(button=>button.onclick=()=>sharedSync.resolve(button.dataset.sharedResolve));
 }
 function sharedProfileChanged(){
- if(subscriptionEditor){subscriptionEditor.refresh();return;}
- const controls=[...document.querySelectorAll('[data-shared-key]')],profile=drafts.profile;
- const visible=sharedGroups(audience).flatMap(group=>group.fields).filter(field=>!field.hidden&&sharedFieldVisible(field,profile));
- if(!current&&controls.length&&controls.length===visible.length&&controls.every(input=>visible.some(field=>field.id===input.dataset.sharedKey))){
-  for(const input of controls){const value=profile[input.dataset.sharedKey]??(input.dataset.sharedKey==='name_language'?'en':'');if(input.type==='checkbox')input.checked=Boolean(value);else if(input.value!==String(value))input.value=value;}
-  refreshAfterShared(true);sharedStatus();return;
- }
- refreshAfterShared();
-}
-function refreshAfterShared(typing=false){
- const wasReview=review;
- clearDownload();pdfBytes=null;errors=[];review=false;
- if(wasReview||!typing){generation++;paintVersion++;if(pdf){pdf.loadingTask.destroy();pdf=null;}}
- if(current){values={...drafts.get(current.id).values};signatures={...drafts.get(current.id).signatures};}
- if(!typing){render();if(current)showOriginal();return;}
- // Keep shared inputs mounted: email inputs cannot restore a caret with
- // setSelectionRange, and replacing any active input also interrupts IME/date entry.
+ if(subscriptionEditor){subscriptionEditor.refresh();sharedStatus();return;}
  if(current){
-  if(wasReview){
-   previewVisible=false;
-   document.querySelector('#document-preview').hidden=true;
-   document.querySelector('.editor-layout').classList.remove('with-preview');
-   const toggle=document.querySelector('#toggle-preview');
-   toggle.setAttribute('aria-expanded','false');
-   toggle.innerHTML=icon('eye',17)+t('Show document','عرض المستند');
-  }
-  document.querySelector('#fields-content').innerHTML=editingSectionHTML();
-  document.querySelector('.download-from-step').innerHTML=downloadSectionHTML();
-  bindSectionControls();bindSharedHints();updateSectionProgress();
-  document.querySelectorAll('[data-step]').forEach(b=>{const active=Number(b.dataset.step)===step;b.classList.toggle('active',active);b.setAttribute('aria-current',active?'step':'false');});
-  document.querySelector('#review-tab').classList.remove('active');document.querySelector('#review-tab').setAttribute('aria-current','false');
-  document.querySelector('#answered-count').textContent=`${answerFields(current.fields).filter(f=>hasValue(values[f.id])).length} ${t('answers entered','إجابة مُدخلة')}`;
-  showStatus('');
- }else{
-  document.querySelectorAll('[data-doc]').forEach(button=>{
-   const d=docs.find(d=>d.id===button.dataset.doc);
-   button.querySelector('small').textContent=`${d.pages} ${t(d.pages===1?'page':'pages',d.pages===1?'صفحة':'صفحات')}${drafts.has(d.id)?` · ${t('Saved draft — continue','مسودة محفوظة — متابعة')}`:''}`;
-  });
- }
- storageStatus();
+  const wasReview=review;
+  clearDownload();pdfBytes=null;errors=[];review=false;generation++;paintVersion++;
+  if(pdf){pdf.loadingTask.destroy();pdf=null;}
+  values={...drafts.get(current.id).values};signatures={...drafts.get(current.id).signatures};
+  if(wasReview){previewVisible=false;renderEditor();}
+  else{updateVisibleAnswers();updateSectionProgress();}
+ }else render();
+ storageStatus();sharedStatus();
 }
-function bindShared(){
- const panel=document.querySelector('#shared-fields-panel');if(!panel)return;
- panel.ontoggle=()=>{sharedPanelOpen=panel.open;};
- document.querySelector('#shared-fields-form').onsubmit=ev=>ev.preventDefault();
- document.querySelector('#shared-fields-form').onfocusout=ev=>{if(ev.target.dataset.sharedKey)sharedSync?.flush();};
- document.querySelector('#shared-fields-form').oninput=ev=>{
-  const key=ev.target.dataset.sharedKey;if(!key)return;
-  sharedPanelOpen=true;
-  drafts.setShared({...drafts.profile,[key]:ev.target.type==='checkbox'?ev.target.checked:ev.target.value});
-  sharedSync?.change(drafts.profile);
-  const changesFields=sharedGroups(audience).some(g=>g.fields.some(f=>f.dependsOn===key));
-  refreshAfterShared(!changesFields);
- };
- document.querySelector('#clear-shared').onclick=()=>document.querySelector('#clear-shared-dialog').showModal();
- document.querySelector('#keep-shared').onclick=()=>document.querySelector('#clear-shared-dialog').close();
- document.querySelector('#confirm-clear-shared').onclick=()=>{drafts.setShared({});sharedSync?.change(drafts.profile);refreshAfterShared();};
- document.querySelector('#fill-shared-blanks')?.addEventListener('click',()=>{drafts.fillSharedBlanks(current.id);refreshAfterShared();});
- sharedStatus();
+function updateVisibleAnswers(){
+ // Keep active controls mounted so delayed account saves cannot move the caret.
+ document.querySelectorAll('#fields [name]').forEach(input=>{
+  if(input===document.activeElement)return;
+  const value=values[input.name]??'';
+  if(input.type==='radio'||input.type==='checkbox')input.checked=Array.isArray(value)?value.includes(input.value):value===input.value;
+  else if(input.value!==String(value))input.value=value;
+ });
+ const counter=document.querySelector('#answered-count');
+ if(counter&&current)counter.textContent=`${answerFields(current.fields).filter(f=>hasValue(values[f.id])).length} ${t('answers entered','إجابة مُدخلة')}`;
 }
-function sharedHint(id){
- if(!current)return '';
- const candidate=sharedCandidates(current,drafts.profile,values,audience)[id];
- if(!hasValue(candidate))return '';
- const r=drafts.get(current.id);
- return r.shared[id]===values[id]&&!r.overrides.includes(id)?`<small class="shared-hint">${t('From shared document fields','من الحقول المشتركة للمستندات')}</small>`:`<button class="shared-hint ghost" type="button" data-shared-use="${id}">${t('Use shared value','استخدام القيمة المشتركة')}</button>`;
-}
-function bindSharedHints(){document.querySelectorAll('[data-shared-use]').forEach(button=>button.onclick=()=>{if(busy)return;drafts.useShared(current.id,button.dataset.sharedUse);refreshAfterShared();});}
-function updateSharedHints(){document.querySelectorAll('[data-shared-hint]').forEach(el=>el.innerHTML=sharedHint(el.dataset.sharedHint));bindSharedHints();}
+function syncFormDetails(){sharedSync?.change(drafts.profile);sharedStatus();}
 function bindClearChoices(){document.querySelectorAll('[data-clear]').forEach(button=>button.onclick=()=>{delete values[button.dataset.clear];clearDownload();pdfBytes=null;saveDraft(button.dataset.clear);renderEditor();});}
 
 function accountLink(){const next=audience==='individual'?'individuals':audience==='corporate'?'companies':null;return `<a class="site-header-link client-account-link" href="${appRoot}${client.user?'my-applications/':'login/?'+new URLSearchParams({...(next?{next,resume:'1'}:{}),lang})}">${client.user?t('My applications','طلباتي'):t('Sign in / Register','دخول / إنشاء حساب')}</a>`;}
 function header(){return siteHeader({lang,className:'header branded-header',brandHref:appRoot,homeAction:true,actions:`${accountLink()}${client.user?notificationBell(lang):''}<button type="button" class="site-header-language" id="language" lang="${lang==='en'?'ar':'en'}">${lang==='en'?'العربية':'English'}</button>`});}
 function saveLabel(){return drafts.available?t('Saved on this browser','محفوظ في هذا المتصفح'):t('Not saved — browser storage is unavailable','لم يتم الحفظ — تخزين المتصفح غير متاح');}
-function footer(){return `<footer>${icon('lock',15)} <span data-storage-note>${drafts.available?t('Drafts are saved on this browser so you can return later. Use Clear form or Clear all saved forms to remove them.','تُحفظ المسودات في هذا المتصفح لتعود إليها لاحقًا. استخدم «مسح النموذج» أو «مسح جميع النماذج المحفوظة» لحذفها.'):t('Browser saving is unavailable. Keep this tab open or download your PDF before leaving.','الحفظ في المتصفح غير متاح. أبقِ الصفحة مفتوحة أو نزّل المستند قبل المغادرة.')}</span></footer>`;}
-function storageStatus(){document.querySelectorAll('[data-save-status]').forEach(el=>{el.textContent=saveLabel();el.classList.toggle('save-failed',!drafts.available);});document.querySelector('footer')?.replaceWith(document.createRange().createContextualFragment(footer()));}
-function saveDraft(editedField=null){if(subscriptionEditor){subscriptionEditor.save(editedField);return;}if(current){drafts.save(current.id,values,step,signatures,editedField);values={...drafts.get(current.id).values};}storageStatus();updateSectionProgress();}
+function footer(){return `${sharedStatusHTML()}<footer>${icon('lock',15)} <span data-storage-note>${drafts.available?t('Drafts are saved on this browser so you can return later. Use Clear form or Clear all saved forms to remove them.','تُحفظ المسودات في هذا المتصفح لتعود إليها لاحقًا. استخدم «مسح النموذج» أو «مسح جميع النماذج المحفوظة» لحذفها.'):t('Browser saving is unavailable. Keep this tab open or download your PDF before leaving.','الحفظ في المتصفح غير متاح. أبقِ الصفحة مفتوحة أو نزّل المستند قبل المغادرة.')}</span></footer>`;}
+function storageStatus(){document.querySelectorAll('[data-save-status]').forEach(el=>{el.textContent=saveLabel();el.classList.toggle('save-failed',!drafts.available);});const note=document.querySelector('[data-storage-note]');if(note){const wrapper=document.createElement('div');wrapper.innerHTML=footer();note.textContent=wrapper.querySelector('[data-storage-note]').textContent;}sharedStatus();}
+function saveDraft(editedField=null){if(subscriptionEditor){subscriptionEditor.save(editedField);return;}if(current){drafts.save(current.id,values,step,signatures,editedField);values={...drafts.get(current.id).values};if(editedField)syncFormDetails();}storageStatus();updateSectionProgress();}
 function blankLink(d,classes='button secondary'){return `<a class="${classes}" data-blank="${d.id}" href="${templateUrl(d)}" download="${d.id}-blank.pdf">${icon('download',16)}${t('Download blank','تنزيل النموذج الفارغ')}</a>`;}
 function setLanguage(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';}
 function bindCommon(){
+ sharedStatus();
  stopHeaderNotifications();stopHeaderNotifications=client.user?mountNotificationBell(document.querySelector('[data-notification-bell]'),{lang,userId:client.user.id}):()=>{};
  const revision=current&&drafts.get(current.id).revision;
  if(revision){
@@ -191,7 +124,6 @@ function bindCommon(){
  }
  document.querySelector('#language').onclick=()=>{lang=lang==='en'?'ar':'en';setPortalLanguage(lang);signatureMessages={};drafts.setPreferences({lang});render();};document.querySelector('[data-home]').onclick=ev=>{ev.preventDefault();home();};}
 function home(){if(revisionId){location.href=appRoot+(audience==='corporate'?'companies/':'individuals/');return;}clearDownload();generation++;if(current)saveDraft();if(subscriptionEditor){subscriptionEditor.destroy();subscriptionEditor=null;}drafts.setPreferences({active:null});current=null;review=false;pdfBytes=null;errors=[];paintVersion++;if(pdf){pdf.loadingTask.destroy();pdf=null;}render();window.scrollTo(0,0);}
-function editSharedDetails(){if(busy)return;if(revisionId){location.href=appRoot+(audience==='corporate'?'companies':'individuals')+'/?shared=1';return;}sharedPanelOpen=true;home();document.querySelector('#shared-fields-panel')?.scrollIntoView({behavior:'smooth',block:'start'});}
 function render(){setLanguage();if(!current){renderHome();return;}renderEditor();}
 function cardHTML(d){
  const body=`<span class="card-number" aria-label="${t('Document','المستند')} ${d.number}">${d.number}</span><span class="card-body">${d.group==='shared'?`<span class="shared-badge">${t('Shared document','مستند مشترك')}</span>`:''}<b>${e(t(d.title,d.ar))}</b><span>${e(t(d.description,d.arDescription))}</span><small>${d.pages} ${t(d.pages===1?'page':'pages',d.pages===1?'صفحة':'صفحات')}${!d.downloadOnly&&drafts.has(d.id)?` · ${t('Saved draft — continue','مسودة محفوظة — متابعة')}`:''}</small></span><span class="card-arrow">${icon(d.downloadOnly?'download':'arrow',18)}</span>`;
@@ -203,8 +135,8 @@ function renderHome(){
   app.innerHTML=header()+`<main class="home"><div class="intro"><span class="eyebrow">${t('DOCUMENT CENTRE','مركز المستندات')}</span><h1>${t('Client forms','نماذج العملاء')}</h1><p>${t('Please use the form link provided to you.','يرجى استخدام رابط النماذج المرسل إليك.')}</p></div></main>`;
   bindCommon();return;
  }
- app.innerHTML=header()+`<main class="home"><div class="intro"><span class="eyebrow">${t('DOCUMENT CENTRE','مركز المستندات')}</span><h1>${audience?t(audience==='individual'?'Individual forms':'Company forms',audience==='individual'?'نماذج الأفراد':'نماذج الشركات'):t('Your forms. Ready to sign.','نماذجك، جاهزة للتوقيع.')}</h1><p>${t('Choose a document, fill in your details, then download your PDF.','اختر المستند، أدخل بياناتك، ثم نزّل ملفك بصيغة PDF.')}</p><div class="flow"><span><b>1</b>${t('Choose','اختر')}</span><i></i><span><b>2</b>${t('Fill & review','عبّئ وراجع')}</span><i></i><span><b>3</b>${reviewEnabled()?t('Download & sign','نزّل ووقّع'):t('Save or download','احفظ أو نزّل')}</span></div></div><div class="saved-controls"><span data-save-status>${saveLabel()}</span><button class="ghost" id="clear-all">${t('Clear all saved forms','مسح جميع النماذج المحفوظة')}</button></div>${sharedHTML()}<div class="catalogue"><div class="cards">${catalogueFor(docs,audience,managedCards).map(cardHTML).join('')}</div></div><aside class="home-note">${icon('file',22)}<div><b>${t('Original documents. Your details.','المستندات الأصلية، ببياناتك.')}</b><p><span data-workflow-home-note>${reviewEnabled()?t('The original layout is preserved. Add electronic signatures to submit online, or download, sign and upload the signed PDF from My applications.','يُحفظ تنسيق المستند الأصلي. أضف التوقيعات الإلكترونية للإرسال المباشر، أو نزّل ملف PDF ووقّعه ثم ارفعه من صفحة طلباتي.'):t('Fill your forms, save a copy to your account, or download them. Signing is optional; management review is switched off.','عبّئ نماذجك واحفظ نسخة في حسابك أو نزّلها. التوقيع اختياري والمراجعة الإدارية معطّلة.')}</span></p></div></aside></main>`+footer()+`<dialog id="clear-all-dialog"><h2>${t('Clear all saved forms?','مسح جميع النماذج المحفوظة؟')}</h2><p>${t('This removes shared fields, drafts and signatures in this folder only. The other folder is kept. Download any PDFs you want to keep first.','ستُحذف الحقول المشتركة والمسودات والتوقيعات في هذا المجلد فقط. يُحتفظ بالمجلد الآخر. نزّل المستندات التي تريد الاحتفاظ بها أولًا.')}</p><div class="dialog-actions"><button class="button secondary" id="clear-all-cancel">${t('Keep drafts','الاحتفاظ بالمسودات')}</button><button class="button primary" id="clear-all-confirm">${t('Clear all','مسح الكل')}</button></div></dialog>`;
- bindCommon();bindShared();document.querySelectorAll('[data-restore-legacy]').forEach(button=>button.onclick=()=>{drafts.restoreLegacy(button.dataset.restoreLegacy);selectDoc(button.dataset.restoreLegacy);});document.querySelector('#clear-all').onclick=()=>document.querySelector('#clear-all-dialog').showModal();document.querySelector('#clear-all-cancel').onclick=()=>document.querySelector('#clear-all-dialog').close();document.querySelector('#clear-all-confirm').onclick=()=>{drafts.clearAll();sharedSync?.change(drafts.profile);render();};document.querySelectorAll('[data-doc]').forEach(btn=>btn.onclick=()=>selectDoc(btn.dataset.doc));
+ app.innerHTML=header()+`<main class="home"><div class="intro"><span class="eyebrow">${t('DOCUMENT CENTRE','مركز المستندات')}</span><h1>${audience?t(audience==='individual'?'Individual forms':'Company forms',audience==='individual'?'نماذج الأفراد':'نماذج الشركات'):t('Your forms. Ready to sign.','نماذجك، جاهزة للتوقيع.')}</h1><p>${t('Choose a document, fill in your details, then download your PDF.','اختر المستند، أدخل بياناتك، ثم نزّل ملفك بصيغة PDF.')}</p><div class="flow"><span><b>1</b>${t('Choose','اختر')}</span><i></i><span><b>2</b>${t('Fill & review','عبّئ وراجع')}</span><i></i><span><b>3</b>${reviewEnabled()?t('Download & sign','نزّل ووقّع'):t('Save or download','احفظ أو نزّل')}</span></div></div><div class="saved-controls"><span data-save-status>${saveLabel()}</span><button class="ghost" id="clear-all">${t('Clear all saved forms','مسح جميع النماذج المحفوظة')}</button></div><div class="catalogue"><div class="cards">${catalogueFor(docs,audience,managedCards).map(cardHTML).join('')}</div></div><aside class="home-note">${icon('file',22)}<div><b>${t('Original documents. Your details.','المستندات الأصلية، ببياناتك.')}</b><p><span data-workflow-home-note>${reviewEnabled()?t('The original layout is preserved. Add electronic signatures to submit online, or download, sign and upload the signed PDF from My applications.','يُحفظ تنسيق المستند الأصلي. أضف التوقيعات الإلكترونية للإرسال المباشر، أو نزّل ملف PDF ووقّعه ثم ارفعه من صفحة طلباتي.'):t('Fill your forms, save a copy to your account, or download them. Signing is optional; management review is switched off.','عبّئ نماذجك واحفظ نسخة في حسابك أو نزّلها. التوقيع اختياري والمراجعة الإدارية معطّلة.')}</span></p></div></aside></main>`+footer()+`<dialog id="clear-all-dialog"><h2>${t('Clear all saved forms?','مسح جميع النماذج المحفوظة؟')}</h2><p>${t('This removes shared fields, drafts and signatures in this folder only. The other folder is kept. Download any PDFs you want to keep first.','ستُحذف الحقول المشتركة والمسودات والتوقيعات في هذا المجلد فقط. يُحتفظ بالمجلد الآخر. نزّل المستندات التي تريد الاحتفاظ بها أولًا.')}</p><div class="dialog-actions"><button class="button secondary" id="clear-all-cancel">${t('Keep drafts','الاحتفاظ بالمسودات')}</button><button class="button primary" id="clear-all-confirm">${t('Clear all','مسح الكل')}</button></div></dialog>`;
+ bindCommon();document.querySelectorAll('[data-restore-legacy]').forEach(button=>button.onclick=()=>{drafts.restoreLegacy(button.dataset.restoreLegacy);selectDoc(button.dataset.restoreLegacy);});document.querySelector('#clear-all').onclick=()=>document.querySelector('#clear-all-dialog').showModal();document.querySelector('#clear-all-cancel').onclick=()=>document.querySelector('#clear-all-dialog').close();document.querySelector('#clear-all-confirm').onclick=()=>{drafts.clearAll();sharedSync?.change(drafts.profile);render();};document.querySelectorAll('[data-doc]').forEach(btn=>btn.onclick=()=>selectDoc(btn.dataset.doc));
 }
 async function selectDoc(id){if(!docs.some(d=>d.id===id&&visibleIn(d,audience)))return;previewVisible=false;clearDownload();paintVersion++;if(pdf)pdf.loadingTask.destroy();current=docs.find(d=>d.id===id);manualGuideShown=false;drafts.initializeDates(id);drafts.initializeCountries(id,lang);values={...drafts.get(id).values};signatures={...drafts.get(id).signatures};signatureMessages={};step=drafts.has(id)?drafts.get(id).step:0;pageNumber=current.sections[step].page;drafts.setPreferences({active:id,lang});review=false;pdfBytes=null;errors=[];pdf=null;render();window.scrollTo(0,0);await showOriginal();}
 async function showOriginal(){if(!current||!previewVisible)return;const g=++generation,d=current;try{const loaded=await loadPreview(await original(d));if(g!==generation){loaded.loadingTask.destroy();return;}if(pdf)pdf.loadingTask.destroy();pdf=loaded;await paint();}catch(err){if(g===generation)showStatus(t('Unable to load the PDF. Check your connection and retry.','تعذّر تحميل المستند. تحقق من اتصالك وأعد المحاولة.'),true);}}
@@ -268,7 +200,7 @@ function fieldHTML(f){
  else if(f.type==='select')input=`<select id="f-${f.id}" name="${f.id}"><option value="">${t('Select…','اختر…')}</option>${f.selectOptions.map(([v,en,ar])=>`<option value="${v}" ${value===v?'selected':''}>${e([en,ar].filter(Boolean).join(' / '))}</option>`).join('')}</select>`;
  else if(f.multiline)input=`<textarea id="f-${f.id}" name="${f.id}" rows="3" dir="auto" spellcheck="false" ${f.maxLength?`maxlength="${f.maxLength}"`:''}>${e(value)}</textarea>`;
  else input=`<input id="f-${f.id}" name="${f.id}" type="${['date','email','tel'].includes(f.type)?f.type:'text'}" value="${e(value)}" dir="${f.direction||(['date','email','tel'].includes(f.type)?'ltr':'auto')}" ${f.maxLength?`maxlength="${f.maxLength}"`:''} ${f.numeric?'inputmode="decimal"':''} autocomplete="off" spellcheck="false">`;
- return `<${f.type==='choice'?'fieldset':'div'} class="field ${wide?'wide':''} ${f.type==='choice'?'choice':''} ${errors.includes(f.id)?'invalid':''}" data-field="${f.id}">${f.type==='choice'?`<legend>${context}${label}</legend>`:`<label for="f-${f.id}">${context}${label}</label>`}${input}<div data-shared-hint="${f.id}">${sharedHint(f.id)}</div>${f.help?`<small class="field-help">${e(t(f.help,f.arHelp))}</small>`:''}${errors.includes(f.id)?`<p class="field-error">${t('This answer is too long for its space in the PDF. Please shorten it.','هذه الإجابة أطول من المساحة المتاحة في المستند. يرجى اختصارها.')}</p>`:''}</${f.type==='choice'?'fieldset':'div'}>`;
+ return `<${f.type==='choice'?'fieldset':'div'} class="field ${wide?'wide':''} ${f.type==='choice'?'choice':''} ${errors.includes(f.id)?'invalid':''}" data-field="${f.id}">${f.type==='choice'?`<legend>${context}${label}</legend>`:`<label for="f-${f.id}">${context}${label}</label>`}${input}${f.help?`<small class="field-help">${e(t(f.help,f.arHelp))}</small>`:''}${errors.includes(f.id)?`<p class="field-error">${t('This answer is too long for its space in the PDF. Please shorten it.','هذه الإجابة أطول من المساحة المتاحة في المستند. يرجى اختصارها.')}</p>`:''}</${f.type==='choice'?'fieldset':'div'}>`;
 }
 function fieldsHTML(section){
  const embedded=new Set(section.fields.flatMap(f=>Object.values(f.optionFields||{}).flat()));
@@ -282,12 +214,11 @@ function fieldsHTML(section){
  if(!section.paperGroups)return `<div class="field-grid">${controls(section.fields)}</div>`;
  return section.paperGroups.map(group=>`<section class="paper-group">${group.title?`<h3>${e(t(group.title,group.ar))}</h3>`:''}<div class="field-grid ${group.nameRow?'name-row-grid':group.paired?'paired-grid':''}">${controls(group.fields.map(id=>section.fields.find(f=>f.id===id)))}</div></section>`).join('');
 }
-function editingSectionHTML(){const s=current.sections[step];return `<div class="section-heading"><span class="eyebrow">${t('SECTION','القسم')} ${step+1} / ${current.sections.length}</span><div class="section-title-row"><h2>${e(t(s.title,s.ar))}</h2><button class="ghost" type="button" id="edit-shared-details">${t('Edit shared customer details','تعديل بيانات العميل المشتركة')}</button></div>${s.note?`<p>${e(t(s.note,s.arNote||s.note))}</p>`:''}${(s.paperNotes||[]).map(([en,ar])=>`<p class="paper-note">${e(t(en,ar))}</p>`).join('')}</div><form id="fields" novalidate>${fieldsHTML(s)}</form>${signatureHTML(s)}<div class="section-actions"><button class="button secondary" id="previous" ${step===0?'disabled':''}>${t('Back','السابق')}</button><button class="button primary" id="next">${step===current.sections.length-1?t('Review PDF','مراجعة المستند'):t('Continue','متابعة')}${icon('arrow',16)}</button></div>`;}
+function editingSectionHTML(){const s=current.sections[step];return `<div class="section-heading"><span class="eyebrow">${t('SECTION','القسم')} ${step+1} / ${current.sections.length}</span><div class="section-title-row"><h2>${e(t(s.title,s.ar))}</h2></div>${s.note?`<p>${e(t(s.note,s.arNote||s.note))}</p>`:''}${(s.paperNotes||[]).map(([en,ar])=>`<p class="paper-note">${e(t(en,ar))}</p>`).join('')}</div><form id="fields" novalidate>${fieldsHTML(s)}</form>${signatureHTML(s)}<div class="section-actions"><button class="button secondary" id="previous" ${step===0?'disabled':''}>${t('Back','السابق')}</button><button class="button primary" id="next">${step===current.sections.length-1?t('Review PDF','مراجعة المستند'):t('Continue','متابعة')}${icon('arrow',16)}</button></div>`;}
 function downloadSectionHTML(){return `<button class="button secondary full-width" id="download-section">${icon('download',17)}${t('Download with current answers','تنزيل بالإجابات الحالية')}</button>`;}
 function bindSectionControls(){
  document.querySelector('[data-signing-guide]')?.addEventListener('click',()=>manualSigningGuide(true));
  bindSignatures();
- document.querySelector('#edit-shared-details')?.addEventListener('click',editSharedDetails);
 
  document.querySelector('#download-section')?.addEventListener('click',()=>makeReview(true));
  if(!review){document.querySelector('#previous').onclick=()=>goStep(step-1);document.querySelector('#next').onclick=()=>step===current.sections.length-1?makeReview():goStep(step+1);document.querySelector('#fields').oninput=onInput;document.querySelector('#fields').onsubmit=ev=>ev.preventDefault();bindClearChoices();}
@@ -312,7 +243,7 @@ function updateSectionProgress(){
 }
 function renderEditor(){
  if(current.workflow==='subscription'){
-  if(!subscriptionEditor)subscriptionEditor=createSubscriptionEditor({root:app,doc:current,drafts,audience,header,footer,bindCommon,home,submit:(doc,values,bytes,signatures)=>submitForm({doc,values,bytes,signatures,signatureModes:{applicant:values.signature_mode},revision:drafts.get(doc.id).revision,onSaved:s=>drafts.submitted(doc.id,s),profile:drafts.profile,audience,lang,user:client.user}),editShared:editSharedDetails});
+  if(!subscriptionEditor)subscriptionEditor=createSubscriptionEditor({root:app,doc:current,drafts,audience,header,footer,bindCommon,home,submit:(doc,values,bytes,signatures)=>submitForm({doc,values,bytes,signatures,signatureModes:{applicant:values.signature_mode},revision:drafts.get(doc.id).revision,onSaved:s=>drafts.submitted(doc.id,s),profile:drafts.profile,audience,lang,user:client.user}),onDetailsChange:syncFormDetails});
   subscriptionEditor.render(lang);return;
  }
  const active=answerFields(current.fields), completed=active.filter(f=>hasValue(values[f.id])).length;
@@ -325,10 +256,10 @@ function renderEditor(){
  document.querySelector('#page-prev').onclick=()=>changePage(-1);document.querySelector('#page-next').onclick=()=>changePage(1);
  document.querySelector('#reset').onclick=()=>document.querySelector('#reset-dialog').showModal();document.querySelector('#reset-cancel').onclick=()=>document.querySelector('#reset-dialog').close();document.querySelector('#reset-confirm').onclick=()=>{clearDownload();generation++;paintVersion++;values={};signatures={};signatureMessages={};drafts.clear(current.id);drafts.initializeDates(current.id);drafts.initializeCountries(current.id,lang);values={...drafts.get(current.id).values};review=false;pdfBytes=null;step=0;pageNumber=current.sections[0].page;render();showOriginal();};
  bindSectionControls();
- bindSharedHints();renderDownloadResult();if(pdf)paint();if(busy)setBusy(true);
+ renderDownloadResult();if(pdf)paint();if(busy)setBusy(true);
 }
 function reviewHTML(active,completed){const blank=active.length-completed;const totals=['ideal','current'].map(key=>{const fs=active.filter(f=>f.total===key);if(!fs.some(f=>hasValue(values[f.id])))return '';const entries=fs.filter(f=>hasValue(values[f.id])).map(f=>parseNumber(values[f.id]));if(entries.some(v=>v===null||v<0||v>100))return `<p class="warning">${t('Enter percentages between 0 and 100 for the','أدخل نسبًا من ٠ إلى ١٠٠ في')} ${t(key==='ideal'?'ideal portfolio.':'current portfolio.',key==='ideal'?'المحفظة المثالية.':'المحفظة الحالية.')}</p>`;const sum=Math.round(entries.reduce((a,b)=>a+b,0)*100)/100;return Math.abs(sum-100)<.01?'':`<p class="warning">${t(key==='ideal'?'Ideal portfolio':'Current portfolio',key==='ideal'?'المحفظة المثالية':'المحفظة الحالية')}: ${sum}%. ${t('The printed form asks for a total of 100%.','يتطلب النموذج أن يكون المجموع ١٠٠٪.')}</p>`;}).join('');return `<div class="section-heading"><span class="eyebrow">${t('FINAL STEP','الخطوة الأخيرة')}</span><h2>${t('Review, then make it yours.','راجع المستند ثم نزّله.')}</h2><p>${t('Check your details in the PDF before downloading.','تحقق من بياناتك في المستند قبل التنزيل.')}</p></div><div class="review-summary"><span class="summary-icon">${icon('check',25)}</span><div><strong>${completed} ${t('answers added','إجابة مضافة')}</strong><p>${current.pages} ${t('original pages preserved','صفحات أصلية محفوظة')}</p></div></div>${blank?`<div class="notice"><b>${blank} ${t('fields left blank','حقلًا فارغًا')}</b><p>${t('Leave any fields that do not apply to you blank. All entered answers are included in your download.','اترك الحقول التي لا تنطبق عليك فارغة. ستظهر جميع الإجابات المُدخلة في الملف الذي تنزّله.')}</p></div>`:''}${totals}<div class="review-sections">${current.sections.map((s,i)=>{const fs=answerFields(s.fields);return `<button data-jump="${i}"><span>${e(t(s.title,s.ar))}</span><small>${fs.filter(f=>hasValue(values[f.id])).length}/${fs.length}</small>${icon('arrow',14)}</button>`;}).join('')}</div><div class="sign-note">${icon('file',20)}<p>${t('Choose electronic or manual signing in the relevant signing step. Manual signature areas stay blank. Signing pages:','اختر التوقيع الإلكتروني أو اليدوي في خطوة التوقيع الخاصة به. تُترك خانات التوقيع اليدوي فارغة. صفحات التوقيع:')} <b>${current.signing.join(', ')}</b>. ${current.custom||current.sections.some(s=>s.id==='staff')?'':t('Company-use sections remain blank.','تُترك أقسام استخدام الشركة فارغة.')}</p></div>${reviewEnabled()?signingNotice(signingState(),lang):toolModeNotice(lang)}<button id="download" class="button ${signingState().ready?'secondary':'primary'} download-button" ${pdfBytes?'':'disabled'}>${icon('download',20)}${t('Download PDF','تنزيل PDF')}</button><button id="submit-form" class="button primary download-button" ${pdfBytes&&(!reviewEnabled()||signingState().ready)?'':'disabled'}>${formSaveLabel(lang)}</button><button id="edit-again" class="button secondary full-width">${t('Back to editing','العودة للتعبئة')}</button>`;}
-function onInput(ev){const target=ev.target,f=current.fields.find(f=>f.id===target.name);if(!f)return;clearDownload();if(f.multiple&&f.type==='choice')values[f.id]=Array.from(document.querySelectorAll(`input[name="${f.id}"]:checked`),el=>el.value);else values[f.id]=target.value;pdfBytes=null;errors=errors.filter(id=>id!==f.id);saveDraft(f.id);for(const field of countryFields(current)){const input=document.querySelector(`#fields [name="${field.id}"]`);if(input&&input!==target&&input.value!==(values[field.id]||''))input.value=values[field.id]||'';}if(f.type==='choice'){document.querySelector('#fields').innerHTML=fieldsHTML(current.sections[step]);bindSharedHints();bindClearChoices();}else updateSharedHints();for(const f of current.sections[step].fields){const wrapper=document.querySelector(`[data-field="${f.id}"]`);if(f.sum&&wrapper)wrapper.querySelector('strong').textContent=fieldValue(f,values)||'—';}document.querySelector('#answered-count').textContent=`${answerFields(current.fields).filter(f=>hasValue(values[f.id])).length} ${t('answers entered','إجابة مُدخلة')}`;}
+function onInput(ev){const target=ev.target,f=current.fields.find(f=>f.id===target.name);if(!f)return;clearDownload();if(f.multiple&&f.type==='choice')values[f.id]=Array.from(document.querySelectorAll(`input[name="${f.id}"]:checked`),el=>el.value);else values[f.id]=target.value;pdfBytes=null;errors=errors.filter(id=>id!==f.id);saveDraft(f.id);updateVisibleAnswers();if(f.type==='choice'){document.querySelector('#fields').innerHTML=fieldsHTML(current.sections[step]);bindClearChoices();}for(const f of current.sections[step].fields){const wrapper=document.querySelector(`[data-field="${f.id}"]`);if(f.sum&&wrapper)wrapper.querySelector('strong').textContent=fieldValue(f,values)||'—';}document.querySelector('#answered-count').textContent=`${answerFields(current.fields).filter(f=>hasValue(values[f.id])).length} ${t('answers entered','إجابة مُدخلة')}`;}
 function goStep(i){if(busy||i<0||i>=current.sections.length)return;const wasReview=review;review=false;if(wasReview){previewVisible=false;paintVersion++;if(pdf){pdf.loadingTask.destroy();pdf=null;}}step=i;saveDraft();pageNumber=current.sections[i].page;render();document.querySelector('.form-panel').scrollIntoView({behavior:'smooth',block:'start'});if(wasReview)showOriginal();}
 function showStatus(msg,error=false){const el=document.querySelector('#status');if(el){el.textContent=msg;el.className=error?'status error':'status';}}
 async function makeReview(downloadNow=false,previewPage=null){
@@ -364,7 +295,7 @@ async function makeReview(downloadNow=false,previewPage=null){
   }
  }finally{busy=false;setBusy(false);}
 }
-function setBusy(value){document.querySelectorAll('#next,#edit-shared-details,#review-tab,#download,#submit-form,#download-now,#download-section,#toggle-preview,#fields input,#fields textarea,#fields select,[data-clear],.section-signatures button,.section-signatures input,#shared-fields-panel input,#shared-fields-panel select,#shared-fields-panel button,[data-shared-use],#language,[data-step]').forEach(b=>b.disabled=value);const submit=document.querySelector('#submit-form');if(submit)submit.disabled=value||!pdfBytes||(reviewEnabled()&&!signingState().ready);const download=document.querySelector('#download');if(download)download.disabled=value||!pdfBytes;}
+function setBusy(value){document.querySelectorAll('#next,#review-tab,#download,#submit-form,#download-now,#download-section,#toggle-preview,#fields input,#fields textarea,#fields select,[data-clear],.section-signatures button,.section-signatures input,#language,[data-step]').forEach(b=>b.disabled=value);const submit=document.querySelector('#submit-form');if(submit)submit.disabled=value||!pdfBytes||(reviewEnabled()&&!signingState().ready);const download=document.querySelector('#download');if(download)download.disabled=value||!pdfBytes;}
 let paintVersion=0;
 async function paint(){const version=++paintVersion;if(!pdf||!previewVisible)return;const canvas=document.querySelector('#pdf-canvas');if(!canvas)return;const temporary=document.createElement('canvas');try{await renderPage(pdf,pageNumber,temporary,750);if(version!==paintVersion)return;canvas.width=temporary.width;canvas.height=temporary.height;canvas.getContext('2d').drawImage(temporary,0,0);document.querySelector('#loading')?.setAttribute('hidden','');}catch(err){if(version===paintVersion)showStatus(t('Preview unavailable. Try opening the original or reviewing again.','المعاينة غير متاحة. أعد فتح الأصل أو مراجعة المستند.'),true);}}
 function changePage(delta){pageNumber=Math.max(1,Math.min(current.pages,pageNumber+delta));document.querySelector('#page-label').textContent=`${pageNumber} / ${current.pages}`;paint();}
@@ -421,7 +352,7 @@ if(revisionId){
 sharedReady=true;
 const resume=docs.find(d=>d.id===drafts.preferences.active&&drafts.has(d.id)&&visibleIn(d,audience));
 if(editError){app.innerHTML=header()+`<main class="workspace"><p role="alert">${e(portalError(editError,lang))}</p><a class="button primary" href="${appRoot}my-applications/">${t('Back to my applications','العودة إلى طلباتي')}</a></main>`;bindCommon();}
-else if(editing)selectDoc(editing.id);else if(resume&&!openSharedOnLoad)selectDoc(resume.id);else render();
+else if(editing)selectDoc(editing.id);else if(resume)selectDoc(resume.id);else render();
 
 if(import.meta.env.DEV)window.__forms={docs,generate,signatureSlots,prepareSignature};
 

@@ -12,11 +12,12 @@ test('English and Arabic shared name boundaries remain exact across matching for
  assert.equal(s.get('signature-form').values.client_name_first,'عبد الرحمن');
  assert.equal(s.get('kyc-individual').values.name_1,'عبد الرحمن محمد');assert.equal(s.get('kyc-individual').values.name_2,'الغامدي');
  s.save('signature-form',{...s.get('signature-form').values,client_name_second:'أحمد'},0,{},'client_name_second');
- s.setShared({...profile,ar_last:'الدوسري'});
+ assert.equal(s.profile.ar_second,'أحمد');assert.equal(s.get('subscription-form').values.second_name,'أحمد');
+ s.setShared({...s.profile,ar_last:'الدوسري'});
  assert.equal(s.get('signature-form').values.client_name,'عبد الرحمن أحمد الدوسري');
  s.save('signature-form',{...s.get('signature-form').values,client_name_second:''},0,{},'client_name_second');
  let reopened=store(disk);assert.equal(reopened.get('signature-form').values.client_name_second,'');assert.equal(reopened.get('signature-form').values.client_name,'عبد الرحمن الدوسري');
- reopened.setShared({...profile,ar_second:'علي'});assert.equal(reopened.get('signature-form').values.client_name_second,'');
+ reopened.setShared({...profile,ar_second:'علي'});assert.equal(reopened.get('signature-form').values.client_name_second,'علي');
  reopened.useShared('signature-form','client_name');assert.equal(reopened.get('signature-form').values.client_name,'عبد الرحمن علي الغامدي');
 });
 test('company authorized names reuse four parts without converting company names or crossing audiences',()=>{

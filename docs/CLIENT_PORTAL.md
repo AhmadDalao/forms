@@ -1,6 +1,6 @@
 # Client accounts and submissions
 
-Live at https://forms.ahmaddalao.com/. A separate historical password-protected test copy is documented in `docs/HOSTED_PREVIEW.md`.
+Production: https://forms.ahmaddalao.com/. This document describes the current login-required workflow. `docs/HOSTED_PREVIEW.md` records the earlier test copy; the retired `/preview-20260919/` links now redirect to the protected production routes without deleting their private storage.
 
 ## Preview
 
@@ -13,10 +13,10 @@ php -d upload_max_filesize=20M -d post_max_size=24M -S 127.0.0.1:8185 -t dist sc
 ```
 
 - `/register/`: Individual / Company selection, first and last name, Saudi mobile, password and confirmation. No email registration requirement.
-- `/login/`: mobile and password.
+- `/login/`: mobile and password. The site root sends visitors here; successful sign-in sends an Individual to `/individuals/` and a Company to `/companies/`. A required password change takes precedence.
 - `/my-applications/` (also available through `/account/`): the client's current submissions and version history, edit/resubmit, PDF previews/downloads, current-only or full-history ZIP, optional profile email, password change, and uploads/replacements of manually signed PDFs.
-- `/individuals/` and `/companies/`: signed-in clients can open their assigned folder; opposite-category links redirect to it. A **Submit form** action appears after PDF review and is enabled only when the applicable customer signatures are present.
-- `/management/`: owner overview, clients and document catalogue. The preview uses the existing management owner login; the original management preview on 8181 stays available.
+- `/individuals/` and `/companies/`: login is mandatory; signed-in clients can open only their assigned folder, and opposite-category links redirect to it. With review enabled, **Submit form** appears after PDF review and requires the applicable customer signatures. With review disabled, **Save form** saves a copy to the account and management without starting approval/rejection.
+- `/management/`: admin/superadmin overview and clients. Only the superadmin can manage document titles/order/uploads or change a client's account type. Existing management sessions can preview both audiences.
 
 Portal headers use only the original Itqan Capital logo, extracted from the supplied presentation; see `docs/BRANDING.md`.
 
@@ -30,33 +30,35 @@ Client and owner sessions use separate HttpOnly, SameSite=Strict cookies, with S
 
 Signup and password changes include an advisory strength meter computed in the browser from length, variety and common-pattern checks. It does not impose extra character-composition rules; a valid eight-character password is accepted even if rated weak. Login/current-password fields do not enforce new-password length rules. Show/hide controls update the icon and accessible label together.
 
-An owner password reset produces a random temporary password, shows it once, invalidates every existing client session and requires a password change before the client can access submissions again. The application does not message the client; the owner shares the temporary password privately through their normal contact channel. Only a reset audit event is retained, never the temporary plaintext password.
+An owner password reset produces a random temporary password, shows it once, invalidates every existing client session and requires a password change before the client can access forms, blank templates or submissions again. The application does not message the client; the owner shares the temporary password privately through their normal contact channel. Only a reset audit event is retained, never the temporary plaintext password.
 
 `public/api/portal.php` stores accounts, metadata, hashed passwords and reset audit events in SQLite and PDF bytes in a private directory. Set `FORMS_PORTAL_DATA_DIR` outside the web root in production. The fallback is `_private/portal`, covered by the existing Apache deny rule. PHP requires PDO SQLite, mbstring, fileinfo and ZipArchive. Set upload limits to at least 20 MB / 24 MB. Back up the entire private portal directory, including both SQLite and `pdfs/`; never overwrite it when deploying assets.
 
 ## Account category
 
-Signup requires either `individual` or `corporate`. It determines the assigned form folder, signup/continuation destination, My applications form link and completed-PDF upload choices. Clients cannot change their own category through profile updates. Management can change it in **Clients → client profile → Account type**; the API validates the prior category to reject stale changes and records an audit event.
+Signup requires either `individual` or `corporate`. It determines the assigned form folder, signup/sign-in destination, My applications form link and completed-PDF upload choices. Clients cannot change their own category through profile updates. Only the superadmin can change it in **Clients → client profile → Account type**; the API validates the prior category to reject stale changes and records an audit event.
 
 Existing accounts migrate to Individual by default. The migration is transactional and repeatable, preserves passwords, answers and files, and does not reset a category management has already changed. The server reads the current category on requests and checks submission permission again inside the database write transaction. Returning to an open tab refreshes a changed category; stale submissions are rejected even without a refresh.
 
-Previous-category submissions remain available to their owner and management for preview, download and history. Clients cannot edit/resubmit or replace those documents unless management changes their category back. No draft data is copied between individual and company folders. Guest draft migration at sign-in only imports the selected continuation folder when it matches the account category.
+Previous-category submissions remain available to their owner and management for preview, download and history. Clients cannot edit/resubmit or replace those documents unless the superadmin changes their category back. No draft data is copied between individual and company folders. The legacy guest-draft continuation path imports only the explicitly selected folder when it matches the account category; clients no longer start anonymous forms.
 
-Anonymous document links and public blank PDFs retain their existing availability. Account categories govern the signed-in workflow and submission authorization; they are not a confidentiality restriction on the original blank templates.
+Anonymous root and document-folder requests redirect to login. The server also protects original PDF URLs and both builtin and uploaded template reads, and filters the published catalogue by account category. Clients cannot bypass their category by opening another template URL. Management can inspect both audiences; unpublished uploaded templates remain available only to the superadmin. Direct API default/schema JSON files are denied. Documents are served with private, no-store caching. Existing downloaded copies cannot be recalled.
 
 ## Shared customer details saved to accounts
 
-Signed-in shared fields autosave to the private account database and hydrate before local defaults on subsequent visits, including a different browser/device. The shared panel is collapsed until opened. Individual and company profiles remain separate; account category changes do not copy either profile into the other. Guests keep browser-only drafts until signing in and choosing to continue them.
+Customers enter repeated information in its original form fields. There is no catalogue shared-fields editor or instruction to complete another panel. Editing a mapped common field updates matching fields in the other ordinary working forms, saves the browser drafts and autosaves the private account profile. Account details hydrate before local defaults on subsequent visits, including a different browser/device. Individual and company profiles remain separate; account category changes do not copy either profile into the other.
+
+Mappings follow the meaning of the paper field. First, second, optional third and family names are kept separately in Arabic and English and joined for full-name areas. Equivalent phone, email, identity and address fields reuse their declared mappings. A representative, witness, extra signer or unrelated person's name does not become the primary customer's name. Signatures remain separate. A derived full-name or combined address field has no safe automatic inverse into its constituent parts; corrections to these composite fields remain specific to that field, while editing mapped name/address parts updates their matching uses.
 
 `GET shared_profile` requires the current account ID and permitted audience. `POST shared_profile_save` requires authentication, CSRF, the same account/audience, a field patch and its expected revision. SQLite schema 6 stores `client_shared_profiles` separately from submissions. Only declared shared fields are accepted; signature images and arbitrary fields are rejected. Empty/cleared profiles retain a revision so registration details and default countries cannot silently refill them.
 
 The browser keeps pending edits for retry during connectivity failures and displays account save status independently of browser draft status. Concurrent changes to different fields merge; conflicting edits to the same field require choosing the account or browser details. Management can inspect the current saved data in the collapsed **Shared customer details** card on the client profile. Previously saved PDFs, submitted answers and archived snapshots stay unchanged.
 
-Legacy browser shared fields import only when the account has no shared profile yet. Existing account data wins over stale browser caches. Opted-in guest form answers are preserved as document-specific edits when the account already has a profile.
+Legacy browser shared fields import only when the account has no shared profile yet. Existing account data wins over stale browser caches. Legacy explicit draft-continuation support is retained for existing browser data; it does not make anonymous form access available.
 
 ## Submissions
 
-Online submission explicitly sends the reviewed PDF, entered values and selected shared profile details to the server. Document-specific draft edits and signature images remain browser-local until the client submits; shared customer fields autosave separately as described above. Draft keys are separated by account and audience. During sign-in from a guest form, the client can choose to carry over that folder's guest draft; unrelated account drafts are never imported.
+Online submission explicitly sends the reviewed PDF, entered values and shared profile details to the server. Document-specific draft edits and signature images remain browser-local until the client submits or saves the form; mapped common fields autosave separately as described above. Draft keys are separated by account and audience. Unrelated account drafts are never imported.
 
 Signature controls appear inside the relevant signing step, using the subscription form's electronic/manual choices. There is no separate signature panel or signing-box selector. Each client, representative, staff member and additional signer has an independent choice and image; uploaded documents use the configured signature's page. Manual signing clears that slot's image and leaves its PDF area blank. Electronic signing reveals the upload control and needs an image before PDF review/download. Choices persist in browser draft metadata, independently of document answers. Existing saved images reopen as electronic signatures; submitted versions retain their original images and PDFs. The download-only consent document stays download-only.
 
@@ -84,13 +86,18 @@ Either remedy creates a new current version **Under review** and archives the ea
 
 Each client/document/audience has one current submission. A new submission archives that current row and inserts the next numbered version in one SQLite transaction. The original PDF, answers, signatures, profile snapshot and submission timestamp are never overwritten. Individual and company versions are independent, including shared document templates. Merely opening or editing a form does not archive anything; successful submission does.
 
-Clients use **Edit & resubmit** for online forms or **Upload signed replacement** for externally signed PDFs. Editing opens a separate browser draft, restores the submitted answers and saved signature images, and preserves deliberate blanks instead of filling them from today's shared profile. The client's unrelated working draft stays intact. Closing/reloading the browser resumes the edit when they open that version again. Earlier portal submissions that predate signature-image storage keep their original signed PDFs; the editor explains that those images need uploading again when editing.
+Clients use **Edit & resubmit** for online forms or **Upload signed replacement** for externally signed PDFs (save/replace wording applies when review is disabled). Opening a revision creates a separate browser draft, restores the submitted answers and saved signature images, and preserves deliberate blanks instead of filling them from today's shared profile. Opening, previewing or restoring a version does not publish historical answers into the current profile. If the client explicitly edits a mapped common field in that revision, that correction updates the current shared profile and matching ordinary drafts. Other historical answers and saved PDFs remain unchanged. Closing/reloading the browser resumes the revision when they open that version again. Earlier portal submissions that predate signature-image storage keep their original signed PDFs; the editor explains that those images need uploading again when editing.
 
 Both accounts and management profiles expose **Version history**, including submission/archive timestamps, preview, single PDF download and full-history ZIP. Owner **Restore this version** copies the archived PDF and details into a new current version and archives the formerly current one. Restoration is recorded in the audit table; no history is deleted. Downloads and restoration use original saved bytes, not today's template.
 
 Mutation requests include the current version the user reviewed (`expectedCurrent`) and an idempotency key. A stale edit/replacement/restore receives HTTP 409 and leaves all existing submissions untouched. Retries reuse their key and do not create extra versions. A partial unique index enforces exactly one current row per chain. On the first API request after upgrade, a transactional, idempotent migration numbers existing submissions chronologically (row order breaks timestamp ties) and archives all but the latest per chain, without rewriting files or answer data.
 
 ## Verification
+
+The login-required and form-to-form linking workflow supersedes the earlier anonymous-editor and separate shared-panel UI. Historical audit reports remain historical evidence. Scripts below that assume guest entry, a shared-fields panel or document-only overrides need adaptation before rerunning against this release; do not treat their earlier passing results as verification of the new workflow.
+
+- `node scripts/form-access-audit.mjs`: isolated protected-route and real-session checks covering anonymous pages/PDFs/catalogue, audience routing, direct template authorization, uploaded draft permissions, reset/revocation, forced password changes and logout.
+- `node scripts/form-linking-audit.mjs`: current isolated browser integration checks for editable form fields, automatic reuse, account/browser persistence and category isolation. Consult its report for the scenarios actually executed.
 
 - `tests/shared-sync.test.mjs` and `tests/portal-shared.test.mjs`: autosave, offline recovery, delayed writes, conflicts, deliberate clears, authenticated scopes and schema-6 migration.
 - `node scripts/shared-profiles-audit.mjs`: isolated real HTTP/API lifecycle, durable reload/restart, authorization, validation, concurrent updates, audience changes and immutable submission snapshots.

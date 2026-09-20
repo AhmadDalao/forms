@@ -62,12 +62,14 @@ for(const audience of ['individual','corporate'])for(const language of ['en','ar
 test('semantic audit fixtures cover every currently exposed shared field',()=>{
  for(const [audience,p]of [['individual',person],['corporate',company]])for(const field of sharedGroups(audience).flatMap(group=>group.fields).filter(field=>!field.hidden))assert.ok(Object.hasOwn(p,field.id),'Missing fixture '+audience+'/'+field.id);
 });
-test('new nationality and registration mappings preserve overrides, clearing and explicit reuse',()=>{
+test('nationality and registration edits update shared data and follow subsequent account changes',()=>{
  for(const [audience,docId,field,key,profile]of [['individual','kyc-individual','nationality','nationality',person],['corporate','kyc-corporate','cr','company_id_number',company]]){
   const storage=disk(),store=createDraftStore(docs,()=>storage,audience,'qa-owner');store.setShared(profile);
   store.save(docId,{...store.get(docId).values,[field]:'Manual correction'},0,{},field);
-  store.setShared({...profile,[key]:'New shared answer'});assert.equal(store.get(docId).values[field],'Manual correction');
-  const reopened=createDraftStore(docs,()=>storage,audience,'qa-owner');assert.equal(reopened.get(docId).values[field],'Manual correction');reopened.useShared(docId,field);assert.equal(reopened.get(docId).values[field],'New shared answer');
-  reopened.save(docId,{...reopened.get(docId).values,[field]:''},0,{},field);reopened.setShared({...profile,[key]:'Later account answer'});assert.ok(!reopened.get(docId).values[field]);reopened.fillSharedBlanks(docId);assert.equal(reopened.get(docId).values[field],'Later account answer');
+  assert.equal(store.profile[key],'Manual correction');
+  store.setShared({...profile,[key]:'New shared answer'});assert.equal(store.get(docId).values[field],'New shared answer');
+  const reopened=createDraftStore(docs,()=>storage,audience,'qa-owner');assert.equal(reopened.get(docId).values[field],'New shared answer');
+  reopened.save(docId,{...reopened.get(docId).values,[field]:''},0,{},field);assert.equal(reopened.profile[key],'');
+  reopened.setShared({...profile,[key]:'Later account answer'});assert.equal(reopened.get(docId).values[field],'Later account answer');
  }
 });

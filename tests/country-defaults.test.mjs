@@ -91,13 +91,13 @@ test('country initialization persists only the opened form and manual blank over
  assert.equal(reopened.get(d.id).countryDefaults?.country,undefined);assert.equal(reopened.get(d.id).countryDefaults?.bank_country,undefined);
 });
 
-test('shared country updates replace automatic form fallbacks but preserve manual and blank overrides',()=>{
+test('shared country edits replace automatic fallbacks, link corrections and preserve explicit blanks until another edit',()=>{
  const disk=storage(),d=doc('kyc-individual'),store=createDraftStore(docs,()=>disk,'individual');store.initializeCountries(d.id);
  store.setShared({country:'United Arab Emirates'});assert.equal(store.get(d.id).values.country,'United Arab Emirates');assert.equal(store.get(d.id).values.bank_country,saudi.en);
  assert.equal(store.get(d.id).countryDefaults?.country,undefined);
- store.save(d.id,{...store.get(d.id).values,country:'Qatar'},0,{},'country');store.setShared({country:'Bahrain'});assert.equal(store.get(d.id).values.country,'Qatar');
+ store.save(d.id,{...store.get(d.id).values,country:'Qatar'},0,{},'country');assert.equal(store.profile.country,'Qatar');store.setShared({country:'Bahrain'});assert.equal(store.get(d.id).values.country,'Bahrain');
  store.save(d.id,{...store.get(d.id).values,country:''},0,{},'country');
- const reopened=createDraftStore(docs,()=>disk,'individual');reopened.initializeCountries(d.id);reopened.setShared({country:'Kuwait'});assert.equal(reopened.get(d.id).values.country||'','');
+ const reopened=createDraftStore(docs,()=>disk,'individual');reopened.initializeCountries(d.id);assert.equal(reopened.get(d.id).values.country||'','');reopened.setShared({country:'Kuwait'});assert.equal(reopened.get(d.id).values.country,'Kuwait');
  reopened.useShared(d.id,'country');assert.equal(reopened.get(d.id).values.country,'Kuwait');
 });
 
