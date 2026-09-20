@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "143905b8bb0c32bd39137547f8b2c238ae3d2056",
+  "started": "2026-09-20T18:44:32.368Z",
+  "checks": [
+    "Protected document pages, templates, client data and management endpoints deny anonymous access; private paths are inaccessible",
+    "Live login/signup display the supplied title and four partner logos in English/Arabic without desktop/mobile overflow",
+    "Served auth assets match release hashes; heavy PDF engines remain deferred",
+    "Superadmin login, direct-intake migration, current-submissions filters and management navigation work; previous records remain accessible",
+    "All eight editable templates and consent download match the verified local PDFs",
+    "Existing production submission details and its PDF remain readable and hash-consistent"
+  ],
+  "errors": [],
+  "businessWrites": 0,
+  "passed": true,
+  "finished": "2026-09-20T18:44:47.869Z"
+}
