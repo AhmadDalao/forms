@@ -11,14 +11,14 @@ const name=(store,id,prefix,values)=>parts.forEach((part,i)=>change(store,id,pre
 
 for(const language of ['en','ar'])for(const source of ['subscription-form','kyc-individual','signature-form','terms-and-conditions','fatca-crs-individual'])test(`primary name entered in ${source}/${language} fills every matching form with four exact parts`,()=>{
  const storage=disk(),store=create(storage),values=language==='ar'?['عبد الرحمن','محمد','','آل غامدي']:['Abdul Rahman','Mohammed','','Al Ghamdi'];
- if(source==='subscription-form')for(const [i,field]of ['first_name','second_name','third_name','family_name'].entries())change(store,source,field,values[i]);
+ if(source==='subscription-form')for(const [i,field]of (language==='ar'?['first_name','second_name','third_name','family_name']:parts.map(p=>'en_'+p)).entries())change(store,source,field,values[i]);
  else name(store,source,source==='kyc-individual'?'name':source==='signature-form'?'client_name':source==='terms-and-conditions'?'terms_name_0':language,values);
  for(const [i,part]of parts.entries())assert.equal(store.profile[language+'_'+part],values[i]);
  const full=values.filter(Boolean).join(' ');
  for(const [id,field]of [['signature-form','client_name'],['terms-and-conditions','terms_name_0'],['terms-and-conditions','authorization_name_0'],['kyc-individual','risk_client_name'],['fatca-crs-individual','staff_account_holder']])assert.equal(store.get(id).values[field],full,id+'/'+field);
  assert.equal(store.get('kyc-individual').values.name_1,values.slice(0,2).join(' '));
  assert.equal(store.get('kyc-individual').values.name_2,values[3]);
- for(const [i,field]of ['first_name','second_name','third_name','family_name'].entries())assert.equal(store.get('subscription-form').values[field],values[i]);
+ for(const [i,field]of (language==='ar'?['first_name','second_name','third_name','family_name']:parts.map(p=>'en_'+p)).entries())assert.equal(store.get('subscription-form').values[field],values[i]);
  for(const [i,part]of parts.entries())assert.equal(store.get('fatca-crs-individual').values[language+'_'+part],values[i]);
  const reloaded=create(storage);assert.deepEqual(reloaded.profile,store.profile);assert.equal(reloaded.get('signature-form').values.client_name,full);
  assert.deepEqual(create(storage,'corporate').profile,{});assert.deepEqual(create(storage,'individual','other-owner').profile,{});
@@ -55,7 +55,7 @@ test('common contact and identity edits propagate both ways, including clearing,
 
 test('company legal names, registration and primary signatory link without populating controllers or private bank details',()=>{
  const storage=disk(),s=create(storage,'corporate');
- change(s,'fatca-crs-corporate','legal_name','شركة اختبار');assert.equal(s.get('subscription-company').values.company_name,'شركة اختبار');assert.equal(s.get('kyc-corporate').values.company,'شركة اختبار');assert.equal(s.get('signature-form').values.client_name,'شركة اختبار');
+ change(s,'fatca-crs-corporate','legal_name','Test Company');assert.equal(s.get('subscription-company').values.english_name,'Test Company');assert.equal(s.get('kyc-corporate').values.company,'Test Company');assert.equal(s.get('signature-form').values.client_name,'Test Company');
  change(s,'kyc-corporate','cr','CR000333');assert.equal(s.profile.company_id_number,'CR000333');assert.equal(s.get('subscription-company').values.company_id_number,'CR000333');
  name(s,'kyc-corporate','auth_name',['Abdul Rahman','Ali','','Al Ghamdi']);
  assert.equal(s.profile.auth_first,'Abdul Rahman');assert.equal(s.get('subscription-company').values.auth_name,'Abdul Rahman Ali Al Ghamdi');assert.equal(s.get('fatca-crs-corporate').values.signer_0_name,'Abdul Rahman Ali Al Ghamdi');
@@ -70,7 +70,7 @@ test('representatives, unrelated address roles and ambiguous combined text remai
  const s=create(disk());change(s,'subscription-form','city','Riyadh');change(s,'subscription-form','district','Al Nakheel');
  assert.equal(s.get('kyc-individual').values.city,'Riyadh Al Nakheel');assert.equal(s.get('fatca-crs-individual').values.mail_city,'Riyadh');
  const before=s.profile;
- for(const [doc,id]of [['kyc-individual','representative_name_first'],['kyc-individual','rep_phone'],['kyc-individual','bank_country'],['kyc-individual','city'],['fatca-crs-individual','outside_city'],['fatca-crs-individual','sa_city'],['signature-form','signer_name_first'],['terms-and-conditions','terms_name_1_first'],['subscription-form','applicant_name_first']])change(s,doc,id,'Independent');
+ for(const [doc,id]of [['kyc-individual','representative_name_first'],['kyc-individual','rep_phone'],['kyc-individual','bank_country'],['kyc-individual','city'],['fatca-crs-individual','outside_city'],['signature-form','signer_name_first'],['terms-and-conditions','terms_name_1_first'],['subscription-form','applicant_name_first']])change(s,doc,id,'Independent');
  assert.deepEqual(s.profile,before);
  change(s,'signature-form','signer_role','client');change(s,'signature-form','signer_name_first','Actual');assert.equal(s.profile.en_first,'Actual');
  change(s,'signature-form','signer_role','authorized');change(s,'signature-form','signer_name_first','Other');assert.equal(s.profile.en_first,'Actual');
@@ -82,7 +82,7 @@ test('only explicit common corrections in historical revisions update live detai
  const original=JSON.stringify(snapshot),edit=create(storage,'individual','owner',snapshot.id);edit.loadSubmission('signature-form',snapshot);
  assert.equal(edit.profile.en_first,'Current');assert.equal(create(storage).get('signature-form').values.client_name,'Current Ali Family');
  change(edit,'signature-form','client_name_first','Corrected');assert.equal(edit.get('signature-form').values.client_name,'Corrected Ahmed Family');assert.equal(edit.profile.en_first,'Corrected');
- assert.equal(create(storage).get('signature-form').values.client_name,'Corrected Ali Family');assert.equal(create(storage).get('subscription-form').values.first_name,'Corrected');assert.equal(create(storage).profile.en_second,'Ali');
+ assert.equal(create(storage).get('signature-form').values.client_name,'Corrected Ali Family');assert.equal(create(storage).get('subscription-form').values.en_first,'Corrected');assert.equal(create(storage).profile.en_second,'Ali');
  change(normal,'signature-form','client_name_first','Newest');edit.setShared(normal.profile);assert.equal(edit.get('signature-form').values.client_name,'Corrected Ahmed Family');
  assert.equal(create(storage).get('signature-form').values.client_name,'Newest Ali Family');assert.equal(JSON.stringify(snapshot),original);
  const blankDisk=disk(),blankEdit=create(blankDisk,'individual','owner',snapshot.id);blankEdit.loadSubmission('signature-form',snapshot);change(blankEdit,'signature-form','client_name_first','Typed');

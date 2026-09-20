@@ -50,7 +50,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
  function fields(){
   const section=doc.sections[step],fs=visibleFields(doc,values,section);
   if(fs.some(f=>f.namePart||f.personNameGroup)){
-   const primary={id:'full_name',partIds:['first_name','second_name','third_name','family_name'],label:'Full name',ar:'الاسم الكامل'},groups=[primary,...nameGroups],rendered=new Set(),chunks=[];let regular=[];
+   const primary={id:'full_name',partIds:['first_name','second_name','third_name','family_name'],label:'Customer name in Arabic',ar:'اسم العميل باللغة العربية'},groups=[primary,...nameGroups],rendered=new Set(),chunks=[];let regular=[];
    const flush=()=>{if(regular.length){chunks.push(`<div class="sub-fields">${regular.map(field).join('')}</div>`);regular=[];}};
    for(const f of fs){
     const group=groups.find(group=>group.partIds.includes(f.id));if(!group){regular.push(f);continue;}
@@ -119,8 +119,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
  async function prepare(downloadNow){
   if(busy)return;if(pdfBytes&&review){if(downloadNow)download();return;}
   save();errors=downloadNow?[]:visibleErrors(missingRequired(doc,values,signatures));
-  // Partial downloads stay available; explicitly selected electronic signing needs an image.
-  if(values.signature_mode==='electronic'&&!signatures.applicant)errors.push('signature_mode');
+  // Signatures are optional in direct intake; valid uploaded images are still checked.
   if(errors.length){const index=doc.sections.findIndex(s=>s.fields.some(f=>errors.includes(f.id)));if(index>=0)step=index;message=t('Complete the highlighted required fields before reviewing. You can download your current answers at any time.','أكمل الحقول المطلوبة المحددة قبل المراجعة. يمكنك تنزيل الإجابات الحالية في أي وقت.');render();root.querySelector('.invalid,input[required]:invalid')?.focus();return;}
   busy=true;lock();const id=++token;message='';root.querySelector('#sub-status').textContent=t('Preparing your document…','جارٍ إعداد المستند…');
   try{

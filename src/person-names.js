@@ -79,5 +79,6 @@ export function normalizePersonNames(doc,values,{audience=doc?.group,migrate=tru
   }
   if(present)for(const target of group.targets)next[target.id]=joinPersonName(target.join.map(id=>next[id]));
  }
+ for(const field of doc.fields||[])if(field.join&&!field.personNameDerived&&field.join.some(id=>has(next,id)))next[field.id]=joinPersonName(field.join.map(id=>next[id]));
  return next;
 }

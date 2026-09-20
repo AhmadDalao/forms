@@ -30,6 +30,28 @@ function migrateWorkflow(): void {
     }catch(Throwable $e){$db->exec('ROLLBACK');throw $e;}
 }
 
+// One-time transition: retain every submission and historical decision verbatim.
+function migrateDirectIntake(): void {
+    global $db;
+    if((int)$db->query('PRAGMA user_version')->fetchColumn()>=7)return;
+    $db->exec('BEGIN IMMEDIATE');
+    try {
+        if((int)$db->query('PRAGMA user_version')->fetchColumn()<7){
+            $old=execute('SELECT revision FROM workflow_settings WHERE id=1')->fetchColumn();
+            $now=gmdate('Y-m-d\TH:i:s\Z');$revision=(int)$old+1;
+            execute('INSERT INTO workflow_setting_events(review_enabled,revision,expected_revision,admin_username,created_at,request_key) VALUES(0,?,?,?,?,?)',[$revision,(int)$old,'system:direct-intake',$now,'direct-intake-v1']);
+            execute('UPDATE workflow_settings SET review_enabled=0,revision=?,updated_at=?,updated_by=? WHERE id=1',[$revision,$now,'system:direct-intake']);
+            $db->exec('PRAGMA user_version=7');
+        }
+        $db->exec('COMMIT');
+    }catch(Throwable $e){$db->exec('ROLLBACK');throw $e;}
+}
+function submissionPresentation(array $snapshot): array {
+    $profile=$snapshot['profile']??[];if(is_string($profile))$profile=json_decode($profile,true);
+    $direct=($profile['submission_mode']??null)==='direct';
+    return ['submission_mode'=>$direct?'direct':'legacy','presentation_status'=>$direct?'received':(workflowReviewRequired($snapshot)?'received':'saved')];
+}
+
 function workflowSettings(bool $admin=false): array {
     $row=execute('SELECT review_enabled,revision,updated_at,updated_by FROM workflow_settings WHERE id=1')->fetch();
     if(!$row)throw new LogicException('Workflow settings missing');

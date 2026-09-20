@@ -16,3 +16,5 @@
 @media(max-width:600px){.submission-review{padding:16px}.review-form select,.review-form textarea{font-size:16px}.review-form .portal-button.primary{width:100%}.account-notifications>summary,.notification-item{padding:18px 16px}.review-counts{gap:8px}.review-counts>span{padding:5px 10px}.review-counts b{font-size:18px}}
 
 .review-saved{color:#496755;background:#f1f7f3;border-color:#ceded3}
+
+.review-received{background:#eaf4f1;color:#256454;border-color:#d2e9e0}

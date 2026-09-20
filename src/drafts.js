@@ -49,6 +49,19 @@ export function createDraftStore(documents, getStorage = () => window.localStora
       next.signature_mode=record.signatures?.applicant?'electronic':'manual';
       record={...record,values:next,overrides:[...(record.overrides||[]),...(old.applicant_name?['applicant_name']:[])]};
     }
+    // Old subscription rows were language-neutral. Move a Latin-only name to
+    // the English row only when that cannot replace a different existing name.
+    // Submitted revision snapshots are deliberately excluded from migration.
+    if(doc.workflow==='subscription'&&record&&!record.revision&&record.nameRowsVersion!==2){
+      const next={...record.values},primary=doc.group==='individual'?joinedName(next):next.company_name||'';
+      const english=next.english_name||['en_first','en_second','en_third','en_last'].map(k=>next[k]||'').filter(Boolean).join(' ');
+      if(primary&&/[A-Za-z]/.test(primary)&&!/[\u0600-\u06ff]/.test(primary)&&(!english||english===primary)){
+        next.english_name=primary;
+        const keys=doc.group==='individual'?['first_name','second_name','third_name','family_name','full_name']:['company_name'];
+        for(const key of keys)delete next[key];
+        record={...record,values:next,shared:Object.fromEntries(Object.entries(record.shared||{}).filter(([key])=>!keys.includes(key))),overrides:(record.overrides||[]).filter(key=>!keys.includes(key))};
+      }
+    }
     if(record){
       const overrides=[...(record.overrides||[])];
       for(const group of personNameGroups(doc,audience||doc.group))if(!group.partIds.some(id=>Object.hasOwn(record.values||{},id))&&group.targets.some(target=>overrides.includes(target.id)))overrides.push(...group.partIds);
@@ -69,7 +82,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     }
     const signatures=cleanSignatures(doc,record?.signatures),signatureModes=cleanSignatureModes(doc,record?.signatureModes,signatures);
     for(const [id,mode] of Object.entries(signatureModes))if(mode==='manual')delete signatures[id];
-    return {...(record?.revision?{revision:record.revision}:{}),values,shared,...(Object.keys(countryDefaults).length?{countryDefaults}:{}),overrides:Array.isArray(record?.overrides)?record.overrides.filter(id=>doc.fields.some(f=>f.id===id)):[],signatures,signatureModes,step:Math.max(0,Math.min(doc.sections.length-1,Math.trunc(Number(record?.step))||0))};
+    return {...(record?.revision?{revision:record.revision}:{}),...(doc.workflow==='subscription'?{nameRowsVersion:2}:{}),values,shared,...(Object.keys(countryDefaults).length?{countryDefaults}:{}),overrides:Array.isArray(record?.overrides)?record.overrides.filter(id=>doc.fields.some(f=>f.id===id)):[],signatures,signatureModes,step:Math.max(0,Math.min(doc.sections.length-1,Math.trunc(Number(record?.step))||0))};
   }
   function persist(doc,record){
     memory.set(doc.id,record);

@@ -11,6 +11,7 @@ const addressFields=()=>[
 ];
 const otherId=(id,dependsOn)=>({...field(id,'Specify other ID type','حدد نوع الهوية الأخرى'),dependsOn,when:['other']});
 export const sharedFieldVisible=(field,profile)=>!field.when||field.when.includes(profile?.[field.dependsOn]);
+function addressRoles(audience){return {label:'Address details',ar:'تفاصيل العناوين',fields:[{...field('address_primary_role','Primary address source','مصدر العنوان الرئيسي','select',[['mail','Mailing','المراسلة'],['residence','Residence','الإقامة'],['registered','Registered','المسجل'],['head','Head office','المقر الرئيسي']]),hidden:true,sync:true},...['mail','residence',...(audience==='corporate'?['registered','head']:[])].flatMap(role=>addressFields().map(f=>({...f,id:role+'_'+f.id,label:({mail:'Mailing',residence:'Residence',registered:'Registered',head:'Head office'})[role]+': '+f.label,ar:({mail:'المراسلة',residence:'الإقامة',registered:'المسجل',head:'المقر الرئيسي'})[role]+': '+f.ar}))),...(audience==='corporate'?[field('registered_address_text','Registered address (original text)','العنوان المسجل (النص الأصلي)'),field('mail_address_text','Mailing address (original text)','عنوان المراسلة (النص الأصلي)')]:[])]};}
 export function sharedGroups(audience){
  if(audience==='individual')return [
   {label:'Your name',ar:'اسمك',fields:[
@@ -24,13 +25,13 @@ export function sharedGroups(audience){
    field('nationality','Nationality','الجنسية'),field('id_type','ID type','نوع الهوية','select',idOptions),otherId('id_other','id_type'),field('id_number','ID number','رقم الهوية'),field('phone','Phone','الهاتف','tel'),field('mobile','Mobile','الجوال','tel'),field('email','Email','البريد الإلكتروني','email'),
    field('client_number','Client number (if known)','رقم العميل (إن وجد)'),field('account_number','Investment account number (if known)','رقم الحساب الاستثماري (إن وجد)'),
   ]},
-  {label:'Correspondence address',ar:'عنوان المراسلة',fields:[...addressFields(),field('also_residence','Also use this as my current residence in Saudi Arabia','استخدمه أيضًا عنوانًا لإقامتي الحالية في السعودية','checkbox')]},
+  {label:'Correspondence address',ar:'عنوان المراسلة',fields:[...addressFields(),field('also_residence','Also use this as my current residence in Saudi Arabia','استخدمه أيضًا عنوانًا لإقامتي الحالية في السعودية','checkbox')]},addressRoles(audience),
  ];
  if(audience==='corporate')return [
-  {label:'Company details',ar:'بيانات الشركة',fields:[field('company_name','Full legal company name','الاسم القانوني الكامل للشركة'),field('inc_country','Country of incorporation','دولة التأسيس'),field('company_id_type','Registration type','نوع تسجيل الشركة','select',[['cr','Commercial registration','سجل تجاري'],['license','Licence','ترخيص'],['other','Other','أخرى']]),field('company_id_number','Registration / licence number','رقم السجل / الترخيص'),field('client_number','Client number (if known)','رقم العميل (إن وجد)'),field('account_number','Investment account number (if known)','رقم الحساب الاستثماري (إن وجد)')]},
+  {label:'Company details',ar:'بيانات الشركة',fields:[field('company_name','Full legal company name','الاسم القانوني الكامل للشركة'),field('company_name_ar','Company name in Arabic','اسم الشركة بالعربية'),field('company_name_en','Company name in English','اسم الشركة بالإنجليزية'),field('inc_country','Country of incorporation','دولة التأسيس'),field('company_id_type','Registration type','نوع تسجيل الشركة','select',[['cr','Commercial registration','سجل تجاري'],['license','Licence','ترخيص'],['other','Other','أخرى']]),field('company_id_number','Registration / licence number','رقم السجل / الترخيص'),field('client_number','Client number (if known)','رقم العميل (إن وجد)'),field('account_number','Investment account number (if known)','رقم الحساب الاستثماري (إن وجد)')]},
   {label:'Company contact details',ar:'بيانات التواصل مع الشركة',fields:[field('phone','Company phone','هاتف الشركة','tel'),field('mobile','Contact mobile','جوال مسؤول التواصل','tel'),field('email','Contact email','البريد الإلكتروني للتواصل','email')]},
   {label:'Registered address',ar:'العنوان المسجل',fields:[...addressFields(),field('also_residence','Also use as the entity’s current residence address','استخدمه أيضًا عنوانًا للإقامة الحالية للكيان','checkbox'),field('also_head','Also use as the principal office address','استخدمه أيضًا عنوانًا للمكتب الرئيسي','checkbox'),field('also_mail','Also use as the correspondence address','استخدمه أيضًا عنوانًا للمراسلة','checkbox')]},
-  {label:'Primary authorized signatory',ar:'المفوض الرئيسي بالتوقيع',fields:[{...field('auth_name','Authorized person’s full name','الاسم الكامل للمفوض'),hidden:true},...['first','second','third','last'].map((part,i)=>({...field('auth_'+part,['First name','Second name','Third name (optional)','Family name'][i],['الاسم الأول','الاسم الثاني','الاسم الثالث (اختياري)','اسم العائلة'][i]),namePart:true})),field('auth_id_type','ID type','نوع الهوية','select',idOptions),otherId('auth_id_other','auth_id_type'),field('auth_id','ID number','رقم الهوية')]},
+  {label:'Primary authorized signatory',ar:'المفوض الرئيسي بالتوقيع',fields:[{...field('auth_name','Authorized person’s full name','الاسم الكامل للمفوض'),hidden:true},...['first','second','third','last'].map((part,i)=>({...field('auth_'+part,['First name','Second name','Third name (optional)','Family name'][i],['الاسم الأول','الاسم الثاني','الاسم الثالث (اختياري)','اسم العائلة'][i]),namePart:true})),field('auth_id_type','ID type','نوع الهوية','select',idOptions),otherId('auth_id_other','auth_id_type'),field('auth_id','ID number','رقم الهوية')]},addressRoles(audience),
  ];
  return [];
 }
@@ -54,179 +55,138 @@ export function cleanShared(audience,profile){
  return clean;
 }
 const joined=(...parts)=>parts.filter(hasValue).map(s=>s.trim()).filter(Boolean).join(' ');
+const addressKeys=['short_address','building','street','district','city','postal','additional','country'];
+const own=(p,key)=>Object.hasOwn(p,key);
 const idLabel=(value,arabic,other)=>value==='other'?(other||''):idOptions.find(o=>o[0]===value)?.[arabic?2:1]||'';
+const idValue=value=>idOptions.find(o=>o.some(label=>label.toLowerCase()===value.trim().toLowerCase()))?.[0];
 
-// Only audited primary-customer fields are bidirectional. A combined address,
-// a bank owner, a witness or another signer's name is not a source of identity.
-function sharedBindings(doc,values,profile,audience,canonical=false){
+// One definition owns both directions. Role-specific addresses inherit the
+// original common address until the client deliberately supplies a different one.
+export function sharedRules(doc,values={},profile={},audience=doc.group){
  if(!['individual','corporate'].includes(audience)||(doc.group!=='shared'&&doc.group!==audience))return {};
- const bindings={},individual=audience==='individual',p=profile||{};
- const bind=(id,key)=>{bindings[id]=[key];};
+ const rules={},p=profile,individual=audience==='individual';
+ const bind=(id,key,config={})=>rules[id]={keys:[key],read:()=>p[key]??'',write:value=>({[key]:value}),...config};
  const same=ids=>ids.forEach(id=>bind(id,id));
- const autoLanguage=parts=>{
-  if(canonical)return p.name_language||(p.ar_first?'ar':'en');
-  const full=joinPersonName(parts);
-  return /\p{Script=Arabic}/u.test(full)?'ar':full?'en':p.name_language||(p.ar_first?'ar':'en');
+ const preferred=p.name_language||(p.en_first?'en':p.ar_first?'ar':'en');
+ const autoLanguage=parts=>{const value=joinPersonName(parts);return /\p{Script=Arabic}/u.test(value)?'ar':value?'en':preferred;};
+ const full=language=>joinPersonName(['first','second','third','last'].map(part=>p[language+'_'+part]??(part==='second'?p[language+'_middle']:'')??''));
+ const customerName=()=>individual?(full(preferred)||full(preferred==='ar'?'en':'ar')):(p.company_name_ar||p.company_name||p.company_name_en||'');
+ const company=(id,language='auto')=>bind(id,'company_name'+(language==='auto'?'':'_'+language),{
+  keys:['company_name_ar','company_name_en','company_name'],
+  read:()=>language==='en'?(p.company_name_en??(!/\p{Script=Arabic}/u.test(p.company_name||'')?p.company_name:'')):language==='ar'?(p.company_name_ar??(/\p{Script=Arabic}/u.test(p.company_name||'')?p.company_name:'')):customerName(),
+  write:value=>{const lang=language==='auto'?(/\p{Script=Arabic}/u.test(value)?'ar':'en'):language;return {['company_name_'+lang]:value,...(lang==='ar'||!p.company_name_ar?{company_name:value}:{} )};},
+ });
+ const addressPatch=(key,role,value)=>{
+  const scoped=role+'_'+key,source=p.address_primary_role||(individual?'mail':'registered');
+  if(role==='head')return {[scoped]:value};
+  const patch={[scoped]:value,...(!p.address_primary_role?{address_primary_role:role}:{})};
+  if(!own(p,key)||source===role||!p.address_primary_role){patch[key]=value;for(const mirror of ['mail','residence','registered'])if(own(p,mirror+'_'+key)&&p[mirror+'_'+key]===p[key])patch[mirror+'_'+key]=value;}
+  return patch;
  };
- const names=new Map();
- const name=(id,language='auto')=>names.set(id,language);
+ const address=(id,key,role)=>{
+  const scoped=role+'_'+key;
+  bind(id,scoped,{keys:[scoped,key,'address_primary_role'],read:()=>own(p,scoped)?p[scoped]:p[key]??'',write:value=>addressPatch(key,role,value)});
+ };
+ const composite=(id,keys,read)=>rules[id]={keys,read,write:null};
+ const names=new Map(),name=(id,language='auto')=>names.set(id,language);
  if(doc.workflow==='subscription'){
-  for(const f of doc.fields)if(f.sharedKey&&f.id!=='auth_name')bind(f.id,f.sharedKey);
-  if(individual){
-   const ids=['first_name','second_name','third_name','family_name'];
-   const language=autoLanguage(ids.map(id=>values[id]));
-   ids.forEach((id,index)=>bind(id,language+'_'+['first','second','third','last'][index]));
-   name('english_name','en');
-  }else name('auth_name','auth');
+  for(const f of doc.fields)if(f.sharedKey&&!['auth_name','company_name','english_name',...addressKeys].includes(f.id))bind(f.id,f.sharedKey);
+  composite('client_account',['account_number','client_number'],()=>p.account_number||p.client_number||'');
+  rules.client_account.write=value=>({account_number:value});
+  for(const key of addressKeys)address(key,key,'mail');
+  if(individual){['first_name','second_name','third_name','family_name'].forEach((id,i)=>bind(id,'ar_'+['first','second','third','last'][i]));name('english_name','en');}
+  else{company('company_name','ar');company('english_name','en');name('auth_name','auth');}
  }
  if(doc.id==='signature-form'){
-  if(individual)name('client_name');else bind('client_name','company_name');
+  if(individual)name('client_name');else company('client_name');
   same(['client_number','account_number']);
-  if(individual&&values.signer_role==='client'){name('signer_name');bind('id_number','id_number');}
-  if(!individual&&values.signer_role==='authorized'){name('signer_name','auth');bind('id_number','auth_id');}
+  const self=individual&&values.signer_role==='client',auth=!individual&&values.signer_role==='authorized';
+  if(self||auth){
+   name('signer_name',self?'auto':'auth');bind('id_number',self?'id_number':'auth_id');
+   const type=self?'id_type':'auth_id_type',detail=self?'id_other':'auth_id_other';
+   bind('id_type',type,{keys:[type,detail,'name_language'],read:()=>idLabel(p[type],self?preferred==='ar':/\p{Script=Arabic}/u.test(p.auth_name||''),p[detail]),write:value=>value===''?{[type]:'',[detail]:''}:idValue(value)?{[type]:idValue(value),[detail]:''}:{[type]:'other',[detail]:value}});
+  }else for(const id of ['signer_name','id_number','id_type'])composite(id,[],()=> '');
  }
- if(doc.id==='terms-and-conditions')for(const id of ['terms_name_0','authorization_name_0']){if(individual)name(id);else bind(id,'company_name');}
+ if(doc.id==='terms-and-conditions')for(const id of ['terms_name_0','authorization_name_0']){if(individual)name(id);else company(id);}
  if(doc.id==='kyc-individual'){
-  name('name');name('risk_client_name');
-  same(['title','gender','dob','nationality','id_type','id_other','id_number','phone','mobile','email','building','street','postal','country']);
-  bind('postal_additional','additional');
+  name('name');name('risk_client_name');same(['title','gender','dob','nationality','id_type','id_other','id_number','phone','mobile','email']);
+  for(const key of ['building','street','postal','country'])address(key,key,'mail');
+  address('postal_additional','additional','mail');address('address_city','city','mail');address('address_district','district','mail');
+  composite('city',['mail_city','mail_district','city','district'],()=>joined(rules.address_city.read(),rules.address_district.read()));
  }
  if(doc.id==='fatca-crs-individual'){
   same(['en_first','en_second','en_third','en_last','ar_first','ar_second','ar_third','ar_last','title','gender','dob']);
-  for(const key of ['building','street','district','city','postal','country']){
-   bind('mail_'+key,key);if(p.also_residence)bind('sa_'+key,key);
-  }
+  rules.title.read=()=>['dr','eng'].includes(p.title)?'other':p.title||'';
+  rules.title.write=value=>value==='other'?{}:{title:value};
+  for(const lang of ['ar','en'])rules[lang+'_second'].read=()=>p[lang+'_second']??p[lang+'_middle']??'';
+  for(const key of ['building','street','district','city','postal','country']){address('mail_'+key,key,'mail');address('sa_'+key,key,'residence');}
   if(values.capacity==='holder'){name('signer_en','en');name('signer_ar','ar');}
+  else{composite('signer_en',[],()=> '');composite('signer_ar',[],()=> '');}
   name('staff_account_holder');
  }
  if(doc.id==='kyc-corporate'){
-  bind('company','company_name');bind('risk_client_name','company_name');bind('cr','company_id_number');
-  same(['inc_country','building','street','district','city','postal','additional','phone','mobile','email','auth_id_type','auth_id']);
+  company('company');company('risk_client_name');bind('cr','company_id_number');same(['inc_country','phone','mobile','email','auth_id_type','auth_id']);
+  rules.auth_id_type.read=()=>p.auth_id_type==='other'?'':p.auth_id_type||'';
+  for(const key of ['building','street','district','city','postal','additional'])address(key,key,'registered');
   bind('business_phone','phone');name('auth_name','auth');
+  composite('address',addressKeys.flatMap(key=>['registered_'+key,key]),()=>p.registered_address_text??joined(...addressKeys.filter(k=>k!=='short_address').map(k=>p['registered_'+k]??p[k])));
+  rules.address.keys.push('registered_address_text');rules.address.write=value=>({registered_address_text:value});
+  composite('contact_address',addressKeys.flatMap(key=>['mail_'+key,key]),()=>p.mail_address_text??joined(...addressKeys.filter(k=>k!=='short_address').map(k=>p['mail_'+k]??p[k])));
+  rules.contact_address.keys.push('mail_address_text');rules.contact_address.write=value=>({mail_address_text:value});
  }
  if(doc.id==='fatca-crs-corporate'){
-  bind('legal_name','company_name');bind('inc_country','inc_country');name('signer_0_name','auth');
-  for(const prefix of ['residence','head'])if(p[prefix==='head'?'also_head':'also_residence'])for(const key of ['building','street','district','city','country'])bind(prefix+'_'+key,key);
+  company('legal_name','en');bind('inc_country','inc_country');name('signer_0_name','auth');
+  for(const prefix of ['residence','head']){
+   for(const key of ['building','street','district','city','country']){
+    address(prefix+'_'+key,key,prefix);
+    if(prefix==='head')rules[prefix+'_'+key].read=()=>p['head_'+key]??(p.also_head?p[key]:'')??'';
+   }
+   composite(prefix+'_postal',[prefix+'_postal',prefix+'_additional','postal','additional'],()=>own(p,prefix+'_postal')?joined(p[prefix+'_postal'],p[prefix+'_additional']):prefix==='head'&&!p.also_head?'':joined(p.postal,p.additional));
+   rules[prefix+'_postal'].write=value=>{
+    // This printed box joins two codes. Split only an unambiguous pair of
+    // numeric codes; preserve other formats as one complete postal value.
+    const pair=value.trim().match(/^([0-9٠-٩۰-۹]{5})\s+([0-9٠-٩۰-۹]{4})$/),postal=pair?.[1]??value,additional=pair?.[2]??'';
+    return {...addressPatch('postal',prefix,postal),...addressPatch('additional',prefix,additional)};
+   };
+  }
  }
- if(doc.custom)for(const f of doc.fields){
-  const key=f.shared?.[audience];
-  if(key&&!['full_name','full_name_en','full_name_ar','full_address'].includes(key))bind(f.id,key);
+ if(doc.custom)for(const f of doc.fields){const key=f.shared?.[audience];if(!key)continue;
+  if(['full_name','full_name_en','full_name_ar','full_address'].includes(key))composite(f.id,[],()=>key==='full_name'?customerName():key==='full_name_en'?full('en'):key==='full_name_ar'?full('ar'):joined(...addressKeys.filter(k=>k!=='short_address').map(k=>p[k])));
+  else bind(f.id,key);
  }
  for(const group of personNameGroups(doc,audience)){
-  if(!names.has(group.id))continue;
-  const requested=names.get(group.id),language=requested==='auto'?autoLanguage(group.partIds.map(id=>values[id])):requested;
-  const keys=['first','second','third','last'].map(part=>language+'_'+part);
-  group.partIds.forEach((id,index)=>bind(id,keys[index]));
-  for(const target of group.targets)bindings[target.id]=target.join.map(id=>keys[group.partIds.indexOf(id)]);
+  if(!names.has(group.id)){
+   // Role not selected: clear inherited values only, retain locally entered names.
+   if(group.targets.some(target=>rules[target.id]))for(const id of group.partIds)composite(id,[],()=> '');
+   continue;
+  }
+  const requested=names.get(group.id),language=requested==='auto'?preferred:requested;
+  group.partIds.forEach((id,index)=>{
+   const part=['first','second','third','last'][index];
+   bind(id,language+'_'+part,{keys:[language+'_'+part,...(requested==='auto'?['name_language']:[])],read:()=>p[language+'_'+part]??(part==='second'?p[language+'_middle']:'')??'',write:value=>({[(requested==='auto'?autoLanguage(group.partIds.map(id=>values[id])):language)+'_'+part]:value})});
+  });
+  for(const target of group.targets)composite(target.id,target.join.flatMap(id=>rules[id].keys),()=>joinPersonName(target.join.map(id=>rules[id].read())));
  }
- return bindings;
+ return rules;
 }
-
+function sharedBindings(doc,values,profile,audience){return Object.fromEntries(Object.entries(sharedRules(doc,values,profile,audience)).map(([id,rule])=>[id,rule.keys]));}
 export function sharedEdit(doc,values,profile,audience,editedField,{seedMissing=true}={}){
  if(!editedField)return {};
- const keys=sharedBindings(doc,values,profile,audience)[editedField];
- // Derived full names and combined address boxes have no lossless inverse.
- if(keys?.length!==1||(values[editedField]!==undefined&&typeof values[editedField]!=='string'))return {};
- const key=keys[0],value=values[editedField]??'',patch={[key]:value};
- const field=sharedGroups(audience).flatMap(group=>group.fields).find(field=>field.id===key);
- if(!field||(field.options&&value!==''&&!field.options.some(option=>option[0]===value)))return {};
+ const rules=sharedRules(doc,values,profile,audience),patch={};
+ // Selecting a role also publishes details the client deliberately typed first.
+ const roleChange=(doc.id==='signature-form'&&editedField==='signer_role')||(doc.id==='fatca-crs-individual'&&editedField==='capacity');
+ const ids=roleChange?Object.keys(rules).filter(id=>id.startsWith('signer_')||doc.id==='signature-form'&&['id_number','id_type'].includes(id)):[editedField];
+ for(const id of ids){const rule=rules[id],value=values[id]??'';if(!rule?.write||typeof value!=='string'||roleChange&&!value.trim())continue;Object.assign(patch,rule.write(value));}
  const group=personNameGroups(doc,audience).find(group=>group.partIds.includes(editedField));
- const primary=doc.workflow==='subscription'&&doc.group==='individual'?['first_name','second_name','third_name','family_name']:null;
- if(/^(en|ar)_(first|second|third|last)$/.test(key)){
-  if(group?.language==='auto'||primary?.includes(editedField)||!profile?.name_language)patch.name_language=key.slice(0,2);
- }
+ const primary=doc.id==='subscription-form'?['first_name','second_name','third_name','family_name']:null;
  const parts=group?.partIds||(primary?.includes(editedField)?primary:null);
- if(seedMissing&&parts&&/^(en|ar|auth)_(first|second|third|last)$/.test(key)){
-  const language=key.split('_')[0];
-  parts.forEach((id,index)=>{
-   const sibling=language+'_'+['first','second','third','last'][index];
-   if(!Object.hasOwn(profile||{},sibling)&&typeof values[id]==='string')patch[sibling]=values[id];
-  });
- }
+ if(seedMissing&&parts)for(const id of parts){const rule=rules[id];if(!rule?.write||typeof values[id]!=='string')continue;for(const [key,value]of Object.entries(rule.write(values[id])))if(!own(profile||{},key)&&!own(patch,key))patch[key]=value;}
+ const nameKey=Object.keys(patch).find(key=>/^(en|ar)_(first|second|third|last)$/.test(key));
+ if(nameKey&&(group?.language==='auto'||!profile?.name_language||primary?.includes(editedField)))patch.name_language=nameKey.slice(0,2);
  return patch;
 }
+export function sharedCandidates(doc,profile,values,audience){const candidates=Object.fromEntries(Object.entries(sharedRules(doc,values,profile,audience)).map(([id,rule])=>[id,rule.read()??'']));return doc.id==='fatca-crs-individual'?nameParts(candidates,false):candidates;}
 
-// Map by meaning, never by matching words such as "Name". Extra client rows,
-// controllers, witnesses, bank/custodian accounts and signatures are independent.
-export function sharedCandidates(doc,profile,values,audience){
- if(!['individual','corporate'].includes(audience)||(doc.group!=='shared'&&doc.group!==audience))return {};
- const p=profile||{},out={};
- const copy=(id,value)=>{out[id]=value||'';};
- const partsFor=language=>[p[language+'_first'],...((language+'_second' in p||language+'_third' in p)?[p[language+'_second'],p[language+'_third']]:[p[language+'_middle'],'']),p[language+'_last']].map(value=>value||'');
- const enParts=partsFor('en'),arParts=partsFor('ar'),authParts=partsFor('auth');
- const fullEn=joinPersonName(enParts),fullAr=joinPersonName(arParts);
- const present=language=>['first','second','third','last','middle'].some(part=>Object.hasOwn(p,language+'_'+part));
- const name=audience==='individual'?(p.name_language==='ar'?(present('ar')?fullAr:fullEn):(present('en')?fullEn:fullAr)):p.company_name||'';
- const address=joined(p.building,p.street,p.district,p.city,p.postal,p.additional,p.country);
- if(doc.workflow==='subscription'){
-  for(const f of doc.fields){if(f.sharedKey)copy(f.id,p[f.sharedKey]);}
-  copy('client_account',p.account_number||p.client_number);
-  copy('english_name',audience==='individual'?fullEn:(!/\p{Script=Arabic}/u.test(p.company_name||'')?p.company_name:''));
-  if(audience==='individual'){
-   const preferred=p.name_language||(present('ar')?'ar':'en'),language=present(preferred)?preferred:present('ar')?'ar':'en';
-   for(const [key,part] of [['first_name','first'],['second_name','second'],['third_name','third'],['family_name','last']])copy(key,p[language+'_'+part]);
-  }
- }
- if(doc.id==='subscription-form'&&!doc.workflow){
-  const corporate=audience==='corporate',arabicCompany=/\p{Script=Arabic}/u.test(p.company_name||'');
-  copy('ar_name',corporate?(arabicCompany?p.company_name:''):fullAr);
-  copy('en_name',corporate?(!arabicCompany?p.company_name:''):fullEn);
-  copy('client_account',p.account_number||p.client_number);
-  for(const key of ['phone','mobile','postal','city','country'])copy(key,p[key]);
-  copy('applicant_name',corporate?p.auth_name:name);
-  if(!corporate){
-   copy('id_number',p.id_number);
-   copy('id_type',p.id_type==='family'?'other':p.id_type);
-   const title=titleOptions.find(o=>o[0]===p.title)?.slice(1);
-   copy('en_title',title?.[0]);copy('ar_title',title?.[1]);
-  }
- }
- if(doc.id==='signature-form'){
-  copy('client_name',name);copy('client_number',p.client_number);copy('account_number',p.account_number);
-  const self=audience==='individual'&&values.signer_role==='client',auth=audience==='corporate'&&values.signer_role==='authorized';
-  copy('signer_name',self?name:auth?p.auth_name:'');copy('id_number',self?p.id_number:auth?p.auth_id:'');
-  copy('id_type',self?idLabel(p.id_type,p.name_language==='ar',p.id_other):auth?idLabel(p.auth_id_type,/\p{Script=Arabic}/u.test(p.auth_name||''),p.auth_id_other):'');
- }
- if(doc.id==='terms-and-conditions'){copy('terms_name_0',name);copy('authorization_name_0',name);}
- if(doc.id==='kyc-individual'){
-  copy('name_1',name);copy('risk_client_name',name);
-  for(const key of ['title','gender','dob','nationality','id_type','id_other','id_number','phone','mobile','email','building','street','postal','country'])copy(key,p[key]);
-  copy('city',joined(p.city,p.district));copy('postal_additional',p.additional);
- }
- if(doc.id==='fatca-crs-individual'){
-  for(const key of ['en_first','en_second','en_third','en_middle','en_last','ar_first','ar_second','ar_third','ar_middle','ar_last','title','gender','dob'])copy(key,p[key]);
-  // The original tax form prints an Other box instead of Dr./Eng. boxes.
-  if(['dr','eng'].includes(p.title))copy('title','other');
-  for(const key of ['building','street','district','city','postal','country']){copy('mail_'+key,p[key]);copy('sa_'+key,p.also_residence?p[key]:'');}
-  copy('signer_en',values.capacity==='holder'?fullEn:'');copy('signer_ar',values.capacity==='holder'?fullAr:'');
-  copy('staff_account_holder',name);
- }
- if(doc.id==='kyc-corporate'){
-  copy('company',name);copy('risk_client_name',name);copy('inc_country',p.inc_country);copy('cr',p.company_id_number);
-  for(const key of ['building','street','district','city','postal','additional','phone','mobile','email','auth_name','auth_id_type','auth_id'])copy(key,p[key]);
-  // Do not invent a checkbox where the official company PDF has no Other option.
-  if(p.auth_id_type==='other')copy('auth_id_type','');
-  copy('address',address);copy('business_phone',p.phone);copy('contact_address',p.also_mail?address:'');
- }
- if(doc.id==='fatca-crs-corporate'){
-  copy('legal_name',name);copy('inc_country',p.inc_country);copy('signer_0_name',p.auth_name);
-  for(const prefix of ['residence','head'])for(const key of ['building','street','district','city','postal','country'])copy(`${prefix}_${key}`,p[prefix==='head'?'also_head':'also_residence']?(key==='postal'?joined(p.postal,p.additional):p[key]):'');
- }
- if(doc.custom)for(const f of doc.fields){
-  const key=f.shared?.[audience];
-  if(key)copy(f.id,key==='full_name'?name:key==='full_name_en'?fullEn:key==='full_name_ar'?fullAr:key==='full_address'?address:p[key]);
- }
- for(const group of personNameGroups(doc,audience)){
-  if(!group.targets.some(target=>Object.hasOwn(out,target.id)))continue;
-  const full=joinPersonName(group.targets.map(target=>out[target.id]));
-  const sources=group.language==='en'?[[fullEn,enParts]]:group.language==='ar'?[[fullAr,arParts]]:audience==='corporate'?[[joinPersonName(authParts),authParts]]:p.name_language==='ar'?[[fullAr,arParts],[fullEn,enParts]]:[[fullEn,enParts],[fullAr,arParts]];
-  const exact=full&&sources.find(([name])=>name===full)?.[1];
-  const parts=exact||Object.values(splitPersonName(full));
-  group.partIds.forEach((id,index)=>copy(id,parts[index]));
-  for(const target of group.targets)copy(target.id,joinPersonName(target.join.map(id=>out[id])));
- }
- return out;
-}
 export function reconcileShared(doc,record,profile,audience,{changed=[],preserveMissing=false}={}){
  if(record.revision)return {...record,values:normalizePersonNames(doc,record.values,{audience})};
  const next={...record,values:{...record.values},shared:{},overrides:[...(record.overrides||[])]};

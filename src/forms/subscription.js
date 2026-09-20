@@ -14,7 +14,8 @@ for(const corporate of [false,true]){
  field('title','Title (optional)','الصفة (اختياري)',corporate?{optional:true}:{type:'select',optional:true,sharedKey:'title',selectOptions:titleOptions});
  field('title_label','','',{hidden:true});
  if(corporate){
-  field('company_name','Full legal company name','الاسم القانوني الكامل للشركة',{required:true,sharedKey:'company_name',wide:true});
+  field('company_name','Company name in Arabic','اسم الشركة باللغة العربية',{required:true,sharedKey:'company_name_ar',wide:true,direction:'rtl'});
+  field('english_name','Company name in English','اسم الشركة باللغة الإنجليزية',{optional:true,wide:true,direction:'ltr',sharedKey:'company_name_en'});
   field('inc_country','Country of incorporation','دولة التأسيس',{required:true,sharedKey:'inc_country'});
   field('company_id_type','Registration type','نوع تسجيل الشركة',{type:'select',required:true,sharedKey:'company_id_type',selectOptions:[['cr','Commercial registration','سجل تجاري'],['license','Licence','ترخيص'],['other','Other','أخرى']]});
   field('company_id_type_label','','',{hidden:true});
@@ -24,13 +25,13 @@ for(const corporate of [false,true]){
  }else{
   for(const [id,en,ar,optional] of [['first_name','First name','الاسم الأول',false],['second_name','Second name','الاسم الثاني',false],['third_name','Third name (optional)','الاسم الثالث (اختياري)',true],['family_name','Family name','اسم العائلة',false]])field(id,en,ar,{required:!optional,optional,namePart:true});
   field('full_name','','',{hidden:true,join:['first_name','second_name','third_name','family_name']});
+  field('english_name','Customer name in English','اسم العميل باللغة الإنجليزية',{optional:true,wide:true,direction:'ltr'});
   field('nationality','Nationality','الجنسية',{required:true,sharedKey:'nationality'});
   field('id_type','ID type','نوع الهوية',{type:'select',required:true,sharedKey:'id_type',selectOptions:idOptions});
   field('id_type_label','','',{hidden:true});
   field('id_number','ID number','رقم الهوية',{required:true,sharedKey:'id_number',dependsOn:'id_type',when:['national','residence','passport','other']});
   field('id_other','Specify the identity document','بيان نوع الهوية الأخرى',{required:true,sharedKey:'id_other',dependsOn:'id_type',when:['other']});
  }
- field('english_name',corporate?'Company name in English (if different)':'Full name in English (if different)',corporate?'اسم الشركة بالإنجليزية (إن اختلف)':'الاسم الكامل بالإنجليزية (إن اختلف)',{optional:true,wide:true,direction:'ltr'});
  field('phone','Telephone (optional)','الهاتف (اختياري)',{type:'tel',direction:'ltr',optional:true,sharedKey:'phone'});
  field('mobile','Mobile','الجوال',{type:'tel',direction:'ltr',sharedKey:'mobile'});
  s=section(d,'address','Correspondence address (National Address)','عنوان المراسلة (العنوان الوطني)',1);

@@ -35,7 +35,6 @@ export function missingRequired(doc,values,signatures){
  const answers=normalizePersonNames(doc,values,{audience:doc.group});
  const missing=answerFields(doc,answers).filter(f=>f.required&&!String(answers[f.id]??'').trim()).map(f=>f.id);
  if(values.units&&!values.total_amount)missing.push('units');
- if(values.signature_mode==='electronic'&&!signatures.applicant)missing.push('signature_mode');
  return [...new Set(missing)];
 }
 export async function canonicalSubscription(doc,values){

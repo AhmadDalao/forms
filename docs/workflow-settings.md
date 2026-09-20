@@ -1,3 +1,5 @@
+> Superseded on 2026-09-20: the approved direct-submission release removes the active review toggle and decision controls. Historical decisions remain read-only. See `next-update-verification.md`. The description below is retained as historical implementation documentation.
+
 # Review workflow switch
 
 Open **Management → Workflow / سير العمل** using the superadmin account. Choose a mode, then select **Save workflow / حفظ سير العمل**. Selecting a card alone does not change the site. Regular admins can see the active mode but cannot change it.

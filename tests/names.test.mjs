@@ -17,7 +17,7 @@ test('tax names reuse four shared parts and preserve manual corrections and deli
  d.save(id,{...d.get(id).values,en_second:''},0,{},'en_second');d.save(id,{...d.get(id).values,en_third:''},0,{},'en_third');
  assert.equal(d.get(id).values.en_middle,'');
  const reopened=createDraftStore(docs,()=>disk,'individual');assert.equal(reopened.get(id).values.en_middle,'');
- assert.equal(reopened.profile.en_second,'');assert.equal(reopened.get('subscription-form').values.second_name,'');
+ assert.equal(reopened.profile.en_second,'');assert.equal(reopened.get('subscription-form').values.en_second,'');
 });
 test('every visible split customer name uses four parts; PDF middle boxes are derived only',()=>{
  const d=docs.find(d=>d.id==='fatca-crs-individual');

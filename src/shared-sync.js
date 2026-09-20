@@ -9,14 +9,14 @@ const absent=value=>value===undefined?null:value;
 // replaces it; background responses write separate receipts for the saved token.
 // This keeps independent offline tabs from overwriting each other's queued work.
 export function createSharedSync({account,audience,drafts,api,onChange=()=>{},onStatus=()=>{},storage=()=>localStorage,events=globalThis.window,delay=400}){
- const allowed=new Set(sharedGroups(audience).flatMap(group=>group.fields.filter(field=>!field.hidden).map(field=>field.id)));
+ const allowed=new Set(sharedGroups(audience).flatMap(group=>group.fields.filter(field=>(!field.hidden||field.sync)).map(field=>field.id)));
  const project=profile=>Object.fromEntries(Object.entries(cleanShared(audience,profile)).filter(([id])=>allowed.has(id)));
  const key=drafts.basePrefix+'shared-sync',volatile=new Map(),listeners=[];
  function read(name){if(volatile.has(name))return volatile.get(name);try{return JSON.parse(storage().getItem(name)||'null');}catch{return null;}}
  function write(name,value){try{storage().setItem(name,JSON.stringify(value));volatile.delete(name);}catch{volatile.set(name,value);}}
  let cache=read(key);if(cache?.account!==account||cache?.audience!==audience)cache=null;
  let base=cache?.base?project(cache.base):null,revision=Number.isInteger(cache?.revision)?cache.revision:null;
- let view=project(drafts.profile),pending={},records={},status='loading',updatedAt=null,conflicts=[],canInitialize=false,disposed=false,timer=null,flight=null,forceSave=false;
+ let view=project(drafts.profile),pending={},records={},status='loading',updatedAt=null,conflicts=[],canInitialize=false,disposed=false,timer=null,storageTimer=null,flight=null,forceSave=false;
  const recordKey=id=>key+'.pending.'+id,receiptKey=id=>key+'.settled.'+id;
  function record(id){const value=read(recordKey(id));return value&&typeof value.token==='string'&&own(value,'value')?value:null;}
  function unsettled(id){const value=record(id);return value&&read(receiptKey(id))?.token!==value.token?value:null;}
@@ -122,9 +122,18 @@ export function createSharedSync({account,audience,drafts,api,onChange=()=>{},on
    for(const id of conflicts){const entry=unsettled(id);if(!entry)continue;if(choice==='remote')settle(id,entry,base?.[id],revision);else edit(id,entry.value,{resolve:true});}
    collect();apply(patched(base,pending));persist();updateStatus();await controller.flush();
   },
-  dispose(){disposed=true;clearTimeout(timer);for(const [target,event,listener]of listeners)target.removeEventListener(event,listener);},
+  dispose(){disposed=true;clearTimeout(timer);clearTimeout(storageTimer);for(const [target,event,listener]of listeners)target.removeEventListener(event,listener);},
  };
  for(const [event,listener]of [['online',()=>controller.retry()],['focus',()=>controller.refresh()],['pageshow',()=>controller.refresh()],['pagehide',()=>controller.flush({keepalive:true})]])if(events){events.addEventListener(event,listener);listeners.push([events,event,listener]);}
+ if(events){
+  const listener=event=>{
+   if(event.key!==null&&event.key!==drafts.basePrefix+'shared-fields'&&!event.key?.startsWith(key))return;
+   // Other tabs write the pending journal before the account save completes.
+   // Refresh adopts those edits too; do not re-publish this tab's stale profile.
+   clearTimeout(storageTimer);storageTimer=setTimeout(()=>controller.refresh(),60);
+  };
+  events.addEventListener('storage',listener);listeners.push([events,'storage',listener]);
+ }
  if(events?.document){const listener=()=>{if(events.document.visibilityState==='hidden')controller.flush({keepalive:true});else controller.refresh();};events.document.addEventListener('visibilitychange',listener);listeners.push([events.document,'visibilitychange',listener]);}
  return controller;
 }

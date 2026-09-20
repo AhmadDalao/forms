@@ -59,6 +59,22 @@ test('workflow migration is repeatable, preserves exact legacy data and rolls ba
  assert.deepEqual(r.first.workflow,{review_enabled:true,revision:0,updated_at:null,updated_by:null});assert.deepEqual(r.foreignKeys,[]);
 });
 
+test('direct intake migration preserves clients, answers, archived PDFs and decision history, is atomic and repeatable',()=>{
+ const r=php(schema+`
+  migrateWorkflow();seed('legacy');seed('archived','{"review_required":false}',null,'2026-09-19T13:00:00Z');
+  recordReview('legacy','rejected','other','Original decision',0,'old-decision','original.admin');
+  $db->exec('PRAGMA user_version=6');$before=preserved();$workflowBefore=workflowDetails();
+  $db->exec("CREATE TRIGGER refuse_direct_update BEFORE UPDATE ON workflow_settings BEGIN SELECT RAISE(ABORT,'forced failure'); END");
+  $failed=false;try{migrateDirectIntake();}catch(PDOException){$failed=true;}
+  $rollback=$before===preserved()&&$workflowBefore===workflowDetails()&&(int)$db->query('PRAGMA user_version')->fetchColumn()===6;
+  $db->exec('DROP TRIGGER refuse_direct_update');migrateDirectIntake();$first=workflowDetails();migrateDirectIntake();$second=workflowDetails();
+  echo json_encode(compact('failed','rollback','first','second')+['preserved'=>$before===preserved(),'schema'=>(int)$db->query('PRAGMA user_version')->fetchColumn(),'direct'=>submissionPresentation(['profile'=>['submission_mode'=>'direct','review_required'=>false]]),'legacy'=>submissionPresentation(['profile'=>[]]),'saved'=>submissionPresentation(['profile'=>['review_required'=>false]])]);
+ `);
+ assert.equal(r.failed,true);assert.equal(r.rollback,true);assert.equal(r.preserved,true);assert.equal(r.schema,7);assert.deepEqual(r.first,r.second);
+ assert.equal(r.first.workflow.review_enabled,false);assert.equal(r.first.workflow.updated_by,'system:direct-intake');assert.equal(r.first.history.length,1);
+ assert.deepEqual(r.direct,{submission_mode:'direct',presentation_status:'received'});assert.equal(r.legacy.presentation_status,'received');assert.equal(r.saved.presentation_status,'saved');
+});
+
 test('workflow changes record actors, reject coercion/stale/no-op requests, and retry without duplicate events',()=>{
  const r=php(schema+`
   migrateWorkflow();seed('legacy');$before=preserved();

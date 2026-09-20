@@ -52,10 +52,10 @@ test('nationality precedes the dropdown, ID fields follow the selected type, com
  assert.equal(individual.fields.some(f=>f.id.startsWith('company_')),false);
  assert.equal(company.fields.some(f=>f.id==='first_name'),false);
 });
-test('signature completion requires an image only for electronic signing',()=>{
+test('signature progress reflects a missing image without blocking direct intake',()=>{
  const v=normalizeSubscription(individual,{first_name:'A',second_name:'B',family_name:'C'});const section=individual.sections.find(s=>s.id==='applicant');
  assert.deepEqual(sectionProgress(individual,section,v,{}),{completed:3,total:3});
- v.signature_mode='electronic';assert.deepEqual(sectionProgress(individual,section,v,{}),{completed:3,total:4});assert.ok(missingRequired(individual,v,{}).includes('signature_mode'));
+ v.signature_mode='electronic';assert.deepEqual(sectionProgress(individual,section,v,{}),{completed:3,total:4});assert.ok(!missingRequired(individual,v,{}).includes('signature_mode'));
  assert.deepEqual(sectionProgress(individual,section,v,{applicant:'image'}),{completed:4,total:4});
 });
 test('legacy middle names survive four-part profile migration and still feed unchanged tax forms',()=>{
@@ -100,7 +100,7 @@ test('saved legacy subscription names, IDs and applicant correction migrate into
 });
 test('retired family IDs retain their details under Other without appearing in dropdowns',()=>{
  const p=cleanShared('individual',{name_language:'ar',en_first:'Alice',en_second:'Jane',en_last:'Smith',id_type:'family',id_number:'001234'});
- const v=sharedCandidates(individual,p,{},'individual');assert.equal(v.first_name,'Alice');assert.equal(v.second_name,'Jane');assert.equal(v.id_type,'other');assert.equal(v.id_other,'بطاقة عائلية / Family ID');
+ const v=sharedCandidates(individual,p,{},'individual');assert.equal(v.first_name,'');assert.equal(v.en_first,'Alice');assert.equal(v.en_second,'Jane');assert.equal(v.id_type,'other');assert.equal(v.id_other,'بطاقة عائلية / Family ID');
  assert.equal(individual.fields.find(f=>f.id==='id_type').selectOptions.some(o=>o[0]==='family'),false);
  const legacy=normalizeSubscription(individual,{id_type:'family',id_number:'001234'});assert.equal(legacy.id_type,'other');assert.equal(legacy.id_other,v.id_other);assert.equal(legacy.id_number,'001234');
  const corporate=cleanShared('corporate',{auth_id_type:'family',auth_id:'001234'});assert.equal(corporate.auth_id_type,'other');assert.equal(corporate.auth_id_other,v.id_other);

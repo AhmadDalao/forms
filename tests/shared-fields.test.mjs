@@ -17,7 +17,7 @@ test('explicit false shared choices persist without inventing unanswered choices
  assert.equal(individual.get('fatca-crs-individual').values.sa_city,'Riyadh');
  individual.setShared({...individual.profile,also_residence:false});
  const reopened=make(disk,'individual');assert.equal(reopened.profile.also_residence,false);
- assert.equal(reopened.get('fatca-crs-individual').values.sa_city,undefined);assert.equal(reopened.get('fatca-crs-individual').values.mail_city,'Riyadh');
+ assert.equal(reopened.get('fatca-crs-individual').values.sa_city,'Riyadh');assert.equal(reopened.get('fatca-crs-individual').values.mail_city,'Riyadh');
  assert.equal(make(disk,'corporate').profile.also_residence,true);assert.equal(make(disk,'corporate').profile.also_head,false);
  assert.equal(Object.hasOwn(make(disk,'corporate').profile,'also_mail'),false);
 });
@@ -69,7 +69,7 @@ test('shared details populate corresponding individual forms but leave other peo
  assert.equal(d.get('kyc-individual').values.risk_client_name,'Ahmad Ali Dalao');
  assert.equal(d.get('kyc-individual').values.rep_phone,undefined);
  const tax=d.get('fatca-crs-individual').values;
- assert.equal(tax.en_middle,'Ali');assert.equal(tax.ar_first,'أحمد');assert.equal(tax.mail_city,'Riyadh');assert.equal(tax.sa_city,undefined);assert.equal(tax.outside_city,undefined);assert.equal(tax.staff_employee_id,undefined);
+ assert.equal(tax.en_middle,'Ali');assert.equal(tax.ar_first,'أحمد');assert.equal(tax.mail_city,'Riyadh');assert.equal(tax.sa_city,'Riyadh');assert.equal(tax.outside_city,undefined);assert.equal(tax.staff_employee_id,undefined);
  d.setShared({...person,also_residence:true});assert.equal(d.get('fatca-crs-individual').values.sa_city,'Riyadh');
 });
 test('individual/company shared documents, preferences, signatures and clear-all are isolated',()=>{

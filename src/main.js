@@ -264,13 +264,6 @@ function goStep(i){if(busy||i<0||i>=current.sections.length)return;const wasRevi
 function showStatus(msg,error=false){const el=document.querySelector('#status');if(el){el.textContent=msg;el.className=error?'status error':'status';}}
 async function makeReview(downloadNow=false,previewPage=null){
  if(busy)return;
- const missing=signatureSlots(current).filter(slot=>drafts.get(current.id).signatureModes?.[slot.id]==='electronic'&&!signatures[slot.id]);
- if(missing.length){
-  for(const slot of missing)signatureMessages[slot.id]=t('Upload a signature image or choose manual signature.','حمّل صورة التوقيع أو اختر التوقيع اليدوي.');
-  const index=current.sections.findIndex(s=>sectionSignatureSlots(current,s).some(slot=>slot.id===missing[0].id));
-  if(index>=0)goStep(index);
-  document.querySelector(`[data-signature-choose="${missing[0].id}"]`)?.focus();return;
- }
  if(downloadNow&&review&&pdfBytes){download();return;}
  busy=true;const token=++generation,doc=current,snapshot=structuredClone(values),signatureSnapshot={...signatures};saveDraft();
  showStatus(t('Preparing your PDF…','جارٍ إعداد المستند…'));setBusy(true);

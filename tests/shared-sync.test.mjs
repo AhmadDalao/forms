@@ -4,13 +4,13 @@ import {createSharedSync} from '../src/shared-sync.js';
 import {cleanShared} from '../src/shared-fields.js';
 const disk=()=>{const m=new Map();return{getItem:k=>m.get(k)||null,setItem:(k,v)=>m.set(k,v)}};
 const defer=()=>{let resolve;const promise=new Promise(r=>resolve=r);return{promise,resolve}};
-function harness({remote={},revision=0,local={},storage=disk(),audience='individual',account='owner',api:override}={}){
+function harness({remote={},revision=0,local={},storage=disk(),audience='individual',account='owner',events=null,api:override}={}){
  let profile=cleanShared(audience,local),server={profile:structuredClone(remote),revision,updated_at:null},writes=0,offline=false,nextSave=null;
  const api=async(action,body)=>{if(offline)throw Error('connection_failed');if(action==='shared_profile')return{shared:structuredClone(server)};
   writes++;if(nextSave){const wait=nextSave;nextSave=null;await wait.promise;}
   if(body.expectedRevision!==server.revision)throw Error('shared_profile_conflict');for(const [id,v]of Object.entries(body.changes))if(v===null)delete server.profile[id];else server.profile[id]=v;server.revision++;server.updated_at='now';return{shared:structuredClone(server)};};
  const drafts={basePrefix:'test.'+account+'.'+audience+'.',get profile(){return profile},setShared:p=>profile=cleanShared(audience,p)};
- const sync=createSharedSync({account,audience,drafts,api:override||api,storage:()=>storage,events:null,delay:100000});
+ const sync=createSharedSync({account,audience,drafts,api:override||api,storage:()=>storage,events,delay:100000});
  return{sync,drafts,storage,get server(){return server},get writes(){return writes},get profile(){return profile},set offline(v){offline=v},delaySave:()=>nextSave=defer(),edit:changes=>{drafts.setShared({...profile,...changes});sync.change(profile);},replace:p=>{drafts.setShared(p);sync.change(profile);}};
 }
 test('first account profile imports existing browser details and restores from a fresh browser',async()=>{
@@ -49,4 +49,14 @@ test('closing during an active save drains newer queued edits without relying on
 test('same-field conflicts survive reopening until an explicit choice',async()=>{
  const h=harness({remote:{city:'Old'},revision:1});await h.sync.start();h.edit({city:'Local'});h.server.profile.city='Elsewhere';h.server.revision++;await h.sync.flush();h.sync.dispose();
  const reopened=harness({remote:h.server.profile,revision:2,local:h.profile,storage:h.storage});await reopened.sync.start();assert.equal(reopened.sync.state.status,'conflict');await reopened.sync.refresh();assert.equal(reopened.sync.state.status,'conflict');await reopened.sync.resolve('local');assert.equal(reopened.server.profile.city,'Local');reopened.sync.dispose();
+});
+test('another tab storage event refreshes only this account scope and never republishes stale data',async()=>{
+ const events=new EventTarget(),h=harness({events,remote:{en_first:'Before'},revision:1});await h.sync.start();
+ const changed=key=>{const event=new Event('storage');Object.defineProperty(event,'key',{value:key});events.dispatchEvent(event);};
+ h.server.profile.en_first='After';h.server.revision++;
+ changed('test.another.individual.shared-fields');await new Promise(r=>setTimeout(r,90));assert.equal(h.profile.en_first,'Before');
+ changed(h.drafts.basePrefix+'shared-fields');
+ for(let i=0;i<50&&h.profile.en_first!=='After';i++)await new Promise(r=>setTimeout(r,10));
+ assert.equal(h.profile.en_first,'After');assert.equal(h.writes,0);h.sync.dispose();
+ h.server.profile.en_first='Disposed';changed(h.drafts.basePrefix+'shared-fields');await new Promise(r=>setTimeout(r,90));assert.equal(h.profile.en_first,'After');
 });
