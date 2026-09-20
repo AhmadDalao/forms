@@ -52,6 +52,8 @@ Production data defaults to `public/_private/management` (the corresponding `_pr
 
 The approved production rollout uses `python3 scripts/deploy.py --production`. It backs up overwritten public files and preserves private storage. To add the explicitly prepared superadmin once, use `--initialize-superadmin /path/to/private-credential-directory`; it uploads only the two guarded credential files under protected `_private/management`, refuses different existing credentials, and verifies that existing admin credentials remain unchanged. Never upload the plaintext password file, source documents, test output, databases or backups.
 
+For text, CSS or other static-only changes, `python3 scripts/deploy.py --production --static-only` limits publication to changed HTML/assets. It requires the last completed production manifest and refuses backend/document changes. Changed remote files are backed up and verified over FTPS; unchanged build files are retained from the recorded release. Use the full deployment for API, template or hosting-rule changes.
+
 ## Verification
 
 `npm test` covers the established form/draft/profile behavior. `node scripts/management-roles-audit.mjs` verifies both roles, direct API restrictions, review attribution, unified navigation and same-browser account switching. `node scripts/portal-audit.mjs` exercises the client lifecycle as an ordinary admin. `node scripts/management-audit.mjs` starts an isolated PHP server with disposable test data and verifies management/API/customer workflows. `scripts/catalogue-audit.mjs` checks the existing form catalogue against the local PHP preview. Test output and credentials stay under ignored temporary directories.
