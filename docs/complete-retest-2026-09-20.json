@@ -879,5 +879,67 @@
       "passed": true
     }
   },
-  "production": "Publication and read-only verification recorded after deployment."
+  "production": {
+    "source_commit": "6fe7a1668a9f9456e20020cc9d751f05e86d9810",
+    "uploaded_at_utc": "20260920T074437Z",
+    "url": "https://forms.ahmaddalao.com/",
+    "created_files": 8,
+    "replaced_files": 9,
+    "unchanged_files": 59,
+    "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260920T074437Z",
+    "https": {
+      "passed": true,
+      "public_build_matches": [
+        "index.html",
+        "my-applications/index.html",
+        "individuals/index.html",
+        "management/index.html",
+        "register/index.html",
+        "account/index.html",
+        "assets/forms-BYcw9uKH.js",
+        "assets/shared-fields-WcH3TKkC.js",
+        "assets/main-BDeWeeow.js",
+        "assets/main-CUM6SJrP.js",
+        "assets/preview-D30W1kYp.js",
+        "assets/index-BqAJj5Qt.js",
+        "assets/main-C52sMTyA.js",
+        "assets/forms-Bp-YSMBP.js",
+        "login/index.html",
+        "companies/index.html"
+      ],
+      "blocked_paths": [
+        {
+          "path": "_private/",
+          "status": 403
+        },
+        {
+          "path": "_private/portal/clients.sqlite",
+          "status": 403
+        },
+        {
+          "path": ".env.local",
+          "status": 403
+        }
+      ],
+      "source_commit": "6fe7a1668a9f9456e20020cc9d751f05e86d9810"
+    },
+    "anonymous_browser": {
+      "checks": [
+        "Live individual shared nationality, Arabic/mixed name and Arabic-digit phone reach downloadable KYC",
+        "Live FATCA downloads with ordinary English street in original narrow address boxes",
+        "Live company registration and full shared correspondence address reach downloadable KYC",
+        "Unauthenticated shared account access denied",
+        "Management login available"
+      ],
+      "errors": [],
+      "blockedWrites": [],
+      "pdfs": [
+        "tmp/complete-retest-live/kyc-individual.pdf",
+        "tmp/complete-retest-live/fatca-crs-individual.pdf",
+        "tmp/complete-retest-live/kyc-corporate.pdf"
+      ],
+      "productionMutations": 0,
+      "passed": true
+    }
+  }
 }

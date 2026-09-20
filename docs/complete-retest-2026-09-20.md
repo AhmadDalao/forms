@@ -60,4 +60,12 @@ Broader backend lifecycle suites ran against the initial build; affected shared-
 
 This is software and paper-consistency verification, not legal or regulatory certification. It covers the current curated templates and tested import fixtures, not every possible future upload or unlimited free-text length. Oversized answers must be corrected rather than allowed to cover printed content.
 
-Raw synthetic PDF renders/reports are in `tmp/pdfs/current-audit-20260920/`; exact per-suite evidence paths and source hashes are in the JSON report. Production publication and HTTPS/browser checks are recorded below after completion.
+Raw synthetic PDF renders/reports are in `tmp/pdfs/current-audit-20260920/`; exact per-suite evidence paths and source hashes are in the JSON report. Production publication and HTTPS/browser checks are recorded below.
+
+## Production verification
+
+Published commit `6fe7a16` to https://forms.ahmaddalao.com/ at 2026-09-20 07:44 UTC (10:44 Riyadh). Verified FTPS upload backed up the nine replaced files; eight new assets were added and 59 files were unchanged. Existing private customer storage was preserved.
+
+All 16 changed public static files match their deployed HTTPS hashes. Private storage/database/environment URLs return 403/404. Anonymous live-browser checks successfully downloaded individual KYC with shared nationality, Arabic/mixed names and Arabic-digit telephone; individual FATCA with the normal English street; and corporate KYC with shared registration number and the full national address. Unauthenticated shared-profile access returns 401; management login loads. No browser errors, account/submission writes or customer test records were introduced by live verification.
+
+Evidence: `docs/deployment-manifest.json`, `tmp/workflow-https.json`, and `tmp/complete-retest-live/report.json`.
