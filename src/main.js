@@ -350,9 +350,9 @@ if(revisionId){
  }catch(err){editError=err;}
 }
 sharedReady=true;
-const resume=docs.find(d=>d.id===drafts.preferences.active&&drafts.has(d.id)&&visibleIn(d,audience));
 if(editError){app.innerHTML=header()+`<main class="workspace"><p role="alert">${e(portalError(editError,lang))}</p><a class="button primary" href="${appRoot}my-applications/">${t('Back to my applications','العودة إلى طلباتي')}</a></main>`;bindCommon();}
-else if(editing)selectDoc(editing.id);else if(resume)selectDoc(resume.id);else render();
+// Normal entry starts at the Document Centre; choosing a card restores its draft.
+else if(editing)selectDoc(editing.id);else render();
 
 if(import.meta.env.DEV)window.__forms={docs,generate,signatureSlots,prepareSignature};
 
