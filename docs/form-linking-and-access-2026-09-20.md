@@ -25,3 +25,11 @@ Evidence (local, excluded from deployment):
 - `tmp/workflow-toggle-1789916027776-7fc06d/form-linking/report.json`
 
 These tests used synthetic users and isolated private storage. They did not modify production clients, profiles, submissions or decisions. Earlier audit assumptions about anonymous form access and a separate shared-details editor are superseded by this change.
+
+## Production verification
+
+Source commit `92d6f2b6588d36ef7e0fcca0e15b4b037b5beae1` was published to Hostinger. One FTP read timed out while checking an existing file; the successful retry verified all 79 public build files. Both attempt backup locations are retained in `docs/deployment-manifest.json`. Production private storage was preserved.
+
+Six live verification groups passed on the actual Apache installation, including both `forms.ahmaddalao.com` and the older `ahmaddalao.com/forms/` alias. Anonymous root/folder/index requests redirect to login; PDFs and catalogue APIs deny anonymous requests; schema/private paths remain blocked; retired preview links redirect to the protected site. All 37 release asset hashes match, and four authenticated individual/company PDF downloads exactly match the build. English individual and Arabic company editor screens have editable fields, no separate shared-entry panel, and no horizontal overflow. Logging out removes PDF access.
+
+Live verification used management authentication only, with no client-data reads or business writes. The management session was logged out afterward. Evidence: `tmp/form-linking-live/report.json` and its screenshots.
