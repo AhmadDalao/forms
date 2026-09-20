@@ -18,6 +18,9 @@ php -d upload_max_filesize=20M -d post_max_size=24M -S 127.0.0.1:8185 -t dist sc
 - `/individuals/` and `/companies/`: login is mandatory; signed-in clients can open only their assigned folder, and opposite-category links redirect to it. With review enabled, **Submit form** appears after PDF review and requires the applicable customer signatures. With review disabled, **Save form** saves a copy to the account and management without starting approval/rejection.
 - `/management/`: admin/superadmin overview and clients. Only the superadmin can manage document titles/order/uploads or change a client's account type. Existing management sessions can preview both audiences.
 
+Normal sign-in and entry to the assigned folder open **Document Centre / مركز المستندات**, even when the browser remembers an active document. Choosing a card restores its saved answers and section. Explicit submitted-version edit/sign links still open the requested document directly. Verified on 20 September 2026 with 20 browser checks across individual/company accounts and English/Arabic, plus 13 existing draft/routing tests (`tmp/workflow-toggle-1789921453666-683ab3/document-centre-login-report.json`).
+Production release `fc920d4` passed deployed asset hashes, Document Centre entry, manual draft reopening and access protection checks without client-data access (`tmp/document-centre-live/report.json`).
+
 Portal headers use only the original Itqan Capital logo, extracted from the supplied presentation; see `docs/BRANDING.md`.
 
 The new preview's client database starts empty. Automated test accounts are isolated under `tmp/portal-audit`, not mixed into the preview database.
