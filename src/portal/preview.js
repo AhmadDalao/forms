@@ -4,7 +4,6 @@ import {mountReview} from './review.js';
 import {reviewEnabled} from './workflow.js';
 import {signSubmittedForm,signatureEditUrl} from './sign-submission.js';
 import {appRoot} from '../routes.js';
-import {renderSubmissionDetails} from './submitted-details.js';
 import './submitted-details.css';
 export async function previewSubmission(id,{admin=false,lang='en',token,onReviewed,onSigned=()=>location.reload()}={}){
  const t=(en,ar)=>lang==='ar'?ar:en,dialog=document.createElement('dialog');dialog.className='portal-preview';dialog.dir=lang==='ar'?'rtl':'ltr';document.body.append(dialog);
@@ -12,7 +11,9 @@ export async function previewSubmission(id,{admin=false,lang='en',token,onReview
  let pdf=null,closed=false;
  const close=()=>{closed=true;pdf?.loadingTask.destroy();dialog.close();dialog.remove();};dialog.querySelector('[data-close]').onclick=close;dialog.addEventListener('cancel',ev=>{ev.preventDefault();close();});dialog.showModal();
  try{
-  const {submission:s}=await api(admin?'admin_detail':'detail',undefined,{params:{id}});if(closed)return;
+  const [{submission:s},{renderSubmissionDetails}]=await Promise.all([
+   api(admin?'admin_detail':'detail',undefined,{params:{id}}),import('./submitted-details.js'),
+  ]);if(closed)return;
   dialog.querySelector('.portal-preview-body').innerHTML=`<h3>${e(t(s.title,s.ar))}</h3><p class="version-badge">${t('Version','النسخة')} ${s.version} · ${s.archived_at?t('Archived','مؤرشفة'):t('Current','الحالية')}${s.restored_from?' · '+t('Restored from an earlier version','مستعادة من نسخة سابقة'):''}</p><p>${e(when(s.created_at,lang))} · ${t('Riyadh time','بتوقيت الرياض')} · ${t(s.audience==='individual'?'Individual':'Company',s.audience==='individual'?'فرد':'شركة')}</p><a class="portal-button" href="${endpoint(admin?'admin_pdf':'pdf',{id})}">${t('Download PDF','تنزيل PDF')}</a>${s.archived_at&&s.current_id?`<button type="button" class="portal-button" data-current-version>${t('Open current version','فتح النسخة الحالية')}</button>`:''}<div data-submission-review></div><details class="portal-answer-details" open><summary>${reviewEnabled()?t('Submitted details','البيانات المرسلة'):t('Saved details','البيانات المحفوظة')}</summary>${renderSubmissionDetails(s,lang)}</details><div class="portal-pdf-pages"></div><p data-preview-status role="status">${t('Preparing preview…','جارٍ إعداد المعاينة…')}</p>`;
   dialog.querySelector('[data-current-version]')?.addEventListener('click',()=>{close();previewSubmission(s.current_id,{admin,lang,token,onReviewed,onSigned});});
   mountReview(dialog.querySelector('[data-submission-review]'),s,{admin,lang,token,onReviewed,onSigned});

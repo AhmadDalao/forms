@@ -1,4 +1,3 @@
-import {PDFDocument} from 'pdf-lib';
 import {api,endpoint,e,errorText,session} from './api.js';
 import {appRoot} from '../routes.js';
 import {reviewEnabled,workflowState} from './workflow.js';
@@ -44,6 +43,7 @@ export async function signSubmittedForm(id,{lang='en',onSaved=()=>{}}={}){
   const data=await api('signing_details',undefined,{params:{id}});if(closed)return;signing=data.signing;submitted=data.submission;initialWorkflow={...workflowState()};requiresReview=reviewEnabled();
   if(!signing.can_sign_electronically)throw Error('document_unavailable');
   if(submitted.source==='online'){close();location.href=signatureEditUrl(submitted,lang);return;}
+  const {PDFDocument}=await import('pdf-lib');if(closed)return;
   const response=await fetch(endpoint('pdf',{id}),{cache:'no-store'});if(!response.ok)throw Error('login_required');source=new Uint8Array(await response.arrayBuffer());
   const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',source))].map(b=>b.toString(16).padStart(2,'0')).join('');
   if(hash!==signing.sourceSha256)throw Error('version_conflict');

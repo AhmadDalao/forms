@@ -1,13 +1,9 @@
-import { PDFDocument, rgb, pushGraphicsState, popGraphicsState, rectangle, clipEvenOdd, endPath } from 'pdf-lib';
-import * as pdfjs from 'pdfjs-dist';
-import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import { hasValue } from './schema.js';
 import { signatureSlots, signaturePlacement, cleanSignatures } from './signatures.js';
 import { appRoot } from './routes.js';
 import {canonicalSubscription,isSubscription} from './subscription/model.js';
 import {formatSubscriptionNumber} from './subscription/calculations.js';
 import { assertLayout } from './management/layout.js';
-pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
 const templates = new Map();
 export const templateUrl = doc => doc.pdfUrl || `${appRoot}pdfs/${doc.id}.pdf${doc.pdfVersion?'?v='+encodeURIComponent(doc.pdfVersion):''}`;
 export async function original(doc) {
@@ -78,9 +74,10 @@ export function textImage(value, width, height, f={}) {
 export async function generate(doc, values, signatures = {}) {
   if(doc.custom)assertLayout(doc);
   if(isSubscription(doc)){values=await canonicalSubscription(doc,values);if(values.signature_mode!=='electronic')signatures={};}
+  const [{PDFDocument,rgb,pushGraphicsState,popGraphicsState,rectangle,clipEvenOdd,endPath},template]=await Promise.all([import('pdf-lib'),original(doc)]);
   await document.fonts.load('10px "Noto Sans Arabic"','العربية English');
   await document.fonts.ready;
-  const pdf=await PDFDocument.load(await original(doc),{updateMetadata:false});
+  const pdf=await PDFDocument.load(template,{updateMetadata:false});
   const errors=[];
   // Imported widget forms are printed as static blue overlays, like the existing forms.
   // Flatten only the imported document's original widgets before adding answers.
@@ -153,7 +150,13 @@ export async function generate(doc, values, signatures = {}) {
   }
   return new Uint8Array(await pdf.save());
 }
-export async function loadPreview(bytes) { return pdfjs.getDocument({data:bytes.slice(),isEvalSupported:false}).promise; }
+export async function loadPreview(bytes) {
+  // Native module imports share successful loads without retaining a rejected
+  // application-level promise when a first preview is interrupted or offline.
+  const [pdfjs,{default:workerUrl}]=await Promise.all([import('pdfjs-dist'),import('pdfjs-dist/build/pdf.worker.min.mjs?url')]);
+  pdfjs.GlobalWorkerOptions.workerSrc=workerUrl;
+  return pdfjs.getDocument({data:bytes.slice(),isEvalSupported:false}).promise;
+}
 export async function renderPage(pdf, number, canvas, width=780) {
   const page=await pdf.getPage(number);
   const base=page.getViewport({scale:1});
