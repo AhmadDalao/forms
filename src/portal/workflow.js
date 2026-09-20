@@ -9,4 +9,4 @@ export function receiveWorkflow(value){
  if(changed&&typeof window!=='undefined')window.dispatchEvent(new CustomEvent('forms-workflow-change',{detail:workflowState()}));
 }
 export const formSaveLabel=lang=>lang==='ar'?(reviewEnabled()?'إرسال النموذج':'حفظ النموذج'):(reviewEnabled()?'Submit form':'Save form');
-export const toolModeNotice=lang=>`<p class="notice" data-tool-mode>${lang==='ar'?'احفظ النموذج في حسابك أو نزّله. التوقيع اختياري ولن يُرسل للمراجعة الإدارية.':'Save this form to your account or download it. Signing is optional and it will not be sent for management review.'}</p>`;
+export const toolModeNotice=lang=>`<p class="notice" data-tool-mode>${lang==='ar'?'احفظ النموذج في حسابك أو نزّل نسخة منه.':'Save this form to your account or download a copy.'}</p>`;

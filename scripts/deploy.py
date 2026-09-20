@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--production', action='store_true', help='Explicitly select the main site, not the test preview.')
+parser.add_argument('--static-only', action='store_true', help='Publish only changed HTML/assets against the last completed release; reject backend/document changes.')
 parser.add_argument('--credentials', type=Path, default=ROOT / '.env.local')
 parser.add_argument('--initialize-management', type=Path, help='Existing owner credential directory; used only if production has no credentials.')
 parser.add_argument('--initialize-superadmin', type=Path, help='Add an explicitly configured superadmin from a private directory; never replace existing credentials.')
@@ -45,10 +46,24 @@ for value in [config.get('FTP_PASSWORD'), config.get('DB_PASSWORD')]:
     if value:
         assert not any(value.encode() in data for data in files.values()), 'Credential found in public build.'
 
+baseline = None
+baseline_hashes = {}
+if args.static_only:
+    baseline = json.loads((ROOT / 'docs' / 'deployment-manifest.json').read_text())
+    assert baseline.get('completed') and baseline['url'] == 'https://forms.ahmaddalao.com/', 'A completed production baseline is required.'
+    baseline_hashes = {item['path']: item['sha256'] for item in baseline['files']}
+    static = lambda name: name.startswith('assets/') or name.endswith('.html')
+    assert {name for name in files if not static(name)} == {name for name in baseline_hashes if not static(name)}, 'Non-static file set changed; use a full deployment.'
+    assert all(static(name) or baseline_hashes[name] == hashlib.sha256(data).hexdigest() for name, data in files.items()), 'Backend or document changed; use a full deployment.'
+
 stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
 backup = ROOT / 'tmp' / 'deployment-backups' / stamp
 backup.mkdir(parents=True, exist_ok=False)
 report = {'uploaded_at_utc': stamp, 'url': 'https://forms.ahmaddalao.com/', 'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(), 'transport': 'Explicit FTPS with verified Hostinger certificate', 'backup': str(backup), 'files': [], 'created': [], 'replaced': [], 'unchanged': []}
+if baseline:
+    report['static_only'] = True
+    report['baseline'] = {key: baseline[key] for key in ['uploaded_at_utc', 'source_commit', 'backup']}
+    report['verification'] = 'Changed static files verified over FTPS; unchanged build files retained from the recorded release.'
 ftp = ftplib.FTP_TLS(context=ssl.create_default_context(), timeout=60)
 ftp.connect(config['FTP_HOST'], int(config.get('FTP_PORT') or 21))
 ftp.host = 'hstgr.io'
@@ -85,6 +100,9 @@ def persist_report():
     (backup / 'manifest.json').write_text(json.dumps(report, indent=2) + '\n')
 
 def upload(name, data, private=False):
+    if baseline and not private and name != '_private/.htaccess' and baseline_hashes.get(name) == hashlib.sha256(data).hexdigest():
+        report['unchanged'].append(name)
+        return
     previous = read(name)
     if previous == data:
         report['unchanged'].append(name)
