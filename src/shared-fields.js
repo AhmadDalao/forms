@@ -45,6 +45,13 @@ export function cleanShared(audience,profile){
   profile[type]='other';profile[detail]='بطاقة عائلية / Family ID';
  }
  for(const lang of ['en','ar'])if(!(lang+'_second' in profile)&&profile[lang+'_middle'])profile[lang+'_second']=profile[lang+'_middle'];
+ // Earlier language-neutral subscription drafts duplicated the English row
+ // into Arabic storage. Recover only an exact duplicate; never translate names.
+ const parts=['first','second','third','last'],arabic=joinPersonName(parts.map(k=>profile['ar_'+k])),english=joinPersonName(parts.map(k=>profile['en_'+k]));
+ if(arabic&&arabic===english&&parts.every(k=>(profile['ar_'+k]||'')===(profile['en_'+k]||''))&&/[A-Za-z]/.test(arabic)&&! /\p{Script=Arabic}/u.test(arabic)){
+  for(const part of [...parts,'middle'])profile['ar_'+part]='';
+  if(profile.name_language==='ar')profile.name_language='en';
+ }
  for(const f of sharedGroups(audience).flatMap(g=>g.fields)){
   if(!sharedFieldVisible(f,profile))continue;
   const v=profile?.[f.id];
@@ -166,6 +173,13 @@ export function sharedRules(doc,values={},profile={},audience=doc.group){
    bind(id,language+'_'+part,{keys:[language+'_'+part,...(requested==='auto'?['name_language']:[])],read:()=>p[language+'_'+part]??(part==='second'?p[language+'_middle']:'')??'',write:value=>({[(requested==='auto'?autoLanguage(group.partIds.map(id=>values[id])):language)+'_'+part]:value})});
   });
   for(const target of group.targets)composite(target.id,target.join.flatMap(id=>rules[id].keys),()=>joinPersonName(target.join.map(id=>rules[id].read())));
+ }
+ // A mobile is a useful default for the customer's telephone, but an explicit
+ // different number or deliberate blank always wins. Other people's phones,
+ // fax numbers and identifiers remain independent.
+ for(const id of ['phone','business_phone'])if(rules[id]){
+  rules[id].keys=[...new Set([...rules[id].keys,'mobile'])];
+  rules[id].read=()=>p.phone??p.mobile??'';
  }
  return rules;
 }

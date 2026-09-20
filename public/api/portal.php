@@ -55,7 +55,7 @@ function ownerRequired(): void {
     if(!managementOwner($managementDir))reject('admin_required',401);
     $_SESSION['last']=time();
 }
-function catalogue(): array {
+function catalogue(?string $audience=null): array {
     global $managementDir;
     $base=json_decode(file_get_contents(__DIR__.'/defaults.json'),true,512,JSON_THROW_ON_ERROR);
     $file=$managementDir.'/state.json';$published=is_file($file)?json_decode(file_get_contents($file),true,512,JSON_THROW_ON_ERROR)['published']:$base;
@@ -63,6 +63,12 @@ function catalogue(): array {
     foreach($base['documents'] as $d)if(in_array($d['id'],['subscription-form','subscription-company'],true)){
         $found=false;foreach($published['documents'] as &$old)if($old['id']===$d['id']){$found=true;if($old['group']==='shared')$old=$d;}unset($old);
         if(!$found)$published['documents'][]=$d;
+    }
+    if($audience!==null){
+        $order=$published['orders'][$audience]??$base['orders'][$audience]??[];
+        $documents=array_values(array_filter($published['documents'],fn($d)=>in_array($d['group'],[$audience,'shared'],true)));
+        usort($documents,fn($a,$b)=>(array_search($a['id'],$order,true)===false?PHP_INT_MAX:array_search($a['id'],$order,true))<=>(array_search($b['id'],$order,true)===false?PHP_INT_MAX:array_search($b['id'],$order,true)));
+        return $documents;
     }
     return $published['documents'];
 }
@@ -218,7 +224,7 @@ try {
     }
     if($action==='admin_client'){
         $u=execute('SELECT * FROM users WHERE id=?',[$_GET['id']??''])->fetch();if(!$u)reject('not_found',404);
-        reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'],null,true),'shared_profiles'=>adminSharedProfiles($u['id'])]);
+        reply(['user'=>userView($u),'submissions'=>submissionRows($u['id'],null,true),'shared_profiles'=>adminSharedProfiles($u['id']),'documents'=>catalogue($u['account_type'])]);
     }
     if($action==='admin_account_type'){
         if(!managementPermissions($managementDir)['change_account_type'])reject('account_type_forbidden',403);

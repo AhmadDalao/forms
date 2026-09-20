@@ -11,7 +11,7 @@ import {signatureSlots} from '../src/signatures.js';
 // Generate definitions from this checkout; no build or existing dist is needed.
 const definition=id=>{const d=docs.find(d=>d.id===id);return {...d,signatureSlots:signatureSlots(d)};};
 const schemas=Object.fromEntries(['individual','corporate'].map(a=>[a,sharedGroups(a).flatMap(g=>g.fields)]));
-const subscription={first_name:'Ahmad',second_name:'Mohammed',family_name:'Ali',nationality:'Saudi Arabian',id_type:'national',id_number:'1000012345',company_name:'Example Holdings LLC',inc_country:'Saudi Arabia',company_id_type:'cr',company_id_number:'4030123456',auth_name:'Authorized Original Name',subscription_type:'new',payment_method:'transfer',units:'10',applicant_name:'Original Applicant',date:'2026-09-20',signature_mode:'electronic'};
+const subscription={first_name:'أحمد',second_name:'محمد',family_name:'علي',nationality:'Saudi Arabian',id_type:'national',id_number:'1000012345',company_name:'Example Holdings LLC',inc_country:'Saudi Arabia',company_id_type:'cr',company_id_number:'4030123456',auth_name:'Authorized Original Name',subscription_type:'new',payment_method:'transfer',units:'10',applicant_name:'Original Applicant',date:'2026-09-20',signature_mode:'electronic'};
 const base=d=>d.workflow==='subscription'?{...subscription}:{};
 const applicable=(d,audience)=>d.fields.filter(f=>f.join&&(!f.joinAudience||f.joinAudience===audience));
 const php=(operation,payload,dir='')=>{
@@ -98,7 +98,7 @@ test('subscription English parts are canonical while required answers, dates and
  const required=d.fields.filter(f=>f.required&&!f.uiOnly&&(!f.when||f.when.includes(values[f.dependsOn])));
  const cases=[{doc:d,audience:'individual',values},...required.map(f=>({doc:d,audience:'individual',values:{...values,[f.id]:''}})),{doc:d,audience:'individual',values:{...values,date:'2026-02-30'}},{doc:d,audience:'individual',values:{...values,en_first:['not a name']}}];
  const [valid,...failures]=php('clean',{cases});
- assert.equal(valid.answers.english_name,'Ahmad Mohammed Al Dalao');assert.equal(valid.answers.full_name,'Ahmad Mohammed Ali');assert.equal(valid.answers.date,'2026-09-20');assert.equal(valid.answers.total_amount,'10200');assert.equal(valid.answers.subscription_fee,'200');
+ assert.equal(valid.answers.english_name,'Ahmad Mohammed Al Dalao');assert.equal(valid.answers.full_name,'أحمد محمد علي');assert.equal(valid.answers.date,'2026-09-20');assert.equal(valid.answers.total_amount,'10200');assert.equal(valid.answers.subscription_fee,'200');
  for(const [i,result]of failures.entries())assert.equal(result.error,i<required.length?'form_incomplete':'invalid_request','Invalid required/date/name input must reject case '+i);
  const legacy=php('clean',{cases:[{doc:d,audience:'individual',values:{...subscription,english_name:'Legacy Unsplit English Name'}}]})[0];assert.equal(legacy.answers.english_name,'Legacy Unsplit English Name');
 });
@@ -107,7 +107,7 @@ test('current snapshots capture visible name parts and hidden PDF name targets f
  for(const id of ['signature-form','kyc-individual','fatca-crs-corporate','subscription-form']){
   const d=definition(id),audience=d.group==='corporate'?'corporate':'individual',values=base(d);
   assert.ok(d.fields.some(f=>f.personNamePart),id+' has visible name parts');
-  for(const f of applicable(d,audience))for(const [i,part]of f.join.entries())values[part]=['First','Second','','Family'][i];
+  for(const f of applicable(d,audience))for(const [i,part]of f.join.entries())values[part]=(d.fields.find(field=>field.id===part)?.namePart?['أحمد','محمد','','علي']:['First','Second','','Family'])[i];
   const r=php('snapshot',{doc:d,audience,values});
   for(const f of d.fields.filter(f=>f.personNamePart||f.personNameDerived)){
    const saved=r.profile.field_definitions.find(s=>s.id===f.id);assert.ok(saved,id+'/'+f.id);assert.equal(saved.label,f.label);assert.equal(saved.ar,f.ar);assert.equal(saved.hidden,f.hidden);assert.equal(saved.uiOnly,f.uiOnly);assert.equal(saved.joinAudience,f.joinAudience);assert.equal(saved.rect,undefined);

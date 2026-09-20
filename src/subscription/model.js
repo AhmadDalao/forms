@@ -5,6 +5,7 @@ import {normalizePersonNames,personNameGroups,personNameFieldVisible} from '../p
 export {today} from '../dates.js';
 export const isSubscription=doc=>doc?.workflow==='subscription';
 export const joinedName=v=>['first_name','second_name','third_name','family_name'].map(k=>(v[k]||'').trim()).filter(Boolean).join(' ');
+export const arabicNameErrors=(doc,values)=>doc.fields.filter(f=>f.namePart&&String(values[f.id]||'').trim()&&!/\p{Script=Arabic}/u.test(values[f.id])).map(f=>f.id);
 export const visibleField=(f,values)=>!f.when||f.when.includes(values[f.dependsOn]);
 export function normalizeSubscription(doc,input,{applicantEdited=false}={}){
  const values=normalizePersonNames(doc,input,{audience:doc.group});
@@ -44,6 +45,8 @@ export async function canonicalSubscription(doc,values){
  const calculated=await response.json(),expected=calculateSubscription(values.units||'');
  if(Object.keys(expected).some(k=>calculated[k]!==expected[k]))throw Error('calculation_mismatch');
  const normalized=normalizeSubscription(doc,values,{applicantEdited:true});
+ const invalidNames=arabicNameErrors(doc,normalized);
+ if(invalidNames.length)throw Object.assign(Error('arabic_name_required'),{fields:invalidNames,validation:true});
  for(const f of doc.fields)if(!visibleField(f,normalized))delete normalized[f.id];
  const id=doc.fields.find(f=>f.id==='id_type');
  return {...normalized,...calculated,...(id?{id_type_label:id.selectOptions.find(o=>o[0]===normalized.id_type)?.slice(1).reverse().join(' / ')||''}:{}),

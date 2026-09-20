@@ -1,0 +1,18 @@
+# Client form corrections — 20 September 2026
+
+Subscription now explicitly collects Arabic in the first name row and English in the second. The editable Word source and its generated PDF use the same Arabic-name label. Latin-only values in the Arabic name parts are stopped in the UI, PDF generation and server submission. Exact duplicated legacy English parts are removed from the Arabic working profile while retaining the English values; no name is translated or invented. Historical submitted versions are unchanged.
+
+Management client profiles list every applicable published document in catalogue order, including consent and shared documents. Missing current submissions show “Not submitted”; submitted rows keep preview, details, download, timestamp and version. Previous-account documents and archived versions remain accessible.
+
+Login/signup show only the fund name in larger bold type. Document-centre and editor navigation now include sign out, preserving local drafts and attempting pending account synchronization. Customer telephone fields default to the saved mobile when a separate phone has not been provided. Separate phone numbers, deliberate blanks, representative/employer contacts, fax numbers and identifiers are not overwritten. ID choices render as dropdowns while retaining their original PDF checkboxes; the special-case representative ID uses the existing printed text space.
+
+Read-only inspection of the reported production KYC confirmed its five risk answers and the correct total in the submitted PDF. The total was missing from the stored answer details. New submissions now calculate and store totals on the server. Historical detail views calculate the total from their own saved selections without rewriting the original answers or PDF.
+
+## Verification
+
+- 216 automated tests passed, including migration, separate name parts, phone fallback and deliberate clearing, ID paper mappings, risk totals, server validation and immutable historic answers.
+- Actual Chrome UI filled 498 controls across all eight editable forms, reloaded drafts, submitted the generated PDFs and checked 547 saved answer keys against management. KYC risk answers were reopened, changed and resubmitted; the original answer snapshot and PDF hash remained intact. Arabic-name validation, logout, six-document management lists, desktop/mobile layout and both auth languages passed.
+- Existing direct-intake lifecycle passed: shared names/addresses, company names, offline retry, deliberate clearing, multiple tabs, fresh browser account hydration, account isolation, unsigned submission, lost-response retry, duplicate-click protection, replacement versions, consent uploads, management PDF/ZIP downloads. All eight generated fixture PDFs submitted with 556 supplied answer values matching stored details.
+- Five complete fills per editable form (Arabic, English, long Arabic, long English, mixed/optional third name), plus blank, partial, shared and option cases: 106 PDFs, 567 pages, 2,829 text destinations, 1,006 checkbox destinations, 32 signature placements and 3,231 transparent image overlays. No automated verification failures. The changed two-page Word/PDF template and filled Arabic/English subscription and risk pages were visually checked.
+
+Evidence stays outside the public build: `tmp/client-corrections-pdfs/`, `tmp/workflow-toggle-1789933666122-9e75c6/client-corrections/`, `tmp/workflow-toggle-1789933547268-69a31b/direct-intake/`. Production diagnostic copies are private under `tmp/` and are not deployed. Public release backup/hashes and live checks are recorded in the deployment manifest and live-verification report.

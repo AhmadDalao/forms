@@ -20,7 +20,7 @@ try{
  for(const path of ['_private/portal/clients.sqlite','.env.local'])assert.ok([403,404].includes((await get(path)).status()));
  pass('Protected document pages, templates, client data and management endpoints deny anonymous access; private paths are inaccessible');
  for(const route of ['login','register'])for(const lang of ['en','ar']){
-  await page.goto(base+route+'/?lang='+lang);await page.locator('#auth-form').waitFor();assert.equal(await page.locator('.auth-partners img').count(),4);assert.equal(await page.locator('.auth-story-bottom').count(),0);
+  await page.goto(base+route+'/?lang='+lang);await page.locator('#auth-form').waitFor();assert.equal(await page.locator('.auth-partners img').count(),4);assert.equal(await page.locator('.auth-story h1').innerText(),lang==='ar'?'صندوق النعيم العقاري':'Al Naeem Real Estate Fund');assert.equal(await page.locator('.auth-story-bottom').count(),0);
   for(const width of [1440,390]){await page.setViewportSize({width,height:1000});await page.waitForFunction(()=>[...document.querySelectorAll('.auth-partners img')].every(i=>i.complete&&i.naturalWidth));assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);await page.screenshot({path:`${out}/${route}-${lang}-${width}.png`,fullPage:true});}
  }
  pass('Live login/signup display the supplied title and four partner logos in English/Arabic without desktop/mobile overflow');
@@ -39,7 +39,12 @@ try{
  for(const doc of docs){const name=(doc.pdfUrl||doc.id+'.pdf').split('?')[0].split('/').pop(),r=await get('pdfs/'+name);assert.equal(r.status(),200);assert.equal(hash(await r.body()),hash(await fs.readFile('public/pdfs/'+name)));}
  const consent=await get('pdfs/al-naeem-terms-consent.pdf');assert.equal(consent.status(),200);assert.equal(hash(await consent.body()),hash(await fs.readFile('public/pdfs/al-naeem-terms-consent.pdf')));
  pass('All eight editable templates and consent download match the verified local PDFs');
- const item=queue.submissions[0];if(item){const detail=(await read('admin_detail',{id:item.id})).submission;assert.ok(detail.answers&&detail.profile);const r=await get('api/portal.php?action=admin_pdf&id='+item.id);assert.equal(r.status(),200);assert.equal(hash(await r.body()),detail.sha256);pass('Existing production submission details and its PDF remain readable and hash-consistent');}
+ const item=queue.submissions[0];if(item){const detail=(await read('admin_detail',{id:item.id})).submission;assert.ok(detail.answers&&detail.profile);const r=await get('api/portal.php?action=admin_pdf&id='+item.id);assert.equal(r.status(),200);assert.equal(hash(await r.body()),detail.sha256);pass('Existing production submission details and its PDF remain readable and hash-consistent');
+ const client=await read('admin_client',{id:item.user_id});assert.ok(client.documents.every(d=>['shared',client.user.account_type].includes(d.group)));assert.ok(client.documents.some(d=>d.id==='al-naeem-terms-consent'));
+ await page.locator(`[data-client="${item.user_id}"]`).first().click();await page.locator('.admin-client-facts').waitFor();
+ const missing=client.documents.filter(d=>!client.submissions.some(s=>s.doc_id===d.id&&s.audience===client.user.account_type&&!s.archived_at));
+ assert.equal(await page.locator('[data-missing-document]').count(),missing.length);
+ pass('Live management profile includes every applicable form and marks only absent current submissions as not submitted');}
  assert.deepEqual(report.errors,[]);report.passed=true;
 }catch(error){report.failure=error.stack;report.passed=false;throw error;}
 finally{if(csrf)await post('logout',{}).catch(()=>{});report.finished=new Date().toISOString();await fs.writeFile('docs/next-update-live-verification.json',JSON.stringify(report,null,2)+'\n');await browser.close();}

@@ -1,3 +1,4 @@
+import {withAnswerTotals} from '../answer-totals.js';
 import {docs} from '../forms/index.js';
 import {sharedGroups} from '../shared-fields.js';
 import {signatureSlots} from '../signatures.js';
@@ -35,7 +36,7 @@ function fieldsFor(definitions,values,lang,audience){
 }
 export function submissionDetailsModel(submission,lang='en'){
  const t=(en,ar)=>lang==='ar'?ar:en,profile=record(submission.profile),answers=record(submission.answers),known=docs.find(d=>d.id===submission.doc_id),uploaded=(submission.source||profile.submission_source)==='upload';
- const definitions=Array.isArray(profile.field_definitions)?profile.field_definitions:known?.fields||[],fields=uploaded?[]:fieldsFor(definitions,answers,lang,submission.audience),byId=new Map(fields.map(field=>[field.id,field]));
+ const definitions=Array.isArray(profile.field_definitions)?profile.field_definitions:known?.fields||[],fields=uploaded?[]:fieldsFor(definitions,withAnswerTotals(definitions.map(f=>({...f,sum:f.sum||known?.fields.find(k=>k.id===f.id)?.sum})),answers),lang,submission.audience),byId=new Map(fields.map(field=>[field.id,field]));
  const sections=Array.isArray(profile.section_definitions)?profile.section_definitions:(known?.sections||[]).map(section=>({...section,field_ids:section.fields.map(field=>field.id)}));
  const used=new Set(),groups=[];
  for(const section of sections){const rows=(section.field_ids||[]).filter(id=>byId.has(id)&&!used.has(id)).map(id=>{used.add(id);return byId.get(id);});if(rows.length)groups.push({id:section.id,label:localized({...section,label:section.title},lang,t('Document fields','حقول المستند')),fields:rows});}

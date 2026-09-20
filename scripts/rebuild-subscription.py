@@ -3,7 +3,7 @@ The probe uses identical fixed rows; only the blank answer paragraphs contain ma
 Their PDF positions determine blue overlay areas; final Word/PDF contain no markers.
 """
 from pathlib import Path
-import json, subprocess, shutil, zipfile, uuid
+import json, subprocess, shutil, zipfile, uuid, sys
 from lxml import etree
 from docx import Document
 from docx.shared import Pt, Mm, RGBColor
@@ -59,7 +59,7 @@ def font_embed(path):
 LABELS={
  'title_label':('Title','الصفة'),'english_name':('Client’s full name in English','اسم العميل كاملاً بالإنجليزية'),'po_box':('P.O. Box (if applicable)','صندوق البريد (إن وجد)'),
  'client_account':('Client / Account No. (fund manager use)','رقم العميل / الحساب (لاستخدام مدير الصندوق)'),
- 'full_name':('Customer full name','اسم العميل كاملاً'), 'company_name':('Full legal company name','الاسم القانوني الكامل للشركة'),
+ 'full_name':('Customer full name in Arabic','اسم العميل كاملاً باللغة العربية'), 'company_name':('Full legal company name','الاسم القانوني الكامل للشركة'),
  'nationality':('Nationality','الجنسية'),'inc_country':('Country of incorporation','دولة التأسيس'),
  'id_type_label':('ID type','نوع الهوية'),'id_number':('ID number','رقم الهوية'),'id_other':('Other identity document','بيان نوع الهوية الأخرى'),
  'company_id_type_label':('Registration type','نوع تسجيل الشركة'),'company_id_number':('Registration / licence number','رقم السجل / الترخيص'),
@@ -185,7 +185,7 @@ def build(corporate,probe):
    para(table.cell(0,i).paragraphs[0],label+'  __________________',8,True,leading=18)
  return doc,markers
 
-for corporate in [False,True]:
+for corporate in ([False] if "--individual-only" in sys.argv else [False,True]):
  name='subscription-company' if corporate else 'subscription-individual';base=ROOT/'tmp/subscription'/name;base.mkdir(parents=True,exist_ok=True)
  maps={}
  for probe in [True,False]:

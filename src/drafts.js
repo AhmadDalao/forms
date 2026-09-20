@@ -52,7 +52,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     // Old subscription rows were language-neutral. Move a Latin-only name to
     // the English row only when that cannot replace a different existing name.
     // Submitted revision snapshots are deliberately excluded from migration.
-    if(doc.workflow==='subscription'&&record&&!record.revision&&record.nameRowsVersion!==2){
+    if(doc.workflow==='subscription'&&record&&!record.revision&&record.nameRowsVersion!==3){
       const next={...record.values},primary=doc.group==='individual'?joinedName(next):next.company_name||'';
       const english=next.english_name||['en_first','en_second','en_third','en_last'].map(k=>next[k]||'').filter(Boolean).join(' ');
       if(primary&&/[A-Za-z]/.test(primary)&&!/[\u0600-\u06ff]/.test(primary)&&(!english||english===primary)){
@@ -82,7 +82,7 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     }
     const signatures=cleanSignatures(doc,record?.signatures),signatureModes=cleanSignatureModes(doc,record?.signatureModes,signatures);
     for(const [id,mode] of Object.entries(signatureModes))if(mode==='manual')delete signatures[id];
-    return {...(record?.revision?{revision:record.revision}:{}),...(doc.workflow==='subscription'?{nameRowsVersion:2}:{}),values,shared,...(Object.keys(countryDefaults).length?{countryDefaults}:{}),overrides:Array.isArray(record?.overrides)?record.overrides.filter(id=>doc.fields.some(f=>f.id===id)):[],signatures,signatureModes,step:Math.max(0,Math.min(doc.sections.length-1,Math.trunc(Number(record?.step))||0))};
+    return {...(record?.revision?{revision:record.revision}:{}),...(doc.workflow==='subscription'?{nameRowsVersion:3}:{}),values,shared,...(Object.keys(countryDefaults).length?{countryDefaults}:{}),overrides:Array.isArray(record?.overrides)?record.overrides.filter(id=>doc.fields.some(f=>f.id===id)):[],signatures,signatureModes,step:Math.max(0,Math.min(doc.sections.length-1,Math.trunc(Number(record?.step))||0))};
   }
   function persist(doc,record){
     memory.set(doc.id,record);

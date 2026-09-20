@@ -22,7 +22,7 @@ try{
  for(const route of ['login','register'])for(const lang of ['en','ar']){
   await page.setViewportSize({width:1440,height:1000});await page.goto(`${f.base}/${route}/?lang=${lang}`);await page.locator('#auth-form').waitFor();
   assert.equal(await page.locator('.auth-partners img').count(),4);assert.equal(await page.locator('.auth-story-bottom').count(),0);
-  assert.match(await page.locator('.auth-story h1').innerText(),lang==='ar'?/عرض للمشاركة في صندوق النعيم العقاري/:/Invitation to Participate/);
+  assert.match(await page.locator('.auth-story h1').innerText(),lang==='ar'?/^صندوق النعيم العقاري$/:/^Al Naeem Real Estate Fund$/);
   await page.waitForFunction(()=>[...document.querySelectorAll('.auth-partners img')].every(i=>i.complete&&i.naturalWidth>0));await shot(page,route+'-'+lang+'-desktop');
   await page.setViewportSize({width:390,height:844});await shot(page,route+'-'+lang+'-mobile');
  }

@@ -6,7 +6,7 @@ import {idOptions,titleOptions} from '../identity-options.js';
 for(const corporate of [false,true]){
  const id=corporate?'subscription-company':'subscription-form',map=corporate?companyLayout:individualLayout;
  const d=document(id,'Subscription Application for Al Naeem Real Estate Fund ('+(corporate?'Company':'Individual')+')','طلب الإشتراك في صندوق النعيم العقاري '+(corporate?'(للشركات)':'(للأفراد)'),corporate?'corporate':'individual','Customer details and fund subscription.','بيانات العميل والاشتراك في الصندوق.',2,[2]);
- Object.assign(d,{workflow:'subscription',typeName:corporate?'Company':'Individual',pdfUrl:appRoot+'pdfs/subscription-'+(corporate?'company':'individual')+'.pdf?v=3'});
+ Object.assign(d,{workflow:'subscription',typeName:corporate?'Company':'Individual',pdfUrl:appRoot+'pdfs/subscription-'+(corporate?'company':'individual')+'.pdf?v='+(corporate?'3':'4')});
  d.signatureSlots=[{id:'applicant',label:'Applicant signature',ar:'توقيع مقدم الطلب',...map.signature}];
  let s=section(d,'client','Customer details','تفاصيل العميل',1);
  const field=(id,en,ar,config={})=>text(d,s,id,en,ar,map[id]?.rect||null,{...map[id],fontSize:11,minFontSize:7,padding:2,direction:'auto',...config});
@@ -23,7 +23,7 @@ for(const corporate of [false,true]){
   field('auth_name','Authorized signatory name','اسم المفوض بالتوقيع',{required:true,sharedKey:'auth_name',wide:true});
   field('auth_id','Authorized signatory ID number','رقم هوية المفوض',{sharedKey:'auth_id'});
  }else{
-  for(const [id,en,ar,optional] of [['first_name','First name','الاسم الأول',false],['second_name','Second name','الاسم الثاني',false],['third_name','Third name (optional)','الاسم الثالث (اختياري)',true],['family_name','Family name','اسم العائلة',false]])field(id,en,ar,{required:!optional,optional,namePart:true});
+  for(const [id,en,ar,optional] of [['first_name','First name','الاسم الأول',false],['second_name','Second name','الاسم الثاني',false],['third_name','Third name (optional)','الاسم الثالث (اختياري)',true],['family_name','Family name','اسم العائلة',false]])field(id,en,ar,{required:!optional,optional,namePart:true,direction:'rtl'});
   field('full_name','','',{hidden:true,join:['first_name','second_name','third_name','family_name']});
   field('english_name','Customer name in English','اسم العميل باللغة الإنجليزية',{optional:true,wide:true,direction:'ltr'});
   field('nationality','Nationality','الجنسية',{required:true,sharedKey:'nationality'});

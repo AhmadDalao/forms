@@ -7,7 +7,7 @@ import '@fontsource/noto-sans-arabic/arabic-600.css';
 import '@fontsource/noto-sans-arabic/latin-400.css';
 import './style.css';
 import {siteHeader} from './branding.js';
-import {authChangeKey,api as portalApi,errorText as portalError,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
+import {authChanged,authChangeKey,api as portalApi,errorText as portalError,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
 import {submitForm} from './portal/submit.js';
 import {reviewEnabled,formSaveLabel,toolModeNotice} from './portal/workflow.js';
 import {signingNotice,showSigningGuide} from './portal/signing.js';
@@ -37,6 +37,7 @@ if(initializeShared&&client.user&&audience==='individual'&&Object.keys(drafts.pr
  const parts=client.user.name.trim().split(/\s+/),first=parts.shift(),last=parts.length?parts.pop():'',second=parts.shift()||'',third=parts.join(' '),language=/\p{Script=Arabic}/u.test(client.user.name)?'ar':'en';
  drafts.setShared({...drafts.profile,[language+'_first']:first,[language+'_second']:second,[language+'_third']:third,[language+'_last']:last,name_language:language,mobile:client.user.phone,...(client.user.email?{email:client.user.email}:{})});
 }
+if(initializeShared&&client.user&&audience&&!Object.hasOwn(drafts.profile,'mobile'))drafts.setShared({...drafts.profile,mobile:client.user.phone});
 let stopHeaderNotifications=()=>{};
 let subscriptionEditor=null;
 let manualGuideShown=false;
@@ -106,7 +107,7 @@ function syncFormDetails(){sharedSync?.change(drafts.profile);sharedStatus();}
 function bindClearChoices(){document.querySelectorAll('[data-clear]').forEach(button=>button.onclick=()=>{delete values[button.dataset.clear];clearDownload();pdfBytes=null;saveDraft(button.dataset.clear);renderEditor();});}
 
 function accountLink(){const next=audience==='individual'?'individuals':audience==='corporate'?'companies':null;return `<a class="site-header-link client-account-link" href="${appRoot}${client.user?'my-applications/':'login/?'+new URLSearchParams({...(next?{next,resume:'1'}:{}),lang})}">${client.user?t('My applications','طلباتي'):t('Sign in / Register','دخول / إنشاء حساب')}</a>`;}
-function header(){return siteHeader({lang,className:'header branded-header',brandHref:appRoot,homeAction:true,actions:`${accountLink()}${client.user?notificationBell(lang):''}<button type="button" class="site-header-language" id="language" lang="${lang==='en'?'ar':'en'}">${lang==='en'?'العربية':'English'}</button>`});}
+function header(){return siteHeader({lang,className:'header branded-header',brandHref:appRoot,homeAction:true,actions:`${accountLink()}${client.user?notificationBell(lang):''}<button type="button" class="site-header-language" id="language" lang="${lang==='en'?'ar':'en'}">${lang==='en'?'العربية':'English'}</button>${client.user?`<button type="button" class="site-header-signout" id="form-logout">${t('Sign out','تسجيل الخروج')}</button>`:''}`});}
 function saveLabel(){return drafts.available?t('Saved on this browser','محفوظ في هذا المتصفح'):t('Not saved — browser storage is unavailable','لم يتم الحفظ — تخزين المتصفح غير متاح');}
 function footer(){return `${sharedStatusHTML()}<footer>${icon('lock',15)} <span data-storage-note>${drafts.available?t('Drafts are saved on this browser so you can return later. Use Clear form or Clear all saved forms to remove them.','تُحفظ المسودات في هذا المتصفح لتعود إليها لاحقًا. استخدم «مسح النموذج» أو «مسح جميع النماذج المحفوظة» لحذفها.'):t('Browser saving is unavailable. Keep this tab open or download your PDF before leaving.','الحفظ في المتصفح غير متاح. أبقِ الصفحة مفتوحة أو نزّل المستند قبل المغادرة.')}</span></footer>`;}
 function storageStatus(){document.querySelectorAll('[data-save-status]').forEach(el=>{el.textContent=saveLabel();el.classList.toggle('save-failed',!drafts.available);});const note=document.querySelector('[data-storage-note]');if(note){const wrapper=document.createElement('div');wrapper.innerHTML=footer();note.textContent=wrapper.querySelector('[data-storage-note]').textContent;}sharedStatus();}
@@ -115,6 +116,12 @@ function blankLink(d,classes='button secondary'){return `<a class="${classes}" d
 function setLanguage(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';}
 function bindCommon(){
  sharedStatus();
+ const logout=document.querySelector('#form-logout');
+ if(logout)logout.onclick=async()=>{
+  logout.disabled=true;saveDraft();
+  try{await sharedSync?.flush();await portalApi('logout',{}, {token:client.csrf});authChanged();location.href=appRoot+'login/?lang='+lang;}
+  catch(err){logout.disabled=false;showStatus(portalError(err,lang),true);}
+ };
  stopHeaderNotifications();stopHeaderNotifications=client.user?mountNotificationBell(document.querySelector('[data-notification-bell]'),{lang,userId:client.user.id}):()=>{};
  const revision=current&&drafts.get(current.id).revision;
  if(revision){
@@ -196,8 +203,11 @@ function fieldHTML(f){
  const context=f.context?`<span class="field-context">${e(t(f.context[0],f.context[1]))}</span>`:'';
  if(f.sum)return `<div class="field computed" data-field="${f.id}"><span>${label}</span><strong>${e(value||'—')}</strong></div>`;
  let input='';
- if(f.type==='choice')input=`<div class="options ${f.options.some(o=>o.label.length>100)?'long-options':''}">${f.options.map(o=>`<div class="option-row"><label class="option"><input type="${f.multiple?'checkbox':'radio'}" name="${f.id}" value="${e(o.value)}" ${f.multiple?(value||[]).includes(o.value)?'checked':'':value===o.value?'checked':''}><span>${bilingual(o.label,o.ar,true)}</span></label>${(f.optionFields?.[o.value]||[]).map(id=>`<div class="option-detail">${fieldHTML(current.fields.find(f=>f.id===id))}</div>`).join('')}</div>`).join('')}</div><button type="button" class="clear-choice" data-clear="${f.id}">${t('Clear selection','مسح الاختيار')}</button>`;
- else if(f.type==='select')input=`<select id="f-${f.id}" name="${f.id}"><option value="">${t('Select…','اختر…')}</option>${f.selectOptions.map(([v,en,ar])=>`<option value="${v}" ${value===v?'selected':''}>${e([en,ar].filter(Boolean).join(' / '))}</option>`).join('')}</select>`;
+ if(f.control==='select'){
+  const options=f.options||f.dropdownOptions,known=options.some(o=>o.value===value);
+  input=`<select id="f-${f.id}" name="${f.id}" aria-label="${e(t(f.label,f.ar))}"><option value="">${t('Select…','اختر…')}</option>${value&&!known?`<option value="${e(value)}" selected>${e(value)}</option>`:''}${options.filter(o=>o.value!=='family'||value==='family').map(o=>`<option value="${e(o.value)}" ${value===o.value?'selected':''}>${e([o.label,o.ar].filter(Boolean).join(' / '))}</option>`).join('')}</select>${Object.values(f.optionFields||{}).flat().map(id=>fieldHTML(current.fields.find(field=>field.id===id))).join('')}`;
+ }else if(f.type==='choice')input=`<div class="options ${f.options.some(o=>o.label.length>100)?'long-options':''}">${f.options.map(o=>`<div class="option-row"><label class="option"><input type="${f.multiple?'checkbox':'radio'}" name="${f.id}" value="${e(o.value)}" ${f.multiple?(value||[]).includes(o.value)?'checked':'':value===o.value?'checked':''}><span>${bilingual(o.label,o.ar,true)}</span></label>${(f.optionFields?.[o.value]||[]).map(id=>`<div class="option-detail">${fieldHTML(current.fields.find(f=>f.id===id))}</div>`).join('')}</div>`).join('')}</div><button type="button" class="clear-choice" data-clear="${f.id}">${t('Clear selection','مسح الاختيار')}</button>`;
+ else if(f.type==='select')input=`<select id="f-${f.id}" name="${f.id}" aria-label="${e(t(f.label,f.ar))}"><option value="">${t('Select…','اختر…')}</option>${f.selectOptions.map(([v,en,ar])=>`<option value="${v}" ${value===v?'selected':''}>${e([en,ar].filter(Boolean).join(' / '))}</option>`).join('')}</select>`;
  else if(f.multiline)input=`<textarea id="f-${f.id}" name="${f.id}" rows="3" dir="auto" spellcheck="false" ${f.maxLength?`maxlength="${f.maxLength}"`:''}>${e(value)}</textarea>`;
  else input=`<input id="f-${f.id}" name="${f.id}" type="${['date','email','tel'].includes(f.type)?f.type:'text'}" value="${e(value)}" dir="${f.direction||(['date','email','tel'].includes(f.type)?'ltr':'auto')}" ${f.maxLength?`maxlength="${f.maxLength}"`:''} ${f.numeric?'inputmode="decimal"':''} autocomplete="off" spellcheck="false">`;
  return `<${f.type==='choice'?'fieldset':'div'} class="field ${wide?'wide':''} ${f.type==='choice'?'choice':''} ${errors.includes(f.id)?'invalid':''}" data-field="${f.id}">${f.type==='choice'?`<legend>${context}${label}</legend>`:`<label for="f-${f.id}">${context}${label}</label>`}${input}${f.help?`<small class="field-help">${e(t(f.help,f.arHelp))}</small>`:''}${errors.includes(f.id)?`<p class="field-error">${t('This answer is too long for its space in the PDF. Please shorten it.','هذه الإجابة أطول من المساحة المتاحة في المستند. يرجى اختصارها.')}</p>`:''}</${f.type==='choice'?'fieldset':'div'}>`;

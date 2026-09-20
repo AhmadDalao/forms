@@ -76,7 +76,7 @@ test('PDF canonicalization requires server agreement and clears hidden ID detail
  const fetchBefore=globalThis.fetch;
  try{
   globalThis.fetch=async(_url,init)=>{assert.deepEqual(JSON.parse(init.body),{units:'10'});return {ok:true,json:async()=>calculateSubscription('10')};};
-  const v=await canonicalSubscription(individual,{units:'10',total_amount:'1',unit_price:'1',id_type:'national',id_other:'STALE',first_name:'A',second_name:'B',family_name:'C'});
+  const v=await canonicalSubscription(individual,{units:'10',total_amount:'1',unit_price:'1',id_type:'national',id_other:'STALE',first_name:'أحمد',second_name:'محمد',family_name:'العلي'});
   assert.equal(v.total_amount,'10200');assert.equal(v.unit_price,'1000');assert.equal(v.id_other,undefined);
   for(const [title,expected] of [['dr','Dr. / الدكتور'],['eng','Eng. / المهندس']]){
    const custom=await canonicalSubscription(individual,{units:'10',title,id_type:'other',id_other:'وثيقة سفر'});

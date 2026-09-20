@@ -1,7 +1,7 @@
 import {generate,loadPreview,renderPage,templateUrl} from '../pdf.js';
 import {prepareSignature,submissionSigningState} from '../signatures.js';
 import {signingNotice,showSigningGuide} from '../portal/signing.js';
-import {normalizeSubscription,visibleFields,sectionProgress,missingRequired} from './model.js';
+import {normalizeSubscription,visibleFields,sectionProgress,missingRequired,arabicNameErrors} from './model.js';
 import {rules,parseUnits,formatSubscriptionNumber} from './calculations.js';
 import {personNameGroups} from '../person-names.js';
 import './style.css';
@@ -44,7 +44,7 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
   let input;
   if(f.readOnly)input=`<output id="sub-${f.id}" data-computed="${f.id}" class="sub-computed" dir="${f.id==='total_words'?'rtl':'auto'}">${escape(shownValue(f)||'—')}</output>`;
   else if(f.type==='select')input=`<select id="sub-${f.id}" name="${f.id}" ${f.required?'required':''}><option value="">${t('Select…','اختر…')}</option>${f.selectOptions.map(o=>`<option value="${o[0]}" ${o[0]===value?'selected':''}>${escape(t(o[1],o[2]))}</option>`).join('')}</select>`;
-  else input=`<input id="sub-${f.id}" name="${f.id}" type="${['date','email','tel'].includes(f.type)?f.type:'text'}" value="${escape(shownValue(f))}" dir="${f.direction==='ltr'||f.numeric?'ltr':'auto'}" ${f.numeric?'inputmode="numeric"':''} ${f.required?'required':''} autocomplete="off" spellcheck="false" maxlength="2000">`;
+  else input=`<input id="sub-${f.id}" name="${f.id}" type="${['date','email','tel'].includes(f.type)?f.type:'text'}" value="${escape(shownValue(f))}" dir="${f.namePart?'rtl':f.direction==='ltr'||f.numeric?'ltr':'auto'}" ${f.namePart?'lang="ar" placeholder="'+t('Enter in Arabic','اكتب بالعربية')+'"':''} ${f.numeric?'inputmode="numeric"':''} ${f.required?'required':''} autocomplete="off" spellcheck="false" maxlength="2000">`;
   return `<div class="field ${f.wide?'wide':''} ${errors.includes(f.id)?'invalid':''}" data-field="${f.id}"><label for="sub-${f.id}">${label}${f.required?'<span class="required-mark"> *</span>':''}</label>${input}${f.id==='units'?`<small class="sub-help">${t('Whole units · SAR 1,000 per unit','وحدات صحيحة · ١٬٠٠٠ ريال سعودي للوحدة')}</small>`:''}${f.id==='applicant_name'?`<small class="sub-help">${t('Filled from your customer details. You can edit how your name appears.','معبّأ من بيانات العميل. يمكنك تعديل طريقة ظهور الاسم.')}</small>`:''}${errorFor(f.id)}</div>`;
  }
  function fields(){
@@ -119,6 +119,8 @@ export function createSubscriptionEditor({root,doc,drafts,audience,header,footer
  async function prepare(downloadNow){
   if(busy)return;if(pdfBytes&&review){if(downloadNow)download();return;}
   save();errors=downloadNow?[]:visibleErrors(missingRequired(doc,values,signatures));
+  const invalidNames=arabicNameErrors(doc,values);
+  if(invalidNames.length){errors=invalidNames;step=0;message=t('Enter the first name row in Arabic. Use the English name row for English names.','أدخل صف الاسم الأول باللغة العربية، واستخدم صف الاسم بالإنجليزية للأسماء الإنجليزية.');render();return;}
   // Signatures are optional in direct intake; valid uploaded images are still checked.
   if(errors.length){const index=doc.sections.findIndex(s=>s.fields.some(f=>errors.includes(f.id)));if(index>=0)step=index;message=t('Complete the highlighted required fields before reviewing. You can download your current answers at any time.','أكمل الحقول المطلوبة المحددة قبل المراجعة. يمكنك تنزيل الإجابات الحالية في أي وقت.');render();root.querySelector('.invalid,input[required]:invalid')?.focus();return;}
   busy=true;lock();const id=++token;message='';root.querySelector('#sub-status').textContent=t('Preparing your document…','جارٍ إعداد المستند…');

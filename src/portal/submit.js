@@ -2,10 +2,12 @@ import {api,e,session,errorText} from './api.js';
 import {appRoot} from '../routes.js';
 import './submit.css';
 import {workflowState} from './workflow.js';
+import {withAnswerTotals} from '../answer-totals.js';
 
 // A single click after preview sends the form. The same key and expected version
 // are kept on retry, including when the first response was lost after committing.
 export async function submitForm({doc,values,bytes,profile,audience,lang,user,signatures={},signatureModes={},revision=null,onSaved=()=>{}}){
+ values=withAnswerTotals(doc.fields,values);
  if(document.querySelector('.submission-dialog'))return;
  const workflow=workflowState(),t=(en,ar)=>lang==='ar'?ar:en;
  const dialog=document.createElement('dialog');dialog.className='submission-dialog';dialog.dir=lang==='ar'?'rtl':'ltr';

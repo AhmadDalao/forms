@@ -14,6 +14,7 @@ export async function api(action,body,{token=csrf,params={},keepalive=false}={})
 }
 export const session=()=>api('session');
 export const errors={
+ arabic_name_required:['Enter the first customer-name row in Arabic. English names belong in the separate English row.','أدخل صف اسم العميل الأول باللغة العربية. للأسماء الإنجليزية صف مستقل.'],
  signature_image_required:['Add at least one signature image to save a signed copy.','أضف صورة توقيع واحدة على الأقل لحفظ نسخة موقّعة.'],
  workflow_disabled:['Management review is currently switched off. Your saved forms and decision history are kept.','المراجعة الإدارية معطّلة حاليًا. تبقى النماذج المحفوظة وسجل القرارات محفوظة.'],
  workflow_not_required:['This form was saved without review and cannot receive a review decision.','حُفظ هذا النموذج دون مراجعة ولا يمكن اتخاذ قرار مراجعة بشأنه.'],
