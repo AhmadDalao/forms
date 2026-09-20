@@ -99,7 +99,7 @@ export function sharedCandidates(doc,profile,values,audience){
  if(doc.id==='terms-and-conditions'){copy('terms_name_0',name);copy('authorization_name_0',name);}
  if(doc.id==='kyc-individual'){
   copy('name_1',name);copy('risk_client_name',name);
-  for(const key of ['title','gender','dob','id_type','id_other','id_number','phone','mobile','email','building','street','postal','country'])copy(key,p[key]);
+  for(const key of ['title','gender','dob','nationality','id_type','id_other','id_number','phone','mobile','email','building','street','postal','country'])copy(key,p[key]);
   copy('city',joined(p.city,p.district));copy('postal_additional',p.additional);
  }
  if(doc.id==='fatca-crs-individual'){
@@ -111,7 +111,7 @@ export function sharedCandidates(doc,profile,values,audience){
   copy('staff_account_holder',name);
  }
  if(doc.id==='kyc-corporate'){
-  copy('company',name);copy('risk_client_name',name);copy('inc_country',p.inc_country);
+  copy('company',name);copy('risk_client_name',name);copy('inc_country',p.inc_country);copy('cr',p.company_id_number);
   for(const key of ['building','street','district','city','postal','additional','phone','mobile','email','auth_name','auth_id_type','auth_id'])copy(key,p[key]);
   // Do not invent a checkbox where the official company PDF has no Other option.
   if(p.auth_id_type==='other')copy('auth_id_type','');

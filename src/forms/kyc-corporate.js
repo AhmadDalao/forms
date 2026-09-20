@@ -33,7 +33,8 @@ custodian(d,s,3,true);investment(d,true);portfolio(d,true);risk(d);
 }
 for(const [id,rect] of [
  ['contact_name',[160,93,212,14]],['business_phone',[160,115,212,14]],['email',[160,137,212,14]],
- ['mobile',[160,159,212,14]],['contact_address',[160,181,212,14]],
+ // The entire blank address row is available left of its label (x450.55).
+ ['mobile',[160,159,212,14]],['contact_address',[60,181,382,14]],
  ['bank',[165,226,225,14]],['bank_owner',[165,247.6,225,14]],['bank_account',[165,269.2,225,14]],
  // Use the clear writing space between labels, not just the short dotted guide.
  ['branch',[61,292,101,14]],['bank_country',[210,292,106,14]],['bank_currency',[369,292,123,14]],

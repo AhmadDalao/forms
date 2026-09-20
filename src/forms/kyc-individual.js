@@ -63,3 +63,11 @@ for(const [id,rect,rtlRect] of [
 for(const id of ['other_finance','other_finance_2']){
  const f=d.fields.find(f=>f.id===id);f.rect[3]=12.5;f.fontSize=8;f.minFontSize=6.5;f.padding=.6;
 }
+
+// The two name boxes form one reading row. Arabic starts in the right box;
+// decide the row direction from the whole name so mixed-script chunks cannot collide.
+{
+ const first=d.fields.find(f=>f.id==='name_1'),last=d.fields.find(f=>f.id==='name_2');
+ first.rtlRect=[...last.rect];last.rtlRect=[...first.rect];
+ for(const field of [first,last])field.rectDirectionFrom=['name_first','name_second','name_third','name_last','name_1','name_2'];
+}

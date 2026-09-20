@@ -1,0 +1,1032 @@
+{
+  "at": "2026-09-20T07:42:43.677Z",
+  "scope": "Current curated templates; semantic/source preservation checks plus separate fresh 43-page visual paper inventory",
+  "editors": 8,
+  "activeEditorPages": 42,
+  "consentPages": 1,
+  "totals": {
+    "fields": 555,
+    "uiOnly": 112,
+    "pdfAnswerFields": 423,
+    "radioCheckboxOptions": 227,
+    "cardOptions": 8,
+    "dropdownOptions": 21,
+    "signatureSlots": 16
+  },
+  "nameNormalizationCases": 145,
+  "originals": [
+    {
+      "source": "FATCA - CRS Corporate.pdf",
+      "document": "fatca-crs-corporate",
+      "sha256": "99ca43de54f7080a77f049c7502e280326fd4c0cb0b3169d0381a184d17028d0",
+      "matchesReference": true
+    },
+    {
+      "source": "ItqanSignatureFormV3.11 (1) (1).pdf",
+      "document": "signature-form",
+      "sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+      "matchesReference": true
+    },
+    {
+      "source": "ItqanSignatureFormV3.11 (1).pdf",
+      "document": "signature-form",
+      "sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+      "matchesReference": true
+    },
+    {
+      "source": "KYC-corporate.pdf",
+      "document": "kyc-corporate",
+      "sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+      "matchesReference": true
+    },
+    {
+      "source": "KYC-individuals .pdf",
+      "document": "kyc-individual",
+      "sha256": "79d7e6298f841bfc69dc627c4594448adb62a09266961087c28514df96b12d51",
+      "matchesReference": true
+    },
+    {
+      "source": "T&C (1).pdf",
+      "document": "terms-and-conditions",
+      "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+      "matchesReference": true
+    },
+    {
+      "source": "T&C.pdf",
+      "document": "terms-and-conditions",
+      "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+      "matchesReference": true
+    },
+    {
+      "source": "إتقان كابيتال الإقامة الضريبية.pdf",
+      "document": "fatca-crs-individual",
+      "sha256": "d2347853b761d014e5925812f4e24e32aed0a5dd8a701464b804255dec7ada4b",
+      "matchesReference": true
+    },
+    {
+      "source": "ItqanSubscriptionFormV3.11.pdf",
+      "document": "subscription-form",
+      "sha256": "00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a",
+      "matchesReference": true
+    }
+  ],
+  "documents": [
+    {
+      "id": "signature-form",
+      "pages": 1,
+      "template": "signature-form.pdf",
+      "sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+      "unchangedReference": true,
+      "fields": 18,
+      "uiOnly": 8,
+      "pdfAnswerFields": 10,
+      "radioCheckboxOptions": 6,
+      "cardOptions": 0,
+      "dropdownOptions": 0,
+      "signatureSlots": 1,
+      "pageFields": [
+        {
+          "page": 1,
+          "fields": [
+            "date",
+            "client_name",
+            "client_name_first",
+            "client_name_second",
+            "client_name_third",
+            "client_name_last",
+            "client_number",
+            "account_number",
+            "signer_role",
+            "signer_name",
+            "signer_name_first",
+            "signer_name_second",
+            "signer_name_third",
+            "signer_name_last",
+            "id_number",
+            "id_type",
+            "signing_mode",
+            "signing_limits"
+          ],
+          "signatureSlots": [
+            "specimen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "subscription-form",
+      "pages": 2,
+      "template": "subscription-individual.pdf",
+      "sha256": "d4149689c453464f66388ebcb6a58507aee08109e6684e066c743e5ce9a4e7ef",
+      "unchangedReference": false,
+      "fields": 49,
+      "uiOnly": 8,
+      "pdfAnswerFields": 29,
+      "radioCheckboxOptions": 0,
+      "cardOptions": 4,
+      "dropdownOptions": 9,
+      "signatureSlots": 1,
+      "pageFields": [
+        {
+          "page": 1,
+          "fields": [
+            "client_account",
+            "title",
+            "title_label",
+            "first_name",
+            "second_name",
+            "third_name",
+            "family_name",
+            "full_name",
+            "nationality",
+            "id_type",
+            "id_type_label",
+            "id_number",
+            "id_other",
+            "english_name",
+            "en_first",
+            "en_second",
+            "en_third",
+            "en_last",
+            "phone",
+            "mobile",
+            "short_address",
+            "building",
+            "street",
+            "additional",
+            "district",
+            "postal",
+            "city",
+            "email",
+            "country",
+            "po_box"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 2,
+          "fields": [
+            "subscription_type",
+            "payment_method",
+            "subscription_type_label",
+            "payment_method_label",
+            "fund_name",
+            "currency",
+            "units",
+            "unit_price",
+            "amount_subscribed",
+            "subscription_fee",
+            "total_amount",
+            "total_words",
+            "applicant_name",
+            "applicant_name_first",
+            "applicant_name_second",
+            "applicant_name_third",
+            "applicant_name_last",
+            "date",
+            "signature_mode"
+          ],
+          "signatureSlots": [
+            "applicant"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "subscription-company",
+      "pages": 2,
+      "template": "subscription-company.pdf",
+      "sha256": "c72c44c5441994eed7ec8a591fd8b69966b07eb05fa93bfe8d9115c88f8641ef",
+      "unchangedReference": false,
+      "fields": 46,
+      "uiOnly": 8,
+      "pdfAnswerFields": 30,
+      "radioCheckboxOptions": 0,
+      "cardOptions": 4,
+      "dropdownOptions": 3,
+      "signatureSlots": 1,
+      "pageFields": [
+        {
+          "page": 1,
+          "fields": [
+            "client_account",
+            "title",
+            "title_label",
+            "company_name",
+            "inc_country",
+            "company_id_type",
+            "company_id_type_label",
+            "company_id_number",
+            "auth_name",
+            "auth_name_first",
+            "auth_name_second",
+            "auth_name_third",
+            "auth_name_last",
+            "auth_id",
+            "english_name",
+            "phone",
+            "mobile",
+            "short_address",
+            "building",
+            "street",
+            "additional",
+            "district",
+            "postal",
+            "city",
+            "email",
+            "country",
+            "po_box"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 2,
+          "fields": [
+            "subscription_type",
+            "payment_method",
+            "subscription_type_label",
+            "payment_method_label",
+            "fund_name",
+            "currency",
+            "units",
+            "unit_price",
+            "amount_subscribed",
+            "subscription_fee",
+            "total_amount",
+            "total_words",
+            "applicant_name",
+            "applicant_name_first",
+            "applicant_name_second",
+            "applicant_name_third",
+            "applicant_name_last",
+            "date",
+            "signature_mode"
+          ],
+          "signatureSlots": [
+            "applicant"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "terms-and-conditions",
+      "pages": 13,
+      "template": "terms-and-conditions.pdf",
+      "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+      "unchangedReference": true,
+      "fields": 34,
+      "uiOnly": 24,
+      "pdfAnswerFields": 10,
+      "radioCheckboxOptions": 4,
+      "cardOptions": 0,
+      "dropdownOptions": 0,
+      "signatureSlots": 6,
+      "pageFields": [
+        {
+          "page": 1,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 2,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 3,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 4,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 5,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 6,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 7,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 8,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 9,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 10,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 11,
+          "fields": [
+            "terms_consent",
+            "terms_name_0",
+            "terms_name_0_first",
+            "terms_name_0_second",
+            "terms_name_0_third",
+            "terms_name_0_last",
+            "terms_name_1",
+            "terms_name_1_first",
+            "terms_name_1_second",
+            "terms_name_1_third",
+            "terms_name_1_last",
+            "terms_name_2",
+            "terms_name_2_first",
+            "terms_name_2_second",
+            "terms_name_2_third",
+            "terms_name_2_last",
+            "terms_date"
+          ],
+          "signatureSlots": [
+            "terms_0",
+            "terms_1",
+            "terms_2"
+          ]
+        },
+        {
+          "page": 12,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 13,
+          "fields": [
+            "authorization_consent",
+            "authorization_name_0",
+            "authorization_name_0_first",
+            "authorization_name_0_second",
+            "authorization_name_0_third",
+            "authorization_name_0_last",
+            "authorization_name_1",
+            "authorization_name_1_first",
+            "authorization_name_1_second",
+            "authorization_name_1_third",
+            "authorization_name_1_last",
+            "authorization_name_2",
+            "authorization_name_2_first",
+            "authorization_name_2_second",
+            "authorization_name_2_third",
+            "authorization_name_2_last",
+            "authorization_date"
+          ],
+          "signatureSlots": [
+            "authorization_0",
+            "authorization_1",
+            "authorization_2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fatca-crs-individual",
+      "pages": 4,
+      "template": "fatca-crs-individual.pdf",
+      "sha256": "d2347853b761d014e5925812f4e24e32aed0a5dd8a701464b804255dec7ada4b",
+      "unchangedReference": true,
+      "fields": 73,
+      "uiOnly": 16,
+      "pdfAnswerFields": 57,
+      "radioCheckboxOptions": 16,
+      "cardOptions": 0,
+      "dropdownOptions": 9,
+      "signatureSlots": 2,
+      "pageFields": [
+        {
+          "page": 1,
+          "fields": [
+            "title",
+            "ar_first",
+            "ar_middle",
+            "ar_last",
+            "en_first",
+            "en_middle",
+            "en_last",
+            "ar_second",
+            "ar_third",
+            "en_second",
+            "en_third",
+            "dob",
+            "gender",
+            "birth_city",
+            "birth_country",
+            "sa_building",
+            "sa_street",
+            "sa_district",
+            "sa_postal",
+            "sa_city",
+            "sa_country",
+            "outside_building",
+            "outside_street",
+            "outside_district",
+            "outside_postal",
+            "outside_city",
+            "outside_country",
+            "mail_building",
+            "mail_street",
+            "mail_district",
+            "mail_postal",
+            "mail_city",
+            "mail_country",
+            "us_person",
+            "citizenships",
+            "permanent_residence",
+            "permanent_details",
+            "outside_tax",
+            "ssn",
+            "itin",
+            "atin"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 2,
+          "fields": [
+            "tax_country_0",
+            "tax_tin_0",
+            "tax_reason_0",
+            "tax_explanation_0",
+            "tax_country_1",
+            "tax_tin_1",
+            "tax_reason_1",
+            "tax_explanation_1",
+            "tax_country_2",
+            "tax_tin_2",
+            "tax_reason_2",
+            "tax_explanation_2",
+            "signer_ar",
+            "signer_ar_first",
+            "signer_ar_second",
+            "signer_ar_third",
+            "signer_ar_last",
+            "signer_en",
+            "signer_en_first",
+            "signer_en_second",
+            "signer_en_third",
+            "signer_en_last",
+            "capacity",
+            "capacity_other",
+            "date"
+          ],
+          "signatureSlots": [
+            "signatory"
+          ]
+        },
+        {
+          "page": 3,
+          "fields": [
+            "staff_account_holder",
+            "staff_account_holder_first",
+            "staff_account_holder_second",
+            "staff_account_holder_third",
+            "staff_account_holder_last",
+            "staff_employee_id",
+            "staff_cif"
+          ],
+          "signatureSlots": [
+            "relationship_manager"
+          ]
+        },
+        {
+          "page": 4,
+          "fields": [],
+          "signatureSlots": []
+        }
+      ]
+    },
+    {
+      "id": "fatca-crs-corporate",
+      "pages": 6,
+      "template": "fatca-crs-corporate.pdf",
+      "sha256": "99ca43de54f7080a77f049c7502e280326fd4c0cb0b3169d0381a184d17028d0",
+      "unchangedReference": true,
+      "fields": 104,
+      "uiOnly": 28,
+      "pdfAnswerFields": 76,
+      "radioCheckboxOptions": 19,
+      "cardOptions": 0,
+      "dropdownOptions": 0,
+      "signatureSlots": 2,
+      "pageFields": [
+        {
+          "page": 1,
+          "fields": [
+            "legal_name",
+            "inc_city",
+            "inc_country",
+            "residence_building",
+            "residence_street",
+            "residence_district",
+            "residence_city",
+            "residence_postal",
+            "residence_country",
+            "head_building",
+            "head_street",
+            "head_district",
+            "head_city",
+            "head_postal",
+            "head_country",
+            "tax_country_0",
+            "tax_tin_0",
+            "tax_reason_0",
+            "tax_country_1",
+            "tax_tin_1",
+            "tax_reason_1",
+            "tax_country_2",
+            "tax_tin_2",
+            "tax_reason_2"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 2,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 3,
+          "fields": [
+            "fatca_class",
+            "us_tin",
+            "giin_3",
+            "giin_4",
+            "giin_5"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 4,
+          "fields": [
+            "crs_class",
+            "exchange"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 5,
+          "fields": [
+            "person_0_name",
+            "person_0_name_first",
+            "person_0_name_second",
+            "person_0_name_third",
+            "person_0_name_last",
+            "person_0_address",
+            "person_0_dob",
+            "person_0_birthplace",
+            "person_0_nationality",
+            "person_0_country",
+            "person_0_ownership",
+            "person_0_tin",
+            "person_1_name",
+            "person_1_name_first",
+            "person_1_name_second",
+            "person_1_name_third",
+            "person_1_name_last",
+            "person_1_address",
+            "person_1_dob",
+            "person_1_birthplace",
+            "person_1_nationality",
+            "person_1_country",
+            "person_1_ownership",
+            "person_1_tin",
+            "person_2_name",
+            "person_2_name_first",
+            "person_2_name_second",
+            "person_2_name_third",
+            "person_2_name_last",
+            "person_2_address",
+            "person_2_dob",
+            "person_2_birthplace",
+            "person_2_nationality",
+            "person_2_country",
+            "person_2_ownership",
+            "person_2_tin",
+            "person_3_name",
+            "person_3_name_first",
+            "person_3_name_second",
+            "person_3_name_third",
+            "person_3_name_last",
+            "person_3_address",
+            "person_3_dob",
+            "person_3_birthplace",
+            "person_3_nationality",
+            "person_3_country",
+            "person_3_ownership",
+            "person_3_tin",
+            "person_4_name",
+            "person_4_name_first",
+            "person_4_name_second",
+            "person_4_name_third",
+            "person_4_name_last",
+            "person_4_address",
+            "person_4_dob",
+            "person_4_birthplace",
+            "person_4_nationality",
+            "person_4_country",
+            "person_4_ownership",
+            "person_4_tin"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 6,
+          "fields": [
+            "signer_0_name",
+            "signer_0_name_first",
+            "signer_0_name_second",
+            "signer_0_name_third",
+            "signer_0_name_last",
+            "signer_0_capacity",
+            "signer_1_name",
+            "signer_1_name_first",
+            "signer_1_name_second",
+            "signer_1_name_third",
+            "signer_1_name_last",
+            "signer_1_capacity",
+            "date"
+          ],
+          "signatureSlots": [
+            "signatory_0",
+            "signatory_1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kyc-individual",
+      "pages": 7,
+      "template": "kyc-individual.pdf",
+      "sha256": "79d7e6298f841bfc69dc627c4594448adb62a09266961087c28514df96b12d51",
+      "unchangedReference": true,
+      "fields": 121,
+      "uiOnly": 12,
+      "pdfAnswerFields": 109,
+      "radioCheckboxOptions": 122,
+      "cardOptions": 0,
+      "dropdownOptions": 0,
+      "signatureSlots": 2,
+      "pageFields": [
+        {
+          "page": 1,
+          "fields": [
+            "account_type",
+            "title",
+            "title_other",
+            "gender",
+            "name_1",
+            "name_first",
+            "name_second",
+            "name_third",
+            "name_last",
+            "name_2",
+            "dob",
+            "marital",
+            "dependents",
+            "id_type",
+            "id_other",
+            "id_number",
+            "id_expiry",
+            "issue_place",
+            "nationality",
+            "education",
+            "building",
+            "street",
+            "city",
+            "email",
+            "country",
+            "phone",
+            "mobile",
+            "postal",
+            "postal_additional",
+            "language",
+            "income_sources",
+            "statement_frequency",
+            "statement_delivery"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 2,
+          "fields": [
+            "annual_income",
+            "net_worth",
+            "sector",
+            "sector_other",
+            "employer",
+            "employer_address",
+            "employer_phone",
+            "job",
+            "years_employed",
+            "bank",
+            "iban",
+            "branch",
+            "bank_country",
+            "bank_currency",
+            "financial_work",
+            "financial_experience"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 3,
+          "fields": [
+            "listed_association",
+            "listed_company",
+            "public_role",
+            "related_public_role",
+            "beneficial_owner",
+            "beneficiary_identity",
+            "bank_beneficiary",
+            "other_finance",
+            "other_finance_2",
+            "special_case",
+            "representative_name",
+            "representative_name_first",
+            "representative_name_second",
+            "representative_name_third",
+            "representative_name_last",
+            "rep_id",
+            "rep_type",
+            "rep_expiry",
+            "rep_issue",
+            "rep_phone",
+            "rep_place",
+            "rep_fax"
+          ],
+          "signatureSlots": [
+            "representative"
+          ]
+        },
+        {
+          "page": 4,
+          "fields": [
+            "experience",
+            "years_investing",
+            "previous_products",
+            "certificates",
+            "loan_ratio",
+            "margin_transactions",
+            "overseas_transactions",
+            "overseas_countries",
+            "risk_appetite",
+            "objectives",
+            "objectives_other",
+            "restrictions"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 5,
+          "fields": [
+            "currencies",
+            "other_currency",
+            "horizon",
+            "ideal_deposits",
+            "ideal_debt",
+            "ideal_equity",
+            "ideal_funds",
+            "ideal_property",
+            "ideal_derivatives",
+            "ideal_alternative",
+            "current_deposits",
+            "current_debt",
+            "current_equity",
+            "current_funds",
+            "current_property",
+            "current_derivatives",
+            "current_alternative",
+            "custodian_account",
+            "custodian_name",
+            "custodian_address",
+            "send_certificates",
+            "instructions_certificates",
+            "send_dividends",
+            "instructions_dividends",
+            "send_proceeds",
+            "instructions_proceeds"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 6,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 7,
+          "fields": [
+            "risk_experience",
+            "risk_age",
+            "risk_reaction",
+            "risk_duration",
+            "risk_capital",
+            "risk_total",
+            "desired_funds",
+            "risk_client_name",
+            "risk_client_name_first",
+            "risk_client_name_second",
+            "risk_client_name_third",
+            "risk_client_name_last"
+          ],
+          "signatureSlots": [
+            "client"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kyc-corporate",
+      "pages": 7,
+      "template": "kyc-corporate.pdf",
+      "sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+      "unchangedReference": true,
+      "fields": 110,
+      "uiOnly": 8,
+      "pdfAnswerFields": 102,
+      "radioCheckboxOptions": 60,
+      "cardOptions": 0,
+      "dropdownOptions": 0,
+      "signatureSlots": 1,
+      "pageFields": [
+        {
+          "page": 1,
+          "fields": [
+            "account_type",
+            "company",
+            "legal_entity",
+            "unified",
+            "cr",
+            "incorporation",
+            "expiry",
+            "address",
+            "building",
+            "street",
+            "district",
+            "city",
+            "postal",
+            "additional",
+            "registration_country",
+            "inc_country",
+            "business",
+            "employees",
+            "capital",
+            "turnover",
+            "phone",
+            "website",
+            "statement_frequency",
+            "statement_delivery"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 2,
+          "fields": [
+            "contact_name",
+            "contact_name_first",
+            "contact_name_second",
+            "contact_name_third",
+            "contact_name_last",
+            "business_phone",
+            "email",
+            "mobile",
+            "contact_address",
+            "bank",
+            "bank_owner",
+            "bank_account",
+            "branch",
+            "bank_country",
+            "bank_currency",
+            "listed",
+            "owners",
+            "directors",
+            "financial_info"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 3,
+          "fields": [
+            "auth_name",
+            "auth_name_first",
+            "auth_name_second",
+            "auth_name_third",
+            "auth_name_last",
+            "auth_relationship",
+            "auth_nationality",
+            "auth_id_type",
+            "auth_id",
+            "auth_issue_place",
+            "auth_issue_date",
+            "auth_expiry",
+            "auth_address",
+            "auth_city",
+            "auth_district",
+            "auth_postal",
+            "auth_unit",
+            "auth_additional",
+            "auth_pob",
+            "auth_phone",
+            "auth_mobile",
+            "auth_email",
+            "custodian_account",
+            "custodian_name",
+            "custodian_address",
+            "send_certificates",
+            "instructions_certificates",
+            "send_dividends",
+            "instructions_dividends",
+            "send_proceeds",
+            "instructions_proceeds"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 4,
+          "fields": [
+            "experience",
+            "years_investing",
+            "previous_products",
+            "loan_ratio",
+            "margin_transactions",
+            "overseas_transactions",
+            "overseas_countries",
+            "risk_appetite",
+            "objectives",
+            "objectives_other",
+            "restrictions"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 5,
+          "fields": [
+            "currencies",
+            "other_currency",
+            "horizon",
+            "ideal_deposits",
+            "ideal_debt",
+            "ideal_equity",
+            "ideal_funds",
+            "ideal_property",
+            "ideal_derivatives",
+            "ideal_alternative",
+            "current_deposits",
+            "current_debt",
+            "current_equity",
+            "current_funds",
+            "current_property",
+            "current_derivatives",
+            "current_alternative"
+          ],
+          "signatureSlots": []
+        },
+        {
+          "page": 6,
+          "fields": [],
+          "signatureSlots": []
+        },
+        {
+          "page": 7,
+          "fields": [
+            "risk_experience",
+            "risk_age",
+            "risk_reaction",
+            "risk_duration",
+            "risk_capital",
+            "risk_total",
+            "desired_funds",
+            "risk_client_name"
+          ],
+          "signatureSlots": [
+            "client"
+          ]
+        }
+      ]
+    }
+  ],
+  "consent": {
+    "downloadOnly": true,
+    "sha256": "8761415c8304d31122ef042a65397b27ad8385a653f7a6c57d81fafd6060ab1b",
+    "rebuiltEditableSource": "output/documents/al-naeem-terms-consent.docx"
+  },
+  "limits": [
+    "This checks software/template consistency, not regulatory certification.",
+    "UI-only and derived fields are counted separately from actual paper targets.",
+    "Free-text content is bounded by each original answer space; this does not establish that arbitrarily long data can fit."
+  ]
+}

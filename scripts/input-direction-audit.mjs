@@ -4,6 +4,7 @@ import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {docs} from '../src/forms/index.js';
+import {personNameFieldVisible} from '../src/person-names.js';
 const site=process.env.SITE_URL||'http://127.0.0.1:4173/';
 const out=process.env.QA_OUT||'tmp/email-direction';
 await fs.mkdir(out,{recursive:true});
@@ -34,7 +35,7 @@ for(const [browserName,engine]of [['chrome',chromium],['firefox',firefox],['webk
   const shared=async()=>{if(!await page.locator('#shared-fields-panel').evaluate(el=>el.open))await page.locator('#shared-fields-panel>summary').click();};
   const closeShared=async()=>{if(await page.locator('#shared-fields-panel').evaluate(el=>el.open))await page.locator('#shared-fields-panel>summary').click();};
   for(const [folder,audience]of [['individuals','individual'],['companies','corporate']]){
-   await page.goto(new URL(folder+'/',site).href);await page.locator('.home').waitFor();
+   await page.goto(new URL(folder+'/?lang='+lang,site).href);await page.locator('.home').waitFor();
    assert.equal(await page.locator('html').getAttribute('lang'),lang);await shared();
    await emailEditing(page.locator('#shared-email'));
    await typeStable(page.locator('#shared-phone'),'+966 55 123 4567');
@@ -63,7 +64,7 @@ for(const [browserName,engine]of [['chrome',chromium],['firefox',firefox],['webk
     }
     // Check regular Arabic/English name entry too, independent of the shared profile.
     await page.locator('[data-step="0"]').click();
-    const nameField=doc.id==='fatca-crs-individual'?doc.fields.find(f=>f.id===`${lang}_first`):doc.sections[0].fields.find(f=>f.type==='text'&&!f.sum&&!f.hidden&&!f.cells&&f.rect?.[2]>100);
+    const nameField=doc.id==='fatca-crs-individual'?doc.fields.find(f=>f.id===`${lang}_first`):doc.sections[0].fields.find(f=>f.type==='text'&&!f.sum&&personNameFieldVisible(f,audience)&&f.personNamePart==='first')||doc.sections[0].fields.find(f=>f.type==='text'&&!f.sum&&personNameFieldVisible(f,audience)&&!f.cells&&f.rect?.[2]>100);
     const nameValue=lang==='ar'?'أحمد علي':'Ahmad Ali';
     await typeStable(page.locator(`[name="${nameField.id}"]`),nameValue);expected[nameField.id]=nameValue;
     // Editing shared fields from review must invalidate the old download without losing focus.

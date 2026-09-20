@@ -8,10 +8,11 @@ import {chromium,firefox,webkit} from 'playwright';
 import {PDFDocument} from 'pdf-lib';
 import {docs} from '../src/forms/index.js';
 import {sectionSignatureSlots} from '../src/signatures.js';
+import {personNameFieldVisible} from '../src/person-names.js';
 
 const out=path.resolve(process.env.QA_OUT||'tmp/navigation-audit');
 await fs.mkdir(out,{recursive:true});
-const server=process.env.SITE_URL?null:await createServer({server:{host:'127.0.0.1',port:8197,strictPort:true},logLevel:'error'});
+const server=process.env.SITE_URL?null:await createServer({server:{host:'127.0.0.1',port:8197,strictPort:true,watch:{ignored:['**/*']}},logLevel:'error'});
 if(server)await server.listen();
 const base=(process.env.SITE_URL||'http://127.0.0.1:8197/').replace(/\/?$/,'/');
 const selected=(process.env.BROWSERS||'chrome').split(',');
@@ -105,7 +106,7 @@ async function allDocuments(browser,name){
      await layout(`${name}/${lang}/${doc.id}/${i}`);
      const [done,total]=await readProgress(i);
      assert.ok(done<=total,'completed count never exceeds total');
-     assert.equal(total,s.fields.filter(f=>!f.sum&&!f.hidden).length,`${doc.id}/${s.id}: each document answer counted once`);
+     assert.equal(total,s.fields.filter(f=>!f.sum&&personNameFieldVisible(f,doc.group==='corporate'?'corporate':'individual')).length,`${doc.id}/${s.id}: each visible answer counted once`);
     }
     if(doc.id==='fatca-crs-individual'&&lang==='en')await page.locator('.sections').screenshot({path:path.join(out,`${name}-en-fatca-navigation.png`)});
     await review();await layout(`${name}/${lang}/${doc.id}/review`);await go(0);
@@ -142,11 +143,11 @@ async function counts(browser,name){
   const {context,p}=await contextFor(browser,lang);page=p;
   try{
    const doc=docs.find(d=>d.id==='kyc-individual');await open(doc,lang);await go(0);
-   const before=await readProgress(0);await page.locator('#f-name_1').fill(lang==='en'?'Navigation QA':'تجربة التنقل');
+   const before=await readProgress(0);await page.locator('[name="name_first"]').fill(lang==='en'?'Navigation QA':'تجربة التنقل');
    assert.deepEqual(await readProgress(0),[before[0]+1,before[1]],'text input updates count immediately');
    await page.locator('input[name="gender"][value="male"]').check();assert.deepEqual(await readProgress(0),[before[0]+2,before[1]],'choice updates count immediately');
    await page.locator('[data-clear="gender"]').click();assert.deepEqual(await readProgress(0),[before[0]+1,before[1]],'clear choice updates count');
-   await page.locator('#f-name_1').fill('');assert.deepEqual(await readProgress(0),before,'clearing text updates count');
+   await page.locator('[name="name_first"]').fill('');assert.deepEqual(await readProgress(0),before,'clearing text updates count');
    await page.locator('input[name="income_sources"][value="employment"]').check();await page.locator('input[name="income_sources"][value="business"]').check();
    assert.deepEqual(await readProgress(0),[before[0]+1,before[1]],'multiple selected choices count as one answer');
    await page.locator('[data-clear="income_sources"]').click();assert.deepEqual(await readProgress(0),before,'clearing multiple choice removes one answer');

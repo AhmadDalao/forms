@@ -20,7 +20,7 @@ export function fieldValue(f, values) {
   if (f.sum) return f.sum.every(key => hasValue(values[key])) ? String(f.sum.reduce((n,key) => n + Number(values[key]), 0)) : '';
   return values[f.id];
 }
-const isRtl=(f,value)=>f.direction==='rtl'||(f.direction!=='ltr'&&/[\u0600-\u06ff]/.test(f.direction==='auto'?(value.match(/\p{L}/u)?.[0]||value):value));
+const isRtl=(f,value)=>!['tel','email','url'].includes(f.type)&&(f.direction==='rtl'||(f.direction!=='ltr'&&/[\u0600-\u06ff]/.test(f.direction==='auto'?(value.match(/\p{L}/u)?.[0]||value):value)));
 function linesFor(ctx, value, width, multiline) {
   if (!multiline) return [value.replace(/\n/g,' ')];
   const lines=[];
@@ -130,7 +130,10 @@ export async function generate(doc, values, signatures = {}) {
       if([...str].length>f.cells) { errors.push(f.id); continue; }
       [...str].forEach((char,i)=>segments.push([char,f.charRects?.[i]||[f.rect[0]+i*f.rect[2]/f.cells,f.rect[1],f.rect[2]/f.cells,f.rect[3]]]));
     } else {
-      const primary=f.rtlRect&&isRtl(f,String(value))?f.rtlRect:f.rect;
+      // Split-name boxes follow the direction of the complete name, so mixed
+      // Arabic/English chunks never choose the same destination rectangle.
+      const rectRtl=f.rectDirectionFrom?isRtl({direction:'auto'},f.rectDirectionFrom.map(id=>values[id]||'').join(' ')):isRtl(f,String(value));
+      const primary=f.rtlRect&&rectRtl?f.rtlRect:f.rect;
       for(const rect of [primary,...(f.mirrorRects||[])])segments.push([f.type==='date'?normalizedDate(String(value)):String(value),rect]);
     }
     for(const [str,[x,y,w,h]] of segments) {

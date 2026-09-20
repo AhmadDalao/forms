@@ -14,7 +14,7 @@ choice(d,s,'gender','Gender','الجنس',[o('female','Female','أنثى',[264.8
 text(d,s,'birth_city','Town / city of birth','مدينة الميلاد',[193,227,259,15]);
 text(d,s,'birth_country','Country of birth','دولة الميلاد',[193,245,259,15]);
 for(const [prefix,en,ar,y]of [['sa','Current Saudi residence','العنوان الحالي في السعودية',262],['outside','Residence outside Saudi Arabia (if any)','الإقامة خارج السعودية (إن وجدت)',293.5],['mail','Mailing address (if different)','العنوان البريدي (إذا اختلف)',325]]){
- for(const [key,le,la,x,dy,w]of [['building','Building','المبنى',250,0,77],['street','Street','الشارع',403,0,39],['district','District','الحي',245,8,66],['postal','Postal code','الرمز البريدي',391,8,51],['city','City','المدينة',229,16,53],['country','Country','الدولة',331,16,120]])text(d,s,`${prefix}_${key}`,`${en}: ${le}`,`${ar}: ${la}`,[x,y+dy,w,10],{fontSize:7,minFontSize:6,padding:.5});
+ for(const [key,le,la,x,dy,w]of [['building','Building','المبنى',250,0,77],['street','Street','الشارع',403,0,39],['district','District','الحي',245,8,66],['postal','Postal code','الرمز البريدي',391,8,51],['city','City','المدينة',229,16,53],['country','Country','الدولة',331,16,120]])text(d,s,`${prefix}_${key}`,`${en}: ${le}`,`${ar}: ${la}`,[x,y+dy,w,10],{fontSize:7,minFontSize:key==='street'?5:6,padding:.5});
 }
 s=section(d,'residency','Citizenship & tax status','الجنسية والوضع الضريبي',1);
 const yn=(id,en,ar,x,y)=>choice(d,s,id,en,ar,[o('yes','Yes','نعم',[x,y,9,9]),o('no','No','لا',[x===266.6?385.6:362.5,y,9,9])]);

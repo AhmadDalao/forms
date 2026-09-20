@@ -14,7 +14,7 @@ import {storagePrefixFor} from '../src/routes.js';
 
 const out=path.resolve(process.env.QA_OUT||'tmp/signature-steps');
 await fs.mkdir(out,{recursive:true});
-const server=process.env.SITE_URL?null:await createServer({server:{host:'127.0.0.1',port:8196,strictPort:true},logLevel:'error'});
+const server=process.env.SITE_URL?null:await createServer({server:{host:'127.0.0.1',port:8196,strictPort:true,watch:{ignored:['**/*']}},logLevel:'error'});
 if(server)await server.listen();
 const base=(process.env.SITE_URL||'http://127.0.0.1:8196/').replace(/\/?$/,'/');
 const storagePrefix=storagePrefixFor(new URL(base).pathname,'itqan.forms.v1.');
@@ -179,11 +179,14 @@ async function matrix(name,browser){
     }
     const comprehensive=name===selected[0]&&lang==='en'&&width===1440;
     if(comprehensive){
-     // Date defaults are ordinary answer ink, not signature ink. Clear them
+     // Dates, countries and their shared address projections are answer ink. Clear them
      // through the form before comparing signature-only downloads to originals.
      for(const [index,section]of doc.sections.entries()){
       await page.locator(`[data-step="${index}"]`).click();
-      for(const field of section.fields.filter(f=>f.type==='date'&&!f.hidden))await page.locator(`[name="${field.id}"]`).fill('');
+      for(const field of section.fields.filter(f=>!f.hidden&&!f.sum&&f.type!=='choice')){
+       const input=page.locator(`[name="${field.id}"]`);
+       if(await input.count()&&await input.inputValue())await input.fill('');
+      }
      }
      for(const [index,slot]of slots.entries()){
       await go(doc,slot);await upload(slot);
@@ -196,6 +199,7 @@ async function matrix(name,browser){
      await page.locator('#language').click();assert.equal(await state(slots.at(-1)).locator('img').count(),1);await page.locator('#language').click();
      let blank;
      if(!skipPDFs){
+      await fs.writeFile(path.join(out,`${audience}-${doc.id}-answers.json`),JSON.stringify((await saved(audience,doc.id)).values,null,2));
       const signed=await getDownload('#download-now',`${audience}-${doc.id}-signed.pdf`);
       blank=await getDownload(`[data-blank="${doc.id}"]`,`${audience}-${doc.id}-blank.pdf`);
       const source=await fs.readFile(`public/pdfs/${doc.id}.pdf`);assert.deepEqual(blank,source,`${doc.id} blank bytes unchanged`);

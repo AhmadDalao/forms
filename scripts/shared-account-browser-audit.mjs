@@ -1,6 +1,6 @@
 // Real PHP/browser lifecycle coverage. Always uses an isolated copy of dist,
 // private temporary storage, synthetic accounts, and an owned local server.
-import {chromium} from 'playwright';
+import {chromium,firefox,webkit} from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -10,8 +10,10 @@ import {fixture,digest} from './workflow-harness.mjs';
 const f=await fixture(),out=path.join(f.out,'shared-account-browser');
 await fs.mkdir(out,{recursive:true});
 f.baseline.build['api/portal-shared.php']=digest(await fs.readFile(path.join(f.out,'site/api/portal-shared.php')));
-const report={base:f.base,baseline:f.baseline,checks:[],errors:[],requests:[]};
-const browser=await chromium.launch({channel:'chrome',headless:true});
+const browserName=process.env.BROWSER||'chrome',engine={chrome:chromium,firefox,webkit}[browserName];
+assert.ok(engine,'Supported BROWSER: chrome, firefox, webkit');
+const report={base:f.base,browser:browserName,baseline:f.baseline,checks:[],errors:[],requests:[]};
+const browser=await engine.launch({...(browserName==='chrome'?{channel:'chrome'}:{}),headless:true});
 const contexts=[];let page,number=0;
 const pass=message=>{report.checks.push(message);console.log('PASS '+message);};
 const folder=user=>user.account_type==='corporate'?'companies':'individuals';
@@ -19,7 +21,7 @@ const prefix=user=>'itqan.forms.v1.account.'+user.id+'.'+user.account_type+'.';
 async function context(cookies=[]){
  const ctx=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'reduce'});contexts.push(ctx);
  if(cookies.length)await ctx.addCookies(cookies);
- ctx.on('page',p=>{p.setDefaultTimeout(15000);p.on('pageerror',error=>report.errors.push(error.message));p.on('response',response=>{
+ ctx.on('page',p=>{p.setDefaultTimeout(15000);p.on('pageerror',error=>report.errors.push({message:error.message,stack:error.stack,url:p.url()}));p.on('response',response=>{
   const url=new URL(response.url());if(url.pathname==='/api/portal.php'&&['shared_profile','shared_profile_save'].includes(url.searchParams.get('action')))report.requests.push({action:url.searchParams.get('action'),status:response.status()});
  });});
  return ctx;
@@ -42,7 +44,7 @@ async function saved(p){await p.waitForFunction(()=>[...document.querySelectorAl
 async function fill(p,values){for(const [key,value]of Object.entries(values)){const field=p.locator('#shared-'+key);if(typeof value==='boolean'){await field.setChecked(!value);await field.setChecked(value);}else if(await field.evaluate(node=>node.tagName)==='SELECT')await field.selectOption(value);else{if(value==='')await field.fill('Clear this value');await field.fill(value);}}}
 async function assertFields(p,values){for(const [key,value]of Object.entries(values)){const field=p.locator('#shared-'+key);assert.equal(typeof value==='boolean'?await field.isChecked():await field.inputValue(),value,key);}}
 async function screenshot(p,name){assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,'No horizontal overflow');await p.screenshot({path:path.join(out,name+'.png'),fullPage:true});}
-async function login(p,account){await p.locator('#auth-form').waitFor();await p.locator('[name=phone]').fill(account.phone);await p.locator('[name=password]').fill(account.password);await p.locator('#auth-form [type=submit]').click();await p.waitForURL(url=>!url.pathname.endsWith('/login/'));}
+async function login(p,account){await p.locator('#auth-form').waitFor();await p.locator('[name=phone]').fill(account.phone);await p.locator('[name=password]').fill(account.password);await p.locator('#auth-form [type=submit]').click();await p.waitForURL(url=>!url.pathname.endsWith('/login/'));if(new URL(p.url()).pathname.endsWith('/my-applications/'))await p.locator('#portal-logout').waitFor();}
 
 try{
  const owner=await context(),a=await register(owner,'individual','Owner');
@@ -80,7 +82,7 @@ try{
  await guestPage.locator('#back-home').click();await guestPage.locator('#shared-fields-panel > summary').click();await assertFields(guestPage,profile);
  pass('Actual guest-to-account login imports manual and automatically copied draft answers without replacing the existing cloud profile');
 
- const bContext=await context(),b=await register(bContext,'individual','Other');const bPage=await open(bContext,b.user);await saved(bPage);await fill(bPage,{en_first:'Other client',city:'Other City',country:'United States of America'});const bCloud=await cloudMatches(bContext,b.user,s=>s.profile.city==='Other City','Second individual saved');
+ const bContext=await context(),b=await register(bContext,'individual','Other');const bPage=await open(bContext,b.user);await saved(bPage);await fill(bPage,{en_first:'Other client',city:'Other City',country:'United States of America'});await saved(bPage);const bCloud=await cloudMatches(bContext,b.user,s=>s.profile.city==='Other City','Second individual saved');
  const company=await context(),c=await register(company,'corporate','Company');const cPage=await open(company,c.user);await saved(cPage);await fill(cPage,{company_name:'Independent Company',auth_first:'Company Signer',auth_second:'Ali',auth_third:'',auth_last:'Family',city:'Company City',country:'Saudi Arabia',inc_country:'United Arab Emirates',also_mail:false});const cCloud=await cloudMatches(company,c.user,s=>s.profile.city==='Company City'&&s.profile.also_mail===false,'Company saved');
  assert.equal(cCloud.profile.en_first,undefined);assert.equal(bCloud.profile.company_name,undefined);assert.deepEqual((await shared(owner,a.user)).profile,established.profile);
  assert.equal((await f.call(owner,'portal','shared_profile',{params:{account:b.user.id,audience:'individual'},status:409})).error,'account_changed');

@@ -1,0 +1,883 @@
+{
+  "date": "2026-09-20",
+  "passed": true,
+  "fixes": [
+    "Copy shared individual nationality to individual KYC.",
+    "Copy shared company registration/licence number to corporate KYC commercial registration.",
+    "Fit ordinary English street names in the three original narrow individual FATCA street spaces.",
+    "Force telephone, email and URL PDF values to LTR, including Arabic digits.",
+    "Place both individual KYC name chunks according to whole-name reading direction, including mixed scripts.",
+    "Use the full clear corporate KYC correspondence-address row so complete shared addresses fit."
+  ],
+  "source_hashes": {
+    "src/shared-fields.js": "300d587f32763c9df6b129883ca4afcf95a837825b676fc44c33e95f4b660595",
+    "src/forms/individual-tax.js": "ce926a998345f71b9fefc771780d6dae30f7f41d81920781953d65ae93027d75",
+    "src/forms/kyc-individual.js": "3a3af44f44ff0cace35ea61232063052831b54ac4b2eabbe531cc0f5e991f87c",
+    "src/forms/kyc-corporate.js": "67e9548dac32240d552de5b793a326856738425a4588edc8f614d70f7f94ac92",
+    "src/pdf.js": "b40cdde29af791166448ef757c6453ed86b710c651587f2f90d45d163a381cd7"
+  },
+  "unit_tests": {
+    "passed": 175,
+    "failed": 0
+  },
+  "php_lint_files": 12,
+  "pdf": {
+    "evidence": "tmp/pdfs/current-audit-20260920/verification.json",
+    "counts": {
+      "pdfs": 106,
+      "pages": 567,
+      "text_rectangles": 2828,
+      "choice_rectangles": 1006,
+      "signature_rectangles": 32,
+      "transparent_images": 3229,
+      "unchanged_pages": 260
+    },
+    "coverage": {
+      "signature-form": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 6,
+        "covered_choice_options": 6,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "subscription-form": {
+        "mapped_fields": 29,
+        "covered_fields": 29,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 13,
+        "complete_success": 5
+      },
+      "subscription-company": {
+        "mapped_fields": 30,
+        "covered_fields": 30,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 11,
+        "complete_success": 5
+      },
+      "terms-and-conditions": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 4,
+        "covered_choice_options": 4,
+        "uncovered_choices": [],
+        "signature_slots": 6,
+        "covered_signatures": 6,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "fatca-crs-individual": {
+        "mapped_fields": 57,
+        "covered_fields": 57,
+        "uncovered_fields": [],
+        "choice_options": 16,
+        "covered_choice_options": 16,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 12,
+        "complete_success": 5
+      },
+      "fatca-crs-corporate": {
+        "mapped_fields": 76,
+        "covered_fields": 76,
+        "uncovered_fields": [],
+        "choice_options": 19,
+        "covered_choice_options": 19,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 19,
+        "complete_success": 5
+      },
+      "kyc-individual": {
+        "mapped_fields": 109,
+        "covered_fields": 109,
+        "uncovered_fields": [],
+        "choice_options": 122,
+        "covered_choice_options": 122,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 16,
+        "complete_success": 5
+      },
+      "kyc-corporate": {
+        "mapped_fields": 102,
+        "covered_fields": 102,
+        "uncovered_fields": [],
+        "choice_options": 60,
+        "covered_choice_options": 60,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 15,
+        "complete_success": 5
+      }
+    },
+    "failures": [],
+    "visual_pages": [
+      [
+        "signature-form",
+        "english-long",
+        1,
+        "signature-form-english-long-p1.png"
+      ],
+      [
+        "signature-form",
+        "arabic-long",
+        1,
+        "signature-form-arabic-long-p1.png"
+      ],
+      [
+        "subscription-form",
+        "english-long",
+        1,
+        "subscription-form-english-long-p1.png"
+      ],
+      [
+        "subscription-form",
+        "english-long",
+        2,
+        "subscription-form-english-long-p2.png"
+      ],
+      [
+        "subscription-form",
+        "arabic-long",
+        1,
+        "subscription-form-arabic-long-p1.png"
+      ],
+      [
+        "subscription-form",
+        "arabic-long",
+        2,
+        "subscription-form-arabic-long-p2.png"
+      ],
+      [
+        "subscription-company",
+        "english-long",
+        1,
+        "subscription-company-english-long-p1.png"
+      ],
+      [
+        "subscription-company",
+        "english-long",
+        2,
+        "subscription-company-english-long-p2.png"
+      ],
+      [
+        "subscription-company",
+        "arabic-long",
+        1,
+        "subscription-company-arabic-long-p1.png"
+      ],
+      [
+        "subscription-company",
+        "arabic-long",
+        2,
+        "subscription-company-arabic-long-p2.png"
+      ],
+      [
+        "terms-and-conditions",
+        "english-long",
+        11,
+        "terms-and-conditions-english-long-p11.png"
+      ],
+      [
+        "terms-and-conditions",
+        "english-long",
+        13,
+        "terms-and-conditions-english-long-p13.png"
+      ],
+      [
+        "terms-and-conditions",
+        "arabic-long",
+        11,
+        "terms-and-conditions-arabic-long-p11.png"
+      ],
+      [
+        "terms-and-conditions",
+        "arabic-long",
+        13,
+        "terms-and-conditions-arabic-long-p13.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        1,
+        "fatca-crs-individual-english-long-p1.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        2,
+        "fatca-crs-individual-english-long-p2.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        3,
+        "fatca-crs-individual-english-long-p3.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        1,
+        "fatca-crs-individual-arabic-long-p1.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        2,
+        "fatca-crs-individual-arabic-long-p2.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        3,
+        "fatca-crs-individual-arabic-long-p3.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        1,
+        "fatca-crs-corporate-english-long-p1.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        3,
+        "fatca-crs-corporate-english-long-p3.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        4,
+        "fatca-crs-corporate-english-long-p4.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        5,
+        "fatca-crs-corporate-english-long-p5.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        6,
+        "fatca-crs-corporate-english-long-p6.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        1,
+        "fatca-crs-corporate-arabic-long-p1.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        3,
+        "fatca-crs-corporate-arabic-long-p3.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        4,
+        "fatca-crs-corporate-arabic-long-p4.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        5,
+        "fatca-crs-corporate-arabic-long-p5.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        6,
+        "fatca-crs-corporate-arabic-long-p6.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        1,
+        "kyc-individual-english-long-p1.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        2,
+        "kyc-individual-english-long-p2.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        3,
+        "kyc-individual-english-long-p3.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        4,
+        "kyc-individual-english-long-p4.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        5,
+        "kyc-individual-english-long-p5.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        7,
+        "kyc-individual-english-long-p7.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        1,
+        "kyc-individual-arabic-long-p1.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        2,
+        "kyc-individual-arabic-long-p2.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        3,
+        "kyc-individual-arabic-long-p3.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        4,
+        "kyc-individual-arabic-long-p4.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        5,
+        "kyc-individual-arabic-long-p5.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        7,
+        "kyc-individual-arabic-long-p7.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        1,
+        "kyc-corporate-english-long-p1.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        2,
+        "kyc-corporate-english-long-p2.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        3,
+        "kyc-corporate-english-long-p3.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        4,
+        "kyc-corporate-english-long-p4.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        5,
+        "kyc-corporate-english-long-p5.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        7,
+        "kyc-corporate-english-long-p7.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        1,
+        "kyc-corporate-arabic-long-p1.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        2,
+        "kyc-corporate-arabic-long-p2.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        3,
+        "kyc-corporate-arabic-long-p3.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        4,
+        "kyc-corporate-arabic-long-p4.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        5,
+        "kyc-corporate-arabic-long-p5.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        7,
+        "kyc-corporate-arabic-long-p7.png"
+      ]
+    ],
+    "contact_sheets": [
+      "contact-01.png",
+      "contact-02.png",
+      "contact-03.png",
+      "contact-04.png",
+      "contact-05.png",
+      "contact-06.png",
+      "contact-07.png",
+      "contact-08.png",
+      "contact-09.png",
+      "contact-10.png",
+      "contact-11.png",
+      "contact-12.png",
+      "contact-13.png",
+      "contact-14.png"
+    ]
+  },
+  "browser_suites": {
+    "portal": {
+      "evidence": "tmp/portal-audit/results.json",
+      "checks": [
+        "Anonymous access, CSRF, phone and confirmation validation",
+        "English browser signup, Saudi phone normalization, account draft migration and duplicate phone",
+        "Private PDF storage, owner checks, malformed PDF rejection and duplicate submission protection",
+        "Signature and both subscription UI submissions, server totals and optional email capture",
+        "Account/admin previews, manual PDF upload, dashboard counts and ZIP exact-byte contents",
+        "Individual Arabic and company English subscription edits, recalculated amounts and prior-PDF preservation",
+        "Client edit/resubmit and reload, separate working draft, signature recovery, immutable originals, archive dates, stale-edit rejection, owner restore, restore retry/CSRF, replacement upload and audience/account version isolation",
+        "Owner reset, strong one-time displayed password, old password/session revocation and mandatory change",
+        "Original Itqan logo without secondary branding, My applications page in English/Arabic, compatible account links, mobile layouts, role-appropriate management navigation and persistent login throttling"
+      ],
+      "passed": true
+    },
+    "workflow": {
+      "evidence": "tmp/workflow-toggle-1789888843135-6654a1/report.json",
+      "checks": [
+        "Default review-on, public metadata safety, legacy-client compatibility, signed submissions, signature enforcement and current/archive fixtures",
+        "Anonymous, client, regular admin, CSRF, wrong method and invalid workflow updates cannot change mode",
+        "Rapid overview-to-signature-required navigation keeps the newest view after a deliberately delayed real API response",
+        "Actual superadmin off save persists across restart; optimistic conflict, stale decision and stale save are blocked without new versions, decisions or notifications",
+        "EN/AR desktop/mobile tool UI saves actual unsigned generic and both subscription PDFs with correct totals; saved account views have no active review remedies",
+        "Optional signing rejects an empty request without mutation; actual Arabic mobile upload previews/saves one optional signature while the normally required slot stays blank",
+        "Old/current links, read-only decision history, ownership, current/history ZIP exact hashes and original PDF/answers survive tool mode",
+        "Re-enable preserves decisions and locked approval, never enrolls tool-mode versions, rejects stale mode/unsigned review submissions, and keeps restored tool versions ineligible"
+      ],
+      "passed": true
+    },
+    "management_roles": {
+      "evidence": "tmp/complete-retest-management/report.json",
+      "checks": [
+        "Both roles share login; admin cannot read draft state, upload, edit, reorder, review, publish, restore or remove; unpublished PDFs stay private",
+        "Role claims are ignored; spoofing the session identity fails credential binding",
+        "Only superadmin changes account type in both directions; admin and spoofed-role requests are rejected without mutation while admin can still read the type",
+        "Admin and superadmin retain client statistics, profiles, PDF/ZIP downloads, reviews with correct actor, archived version recovery and password reset",
+        "Superadmin UI edits bilingual title, reorders, saves private draft, publishes and restores catalogue without client data changes",
+        "chrome admin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+        "Superadmin UI changes individual/company both ways while all saved and archived submissions and PDF bytes remain unchanged",
+        "chrome superadmin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+        "firefox admin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+        "firefox superadmin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+        "webkit admin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout",
+        "webkit superadmin: shared login, unified nav active state, EN/AR responsive layouts, client profile, keyboard navigation, logout"
+      ],
+      "passed": true
+    },
+    "reviews": {
+      "evidence": "tmp/complete-retest-reviews/results.json",
+      "checks": [
+        "individual: replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled and API changes rejected, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs",
+        "corporate: replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled and API changes rejected, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs",
+        "Current-only status counts, combined audience/document/search filters, literal SQL wildcard handling, oldest/newest ordering and invalid filter rejection",
+        "32 current fixtures paginate 30/2 without duplicates; archived 33rd excluded; legacy submitted document filter remains available",
+        "Review UI combines status, audience, document, search and sorting; unmatched filters show clear empty state and Reset preserves the selected status",
+        "Delayed older review responses cannot overwrite the newest filter/language selection",
+        "Management bell returns to unfiltered awaiting-review queue",
+        "chrome: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+        "firefox: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
+        "webkit: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout"
+      ],
+      "passed": true
+    },
+    "account_types": {
+      "evidence": "tmp/complete-retest-account-types/results.json",
+      "checks": [
+        "individual: signup, assigned landing page, opposite direct-link redirect, catalogue/upload filtering, client self-change rejection and server submission authorization",
+        "corporate: signup, assigned landing page, opposite direct-link redirect, catalogue/upload filtering, client self-change rejection and server submission authorization",
+        "Management changes both directions, CSRF/method/validation/stale-write protection, active-session refresh, old PDF preservation, read-only prior-category history, separate shared fields and permitted new-category submission",
+        "firefox: fresh company login, opposite next/direct-link restrictions, account navigation and mobile layout",
+        "webkit: fresh company login, opposite next/direct-link restrictions, account navigation and mobile layout"
+      ],
+      "passed": true
+    },
+    "passwords": {
+      "evidence": "tmp/complete-retest-passwords/results.json",
+      "checks": [
+        "Registration server rejects seven English/Arabic characters, mismatched confirmation and more than 72 UTF-8 bytes",
+        "individual: weak eight-character signup/login, 72-byte Arabic password, confirmation validation, password replacement, reset/session revocation and forced eight-character replacement",
+        "corporate: weak eight-character signup/login, 72-byte Arabic password, confirmation validation, password replacement, reset/session revocation and forced eight-character replacement",
+        "chrome: English/Arabic desktop/mobile signup, login and new-password screens; two visible eye transitions, preserved values, accessible controls, advisory scores and no overflow",
+        "firefox: English/Arabic desktop/mobile signup, login and new-password screens; two visible eye transitions, preserved values, accessible controls, advisory scores and no overflow",
+        "webkit: English/Arabic desktop/mobile signup, login and new-password screens; two visible eye transitions, preserved values, accessible controls, advisory scores and no overflow"
+      ],
+      "passed": true
+    },
+    "importer": {
+      "evidence": "tmp/management-audit/report.json",
+      "checks": [
+        "authentication",
+        "csrf",
+        "private files",
+        "draft isolation",
+        "revision conflict",
+        "publish rollback",
+        "native widget import",
+        "review gate",
+        "EN/AR samples",
+        "new card 7",
+        "both audiences",
+        "shared fields",
+        "downloads",
+        "draft recovery",
+        "flat suggestions"
+      ],
+      "passed": true
+    },
+    "signatures": {
+      "evidence": "tmp/complete-retest-signatures/report.json",
+      "checks": [
+        {
+          "raster": "signature-form",
+          "pages": [
+            {
+              "page": 1,
+              "outside": 0,
+              "whiteout": 0,
+              "counts": {
+                "specimen": 748
+              }
+            }
+          ],
+          "antialiasTolerance": 12,
+          "note": "Browser raster comparison is informational because canvas antialiasing can vary. Original stream hashes, image count, alpha mask and exact placement transforms are strict assertions."
+        },
+        {
+          "raster": "terms-and-conditions",
+          "pages": [
+            {
+              "page": 11,
+              "outside": 0,
+              "whiteout": 0,
+              "counts": {
+                "terms_0": 506,
+                "terms_1": 506,
+                "terms_2": 506
+              }
+            },
+            {
+              "page": 13,
+              "outside": 0,
+              "whiteout": 0,
+              "counts": {
+                "authorization_0": 506,
+                "authorization_1": 506,
+                "authorization_2": 506
+              }
+            }
+          ],
+          "antialiasTolerance": 12,
+          "note": "Browser raster comparison is informational because canvas antialiasing can vary. Original stream hashes, image count, alpha mask and exact placement transforms are strict assertions."
+        },
+        {
+          "raster": "fatca-crs-individual",
+          "pages": [
+            {
+              "page": 2,
+              "outside": 0,
+              "whiteout": 0,
+              "counts": {
+                "signatory": 748
+              }
+            },
+            {
+              "page": 3,
+              "outside": 0,
+              "whiteout": 0,
+              "counts": {
+                "relationship_manager": 494
+              }
+            }
+          ],
+          "antialiasTolerance": 12,
+          "note": "Browser raster comparison is informational because canvas antialiasing can vary. Original stream hashes, image count, alpha mask and exact placement transforms are strict assertions."
+        },
+        {
+          "raster": "kyc-individual",
+          "pages": [
+            {
+              "page": 3,
+              "outside": 0,
+              "whiteout": 0,
+              "counts": {
+                "representative": 466
+              }
+            },
+            {
+              "page": 7,
+              "outside": 0,
+              "whiteout": 0,
+              "counts": {
+                "client": 536
+              }
+            }
+          ],
+          "antialiasTolerance": 12,
+          "note": "Browser raster comparison is informational because canvas antialiasing can vary. Original stream hashes, image count, alpha mask and exact placement transforms are strict assertions."
+        },
+        {
+          "raster": "fatca-crs-corporate",
+          "pages": [
+            {
+              "page": 6,
+              "outside": 0,
+              "whiteout": 0,
+              "counts": {
+                "signatory_0": 741,
+                "signatory_1": 741
+              }
+            }
+          ],
+          "antialiasTolerance": 12,
+          "note": "Browser raster comparison is informational because canvas antialiasing can vary. Original stream hashes, image count, alpha mask and exact placement transforms are strict assertions."
+        },
+        {
+          "raster": "kyc-corporate",
+          "pages": [
+            {
+              "page": 7,
+              "outside": 0,
+              "whiteout": 0,
+              "counts": {
+                "client": 536
+              }
+            }
+          ],
+          "antialiasTolerance": 12,
+          "note": "Browser raster comparison is informational because canvas antialiasing can vary. Original stream hashes, image count, alpha mask and exact placement transforms are strict assertions."
+        },
+        {
+          "legacySignaturePreserved": true,
+          "emptyElectronicModeRestored": true,
+          "missingElectronicImageBlocksGeneration": true,
+          "audienceIsolation": true,
+          "transparentInk": true
+        },
+        {
+          "signatureOnlyManagedPage": true,
+          "customOriginalBytesPreserved": true
+        },
+        {
+          "legacySignaturePreserved": true,
+          "emptyElectronicModeRestored": true,
+          "missingElectronicImageBlocksGeneration": true,
+          "audienceIsolation": true,
+          "transparentInk": true
+        },
+        {
+          "legacySignaturePreserved": true,
+          "emptyElectronicModeRestored": true,
+          "missingElectronicImageBlocksGeneration": true,
+          "audienceIsolation": true,
+          "transparentInk": true
+        }
+      ],
+      "passed": true
+    },
+    "navigation": {
+      "evidence": "tmp/complete-retest-navigation/report.json",
+      "checks": [
+        {
+          "browser": "chrome",
+          "lang": "en",
+          "liveTextCount": true,
+          "choiceClearCount": true,
+          "sharedCount": true,
+          "signatureCountOnce": true
+        },
+        {
+          "browser": "chrome",
+          "lang": "ar",
+          "liveTextCount": true,
+          "choiceClearCount": true,
+          "sharedCount": true,
+          "signatureCountOnce": true
+        },
+        {
+          "syntheticManagedSignatureOnlyPage": true,
+          "signatureOnlyStatus": "manual",
+          "reviewReachable": true
+        }
+      ],
+      "passed": true
+    },
+    "input_direction": {
+      "evidence": "tmp/complete-retest-input-direction/report.json",
+      "checks": [],
+      "passed": true
+    },
+    "person_names": {
+      "evidence": "tmp/workflow-toggle-1789889324902-193567/person-names/report.json",
+      "checks": [
+        "en individual signature-form: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "en individual subscription-form: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "en individual terms-and-conditions: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "en individual fatca-crs-individual: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "en individual kyc-individual: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "en corporate signature-form: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "en corporate subscription-company: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "en corporate fatca-crs-corporate: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "en corporate kyc-corporate: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "ar individual signature-form: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "ar individual subscription-form: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "ar individual terms-and-conditions: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "ar individual fatca-crs-individual: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "ar individual kyc-individual: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "ar corporate signature-form: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "ar corporate subscription-company: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "ar corporate fatca-crs-corporate: four-part rows, optional third, mobile fit, PDF download, joined targets and reload",
+        "ar corporate kyc-corporate: four-part rows, optional third, mobile fit, PDF download, joined targets and reload"
+      ],
+      "passed": true
+    },
+    "shared": {
+      "evidence": "tmp/workflow-toggle-1789889782722-94c5eb/shared-complete/report.json",
+      "checks": [
+        {
+          "engine": "chrome",
+          "message": "individual: all 30 editable shared fields save exactly and restore in a fresh Arabic mobile browser"
+        },
+        {
+          "engine": "chrome",
+          "message": "individual: shared data reaches visible KYC fields, including new semantic regressions, and filled PDF downloads"
+        },
+        {
+          "engine": "chrome",
+          "message": "individual: explicit manual name override survives cloud refresh; Use shared value restores account data"
+        },
+        {
+          "engine": "chrome",
+          "message": "Disjoint offline-device and online-device field edits merge without losing either value"
+        },
+        {
+          "engine": "chrome",
+          "message": "Conflicting same-field edits require a visible choice, survive reload, and Use account details keeps the chosen server value"
+        },
+        {
+          "engine": "chrome",
+          "message": "Two offline tabs keep independent field queues through closing and reopening the browser state"
+        },
+        {
+          "engine": "chrome",
+          "message": "corporate: all 27 editable shared fields save exactly and restore in a fresh Arabic mobile browser"
+        },
+        {
+          "engine": "chrome",
+          "message": "corporate: shared data reaches visible KYC fields, including new semantic regressions, and filled PDF downloads"
+        },
+        {
+          "engine": "chrome",
+          "message": "corporate: explicit manual name override survives cloud refresh; Use shared value restores account data"
+        },
+        {
+          "engine": "firefox",
+          "message": "individual: all 30 editable shared fields save exactly and restore in a fresh Arabic mobile browser"
+        },
+        {
+          "engine": "firefox",
+          "message": "individual: shared data reaches visible KYC fields, including new semantic regressions, and filled PDF downloads"
+        },
+        {
+          "engine": "firefox",
+          "message": "individual: explicit manual name override survives cloud refresh; Use shared value restores account data"
+        },
+        {
+          "engine": "firefox",
+          "message": "corporate: all 27 editable shared fields save exactly and restore in a fresh Arabic mobile browser"
+        },
+        {
+          "engine": "firefox",
+          "message": "corporate: shared data reaches visible KYC fields, including new semantic regressions, and filled PDF downloads"
+        },
+        {
+          "engine": "firefox",
+          "message": "corporate: explicit manual name override survives cloud refresh; Use shared value restores account data"
+        },
+        {
+          "engine": "webkit",
+          "message": "individual: all 30 editable shared fields save exactly and restore in a fresh Arabic mobile browser"
+        },
+        {
+          "engine": "webkit",
+          "message": "individual: shared data reaches visible KYC fields, including new semantic regressions, and filled PDF downloads"
+        },
+        {
+          "engine": "webkit",
+          "message": "individual: explicit manual name override survives cloud refresh; Use shared value restores account data"
+        },
+        {
+          "engine": "webkit",
+          "message": "corporate: all 27 editable shared fields save exactly and restore in a fresh Arabic mobile browser"
+        },
+        {
+          "engine": "webkit",
+          "message": "corporate: shared data reaches visible KYC fields, including new semantic regressions, and filled PDF downloads"
+        },
+        {
+          "engine": "webkit",
+          "message": "corporate: explicit manual name override survives cloud refresh; Use shared value restores account data"
+        }
+      ],
+      "passed": true
+    }
+  },
+  "production": "Publication and read-only verification recorded after deployment."
+}

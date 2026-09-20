@@ -67,3 +67,12 @@ test('Arabic/English signers and separate controlling persons have independent p
  const next=normalizePersonNames(individual,{signer_ar:'أحمد علي حسن العلي',signer_en:'Ahmad Ali Hassan Al Ali'});assert.equal(next.signer_ar_last,'العلي');assert.equal(next.signer_en_last,'Al Ali');
  const company=get(fresh(),'fatca-crs-corporate'),people=normalizePersonNames(company,{person_0_name:'First Client Person Family',person_1_name:'Different Client Person Family'});assert.equal(people.person_0_name_first,'First');assert.equal(people.person_1_name_first,'Different');assert.equal(people.person_2_name_first,undefined);
 });
+test('KYC Arabic reading order swaps the two name destinations as one row while keeping data joins stable',()=>{
+ const doc=get(fresh(),'kyc-individual'),first=doc.fields.find(f=>f.id==='name_1'),last=doc.fields.find(f=>f.id==='name_2');
+ assert.ok(first.rect[0]<last.rect[0],'English begins in the left box');
+ assert.deepEqual(first.rtlRect,last.rect);assert.deepEqual(last.rtlRect,first.rect);
+ assert.deepEqual(first.rectDirectionFrom,last.rectDirectionFrom,'Both chunks use the complete-name direction, including mixed names');
+ assert.deepEqual(first.rectDirectionFrom,['name_first','name_second','name_third','name_last','name_1','name_2']);
+ const value=normalizePersonNames(doc,{name_first:'أحمد',name_second:'محمد',name_third:'Abdullah',name_last:'Family'});
+ assert.equal(value.name_1,'أحمد محمد');assert.equal(value.name_2,'Abdullah Family');
+});
