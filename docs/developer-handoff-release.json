@@ -1,0 +1,38 @@
+{
+  "completed_at": "2026-09-27T11:45:11.876929+00:00",
+  "source_commit": "e66c8545740b29f219fb0b8eb4e68a6704b6cfce",
+  "deployment_source_commit": "e66c8545740b29f219fb0b8eb4e68a6704b6cfce",
+  "live_smoke_passed": true,
+  "live_business_writes": 0,
+  "clean_package_files": 275,
+  "clean_package_contains_live_data": false,
+  "private_snapshot": {
+    "verified_at": "2026-09-27T11:44:38.249Z",
+    "snapshot_at": "2026-09-27T11:42:38Z",
+    "counts": {
+      "users": 4,
+      "submissions": 15,
+      "client_shared_profiles": 5,
+      "archived_versions": 9
+    },
+    "schema_version": 7,
+    "restored_sqlite_integrity": true,
+    "all_pdf_hashes_verified": true,
+    "restored_login": true,
+    "management_counts_match": true,
+    "public_anonymous_access_denied": true,
+    "business_rows_unchanged": true,
+    "pdf_downloads_verified": 15,
+    "package_source_commit": "e66c8545740b29f219fb0b8eb4e68a6704b6cfce"
+  },
+  "archives": {
+    "developer-handoff.zip": "2970fa61ad38112437ebb642cbac8f59de3690385f151e0b07d1f07ad4a5f8f2",
+    "private-migration.zip": "d93d0faf5907724aa67b1c238f323b7950c2cc3b9268f136ff5c62f2e3151e3d"
+  },
+  "public_files_backed_up": 12,
+  "production_private_storage_preserved": true,
+  "instructions": [
+    "docs/DEVELOPER-HANDOFF.md",
+    "docs/DEVELOPER-HANDOFF-AR.md"
+  ]
+}
