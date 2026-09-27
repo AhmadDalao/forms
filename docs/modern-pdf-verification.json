@@ -233,5 +233,30 @@
     "subscription_reference_preserved": true
   },
   "unit_tests": 221,
-  "failures": []
+  "failures": [],
+  "handoff_preflight": {
+    "archive_checksums": "passed",
+    "editable_word_pdf_pairs": 9,
+    "packaged_source_tests": 221,
+    "packaged_source_build": "passed",
+    "private_restore": "passed",
+    "private_snapshot_counts": {
+      "users": 4,
+      "submissions": 15,
+      "client_shared_profiles": 5,
+      "archived_versions": 9
+    }
+  },
+  "browser_rendering": {
+    "engines": [
+      "chrome",
+      "firefox",
+      "webkit"
+    ],
+    "page_comparisons": 216,
+    "max_changed_pixel_fraction": 0,
+    "max_mean_difference": 5.0743141491520986e-06,
+    "errors": [],
+    "passed": true
+  }
 }
