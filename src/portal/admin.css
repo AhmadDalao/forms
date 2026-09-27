@@ -101,6 +101,7 @@
 .review-empty strong{display:block;font-size:16px;color:#553d65;line-height:1.8;font-weight:600}
 .review-empty p{max-width:500px;line-height:1.9;margin:9px auto 20px;font-size:13px;color:#867491}
 .admin-profile-back{display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.admin-profile-status{padding:26px;margin-top:20px}.admin-profile-status h1{font-size:25px;margin:0 0 14px}.admin-profile-status p{font-size:14px;line-height:1.8;color:#786583}.admin-profile-status button{margin-top:12px}
 @media(max-width:1000px){.review-status-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}.review-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.review-results-heading{align-items:flex-start;flex-direction:column;gap:6px}.review-results-heading p{text-align:start}}
 @media(max-width:650px){
  .review-status-tabs{grid-template-columns:repeat(2,minmax(0,1fr));padding:16px;gap:8px}

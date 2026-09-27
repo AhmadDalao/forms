@@ -141,6 +141,7 @@ The delivered source includes the application tests and portable migration/admin
 npm test
 node scripts/admin-handoff-audit.mjs
 node scripts/form-access-audit.mjs
+node scripts/management-views-audit.mjs
 QA_OUT=tmp/client-corrections-pdfs node scripts/current-pdf-audit.mjs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/client-corrections-audit.mjs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/direct-intake-audit.mjs
