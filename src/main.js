@@ -31,13 +31,16 @@ const pageParams=new URLSearchParams(location.search),revisionId=pageParams.get(
 const drafts=createDraftStore(docs,undefined,audience,client.user?.id,revisionId);
 let sharedReady=false;
 const sharedSync=client.user&&audience?createSharedSync({account:client.user.id,audience,drafts,api:(action,body,options={})=>portalApi(action,body,{...options,token:client.csrf}),onChange:()=>{if(sharedReady)sharedProfileChanged();},onStatus:()=>{if(sharedReady)sharedStatus();}}):null;
-await sharedSync?.start();
+const sharedStarted=sharedSync?.start();
+function initializeSharedDetails(){
 const initializeShared=!sharedSync||sharedSync.state.canInitialize;
 if(initializeShared&&client.user&&audience==='individual'&&Object.keys(drafts.profile).every(key=>key==='country')){
  const parts=client.user.name.trim().split(/\s+/),first=parts.shift(),last=parts.length?parts.pop():'',second=parts.shift()||'',third=parts.join(' '),language=/\p{Script=Arabic}/u.test(client.user.name)?'ar':'en';
  drafts.setShared({...drafts.profile,[language+'_first']:first,[language+'_second']:second,[language+'_third']:third,[language+'_last']:last,name_language:language,mobile:client.user.phone,...(client.user.email?{email:client.user.email}:{})});
 }
 if(initializeShared&&client.user&&audience&&!Object.hasOwn(drafts.profile,'mobile'))drafts.setShared({...drafts.profile,mobile:client.user.phone});
+if(initializeShared){drafts.initializeSharedCountries(lang);sharedSync?.change(drafts.profile);}
+}
 let stopHeaderNotifications=()=>{};
 let subscriptionEditor=null;
 let manualGuideShown=false;
@@ -47,7 +50,6 @@ function manualSigningGuide(force=false,downloaded=false){
  manualGuideShown=true;showSigningGuide({doc:current,lang,onDownload:!downloaded&&pdfBytes?download:null});
 }
 let lang=['en','ar'].includes(pageParams.get('lang'))?pageParams.get('lang'):drafts.preferences.lang||portalLanguage();
-if(initializeShared){drafts.initializeSharedCountries(lang);sharedSync?.change(drafts.profile);}
 let current=null,step=0,values={},signatures={},signatureMessages={},pageNumber=1,pdf=null,pdfBytes=null,review=false,busy=false,errors=[],generation=0,downloadFile=null,previewVisible=false;
 
 const t=(en,ar)=>lang==='ar'?(ar||en):(en||ar);
@@ -356,6 +358,9 @@ sharedReady=true;
 if(editError){app.innerHTML=header()+`<main class="workspace"><p role="alert">${e(portalError(editError,lang))}</p><a class="button primary" href="${appRoot}my-applications/">${t('Back to my applications','العودة إلى طلباتي')}</a></main>`;bindCommon();}
 // Normal entry starts at the Document Centre; choosing a card restores its draft.
 else if(editing)selectDoc(editing.id);else render();
+// Render the document centre immediately; account sync merges into mounted
+// fields without dropping edits made while the connection is slow or offline.
+void Promise.resolve(sharedStarted).then(()=>{initializeSharedDetails();if(!editError)sharedProfileChanged();});
 
 if(import.meta.env.DEV)window.__forms={docs,generate,signatureSlots,prepareSignature};
 

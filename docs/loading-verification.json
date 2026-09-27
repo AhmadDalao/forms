@@ -1,0 +1,108 @@
+{
+  "tested_at": "2026-09-27T13:17:10.177725+00:00",
+  "changes": [
+    "Shared account synchronization no longer blocks the document centre or editor",
+    "Route-specific static scripts and styles preload during HTML parsing",
+    "Management loads form definitions only when opening submitted details"
+  ],
+  "slow_sync_comparison": [
+    {
+      "version": "before",
+      "sharedResponseDelayMs": 12000,
+      "documentCentreReadyMs": 12214
+    },
+    {
+      "version": "after",
+      "sharedResponseDelayMs": 12000,
+      "documentCentreReadyMs": 107
+    }
+  ],
+  "live_before_controlled": [
+    {
+      "route": "login/?lang=ar",
+      "ready_ms": 958,
+      "transfer_bytes": 306529
+    },
+    {
+      "route": "management/",
+      "ready_ms": 1670,
+      "transfer_bytes": 220647
+    },
+    {
+      "route": "individuals/?lang=ar",
+      "ready_ms": 1957,
+      "transfer_bytes": 279214
+    }
+  ],
+  "controlled_network": {
+    "latency_ms": 150,
+    "download_bytes_per_second": 200000,
+    "cpu_slowdown": 4,
+    "cache": "disabled"
+  },
+  "unit_tests_passed": 216,
+  "loading_regressions": {
+    "checks": [
+      "Document centre and editor work while the shared-profile response is still pending",
+      "Late account data fills untouched fields; an edit made while loading is preserved and conflict resolution saves it",
+      "Opening the document centre and editing fields fetches no PDF or PDF engine",
+      "Reload restores the confirmed account values",
+      "Management overview defers form definitions and PDF downloads until they are needed"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "shared_data_and_submission_cycle": {
+    "checks": [
+      "Login/signup: EN and AR, desktop/mobile, source logos and role labels, no PDF engine or PDF loaded",
+      "Logged-out document routes redirect to sign-in",
+      "Real form edits propagate separate Arabic/English names and joined city/district to account and other forms",
+      "Offline edits retry to account; intentional clear persists after reload",
+      "Multiple tabs, fresh browser and individual/company/account isolation",
+      "Company English sharing is bidirectional and separate from Arabic identity",
+      "One-click unsigned submission, lost-response retry, single immutable version and receipt reference",
+      "Signed replacement archives the earlier PDF and all captured answers; stale replacement is rejected",
+      "Consent PDF upload works without inventing structured answers or signature verification",
+      "Management receives current versions, exact answers and signature status; preview/PDF/ZIP work; review controls disabled and cross-account access blocked",
+      "All eight filled forms submitted: 556 field values matched management records, and downloaded PDFs matched byte for byte"
+    ],
+    "errors": [],
+    "allFormAnswers": 556,
+    "passed": true
+  },
+  "management_cross_browser": {
+    "checks": [
+      "chrome admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "chrome superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "chrome new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "chrome: client My applications preview remains functional",
+      "chrome: all 13 PDF pages render for admin and client on a high-density phone at the actual available width",
+      "firefox admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "firefox superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "firefox new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "firefox: client My applications preview remains functional",
+      "firefox: all 13 PDF pages render for admin and client on a high-density phone at the actual available width",
+      "webkit admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "webkit superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "webkit new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "webkit: client My applications preview remains functional",
+      "webkit: all 13 PDF pages render for admin and client on a high-density phone at the actual available width",
+      "Slow profile shows feedback; switching sections cannot be overwritten by its delayed response",
+      "Interrupted profile request recovers through Try again",
+      "Interrupted PDF download recovers in the same preview without losing details",
+      "Repeated preview clicks keep a single dialog",
+      "Closing a pending PDF cancels its load and a new preview opens normally",
+      "Expired admin preview session closes the dialog and returns to management sign-in",
+      "Expired client-profile request returns to management sign-in",
+      "Expired client preview returns to client sign-in"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "protected_access_audit_passed": true,
+  "limits": [
+    "A consistent 20-second delay was not observed on this connection. A simulated 12-second shared-profile response reproduced the blocking wait in the old build.",
+    "Live timing varies by network and device; the slow-sync comparison used isolated local fixtures.",
+    "Authentication checks remain mandatory; private account data is never stored in public caches."
+  ]
+}

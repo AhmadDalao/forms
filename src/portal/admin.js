@@ -1,7 +1,6 @@
 import {accountPasswordDialog} from '../management/accounts.js';
 import {api,endpoint,e,errorText,when} from './api.js';
 import {previewSubmission} from './preview.js';
-import {renderSubmissionDetails} from './submitted-details.js';
 import {sharedGroups} from '../shared-fields.js';
 import './submitted-details.css';
 import {reviewBadge,reviewReason,reviewLabels,signatureBadge} from './review.js';
@@ -110,7 +109,7 @@ export function createClientDashboard({shell,token,language,canChangeAccountType
   const current=()=>root.isConnected&&revision===detailRequest&&profileRevision===loadRevision&&view==='client';
   root.setAttribute('aria-busy','true');root.innerHTML=`<p class="admin-detail-status" role="status">${t('Loading saved details…','جارٍ تحميل البيانات المحفوظة…')}</p>`;
   try{
-   const {submission:s}=await request('detail',{id});if(!current())return;
+   const [{submission:s},{renderSubmissionDetails}]=await Promise.all([request('detail',{id}),import('./submitted-details.js')]);if(!current())return;
    root.innerHTML=`<div class="admin-selected-document"><div><h3>${e(t(s.title,s.ar))}</h3><p>${t('Version','النسخة')} ${s.version} · ${s.archived_at?t('Archived','مؤرشفة'):t('Current','الحالية')} · ${e(when(s.created_at,detailLang))} · ${t('Riyadh time','بتوقيت الرياض')}</p></div><div class="admin-row-actions"><button type="button" data-details-preview>${t('Preview PDF','معاينة PDF')}</button><a href="${endpoint('admin_pdf',{id:s.id})}">${t('Download PDF','تنزيل PDF')}</a></div></div><div class="admin-submission-status admin-detail-review">${reviewBadge(withWorkflow(s),detailLang)}${signatureBadge(s,detailLang)}</div>${reviewReason(withWorkflow(s),detailLang)}${renderSubmissionDetails(s,detailLang)}`;
    root.querySelector('[data-details-preview]').onclick=()=>previewSubmission(s.id,{admin:true,lang:detailLang,token,onError,onReviewed:()=>profile(client)}).catch(err=>{if(!onError(err)&&current())root.querySelector('.admin-selected-document p').textContent=errorText(err,detailLang);});
   }catch(err){if(!current()||onError(err))return;root.innerHTML=`<p class="admin-detail-status error" role="status">${e(errorText(err,detailLang))}</p><button type="button" data-details-retry>${t('Try again','إعادة المحاولة')}</button>`;root.querySelector('[data-details-retry]').onclick=()=>loadSubmittedDetails(id,profileRevision);}
