@@ -14,7 +14,7 @@ try{
   try{
    const page=await browser.newPage({viewport:{width:1200,height:1700},deviceScaleFactor:1});page.on('pageerror',e=>report.errors.push(e.message));await page.goto(server.resolvedUrls.local[0]+'qa-preview');
    for(const doc of docs.filter(d=>!process.env.ONLY_DOCS||process.env.ONLY_DOCS.split(',').includes(d.id))){
-    const file=path.resolve('tmp/client-corrections-pdfs/'+doc.id+'-arabic-long.pdf'),original=await fs.readFile(file),bytes=Array.from(original);
+    const file=path.resolve(process.env.PDF_AUDIT_OUTPUT||'tmp/client-corrections-pdfs',doc.id+'-arabic-long.pdf'),original=await fs.readFile(file),bytes=Array.from(original);
     await page.evaluate(async bytes=>{const {loadPreview}=await import('/src/pdf.js');window.auditPdf=await loadPreview(new Uint8Array(bytes));},bytes);
     for(let number=1;number<=doc.pages;number++){
      const hashes=[];let comparison;

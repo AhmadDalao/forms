@@ -151,4 +151,27 @@ node scripts/preview-direction-audit.mjs
 
 These scripts start disposable local fixtures; they must not be aimed at production. To verify the generated PDFs independently, install Python 3 with `pypdfium2`, `pypdf`, `Pillow` and `numpy`, then run `python3 scripts/current-pdf-audit-verify.py tmp/client-corrections-pdfs`. These are development tools, not production requirements.
 
-The Word sources are in `editable-documents/`. Use Word or LibreOffice to maintain them and export PDF, retaining their embedded fonts. Changes to page layout require corresponding field-coordinate updates in `source/src/forms/` and renewed paper/PDF verification. Do not replace a template with a differently paginated document while keeping its old overlay map. Original supplied PDFs are retained under `source/reference/pdfs/`.
+The nine editable Word/PDF pairs are in `editable-documents/`. The subscription templates remain the approved reference. The other seven documents use the same typography, purple section bars, tables and answer color. Their current page counts are: signature 2, individual KYC 14, company KYC 11, individual FATCA/CRS 9, company FATCA/CRS 8, terms 24, and consent 1. Additional pages preserve readable content and signing space. Consent remains download-only.
+
+Original supplied PDFs are retained under `source/reference/pdfs/`. The immutable Word style reference and pre-redesign field definitions are under `source/reference/documents/`. Source declarations/instructions and their extraction locations are recorded in `source/scripts/pdf-design/source-text.json`; do not silently rewrite legal wording when changing presentation.
+
+To regenerate the seven redesigned templates, install Python 3 with `python-docx` and `pdfplumber`, LibreOffice, and Poppler (`pdftoppm`). Install the reference typefaces **Bahij TheSansArabic Plain** and **Arial** with appropriate font rights. The Word packages retain the embedded Arabic font; check exported PDFs for font substitution on a different workstation. These dependencies are for document authoring only, not the production website.
+
+From `source/`, edit `scripts/pdf-design/build.py` and the intended wording sources, then run:
+
+```sh
+python3 scripts/pdf-design/build.py
+python3 scripts/pdf-design/verify.py
+# Inspect every page under tmp/modern-pdfs/*/final/ before installation.
+python3 scripts/pdf-design/install.py
+npm test
+npm run build
+QA_OUT=tmp/pdf-release node scripts/current-pdf-audit.mjs
+python3 scripts/current-pdf-audit-verify.py tmp/pdf-release
+PDF_AUDIT_OUTPUT=tmp/pdf-release node scripts/direct-intake-audit.mjs
+node scripts/management-views-audit.mjs
+```
+
+`--only signature-form` (or comma-separated IDs) limits regeneration. The builder creates editable text, exports final/probe PDFs and measures field coordinates from the probe. `DOCX_RENDERER` can optionally point to a compatible custom rendering script. The installer updates public PDFs, Word sources, hashes and `src/forms/modern-layouts.json` together. Manual Word edits require a matching coordinate update and renewed verification; never replace a PDF alone while keeping its old overlay map. For future releases, bump the version in the builder and consent catalogue entry before installing revised templates.
+
+New submissions store a server-owned PDF-layout snapshot. Stored and archived PDF bytes are never regenerated during deployment. `scripts/pdf-design/legacy-signing-layouts.json` preserves the old positions for submissions predating layout snapshots: **do not replace it with today's coordinates**. An old browser tab is blocked from submitting against a replaced template and asked to reload/review its retained draft. Re-test both historical and current signature replacement after any PDF change.

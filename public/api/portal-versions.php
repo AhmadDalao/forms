@@ -26,6 +26,9 @@ function migrateVersions(): void {
 function requestKey(array $b): string {
     $key=$b['requestKey']??'';if(!is_string($key)||!preg_match('/^[a-f0-9-]{32,36}$/D',$key))reject('invalid_request');return $key;
 }
+function requireCurrentPdfTemplate(array $definition,array $metadata,string $source): void {
+    if($source==='online'&&isset($definition['legacyPdfLayout'])&&($metadata['pdfVersion']??null)!==($definition['pdfVersion']??null))reject('template_changed',409);
+}
 function expectedCurrent(array $b): ?string {
     if(!array_key_exists('expectedCurrent',$b)||($b['expectedCurrent']!==null&&(!is_string($b['expectedCurrent'])||!preg_match('/^[a-f0-9]{32}$/D',$b['expectedCurrent']))))reject('invalid_request');
     return $b['expectedCurrent'];
@@ -77,20 +80,24 @@ function submissionSignatureState(array $submission,?array $definition=null): ar
     return ['signature_state'=>$state,'signature_requested'=>false];
 }
 function submissionSigningCapability(array $submission,?array $definition): array {
-    $pages=$definition['pages']??null;$slots=$definition['signatureSlots']??$definition['signatures']??[];
-    $safe=$definition!==null&&empty($definition['downloadOnly'])&&is_int($pages)&&$pages>0&&$slots!==[];
     $profile=$submission['profile']??[];if(is_string($profile))$profile=json_decode($profile,true)??[];
+    // A stored PDF never moves when the active Word template is redesigned.
+    // Old built-ins use their frozen original layout; new versions carry their
+    // server-owned layout snapshot. This fallback does not rewrite history.
+    $layout=$profile['pdf_layout']??$definition['legacyPdfLayout']??$definition;
+    $pages=$layout['pages']??null;$slots=$layout['signatureSlots']??$layout['signatures']??[];
+    $safe=$definition!==null&&empty($definition['downloadOnly'])&&is_int($pages)&&$pages>0&&$slots!==[];
     if(($submission['source']??'online')==='upload'&&isset($profile['electronic_signature']))$safe=false;
     foreach($slots as $slot){
         $rect=$slot['rect']??[];$page=$slot['page']??null;
         if(!is_int($page)||$page<1||$page>$pages||!is_array($rect)||count($rect)!==4){$safe=false;break;}
         foreach($rect as $number)if((!is_int($number)&&!is_float($number))||!is_finite((float)$number)){$safe=false;break;}
         if(!$safe||$rect[0]<0||$rect[1]<0||$rect[2]<=0||$rect[3]<=0){$safe=false;break;}
-        $size=$definition['pageSizes'][$page-1]??null;
+        $size=$layout['pageSizes'][$page-1]??null;
         if($size&&($rect[0]+$rect[2]>$size[0]||$rect[1]+$rect[3]>$size[1])){$safe=false;break;}
     }
     $answers=$submission['answers']??[];if(is_string($answers))$answers=json_decode($answers,true)??[];
-    $required=$definition?array_column(requiredSubmissionSignatureSlots($definition,$answers),'id'):[];
+    $required=$layout?array_column(requiredSubmissionSignatureSlots($layout,$answers),'id'):[];
     $safe=$safe&&$required!==[];
     return ['sourceId'=>$submission['id'],'sourceSha256'=>$submission['sha256'],'expectedCurrent'=>$submission['id'],
         'expectedPages'=>$pages,'signatureSlots'=>$safe?array_values(array_map(fn($slot)=>array_intersect_key($slot,array_flip(['id','label','ar','page','rect','requiredForSubmission','requireWhenFields'])),$slots)):[],

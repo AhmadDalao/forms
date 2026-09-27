@@ -58,6 +58,7 @@ function catalogue(?string $audience=null): array {
     global $managementDir;
     $base=json_decode(file_get_contents(__DIR__.'/defaults.json'),true,512,JSON_THROW_ON_ERROR);
     $file=$managementDir.'/state.json';$published=is_file($file)?json_decode(file_get_contents($file),true,512,JSON_THROW_ON_ERROR)['published']:$base;
+    require_once __DIR__.'/document-catalogue.php';$published=currentBuiltinPresentation($published);
     // The subscription rebuild split a former shared card into two audience-specific forms.
     foreach($base['documents'] as $d)if(in_array($d['id'],['subscription-form','subscription-company'],true)){
         $found=false;foreach($published['documents'] as &$old)if($old['id']===$d['id']){$found=true;if($old['group']==='shared')$old=$d;}unset($old);
@@ -314,7 +315,9 @@ try {
         if($old=execute('SELECT id,created_at,version,archived_at,profile FROM submissions WHERE user_id=? AND request_key=?',[$u['id'],$key])->fetch())reply(['submission'=>versionReceipt($old),'duplicate'=>true]);
         $workflow=requestedWorkflow($meta);
         $source=($meta['source']??'online')==='upload'?'upload':'online';
-        $doc=definition(textValue($meta['document']??'',100),$audience,$source==='upload');$answers=$source==='upload'?[]:cleanAnswers($doc,$meta['values']??[],$audience);
+        $doc=definition(textValue($meta['document']??'',100),$audience,$source==='upload');
+        requireCurrentPdfTemplate($doc,$meta,$source);
+        $answers=$source==='upload'?[]:cleanAnswers($doc,$meta['values']??[],$audience);
         $editedFrom=$meta['editedFrom']??null;
         if($editedFrom!==null&&!execute('SELECT id FROM submissions WHERE id=? AND user_id=? AND doc_id=? AND audience=?', [textValue($editedFrom,40),$u['id'],$doc['id'],$audience])->fetch())reject('not_found',404);
         $signatures=$source==='upload'?[]:cleanSignatureImages($doc,$meta['signatures']??[],$answers);

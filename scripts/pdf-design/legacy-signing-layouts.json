@@ -1,0 +1,247 @@
+{
+  "signature-form": {
+    "pages": 1,
+    "signatureSlots": [
+      {
+        "id": "specimen",
+        "label": "Specimen signature",
+        "ar": "نموذج التوقيع",
+        "page": 1,
+        "rect": [
+          55,
+          267,
+          232,
+          249
+        ],
+        "section": "signatory"
+      }
+    ]
+  },
+  "terms-and-conditions": {
+    "pages": 13,
+    "signatureSlots": [
+      {
+        "id": "terms_0",
+        "label": "Account terms — signer 1",
+        "ar": "شروط الحساب — الموقع 1",
+        "page": 11,
+        "rect": [
+          84,
+          135,
+          206,
+          28
+        ],
+        "section": "terms"
+      },
+      {
+        "id": "terms_1",
+        "label": "Account terms — signer 2",
+        "ar": "شروط الحساب — الموقع 2",
+        "page": 11,
+        "rect": [
+          84,
+          171.5,
+          206,
+          28
+        ],
+        "section": "terms",
+        "requiredForSubmission": false,
+        "requireWhenFields": [
+          "terms_name_1"
+        ]
+      },
+      {
+        "id": "terms_2",
+        "label": "Account terms — signer 3",
+        "ar": "شروط الحساب — الموقع 3",
+        "page": 11,
+        "rect": [
+          84,
+          208,
+          206,
+          28
+        ],
+        "section": "terms",
+        "requiredForSubmission": false,
+        "requireWhenFields": [
+          "terms_name_2"
+        ]
+      },
+      {
+        "id": "authorization_0",
+        "label": "Telephone / fax authorization — signer 1",
+        "ar": "تفويض الهاتف والفاكس — الموقع 1",
+        "page": 13,
+        "rect": [
+          84,
+          327.6,
+          206,
+          28
+        ],
+        "section": "authorization"
+      },
+      {
+        "id": "authorization_1",
+        "label": "Telephone / fax authorization — signer 2",
+        "ar": "تفويض الهاتف والفاكس — الموقع 2",
+        "page": 13,
+        "rect": [
+          84,
+          364.1,
+          206,
+          28
+        ],
+        "section": "authorization",
+        "requiredForSubmission": false,
+        "requireWhenFields": [
+          "authorization_name_1"
+        ]
+      },
+      {
+        "id": "authorization_2",
+        "label": "Telephone / fax authorization — signer 3",
+        "ar": "تفويض الهاتف والفاكس — الموقع 3",
+        "page": 13,
+        "rect": [
+          84,
+          400.6,
+          206,
+          28
+        ],
+        "section": "authorization",
+        "requiredForSubmission": false,
+        "requireWhenFields": [
+          "authorization_name_2"
+        ]
+      }
+    ]
+  },
+  "fatca-crs-individual": {
+    "pages": 4,
+    "signatureSlots": [
+      {
+        "id": "signatory",
+        "label": "Signatory signature",
+        "ar": "توقيع الموقع",
+        "page": 2,
+        "rect": [
+          47,
+          633,
+          276,
+          57
+        ],
+        "section": "signatory"
+      },
+      {
+        "id": "relationship_manager",
+        "label": "Relationship Manager / Customer Service Representative signature",
+        "ar": "توقيع مدير العلاقة / ممثل خدمة العملاء",
+        "page": 3,
+        "rect": [
+          266,
+          128,
+          205,
+          24
+        ],
+        "section": "staff",
+        "requiredForSubmission": false
+      }
+    ]
+  },
+  "fatca-crs-corporate": {
+    "pages": 6,
+    "signatureSlots": [
+      {
+        "id": "signatory_0",
+        "label": "Signatory 1 (left box)",
+        "ar": "الموقع 1 (الخانة اليسرى)",
+        "page": 6,
+        "rect": [
+          131,
+          277,
+          187,
+          34
+        ],
+        "section": "signatories"
+      },
+      {
+        "id": "signatory_1",
+        "label": "Signatory 2 (right box)",
+        "ar": "الموقع 2 (الخانة اليمنى)",
+        "page": 6,
+        "rect": [
+          375.2,
+          277,
+          187,
+          34
+        ],
+        "section": "signatories",
+        "requiredForSubmission": false,
+        "requireWhenFields": [
+          "signer_1_name",
+          "signer_1_capacity"
+        ]
+      }
+    ]
+  },
+  "kyc-individual": {
+    "pages": 7,
+    "signatureSlots": [
+      {
+        "id": "representative",
+        "label": "Special cases — representative signature",
+        "ar": "الحالات الخاصة — توقيع الوكيل أو الممثل",
+        "page": 3,
+        "rect": [
+          117,
+          566,
+          124,
+          23
+        ],
+        "section": "disclosures",
+        "requiredForSubmission": false,
+        "requireWhenFields": [
+          "representative_name",
+          "rep_id",
+          "rep_type",
+          "rep_expiry",
+          "rep_issue",
+          "rep_phone",
+          "rep_place",
+          "rep_fax"
+        ]
+      },
+      {
+        "id": "client",
+        "label": "Client signature",
+        "ar": "توقيع العميل",
+        "page": 7,
+        "rect": [
+          58,
+          624,
+          241,
+          25
+        ],
+        "section": "suitability"
+      }
+    ]
+  },
+  "kyc-corporate": {
+    "pages": 7,
+    "signatureSlots": [
+      {
+        "id": "client",
+        "label": "Client signature",
+        "ar": "توقيع العميل",
+        "page": 7,
+        "rect": [
+          58,
+          624,
+          241,
+          25
+        ],
+        "section": "suitability"
+      }
+    ]
+  }
+}

@@ -36,13 +36,13 @@ export async function submitForm({doc,values,bytes,profile,audience,lang,user,si
     expected=current?.id??null;initialized=true;
    }
    const form=new FormData();form.set('pdf',new Blob([bytes],{type:'application/pdf'}),doc.id+'.pdf');
-   form.set('metadata',JSON.stringify({submissionMode:'direct',workflowRevision:workflow.revision,account:user.id,document:doc.id,audience,requestKey,values,profile:revision?.profile||profile,signatures,signatureModes,expectedCurrent:expected,editedFrom:revision?.sourceId??null}));
+   form.set('metadata',JSON.stringify({submissionMode:'direct',pdfVersion:doc.pdfVersion,workflowRevision:workflow.revision,account:user.id,document:doc.id,audience,requestKey,values,profile:revision?.profile||profile,signatures,signatureModes,expectedCurrent:expected,editedFrom:revision?.sourceId??null}));
    const result=await api('submit',form);finished=true;onSaved(result.submission);
    dialog.innerHTML=`<span class="submitted-mark">✓</span><h2>${t('Form received','تم استلام النموذج')}</h2><p>${t('Your form has been sent to Itqan Capital. You can view, download or update it in My applications. Previous versions stay in your archive.','تم إرسال نموذجك إلى إتقان كابيتال. يمكنك عرضه أو تنزيله أو تحديثه من طلباتي. تبقى النسخ السابقة في الأرشيف.')}</p><p class="submission-reference">${t('Reference','المرجع')}: ${e(result.submission.id.slice(0,8).toUpperCase())}</p><div class="dialog-actions"><button class="button secondary" data-close>${t('Continue','متابعة')}</button><a class="button primary" href="${appRoot}my-applications/">${t('My applications','طلباتي')}</a></div>`;
    dialog.querySelector('[data-close]').onclick=close;
   }catch(error){
    status.textContent=errorText(error,lang);status.className='error';
-   const blocked=['login_required','password_change_required','account_changed','account_type_restricted','version_conflict','workflow_conflict'].includes(error.message);
+   const blocked=['login_required','password_change_required','account_changed','account_type_restricted','version_conflict','workflow_conflict','template_changed'].includes(error.message);
    dialog.querySelector('[data-retry]').hidden=blocked;
    if(blocked){const a=document.createElement('a');a.href=appRoot+'my-applications/';a.textContent=t('Open my applications','فتح طلباتي');status.append(' ',a);}
   }finally{sending=false;dialog.querySelectorAll('button').forEach(b=>b.disabled=false);}

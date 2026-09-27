@@ -9,6 +9,7 @@ import {docs} from '../schema.js';
 import {applyPersonNameFields} from '../person-names.js';
 import {applyPaperCopy} from './paper-copy.js';
 import {applyCatalogueNames} from '../catalogue.js';
+import {applyModernLayouts} from './modern-layouts.js';
 applyPaperCopy(docs);
 {
  const d=docs.find(d=>d.id==='kyc-individual'),f=d.fields.find(f=>f.id==='city'),section=d.sections.find(s=>s.fields.includes(f));
@@ -27,4 +28,5 @@ for(const doc of docs)for(const field of doc.fields){
 }
 applyPersonNameFields(docs);
 applyCatalogueNames(docs);
+applyModernLayouts(docs);
 export {docs};

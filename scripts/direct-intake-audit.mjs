@@ -62,7 +62,7 @@ try{
  let answerCount=0;
  for(const sample of records.filter(r=>r.sample==='english')){
   const definition=docs.find(d=>d.id===sample.doc),corporate=definition.group==='corporate',ctx=corporate?fillCompany:fillClient,account=corporate?fillCompanyUser:fillUser;
-  const bytes=await fs.readFile(pdfDirectory+'/'+sample.file),metadata={account:account.id,document:definition.id,audience:account.account_type,values:sample.values,profile:{},source:'online',signatures:{},signatureModes:{},expectedCurrent:null,workflowRevision:workflow.revision,requestKey:randomUUID(),submissionMode:'direct'};
+  const bytes=await fs.readFile(pdfDirectory+'/'+sample.file),metadata={account:account.id,document:definition.id,pdfVersion:definition.pdfVersion,audience:account.account_type,values:sample.values,profile:{},source:'online',signatures:{},signatureModes:{},expectedCurrent:null,workflowRevision:workflow.revision,requestKey:randomUUID(),submissionMode:'direct'};
   const result=await f.call(ctx,'portal','submit',{multipart:{metadata:JSON.stringify(metadata),pdf:{name:sample.file,mimeType:'application/pdf',buffer:bytes}},status:201});
   const stored=(await f.call(manager,'portal','admin_detail',{params:{id:result.submission.id}})).submission;assert.equal(stored.presentation_status,'received');assert.equal(stored.sha256,digest(bytes));
   for(const field of definition.fields){if(!(field.id in sample.values)||field.joinAudience&&field.joinAudience!==account.account_type)continue;assert.deepEqual(stored.answers[field.id],sample.values[field.id],definition.id+'/'+field.id);answerCount++;}

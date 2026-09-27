@@ -3,12 +3,14 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {chromium,firefox,webkit} from 'playwright';
 import {fixture} from './workflow-harness.mjs';
+import {docs} from '../src/forms/index.js';
+const shortPages=docs.find(d=>d.id==='signature-form').pages,longPages=docs.find(d=>d.id==='terms-and-conditions').pages;
 const f=await fixture({protectedRoutes:true}),report={checks:[],errors:[]};let browser;
 const pass=message=>{report.checks.push(message);console.log('PASS '+message);};
 const ready=p=>p.waitForFunction(()=>document.querySelector('.portal-preview [data-preview-status]')?.textContent==='');
 const lang=async(p,value)=>{if(await p.locator('html').getAttribute('lang')!==value){await p.locator('[data-admin-language]').click();await p.locator('html[lang='+value+']').waitFor();}};
 const profile=async(p,id)=>{await p.locator('[data-users]').click();await p.locator('#client-search').waitFor();await p.locator('[data-client="'+id+'"]').click();await p.locator('.admin-client-facts').waitFor();};
-const preview=async(p,selector)=>{await p.locator(selector).first().click();await ready(p);assert.equal(await p.locator('.portal-preview').count(),1);assert.equal(await p.locator('.portal-preview canvas').count(),1);await p.locator('.portal-preview [data-close]').click();};
+const preview=async(p,selector)=>{await p.locator(selector).first().click();await ready(p);assert.equal(await p.locator('.portal-preview').count(),1);assert.equal(await p.locator('.portal-preview canvas').count(),shortPages);await p.locator('.portal-preview [data-close]').click();};
 try{
  browser=await chromium.launch({channel:'chrome',headless:true});
  const owner=await browser.newContext(),client=await browser.newContext(),company=await browser.newContext();await f.login(owner,'superadmin');
@@ -39,11 +41,11 @@ try{
    if(audience==='admin'){await f.login(mc,'admin');await mp.goto(f.base+'/management/');await profile(mp,u.id);}else await mp.goto(f.base+'/my-applications/');
    await mp.locator('[data-preview="'+longDocument.id+'"]').click();await ready(mp);
    const dimensions=await mp.locator('.portal-preview canvas').evaluateAll(nodes=>nodes.map(c=>({width:c.width,parent:c.parentElement.clientWidth,direction:getComputedStyle(c).direction})));
-   assert.equal(dimensions.length,13);assert.ok(dimensions.every(c=>c.width<=c.parent*2+1&&c.direction==='ltr'));
+   assert.equal(dimensions.length,longPages);assert.ok(dimensions.every(c=>c.width<=c.parent*2+1&&c.direction==='ltr'));
    if(engine==='chrome'&&audience==='admin')await mp.screenshot({path:f.out+'/mobile-long-preview.png'});
    await mp.locator('.portal-preview [data-close]').click();await mc.close();
   }
-  pass(engine+': all 13 PDF pages render for admin and client on a high-density phone at the actual available width');
+  pass(engine+': all '+longPages+' PDF pages render for admin and client on a high-density phone at the actual available width');
   await browser.close();browser=null;
  }
  browser=await chromium.launch({channel:'chrome',headless:true});const c=await browser.newContext(),p=await c.newPage();p.on('pageerror',e=>report.errors.push(e.message));await f.login(c,'admin');await p.goto(f.base+'/management/');await p.locator('[data-users]').click();await p.locator('#client-search').waitFor();

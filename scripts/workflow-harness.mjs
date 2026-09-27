@@ -53,6 +53,7 @@ export async function fixture({protectedRoutes=false}={}){
  async function submit(ctx,user,{document='signature-form',values={client_name:user.name},expectedCurrent=null,editedFrom,source='online',signedConfirmed,signatures,signatureModes,workflowRevision,status=201,metadata:extra={}}={}){
   const image='data:image/png;base64,'+(await fs.readFile('tests/fixtures/signature.png')).toString('base64');
   const metadata={account:user.id,document,audience:user.account_type,values,source,expectedCurrent,requestKey:randomUUID(),...(source==='online'?{signatures:signatures||{specimen:image},signatureModes:signatureModes||{specimen:'electronic'}}:{signedConfirmed:signedConfirmed??true}),...(editedFrom?{editedFrom}:{}),...(workflowRevision===undefined?{}:{workflowRevision}),...extra};
+  if(!('pdfVersion' in extra))metadata.pdfVersion=JSON.parse(await fs.readFile(out+'/site/api/portal-defaults.json','utf8'))[document]?.pdfVersion;
   const bytes=await fs.readFile(out+'/site/pdfs/'+document+'.pdf');
   const result=await call(ctx,'portal','submit',{multipart:{metadata:JSON.stringify(metadata),pdf:{name:'qa-workflow.pdf',mimeType:'application/pdf',buffer:bytes}},status});return result.submission||result;
  }

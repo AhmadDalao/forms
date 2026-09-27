@@ -72,6 +72,7 @@ function submissionProfileSnapshot(array $doc,string $audience,mixed $input,stri
     $shared=sharedFieldDefinitions($audience,$schemas);
     return [...cleanSharedSnapshot($audience,$source==='upload'?[]:$input,$shared),
         'submission_source'=>$source,'submission_schema'=>2,
+        'pdf_layout'=>array_intersect_key($doc,array_flip(['pages','pdfVersion','pageSizes','signatureSlots','signatures'])),
         'field_definitions'=>documentFieldDefinitions($doc),'section_definitions'=>documentSectionDefinitions($doc),
         'shared_field_definitions'=>$shared,'signature_definitions'=>documentSignatureDefinitions($doc),
         'signature_submission_policy'=>['workflow'=>$doc['workflow']??null,'signatureSlots'=>array_map(fn($slot)=>array_intersect_key($slot,array_flip(['id','requiredForSubmission','requireWhenFields'])),$doc['signatureSlots']??$doc['signatures']??[])]];

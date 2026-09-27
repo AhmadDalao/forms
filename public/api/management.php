@@ -9,6 +9,7 @@ require_once __DIR__.'/management-auth.php';
 require_once __DIR__.'/management-accounts.php';
 require_once __DIR__.'/session-scope.php';
 require_once __DIR__.'/form-access.php';
+require_once __DIR__.'/document-catalogue.php';
 $dataDir = getenv('FORMS_DATA_DIR') ?: __DIR__ . '/../_private/management';
 function respond(array $value, int $code = 200): never { http_response_code($code); echo json_encode($value, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR); exit; }
 function fail(string $message, int $code = 400): never { respond(['error'=>$message],$code); }
@@ -24,6 +25,7 @@ function locked(callable $callback, bool $write = false): mixed {
     $lock=fopen($dataDir.'/state.lock','c+'); if(!$lock||!flock($lock,$write?LOCK_EX:LOCK_SH))fail('Storage is unavailable.',503);
     try {
         $file=$dataDir.'/state.json';$state=is_file($file)?json_decode(file_get_contents($file),true,512,JSON_THROW_ON_ERROR):initial();
+        foreach(['draft','published'] as $version)$state[$version]=currentBuiltinPresentation($state[$version]);
         $result=$callback($state);
         if($write){$temp=$file.'.'.bin2hex(random_bytes(6));file_put_contents($temp,json_encode($state,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),LOCK_EX);chmod($temp,0600);rename($temp,$file);}
         return $result;

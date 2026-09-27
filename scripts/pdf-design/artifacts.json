@@ -1,0 +1,37 @@
+{
+  "al-naeem-terms-consent": {
+    "pages": 1,
+    "pdf_sha256": "4a8e74915de0acfe7206a1ed79f60b3e9b032876f0610a52d65f41e4899b48b1",
+    "docx_sha256": "874855f22f633c9cc37b1f3562393d90411ded1aec2f51304eb5b9ff7f99b7a1"
+  },
+  "fatca-crs-corporate": {
+    "pages": 8,
+    "pdf_sha256": "51756da6947c427e334333389b92b96d9ce42327001a1db43656ef70379ae8c9",
+    "docx_sha256": "1047d2f555c0bb735226c31bb470a1eb2f2ce6bd40e91f8e6e193c1242a0d5b9"
+  },
+  "fatca-crs-individual": {
+    "pages": 9,
+    "pdf_sha256": "6577c3488cf06b304e059133e650a132962dffe9e3efa683290233794ad17b7a",
+    "docx_sha256": "42563e1ac4853834e45bb83a7a2cd5c439e0e7a7e2cd37024e6ae78cefe21b19"
+  },
+  "kyc-corporate": {
+    "pages": 11,
+    "pdf_sha256": "1dfcccd370669aafba788aa04a4452e7547f41b3dbaa3bd20334dcfede4b78ec",
+    "docx_sha256": "0523a857d7842c97244cf77314ade2bfc33b587691e5a04e4b0a08c969e82a4b"
+  },
+  "kyc-individual": {
+    "pages": 14,
+    "pdf_sha256": "e763767caa36ff56998578f2eb1027b0b8a39b84ea13e26c12c198aa4b811f64",
+    "docx_sha256": "efe8d62e78451be717730700b05e496a7733c82bb915edce52dd9d63478075a8"
+  },
+  "signature-form": {
+    "pages": 2,
+    "pdf_sha256": "bee35532b73a9b1af31a4c7640ca313a1b047c3d80471a86974837467a2e606a",
+    "docx_sha256": "f9a36bbf03a900d3f7d593e930a2e254a6c953471e3ee9d5027a5b080046d5dd"
+  },
+  "terms-and-conditions": {
+    "pages": 24,
+    "pdf_sha256": "53a873702980de539e38b32ae9b1881ef054117ceb11afbf7b46ff566cd69183",
+    "docx_sha256": "b3ee353cbb60d47610c19c1879ef60f8560c7b34f3836948d66a7f526e3c3b44"
+  }
+}

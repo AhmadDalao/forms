@@ -40,9 +40,9 @@ for file in (package / 'website').rglob('*.html'):
     file.write_text(re.sub(r'\s*<link rel="canonical" href="[^"]*"\s*/>', '', file.read_text()))
 
 # Explicit directories only. No .git, .env, node_modules, tmp, hosting records or private storage.
-for folder in ['src', 'public', 'tests', 'reference/pdfs']:
+for folder in ['src', 'public', 'tests', 'reference/pdfs', 'reference/documents', 'scripts/pdf-design']:
     for file in (ROOT / folder).rglob('*'):
-        if not file.is_file() or file.name == '.DS_Store':
+        if not file.is_file() or file.name == '.DS_Store' or '__pycache__' in file.parts:
             continue
         rel = file.relative_to(ROOT)
         if str(rel).startswith('public/_private/') and str(rel) != 'public/_private/.htaccess':
@@ -57,13 +57,17 @@ for name in scripts:
     copy(ROOT / 'scripts' / name, package / 'source/scripts' / name)
 for name in ['package.json', 'package-lock.json', 'vite.config.js', 'index.html', '.gitignore']:
     copy(ROOT / name, package / 'source' / name)
-for name in ['subscription-individual.docx', 'subscription-company.docx', 'al-naeem-terms-consent.docx']:
-    file = ROOT / 'output/documents' / name
-    if file.exists():
-        copy(file, package / 'editable-documents' / name)
+documents = ['subscription-individual', 'subscription-company', 'al-naeem-terms-consent',
+             'signature-form', 'kyc-individual', 'kyc-corporate', 'fatca-crs-individual',
+             'fatca-crs-corporate', 'terms-and-conditions']
+for name in documents:
+    copy(ROOT / 'output/documents' / (name + '.docx'), package / 'editable-documents' / (name + '.docx'))
+    copy(ROOT / 'public/pdfs' / (name + '.pdf'), package / 'editable-documents' / (name + '.pdf'))
 copy(ROOT / 'docs/DEVELOPER-HANDOFF.md', package / 'INSTALL.md')
 copy(ROOT / 'docs/DEVELOPER-HANDOFF.md', package / 'source/README.md')
 copy(ROOT / 'docs/DEVELOPER-HANDOFF-AR.md', package / 'INSTALL-AR.md')
+for name in ['modern-pdf-release-2026-09-28.md', 'modern-pdf-verification.json']:
+    copy(ROOT / 'docs' / name, package / 'verification' / name)
 copy(ROOT / 'docs/apache-vhost.example.conf', package / 'server/apache-vhost.conf')
 
 seed = out / 'empty-private'

@@ -1,0 +1,237 @@
+{
+  "date": "2026-09-28",
+  "template_version": "20260928-modern-1",
+  "artifacts": {
+    "al-naeem-terms-consent": {
+      "pages": 1,
+      "pdf_sha256": "4a8e74915de0acfe7206a1ed79f60b3e9b032876f0610a52d65f41e4899b48b1",
+      "docx_sha256": "874855f22f633c9cc37b1f3562393d90411ded1aec2f51304eb5b9ff7f99b7a1"
+    },
+    "fatca-crs-corporate": {
+      "pages": 8,
+      "pdf_sha256": "51756da6947c427e334333389b92b96d9ce42327001a1db43656ef70379ae8c9",
+      "docx_sha256": "1047d2f555c0bb735226c31bb470a1eb2f2ce6bd40e91f8e6e193c1242a0d5b9"
+    },
+    "fatca-crs-individual": {
+      "pages": 9,
+      "pdf_sha256": "6577c3488cf06b304e059133e650a132962dffe9e3efa683290233794ad17b7a",
+      "docx_sha256": "42563e1ac4853834e45bb83a7a2cd5c439e0e7a7e2cd37024e6ae78cefe21b19"
+    },
+    "kyc-corporate": {
+      "pages": 11,
+      "pdf_sha256": "1dfcccd370669aafba788aa04a4452e7547f41b3dbaa3bd20334dcfede4b78ec",
+      "docx_sha256": "0523a857d7842c97244cf77314ade2bfc33b587691e5a04e4b0a08c969e82a4b"
+    },
+    "kyc-individual": {
+      "pages": 14,
+      "pdf_sha256": "e763767caa36ff56998578f2eb1027b0b8a39b84ea13e26c12c198aa4b811f64",
+      "docx_sha256": "efe8d62e78451be717730700b05e496a7733c82bb915edce52dd9d63478075a8"
+    },
+    "signature-form": {
+      "pages": 2,
+      "pdf_sha256": "bee35532b73a9b1af31a4c7640ca313a1b047c3d80471a86974837467a2e606a",
+      "docx_sha256": "f9a36bbf03a900d3f7d593e930a2e254a6c953471e3ee9d5027a5b080046d5dd"
+    },
+    "terms-and-conditions": {
+      "pages": 24,
+      "pdf_sha256": "53a873702980de539e38b32ae9b1881ef054117ceb11afbf7b46ff566cd69183",
+      "docx_sha256": "b3ee353cbb60d47610c19c1879ef60f8560c7b34f3836948d66a7f526e3c3b44"
+    }
+  },
+  "content": {
+    "documents": 7,
+    "pages": 69,
+    "source_fragments": 49,
+    "failures": []
+  },
+  "pdf_generation": {
+    "counts": {
+      "pdfs": 106,
+      "pages": 957,
+      "text_rectangles": 1967,
+      "choice_rectangles": 917,
+      "signature_rectangles": 32,
+      "transparent_images": 18446,
+      "unchanged_pages": 477
+    },
+    "coverage": {
+      "signature-form": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 6,
+        "covered_choice_options": 6,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "subscription-form": {
+        "mapped_fields": 29,
+        "covered_fields": 29,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 13,
+        "complete_success": 5
+      },
+      "subscription-company": {
+        "mapped_fields": 30,
+        "covered_fields": 30,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 11,
+        "complete_success": 5
+      },
+      "terms-and-conditions": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 4,
+        "covered_choice_options": 4,
+        "uncovered_choices": [],
+        "signature_slots": 6,
+        "covered_signatures": 6,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "fatca-crs-individual": {
+        "mapped_fields": 57,
+        "covered_fields": 57,
+        "uncovered_fields": [],
+        "choice_options": 16,
+        "covered_choice_options": 16,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 12,
+        "complete_success": 5
+      },
+      "fatca-crs-corporate": {
+        "mapped_fields": 76,
+        "covered_fields": 76,
+        "uncovered_fields": [],
+        "choice_options": 19,
+        "covered_choice_options": 19,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 19,
+        "complete_success": 5
+      },
+      "kyc-individual": {
+        "mapped_fields": 109,
+        "covered_fields": 109,
+        "uncovered_fields": [],
+        "choice_options": 122,
+        "covered_choice_options": 122,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 16,
+        "complete_success": 5
+      },
+      "kyc-corporate": {
+        "mapped_fields": 102,
+        "covered_fields": 102,
+        "uncovered_fields": [],
+        "choice_options": 60,
+        "covered_choice_options": 60,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 15,
+        "complete_success": 5
+      }
+    },
+    "failures": []
+  },
+  "workflows": {
+    "intake": [
+      "Login/signup: EN and AR, desktop/mobile, source logos and role labels, no PDF engine or PDF loaded",
+      "Logged-out document routes redirect to sign-in",
+      "Real form edits propagate separate Arabic/English names and joined city/district to account and other forms",
+      "Offline edits retry to account; intentional clear persists after reload",
+      "Multiple tabs, fresh browser and individual/company/account isolation",
+      "Company English sharing is bidirectional and separate from Arabic identity",
+      "One-click unsigned submission, lost-response retry, single immutable version and receipt reference",
+      "Signed replacement archives the earlier PDF and all captured answers; stale replacement is rejected",
+      "Consent PDF upload works without inventing structured answers or signature verification",
+      "Management receives current versions, exact answers and signature status; preview/PDF/ZIP work; review controls disabled and cross-account access blocked",
+      "All eight filled forms submitted: 556 field values matched management records, and downloaded PDFs matched byte for byte"
+    ],
+    "client": [
+      "signature-form: actual UI controls, reload, submit, management answers and PDF download match",
+      "subscription-form: actual UI controls, reload, submit, management answers and PDF download match",
+      "subscription-company: actual UI controls, reload, submit, management answers and PDF download match",
+      "terms-and-conditions: actual UI controls, reload, submit, management answers and PDF download match",
+      "fatca-crs-individual: actual UI controls, reload, submit, management answers and PDF download match",
+      "fatca-crs-corporate: actual UI controls, reload, submit, management answers and PDF download match",
+      "KYC risk answers survive reload, submission and editing; resubmission archives original without changing answers or PDF",
+      "kyc-individual: actual UI controls, reload, submit, management answers and PDF download match",
+      "kyc-corporate: actual UI controls, reload, submit, management answers and PDF download match",
+      "Logout works on every editor; both account types list all six applicable forms in management",
+      "Short bold fund title, four logos and login/signup fit desktop and mobile in both languages"
+    ],
+    "management-views": [
+      "chrome admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "chrome superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "chrome new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "chrome: client My applications preview remains functional",
+      "chrome: all 24 PDF pages render for admin and client on a high-density phone at the actual available width",
+      "firefox admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "firefox superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "firefox new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "firefox: client My applications preview remains functional",
+      "firefox: all 24 PDF pages render for admin and client on a high-density phone at the actual available width",
+      "webkit admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "webkit superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "webkit new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+      "webkit: client My applications preview remains functional",
+      "webkit: all 24 PDF pages render for admin and client on a high-density phone at the actual available width",
+      "Slow profile shows feedback; switching sections cannot be overwritten by its delayed response",
+      "Interrupted profile request recovers through Try again",
+      "Interrupted PDF download recovers in the same preview without losing details",
+      "Repeated preview clicks keep a single dialog",
+      "Closing a pending PDF cancels its load and a new preview opens normally",
+      "Expired admin preview session closes the dialog and returns to management sign-in",
+      "Expired client-profile request returns to management sign-in",
+      "Expired client preview returns to client sign-in"
+    ],
+    "access-loading": [
+      "Document centre and editor work while the shared-profile response is still pending",
+      "Late account data fills untouched fields; an edit made while loading is preserved and conflict resolution saves it",
+      "Opening the document centre and editing fields fetches no PDF or PDF engine",
+      "Reload restores the confirmed account values",
+      "Management overview defers form definitions and PDF downloads until they are needed"
+    ],
+    "admin-handoff": [
+      "Account creation/export are superadmin-only; CSRF, minimum length, confirmation and legacy username collisions enforced",
+      "Superadmin creates an admin through the UI; separate login works without document/account-management privileges or exposed hashes",
+      "Chosen eight-character admin passwords reset both new and legacy accounts and invalidate earlier sessions",
+      "Client reset UI accepts a chosen password, revokes sessions, requires a private client change and preserves all submissions",
+      "English/Arabic admin navigation and password dialogs fit mobile screens",
+      "Private snapshot restores exact accounts, structured answers, archives, PDF hashes and administrator credentials; replacement of existing data refused"
+    ]
+  },
+  "visual_review": {
+    "blank_pages_inspected": 69,
+    "final_filled_pages_inspected": 14,
+    "languages": [
+      "Arabic",
+      "English",
+      "mixed"
+    ],
+    "subscription_reference_preserved": true
+  },
+  "unit_tests": 221,
+  "failures": []
+}

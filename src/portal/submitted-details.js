@@ -4,7 +4,7 @@ import {sharedGroups} from '../shared-fields.js';
 import {signatureSlots} from '../signatures.js';
 import {e} from './api.js';
 
-const metadataKeys=new Set(['submission_source','submission_schema','field_definitions','section_definitions','shared_field_definitions','signature_definitions','definition_fallback']);
+const metadataKeys=new Set(['submission_source','submission_schema','pdf_layout','field_definitions','section_definitions','shared_field_definitions','signature_definitions','definition_fallback']);
 const blank=value=>value===null||value===undefined||(typeof value==='string'&&!value.trim())||(Array.isArray(value)&&value.length===0);
 const own=(object,key)=>Object.prototype.hasOwnProperty.call(object,key);
 const record=value=>value&&typeof value==='object'&&!Array.isArray(value)?value:{};

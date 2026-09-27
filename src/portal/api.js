@@ -61,6 +61,7 @@ export const errors={
  form_incomplete:['Complete the required form fields before submitting.','أكمل الحقول المطلوبة قبل إرسال النموذج.'],
  units_invalid:['Enter a valid whole number of units.','أدخل عدد وحدات صحيحًا.'],
  document_unavailable:['This document is no longer available for submission.','هذا المستند لم يعد متاحًا للإرسال.'],
+ template_changed:['The document layout has been updated. Your draft is saved. Reload this page and preview the document again before submitting.','تم تحديث تصميم المستند. مسودتك محفوظة. أعد تحميل الصفحة وعاين المستند مرة أخرى قبل إرساله.'],
  request_large:['The PDF is too large. The limit is 20 MB.','ملف PDF أكبر من الحد المسموح: ٢٠ ميغابايت.'],
  no_submissions:['This client has no submitted forms yet.','لم يرسل العميل أي نماذج بعد.'],
 };
