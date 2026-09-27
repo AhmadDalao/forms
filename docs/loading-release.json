@@ -1,0 +1,50 @@
+{
+  "released_at": "2026-09-27T13:20:31.756415+00:00",
+  "source_commit": "e4f9c3851a2aeb60d948b865e11a056a86d637e1",
+  "url": "https://forms.ahmaddalao.com/",
+  "static_only": true,
+  "private_storage_preserved": true,
+  "live_business_writes": 0,
+  "live_smoke_passed": true,
+  "controlled_network": {
+    "latency_ms": 150,
+    "download_bytes_per_second": 200000,
+    "cpu_slowdown": 4,
+    "cache": "disabled"
+  },
+  "timings": [
+    {
+      "route": "login/?lang=ar",
+      "before_ready_ms": 958,
+      "after_ready_ms": 826,
+      "before_transfer_bytes": 306529,
+      "after_transfer_bytes": 306587
+    },
+    {
+      "route": "management/",
+      "before_ready_ms": 1670,
+      "after_ready_ms": 1585,
+      "before_transfer_bytes": 220647,
+      "after_transfer_bytes": 188479
+    },
+    {
+      "route": "individuals/?lang=ar",
+      "before_ready_ms": 1957,
+      "after_ready_ms": 1646,
+      "before_transfer_bytes": 279214,
+      "after_transfer_bytes": 280114
+    }
+  ],
+  "timing_scope": "Live login is anonymous; management and the document-centre check use an authenticated superadmin. Slow client-account synchronization is covered by the separate isolated comparison and regression audit.",
+  "public_files_backed_up": 8,
+  "handoff": {
+    "revision": 3,
+    "source_commit": "e4f9c3851a2aeb60d948b865e11a056a86d637e1",
+    "private_snapshot_at": "2026-09-27T11:42:38Z",
+    "private_snapshot_unchanged": true,
+    "archives": {
+      "developer-handoff.zip": "25b7cde6862c5e6aa6b1abd30a5c64afb3d69f49896a117115de81b2b0ad0d9f",
+      "private-migration.zip": "d93d0faf5907724aa67b1c238f323b7950c2cc3b9268f136ff5c62f2e3151e3d"
+    }
+  }
+}
