@@ -37,3 +37,11 @@ Page counts grow where the original was dense. No legal translation or new custo
 - The clean developer archive contains all nine Word/PDF pairs, original references, builders, mappings, tests and installation instructions. Its checksums and a source rebuild are verified separately from the private migration.
 
 Machine-readable results: `modern-pdf-verification.json`. The developer guide explains regeneration, font requirements and compatibility handling. These are content-preservation and software checks, not legal certification of the supplied documents.
+
+## Live release and handover
+
+Published to `https://forms.ahmaddalao.com/` with backups of replaced public files. All nine hosted templates match the reviewed local PDF hashes. Anonymous access restrictions, login/signup, management profiles and Arabic previews pass the hosted checks; no production applications or client accounts were created.
+
+Opened all four existing client profiles and all 15 current/archived PDF previews without errors. The post-release private snapshot restores successfully and contains four clients, 15 submitted versions (nine archived) and five shared profiles. Every customer row, submission row, shared-profile row and stored PDF is identical to the pre-release snapshot.
+
+The developer receives a clean code/build archive and a separate private migration ZIP. Only `website/` is public; the migration, editable sources and backups remain private. The migration represents its export timestamp, so take a fresh snapshot if clients submit more forms before the receiving developer's final cutover.
