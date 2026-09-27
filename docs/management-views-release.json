@@ -1,0 +1,26 @@
+{
+  "completed_at": "2026-09-27T13:08:44.268610+00:00",
+  "source_commit": "21b6974da4c3ed2e9f49899adf4f5caff3498846",
+  "url": "https://forms.ahmaddalao.com/",
+  "static_only": true,
+  "live_profile_views": 4,
+  "live_pdf_views": 15,
+  "live_errors": [],
+  "live_request_failures": [],
+  "live_smoke_passed": true,
+  "business_writes": 0,
+  "private_storage_preserved": true,
+  "public_files_backed_up": 8,
+  "developer_package": {
+    "revision": 2,
+    "source_commit": "21b6974da4c3ed2e9f49899adf4f5caff3498846",
+    "verified_files": 276,
+    "contains_live_data": false,
+    "private_snapshot_at": "2026-09-27T11:42:38Z",
+    "private_snapshot_unchanged": true,
+    "archives": {
+      "developer-handoff.zip": "773c6bfee947db4254617a0bdc4d4ae77444d34a302e3f4e6091355f8ef5c477",
+      "private-migration.zip": "d93d0faf5907724aa67b1c238f323b7950c2cc3b9268f136ff5c62f2e3151e3d"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "sourceCommit": "e66c8545740b29f219fb0b8eb4e68a6704b6cfce",
-  "started": "2026-09-27T11:42:37.611Z",
+  "sourceCommit": "21b6974da4c3ed2e9f49899adf4f5caff3498846",
+  "started": "2026-09-27T13:07:24.815Z",
   "checks": [
     "Protected document pages, templates, client data and management endpoints deny anonymous access; private paths are inaccessible",
     "Live login/signup display the supplied title and four partner logos in English/Arabic without desktop/mobile overflow",
@@ -15,5 +15,5 @@
   "errors": [],
   "businessWrites": 0,
   "passed": true,
-  "finished": "2026-09-27T11:43:07.325Z"
+  "finished": "2026-09-27T13:07:43.064Z"
 }
