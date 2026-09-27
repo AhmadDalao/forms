@@ -1,3 +1,4 @@
+import {showAdministrators} from './accounts.js';
 import {bellIcon} from '../portal/notification-bell.js';
 import '@fontsource/inter/latin-400.css';
 import '@fontsource/inter/latin-500.css';
@@ -16,6 +17,7 @@ import {layoutConflicts,assertLayout} from './layout.js';
 const app=document.querySelector('#app'),e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let dashboard=null,managementSession=null,managementWorkflow={review_enabled:true,revision:0},lang=savedLanguage(),activeView='overview';
 const t=(en,ar)=>lang==='ar'?ar:en;
+const canManageAdmins=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.manage_admins===true;
 const canManageDocuments=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.manage_documents===true;
 const canChangeAccountType=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.change_account_type===true;
 const canManageWorkflow=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.manage_workflow===true;
@@ -36,12 +38,12 @@ function bind(selector,event,handler){document.querySelectorAll(selector).forEac
 function changed(){dirty=true;sampled.clear();const reviewButton=document.querySelector('#review-document');if(reviewButton)reviewButton.disabled=true;const sampleStatus=document.querySelector('#sample-status');if(sampleStatus)sampleStatus.textContent='Layout changed — regenerate both samples.';if(editing)editing.reviewed=false;document.querySelector('#draft-status').textContent='Unsaved changes';}
 function shell(content,{view='documents'}={}){
  activeView=view;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
- const signedIn=managementSession?.authenticated===true,reviewEnabled=managementWorkflow.review_enabled!==false,items=[['overview','Overview','نظرة عامة','data-overview id="client-dashboard"'],['reviews','Submissions','النماذج المرسلة','data-reviews'],['users','Clients','العملاء','data-users'],...(canManageDocuments()?[['documents','Documents','المستندات','data-documents']]:[])];
+ const signedIn=managementSession?.authenticated===true,reviewEnabled=managementWorkflow.review_enabled!==false,items=[['overview','Overview','نظرة عامة','data-overview id="client-dashboard"'],['reviews','Submissions','النماذج المرسلة','data-reviews'],['users','Clients','العملاء','data-users'],...(canManageDocuments()?[['documents','Documents','المستندات','data-documents']]:[]),...(canManageAdmins()?[['admins','Administrators','حسابات الإدارة','data-admins']]:[])];
  const navigation=signedIn?`<nav class="site-header-navigation management-navigation" aria-label="${t('Management navigation','التنقل في الإدارة')}">${items.map(([id,en,ar,attrs])=>`<button type="button" data-management-view="${id}" ${attrs} ${view===id?'aria-current="page"':''}>${t(en,ar)}</button>`).join('')}</nav>`:'';
  const actions=`${signedIn?`<button type="button" class="notification-bell" id="management-notifications" aria-label="${t('Latest submissions','أحدث النماذج المرسلة')}" title="${t('Latest submissions','أحدث النماذج المرسلة')}">${bellIcon}</button>`:''}<button type="button" class="site-header-language" data-admin-language lang="${lang==='ar'?'en':'ar'}">${t('العربية','English')}</button>${signedIn?`<button type="button" class="site-header-signout" id="logout">${t('Sign out','تسجيل الخروج')}</button>`:''}`;
  app.innerHTML=siteHeader({lang,className:'management-header',navigation,actions})+`<div id="notice" role="status"></div>${content}`;
- bind('[data-management-view]','click',async(ev,button)=>{if(dirty)await saveDraft();if(button.dataset.managementView==='documents')await openDocuments();else await showDashboard(button.dataset.managementView);});
- bind('[data-admin-language]','click',async()=>{lang=lang==='ar'?'en':'ar';setLanguage(lang);if(!signedIn){showLogin();return;}if(activeView==='documents'){if(editing)await editor();else home();}else await dashboard.refresh();});
+ bind('[data-management-view]','click',async(ev,button)=>{if(dirty)await saveDraft();if(button.dataset.managementView==='documents')await openDocuments();else if(button.dataset.managementView==='admins')await openAdmins();else await showDashboard(button.dataset.managementView);});
+ bind('[data-admin-language]','click',async()=>{lang=lang==='ar'?'en':'ar';setLanguage(lang);if(!signedIn){showLogin();return;}if(activeView==='documents'){if(editing)await editor();else home();}else if(activeView==='admins')await openAdmins();else await dashboard.refresh();});
  bind('#management-notifications','click',async()=>{if(dirty)await saveDraft();await showDashboard('pendingReviews');});
  bind('#logout','click',async()=>{if(dirty&&!confirm(t('Discard unsaved changes and sign out?','تجاهل التغييرات غير المحفوظة وتسجيل الخروج؟')))return;await api('logout',{});dirty=false;location.reload();});
 }
@@ -50,6 +52,7 @@ function showLogin(){shell(`<main class="panel login"><h1>${t('Management sign i
 }
 async function start(){managementSession=await api('session');csrf=managementSession.csrf;if(!managementSession.configured){shell(`<main class="panel login"><h1>${t('Management setup','إعداد الإدارة')}</h1><p>${t('Management access has not been configured.','لم يتم إعداد حساب الإدارة بعد.')}</p></main>`,{view:'overview'});return;}if(managementSession.authenticated){await showDashboard();return;}showLogin();}
 async function showDashboard(view='overview'){dashboard??=createClientDashboard({shell,token:()=>csrf,language:()=>lang,canChangeAccountType,canManageWorkflow,workflow:()=>managementWorkflow,onWorkflowChanged:value=>{if(value.revision>=managementWorkflow.revision)managementWorkflow=value;},onError:handleError});await dashboard[view]();}
+async function openAdmins(){if(!canManageAdmins())return;dashboard?.cancel();await showAdministrators({lang,shell,api,onError:handleError,notice});}
 async function openDocuments(){if(!canManageDocuments())return;dashboard?.cancel();if(!state)state=await api('state');home();}
 function toolbar(title,buttons=''){return `<div class="toolbar"><div><h1>${title}</h1><div class="status-strip"><span id="draft-status">${dirty?'Unsaved changes':'Draft saved'}</span><span>Revision ${state.revision}</span></div></div><div class="actions">${buttons}</div></div>`;}
 async function saveDraft(){state=await api('save',{revision:state.revision,draft:state.draft});dirty=false;if(editing)editing=state.draft.documents.find(d=>d.id===editing.id);return state;}

@@ -69,9 +69,9 @@ test('server credentials determine privileges and credential changes revoke stal
   const admin=sessionFor(account(dir)),superadmin=sessionFor(account(dir,'superadmin'));
   assert.deepEqual(access(dir,admin),{owner:true,identity:{username:'admin',role:'admin'},documents:false});
   assert.deepEqual(access(dir,superadmin),{owner:true,identity:{username:'superadmin',role:'superadmin'},documents:true});
-  assert.deepEqual(permissions(dir,admin),{manage_documents:false,change_account_type:false,manage_workflow:false});
-  assert.deepEqual(permissions(dir,superadmin),{manage_documents:true,change_account_type:true,manage_workflow:true});
-  assert.deepEqual(permissions(dir,{}),{manage_documents:false,change_account_type:false,manage_workflow:false});
+  assert.deepEqual(permissions(dir,admin),{manage_documents:false,change_account_type:false,manage_workflow:false,manage_admins:false});
+  assert.deepEqual(permissions(dir,superadmin),{manage_documents:true,change_account_type:true,manage_workflow:true,manage_admins:true});
+  assert.deepEqual(permissions(dir,{}),{manage_documents:false,change_account_type:false,manage_workflow:false,manage_admins:false});
   assert.equal(permissions(dir,{...admin,role:'superadmin',owner_role:'superadmin',permissions:{change_account_type:true}}).change_account_type,false,'Only the authenticated server role can change account type');
   assert.equal(access(dir,{...admin,role:'superadmin',owner_role:'superadmin',permissions:{manage_documents:true}}).documents,false,'Session role claims cannot elevate an admin');
   assert.equal(access(dir,{...admin,owner_username:'superadmin'}).owner,false,'A copied username is not an authenticated identity');

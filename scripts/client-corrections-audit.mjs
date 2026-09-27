@@ -10,7 +10,7 @@ const f=await fixture({protectedRoutes:true}),out=path.join(f.out,'client-correc
 const browser=await chromium.launch({channel:'chrome',headless:true}),report={checks:[],forms:[],errors:[]};let page;
 const pass=s=>{report.checks.push(s);console.log('PASS '+s)};
 const context=async()=>{const c=await browser.newContext({viewport:{width:1440,height:1000}});c.on('page',p=>{p.setDefaultTimeout(20000);p.on('pageerror',e=>report.errors.push(e.message))});return c;};
-const records=JSON.parse(await fs.readFile('tmp/next-update-pdfs/records.json','utf8'));
+const records=JSON.parse(await fs.readFile((process.env.PDF_AUDIT_OUTPUT||'tmp/client-corrections-pdfs')+'/records.json','utf8'));
 const open=async(p,id)=>{if(await p.locator('#sub-home').count())await p.locator('#sub-home').click();else if(await p.locator('#back-home').count())await p.locator('#back-home').click();await p.locator(`[data-doc="${id}"]`).click();};
 const shot=async(p,name)=>{assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);await p.screenshot({path:out+'/'+name+'.png',fullPage:true});};
 try{

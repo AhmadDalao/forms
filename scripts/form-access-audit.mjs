@@ -46,16 +46,16 @@ try{
  // Admin identity deliberately remains authoritative if a browser also has a client session.
  await fx.login(individual,'superadmin');await get(individual,'/pdfs/kyc-corporate.pdf',200);await fx.call(individual,'management','logout',{data:{}});
  await get(individual,'/pdfs/kyc-corporate.pdf',403);
- const reset=await fx.call(admin,'portal','admin_reset',{data:{id:user.id}});
+ const temporaryPassword='Chosen8!';await fx.call(admin,'portal','admin_reset',{data:{id:user.id,password:temporaryPassword,confirm:temporaryPassword}});
  await get(individual,'/pdfs/signature-form.pdf',401);assert.match((await get(individual,'/individuals/',302)).headers().location,/^\/login\//);
  const state=await company.request.storageState();const cookie=state.cookies.find(c=>c.name.startsWith('itqan_client'));assert.ok(cookie);
  const fake=await request.newContext({extraHTTPHeaders:{Cookie:cookie.name+'=not-a-real-session'}});contexts.push(fake);await get({request:fake},'/pdfs/signature-form.pdf',401);
  report.checks.push('Combined management/client cookies preserve preview access; logout restores category guard; reset revokes old PDF/page access; forged cookies fail closed');
  await fx.call(individual,'portal','session');
- await fx.call(individual,'portal','login',{data:{phone:user.phone,password:reset.temporary_password}});
+ await fx.call(individual,'portal','login',{data:{phone:user.phone,password:temporaryPassword}});
  assert.match((await get(individual,'/individuals/',302)).headers().location,/^\/my-applications\//);
  const blocked=await get(individual,'/pdfs/signature-form.pdf',403);assert.equal((await blocked.json()).error,'password_change_required');
- await fx.call(individual,'portal','password',{data:{current:reset.temporary_password,password:'New.client.pass!2026',confirm:'New.client.pass!2026'}});
+ await fx.call(individual,'portal','password',{data:{current:temporaryPassword,password:'New.client.pass!2026',confirm:'New.client.pass!2026'}});
  await get(individual,'/pdfs/signature-form.pdf',200);await get(individual,'/individuals/',200);
  report.checks.push('Temporary-password clients must replace password before forms/templates; replacing it restores authenticated access');
  await fx.call(company,'portal','logout',{data:{}});await get(company,'/api/management.php?action=catalogue',401);await get(company,'/pdfs/kyc-corporate.pdf',401);

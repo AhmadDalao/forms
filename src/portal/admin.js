@@ -1,3 +1,4 @@
+import {accountPasswordDialog} from '../management/accounts.js';
 import {api,endpoint,e,errorText,when} from './api.js';
 import {previewSubmission} from './preview.js';
 import {renderSubmissionDetails} from './submitted-details.js';
@@ -125,16 +126,8 @@ export function createClientDashboard({shell,token,language,canChangeAccountType
   };
  }
  function reset(user){
-  const dialog=document.createElement('dialog');dialog.className='client-reset-dialog';dialog.dir=lang==='ar'?'rtl':'ltr';document.body.append(dialog);let busy=false;
-  const close=()=>{if(!busy){dialog.close();dialog.remove();}};
-  dialog.innerHTML=`<h2>${t('Reset client password','إعادة تعيين كلمة مرور العميل')}</h2><p><b>${e(user.name)}</b><br><bdi>${e(user.phone)}</bdi></p><p>${t('Generate a strong temporary password. Existing sessions will end, and the client must choose a new password at their next sign-in.','أنشئ كلمة مرور مؤقتة قوية. ستنتهي الجلسات الحالية وسيُطلب من العميل اختيار كلمة مرور جديدة عند دخوله التالي.')}</p><p role="status"></p><div class="admin-row-actions"><button data-close>${t('Cancel','إلغاء')}</button><button class="primary" data-generate>${t('Generate temporary password','إنشاء كلمة مرور مؤقتة')}</button></div>`;
-  dialog.querySelector('[data-close]').onclick=close;dialog.addEventListener('cancel',ev=>{ev.preventDefault();close();});dialog.showModal();
-  dialog.querySelector('[data-generate]').onclick=async()=>{if(busy)return;busy=true;dialog.querySelectorAll('button').forEach(b=>b.disabled=true);try{
-   const result=await api('admin_reset',{id:user.id},{token:token()});
-   dialog.innerHTML=`<h2>${t('Temporary password ready','كلمة المرور المؤقتة جاهزة')}</h2><p>${e(user.name)} · <bdi>${e(user.phone)}</bdi></p><p>${t('Share it with this client through your usual private contact. It is shown only here.','شاركها مع هذا العميل عبر وسيلة تواصل خاصة. تظهر كلمة المرور هنا فقط.')}</p><output class="temporary-password" dir="ltr">${e(result.temporary_password)}</output><p role="status"></p><div class="admin-row-actions"><button data-copy>${t('Copy password','نسخ كلمة المرور')}</button><button class="primary" data-close>${t('Done','تم')}</button></div>`;
-   dialog.querySelector('[data-copy]').onclick=async()=>{try{await navigator.clipboard.writeText(result.temporary_password);dialog.querySelector('[role=status]').textContent=t('Copied.','تم النسخ.');}catch{dialog.querySelector('[role=status]').textContent=t('Select the password above and copy it.','حدد كلمة المرور أعلاه وانسخها.');}};
-   dialog.querySelector('[data-close]').onclick=()=>{close();profile(user.id);};
-  }catch(err){if(onError(err)){dialog.remove();return;}dialog.querySelector('[role=status]').textContent=errorText(err,lang);}finally{busy=false;dialog.querySelectorAll('button').forEach(b=>b.disabled=false);}};
+  accountPasswordDialog({lang,title:t('Reset client password','إعادة تعيين كلمة مرور العميل'),description:user.name+' · '+user.phone+' — '+t('Choose a temporary password. Existing sessions will end, and the client will choose their own password at next sign-in.','اختر كلمة مرور مؤقتة. ستنتهي الجلسات الحالية، وسيختار العميل كلمة مروره عند الدخول التالي.'),onSave:data=>api('admin_reset',{id:user.id,...data},{token:token()}),onError,onDone:()=>profile(user.id)});
  }
+
  return {overview,reviews,pendingReviews:()=>{reviewStatus='all';reviewPage=1;reviewAudience='all';reviewDocument='all';reviewQuery='';reviewSort='newest';return reviews();},users,refresh:()=>view==='client'?profile(client):view==='reviews'?reviews():view==='users'?users():overview(),cancel:()=>{loadRevision++;}};
 }

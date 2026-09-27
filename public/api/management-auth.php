@@ -26,6 +26,16 @@ function managementAccounts(string $directory): array {
         $accounts[$role]=['username'=>$username,'role'=>$role,'password_hash'=>$hash,
             'credential_version'=>hash('sha256',$role."\0".$username."\0".$hash)];
     }
+    if(is_file($directory.'/administrators.sqlite')){
+        $db=new PDO('sqlite:'.$directory.'/administrators.sqlite',null,null,[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC]);
+        $db->exec('PRAGMA busy_timeout=5000');
+        foreach($db->query('SELECT * FROM administrators ORDER BY created_at,username') as $row){
+            $username=normalizeManagementUsername($row['username']);$hash=$row['password_hash'];
+            if($username===null||empty(password_get_info($hash)['algo'])||($accounts['superadmin']['username']??null)===$username)continue;
+            $key=($accounts['admin']['username']??null)===$username?'admin':'user:'.$username;
+            $accounts[$key]=$row+['role'=>'admin','credential_version'=>hash('sha256',"admin\0".$username."\0".$hash)];
+        }
+    }
     return $accounts;
 }
 
@@ -47,7 +57,7 @@ function managementOwner(string $directory): bool {
 
 function managementPermissions(string $directory): array {
     $superadmin=(managementIdentity($directory)['role']??null)==='superadmin';
-    return ['manage_documents'=>$superadmin,'change_account_type'=>$superadmin,'manage_workflow'=>$superadmin];
+    return ['manage_documents'=>$superadmin,'change_account_type'=>$superadmin,'manage_workflow'=>$superadmin,'manage_admins'=>$superadmin];
 }
 
 function managementCanManageDocuments(string $directory): bool {return managementPermissions($directory)['manage_documents'];}

@@ -123,12 +123,12 @@ try{
   await call(ctx,'password',{current:initial,password:arabic72,confirm:arabic72});
   await openPassword(page,lang);await fields(page,['current','password','confirm'],lang,{newPassword:true});await changeInUI(page,ctx,arabic72,changed);
   await signOut(ctx);await call(ctx,'login',{phone:user.phone,password:initial},401);await call(ctx,'login',{phone:user.phone,password:arabic72},401);await call(ctx,'login',{phone:user.phone,password:changed});
-  const reset=await call(manager,'admin_reset',{id:user.id});assert.ok(typeof reset.temporary_password==='string'&&reset.temporary_password.length>=24,'Reset must issue a temporary password');
+  const temporaryPassword='Chosen8!';const reset=await call(manager,'admin_reset',{id:user.id,password:temporaryPassword,confirm:temporaryPassword});assert.equal(reset.ok,true);
   await call(ctx,'submissions',null,401);await call(ctx,'session');await call(ctx,'login',{phone:user.phone,password:changed},401);
-  await login(page,ctx,user.phone,reset.temporary_password,lang,true);await call(ctx,'submissions',null,403);
+  await login(page,ctx,user.phone,temporaryPassword,lang,true);await call(ctx,'submissions',null,403);
   await fields(page,['current','password','confirm'],lang,{newPassword:true});assert.equal(await page.locator('#password-back').count(),0,'Temporary passwords require replacement');
-  await changeInUI(page,ctx,reset.temporary_password,finalPassword);assert.equal(Number((await call(ctx,'session')).user.reset_required),0);
-  await signOut(ctx);await call(ctx,'login',{phone:user.phone,password:reset.temporary_password},401);await call(ctx,'login',{phone:user.phone,password:finalPassword});
+  await changeInUI(page,ctx,temporaryPassword,finalPassword);assert.equal(Number((await call(ctx,'session')).user.reset_required),0);
+  await signOut(ctx);await call(ctx,'login',{phone:user.phone,password:temporaryPassword},401);await call(ctx,'login',{phone:user.phone,password:finalPassword});
   pass(plan.account_type+': weak eight-character signup/login, 72-byte Arabic password, confirmation validation, password replacement, reset/session revocation and forced eight-character replacement');
  }
  assert.equal(accounts.length,2);assert.equal(Number((await call(manager,'admin_dashboard')).stats.users),Number(baseline.users)+2);

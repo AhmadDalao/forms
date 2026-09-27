@@ -14,6 +14,11 @@ export async function api(action,body,{token=csrf,params={},keepalive=false}={})
 }
 export const session=()=>api('session');
 export const errors={
+ username_invalid:['Enter a username of up to 80 characters.','أدخل اسم مستخدم لا يتجاوز ٨٠ حرفًا.'],
+ username_exists:['This username is already in use. Choose another.','اسم المستخدم مستخدم بالفعل. اختر اسمًا آخر.'],
+ superadmin_required:['Only the superadmin can manage administrator accounts.','إدارة حسابات المسؤولين متاحة للمشرف الرئيسي فقط.'],
+ admin_not_found:['This administrator account was not found.','لم يتم العثور على حساب المسؤول.'],
+ admin_only:['Use the owner setup tool to change superadmin credentials.','استخدم أداة إعداد المالك لتغيير بيانات المشرف الرئيسي.'],
  arabic_name_required:['Enter the first customer-name row in Arabic. English names belong in the separate English row.','أدخل صف اسم العميل الأول باللغة العربية. للأسماء الإنجليزية صف مستقل.'],
  signature_image_required:['Add at least one signature image to save a signed copy.','أضف صورة توقيع واحدة على الأقل لحفظ نسخة موقّعة.'],
  workflow_disabled:['Management review is currently switched off. Your saved forms and decision history are kept.','المراجعة الإدارية معطّلة حاليًا. تبقى النماذج المحفوظة وسجل القرارات محفوظة.'],

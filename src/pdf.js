@@ -162,5 +162,9 @@ export async function renderPage(pdf, number, canvas, width=780) {
   const base=page.getViewport({scale:1});
   const viewport=page.getViewport({scale:Math.min(2,window.devicePixelRatio||1)*width/base.width});
   canvas.width=Math.round(viewport.width); canvas.height=Math.round(viewport.height);
-  await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;
+  // PDF glyph positions are already resolved. Inheriting an RTL page makes
+  // Canvas's default "start" alignment right-anchor each glyph a second time.
+  canvas.dir='ltr';canvas.style.direction='ltr';
+  const context=canvas.getContext('2d');context.direction='ltr';
+  await page.render({canvasContext:context,viewport}).promise;
 }

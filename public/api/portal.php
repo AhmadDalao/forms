@@ -6,7 +6,7 @@ header('Cache-Control: no-store, private');
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: no-referrer');
 umask(0077);
-require_once __DIR__.'/portal-versions.php';
+require_once __DIR__.'/portal-database.php';
 require_once __DIR__.'/portal-account-types.php';
 require_once __DIR__.'/portal-reviews.php';
 require_once __DIR__.'/portal-workflow.php';
@@ -31,7 +31,6 @@ function mobile(mixed $value): string {
     if(!preg_match('/^5[0-9]{8}$/D',$v))reject('phone_invalid');return '+966'.$v;
 }
 function passwordValue(mixed $v): string {if(!is_string($v)||mb_strlen($v)<8||strlen($v)>72)reject('password_weak');return $v;}
-function execute(string $sql,array $params=[]): PDOStatement {global $db;$s=$db->prepare($sql);$s->execute($params);return $s;}
 function rate(string $key,int $limit,int $seconds): void {
     global $db;$key=hash('sha256',$key);$now=time();
     $db->exec('BEGIN IMMEDIATE');
@@ -132,21 +131,7 @@ function submittedPdf(): array {
 try {
     $dataDir=getenv('FORMS_PORTAL_DATA_DIR')?:__DIR__.'/../_private/portal';
     $managementDir=getenv('FORMS_DATA_DIR')?:__DIR__.'/../_private/management';
-    if(!is_dir($dataDir)&&!mkdir($dataDir,0700,true))reject('storage_unavailable',503);
-    if(!is_dir($dataDir.'/pdfs'))mkdir($dataDir.'/pdfs',0700,true);
-    $db=new PDO('sqlite:'.$dataDir.'/clients.sqlite',null,null,[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC]);
-    $db->exec('PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000;');
-    $db->exec('CREATE TABLE IF NOT EXISTS users(id TEXT PRIMARY KEY,name TEXT NOT NULL,phone TEXT UNIQUE NOT NULL,email TEXT NOT NULL DEFAULT "",password TEXT NOT NULL,created_at TEXT NOT NULL,last_login TEXT,session_version INTEGER NOT NULL DEFAULT 1,reset_required INTEGER NOT NULL DEFAULT 0);
-      CREATE TABLE IF NOT EXISTS submissions(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id),doc_id TEXT NOT NULL,title TEXT NOT NULL,ar TEXT NOT NULL,audience TEXT NOT NULL,created_at TEXT NOT NULL,size INTEGER NOT NULL,sha256 TEXT NOT NULL,answers TEXT NOT NULL,profile TEXT NOT NULL,request_key TEXT NOT NULL,UNIQUE(user_id,request_key));
-      CREATE INDEX IF NOT EXISTS submissions_user ON submissions(user_id);
-      CREATE TABLE IF NOT EXISTS rates(key TEXT PRIMARY KEY,attempts INTEGER NOT NULL,expires INTEGER NOT NULL);
-      CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,client_id TEXT NOT NULL,event TEXT NOT NULL,created_at TEXT NOT NULL);');
-    migrateVersions();
-    migrateAccountTypes();
-    migrateReviews();
-    migrateWorkflow();$workflowReady=true;
-    migrateSharedProfiles();
-    migrateDirectIntake();
+    $db=initializePortalDatabase($dataDir);$workflowReady=true;
     $action=$_GET['action']??'session';$admin=str_starts_with($action,'admin_');
     $https=!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off';
     $scope=sessionScope($admin?'itqan_management':'itqan_client');session_name($scope['name']);ini_set('session.use_strict_mode','1');session_set_cookie_params(['lifetime'=>0,'path'=>$scope['path'],'secure'=>$https,'httponly'=>true,'samesite'=>'Strict']);session_start();
@@ -233,11 +218,12 @@ try {
     }
     if($action==='admin_reset'){
         $b=body();$id=textValue($b['id']??'',40);rate('reset:'.$ip,30,3600);
-        $temporary=rtrim(strtr(base64_encode(random_bytes(18)),'+/','-_'),'=').'aA7!';
+        $temporary=passwordValue($b['password']??null);
+        if($temporary!==($b['confirm']??null))reject('password_mismatch');
         $db->beginTransaction();
         if(execute('UPDATE users SET password=?,reset_required=1,session_version=session_version+1 WHERE id=?',[password_hash($temporary,PASSWORD_DEFAULT),$id])->rowCount()!==1){$db->rollBack();reject('not_found',404);}
-        execute('INSERT INTO audit(client_id,event,created_at) VALUES(?,?,?)',[$id,'owner_password_reset',$now]);$db->commit();
-        reply(['temporary_password'=>$temporary]);
+        execute('INSERT INTO audit(client_id,event,created_at) VALUES(?,?,?)',[$id,json_encode(['event'=>'owner_password_reset','admin_username'=>managementIdentity($managementDir)['username']],JSON_THROW_ON_ERROR),$now]);$db->commit();
+        reply(['ok'=>true]);
     }
     if($action==='admin_restore'){
         $b=body();$key=requestKey($b);$expected=expectedCurrent($b);rate('restore:'.$ip,30,60);

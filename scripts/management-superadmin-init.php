@@ -13,7 +13,7 @@ if(!$lock||!flock($lock,LOCK_EX)){fwrite(STDERR,"Could not lock the private dire
 $created=[];
 try{
     foreach(['superadmin-username.php','superadmin-password.php'] as $file)if(file_exists($dir.'/'.$file))throw new RuntimeException('Superadmin credentials already exist; no files were changed.');
-    if(($admin=managementUsername($dir))!==null&&hash_equals($admin,$username))throw new RuntimeException('Choose a username different from the existing administrator.');
+    foreach(managementAccounts($dir) as $account)if(hash_equals($account['username'],$username))throw new RuntimeException('Choose a username different from an existing administrator.');
     foreach(['superadmin-password.php'=>password_hash($password,PASSWORD_DEFAULT),'superadmin-username.php'=>$username] as $file=>$value){
         $path=$dir.'/'.$file;$handle=fopen($path,'x');
         if(!$handle)throw new RuntimeException('Could not create superadmin credentials.');

@@ -124,7 +124,7 @@ try{
  assert.equal((await portal(admin,'admin_client',{params:{id:user.id}})).user.account_type,'corporate');
  await portal(superadmin,'admin_account_type',{data:{id:user.id,expected_type:'corporate',account_type:'individual'}});
  assert.equal((await portal(admin,'admin_client',{params:{id:user.id}})).user.account_type,'individual');
- const reset=await portal(admin,'admin_reset',{data:{id:user.id}});assert.ok(reset.temporary_password.length>=20);
+ const reset=await portal(admin,'admin_reset',{data:{id:user.id,password:'Chosen8!',confirm:'Chosen8!'}});assert.equal(reset.ok,true);
  await portal(client,'detail',{params:{id:first.id},status:401});
  pass('Only superadmin changes account type in both directions; admin and spoofed-role requests are rejected without mutation while admin can still read the type');
  pass('Admin and superadmin retain client statistics, profiles, PDF/ZIP downloads, reviews with correct actor, archived version recovery and password reset');

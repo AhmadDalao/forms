@@ -1,6 +1,6 @@
 # Management
 
-Production management is at `https://forms.ahmaddalao.com/management/`. The same sign-in page serves admins and the superadmin. The header contains Overview, Review forms and Clients; Documents appears only for the superadmin.
+Production management is at `https://forms.ahmaddalao.com/management/`. The same sign-in page serves admins and the superadmin. The header contains Overview, Submissions and Clients; Documents and Administrators appear only for the superadmin.
 
 ## Local review
 
@@ -20,7 +20,7 @@ To add or change the username while keeping the existing password, run `php scri
 
 ## Roles and superadmin setup
 
-Ordinary admins can review submissions, approve/reject with their username recorded, view clients, reset client passwords, download PDFs/ZIP files and recover archived versions. They cannot access catalogue drafts or change titles, order, uploaded documents, field mappings or publication. Only the superadmin can change client account types. The API enforces these restrictions with 403 responses; hiding buttons alone is not the permission check.
+Ordinary admins can view received submissions and clients, reset client passwords, download PDFs/ZIP files and recover archived versions. Direct submission is the current workflow; earlier approval/rejection decisions remain in read-only history. Admins cannot access catalogue drafts or change titles, order, uploaded documents, field mappings or publication. Only the superadmin can change client account types, manage admin accounts or export a private installation backup. The API enforces these restrictions with 403 responses; hiding buttons alone is not the permission check.
 
 Create the separate superadmin using a chosen, distinct username and a strong password of 14–72 bytes:
 
@@ -31,6 +31,10 @@ php scripts/management-superadmin-init.php management-data YOUR_SUPERADMIN_USERN
 This adds protected `superadmin-username.php` and `superadmin-password.php` files with permissions 0600. Existing `username.php` and `password.php` remain the ordinary admin credentials. The command refuses collisions or replacement and leaves catalogue, client data and archived submissions untouched. Usernames are case-insensitive. Roles are resolved from server credentials on every authenticated request. Existing management sessions from before the role upgrade must sign in again once; client sessions are unaffected.
 
 ## Superadmin document workflow
+
+Under **Administrators**, the superadmin can create an ordinary admin with a chosen username, password and confirmation, or reset an ordinary admin's password. Passwords require at least eight characters and at most 72 bytes. Each change records the superadmin and timestamp. Resets revoke earlier sessions. This screen cannot create another superadmin or change the owner's password.
+
+The client-profile **Reset password** action also accepts a chosen password and confirmation. It ends the client's previous sessions and asks the client to choose a private replacement on their next sign-in. Existing submissions and their history remain untouched.
 
 1. Edit the English/Arabic titles and descriptions, or move cards up/down separately in the individual and company lists. Shared documents retain one title in both lists.
 2. Save the draft. Visitors continue to see the published version.
@@ -56,7 +60,9 @@ For text, CSS or other static-only changes, `python3 scripts/deploy.py --product
 
 ## Verification
 
-`npm test` covers the established form/draft/profile behavior. `node scripts/management-roles-audit.mjs` verifies both roles, direct API restrictions, review attribution, unified navigation and same-browser account switching. `node scripts/portal-audit.mjs` exercises the client lifecycle as an ordinary admin. `node scripts/management-audit.mjs` starts an isolated PHP server with disposable test data and verifies management/API/customer workflows. `scripts/catalogue-audit.mjs` checks the existing form catalogue against the local PHP preview. Test output and credentials stay under ignored temporary directories.
+`npm test` covers form/draft/profile behavior. `npm run test:management` tests admin creation, chosen password resets, permissions and private backup/restore against a disposable installation. `npm run test:workflow` generates synthetic PDFs and checks the current direct-submission/shared-profile lifecycle. `node scripts/form-access-audit.mjs` checks authentication and audience boundaries. `node scripts/preview-direction-audit.mjs` compares English/Arabic page rendering across Chrome, Firefox and WebKit. Test output and credentials stay under ignored temporary directories. Older audit scripts for the superseded approval workflow are historical and are not the current acceptance suite.
+
+Developer installation, private data migration, prerequisites and cutover checks are documented in [DEVELOPER-HANDOFF.md](DEVELOPER-HANDOFF.md) and [DEVELOPER-HANDOFF-AR.md](DEVELOPER-HANDOFF-AR.md).
 
 ## Limits confirmed with the real source files
 

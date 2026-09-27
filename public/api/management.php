@@ -6,6 +6,7 @@ header('X-Content-Type-Options: nosniff');
 header('Content-Type: application/json; charset=utf-8');
 const MAX_PDF = 20971520;
 require_once __DIR__.'/management-auth.php';
+require_once __DIR__.'/management-accounts.php';
 require_once __DIR__.'/session-scope.php';
 require_once __DIR__.'/form-access.php';
 $dataDir = getenv('FORMS_DATA_DIR') ?: __DIR__ . '/../_private/management';
@@ -143,6 +144,32 @@ try {
     }
     requireOwner();
     if($action==='logout'){if($_SERVER['REQUEST_METHOD']!=='POST')fail('POST required.',405);$_SESSION=[];session_destroy();respond(['ok'=>true]);}
+    if($action==='export_backup'){
+        if(!managementPermissions($dataDir)['manage_admins'])fail('superadmin_required',403);
+        if($_SERVER['REQUEST_METHOD']!=='POST')fail('POST required.',405);
+        require_once __DIR__.'/installation-backup.php';
+        $portalDir=getenv('FORMS_PORTAL_DATA_DIR')?:__DIR__.'/../_private/portal';
+        $archive=$portalDir.'/migration-'.bin2hex(random_bytes(16)).'.zip';
+        try{
+            installationBackup($dataDir,$portalDir,$archive);
+            header('Content-Type: application/zip');header('Content-Disposition: attachment; filename="private-migration.zip"');header('Content-Length: '.filesize($archive));
+            readfile($archive);
+        }finally{if(is_file($archive))unlink($archive);}
+        exit;
+    }
+    if(in_array($action,['admins','admin_create','admin_password'],true)){
+        if(!managementPermissions($dataDir)['manage_admins'])fail('superadmin_required',403);
+        if($action==='admins'){
+            if($_SERVER['REQUEST_METHOD']!=='GET')fail('GET required.',405);
+            respond(['accounts'=>array_values(array_map('managementAccountView',managementAccounts($dataDir)))]);
+        }
+        if($_SERVER['REQUEST_METHOD']!=='POST')fail('POST required.',405);
+        try{
+            $actor=managementIdentity($dataDir)['username'];$body=input();
+            if($action==='admin_create')respond(['account'=>createManagementAdmin($dataDir,$body,$actor)],201);
+            respond(resetManagementAdmin($dataDir,$body,$actor));
+        }catch(DomainException $error){fail($error->getMessage(),$error->getMessage()==='username_exists'?409:400);}
+    }
     requireDocumentManager();
     if($action==='state')respond(locked(fn($s)=>$s));
     if($_SERVER['REQUEST_METHOD']!=='POST')fail('POST required.',405);

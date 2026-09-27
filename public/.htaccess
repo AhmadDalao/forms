@@ -2,6 +2,7 @@ DirectoryIndex index.html default.php
 Options -Indexes
 RewriteEngine On
 # Retired public previews must use the protected live entrypoints too.
+RewriteCond %{HTTP_HOST} ^forms\.ahmaddalao\.com$ [NC]
 RewriteRule ^preview-20260919(?:/(.*))?$ https://forms.ahmaddalao.com/$1 [R=302,END,NE]
 # Gate both directory URLs and explicit index files before Apache serves them.
 RewriteRule ^(?:index\.html)?$ api/page.php [END,QSA]
