@@ -69,6 +69,11 @@ for name in documents:
 copy(ROOT / 'docs/DEVELOPER-HANDOFF.md', package / 'INSTALL.md')
 copy(ROOT / 'docs/DEVELOPER-HANDOFF.md', package / 'source/README.md')
 copy(ROOT / 'docs/DEVELOPER-HANDOFF-AR.md', package / 'INSTALL-AR.md')
+copy(ROOT / 'docs/HANDOVER-README.md', package / 'README.md')
+copy(ROOT / 'docs/DEVELOPER-HANDOFF-AR.md', package / 'README-AR.md')
+copy(ROOT / 'docs/DOMAIN-SETUP.md', package / 'DOMAIN-SETUP.md')
+copy(ROOT / 'docs/DATABASE-HANDOFF.md', package / 'DATABASE.md')
+copy(ROOT / 'docs/DATABASE-HANDOFF.md', package / 'database/README.md')
 for name in ['modern-pdf-release-2026-09-28.md', 'modern-pdf-verification.json', 'terms-restoration-2026-09-28.md', 'terms-restoration-verification.json', 'bilingual-pdf-update-2026-09-28.md', 'bilingual-pdf-verification.json', 'pdf-layout-refinement-2026-09-28.md', 'pdf-layout-refinement-verification.json', 'full-regression-2026-09-28.md', 'full-regression-verification.json']:
     copy(ROOT / 'docs' / name, package / 'verification' / name)
 copy(ROOT / 'docs/apache-vhost.example.conf', package / 'server/apache-vhost.conf')
