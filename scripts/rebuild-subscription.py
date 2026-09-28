@@ -129,8 +129,12 @@ def build(corporate,probe):
    cell._tc.get_or_add_tcPr().append(margins)
    en,ar=LABELS[key]
    if corporate and key=='english_name':en,ar='Company name in English','اسم الشركة بالإنجليزية'
-   para(cell.paragraphs[0],ar,9.5,True,color=INK,leading=13)
-   para(cell.add_paragraph(),en,7.5,False,color=MUTED,leading=11)
+   if len(ar)*6.2+len(en)*4.5+15<w-20:
+    p=para(cell.paragraphs[0],'',9.5,leading=24)
+    run(p,'\u2067'+ar+'\u2069',9.5,True,color=INK);run(p,' / ',8,color=MUTED);run(p,'\u2066'+en+'\u2069',7.5,color=MUTED)
+   else:
+    para(cell.paragraphs[0],ar,9.5,True,color=INK,leading=13)
+    para(cell.add_paragraph(),en,7.5,False,color=MUTED,leading=11)
    p=cell.add_paragraph();p.paragraph_format.line_spacing=Pt(height-28);p.paragraph_format.space_after=Pt(0);p.paragraph_format.space_before=Pt(0)
    token='S'+str(len(markers)+1).zfill(3)+'X';markers[token]={'id':key,'width':w-12,'height':height-29}
    if fixed and key in fixed:run(p,fixed[key],11,True,color='1456A0')
@@ -168,8 +172,7 @@ def build(corporate,probe):
  spacer(6)
  bilingual(DECL_EN,DECL_AR)
  heading('Applicant','مقدم الطلب')
- row(['applicant_name','date'],44,widths=[WIDTH*.7,WIDTH*.3])
- row(['signature'],55)
+ row(['applicant_name','date','signature'],65,widths=[WIDTH*.5,WIDTH*.22,WIDTH*.28])
  spacer(6)
  # Keep each original internal approval and signature line, unfilled by clients.
  heading('For Company Use Only','لاستعمال الشركة فقط')
@@ -206,5 +209,6 @@ for corporate in ([False] if "--individual-only" in sys.argv else [False,True]):
   if not probe:
    shutil.copyfile(pdf,ROOT/'output/pdf'/f'{name}.pdf')
    shutil.copyfile(pdf,ROOT/'public/pdfs'/f'{name}.pdf')
+   shutil.copyfile(pdf,ROOT/'output/documents'/f'{name}.pdf')
  (ROOT/'src/subscription'/f'{name}-layout.json').write_text(json.dumps(maps,ensure_ascii=False,indent=2)+'\n')
  print(name,len(maps),'mapped fields')

@@ -1,0 +1,457 @@
+{
+  "date": "2026-09-28",
+  "layout_version": "20260928-sections-3",
+  "original_signature_version": "20260928-original-3",
+  "unit_tests": {
+    "passed": 225,
+    "failed": 0
+  },
+  "build_passed": true,
+  "content_and_geometry": {
+    "documents": {
+      "al-naeem-terms-consent": {
+        "pages": [
+          {
+            "page": 1,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 435
+          }
+        ],
+        "source_fragments": [],
+        "mapped_destinations": 0,
+        "short_inline_choices_checked": 0,
+        "pdf_sha256": "431d85dbd2732871fd09ab32345427e566f8c75e8b04b6094e30d0f9b88aa7c6",
+        "docx_sha256": "c66eb4faeed45db5376692fca3b97a52cf31b7494db4853ef4f4fb454a3e8434"
+      },
+      "fatca-crs-corporate": {
+        "pages": [
+          {
+            "page": 1,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1399
+          },
+          {
+            "page": 2,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1491
+          },
+          {
+            "page": 3,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1689
+          },
+          {
+            "page": 4,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 2125
+          },
+          {
+            "page": 5,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 967
+          },
+          {
+            "page": 6,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 967
+          },
+          {
+            "page": 7,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 2103
+          },
+          {
+            "page": 8,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 291
+          }
+        ],
+        "source_fragments": [
+          "entity-tax-instructions",
+          "entity-instructions",
+          "entity-fatca-note",
+          "entity-crs-note",
+          "entity-controller-intro",
+          "entity-controller-reasons",
+          "entity-declaration"
+        ],
+        "mapped_destinations": 78,
+        "short_inline_choices_checked": 0,
+        "pdf_sha256": "10948ab007a60dfd76ddabc68b604efe86772a25a6683d07291879d442384083",
+        "docx_sha256": "243dd5c307dc4afe5a1401a92803e32e260e780e47649a2e50af641a2c9a812a"
+      },
+      "fatca-crs-individual": {
+        "pages": [
+          {
+            "page": 1,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1605
+          },
+          {
+            "page": 2,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1511
+          },
+          {
+            "page": 3,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 3212
+          },
+          {
+            "page": 4,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1262
+          },
+          {
+            "page": 5,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 3894
+          },
+          {
+            "page": 6,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1864
+          },
+          {
+            "page": 7,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 3628
+          },
+          {
+            "page": 8,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 2820
+          }
+        ],
+        "source_fragments": [
+          "tax-intro-en",
+          "tax-intro-ar",
+          "tax-tin-en",
+          "tax-tin-ar",
+          "tax-tin-entry-en",
+          "tax-tin-entry-ar",
+          "tax-residency-en",
+          "tax-residency-ar",
+          "tax-reasons-en",
+          "tax-reasons-ar",
+          "tax-declaration-en",
+          "tax-declaration-ar",
+          "tax-definitions-en",
+          "tax-definitions-ar",
+          "tax-definitions-continued-en",
+          "tax-definitions-continued-ar"
+        ],
+        "mapped_destinations": 59,
+        "short_inline_choices_checked": 16,
+        "pdf_sha256": "14aa4a0914fc1346fbc6b9f9e46cf2e7fcc998b2aeeee22fa954f9201b7e8bd1",
+        "docx_sha256": "14750ee5c163f5fafbd883639ed591b84aa3521bd56bd8a191525642334ce6d1"
+      },
+      "kyc-corporate": {
+        "pages": [
+          {
+            "page": 1,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1282
+          },
+          {
+            "page": 2,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1294
+          },
+          {
+            "page": 3,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1368
+          },
+          {
+            "page": 4,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1493
+          },
+          {
+            "page": 5,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1567
+          },
+          {
+            "page": 6,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1891
+          },
+          {
+            "page": 7,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 766
+          },
+          {
+            "page": 8,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1237
+          },
+          {
+            "page": 9,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 3080
+          },
+          {
+            "page": 10,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 474
+          }
+        ],
+        "source_fragments": [],
+        "mapped_destinations": 103,
+        "short_inline_choices_checked": 49,
+        "pdf_sha256": "cb54903c9d308c18ab75594e2da3305eaef855c6d3147a8212da189d38bbba83",
+        "docx_sha256": "659048060d2b7909d7b2272ab733f400573e876005a5dcb2e590b951e7aed599"
+      },
+      "kyc-individual": {
+        "pages": [
+          {
+            "page": 1,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1024
+          },
+          {
+            "page": 2,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1112
+          },
+          {
+            "page": 3,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1614
+          },
+          {
+            "page": 4,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 2536
+          },
+          {
+            "page": 5,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1600
+          },
+          {
+            "page": 6,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1849
+          },
+          {
+            "page": 7,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1832
+          },
+          {
+            "page": 8,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1643
+          },
+          {
+            "page": 9,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1373
+          },
+          {
+            "page": 10,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 3082
+          },
+          {
+            "page": 11,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 475
+          }
+        ],
+        "source_fragments": [],
+        "mapped_destinations": 111,
+        "short_inline_choices_checked": 96,
+        "pdf_sha256": "00491830d58ab4bc3a9243e39f8901ebfec0d280ad0184df373ce092fdfc1d2a",
+        "docx_sha256": "92abd947bba2826f55643fdf8a55ee627b606534f9188e626646ccbfd7501b7a"
+      }
+    },
+    "failures": []
+  },
+  "filled_pdf_checks": {
+    "counts": {
+      "pdfs": 106,
+      "pages": 762,
+      "text_rectangles": 2107,
+      "choice_rectangles": 917,
+      "signature_rectangles": 32,
+      "transparent_images": 15333,
+      "unchanged_pages": 346
+    },
+    "coverage": {
+      "signature-form": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 6,
+        "covered_choice_options": 6,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "subscription-form": {
+        "mapped_fields": 29,
+        "covered_fields": 29,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 13,
+        "complete_success": 5
+      },
+      "subscription-company": {
+        "mapped_fields": 30,
+        "covered_fields": 30,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 11,
+        "complete_success": 5
+      },
+      "terms-and-conditions": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 4,
+        "covered_choice_options": 4,
+        "uncovered_choices": [],
+        "signature_slots": 6,
+        "covered_signatures": 6,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "fatca-crs-individual": {
+        "mapped_fields": 57,
+        "covered_fields": 57,
+        "uncovered_fields": [],
+        "choice_options": 16,
+        "covered_choice_options": 16,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 12,
+        "complete_success": 5
+      },
+      "fatca-crs-corporate": {
+        "mapped_fields": 76,
+        "covered_fields": 76,
+        "uncovered_fields": [],
+        "choice_options": 19,
+        "covered_choice_options": 19,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 19,
+        "complete_success": 5
+      },
+      "kyc-individual": {
+        "mapped_fields": 109,
+        "covered_fields": 109,
+        "uncovered_fields": [],
+        "choice_options": 122,
+        "covered_choice_options": 122,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 16,
+        "complete_success": 5
+      },
+      "kyc-corporate": {
+        "mapped_fields": 102,
+        "covered_fields": 102,
+        "uncovered_fields": [],
+        "choice_options": 60,
+        "covered_choice_options": 60,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 15,
+        "complete_success": 5
+      }
+    },
+    "failures": []
+  },
+  "submission_cycle": {
+    "checks": [
+      "Login/signup: EN and AR, desktop/mobile, source logos and role labels, no PDF engine or PDF loaded",
+      "Logged-out document routes redirect to sign-in",
+      "Real form edits propagate separate Arabic/English names and joined city/district to account and other forms",
+      "Offline edits retry to account; intentional clear persists after reload",
+      "Multiple tabs, fresh browser and individual/company/account isolation",
+      "Company English sharing is bidirectional and separate from Arabic identity",
+      "One-click unsigned submission, lost-response retry, single immutable version and receipt reference",
+      "Signed replacement archives the earlier PDF and all captured answers; stale replacement is rejected",
+      "Consent PDF upload works without inventing structured answers or signature verification",
+      "Management receives current versions, exact answers and signature status; preview/PDF/ZIP work; review controls disabled and cross-account access blocked",
+      "All eight filled forms submitted: 556 field values matched management records, and downloaded PDFs matched byte for byte"
+    ],
+    "errors": [],
+    "allFormAnswers": 556,
+    "passed": true
+  },
+  "visual_review": {
+    "updated_template_pages": 42,
+    "restored_original_signature_pages": 1,
+    "all_updated_pages_inspected": true,
+    "populated_examples_inspected": [
+      "signature-form",
+      "kyc-individual",
+      "subscription-form",
+      "fatca-crs-individual",
+      "fatca-crs-corporate"
+    ]
+  },
+  "original_pdfs": {
+    "signature-form": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+    "terms-and-conditions": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106"
+  }
+}

@@ -86,6 +86,30 @@ test('restored T&C keeps the exact original PDF and all original field/signature
  assert.ok(doc.fields.filter(f=>f.type==='date').every(f=>f.defaultToday&&f.dateParts.length===3));
 });
 
+test('restored signature form keeps the original PDF, one-page fields and specimen signature area',async()=>{
+ const {createHash}=await import('node:crypto');
+ const doc=docs.find(d=>d.id==='signature-form'),old=original.find(d=>d.id===doc.id);
+ assert.equal(createHash('sha256').update(readFileSync('public/pdfs/signature-form.pdf')).digest('hex'),'9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0');
+ assert.equal(doc.pages,1);assert.equal(doc.pdfVersion,'20260928-original-3');assert.equal(layouts[doc.id],undefined);
+ assert.deepEqual(doc.fields,old.fields);assert.deepEqual(signatureSlots(doc),old.signatureSlots);
+});
+
+test('original, retired modern and restored signature forms retain immutable signing destinations',()=>{
+ const doc=docs.find(d=>d.id==='signature-form');
+ const retired=JSON.parse(readFileSync('reference/documents/archived/signature-modern-layout.json'));
+ const restored={pages:doc.pages,pdfVersion:doc.pdfVersion,signatureSlots:signatureSlots(doc)};
+ const source={id:'a'.repeat(32),sha256:'b'.repeat(64),profile:{},answers:{},source:'online'};
+ const cases=[source,...[retired,restored].map(pdf_layout=>({...source,profile:{pdf_layout}}))];
+ const r=spawnSync('php',['-r',`require 'public/api/portal-versions.php';$p=json_decode(stream_get_contents(STDIN),true);$out=[];foreach($p['cases'] as $s){$before=$s;$out[]=[submissionSigningCapability($s,$p['doc']),$before===$s];}echo json_encode($out);`],{input:JSON.stringify({doc:{...doc,legacyPdfLayout:legacy[doc.id]},cases}),encoding:'utf8'});
+ assert.equal(r.status,0,r.stderr);const results=JSON.parse(r.stdout);
+ for(const [i,layout] of [legacy[doc.id],retired,restored].entries()){
+  assert.equal(results[i][0].expectedPages,layout.pages);
+  assert.deepEqual(results[i][0].signatureSlots,layout.signatureSlots.map(({section,...slot})=>slot));
+  assert.equal(results[i][1],true);
+ }
+ assert.deepEqual(results.map(r=>r[0].expectedPages),[1,2,1]);
+});
+
 test('original, retired modern and restored T&C submissions retain their own signing geometry',()=>{
  const doc=docs.find(d=>d.id==='terms-and-conditions');
  const retired=JSON.parse(readFileSync('reference/documents/archived/terms-modern-layout.json'));

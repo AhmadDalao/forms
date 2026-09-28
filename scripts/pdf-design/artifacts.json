@@ -1,32 +1,27 @@
 {
   "al-naeem-terms-consent": {
     "pages": 1,
-    "pdf_sha256": "4a8e74915de0acfe7206a1ed79f60b3e9b032876f0610a52d65f41e4899b48b1",
-    "docx_sha256": "874855f22f633c9cc37b1f3562393d90411ded1aec2f51304eb5b9ff7f99b7a1"
+    "pdf_sha256": "431d85dbd2732871fd09ab32345427e566f8c75e8b04b6094e30d0f9b88aa7c6",
+    "docx_sha256": "c66eb4faeed45db5376692fca3b97a52cf31b7494db4853ef4f4fb454a3e8434"
   },
   "fatca-crs-corporate": {
     "pages": 8,
-    "pdf_sha256": "51756da6947c427e334333389b92b96d9ce42327001a1db43656ef70379ae8c9",
-    "docx_sha256": "1047d2f555c0bb735226c31bb470a1eb2f2ce6bd40e91f8e6e193c1242a0d5b9"
+    "pdf_sha256": "10948ab007a60dfd76ddabc68b604efe86772a25a6683d07291879d442384083",
+    "docx_sha256": "243dd5c307dc4afe5a1401a92803e32e260e780e47649a2e50af641a2c9a812a"
   },
   "fatca-crs-individual": {
-    "pages": 9,
-    "pdf_sha256": "ff2efddcaf491cccd7cd6546846afa1aa0555e7f44566c1da68265702d1ada64",
-    "docx_sha256": "f12c450533689efc0b666dcb279ee623277af4fd83460c4d5a0c7eb32eda96ce"
+    "pages": 8,
+    "pdf_sha256": "14aa4a0914fc1346fbc6b9f9e46cf2e7fcc998b2aeeee22fa954f9201b7e8bd1",
+    "docx_sha256": "14750ee5c163f5fafbd883639ed591b84aa3521bd56bd8a191525642334ce6d1"
   },
   "kyc-corporate": {
     "pages": 10,
-    "pdf_sha256": "5514acd139103ff758d35d8e1ecbf6618fba59271c3c73ad79ca82230ee93f1f",
-    "docx_sha256": "eb3cba7dbad7767282fea3d37f6e7f13d9195cfd8bcae023237fd8278a175cb7"
+    "pdf_sha256": "cb54903c9d308c18ab75594e2da3305eaef855c6d3147a8212da189d38bbba83",
+    "docx_sha256": "659048060d2b7909d7b2272ab733f400573e876005a5dcb2e590b951e7aed599"
   },
   "kyc-individual": {
-    "pages": 12,
-    "pdf_sha256": "159874a7618917c88fb78c4d5ff3a24580e5e6ba2bf9493ff983838224faaf99",
-    "docx_sha256": "6c6c1baf9483016212593f0bd5342a2508ce56661d9e35e51497352230419d85"
-  },
-  "signature-form": {
-    "pages": 2,
-    "pdf_sha256": "2272b71bc91e3ac7ccce7777a25d8f521734a39d2d101685b7e57aa9a574766e",
-    "docx_sha256": "24fcf6f78813a034917453ede560e87ac684f6c825c33d4521419227bc1c95f1"
+    "pages": 11,
+    "pdf_sha256": "00491830d58ab4bc3a9243e39f8901ebfec0d280ad0184df373ce092fdfc1d2a",
+    "docx_sha256": "92abd947bba2826f55643fdf8a55ee627b606534f9188e626646ccbfd7501b7a"
   }
 }

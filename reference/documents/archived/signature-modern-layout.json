@@ -1,0 +1,19 @@
+{
+  "pages": 2,
+  "pdfVersion": "20260928-inline-2",
+  "signatureSlots": [
+    {
+      "id": "specimen",
+      "label": "Specimen signature",
+      "ar": "نموذج التوقيع",
+      "page": 2,
+      "rect": [
+        53.1,
+        112.6,
+        487.3,
+        63
+      ],
+      "section": "signatory"
+    }
+  ]
+}

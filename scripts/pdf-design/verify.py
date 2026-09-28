@@ -9,11 +9,20 @@ schemas={d['id']:d for d in json.loads((ROOT/'reference/documents/form-schema-20
 normalize=lambda text:re.sub(r'[\W_ـ]+','',text,flags=re.UNICODE).casefold()
 report={'documents':{},'failures':[]}
 for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
-    # T&C intentionally uses its original PDF, even if old generated files remain.
-    if path.parent.name=='terms-and-conditions':continue
+    # Signature and T&C use original PDFs, even if stale generated files remain.
+    if path.parent.name in {'terms-and-conditions','signature-form'}:continue
     identifier=path.parent.name;layout=json.loads(path.read_text());schema=schemas.get(identifier,{})
     docx=path.parent/f'{identifier}.docx';pdf=path.parent/'final'/f'{identifier}.pdf'
     package=Document(docx);text=' '.join(package._element.xpath('.//w:t/text()'));normalized=normalize(text)
+    if layout['version']=='20260928-sections-3':
+        for label in (['Educational Level','Marital Status','Correspondence / Statement'] if identifier=='kyc-individual' else ['Correspondence / Statement'] if identifier=='kyc-corporate' else []):
+            if text.count(label)!=1:report['failures'].append([identifier,'repeated section label',label])
+        if re.search(r'\bBox [12]\b',text):report['failures'].append([identifier,'unnecessary Box context label'])
+        pairs=({'representative_name':'representative','risk_client_name':'client'} if identifier.startswith('kyc-') else {'signer_ar':'signatory','signer_en':'signatory','staff_account_holder':'relationship_manager'} if identifier=='fatca-crs-individual' else {'signer_0_name':'signatory_0','signer_1_name':'signatory_1'} if identifier=='fatca-crs-corporate' else {})
+        for name,signature in pairs.items():
+            if name not in layout['fields']:continue
+            a=layout['fields'][name];b=layout['fields']['signature:'+signature]
+            if a['page']!=b['page'] or abs(a['rect'][1]-b['rect'][1])>.2:report['failures'].append([identifier,name,'name and signature are not on the same row'])
     for key in layout['sources']:
         expected=normalize(' '.join(row['text'] for row in sources[key]['lines']))
         if expected not in normalized:report['failures'].append([identifier,'source paragraph omitted or changed',key])
@@ -21,7 +30,7 @@ for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
     expected|={'signature:'+s['id'] for s in schema.get('signatureSlots',[])}
     if expected!=set(layout['fields']):report['failures'].append([identifier,'mapping coverage',sorted(expected^set(layout['fields']))])
     inline_choices=[]
-    if layout['version']=='20260928-inline-2' and identifier!='fatca-crs-corporate':
+    if layout['version'] in {'20260928-inline-2','20260928-sections-3'} and identifier!='fatca-crs-corporate':
         paragraphs=[' '.join(p.xpath('.//w:t/text()')).replace('  ',' ') for p in package._element.xpath('.//w:p')]
         for field in schema.get('fields',[]):
             for option in field.get('options',[]):
@@ -43,6 +52,12 @@ for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
             if '/' not in line or not re.search(r'[\u0600-\u06ff]',line) or normalize(option['label']) not in normalize(line):
                 report['failures'].append([identifier,field['id'],option['value'],'short bilingual choice not on one line',line])
         for n,page in enumerate(rendered.pages,1):
+            if layout['version']=='20260928-sections-3':
+                purple=tuple(int(v,16)/255 for v in ['40','1D','58'])
+                for bar in page.rects:
+                    color=bar.get('non_stroking_color')
+                    if isinstance(color,(list,tuple)) and len(color)==3 and max(abs(a-b) for a,b in zip(color,purple))<.001:
+                        if abs(bar['x0']-48)>.2 or abs(bar['x1']-547.3)>.2:report['failures'].append([identifier,n,'section bar does not match table width'])
             if re.search(r'M\d{4}X',page.extract_text() or ''):report['failures'].append([identifier,n,'probe marker in final PDF'])
             if any(c['x0']<0 or c['x1']>page.width+.5 or c['top']<0 or c['bottom']>page.height+.5 for c in page.chars if c['text'].strip()):report['failures'].append([identifier,n,'text outside page'])
             for key,field in layout['fields'].items():

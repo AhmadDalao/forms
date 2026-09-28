@@ -6,7 +6,7 @@ import {idOptions,titleOptions} from '../identity-options.js';
 for(const corporate of [false,true]){
  const id=corporate?'subscription-company':'subscription-form',map=corporate?companyLayout:individualLayout;
  const d=document(id,'Subscription Application for Al Naeem Real Estate Fund ('+(corporate?'Company':'Individual')+')','طلب الإشتراك في صندوق النعيم العقاري '+(corporate?'(للشركات)':'(للأفراد)'),corporate?'corporate':'individual','Customer details and fund subscription.','بيانات العميل والاشتراك في الصندوق.',2,[2]);
- Object.assign(d,{workflow:'subscription',typeName:corporate?'Company':'Individual',pdfUrl:appRoot+'pdfs/subscription-'+(corporate?'company':'individual')+'.pdf?v='+(corporate?'3':'4')});
+ Object.assign(d,{workflow:'subscription',typeName:corporate?'Company':'Individual',pdfVersion:'20260928-sections-3',pdfUrl:appRoot+'pdfs/subscription-'+(corporate?'company':'individual')+'.pdf?v=20260928-sections-3'});
  d.signatureSlots=[{id:'applicant',label:'Applicant signature',ar:'توقيع مقدم الطلب',...map.signature}];
  let s=section(d,'client','Customer details','تفاصيل العميل',1);
  const field=(id,en,ar,config={})=>text(d,s,id,en,ar,map[id]?.rect||null,{...map[id],fontSize:11,minFontSize:7,padding:2,direction:'auto',...config});

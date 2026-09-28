@@ -61,14 +61,14 @@ documents = ['subscription-individual', 'subscription-company', 'al-naeem-terms-
              'signature-form', 'kyc-individual', 'kyc-corporate', 'fatca-crs-individual',
              'fatca-crs-corporate', 'terms-and-conditions']
 for name in documents:
-    # The restored original T&C has no matching Word source; never ship the retired redesign as current.
-    if name != 'terms-and-conditions':
+    # The restored original T&C and signature PDFs have no matching Word sources; never ship the retired redesign as current.
+    if name not in {'terms-and-conditions','signature-form'}:
         copy(ROOT / 'output/documents' / (name + '.docx'), package / 'editable-documents' / (name + '.docx'))
     copy(ROOT / 'public/pdfs' / (name + '.pdf'), package / 'editable-documents' / (name + '.pdf'))
 copy(ROOT / 'docs/DEVELOPER-HANDOFF.md', package / 'INSTALL.md')
 copy(ROOT / 'docs/DEVELOPER-HANDOFF.md', package / 'source/README.md')
 copy(ROOT / 'docs/DEVELOPER-HANDOFF-AR.md', package / 'INSTALL-AR.md')
-for name in ['modern-pdf-release-2026-09-28.md', 'modern-pdf-verification.json', 'terms-restoration-2026-09-28.md', 'terms-restoration-verification.json', 'bilingual-pdf-update-2026-09-28.md', 'bilingual-pdf-verification.json']:
+for name in ['modern-pdf-release-2026-09-28.md', 'modern-pdf-verification.json', 'terms-restoration-2026-09-28.md', 'terms-restoration-verification.json', 'bilingual-pdf-update-2026-09-28.md', 'bilingual-pdf-verification.json', 'pdf-layout-refinement-2026-09-28.md', 'pdf-layout-refinement-verification.json']:
     copy(ROOT / 'docs' / name, package / 'verification' / name)
 copy(ROOT / 'docs/apache-vhost.example.conf', package / 'server/apache-vhost.conf')
 

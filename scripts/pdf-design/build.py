@@ -86,7 +86,7 @@ def table_setup(table,widths,borders=True,keep=True):
 
 class Builder:
     def __init__(self,schema,probe):
-        self.schema=schema;self.id=schema['id'];self.probe=probe;self.doc=Document(REF);self.markers={};self.printed=set();self.sources=[]
+        self.schema=schema;self.id=schema['id'];self.probe=probe;self.doc=Document(REF);self.markers={};self.printed=set();self.printed_signatures=set();self.sources=[];self.last_heading=None
         body=self.doc._element.body
         for el in list(body):
             if el.tag!=qn('w:sectPr'):body.remove(el)
@@ -121,30 +121,38 @@ class Builder:
 
     def heading(self,en,ar='',small=False):
         if not en and not ar:return
+        if self.last_heading==(en,ar):return
+        self.last_heading=(en,ar)
+        # Paragraph spacing is painted with its shading in Word. Use an actual
+        # white spacer so adjacent section/subsection bars remain distinct.
+        spacer=self.doc.add_paragraph();para(spacer,'',1,leading=5,keep=True)
         # Real body paragraphs honor keep-with-next across table boundaries in
         # both Word and LibreOffice; a separate heading table can be orphaned.
-        color=PURPLE if small else 'FFFFFF';shade='F3EEF6' if small else PURPLE
+        color='FFFFFF';shade=PURPLE
         long=bool(en and ar and len(en)+len(ar)>110)
         labels=[(en,False),(ar,True)] if long else [(None,False)]
         for index,(text,rtl) in enumerate(labels):
             p=self.doc.add_paragraph();para(p,'',10 if rtl else 8.5,rtl,True,color,19,True)
-            p.paragraph_format.space_before=Pt(5 if index==0 else 0);p.paragraph_format.space_after=Pt(0 if long and index==0 else 3)
-            p.paragraph_format.left_indent=Pt(6);p.paragraph_format.right_indent=Pt(6)
+            p.paragraph_format.space_before=Pt(0);p.paragraph_format.space_after=Pt(0 if long and index==0 else 3)
+            p.paragraph_format.left_indent=Pt(0);p.paragraph_format.right_indent=Pt(0)
+            p.paragraph_format.first_line_indent=Pt(5)
             shd=OxmlElement('w:shd');shd.set(qn('w:fill'),shade);p._p.get_or_add_pPr().append(shd)
             if text is not None:run(p,text,10 if rtl else 8.5,rtl,True,color)
             elif en and ar:
-                p.paragraph_format.tab_stops.add_tab_stop(Pt(WIDTH-12),WD_TAB_ALIGNMENT.RIGHT)
+                p.paragraph_format.tab_stops.add_tab_stop(Pt(WIDTH-5),WD_TAB_ALIGNMENT.RIGHT)
                 run(p,en+'\t',8.5,bold=True,color=color);run(p,ar,10,True,True,color)
             elif ar:p.alignment=WD_ALIGN_PARAGRAPH.RIGHT;run(p,ar,10,True,True,color)
             else:run(p,en,8.5,bold=True,color=color)
 
     def note(self,en,ar=''):
+        self.last_heading=None
         labels=[(en,False),(ar,True)] if en and ar else [(ar,True)] if ar else [(en,False)]
         t=self.doc.add_table(rows=1,cols=len(labels));table_setup(t,[WIDTH/len(labels)]*len(labels),False,False)
         for i,(txt,rtl) in enumerate(labels):para(t.cell(0,i).paragraphs[0],txt,10 if rtl else 8.5,rtl,leading=14 if rtl else 12)
         self.space(3)
 
     def fragment(self,key,arabic=None):
+        self.last_heading=None
         keys=[key,arabic] if arabic else [key];self.sources+=keys
         t=self.doc.add_table(rows=1,cols=len(keys));table_setup(t,[WIDTH/len(keys)]*len(keys),False,False)
         for i,k in enumerate(keys):
@@ -171,6 +179,8 @@ class Builder:
 
     def rows(self,items,widths=None,height=24):
         if not items:return
+        group_heading=self.last_heading
+        self.last_heading=None
         widths=widths or [WIDTH/len(items)]*len(items)
         t=self.doc.add_table(rows=1,cols=len(items));table_setup(t,widths)
         for i,(item,w) in enumerate(zip(items,widths)):
@@ -182,7 +192,8 @@ class Builder:
                 en+=' (%)';ar+=' (%)'
             # Corporate tax document remains in its original language.
             if self.id=='fatca-crs-corporate':ar=''
-            if f.get('context'):
+            redundant_context=f.get('context') and group_heading and f['context'][0]==group_heading[0]
+            if f.get('context') and not redundant_context and not re.fullmatch(r'Box \d+',f['context'][0]):
                 context=f['context'];para(c.paragraphs[0],context[0],7,bold=True,color=PURPLE,leading=10)
                 if ar and len(context)>1:para(c.add_paragraph(),context[1],8,True,True,PURPLE,11)
                 label=c.add_paragraph()
@@ -198,15 +209,24 @@ class Builder:
             answer=c.add_paragraph();para(answer,'',2,leading=height)
             if f.get('id'):
                 self.marker(answer,{'id':f['id'],'width':w-12,'height':height-2,'signature':f.get('signature',False)})
-                if not f.get('signature'):self.printed.add(f['id'])
+                if f.get('signature'):self.printed_signatures.add(f['id'])
+                else:self.printed.add(f['id'])
         self.space(.1)
         return t
 
     def choice(self,f):
         # Keep a whole question together: one field has one PDF page even when
         # the section spans several pages.
+        ar=f.get('ar','') if self.id!='fatca-crs-corporate' else ''
+        norm=lambda s:re.sub(r'\W+','',s).casefold()
+        repeated=self.last_heading and norm(self.last_heading[0])==norm(f['label'])
+        category=not re.match(r'^\d+[.]',f['label']) and '?' not in f['label'] and '؟' not in ar and len(f['label'])+len(ar)<160
+        if not repeated and category:self.heading(f['label'],ar);repeated=True
+        group_heading=self.last_heading if repeated else None
+        self.last_heading=None
         outer=self.doc.add_table(rows=1,cols=1);table_setup(outer,[WIDTH]);cell=outer.cell(0,0)
-        if self.id!='fatca-crs-corporate' and f.get('ar'):
+        if repeated:para(cell.paragraphs[0],'',1,leading=1)
+        elif self.id!='fatca-crs-corporate' and f.get('ar'):
             if len(f['ar'])*6.2+len(f['label'])*4.8+15<WIDTH-32:
                 p=cell.paragraphs[0];para(p,'',9,leading=14)
                 run(p,'\u2067'+f['ar']+'\u2069',9.5,True,True);run(p,' / ',8,color=MUTED);run(p,'\u2066'+f['label']+'\u2069',8,color=MUTED)
@@ -238,6 +258,7 @@ class Builder:
         para(cell.paragraphs[-1],'',1,leading=1)
         self.printed.add(f['id'])
         self.space(.1)
+        self.last_heading=group_heading
 
     def field_list(self,ids):
         pending=[]
@@ -246,6 +267,11 @@ class Builder:
         for id in ids:
             f=self.fields[id]
             if f.get('uiOnly') or id in self.printed:continue
+            pair=({'representative_name':'representative','risk_client_name':'client'} if self.id.startswith('kyc-') else {'staff_account_holder':'relationship_manager'} if self.id=='fatca-crs-individual' else {'signer_0_name':'signatory_0','signer_1_name':'signatory_1'} if self.id=='fatca-crs-corporate' else {}).get(id)
+            if pair:
+                flush();self.rows([id,self.signature_field(pair)],height=45);continue
+            if self.id=='fatca-crs-individual' and id=='signer_ar':
+                flush();self.rows(['signer_ar','signer_en',self.signature_field('signatory')],widths=[175,175,WIDTH-350],height=45);continue
             if f['type']=='choice':flush();self.choice(f);continue
             compact_controller=self.id=='fatca-crs-corporate' and re.match(r'^person_\d+_(dob|birthplace|nationality|country|ownership|tin)$',id)
             wide=not compact_controller and (f.get('multiline') or f.get('join') or len(f['label'])>55 or len(f.get('ar',''))>65)
@@ -256,10 +282,14 @@ class Builder:
                 if len(pending)==2:flush()
         flush()
 
-    def signature(self,id):
+    def signature_field(self,id):
         s=self.signatures[id]
         if id=='specimen':s={**s,'label':'Specimen Signature(s)/Figerprint','ar':'نموذج التوقيع / البصمة'}
-        self.rows([{'id':id,'label':s['label'],'ar':s['ar'],'signature':True}],height=65)
+        if self.id=='fatca-crs-corporate':s={**s,'label':'Signature','ar':''}
+        return {'id':id,'label':s['label'],'ar':s['ar'],'signature':True}
+
+    def signature(self,id):
+        self.rows([self.signature_field(id)],height=65)
 
     def section(self,id):
         section_id=id
@@ -296,11 +326,8 @@ class Builder:
             self.note('No. Of Points more than (15): high risks (recommends client to invest in the funds/ portfolio high risks)','عدد النقاط أكثر من (15): مخاطر مرتفعة (ننصح العميل بالاستثمار في منتجات عالية المخاطر)')
             self.note('Despite recommendation Itqan Capital','بالرغم من توصية إتقان كابيتال')
         self.field_list([f['id'] for f in s['fields']])
-        if self.id=='fatca-crs-corporate' and section_id=='signatories':
-            self.rows([{**slot,'signature':True} for slot in self.signatures.values() if slot.get('section')==section_id],height=65)
-            return
         for slot in self.signatures.values():
-            if slot.get('section')==section_id:
+            if slot.get('section')==section_id and slot['id'] not in self.printed_signatures:
                 if slot['id']=='specimen':self.doc.add_page_break()
                 self.signature(slot['id'])
 
@@ -322,7 +349,7 @@ class Builder:
         self.manual_options('Client Classification','تصنيف العميل',[['Retail Client','عميل تجزئة'],['A qualified Client','عميل مؤهل'],['An Institutional Client','عميل مؤسسي']])
         self.manual_options('Client Risk Rating','درجة تقييم مخاطر العميل',[['Low','منخفض'],['Medium','متوسط'],['High','عالية']])
         self.heading('Senior Management Approval (If needed)','موافقة الإدارة العليا (عند الحاجة)',True)
-        self.rows([{'label':'Name','ar':'الاسم'},{'label':'Position','ar':'الوظيفة'}]);self.rows([{'label':'Date','ar':'التاريخ'},{'label':'Signature','ar':'التوقيع'}],height=35)
+        self.rows([{'label':'Name','ar':'الاسم'},{'label':'Signature','ar':'التوقيع'}],height=35);self.rows([{'label':'Position','ar':'الوظيفة'},{'label':'Date','ar':'التاريخ'}])
 
     def build(self):
         id=self.id
@@ -335,14 +362,17 @@ class Builder:
         elif id.startswith('kyc-'):
             for s in self.schema['sections']:
                 if s['id']=='suitability':
-                    self.doc.add_page_break();self.staff_kyc();self.doc.add_page_break()
+                    if id=='kyc-corporate':self.doc.add_page_break()
+                    self.staff_kyc();self.doc.add_page_break()
                 self.section(s['id'])
         elif id=='fatca-crs-individual':
             self.fragment('tax-intro-en','tax-intro-ar');self.section('identity');self.section('residency')
             self.fragment('tax-tin-en','tax-tin-ar');self.fragment('tax-tin-entry-en','tax-tin-entry-ar');self.fragment('tax-residency-en','tax-residency-ar');self.fragment('tax-reasons-en','tax-reasons-ar');self.section('tax')
             self.heading('Section D – Declaration and Signature','القسم د – الإقرار والتوقيع')
             self.fragment('tax-declaration-en','tax-declaration-ar');self.section('signatory');self.section('staff')
-            self.doc.add_page_break();self.heading('Definitions','التعريفات');self.fragment('tax-definitions-en','tax-definitions-ar');self.fragment('tax-definitions-continued-en','tax-definitions-continued-ar')
+            # The source fragments already contain their bilingual glossary
+            # heading; printing another title repeats it immediately below.
+            self.doc.add_page_break();self.fragment('tax-definitions-en','tax-definitions-ar');self.fragment('tax-definitions-continued-en','tax-definitions-continued-ar')
         elif id=='fatca-crs-corporate':
             self.section('entity');self.fragment('entity-tax-instructions');self.section('tax')
             self.note('If the Account Holder is tax resident in more than three countries/jurisdictions, please use a separate sheet')
@@ -350,7 +380,8 @@ class Builder:
             self.fragment('entity-controller-intro');self.section('controllers');self.fragment('entity-controller-reasons')
             self.fragment('entity-declaration');self.section('signatories')
             self.heading('(To be completed by the company Account Officer)')
-            for en in ['Customer Account Number:','Account Officer Name:','Account Officer signature:']:self.rows([{'label':en}],height=30)
+            self.rows([{'label':'Customer Account Number:'}],height=30)
+            self.rows([{'label':'Account Officer Name:'},{'label':'Account Officer signature:'}],height=45)
             p=self.doc.add_paragraph();para(p,'The remainder of this page ',8,color=MUTED)
             n=OxmlElement('w:fldSimple');n.set(qn('w:instr'),'PAGE');p._p.append(n)
             run(p,' is intentionally left blank.',8,color=MUTED)
@@ -358,7 +389,8 @@ class Builder:
             self.heading('','إقرار من مالكي الوحدات:')
             self.note('','لقد قمت / قمنا بقراءة الشروط والأحكام والملاحق الخاصة بالصندوق وفهم ما جاء فيها والموافقة عليها، كما جرى الحصول على نسخة منها بعد التوقيع عليها. وإثباتاً لما تقدم، قام المستثمر بالتوقيع على هذه الشروط والأحكام الخاصة بالصندوق في التاريخ والسنة المذكورين أدناه.')
             self.space(25);self.heading('','من قبل المستثمر')
-            for ar in ['الاسم:','التوقيع:','التاريخ:']:self.rows([{'ar':ar}],height=45)
+            self.rows([{'ar':'التوقيع:'},{'ar':'الاسم:'}],height=55)
+            self.rows([{'ar':'التاريخ:'}],height=30)
             self.space(45)
             t=self.doc.add_table(rows=1,cols=2);table_setup(t,[WIDTH/2]*2,False)
             para(t.cell(0,0).paragraphs[0],'العضو المنتدب والرئيس التنفيذي\nد. محمد بسام هاشم السيد',10,True,leading=16)
@@ -394,14 +426,13 @@ def measure(pdf,markers):
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--only');ap.add_argument('--author-only',action='store_true');args=ap.parse_args()
     titles={
-        'signature-form':('Signature Form','نموذج توقيع'),
         'kyc-individual':('Investor Information (Individuals)','معلومات المستثمر (أفراد)'),
         'kyc-corporate':('Investor Information (Corporate)','معلومات المستثمر (الشركات)'),
         'fatca-crs-individual':('INTERNATIONAL TAX TRANSPARENCY — Self-Certification & Declaration Form (FATCA & CRS) – INDIVIDUAL','الشفافية الضريبية الدولية — نموذج شهادة إقرار ذاتي (قانون الامتثال الضريبي للحسابات الأجنبية ومعيار الإبلاغ المشترك) – الأفراد'),
         'fatca-crs-corporate':('International Tax Self-Certification Form (For ENTITIES)',''),
         'al-naeem-terms-consent':('','إتقان كابيتال | صندوق النعيم العقاري')}
     if args.only and set(args.only.split(','))-set(titles):
-        ap.error('Unknown or excluded document. Terms and conditions must retain its original PDF.')
+        ap.error('Unknown or excluded document. Signature form and terms and conditions must retain their original PDFs.')
     documents=[d for d in SCHEMA if d['id'] in titles]+[{'id':'al-naeem-terms-consent'}]
     manifest={}
     for schema in documents:
@@ -420,7 +451,7 @@ def main():
                 with pdfplumber.open(pdf) as rendered:
                     assert len(rendered.pages)==pages,(id,len(rendered.pages),pages)
                     assert not any(re.search(r'M\d{4}X',p.extract_text() or '') for p in rendered.pages)
-                manifest[id]={'pages':pages,'fields':layout,'sources':b.sources,'version':'20260928-inline-2'}
+                manifest[id]={'pages':pages,'fields':layout,'sources':b.sources,'version':'20260928-sections-3'}
                 (base/'layout.json').write_text(json.dumps(manifest[id],ensure_ascii=False,indent=2)+'\n')
                 print(id,pages,'pages',len(layout),'mapped destinations',flush=True)
     (OUT/'build-result.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
