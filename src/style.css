@@ -159,7 +159,7 @@ button.shared-hint{padding:0;text-decoration:underline;text-underline-offset:3px
 @media(max-width:760px){.field.compact-choices .options:has(>.option-row){grid-template-columns:repeat(2,minmax(0,1fr))}.field-grid .identity-row,.sub-fields.identity-row{gap:12px}.card-actions .blank-link{flex-direction:column}}
 @media(max-width:550px){.field-grid .identity-row,.sub-fields.identity-row{grid-template-columns:1fr}.doc-card .card-actions{grid-template-columns:1fr;padding:14px}.card-actions .blank-link{flex-direction:row}.card-status{padding-inline:18px}}
 
-/* Six forms fit on a laptop; smaller screens keep natural scrolling. */
+/* Two-column catalogue; phones use one column with natural scrolling. */
 .site-header:has(+.home){min-height:90px;margin-block:16px 20px;padding-block:12px}
 .home{width:calc(100% - 48px);max-width:1192px;padding:0 0 12px}
 .home-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:18px}
@@ -168,7 +168,7 @@ button.shared-hint{padding:0;text-decoration:underline;text-underline-offset:3px
 .home .intro p{font-size:13px;line-height:1.65;max-width:810px}
 .home .catalogue-toolbar{flex:none;margin:0}
 .home .catalogue-toolbar .button{font-size:12px;padding:10px 12px}
-.home .cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.home .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .home .doc-card{min-height:0}
 .home .card-open{min-height:112px;padding:14px 16px;gap:12px}
 .home .card-number{width:32px;height:32px;border-radius:8px;font-size:16px}
@@ -180,5 +180,5 @@ button.shared-hint{padding:0;text-decoration:underline;text-underline-offset:3px
 .home .card-actions{padding:10px;gap:6px}
 .home .card-actions .blank-link{padding:8px 5px;font-size:11px;gap:5px;min-height:44px;line-height:1.5}
 .home+.shared-save-summary{margin-block:0 12px;font-size:12px}
-@media(max-width:1099px){.home .cards{grid-template-columns:repeat(2,minmax(0,1fr))}.home-heading{align-items:flex-start;flex-direction:column;gap:14px}.home .catalogue-toolbar{align-self:flex-end}}
+@media(max-width:1099px){.home-heading{align-items:flex-start;flex-direction:column;gap:14px}.home .catalogue-toolbar{align-self:flex-end}}
 @media(max-width:600px){.home{width:calc(100% - 32px);padding-top:4px}.home-heading{margin-bottom:16px}.home .intro h1,[dir=rtl] .home .intro h1{font-size:26px}.home .cards{grid-template-columns:1fr;gap:12px}.home .card-open{min-height:0;padding:18px 16px}.home .card-body b{font-size:15px}.home .card-actions{grid-template-columns:repeat(3,minmax(0,1fr))}.home .card-actions .blank-link{flex-direction:column;font-size:11px;gap:4px;min-height:60px}.home .catalogue-toolbar{align-self:stretch}.home .catalogue-toolbar .button{width:100%}}
