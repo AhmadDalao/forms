@@ -10,6 +10,7 @@ The editable Word sources, public PDFs and measured answer/signature positions w
 - Content checks preserve 23 source fragments across the modern template family. The four changed templates have 167 short bilingual choices verified on the same PDF baseline.
 - Visually inspected every updated template page (33 pages), plus populated examples for Arabic names, English contact values, title/Yes/No checkmarks, risk assessment and signatures.
 - Generated 53 PDFs covering five complete fills per changed form, blanks, partial/shared data and all choices. Independent rendering checked 470 pages, all 278 mapped fields, all 204 choices and all six signature positions. No missing marks, paper erasure or ink outside the assigned spaces was found.
+- All 33 updated pages passed preview checks in Chromium, Firefox and WebKit: 99 exact rendering comparisons between Arabic and English interfaces.
 - The disposable full submission cycle passed: all eight editable forms saved 556 exact answer values to management, with byte-identical downloads. Lost-response retry, archived versions, shared fields, account isolation and signed replacements were also checked.
 
 Detailed results, browser checks and publication verification are recorded in `bilingual-pdf-verification.json`. Previous release reports in the package describe their historical layouts; this report and the current editable documents supersede their KYC page counts.
@@ -17,3 +18,5 @@ Detailed results, browser checks and publication verification are recorded in `b
 ## Deployment and handoff
 
 Publish only the public build. Preserve production private storage and existing PDF versions. The delivery includes updated Word/PDF pairs, source, installation instructions and a separate verified private migration archive; none of those private files belongs under the web root.
+
+Published to `https://forms.ahmaddalao.com/` from source commit `8903550`. All nine read-only live smoke checks passed, including template hashes, protected downloads and existing management previews. Fresh before/after snapshots confirmed unchanged four clients, 15 saved PDF versions (nine archived), five shared profiles and two historical review records. The refreshed private migration archive passed a clean restore and PDF-integrity verification.

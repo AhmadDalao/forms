@@ -827,7 +827,29 @@
     ]
   },
   "deployment": {
-    "status": "pending"
+    "status": "passed",
+    "url": "https://forms.ahmaddalao.com/",
+    "source_commit": "89035500dd86d3a7e503d7bce55d278b0c16cedd",
+    "uploaded_at_utc": "20260928T055141Z",
+    "live": {
+      "sourceCommit": "89035500dd86d3a7e503d7bce55d278b0c16cedd",
+      "started": "2026-09-28T05:54:55.792Z",
+      "checks": [
+        "Protected document pages, templates, client data and management endpoints deny anonymous access; private paths are inaccessible",
+        "Live login/signup display the supplied title and four partner logos in English/Arabic without desktop/mobile overflow",
+        "Served auth assets match release hashes; heavy PDF engines remain deferred",
+        "Superadmin login, direct-intake migration, current-submissions filters and management navigation work; previous records remain accessible",
+        "Live superadmin Administrators tab and chosen-password controls work in both languages; no accounts created or passwords changed",
+        "All eight editable templates and consent download match the verified local PDFs",
+        "Existing production submission details and its PDF remain readable and hash-consistent",
+        "Live management profile includes every applicable form and marks only absent current submissions as not submitted",
+        "Existing submitted PDF renders fully in the Arabic management preview with corrected canvas direction; download bytes remain unchanged"
+      ],
+      "errors": [],
+      "businessWrites": 0,
+      "passed": true,
+      "finished": "2026-09-28T05:55:18.103Z"
+    }
   },
   "browser_previews": {
     "checks": [
@@ -1626,5 +1648,17 @@
     ],
     "errors": [],
     "passed": true
+  },
+  "private_migration": {
+    "restore_verified": true,
+    "unchanged_tables": {
+      "users": 4,
+      "submissions": 15,
+      "client_shared_profiles": 5,
+      "submission_reviews": 2
+    },
+    "unchanged_pdf_files": 15,
+    "archived_versions": 9,
+    "snapshot_sha256": "accd5b77662b947f6ea47280968b1671f94f287cc02e901aa217b9c10a220644"
   }
 }
