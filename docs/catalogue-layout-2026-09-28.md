@@ -9,3 +9,5 @@ Verification: 229 existing tests passed. Chrome, Firefox and WebKit passed 186 l
 The loading audit confirms the catalogue/editor still defer PDFs and the PDF engine, continue while profile synchronization is pending, preserve edits and restore saved account data. This release changes only frontend layout; PDF files, answers, shared-data behavior, accounts and schema 7 remain unchanged.
 
 Run `npm run build`, then `node scripts/catalogue-layout-audit.mjs` and `node scripts/loading-audit.mjs`. Browser checks use isolated local PHP/SQLite storage and synthetic clients. See `catalogue-layout-verification.json` for results.
+
+Published to the main Hostinger site with overwritten files backed up and private storage retained. Live checks passed: all 36 JavaScript/CSS assets match the build, login/signup headers are single-line in both languages, client forms require authentication, and authenticated management navigation fits desktop/tablet/mobile. Client card flows were checked with isolated synthetic accounts; no production client submission was created or modified. See `catalogue-layout-live-verification.json`.

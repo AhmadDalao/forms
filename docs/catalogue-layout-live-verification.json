@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "en 390: one-line live login/signup header; client forms require authentication",
+    "en 1366: one-line live login/signup header; client forms require authentication",
+    "ar 390: one-line live login/signup header; client forms require authentication",
+    "ar 1366: one-line live login/signup header; client forms require authentication",
+    "Every hosted JavaScript/CSS asset matches the tested build",
+    "en 390: authenticated management header stays on one line and navigation is visible",
+    "en 820: authenticated management header stays on one line and navigation is visible",
+    "en 1366: authenticated management header stays on one line and navigation is visible",
+    "ar 390: authenticated management header stays on one line and navigation is visible",
+    "ar 820: authenticated management header stays on one line and navigation is visible",
+    "ar 1366: authenticated management header stays on one line and navigation is visible"
+  ],
+  "errors": [],
+  "assets": 36,
+  "passed": true
+}
