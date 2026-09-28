@@ -1,0 +1,15 @@
+{
+  "unit_tests": {
+    "passed": 235,
+    "failed": 0
+  },
+  "browser": {
+    "checks": [
+      "ar: old inherited staff names empty; final preview/download/submission retain blanks; manual names survive reload without changing shared identity or submitted snapshot",
+      "en: new staff names empty; final preview/download/submission retain blanks; manual names survive reload without changing shared identity or submitted snapshot"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "scope": "Individual FATCA/CRS staff name sharing only; manually entered names and historical snapshots preserved."
+}

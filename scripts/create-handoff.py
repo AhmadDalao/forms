@@ -53,7 +53,7 @@ scripts = ['build-folders.mjs', 'management-defaults.mjs', 'management-router.ph
            'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'current-pdf-audit.mjs',
            'current-pdf-audit-verify.py', 'preview-font-audit.mjs', 'preview-direction-audit.mjs',
            'client-corrections-audit.mjs', 'direct-intake-audit.mjs', 'form-access-audit.mjs', 'management-views-audit.mjs',
-           'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'admin-presentation-audit.mjs', 'loading-audit.mjs', 'customer-workflow-audit.mjs', 'notifications-audit.mjs', 'catalogue-layout-audit.mjs', 'client-preview-audit.mjs']
+           'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'admin-presentation-audit.mjs', 'loading-audit.mjs', 'customer-workflow-audit.mjs', 'notifications-audit.mjs', 'catalogue-layout-audit.mjs', 'client-preview-audit.mjs', 'staff-name-audit.mjs']
 for name in scripts:
     copy(ROOT / 'scripts' / name, package / 'source/scripts' / name)
 for name in ['package.json', 'package-lock.json', 'vite.config.js', 'index.html', '.gitignore']:

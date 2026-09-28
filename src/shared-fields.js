@@ -130,7 +130,9 @@ export function sharedRules(doc,values={},profile={},audience=doc.group){
   for(const key of ['building','street','district','city','postal','country']){address('mail_'+key,key,'mail');address('sa_'+key,key,'residence');}
   if(values.capacity==='holder'){name('signer_en','en');name('signer_ar','ar');}
   else{composite('signer_en',[],()=> '');composite('signer_ar',[],()=> '');}
-  name('staff_account_holder');
+  // Staff complete this section independently. The empty read also retires
+  // inherited draft names; reconcileShared preserves manual entries and revisions.
+  composite('staff_account_holder',[],()=> '');
  }
  if(doc.id==='kyc-corporate'){
   company('company');company('risk_client_name');bind('cr','company_id_number');same(['inc_country','phone','mobile','email','auth_id_type','auth_id']);

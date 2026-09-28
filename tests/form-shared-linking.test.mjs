@@ -15,7 +15,7 @@ for(const language of ['en','ar'])for(const source of ['subscription-form','kyc-
  else name(store,source,source==='kyc-individual'?'name':source==='signature-form'?'client_name':source==='terms-and-conditions'?'terms_name_0':language,values);
  for(const [i,part]of parts.entries())assert.equal(store.profile[language+'_'+part],values[i]);
  const full=values.filter(Boolean).join(' ');
- for(const [id,field]of [['signature-form','client_name'],['terms-and-conditions','terms_name_0'],['terms-and-conditions','authorization_name_0'],['kyc-individual','risk_client_name'],['fatca-crs-individual','staff_account_holder']])assert.equal(store.get(id).values[field],full,id+'/'+field);
+ for(const [id,field]of [['signature-form','client_name'],['terms-and-conditions','terms_name_0'],['terms-and-conditions','authorization_name_0'],['kyc-individual','risk_client_name']])assert.equal(store.get(id).values[field],full,id+'/'+field);
  assert.equal(store.get('kyc-individual').values.name_1,values.slice(0,2).join(' '));
  assert.equal(store.get('kyc-individual').values.name_2,values[3]);
  for(const [i,field]of (language==='ar'?['first_name','second_name','third_name','family_name']:parts.map(p=>'en_'+p)).entries())assert.equal(store.get('subscription-form').values[field],values[i]);
