@@ -1,0 +1,26 @@
+{
+  "checks": [
+    "ar 1440: login/signup fund name, layout and protected customer pages",
+    "ar 390: login/signup fund name, layout and protected customer pages",
+    "en 1440: login/signup fund name, layout and protected customer pages",
+    "en 390: login/signup fund name, layout and protected customer pages",
+    "admin ar 1440: management navigation, permissions and submissions",
+    "admin ar 390: management navigation, permissions and submissions",
+    "admin en 1440: management navigation, permissions and submissions",
+    "admin en 390: management navigation, permissions and submissions",
+    "admin: both preview entry points work; stored answer snapshot and PDF hash unchanged",
+    "superadmin ar 1440: management navigation, permissions and submissions",
+    "superadmin ar 390: management navigation, permissions and submissions",
+    "superadmin en 1440: management navigation, permissions and submissions",
+    "superadmin en 390: management navigation, permissions and submissions",
+    "superadmin: both preview entry points work; stored answer snapshot and PDF hash unchanged"
+  ],
+  "errors": [],
+  "blockedWrites": [],
+  "pdfs": 10,
+  "assets": 15,
+  "passed": true,
+  "url": "https://forms.ahmaddalao.com/",
+  "deployed_application_commit": "174c05aae4375676da9a8775ae7aa1a592c74135",
+  "uploaded_at_utc": "20260928T141607Z"
+}
