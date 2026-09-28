@@ -46,6 +46,9 @@ try{
   for(const person of people){
    await p.locator('[data-users]').click();await p.locator('#client-search').waitFor();await p.locator('[data-client="'+person.user.id+'"]').click();await p.locator('.admin-client-facts').waitFor();
    assert.equal(await p.locator('[data-client-account-type] [data-account-type]').getAttribute('data-account-type'),person.user.account_type);
+   assert.equal(await p.locator('[data-account-shared-profiles],.admin-shared-details').count(),0);
+   assert.equal(await p.locator('.admin-profile-overview').count(),1);
+   const profileShot=f.out+'/profile-'+person.user.account_type+'-'+lang+'-'+width+'.png';await p.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));await p.screenshot({path:profileShot});report.screenshots.push(profileShot);
    for(const s of person.submissions){
     await p.locator('#submitted-version').selectOption(s.id);await p.locator('[data-profile-details-body][aria-busy=false] [data-submitted-version="'+s.id+'"]').waitFor();
     const model=submissionDetailsModel(s,lang),body=p.locator('[data-profile-details-body]');

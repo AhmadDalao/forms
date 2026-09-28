@@ -27,7 +27,7 @@ try{
    await p.goto(f.base+'/management/');await p.locator('.admin-stats').waitFor();
    for(const language of ['en','ar']){
     await lang(p,language);await p.setViewportSize({width:language==='en'?1440:390,height:900});
-    await profile(p,u.id);await preview(p,'[data-preview="'+current.id+'"]');
+    await profile(p,u.id);assert.equal(await p.locator('[data-account-shared-profiles]').count(),0);assert.equal(await p.locator('#account-type-form').count(),role==='superadmin'?1:0);await preview(p,'[data-preview="'+current.id+'"]');
     await p.locator('#submitted-version').selectOption(current.id);await p.locator('[data-profile-details-body][aria-busy=false]').waitFor();await preview(p,'[data-details-preview]');await p.locator('.admin-history>summary').click();await preview(p,'[data-preview="'+archived.id+'"]');
     await profile(p,co.id);await preview(p,'[data-preview="'+corporate.id+'"]');
     assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);

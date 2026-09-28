@@ -121,10 +121,69 @@
 .management-mode-badge[data-workflow-mode=tool]{background:#eff6f4;border-color:#cde0d8;color:#386351}
 .workflow-settings{padding:26px;max-width:980px}.workflow-current{font-size:14px;color:#6d587b;margin:0 0 24px;line-height:1.8}.workflow-current strong{color:#48235f}.workflow-settings fieldset{border:0;margin:0;padding:0;min-width:0}.workflow-settings legend{font-size:14px;font-weight:600;margin-bottom:15px}.workflow-options{display:grid;grid-template-columns:1fr 1fr;gap:18px}.workflow-option{display:flex;gap:13px;padding:22px;border:1px solid #e1d7e8;border-radius:12px;background:#fff;cursor:pointer;min-width:0}.workflow-option.selected{border-color:#78518f;background:#f6f0fa;box-shadow:inset 0 0 0 1px #78518f}.workflow-option:focus-within{outline:2px solid #9e79b3;outline-offset:3px}.workflow-option input[type=radio]{width:18px;height:18px;flex:0 0 18px;min-height:0;margin:3px 0 0;accent-color:#60377b}.workflow-option span{display:block}.workflow-option b{display:block;font-size:16px;line-height:1.7}.workflow-option small{display:block;margin-top:9px;font-size:13px;line-height:1.9;color:#786583}.workflow-settings fieldset:disabled .workflow-option{cursor:default}.workflow-settings [data-workflow-status]{font-size:13px;line-height:1.8;color:#634477;white-space:pre-wrap}.workflow-settings [data-workflow-status]:empty{display:none}.workflow-history{border-top:1px solid #e8dfed;margin-top:22px;padding-top:20px}.workflow-history summary{font-size:14px;font-weight:600;cursor:pointer}.workflow-history ol{padding-inline-start:22px}.workflow-history li{padding:12px 0;line-height:1.8}.workflow-history li strong,.workflow-history li span{display:block;font-size:12px}.workflow-history li span{color:#7d6b88}
 @media(max-width:700px){.workflow-options{grid-template-columns:1fr}.workflow-settings{padding:20px}.workflow-option{padding:18px}.management-mode-badge{max-width:none;font-size:10px}.workflow-settings button[type=submit]{width:100%}}
-.admin-shared-details>summary{padding:22px 25px;cursor:pointer;font-size:18px;font-weight:600;line-height:1.8;color:#533069;list-style-position:inside}
-.admin-shared-details>summary:focus-visible{outline:2px solid #78548e;outline-offset:-4px;border-radius:12px}
-.admin-shared-details>.submitted-details{padding:0 25px 24px}
-.admin-shared-audience+.admin-shared-audience{border-top:1px solid #e9e1ef;margin-top:24px;padding-top:10px}
-.admin-shared-audience h3{font-size:16px;color:#533069;margin:16px 0 10px}
-.admin-shared-group h4{font-size:13px;font-weight:500;color:#776082;line-height:1.8;margin:20px 0 14px}
-@media(max-width:500px){.admin-shared-details>summary{font-size:16px;padding:18px}.admin-shared-details>.submitted-details{padding:0 18px 20px}}
+/* Client profile: one account summary, followed by document-specific answers. */
+.admin-profile-overview{overflow:hidden}
+.admin-profile-overview .admin-profile-heading{padding:26px 28px;margin:0;gap:22px}
+.admin-profile-identity{display:flex;align-items:center;gap:16px;min-width:0;flex:1}
+.admin-profile-avatar{display:grid;place-items:center;flex:none;width:58px;height:58px;border:1px solid #e4d8ed;border-radius:16px;background:#f3edf8;color:#603c78;font-size:25px;font-weight:600}
+.admin-profile-identity>div{min-width:0}.admin-profile-name{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.admin-profile-heading .admin-eyebrow{font-size:10px;letter-spacing:.1em;margin-bottom:5px;display:block;color:#9985a6}
+.admin-profile-heading .admin-profile-name h1{margin:0;font-size:27px;line-height:1.6}
+.admin-profile-heading>.admin-row-actions{max-width:none;gap:9px}
+.admin-profile-overview .admin-client-facts{border:0;border-top:1px solid #eee8f2;border-radius:0;background:#fcfafd;margin:0;padding:20px 28px;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.admin-profile-overview .admin-client-facts small{color:#8b7895;font-size:11px}
+.admin-profile-overview .admin-client-facts strong{margin-top:5px;color:#4e3b5c;font-size:14px;font-weight:500}
+.admin-profile-archive-count{font-size:11px;color:#95829f;margin-inline-start:12px;font-weight:400}
+.admin-profile-meta{display:flex;flex-wrap:wrap;gap:8px 28px;padding:14px 28px;border-top:1px solid #eee8f2;font-size:11px;color:#95829f;line-height:1.9}
+.admin-profile-meta bdi{margin-inline-start:8px;color:#6c587b}
+.admin-profile-overview .admin-account-type{padding:16px 28px;border-top:1px solid #eee8f2;background:#fcfafd}
+.admin-profile-overview #account-type-form{display:flex;align-items:center;flex-wrap:wrap;gap:12px 20px}
+.admin-profile-overview .admin-account-type label{font-size:12px;color:#7c638c;font-weight:500;margin:0}
+.admin-profile-overview .admin-type-controls{flex:1;max-width:430px;gap:10px}
+.admin-profile-overview .admin-type-controls select{min-height:42px;font-size:12px;margin:0}
+.admin-profile-overview .admin-type-controls button{font-size:12px}
+.admin-profile-overview [data-type-status]{margin:0;font-size:12px}
+.admin-profile-documents .admin-section-heading,.admin-submitted-details>.admin-section-heading{background:#fff;padding:22px 26px}
+.admin-document-count{font-size:12px;font-weight:500;color:#7b618d;background:#f5eff9;border-radius:99px;padding:5px 11px;white-space:nowrap}
+.admin-submitted-details .admin-details-selector{display:grid;grid-template-columns:150px minmax(0,1fr);align-items:center;gap:12px;padding:18px 26px}
+.admin-submitted-details .admin-details-selector select{margin:0;border-radius:10px}
+.admin-submitted-details [data-profile-details-body]{padding:26px}
+.admin-submitted-details .admin-selected-document{margin-bottom:14px}
+.admin-submitted-details .submitted-details-note{font-size:11px;margin:0 0 16px}
+.admin-submitted-details .submitted-detail-section{border:1px solid #e6deec;border-radius:12px;margin:10px 0 0;overflow:hidden;background:#fff}
+.admin-submitted-details .submitted-detail-section[open]{padding:0}
+.admin-submitted-details .submitted-detail-section>summary{display:flex;align-items:center;justify-content:space-between;gap:18px;list-style:none;padding:17px 20px;font-size:14px;background:#faf7fc}
+.admin-submitted-details .submitted-detail-section>summary::-webkit-details-marker{display:none}
+.admin-submitted-details .submitted-detail-section>summary::after{content:'';flex:none;width:7px;height:7px;border-right:1.5px solid #9378a4;border-bottom:1.5px solid #9378a4;transform:rotate(45deg);margin-inline:4px}
+.admin-submitted-details .submitted-detail-section[open]>summary{border-bottom:1px solid #eee8f2}
+.admin-submitted-details .submitted-detail-section[open]>summary::after{transform:rotate(225deg)}
+.admin-submitted-details .submitted-fields{padding:4px 20px 8px;gap:0 24px}
+.admin-submitted-details .submitted-field{padding:15px 0;min-width:0}
+.admin-submitted-details .submitted-field dt{font-size:11px;color:#8c7898}
+.admin-submitted-details .submitted-field dd{margin:5px 0 0;font-size:14px;color:#3e304a}
+.admin-submitted-details .submitted-field dd.not-provided{font-size:12px;color:#a295aa}
+.admin-submitted-details .submitted-shared-group{margin-inline:20px}
+.admin-submitted-details .submitted-shared-group:first-of-type{border-top:0}
+.admin-submitted-details .submitted-shared-group .submitted-fields{padding-inline:0}
+.admin-submitted-details .submitted-signatures{padding:20px}
+.admin-submitted-details .submitted-detail-section>.submitted-details-note{padding:18px 20px;margin:0}
+@media(max-width:800px){.admin-profile-overview .admin-profile-heading{align-items:flex-start;flex-wrap:wrap}.admin-profile-heading .admin-profile-name h1{font-size:24px}.admin-profile-heading>.admin-row-actions{width:100%}}
+@media(max-width:650px){
+ .admin-profile-overview .admin-profile-heading{padding:20px;gap:18px}
+ .admin-profile-avatar{width:46px;height:46px;border-radius:13px;font-size:22px}.admin-profile-identity{gap:12px}
+ .admin-profile-overview .admin-client-facts{padding:18px 20px;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+ .admin-profile-overview .admin-client-facts>div:nth-child(2){grid-column:1/-1;grid-row:2}
+ .admin-profile-overview .admin-profile-meta{padding:14px 20px;display:grid;gap:6px}
+ .admin-profile-overview .admin-account-type{padding:16px 20px}
+ .admin-profile-overview #account-type-form{align-items:stretch;flex-direction:column;gap:10px}
+ .admin-profile-overview .admin-type-controls{max-width:none}.admin-profile-overview .admin-type-controls select{font-size:16px}
+ .admin-profile-heading>.admin-row-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .admin-profile-heading>.admin-row-actions>*{min-width:0;white-space:normal;text-align:center;font-size:11px;padding:10px 8px}
+ .admin-profile-documents .admin-section-heading,.admin-submitted-details>.admin-section-heading{padding:18px 20px}
+ .admin-submitted-details .admin-details-selector{padding:16px 20px;grid-template-columns:minmax(0,1fr);gap:7px}
+ .admin-submitted-details .admin-details-selector select{font-size:16px}
+ .admin-submitted-details [data-profile-details-body]{padding:20px}
+ .admin-submitted-details .submitted-detail-section>summary{padding:15px;font-size:13px}
+ .admin-submitted-details .submitted-fields{padding:0 15px 8px}.admin-submitted-details .submitted-field{padding:14px 0}
+ .admin-submitted-details .submitted-shared-group{margin-inline:15px}.admin-submitted-details .submitted-signatures{padding:15px}
+}

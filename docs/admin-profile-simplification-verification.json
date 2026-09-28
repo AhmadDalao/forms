@@ -1,0 +1,379 @@
+{
+  "unit_tests": {
+    "passed": 229,
+    "failed": 0
+  },
+  "reports": {
+    "presentation": {
+      "checks": [
+        "en 1440: category titles/counts, audience filters and dashboard layout",
+        "en 1440: all nine saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work",
+        "en 390: category titles/counts, audience filters and dashboard layout",
+        "en 390: all nine saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work",
+        "ar 1440: category titles/counts, audience filters and dashboard layout",
+        "ar 1440: all nine saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work",
+        "ar 390: category titles/counts, audience filters and dashboard layout",
+        "ar 390: all nine saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work"
+      ],
+      "errors": [],
+      "forms": [
+        {
+          "document": "signature-form",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 2,
+          "fields": 18,
+          "previewPages": 1
+        },
+        {
+          "document": "al-naeem-terms-consent",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 1,
+          "fields": 6,
+          "previewPages": 1
+        },
+        {
+          "document": "subscription-form",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 4,
+          "fields": 49,
+          "previewPages": 2
+        },
+        {
+          "document": "terms-and-conditions",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 2,
+          "fields": 34,
+          "previewPages": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 5,
+          "fields": 73,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-individual",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 6,
+          "fields": 120,
+          "previewPages": 11
+        },
+        {
+          "document": "subscription-company",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 1440,
+          "groups": 4,
+          "fields": 46,
+          "previewPages": 2
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 1440,
+          "groups": 6,
+          "fields": 104,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-corporate",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 1440,
+          "groups": 6,
+          "fields": 108,
+          "previewPages": 9
+        },
+        {
+          "document": "signature-form",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 2,
+          "fields": 18,
+          "previewPages": 1
+        },
+        {
+          "document": "al-naeem-terms-consent",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 1,
+          "fields": 6,
+          "previewPages": 1
+        },
+        {
+          "document": "subscription-form",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 4,
+          "fields": 49,
+          "previewPages": 2
+        },
+        {
+          "document": "terms-and-conditions",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 2,
+          "fields": 34,
+          "previewPages": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 5,
+          "fields": 73,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-individual",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 6,
+          "fields": 120,
+          "previewPages": 11
+        },
+        {
+          "document": "subscription-company",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 390,
+          "groups": 4,
+          "fields": 46,
+          "previewPages": 2
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 390,
+          "groups": 6,
+          "fields": 104,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-corporate",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 390,
+          "groups": 6,
+          "fields": 108,
+          "previewPages": 9
+        },
+        {
+          "document": "signature-form",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 2,
+          "fields": 18,
+          "previewPages": 1
+        },
+        {
+          "document": "al-naeem-terms-consent",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 1,
+          "fields": 6,
+          "previewPages": 1
+        },
+        {
+          "document": "subscription-form",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 4,
+          "fields": 49,
+          "previewPages": 2
+        },
+        {
+          "document": "terms-and-conditions",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 2,
+          "fields": 34,
+          "previewPages": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 5,
+          "fields": 73,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-individual",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 6,
+          "fields": 120,
+          "previewPages": 11
+        },
+        {
+          "document": "subscription-company",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 4,
+          "fields": 46,
+          "previewPages": 2
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 6,
+          "fields": 104,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-corporate",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 6,
+          "fields": 108,
+          "previewPages": 9
+        },
+        {
+          "document": "signature-form",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 2,
+          "fields": 18,
+          "previewPages": 1
+        },
+        {
+          "document": "al-naeem-terms-consent",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 1,
+          "fields": 6,
+          "previewPages": 1
+        },
+        {
+          "document": "subscription-form",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 4,
+          "fields": 49,
+          "previewPages": 2
+        },
+        {
+          "document": "terms-and-conditions",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 2,
+          "fields": 34,
+          "previewPages": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 5,
+          "fields": 73,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-individual",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 6,
+          "fields": 120,
+          "previewPages": 11
+        },
+        {
+          "document": "subscription-company",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 390,
+          "groups": 4,
+          "fields": 46,
+          "previewPages": 2
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 390,
+          "groups": 6,
+          "fields": 104,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-corporate",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 390,
+          "groups": 6,
+          "fields": 108,
+          "previewPages": 9
+        }
+      ],
+      "passed": true
+    },
+    "management_views": {
+      "checks": [
+        "chrome admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "chrome superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "chrome new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "chrome: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "firefox admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "firefox superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "firefox new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "firefox: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "webkit admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "webkit superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "webkit new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "webkit: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "Slow profile shows feedback; switching sections cannot be overwritten by its delayed response",
+        "Interrupted profile request recovers through Try again",
+        "Interrupted PDF download recovers in the same preview without losing details",
+        "Repeated preview clicks keep a single dialog",
+        "Closing a pending PDF cancels its load and a new preview opens normally",
+        "Expired admin preview session closes the dialog and returns to management sign-in",
+        "Expired client-profile request returns to management sign-in"
+      ],
+      "errors": [],
+      "passed": true
+    }
+  },
+  "visual_checks": [
+    "Individual English desktop profile",
+    "Company Arabic mobile profile",
+    "Expanded categorized answers"
+  ],
+  "final_css_adjustment": "Chevron uses a physical right border so expand direction stays correct in RTL."
+}
