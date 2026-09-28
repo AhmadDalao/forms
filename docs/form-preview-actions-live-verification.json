@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "All changed live assets exactly match the verified build",
+    "Published form bundle removes the header/ready-message preview shortcuts and retains final-step full-page rendering",
+    "Both individual and company routes still require client login",
+    "Management login loads"
+  ],
+  "errors": [],
+  "verifiedAssets": 3,
+  "passed": true
+}
