@@ -12,6 +12,7 @@ dialog.portal-preview::backdrop{background:#25162b88}
 .portal-preview .preview-document-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 22px}
 .portal-preview .portal-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid #d9cde3;border-radius:9px;background:#fff;color:#58366f;font:inherit;font-size:13px;font-weight:600;line-height:1.6;text-decoration:none;cursor:pointer}
 .portal-preview .portal-button:hover,.portal-preview .portal-preview-head button:hover{background:#f0e7f7}
+.portal-preview .preview-document-meta+.portal-pdf-pages{margin-top:20px}
 .portal-preview .portal-pdf-pages{display:grid;gap:22px;direction:ltr}
 .portal-preview .portal-pdf-pages canvas{display:block;width:100%;max-width:100%;height:auto;background:#fff;box-shadow:0 3px 16px #23133015}
 .portal-preview [data-preview-status]{font-size:13px;line-height:1.8;color:#81718a;margin:16px 0 0}

@@ -44,6 +44,7 @@ try{
  assert.equal(await page.locator('dialog[open]').count(),1);assert.equal(await page.locator('.notification-dialog').isVisible(),false);
  assert.equal(await page.locator('.portal-preview .portal-answer-details,.portal-preview .submission-review,.portal-preview [data-answer-field]').count(),0);
  assert.equal(await page.locator('.portal-preview .portal-pdf-pages canvas').count(),1);
+ assert.equal(await page.locator('.portal-preview .version-badge,.portal-preview .preview-document-actions,.notification-previous').count(),0);
  assert.equal((await f.call(ctx,'portal','notifications')).unread,25);assert.ok((await f.call(ctx,'portal','notifications')).notifications[0].read_at);
  await page.locator('.portal-preview [data-close]').click();assert.equal(await page.locator('.notification-dialog').isVisible(),true);assert.equal(await page.locator(`[data-event="${event.id}"]`).evaluate(n=>n===document.activeElement),true);assert.equal(await page.locator(`[data-notification="${event.id}"].is-unread`).count(),0);assert.match(await page.locator('[data-panel-unread]').innerText(),/^25 /);
  await page.locator('.notification-dialog [data-close]').click();await page.reload();await page.locator('[data-notification-bell]').click();await page.locator('[data-notification]').first().waitFor();assert.equal(await page.locator(`[data-notification="${event.id}"].is-unread`).count(),0);

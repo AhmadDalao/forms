@@ -5,18 +5,19 @@ import {chromium,firefox,webkit} from 'playwright';
 import {fixture} from './workflow-harness.mjs';
 import {docs} from '../src/forms/index.js';
 const shortPages=docs.find(d=>d.id==='signature-form').pages,longPages=docs.find(d=>d.id==='terms-and-conditions').pages;
-const f=await fixture({protectedRoutes:true}),report={checks:[],errors:[]};let browser;
+const f=await fixture({protectedRoutes:true}),report={checks:[],errors:[]};let browser,archivedId;
 const pass=message=>{report.checks.push(message);console.log('PASS '+message);};
 const ready=p=>p.waitForFunction(()=>document.querySelector('.portal-preview [data-preview-status]')?.textContent==='');
 const lang=async(p,value)=>{if(await p.locator('html').getAttribute('lang')!==value){await p.locator('[data-admin-language]').click();await p.locator('html[lang='+value+']').waitFor();}};
 const profile=async(p,id)=>{await p.locator('[data-users]').click();await p.locator('#client-search').waitFor();await p.locator('[data-client="'+id+'"]').click();await p.locator('.admin-client-facts').waitFor();};
-const preview=async(p,selector)=>{await p.locator(selector).first().click();await ready(p);assert.equal(await p.locator('.portal-preview').count(),1);assert.equal(await p.locator('.portal-preview canvas').count(),shortPages);await p.locator('.portal-preview [data-close]').click();};
+const preview=async(p,selector)=>{await p.locator(selector).first().click();await ready(p);assert.equal(await p.locator('.portal-preview').count(),1);assert.equal(await p.locator('.portal-preview canvas').count(),shortPages);assert.equal(await p.locator('.portal-preview .version-badge,.portal-preview .preview-document-actions a').count(),2);if(selector.includes(archivedId)){assert.match(await p.locator('.portal-preview .version-badge').innerText(),/Archived|مؤرشفة/);assert.equal(new URL(await p.locator('.preview-document-actions a').getAttribute('href'),f.base).searchParams.get('id'),archivedId);assert.equal(await p.locator('[data-current-version]').count(),1);}await p.locator('.portal-preview [data-close]').click();};
 try{
  browser=await chromium.launch({channel:'chrome',headless:true});
  const owner=await browser.newContext(),client=await browser.newContext(),company=await browser.newContext();await f.login(owner,'superadmin');
  await f.call(owner,'management','admin_create',{data:{username:'qa.views',password:'Views123!',confirm:'Views123!'},status:201});
  const u=await f.client(client,'individual'),co=await f.client(company,'corporate'),revision=(await f.call(client,'portal','session')).workflow.revision;
  const archived=await f.submit(client,u,{workflowRevision:revision}),current=await f.submit(client,u,{workflowRevision:revision,expectedCurrent:archived.id}),corporate=await f.submit(company,co,{workflowRevision:revision});
+ archivedId=archived.id;
  const longDocument=await f.submit(client,u,{document:'terms-and-conditions',source:'upload',values:{},workflowRevision:revision});
  await browser.close();browser=null;
  for(const [engine,launcher] of Object.entries({chrome:chromium,firefox,webkit})){

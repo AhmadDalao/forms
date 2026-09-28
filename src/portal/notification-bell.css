@@ -18,7 +18,7 @@ header .notification-bell{position:relative;display:inline-flex;align-items:cent
 .notification-dialog .notification-item h3{font-size:14px;font-weight:500;line-height:1.8;margin:7px 0 0;color:#51465c}
 .notification-dialog .notification-reason{white-space:pre-wrap;font-size:13px;line-height:1.8;margin:9px 0 0;color:#6e586d}
 .notification-item-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px}
-.notification-item-foot time,.notification-previous{display:block;font-size:11px;line-height:1.8;color:#85758e}.notification-previous{margin-top:3px}
+.notification-item-foot time{display:block;font-size:11px;line-height:1.8;color:#85758e}
 .notification-dialog .notification-more{display:flex;margin:18px auto}
 .notification-empty{display:grid;justify-items:center;gap:12px;padding:44px 24px;text-align:center;color:#73647f}
 .notification-empty>span{display:grid;place-items:center;width:48px;height:48px;background:#f3edf8;color:#704b88;border-radius:50%;font-size:22px}
