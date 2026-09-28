@@ -11,7 +11,7 @@ const samples=JSON.parse(await fs.readFile(pdfDirectory+'/records.json','utf8'))
 const f=await fixture({protectedRoutes:true}),browser=await chromium.launch({channel:'chrome',headless:true});
 const report={checks:[],errors:[],forms:[],screenshots:[]};
 const pass=s=>{report.checks.push(s);console.log('PASS '+s);};
-const preview=async(p,selector,pages)=>{
+const preview=async(p,selector,pages,submission,lang)=>{
  await p.locator(selector).first().click();await p.waitForFunction(()=>document.querySelector('.portal-preview [data-preview-status]')?.textContent==='');
  const modal=p.locator('.portal-preview');
  assert.equal(await modal.locator('canvas').count(),pages);
@@ -25,9 +25,19 @@ const preview=async(p,selector,pages)=>{
  assert.equal(await section.locator('summary').evaluate(el=>getComputedStyle(el).backgroundColor),'rgb(72, 35, 95)');
  assert.equal(await section.locator('[data-answer-field]').first().isVisible(),true);
  assert.equal(await modal.evaluate(el=>el.scrollWidth>el.clientWidth+1),false);
- if(selector==='[data-details-preview]'&&pages===2){const path=f.out+'/preview-details-'+await p.locator('html').getAttribute('lang')+'-'+p.viewportSize().width+'.png';await modal.locator('.portal-answer-details').scrollIntoViewIfNeeded();await p.screenshot({path});report.screenshots.push(path);}
  await section.locator('summary').focus();await p.keyboard.press('Enter');
  assert.equal(await section.locator('[data-answer-field]').first().isVisible(),false);
+ if(submission){
+  const model=submissionDetailsModel(submission,lang),body=modal.locator('.submitted-details');
+  assert.deepEqual(await body.locator('[data-submission-section]>summary').allTextContents(),model.groups.map(g=>g.label));
+  assert.equal(await body.locator('[data-answer-field]').count(),model.groups.reduce((n,g)=>n+g.fields.length,0));
+  for(const group of model.groups){
+   const section=body.locator('[data-submission-section="'+group.id+'"]');await section.locator(':scope>summary').click();
+   for(const field of group.fields){const row=section.locator('[data-answer-field="'+field.id+'"]');assert.equal(await row.count(),1);assert.equal(await row.locator('dt').innerText(),field.label);assert.equal((await row.locator('dd').innerText()).trim(),field.value.trim());assert.equal(await row.locator('dd').getAttribute('dir'),field.direction);assert.equal(await row.evaluate(el=>el.scrollWidth>el.clientWidth+1),false);}
+  }
+  const cols=await body.locator('.submitted-fields').first().evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);assert.equal(cols,p.viewportSize().width===390?1:2);
+  if(submission.doc_id.startsWith('subscription-')){const path=f.out+'/preview-details-'+submission.audience+'-'+lang+'-'+p.viewportSize().width+'.png';await modal.locator('.portal-answer-details').scrollIntoViewIfNeeded();await p.screenshot({path});report.screenshots.push(path);}
+ }
  await modal.locator('[data-close]').click();
 };
 try{
@@ -65,27 +75,16 @@ try{
    await p.locator('[data-users]').click();await p.locator('#client-search').waitFor();await p.locator('[data-client="'+person.user.id+'"]').click();await p.locator('.admin-client-facts').waitFor();
    assert.equal(await p.locator('[data-client-account-type] [data-account-type]').getAttribute('data-account-type'),person.user.account_type);
    assert.equal(await p.locator('[data-account-shared-profiles],.admin-shared-details').count(),0);
-   assert.equal(await p.locator('.admin-profile-overview').count(),1);
+   assert.equal(await p.locator('.admin-profile-overview').count(),1);assert.equal(await p.locator('#client-submitted-details,#submitted-version,[data-profile-details-body]').count(),0);
    const profileShot=f.out+'/profile-'+person.user.account_type+'-'+lang+'-'+width+'.png';await p.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));await p.screenshot({path:profileShot});report.screenshots.push(profileShot);
    for(const s of person.submissions){
-    await p.locator('#submitted-version').selectOption(s.id);await p.locator('[data-profile-details-body][aria-busy=false] [data-submitted-version="'+s.id+'"]').waitFor();
-    const model=submissionDetailsModel(s,lang),body=p.locator('[data-profile-details-body]');
-    assert.deepEqual(await body.locator('[data-submission-section]>summary').allTextContents(),model.groups.map(g=>g.label));
-    assert.equal(await body.locator('details[open], [data-shared-snapshot], [data-shared-field]').count(),0);
-    assert.equal(await body.locator('[data-answer-field]').count(),model.groups.reduce((n,g)=>n+g.fields.length,0));
-    for(const group of model.groups){
-     const section=body.locator('[data-submission-section="'+group.id+'"]');await section.locator(':scope>summary').click();
-     for(const field of group.fields){const row=section.locator('[data-answer-field="'+field.id+'"]');assert.equal(await row.count(),1);assert.equal(await row.locator('dt').innerText(),field.label);assert.equal((await row.locator('dd').innerText()).trim(),field.value.trim());assert.equal(await row.locator('dd').getAttribute('dir'),field.direction);assert.equal(await row.evaluate(el=>el.scrollWidth>el.clientWidth+1),false);}
-    }
-    assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
-    const cols=await body.locator('.submitted-fields').first().evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);assert.equal(cols,width===390?1:2);
-    if(s.doc_id.startsWith('subscription-')){await p.locator('#client-submitted-details').scrollIntoViewIfNeeded();const path=f.out+'/details-'+person.user.account_type+'-'+lang+'-'+width+'.png';await p.screenshot({path});report.screenshots.push(path);}
-    const doc=docs.find(d=>d.id===s.doc_id);await preview(p,'[data-details-preview]',doc.pages);
+    const doc=docs.find(d=>d.id===s.doc_id),model=submissionDetailsModel(s,lang);
+    await preview(p,'.admin-profile-documents [data-preview="'+s.id+'"]',doc.pages,s,lang);
     report.forms.push({document:s.doc_id,audience:s.audience,lang,width,groups:model.groups.length,fields:model.groups.reduce((n,g)=>n+g.fields.length,0),previewPages:doc.pages});
    }
    await preview(p,'[data-preview="'+person.submissions[0].id+'"]',docs.find(d=>d.id===person.submissions[0].doc_id).pages);
   }
-  pass(lang+' '+width+': all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work in both preview entry points');
+  pass(lang+' '+width+': all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent');
  }
  assert.deepEqual(report.errors,[]);report.passed=true;
 }catch(error){report.failure=error.stack;throw error;}

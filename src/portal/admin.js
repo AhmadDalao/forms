@@ -1,11 +1,10 @@
 import {accountPasswordDialog} from '../management/accounts.js';
 import {api,endpoint,e,errorText,when} from './api.js';
 import {previewSubmission} from './preview.js';
-import './submitted-details.css';
 import {reviewBadge,reviewReason,reviewLabels,signatureBadge} from './review.js';
 import './admin.css';
 export function createClientDashboard({shell,token,language,canChangeAccountType=()=>false,canManageWorkflow=()=>false,workflow=()=>({review_enabled:true}),onWorkflowChanged=()=>{},onError=()=>false}){
- let lang=language(),view='overview',client=null,clientSubmissions=[],page=1,query='',reviewPage=1,reviewStatus='all',reviewAudience='all',reviewDocument='all',reviewQuery='',reviewSort='newest',clientReturn='users',loadRevision=0,detailRequest=0,selectedDetailId=null,selectedDetailClient=null;
+ let lang=language(),view='overview',client=null,clientSubmissions=[],page=1,query='',reviewPage=1,reviewStatus='all',reviewAudience='all',reviewDocument='all',reviewQuery='',reviewSort='newest',clientReturn='users',loadRevision=0;
  const t=(en,ar)=>lang==='ar'?ar:en,reviewEnabled=()=>workflow().review_enabled!==false,withWorkflow=s=>({...s,workflow_enabled:reviewEnabled()}),request=async(action,params={})=>{const data=await api('admin_'+action,undefined,{params});if(data.workflow)onWorkflowChanged(data.workflow);return data;};
  function typeBadge(type){
   if(!['individual','corporate'].includes(type))return '';
@@ -73,10 +72,8 @@ export function createClientDashboard({shell,token,language,canChangeAccountType
    ${canChangeAccountType()?`<div class="admin-account-type"><form id="account-type-form"><label for="client-account-type">${t('Account type','نوع الحساب')}</label><div class="admin-type-controls"><select id="client-account-type" name="account_type"><option value="individual" ${user.account_type==='individual'?'selected':''}>${t('Individual','فرد')}</option><option value="corporate" ${user.account_type==='corporate'?'selected':''}>${t('Company','شركة')}</option></select><button type="submit" class="primary" disabled>${t('Save account type','حفظ نوع الحساب')}</button></div><p data-type-status role="status" aria-live="polite"></p></form></div>`:''}
   </section>
   <section class="admin-card admin-profile-documents"><div class="admin-section-heading"><h2>${t('Current documents','المستندات الحالية')}</h2><span class="admin-document-count">${current.length} / ${available.length} ${t('received','تم استلامها')}</span></div>${table(available,{showClient:false})}</section>
-  ${submittedDetailsPanel(current,archived,id)}
   ${archived.length?`<details class="admin-card admin-history"><summary>${t('Version history','سجل النسخ')} · ${archived.length} ${t('archived','مؤرشفة')}</summary><p class="client-muted">${t('Restoring creates a new current version. Every previous PDF and its details stay saved.','تنشئ الاستعادة نسخة حالية جديدة. تبقى جميع ملفات PDF السابقة وبياناتها محفوظة.')}</p><a class="client-primary history-download" href="${endpoint('admin_zip',{id,history:1})}">${t('Download all versions · ZIP','تنزيل جميع النسخ · ZIP')}</a>${table(archived,{showClient:false})}</details>`:''}${subtitle()}`);
   bindRows();bind('[data-client-back]',()=>clientReturn==='reviews'?reviews():clientReturn==='overview'?overview():users());bind('[data-reset]',()=>reset(user));
-  const versionSelect=document.querySelector('#submitted-version');if(versionSelect){versionSelect.onchange=()=>loadSubmittedDetails(versionSelect.value,revision);loadSubmittedDetails(versionSelect.value,revision);}
   const form=document.querySelector('#account-type-form');if(!form)return;
   const select=form.elements.account_type,button=form.querySelector('button');
   let expected=user.account_type;
@@ -88,24 +85,6 @@ export function createClientDashboard({shell,token,language,canChangeAccountType
    catch(err){if(!onError(err))status.textContent=errorText(err,lang);}
    finally{select.disabled=false;button.disabled=select.value===expected;}
   };
- }
- function submittedDetailsPanel(current,archived,id){
-  const versions=[...current,...archived];if(!versions.length)return '';
-  const selected=versions.find(s=>selectedDetailClient===id&&s.id===selectedDetailId)||versions[0];selectedDetailClient=id;selectedDetailId=selected.id;
-  const choices=(rows,label)=>rows.length?`<optgroup label="${e(label)}">${rows.map(s=>`<option value="${e(s.id)}" ${s.id===selected.id?'selected':''}>${e(t(s.title,s.ar))} · ${t('Version','النسخة')} ${s.version} · ${e(when(s.created_at,lang))}</option>`).join('')}</optgroup>`:'';
-  return `<section class="admin-card admin-submitted-details" id="client-submitted-details"><div class="admin-section-heading"><h2>${t('Submitted details','البيانات المرسلة')}</h2></div><div class="admin-details-selector"><label for="submitted-version">${t('Document and version','المستند والنسخة')}</label><select id="submitted-version">${choices(current,t('Current versions','النسخ الحالية'))}${choices(archived,t('Archived versions','النسخ المؤرشفة'))}</select></div><div data-profile-details-body aria-live="polite"></div></section>`;
- }
- async function loadSubmittedDetails(id,profileRevision){
-  const root=document.querySelector('[data-profile-details-body]');if(!root)return;
-  const revision=++detailRequest,detailLang=lang;selectedDetailId=id;
-  const current=()=>root.isConnected&&revision===detailRequest&&profileRevision===loadRevision&&view==='client';
-  root.setAttribute('aria-busy','true');root.innerHTML=`<p class="admin-detail-status" role="status">${t('Loading saved details…','جارٍ تحميل البيانات المحفوظة…')}</p>`;
-  try{
-   const [{submission:s},{renderSubmissionDetails}]=await Promise.all([request('detail',{id}),import('./submitted-details.js')]);if(!current())return;
-   root.innerHTML=`<div class="admin-selected-document"><div><h3>${e(t(s.title,s.ar))}</h3><p>${t('Version','النسخة')} ${s.version} · ${s.archived_at?t('Archived','مؤرشفة'):t('Current','الحالية')} · ${e(when(s.created_at,detailLang))} · ${t('Riyadh time','بتوقيت الرياض')}</p></div><div class="admin-row-actions"><button type="button" data-details-preview>${t('Preview PDF','معاينة PDF')}</button><a href="${endpoint('admin_pdf',{id:s.id})}">${t('Download PDF','تنزيل PDF')}</a></div></div><div class="admin-submission-status admin-detail-review">${reviewBadge(withWorkflow(s),detailLang)}${signatureBadge(s,detailLang)}</div>${reviewReason(withWorkflow(s),detailLang)}${renderSubmissionDetails(s,detailLang)}`;
-   root.querySelector('[data-details-preview]').onclick=()=>previewSubmission(s.id,{admin:true,lang:detailLang,token,onError,onReviewed:()=>profile(client)}).catch(err=>{if(!onError(err)&&current())root.querySelector('.admin-selected-document p').textContent=errorText(err,detailLang);});
-  }catch(err){if(!current()||onError(err))return;root.innerHTML=`<p class="admin-detail-status error" role="status">${e(errorText(err,detailLang))}</p><button type="button" data-details-retry>${t('Try again','إعادة المحاولة')}</button>`;root.querySelector('[data-details-retry]').onclick=()=>loadSubmittedDetails(id,profileRevision);}
-  finally{if(current())root.setAttribute('aria-busy','false');}
  }
  function restore(source){
   if(!source)return;

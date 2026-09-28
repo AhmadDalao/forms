@@ -58,18 +58,6 @@
 .admin-client-facts [data-client-account-type]{margin-top:9px}
 .admin-table .review-reason{max-width:230px;font-size:12px}.admin-table .review-reason p{max-height:100px;overflow:auto;font-size:12px}
 
-/* Exact saved answers are available directly from each client account. */
-.admin-details-selector{padding:20px 24px;background:#fcfafd;border-bottom:1px solid #ebe3f1}
-.admin-details-selector label{font-size:12px;color:#7c6689;line-height:1.8}
-.admin-details-selector select{width:100%;min-width:0;max-width:100%;min-height:48px;font-size:13px;line-height:1.8;background:#fff}
-[data-profile-details-body]{padding:24px;min-width:0}
-.admin-selected-document{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:18px;margin:0 0 22px}
-.admin-selected-document>div{min-width:0}.admin-selected-document>div:first-child{flex:1 1 300px}
-.admin-selected-document h3{font-size:16px;line-height:1.8;color:#4d2f5f;overflow-wrap:anywhere;margin:0 0 8px}
-.admin-selected-document p{font-size:12px;line-height:1.8;color:#8b7695;margin:0}
-.admin-detail-status{font-size:13px;line-height:1.8;color:#846d90;margin:0}.admin-detail-status.error{color:#a62d44;margin-bottom:14px}
-@media(max-width:650px){.admin-details-selector,[data-profile-details-body]{padding:18px}.admin-details-selector select{font-size:16px}.admin-selected-document h3{font-size:15px}.admin-selected-document .admin-row-actions{width:100%}}
-
 /* Keep the review cycle and its filters together, above current submissions. */
 .review-counts>button{display:flex;align-items:center;gap:12px;padding:8px 16px;border:1px solid #e4dce9;border-radius:12px;background:#fff;font-variant-numeric:tabular-nums}
 .review-counts>button:hover{border-color:#bda5cd;background:#f8f3fb}
@@ -145,13 +133,8 @@
 .admin-profile-overview .admin-type-controls select{min-height:42px;font-size:12px;margin:0}
 .admin-profile-overview .admin-type-controls button{font-size:12px}
 .admin-profile-overview [data-type-status]{margin:0;font-size:12px}
-.admin-profile-documents .admin-section-heading,.admin-submitted-details>.admin-section-heading{background:#fff;padding:22px 26px}
+.admin-profile-documents .admin-section-heading{background:#fff;padding:22px 26px}
 .admin-document-count{font-size:12px;font-weight:500;color:#7b618d;background:#f5eff9;border-radius:99px;padding:5px 11px;white-space:nowrap}
-.admin-submitted-details .admin-details-selector{display:grid;grid-template-columns:150px minmax(0,1fr);align-items:center;gap:12px;padding:18px 26px}
-.admin-submitted-details .admin-details-selector select{margin:0;border-radius:10px}
-.admin-submitted-details [data-profile-details-body]{padding:26px}
-.admin-submitted-details .admin-selected-document{margin-bottom:14px}
-.admin-submitted-details .submitted-details-note{font-size:11px;margin:0 0 16px}
 @media(max-width:800px){.admin-profile-overview .admin-profile-heading{align-items:flex-start;flex-wrap:wrap}.admin-profile-heading .admin-profile-name h1{font-size:24px}.admin-profile-heading>.admin-row-actions{width:100%}}
 @media(max-width:650px){
  .admin-profile-overview .admin-profile-heading{padding:20px;gap:18px}
@@ -164,8 +147,5 @@
  .admin-profile-overview .admin-type-controls{max-width:none}.admin-profile-overview .admin-type-controls select{font-size:16px}
  .admin-profile-heading>.admin-row-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
  .admin-profile-heading>.admin-row-actions>*{min-width:0;white-space:normal;text-align:center;font-size:11px;padding:10px 8px}
- .admin-profile-documents .admin-section-heading,.admin-submitted-details>.admin-section-heading{padding:18px 20px}
- .admin-submitted-details .admin-details-selector{padding:16px 20px;grid-template-columns:minmax(0,1fr);gap:7px}
- .admin-submitted-details .admin-details-selector select{font-size:16px}
- .admin-submitted-details [data-profile-details-body]{padding:20px}
+ .admin-profile-documents .admin-section-heading{padding:18px 20px}
 }

@@ -9,7 +9,7 @@ const f=await fixture({protectedRoutes:true}),report={checks:[],errors:[]};let b
 const pass=message=>{report.checks.push(message);console.log('PASS '+message);};
 const ready=p=>p.waitForFunction(()=>document.querySelector('.portal-preview [data-preview-status]')?.textContent==='');
 const lang=async(p,value)=>{if(await p.locator('html').getAttribute('lang')!==value){await p.locator('[data-admin-language]').click();await p.locator('html[lang='+value+']').waitFor();}};
-const profile=async(p,id)=>{await p.locator('[data-users]').click();await p.locator('#client-search').waitFor();await p.locator('[data-client="'+id+'"]').click();await p.locator('.admin-client-facts').waitFor();};
+const profile=async(p,id)=>{const requests=[],listen=r=>{if(r.url().includes('action=admin_detail'))requests.push(r.url());};p.on('request',listen);await p.locator('[data-users]').click();await p.locator('#client-search').waitFor();await p.locator('[data-client="'+id+'"]').click();await p.locator('.admin-client-facts').waitFor();assert.equal(await p.locator('#client-submitted-details,#submitted-version,[data-profile-details-body]').count(),0);assert.equal(requests.length,0,'Profile must not prefetch duplicate submitted details');p.off('request',listen);};
 const preview=async(p,selector)=>{await p.locator(selector).first().click();await ready(p);assert.equal(await p.locator('.portal-preview').count(),1);assert.equal(await p.locator('.portal-preview canvas').count(),shortPages);assert.equal(await p.locator('.portal-preview .version-badge,.portal-preview .preview-document-actions a').count(),2);if(selector.includes(archivedId)){assert.match(await p.locator('.portal-preview .version-badge').innerText(),/Archived|مؤرشفة/);assert.equal(new URL(await p.locator('.preview-document-actions a').getAttribute('href'),f.base).searchParams.get('id'),archivedId);assert.equal(await p.locator('[data-current-version]').count(),1);}await p.locator('.portal-preview [data-close]').click();};
 try{
  browser=await chromium.launch({channel:'chrome',headless:true});
@@ -29,11 +29,11 @@ try{
    for(const language of ['en','ar']){
     await lang(p,language);await p.setViewportSize({width:language==='en'?1440:390,height:900});
     await profile(p,u.id);assert.equal(await p.locator('[data-account-shared-profiles]').count(),0);assert.equal(await p.locator('#account-type-form').count(),role==='superadmin'?1:0);await preview(p,'[data-preview="'+current.id+'"]');
-    await p.locator('#submitted-version').selectOption(current.id);await p.locator('[data-profile-details-body][aria-busy=false]').waitFor();await preview(p,'[data-details-preview]');await p.locator('.admin-history>summary').click();await preview(p,'[data-preview="'+archived.id+'"]');
+    await p.locator('.admin-history>summary').click();await preview(p,'[data-preview="'+archived.id+'"]');
     await profile(p,co.id);await preview(p,'[data-preview="'+corporate.id+'"]');
     assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
    }
-   pass(engine+' '+role+': individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile');await c.close();
+   pass(engine+' '+role+': individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile');await c.close();
   }
   {
    const mc=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2}),mp=await mc.newPage();mp.on('pageerror',e=>report.errors.push(e.message));
