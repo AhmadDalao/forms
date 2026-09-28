@@ -142,6 +142,8 @@ npm test
 node scripts/admin-handoff-audit.mjs
 node scripts/form-access-audit.mjs
 node scripts/management-views-audit.mjs
+node scripts/management-navigation-audit.mjs
+node scripts/catalogue-workflow-audit.mjs
 node scripts/loading-audit.mjs
 QA_OUT=tmp/client-corrections-pdfs node scripts/current-pdf-audit.mjs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/client-corrections-audit.mjs
@@ -150,6 +152,8 @@ node scripts/preview-direction-audit.mjs
 ```
 
 These scripts start disposable local fixtures; they must not be aimed at production. To verify the generated PDFs independently, install Python 3 with `pypdfium2`, `pypdf`, `Pillow` and `numpy`, then run `python3 scripts/current-pdf-audit-verify.py tmp/client-corrections-pdfs`. These are development tools, not production requirements.
+
+The navigation audit delays Administrators and Documents responses while switching to Submissions in all three browser engines and both languages. The catalogue audit covers native-field uploads, shared mappings, review/publish/rollback, invalid layouts, removal without deleting submissions, superadmin-only account-type changes and login throttling. The latest overall test evidence is in `verification/full-regression-2026-09-28.md` and its companion JSON report.
 
 The seven editable Word/PDF pairs and the two restored original PDFs are in `editable-documents/` (7 Word files, 9 PDFs). The current page counts are: subscriptions 2 each, signature 1 (original), individual KYC 11, company KYC 10, individual FATCA/CRS 8, company FATCA/CRS 8, terms 13 (original), and consent 1. Consent remains download-only.
 

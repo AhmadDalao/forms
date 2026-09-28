@@ -52,7 +52,8 @@ scripts = ['build-folders.mjs', 'management-defaults.mjs', 'management-router.ph
            'management-init.php', 'management-superadmin-init.php', 'installation-init.php', 'backup-installation.php',
            'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'current-pdf-audit.mjs',
            'current-pdf-audit-verify.py', 'preview-font-audit.mjs', 'preview-direction-audit.mjs',
-           'client-corrections-audit.mjs', 'direct-intake-audit.mjs', 'form-access-audit.mjs', 'management-views-audit.mjs', 'loading-audit.mjs']
+           'client-corrections-audit.mjs', 'direct-intake-audit.mjs', 'form-access-audit.mjs', 'management-views-audit.mjs',
+           'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'loading-audit.mjs']
 for name in scripts:
     copy(ROOT / 'scripts' / name, package / 'source/scripts' / name)
 for name in ['package.json', 'package-lock.json', 'vite.config.js', 'index.html', '.gitignore']:
@@ -68,7 +69,7 @@ for name in documents:
 copy(ROOT / 'docs/DEVELOPER-HANDOFF.md', package / 'INSTALL.md')
 copy(ROOT / 'docs/DEVELOPER-HANDOFF.md', package / 'source/README.md')
 copy(ROOT / 'docs/DEVELOPER-HANDOFF-AR.md', package / 'INSTALL-AR.md')
-for name in ['modern-pdf-release-2026-09-28.md', 'modern-pdf-verification.json', 'terms-restoration-2026-09-28.md', 'terms-restoration-verification.json', 'bilingual-pdf-update-2026-09-28.md', 'bilingual-pdf-verification.json', 'pdf-layout-refinement-2026-09-28.md', 'pdf-layout-refinement-verification.json']:
+for name in ['modern-pdf-release-2026-09-28.md', 'modern-pdf-verification.json', 'terms-restoration-2026-09-28.md', 'terms-restoration-verification.json', 'bilingual-pdf-update-2026-09-28.md', 'bilingual-pdf-verification.json', 'pdf-layout-refinement-2026-09-28.md', 'pdf-layout-refinement-verification.json', 'full-regression-2026-09-28.md', 'full-regression-verification.json']:
     copy(ROOT / 'docs' / name, package / 'verification' / name)
 copy(ROOT / 'docs/apache-vhost.example.conf', package / 'server/apache-vhost.conf')
 

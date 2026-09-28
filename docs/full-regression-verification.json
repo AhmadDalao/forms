@@ -1,715 +1,901 @@
 {
-  "status": "passed for the tested scope",
-  "source_commit": "27e547207c40b00c88961c593fd2a40a4fa0eb08",
-  "deployed_at_utc": "20260919T202009Z",
-  "live_url": "https://forms.ahmaddalao.com/",
+  "completed_utc": "2026-09-28T07:15:10.500555+00:00",
+  "source_commit": "bee654aae6f3e7c28234af2c47abfb698721f33d",
+  "status": "passed",
   "fixes": [
-    "Approved submission decisions are now locked at the API as well as in the UI; original approval retries remain safe and a new version can be reviewed.",
-    "Flat-PDF import recognizes explicit English/Arabic signature captions as signature slots and keeps same-row name captions in the correct column. Existing built-in mappings and PDF assets are unchanged."
+    {
+      "problem": "A delayed Administrators request could replace Submissions after the user changed tabs. Documents loading had the same missing stale-response guard.",
+      "reproduced_on": "6e6bc60",
+      "fix": "Ignore responses from superseded navigation requests and show a loading state for Administrators and Documents.",
+      "regression": "12 delayed-response cases across Chrome, Firefox and WebKit in English and Arabic; also rechecked admin/password/catalogue/preview workflows."
+    }
   ],
-  "build_and_unit": {
-    "production_build": "passed",
-    "php_syntax": "all public API PHP files passed",
-    "unit_tests_passed": 101,
-    "unit_tests_failed": 0
+  "unit_tests": {
+    "passed": 225,
+    "failed": 0,
+    "skipped": 0
   },
-  "documents": {
-    "editors": 8,
-    "schema_fields": 447,
-    "radio_checkbox_options": 239,
-    "select_options": 21,
-    "signature_slots": 16,
-    "full_datasets_per_editor": 5,
-    "full_data_downloads": 40,
-    "full_data_pages": 210,
-    "including_shared_and_direction_downloads": 112,
-    "including_shared_and_direction_pages": 678,
-    "typing_direction_checks": 264,
-    "source_field_review": "No omitted customer questions or incorrect destinations found; includes approved field/name changes and explicitly optional staff inputs.",
-    "original_pdf_verification": {
-      "checks": {
-        "downloads": 30,
-        "pages": 190,
-        "text_fields": 1495,
-        "transparent_text_images": 2345,
-        "unmodified_pages": 75
-      },
-      "documents": [
-        {
-          "document": "signature-form",
-          "samples": [
-            "english",
-            "arabic",
-            "english-long",
-            "arabic-long",
-            "mixed"
-          ],
-          "pages_each": 1
-        },
-        {
-          "document": "terms-and-conditions",
-          "samples": [
-            "english",
-            "arabic",
-            "english-long",
-            "arabic-long",
-            "mixed"
-          ],
-          "pages_each": 13
-        },
-        {
-          "document": "fatca-crs-individual",
-          "samples": [
-            "english",
-            "arabic",
-            "english-long",
-            "arabic-long",
-            "mixed"
-          ],
-          "pages_each": 4
-        },
-        {
-          "document": "fatca-crs-corporate",
-          "samples": [
-            "english",
-            "arabic",
-            "english-long",
-            "arabic-long",
-            "mixed"
-          ],
-          "pages_each": 6
-        },
-        {
-          "document": "kyc-individual",
-          "samples": [
-            "english",
-            "arabic",
-            "english-long",
-            "arabic-long",
-            "mixed"
-          ],
-          "pages_each": 7
-        },
-        {
-          "document": "kyc-corporate",
-          "samples": [
-            "english",
-            "arabic",
-            "english-long",
-            "arabic-long",
-            "mixed"
-          ],
-          "pages_each": 7
-        }
-      ],
-      "result": "pass"
-    },
-    "shared_pdf_verification": {
-      "site": "http://127.0.0.1:8234/",
-      "checks": {
-        "downloads": 24,
-        "pages": 156,
-        "text_fields": 261,
-        "transparent_images": 429
-      },
-      "result": "pass"
-    },
-    "direction_pdf_verification": {
-      "site": "http://127.0.0.1:8234/",
-      "checks": {
-        "downloads": 48,
-        "pages": 312,
-        "text_fields": 306,
-        "transparent_images": 948
-      },
-      "result": "pass"
-    }
-  },
-  "client_cycles": {
-    "check_groups": 27,
-    "coverage": [
-      "signup and Saudi-phone normalization",
-      "login/logout, duplicate registration and validation",
-      "password visibility, strength, change, reset and second-session revocation",
-      "idle and absolute expiry",
-      "individual/company restrictions and shared-data isolation",
-      "draft migration, browser restart, storage failure, manual overrides and cross-tab changes",
-      "actual submission, edit/resubmit, current/archive history, restore and stale writes",
-      "PDF ownership, private previews/downloads and exact-byte current/history ZIPs",
-      "profile validation and saved details"
-    ]
-  },
-  "management": {
-    "check_groups": 39,
-    "coverage": [
-      "admin and superadmin server permissions",
-      "client details and immutable submitted snapshots",
-      "catalogue title/order/edit/review/publish/rollback and private imports",
-      "10 actual original-PDF uploads",
-      "30 generated import samples over175pages",
-      "affected final-bundle signature import wizard and client signing download"
-    ],
-    "importer_fix": {
-      "status": "passed",
-      "source": "src/management/importer.js",
-      "regression": "scripts/management-real-files.mjs",
-      "description": "Explicit English/Arabic Signature captions prepare signature uploads; same-row captions stay in their own columns. Seven original suggestions now signatures and one neighboring name caption corrected; all rectangles/counts retained.",
-      "direct_imports_report": "tmp/full-management-audit-1789848167568614000/signature-imports/results.json",
-      "render_report": "tmp/full-management-audit-1789848167568614000/signature-imports/render-checks.json",
-      "ui_report": "tmp/full-management-audit-1789848167568614000/signature-ui/report.json",
-      "ui_checks": [
-        "actual production bundle flat-PDF upload",
-        "signature slot separate from three text/date fields",
-        "signature editor excludes text type selector",
-        "bilingual field labels and samples",
-        "private draft and unreviewed publish gate",
-        "review and publish via UI",
-        "original built-ins and PDF bytes retained",
-        "client electronic upload controls and persistence",
-        "English desktop1440 Arabic mobile390 without overflow",
-        "signed PDF download"
-      ],
-      "remaining_manual_review": "Terms p13 third-row captions are ambiguous slash glyphs; date-border suggestions need manual relocation. Flat PDFs remain incomplete suggestions; existing built-in form mappings are separate."
-    }
-  },
-  "reviews": {
-    "base": "http://127.0.0.1:8196",
-    "checks": [
-      "individual: replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled and API changes rejected, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs",
-      "corporate: replaced unreviewed archives excluded from dashboard/all queues; pending, UI rejection, reasons, authenticated actor/time, CSRF/authorization, stale admin conflict, approval notification/read persistence, idempotent decisions, approved controls stay disabled and API changes rejected, new submission review controls enabled, resubmit/restore pending, archived history and unchanged PDFs",
-      "Current-only status counts, combined audience/document/search filters, literal SQL wildcard handling, oldest/newest ordering and invalid filter rejection",
-      "32 current fixtures paginate 30/2 without duplicates; archived 33rd excluded; legacy submitted document filter remains available",
-      "Review UI combines status, audience, document, search and sorting; unmatched filters show clear empty state and Reset preserves the selected status",
-      "Delayed older review responses cannot overwrite the newest filter/language selection",
-      "Management bell returns to unfiltered awaiting-review queue",
-      "chrome: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
-      "firefox: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout",
-      "webkit: EN/AR desktop/mobile client notifications, PDF preview, review controls and layout"
-    ],
+  "build": "passed",
+  "php_syntax": {
+    "files": 26,
     "errors": [],
     "passed": true
   },
-  "signatures": {
-    "ui_cases": 96,
-    "pdf_cases": 9,
-    "placements": 22,
-    "source_streams_dimensions_alpha_and_placement": "passed",
-    "recovery_cycle": "Signature request, client notification, electronic image or whole signed-PDF replacement, new pending version, original archive preservation, retired-document fallback and audience restrictions passed."
-  },
-  "navigation": {
-    "document_language_cases": 12,
-    "responsive_cases": 48,
-    "engines": [
-      "Chrome",
-      "Firefox",
-      "WebKit"
-    ],
-    "languages": [
-      "English",
-      "Arabic"
-    ],
-    "widths": [
-      320,
-      390,
-      768,
-      1440
-    ],
-    "status": "passed"
-  },
-  "live_verification": {
-    "origin": "https://forms.ahmaddalao.com",
-    "started": "2026-09-19T20:22:24.707Z",
-    "checks": [
-      {
-        "scope": "public",
-        "route": "/",
-        "lang": "en",
-        "width": 1440,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/login/",
-        "lang": "en",
-        "width": 1440,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/register/",
-        "lang": "en",
-        "width": 1440,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/individuals/",
-        "lang": "en",
-        "width": 1440,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/companies/",
-        "lang": "en",
-        "width": 1440,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/my-applications/?upload=signature-form",
-        "lang": "en",
-        "width": 1440,
-        "guestLoginKeepsUpload": true
-      },
-      {
-        "scope": "public",
-        "route": "/",
-        "lang": "en",
-        "width": 390,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/login/",
-        "lang": "en",
-        "width": 390,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/register/",
-        "lang": "en",
-        "width": 390,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/individuals/",
-        "lang": "en",
-        "width": 390,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/companies/",
-        "lang": "en",
-        "width": 390,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/my-applications/?upload=signature-form",
-        "lang": "en",
-        "width": 390,
-        "guestLoginKeepsUpload": true
-      },
-      {
-        "scope": "public",
-        "route": "/",
-        "lang": "ar",
-        "width": 1440,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/login/",
-        "lang": "ar",
-        "width": 1440,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/register/",
-        "lang": "ar",
-        "width": 1440,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/individuals/",
-        "lang": "ar",
-        "width": 1440,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/companies/",
-        "lang": "ar",
-        "width": 1440,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/my-applications/?upload=signature-form",
-        "lang": "ar",
-        "width": 1440,
-        "guestLoginKeepsUpload": true
-      },
-      {
-        "scope": "public",
-        "route": "/",
-        "lang": "ar",
-        "width": 390,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/login/",
-        "lang": "ar",
-        "width": 390,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/register/",
-        "lang": "ar",
-        "width": 390,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/individuals/",
-        "lang": "ar",
-        "width": 390,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/companies/",
-        "lang": "ar",
-        "width": 390,
-        "rendered": true,
-        "noOverflow": true
-      },
-      {
-        "scope": "public",
-        "route": "/my-applications/?upload=signature-form",
-        "lang": "ar",
-        "width": 390,
-        "guestLoginKeepsUpload": true
-      },
-      {
-        "scope": "management",
-        "role": "admin",
-        "lang": "en",
-        "width": 1440,
-        "roleNavigation": true,
-        "signatureRequiredFilter": true,
-        "countsMatchReadOnlyAPI": true,
-        "signatureBadges": 1,
-        "badgeStates": [
-          "unsigned"
-        ],
-        "decisionOption": "present-approved-record-locked",
-        "noOverflow": true
-      },
-      {
-        "scope": "management",
-        "role": "admin",
-        "lang": "en",
-        "width": 390,
-        "roleNavigation": true,
-        "signatureRequiredFilter": true,
-        "countsMatchReadOnlyAPI": true,
-        "signatureBadges": 1,
-        "badgeStates": [
-          "unsigned"
-        ],
-        "decisionOption": "present-approved-record-locked",
-        "noOverflow": true
-      },
-      {
-        "scope": "management",
-        "role": "admin",
-        "lang": "ar",
-        "width": 1440,
-        "roleNavigation": true,
-        "signatureRequiredFilter": true,
-        "countsMatchReadOnlyAPI": true,
-        "signatureBadges": 1,
-        "badgeStates": [
-          "unsigned"
-        ],
-        "decisionOption": "present-approved-record-locked",
-        "noOverflow": true
-      },
-      {
-        "scope": "management",
-        "role": "admin",
-        "lang": "ar",
-        "width": 390,
-        "roleNavigation": true,
-        "signatureRequiredFilter": true,
-        "countsMatchReadOnlyAPI": true,
-        "signatureBadges": 1,
-        "badgeStates": [
-          "unsigned"
-        ],
-        "decisionOption": "present-approved-record-locked",
-        "noOverflow": true
-      },
-      {
-        "scope": "management",
-        "role": "superadmin",
-        "lang": "en",
-        "width": 1440,
-        "roleNavigation": true,
-        "signatureRequiredFilter": true,
-        "countsMatchReadOnlyAPI": true,
-        "signatureBadges": 1,
-        "badgeStates": [
-          "unsigned"
-        ],
-        "decisionOption": "present-approved-record-locked",
-        "noOverflow": true
-      },
-      {
-        "scope": "management",
-        "role": "superadmin",
-        "lang": "en",
-        "width": 390,
-        "roleNavigation": true,
-        "signatureRequiredFilter": true,
-        "countsMatchReadOnlyAPI": true,
-        "signatureBadges": 1,
-        "badgeStates": [
-          "unsigned"
-        ],
-        "decisionOption": "present-approved-record-locked",
-        "noOverflow": true
-      },
-      {
-        "scope": "management",
-        "role": "superadmin",
-        "lang": "ar",
-        "width": 1440,
-        "roleNavigation": true,
-        "signatureRequiredFilter": true,
-        "countsMatchReadOnlyAPI": true,
-        "signatureBadges": 1,
-        "badgeStates": [
-          "unsigned"
-        ],
-        "decisionOption": "present-approved-record-locked",
-        "noOverflow": true
-      },
-      {
-        "scope": "management",
-        "role": "superadmin",
-        "lang": "ar",
-        "width": 390,
-        "roleNavigation": true,
-        "signatureRequiredFilter": true,
-        "countsMatchReadOnlyAPI": true,
-        "signatureBadges": 1,
-        "badgeStates": [
-          "unsigned"
-        ],
-        "decisionOption": "present-approved-record-locked",
-        "noOverflow": true
-      }
-    ],
-    "assets": [
-      {
-        "name": "index-Dc-DFhaS.js",
-        "sha256": "9a2cf1a7d41186ba77ee791ca4571b4eadc71d6036bf3de7502160398cefde87",
-        "matchesBuild": true
-      },
-      {
-        "name": "main-B6QphwVU.css",
-        "sha256": "0ba32730fec41d0f9bef1e2fd1712d37b25bd77d9140dc86c9d4bf3e0a4e4380",
-        "matchesBuild": true
-      },
-      {
-        "name": "main-CACQja_4.js",
-        "sha256": "5e9715a4cc8ce78d938951cafc3d9bb5164235c8ed971c3c42ef3ae0621819a0",
-        "matchesBuild": true
-      },
-      {
-        "name": "main-CS4VPtUz.js",
-        "sha256": "fd132ae09d7ffbbdd2339ec2ede57d44a877e1ab9f31f14d244370203ccc88ed",
-        "matchesBuild": true
-      },
-      {
-        "name": "main-CXH4ErNl.js",
-        "sha256": "070b5bb571fb2df382724689e74bde323a65edd911034f72fcaa0f649ebad91e",
-        "matchesBuild": true
-      },
-      {
-        "name": "main-De8-bcCJ.css",
-        "sha256": "3f0cec7043d125084ef422b84b6e366c80028b891a23c0b4b62bb0dc5e692d56",
-        "matchesBuild": true
-      },
-      {
-        "name": "main-M8cxcAYY.css",
-        "sha256": "183039f2c84f286499473e33f28327d881d898ead0bb25a4c0fde7c247e3c7bd",
-        "matchesBuild": true
-      },
-      {
-        "name": "preview-BMmWn8nT.js",
-        "sha256": "f5cfcd0f057e0c3543e3b2d508df56b4ef5cb7af202035333e50025dfc70794b",
-        "matchesBuild": true
-      },
-      {
-        "name": "preview-CK6TZEZ7.css",
-        "sha256": "5c8d4dcee7b8221e2517c9ef338dc1ad801048b5475f8a78606eb52a3b4dec35",
-        "matchesBuild": true
-      }
-    ],
-    "pdfAssets": [
-      {
-        "name": "al-naeem-terms-consent.pdf",
-        "bytes": 37940,
-        "sha256": "8761415c8304d31122ef042a65397b27ad8385a653f7a6c57d81fafd6060ab1b",
-        "matchesBuild": true
-      },
-      {
-        "name": "fatca-crs-corporate.pdf",
-        "bytes": 395027,
-        "sha256": "99ca43de54f7080a77f049c7502e280326fd4c0cb0b3169d0381a184d17028d0",
-        "matchesBuild": true
-      },
-      {
-        "name": "fatca-crs-individual.pdf",
-        "bytes": 547987,
-        "sha256": "d2347853b761d014e5925812f4e24e32aed0a5dd8a701464b804255dec7ada4b",
-        "matchesBuild": true
-      },
-      {
-        "name": "kyc-corporate.pdf",
-        "bytes": 1509241,
-        "sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
-        "matchesBuild": true
-      },
-      {
-        "name": "kyc-individual.pdf",
-        "bytes": 542853,
-        "sha256": "79d7e6298f841bfc69dc627c4594448adb62a09266961087c28514df96b12d51",
-        "matchesBuild": true
-      },
-      {
-        "name": "signature-form.pdf",
-        "bytes": 168493,
-        "sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
-        "matchesBuild": true
-      },
-      {
-        "name": "subscription-company.pdf",
-        "bytes": 224122,
-        "sha256": "c72c44c5441994eed7ec8a591fd8b69966b07eb05fa93bfe8d9115c88f8641ef",
-        "matchesBuild": true
-      },
-      {
-        "name": "subscription-form.pdf",
-        "bytes": 256368,
-        "sha256": "00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a",
-        "matchesBuild": true
-      },
-      {
-        "name": "subscription-individual.pdf",
-        "bytes": 222683,
-        "sha256": "d4149689c453464f66388ebcb6a58507aee08109e6684e066c743e5ce9a4e7ef",
-        "matchesBuild": true
-      },
-      {
-        "name": "terms-and-conditions.pdf",
-        "bytes": 588565,
-        "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
-        "matchesBuild": true
-      }
-    ],
-    "approvedRecords": {
-      "compared": 1,
-      "unchanged": true
+  "pdfs": {
+    "counts": {
+      "pdfs": 106,
+      "pages": 762,
+      "text_rectangles": 2107,
+      "choice_rectangles": 917,
+      "signature_rectangles": 32,
+      "transparent_images": 15333,
+      "unchanged_pages": 346
     },
-    "errors": [],
-    "blockedWrites": [],
-    "allowedAuthRequests": 4,
-    "applicationMutations": 0,
-    "passed": true,
-    "finished": "2026-09-19T20:23:30.790Z"
+    "coverage": {
+      "signature-form": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 6,
+        "covered_choice_options": 6,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "subscription-form": {
+        "mapped_fields": 29,
+        "covered_fields": 29,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 13,
+        "complete_success": 5
+      },
+      "subscription-company": {
+        "mapped_fields": 30,
+        "covered_fields": 30,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 11,
+        "complete_success": 5
+      },
+      "terms-and-conditions": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 4,
+        "covered_choice_options": 4,
+        "uncovered_choices": [],
+        "signature_slots": 6,
+        "covered_signatures": 6,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "fatca-crs-individual": {
+        "mapped_fields": 57,
+        "covered_fields": 57,
+        "uncovered_fields": [],
+        "choice_options": 16,
+        "covered_choice_options": 16,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 12,
+        "complete_success": 5
+      },
+      "fatca-crs-corporate": {
+        "mapped_fields": 76,
+        "covered_fields": 76,
+        "uncovered_fields": [],
+        "choice_options": 19,
+        "covered_choice_options": 19,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 19,
+        "complete_success": 5
+      },
+      "kyc-individual": {
+        "mapped_fields": 109,
+        "covered_fields": 109,
+        "uncovered_fields": [],
+        "choice_options": 122,
+        "covered_choice_options": 122,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 16,
+        "complete_success": 5
+      },
+      "kyc-corporate": {
+        "mapped_fields": 102,
+        "covered_fields": 102,
+        "uncovered_fields": [],
+        "choice_options": 60,
+        "covered_choice_options": 60,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 15,
+        "complete_success": 5
+      }
+    },
+    "failures": [],
+    "covered_fields": 423,
+    "covered_options": 227,
+    "covered_signature_slots": 16
   },
-  "https_verification": {
-    "passed": true,
-    "public_build_matches": [
-      "index.html",
-      "my-applications/index.html",
-      "individuals/index.html",
-      "management/index.html",
-      "register/index.html",
-      "account/index.html",
-      "assets/api-BR2iZMbd.js",
-      "assets/main-CACQja_4.js",
-      "assets/main-CXH4ErNl.js",
-      "assets/index-Dc-DFhaS.js",
-      "assets/access-Du5ohJ-H.js",
-      "assets/shared-fields-DtDyiGRB.js",
-      "assets/main-CS4VPtUz.js",
-      "assets/preview-BMmWn8nT.js",
-      "assets/access-D9Xk8C90.js",
-      "login/index.html",
-      "companies/index.html"
-    ],
-    "blocked_paths": [
+  "preview": {
+    "comparisons": 165,
+    "exact": 159,
+    "within_tolerance": 6,
+    "errors": [],
+    "passed": true
+  },
+  "content_and_geometry": {
+    "documents": 5,
+    "pages": 38,
+    "preserved_legal_fragments": 23,
+    "failures": []
+  },
+  "browser_workflows": {
+    "admin_accounts": {
+      "checks": [
+        "Account creation/export are superadmin-only; CSRF, minimum length, confirmation and legacy username collisions enforced",
+        "Superadmin creates an admin through the UI; separate login works without document/account-management privileges or exposed hashes",
+        "Chosen eight-character admin passwords reset both new and legacy accounts and invalidate earlier sessions",
+        "Client reset UI accepts a chosen password, revokes sessions, requires a private client change and preserves all submissions",
+        "English/Arabic admin navigation and password dialogs fit mobile screens",
+        "Private snapshot restores exact accounts, structured answers, archives, PDF hashes and administrator credentials; replacement of existing data refused"
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "access_control": {
+      "checks": [
+        "Anonymous root/folder/index pages redirect; original PDFs, direct gateway and catalogue denied; defaults denied; retired preview redirects",
+        "Both client categories see only matching/shared catalogue and PDFs; direct opposite links denied; category landing works",
+        "Uploaded published documents enforce category; only superadmin can fetch draft uploads; management retains both-audience previews",
+        "Combined management/client cookies preserve preview access; logout restores category guard; reset revokes old PDF/page access; forged cookies fail closed",
+        "Temporary-password clients must replace password before forms/templates; replacing it restores authenticated access",
+        "Client logout immediately blocks catalogue and template access"
+      ],
+      "passed": true
+    },
+    "management_views": {
+      "checks": [
+        "chrome admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "chrome superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "chrome new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "chrome: client My applications preview remains functional",
+        "chrome: all 13 PDF pages render for admin and client on a high-density phone at the actual available width",
+        "firefox admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "firefox superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "firefox new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "firefox: client My applications preview remains functional",
+        "firefox: all 13 PDF pages render for admin and client on a high-density phone at the actual available width",
+        "webkit admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "webkit superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "webkit new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "webkit: client My applications preview remains functional",
+        "webkit: all 13 PDF pages render for admin and client on a high-density phone at the actual available width",
+        "Slow profile shows feedback; switching sections cannot be overwritten by its delayed response",
+        "Interrupted profile request recovers through Try again",
+        "Interrupted PDF download recovers in the same preview without losing details",
+        "Repeated preview clicks keep a single dialog",
+        "Closing a pending PDF cancels its load and a new preview opens normally",
+        "Expired admin preview session closes the dialog and returns to management sign-in",
+        "Expired client-profile request returns to management sign-in",
+        "Expired client preview returns to client sign-in"
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "catalogue": {
+      "checks": [
+        "Superadmin-only title/order editing, private drafts, stale revision rejection, explicit publish and rollback",
+        "Native PDF upload imports all five fields; both language samples flatten correctly; review gate protects publication",
+        "New card 7 works for both client categories, reuses account details, submits actual controls and preserves exact downloadable PDFs",
+        "Invalid placements, cross-category mappings, overlapping answers and malformed uploads are rejected; removing a template preserves submitted PDFs",
+        "Only superadmin changes account type; stale changes fail; access follows category and prior shared details remain separate and recoverable",
+        "Management login throttling blocks repeated failures"
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "navigation": {
+      "checks": [
+        "chrome en: delayed admins cannot replace submissions; reopening works",
+        "chrome en: delayed documents cannot replace submissions; reopening works",
+        "chrome ar: delayed admins cannot replace submissions; reopening works",
+        "chrome ar: delayed documents cannot replace submissions; reopening works",
+        "firefox en: delayed admins cannot replace submissions; reopening works",
+        "firefox en: delayed documents cannot replace submissions; reopening works",
+        "firefox ar: delayed admins cannot replace submissions; reopening works",
+        "firefox ar: delayed documents cannot replace submissions; reopening works",
+        "webkit en: delayed admins cannot replace submissions; reopening works",
+        "webkit en: delayed documents cannot replace submissions; reopening works",
+        "webkit ar: delayed admins cannot replace submissions; reopening works",
+        "webkit ar: delayed documents cannot replace submissions; reopening works"
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "direct_intake": {
+      "checks": [
+        "Login/signup: EN and AR, desktop/mobile, source logos and role labels, no PDF engine or PDF loaded",
+        "Logged-out document routes redirect to sign-in",
+        "Real form edits propagate separate Arabic/English names and joined city/district to account and other forms",
+        "Offline edits retry to account; intentional clear persists after reload",
+        "Multiple tabs, fresh browser and individual/company/account isolation",
+        "Company English sharing is bidirectional and separate from Arabic identity",
+        "One-click unsigned submission, lost-response retry, single immutable version and receipt reference",
+        "Signed replacement archives the earlier PDF and all captured answers; stale replacement is rejected",
+        "Consent PDF upload works without inventing structured answers or signature verification",
+        "Management receives current versions, exact answers and signature status; preview/PDF/ZIP work; review controls disabled and cross-account access blocked",
+        "All eight filled forms submitted: 556 field values matched management records, and downloaded PDFs matched byte for byte"
+      ],
+      "errors": [],
+      "allFormAnswers": 556,
+      "passed": true
+    },
+    "actual_form_controls": {
+      "checks": [
+        "signature-form: actual UI controls, reload, submit, management answers and PDF download match",
+        "subscription-form: actual UI controls, reload, submit, management answers and PDF download match",
+        "subscription-company: actual UI controls, reload, submit, management answers and PDF download match",
+        "terms-and-conditions: actual UI controls, reload, submit, management answers and PDF download match",
+        "fatca-crs-individual: actual UI controls, reload, submit, management answers and PDF download match",
+        "fatca-crs-corporate: actual UI controls, reload, submit, management answers and PDF download match",
+        "KYC risk answers survive reload, submission and editing; resubmission archives original without changing answers or PDF",
+        "kyc-individual: actual UI controls, reload, submit, management answers and PDF download match",
+        "kyc-corporate: actual UI controls, reload, submit, management answers and PDF download match",
+        "Logout works on every editor; both account types list all six applicable forms in management",
+        "Short bold fund title, four logos and login/signup fit desktop and mobile in both languages"
+      ],
+      "forms": [
+        {
+          "id": "signature-form",
+          "controls": 16,
+          "savedAnswers": 18
+        },
+        {
+          "id": "subscription-form",
+          "controls": 33,
+          "savedAnswers": 44
+        },
+        {
+          "id": "subscription-company",
+          "controls": 32,
+          "savedAnswers": 42
+        },
+        {
+          "id": "terms-and-conditions",
+          "controls": 28,
+          "savedAnswers": 34
+        },
+        {
+          "id": "fatca-crs-individual",
+          "controls": 68,
+          "savedAnswers": 73
+        },
+        {
+          "id": "fatca-crs-corporate",
+          "controls": 97,
+          "savedAnswers": 104
+        },
+        {
+          "id": "kyc-individual",
+          "controls": 117,
+          "savedAnswers": 122
+        },
+        {
+          "id": "kyc-corporate",
+          "controls": 107,
+          "savedAnswers": 110
+        }
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "loading": {
+      "checks": [
+        "Document centre and editor work while the shared-profile response is still pending",
+        "Late account data fills untouched fields; an edit made while loading is preserved and conflict resolution saves it",
+        "Opening the document centre and editing fields fetches no PDF or PDF engine",
+        "Reload restores the confirmed account values",
+        "Management overview defers form definitions and PDF downloads until they are needed"
+      ],
+      "errors": [],
+      "passed": true
+    }
+  },
+  "live_loading": {
+    "samples": [
       {
-        "path": "_private/",
-        "status": 403
+        "route": "login",
+        "lang": "en",
+        "width": 1440,
+        "usableMs": 738,
+        "readyMs": 917,
+        "ttfbMs": 109,
+        "resources": [
+          {
+            "path": "/assets/preload-helper-uBIymjUX.js",
+            "bytes": 911,
+            "durationMs": 95
+          },
+          {
+            "path": "/assets/routes-VETtnQjc.js",
+            "bytes": 633,
+            "durationMs": 95
+          },
+          {
+            "path": "/assets/index-DzB43Rzj.js",
+            "bytes": 1241,
+            "durationMs": 183
+          },
+          {
+            "path": "/assets/api-DHztjfnQ.js",
+            "bytes": 4628,
+            "durationMs": 190
+          },
+          {
+            "path": "/assets/signatures-DVLCRJrK.js",
+            "bytes": 4923,
+            "durationMs": 190
+          },
+          {
+            "path": "/assets/preview-JYatqi3Z.js",
+            "bytes": 7795,
+            "durationMs": 190
+          },
+          {
+            "path": "/assets/main-BRvA9bBN.js",
+            "bytes": 9245,
+            "durationMs": 278
+          },
+          {
+            "path": "/assets/pdf-HoT5YlUu.js",
+            "bytes": 6617,
+            "durationMs": 279
+          },
+          {
+            "path": "/assets/pdf-Dh8w9AEg.css",
+            "bytes": 1748,
+            "durationMs": 98
+          },
+          {
+            "path": "/assets/preview-Cwa2ot1q.css",
+            "bytes": 2392,
+            "durationMs": 99
+          },
+          {
+            "path": "/assets/arabic-600-DfnZHZ36.css",
+            "bytes": 446,
+            "durationMs": 99
+          },
+          {
+            "path": "/assets/main-B72gXKZ_.css",
+            "bytes": 4182,
+            "durationMs": 99
+          },
+          {
+            "path": "/favicon.svg",
+            "bytes": 482,
+            "durationMs": 95
+          },
+          {
+            "path": "/api/portal.php",
+            "bytes": 418,
+            "durationMs": 116
+          },
+          {
+            "path": "/branding/itqan.png",
+            "bytes": 45610,
+            "durationMs": 195
+          },
+          {
+            "path": "/branding/itqan-fund.png",
+            "bytes": 22878,
+            "durationMs": 196
+          },
+          {
+            "path": "/branding/dinar-partner.png",
+            "bytes": 4084,
+            "durationMs": 196
+          },
+          {
+            "path": "/branding/rsm-partner.png",
+            "bytes": 2174,
+            "durationMs": 196
+          },
+          {
+            "path": "/branding/wessal-partner.png",
+            "bytes": 9658,
+            "durationMs": 198
+          },
+          {
+            "path": "/assets/inter-latin-400-normal-C38fXH4l.woff2",
+            "bytes": 23964,
+            "durationMs": 286
+          },
+          {
+            "path": "/assets/inter-latin-600-normal-LgqL8muc.woff2",
+            "bytes": 24752,
+            "durationMs": 286
+          },
+          {
+            "path": "/assets/inter-latin-500-normal-Cerq10X2.woff2",
+            "bytes": 24572,
+            "durationMs": 289
+          },
+          {
+            "path": "/assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
+            "bytes": 53560,
+            "durationMs": 99
+          }
+        ]
       },
       {
-        "path": "_private/portal/clients.sqlite",
-        "status": 403
+        "route": "login",
+        "lang": "ar",
+        "width": 390,
+        "usableMs": 732,
+        "readyMs": 970,
+        "ttfbMs": 114,
+        "resources": [
+          {
+            "path": "/assets/preload-helper-uBIymjUX.js",
+            "bytes": 911,
+            "durationMs": 89
+          },
+          {
+            "path": "/assets/index-DzB43Rzj.js",
+            "bytes": 1241,
+            "durationMs": 89
+          },
+          {
+            "path": "/assets/routes-VETtnQjc.js",
+            "bytes": 633,
+            "durationMs": 94
+          },
+          {
+            "path": "/assets/api-DHztjfnQ.js",
+            "bytes": 4628,
+            "durationMs": 94
+          },
+          {
+            "path": "/assets/signatures-DVLCRJrK.js",
+            "bytes": 4923,
+            "durationMs": 177
+          },
+          {
+            "path": "/assets/pdf-HoT5YlUu.js",
+            "bytes": 6617,
+            "durationMs": 185
+          },
+          {
+            "path": "/assets/preview-JYatqi3Z.js",
+            "bytes": 7795,
+            "durationMs": 268
+          },
+          {
+            "path": "/assets/main-BRvA9bBN.js",
+            "bytes": 9245,
+            "durationMs": 273
+          },
+          {
+            "path": "/assets/pdf-Dh8w9AEg.css",
+            "bytes": 1748,
+            "durationMs": 185
+          },
+          {
+            "path": "/assets/preview-Cwa2ot1q.css",
+            "bytes": 2392,
+            "durationMs": 186
+          },
+          {
+            "path": "/assets/main-B72gXKZ_.css",
+            "bytes": 4182,
+            "durationMs": 186
+          },
+          {
+            "path": "/assets/arabic-600-DfnZHZ36.css",
+            "bytes": 446,
+            "durationMs": 186
+          },
+          {
+            "path": "/favicon.svg",
+            "bytes": 482,
+            "durationMs": 94
+          },
+          {
+            "path": "/api/portal.php",
+            "bytes": 420,
+            "durationMs": 107
+          },
+          {
+            "path": "/branding/itqan.png",
+            "bytes": 45610,
+            "durationMs": 180
+          },
+          {
+            "path": "/branding/itqan-fund.png",
+            "bytes": 22878,
+            "durationMs": 180
+          },
+          {
+            "path": "/branding/wessal-partner.png",
+            "bytes": 9658,
+            "durationMs": 180
+          },
+          {
+            "path": "/branding/dinar-partner.png",
+            "bytes": 4084,
+            "durationMs": 185
+          },
+          {
+            "path": "/branding/rsm-partner.png",
+            "bytes": 2174,
+            "durationMs": 185
+          },
+          {
+            "path": "/assets/inter-latin-400-normal-C38fXH4l.woff2",
+            "bytes": 23964,
+            "durationMs": 269
+          },
+          {
+            "path": "/assets/inter-latin-600-normal-LgqL8muc.woff2",
+            "bytes": 24752,
+            "durationMs": 269
+          },
+          {
+            "path": "/assets/inter-latin-500-normal-Cerq10X2.woff2",
+            "bytes": 24572,
+            "durationMs": 274
+          },
+          {
+            "path": "/assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
+            "bytes": 53560,
+            "durationMs": 99
+          },
+          {
+            "path": "/assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
+            "bytes": 49140,
+            "durationMs": 179
+          }
+        ]
       },
       {
-        "path": ".env.local",
-        "status": 403
+        "route": "register",
+        "lang": "en",
+        "width": 1440,
+        "usableMs": 1254,
+        "readyMs": 2002,
+        "ttfbMs": 104,
+        "resources": [
+          {
+            "path": "/assets/preload-helper-uBIymjUX.js",
+            "bytes": 911,
+            "durationMs": 103
+          },
+          {
+            "path": "/assets/routes-VETtnQjc.js",
+            "bytes": 633,
+            "durationMs": 108
+          },
+          {
+            "path": "/assets/index-DzB43Rzj.js",
+            "bytes": 1241,
+            "durationMs": 123
+          },
+          {
+            "path": "/assets/signatures-DVLCRJrK.js",
+            "bytes": 4923,
+            "durationMs": 186
+          },
+          {
+            "path": "/assets/pdf-HoT5YlUu.js",
+            "bytes": 6617,
+            "durationMs": 215
+          },
+          {
+            "path": "/assets/api-DHztjfnQ.js",
+            "bytes": 4628,
+            "durationMs": 364
+          },
+          {
+            "path": "/assets/pdf-Dh8w9AEg.css",
+            "bytes": 1748,
+            "durationMs": 215
+          },
+          {
+            "path": "/assets/preview-JYatqi3Z.js",
+            "bytes": 7795,
+            "durationMs": 224
+          },
+          {
+            "path": "/assets/main-BRvA9bBN.js",
+            "bytes": 9245,
+            "durationMs": 359
+          },
+          {
+            "path": "/assets/preview-Cwa2ot1q.css",
+            "bytes": 2392,
+            "durationMs": 360
+          },
+          {
+            "path": "/assets/main-B72gXKZ_.css",
+            "bytes": 4182,
+            "durationMs": 360
+          },
+          {
+            "path": "/assets/arabic-600-DfnZHZ36.css",
+            "bytes": 446,
+            "durationMs": 360
+          },
+          {
+            "path": "/favicon.svg",
+            "bytes": 482,
+            "durationMs": 95
+          },
+          {
+            "path": "/api/portal.php",
+            "bytes": 419,
+            "durationMs": 302
+          },
+          {
+            "path": "/branding/itqan.png",
+            "bytes": 45610,
+            "durationMs": 440
+          },
+          {
+            "path": "/branding/itqan-fund.png",
+            "bytes": 22878,
+            "durationMs": 600
+          },
+          {
+            "path": "/branding/wessal-partner.png",
+            "bytes": 9658,
+            "durationMs": 520
+          },
+          {
+            "path": "/branding/dinar-partner.png",
+            "bytes": 4084,
+            "durationMs": 601
+          },
+          {
+            "path": "/branding/rsm-partner.png",
+            "bytes": 2174,
+            "durationMs": 601
+          },
+          {
+            "path": "/assets/inter-latin-400-normal-C38fXH4l.woff2",
+            "bytes": 23964,
+            "durationMs": 703
+          },
+          {
+            "path": "/assets/inter-latin-600-normal-LgqL8muc.woff2",
+            "bytes": 24752,
+            "durationMs": 839
+          },
+          {
+            "path": "/assets/inter-latin-500-normal-Cerq10X2.woff2",
+            "bytes": 24572,
+            "durationMs": 918
+          },
+          {
+            "path": "/assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
+            "bytes": 53560,
+            "durationMs": 369
+          }
+        ]
+      },
+      {
+        "route": "register",
+        "lang": "ar",
+        "width": 390,
+        "usableMs": 732,
+        "readyMs": 877,
+        "ttfbMs": 99,
+        "resources": [
+          {
+            "path": "/assets/preload-helper-uBIymjUX.js",
+            "bytes": 911,
+            "durationMs": 79
+          },
+          {
+            "path": "/assets/index-DzB43Rzj.js",
+            "bytes": 1241,
+            "durationMs": 79
+          },
+          {
+            "path": "/assets/routes-VETtnQjc.js",
+            "bytes": 633,
+            "durationMs": 84
+          },
+          {
+            "path": "/assets/api-DHztjfnQ.js",
+            "bytes": 4628,
+            "durationMs": 84
+          },
+          {
+            "path": "/assets/signatures-DVLCRJrK.js",
+            "bytes": 4923,
+            "durationMs": 158
+          },
+          {
+            "path": "/assets/pdf-HoT5YlUu.js",
+            "bytes": 6617,
+            "durationMs": 164
+          },
+          {
+            "path": "/assets/preview-JYatqi3Z.js",
+            "bytes": 7795,
+            "durationMs": 165
+          },
+          {
+            "path": "/assets/pdf-Dh8w9AEg.css",
+            "bytes": 1748,
+            "durationMs": 239
+          },
+          {
+            "path": "/assets/main-BRvA9bBN.js",
+            "bytes": 9245,
+            "durationMs": 239
+          },
+          {
+            "path": "/assets/preview-Cwa2ot1q.css",
+            "bytes": 2392,
+            "durationMs": 244
+          },
+          {
+            "path": "/assets/main-B72gXKZ_.css",
+            "bytes": 4182,
+            "durationMs": 244
+          },
+          {
+            "path": "/assets/arabic-600-DfnZHZ36.css",
+            "bytes": 446,
+            "durationMs": 244
+          },
+          {
+            "path": "/api/portal.php",
+            "bytes": 419,
+            "durationMs": 95
+          },
+          {
+            "path": "/favicon.svg",
+            "bytes": 482,
+            "durationMs": 80
+          },
+          {
+            "path": "/branding/itqan.png",
+            "bytes": 45610,
+            "durationMs": 159
+          },
+          {
+            "path": "/branding/itqan-fund.png",
+            "bytes": 22878,
+            "durationMs": 159
+          },
+          {
+            "path": "/branding/wessal-partner.png",
+            "bytes": 9658,
+            "durationMs": 159
+          },
+          {
+            "path": "/branding/dinar-partner.png",
+            "bytes": 4084,
+            "durationMs": 164
+          },
+          {
+            "path": "/branding/rsm-partner.png",
+            "bytes": 2174,
+            "durationMs": 164
+          },
+          {
+            "path": "/assets/inter-latin-400-normal-C38fXH4l.woff2",
+            "bytes": 23964,
+            "durationMs": 238
+          },
+          {
+            "path": "/assets/inter-latin-600-normal-LgqL8muc.woff2",
+            "bytes": 24752,
+            "durationMs": 238
+          },
+          {
+            "path": "/assets/inter-latin-500-normal-Cerq10X2.woff2",
+            "bytes": 24572,
+            "durationMs": 243
+          },
+          {
+            "path": "/assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2",
+            "bytes": 53560,
+            "durationMs": 94
+          },
+          {
+            "path": "/assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
+            "bytes": 49140,
+            "durationMs": 165
+          }
+        ]
       }
     ],
-    "source_commit": "27e547207c40b00c88961c593fd2a40a4fa0eb08"
+    "errors": [],
+    "passed": true,
+    "note": "Four cold browser contexts on the current connection; observations are not a network or device performance guarantee."
   },
-  "preservation": {
-    "original_pdf_templates_changed": false,
-    "production_test_accounts_created": 0,
-    "production_submissions_created": 0,
-    "production_decisions_changed": 0,
-    "private_storage_preserved": true,
-    "overwritten_public_files_backed_up": true
+  "live_checks": {
+    "sourceCommit": "bee654aae6f3e7c28234af2c47abfb698721f33d",
+    "started": "2026-09-28T07:13:29.889Z",
+    "checks": [
+      "Protected document pages, templates, client data and management endpoints deny anonymous access; private paths are inaccessible",
+      "Live login/signup display the supplied title and four partner logos in English/Arabic without desktop/mobile overflow",
+      "Served auth assets match release hashes; heavy PDF engines remain deferred",
+      "Superadmin login, direct-intake migration, current-submissions filters and management navigation work; previous records remain accessible",
+      "Live superadmin Administrators tab and chosen-password controls work in both languages; no accounts created or passwords changed",
+      "All eight editable templates and consent download match the verified local PDFs",
+      "Existing production submission details and its PDF remain readable and hash-consistent",
+      "Live management profile includes every applicable form and marks only absent current submissions as not submitted",
+      "Existing submitted PDF renders fully in the Arabic management preview with corrected canvas direction; download bytes remain unchanged"
+    ],
+    "errors": [],
+    "businessWrites": 0,
+    "passed": true,
+    "finished": "2026-09-28T07:13:57.891Z"
   },
-  "limits": [
-    "Software regression and supplied-document/business-rule checks; not legal/regulatory certification.",
-    "Automatic flat-PDF import provides suggestions requiring manual review; ambiguous table captions and date-border placement still need correction before publication. These do not affect existing curated forms.",
-    "Every defined option was checked against source, but not every possible answer or combination was rendered.",
-    "Mobile viewport/browser-engine tests, not physical iOS/Android devices or printers. No load test or full penetration test.",
-    "Uploaded handwritten signatures require management inspection; image presence is not cryptographic authentication."
-  ],
-  "evidence": {
-    "pdf_report": "tmp/pdfs/full-audit-20260919/REPORT.md",
-    "field_inventory": "tmp/pdfs/full-audit-20260919/field-coverage.json",
-    "client_report": "tmp/client-regression-1789848164456/REPORT.md",
-    "management_report": "tmp/full-management-audit-1789848167568614000/summary.json",
-    "final_importer_ui": "tmp/full-management-audit-1789848167568614000/signature-ui/report.json",
-    "reviews": "tmp/full-audit-current/reviews-fixed/results.json",
-    "signatures": "tmp/full-audit-current/signature-steps/report.json",
-    "navigation": "tmp/full-audit-current/navigation/report.json",
-    "live": "tmp/final-production-readonly-1789849344706/report.json"
-  }
+  "publication": {
+    "url": "https://forms.ahmaddalao.com/",
+    "source_commit": "bee654aae6f3e7c28234af2c47abfb698721f33d",
+    "uploaded_at_utc": "20260928T071222Z",
+    "static_only": true,
+    "completed": true
+  },
+  "private_preservation": {
+    "tables": {
+      "users": 4,
+      "submissions": 15,
+      "client_shared_profiles": 5,
+      "submission_reviews": 2
+    },
+    "passed": true,
+    "archived_versions": 9,
+    "unchanged_pdf_files": 15,
+    "restore_verified": true,
+    "snapshot_sha256": "37edba45a882f29236c86dc3a334a97736fedeae3f573c15ffdc79245b9494c4"
+  },
+  "prior_handoff_integrity": {
+    "checks": [
+      "Archive CRC, every manifest checksum, public-file exclusion rules, current PDFs and editable sources passed",
+      "Clean install databases are valid and contain no client data",
+      "Private migration restores accounts, structured answers and all current/archived PDF bytes without corruption",
+      "Original signature and Terms & Conditions PDFs remain byte-identical"
+    ],
+    "public_files": 95,
+    "manifest_files": 320,
+    "private_counts": {
+      "users": 4,
+      "submissions": 15,
+      "client_shared_profiles": 5,
+      "archived_versions": 9
+    },
+    "passed": true
+  },
+  "scope_notes": [
+    "Application fields, calculations, persistence, isolation and supported workflow behavior were tested against the current supplied forms. This is software regression verification, not legal or regulatory certification.",
+    "Live checks were read-only apart from sign-in/sign-out and private backup export. Destructive, password, publication and submission scenarios ran against disposable local accounts.",
+    "Cold-load timings are observations from four fresh browser contexts on this connection, not a throughput/load-test guarantee.",
+    "Original signature and Terms & Conditions PDFs intentionally retain their source layouts."
+  ]
 }
