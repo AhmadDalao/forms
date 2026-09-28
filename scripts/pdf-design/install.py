@@ -5,6 +5,8 @@ ROOT=Path(__file__).resolve().parents[2]
 (ROOT/'output/documents').mkdir(parents=True,exist_ok=True)
 layouts={};report={}
 for file in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
+    # T&C intentionally uses its original PDF, even if old generated files remain.
+    if file.parent.name=='terms-and-conditions':continue
     identifier=file.parent.name;layout=json.loads(file.read_text())
     pdf=file.parent/'final'/f'{identifier}.pdf';docx=file.parent/f'{identifier}.docx'
     assert pdf.is_file() and docx.is_file()

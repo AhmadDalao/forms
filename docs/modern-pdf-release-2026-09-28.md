@@ -1,3 +1,5 @@
+> Historical release report. The later Terms & Conditions restoration supersedes its 24-page template; see `terms-restoration-2026-09-28.md`. Other documents remain unchanged.
+
 # Subscription-style PDF release — 28 September 2026
 
 The active document family now follows the approved subscription Word design: Itqan branding, purple section bars, bilingual label hierarchy, ruled answer areas and transparent blue answers. The two subscription templates remain unchanged. Editable Word and matching PDF sources accompany all nine documents.

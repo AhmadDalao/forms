@@ -306,13 +306,6 @@ class Builder:
         self.heading('Senior Management Approval (If needed)','موافقة الإدارة العليا (عند الحاجة)',True)
         self.rows([{'label':'Name','ar':'الاسم'},{'label':'Position','ar':'الوظيفة'}]);self.rows([{'label':'Date','ar':'التاريخ'},{'label':'Signature','ar':'التوقيع'}],height=35)
 
-    def staff_terms(self,authorization=False):
-        self.heading('For company Use Only:','لاستعمال الشركة فقط')
-        if not authorization:self.manual_options('','',[["Proof of address","إثبات عنوان"],["Copy of ID","هوية العميل"],["Bank Information","معلومات البنك"],["Signature form","نموذج التوقيع"],["Check list","قائمة المراجعات"],["Personal information","المعلومات الشخصية"],["Investment information","معلومات الاستثمار"],["Data input","إدخال البيانات"],["Authorization Via Tel & Fax","تفويض قبول التعليمات بالهاتف والفاكس"]])
-        self.note('The agreement has been accepted by:','تم اعتماد قبول الاتفاقية بواسطة:')
-        names=[['Branch','الفرع'],['A.C Mgr.','مسؤول الحساب'],*([['Entered by','مدخل الطلب'],['Reviewed & Approved by','مراجعة واعتماد']] if authorization else [['Reviewed by','روجع بواسطة'],['Approved by','اعتمد بواسطة']])]
-        for i,(en,ar) in enumerate(names):self.rows([{'label':en,'ar':ar},{'label':'Date' if i==0 else 'Signature','ar':'التاريخ' if i==0 else 'التوقيع'}],height=25)
-
     def build(self):
         id=self.id
         if id=='signature-form':
@@ -343,13 +336,6 @@ class Builder:
             p=self.doc.add_paragraph();para(p,'The remainder of this page ',8,color=MUTED)
             n=OxmlElement('w:fldSimple');n.set(qn('w:instr'),'PAGE');p._p.append(n)
             run(p,' is intentionally left blank.',8,color=MUTED)
-        elif id=='terms-and-conditions':
-            self.heading('General Terms and Conditions','شروط وأحكام عامة')
-            for page in range(1,11):self.fragment(f'terms-{page}-en',f'terms-{page}-ar')
-            self.section('terms');self.staff_terms();self.doc.add_page_break()
-            self.fragment('terms-appendix-title-en','terms-appendix-title-ar')
-            for page in [12,13]:self.fragment(f'terms-{page}-en',f'terms-{page}-ar')
-            self.section('authorization');self.staff_terms(True)
         elif id=='al-naeem-terms-consent':
             self.heading('','إقرار من مالكي الوحدات:')
             self.note('','لقد قمت / قمنا بقراءة الشروط والأحكام والملاحق الخاصة بالصندوق وفهم ما جاء فيها والموافقة عليها، كما جرى الحصول على نسخة منها بعد التوقيع عليها. وإثباتاً لما تقدم، قام المستثمر بالتوقيع على هذه الشروط والأحكام الخاصة بالصندوق في التاريخ والسنة المذكورين أدناه.')
@@ -391,12 +377,13 @@ def main():
     ap=argparse.ArgumentParser();ap.add_argument('--only');ap.add_argument('--author-only',action='store_true');args=ap.parse_args()
     titles={
         'signature-form':('Signature Form','نموذج توقيع'),
-        'terms-and-conditions':('General Terms and Conditions','شروط وأحكام عامة'),
         'kyc-individual':('Investor Information (Individuals)','معلومات المستثمر (أفراد)'),
         'kyc-corporate':('Investor Information (Corporate)','معلومات المستثمر (الشركات)'),
         'fatca-crs-individual':('INTERNATIONAL TAX TRANSPARENCY — Self-Certification & Declaration Form (FATCA & CRS) – INDIVIDUAL','الشفافية الضريبية الدولية — نموذج شهادة إقرار ذاتي (قانون الامتثال الضريبي للحسابات الأجنبية ومعيار الإبلاغ المشترك) – الأفراد'),
         'fatca-crs-corporate':('International Tax Self-Certification Form (For ENTITIES)',''),
         'al-naeem-terms-consent':('','إتقان كابيتال | صندوق النعيم العقاري')}
+    if args.only and set(args.only.split(','))-set(titles):
+        ap.error('Unknown or excluded document. Terms and conditions must retain its original PDF.')
     documents=[d for d in SCHEMA if d['id'] in titles]+[{'id':'al-naeem-terms-consent'}]
     manifest={}
     for schema in documents:

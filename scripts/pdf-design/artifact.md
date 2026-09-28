@@ -15,6 +15,8 @@ white 9 pt English / 10.5 pt Arabic, with 19 pt leading. Field labels use
 9.5 pt Arabic and 7.5 pt English. Answer spaces have at least 22 pt height.
 Long declarations use 8.5 pt English / 10 pt Arabic and generous leading.
 
+Terms & Conditions is excluded from this redesign at the owner’s request. Its exact original 13-page PDF, input coordinates and signature positions are restored. Archived modern output must never be reinstalled.
+
 ## Slots and intentional differences
 
 - Replace subscription body with the target document's exact existing fields,

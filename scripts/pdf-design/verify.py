@@ -9,6 +9,8 @@ schemas={d['id']:d for d in json.loads((ROOT/'reference/documents/form-schema-20
 normalize=lambda text:re.sub(r'[\W_ـ]+','',text,flags=re.UNICODE).casefold()
 report={'documents':{},'failures':[]}
 for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
+    # T&C intentionally uses its original PDF, even if old generated files remain.
+    if path.parent.name=='terms-and-conditions':continue
     identifier=path.parent.name;layout=json.loads(path.read_text());schema=schemas.get(identifier,{})
     docx=path.parent/f'{identifier}.docx';pdf=path.parent/'final'/f'{identifier}.pdf'
     package=Document(docx);text=' '.join(package._element.xpath('.//w:t/text()'));normalized=normalize(text)

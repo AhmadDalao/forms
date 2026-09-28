@@ -75,3 +75,29 @@ test('old PDFs use frozen signing positions and new snapshots use their own posi
  const model=submissionDetailsModel({...source,doc_id:doc.id,audience:'individual',profile:{pdf_layout:snapshot}});
  assert.equal(model.shared.flatMap(g=>g.fields).some(f=>f.id==='pdf_layout'),false);
 });
+
+test('restored T&C keeps the exact original PDF and all original field/signature geometry',async()=>{
+ const {createHash}=await import('node:crypto');
+ const doc=docs.find(d=>d.id==='terms-and-conditions'),old=original.find(d=>d.id===doc.id);
+ assert.equal(createHash('sha256').update(readFileSync('public/pdfs/terms-and-conditions.pdf')).digest('hex'),'8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106');
+ assert.equal(doc.pages,13);assert.equal(doc.pdfVersion,'20260928-original-2');assert.equal(layouts[doc.id],undefined);
+ assert.deepEqual(doc.fields,old.fields);assert.deepEqual(signatureSlots(doc),old.signatureSlots);
+ assert.deepEqual(doc.fields.filter(f=>f.type==='date').map(f=>f.page),[11,13]);
+ assert.ok(doc.fields.filter(f=>f.type==='date').every(f=>f.defaultToday&&f.dateParts.length===3));
+});
+
+test('original, retired modern and restored T&C submissions retain their own signing geometry',()=>{
+ const doc=docs.find(d=>d.id==='terms-and-conditions');
+ const retired=JSON.parse(readFileSync('reference/documents/archived/terms-modern-layout.json'));
+ const restored={pages:doc.pages,pdfVersion:doc.pdfVersion,signatureSlots:signatureSlots(doc)};
+ const source={id:'a'.repeat(32),sha256:'b'.repeat(64),profile:{},answers:{},source:'online'};
+ const cases=[source,...[retired,restored].map(pdf_layout=>({...source,profile:{pdf_layout}}))];
+ const r=spawnSync('php',['-r',`require 'public/api/portal-versions.php';$p=json_decode(stream_get_contents(STDIN),true);$out=[];foreach($p['cases'] as $s){$before=$s;$out[]=[submissionSigningCapability($s,$p['doc']),$before===$s];}echo json_encode($out);`],{input:JSON.stringify({doc:{...doc,legacyPdfLayout:legacy[doc.id]},cases}),encoding:'utf8'});
+ assert.equal(r.status,0,r.stderr);const results=JSON.parse(r.stdout);
+ for(const [i,layout] of [legacy[doc.id],retired,restored].entries()){
+  assert.equal(results[i][0].expectedPages,layout.pages);
+  assert.deepEqual(results[i][0].signatureSlots,layout.signatureSlots.map(({section,...slot})=>slot));
+  assert.equal(results[i][1],true);
+ }
+ assert.deepEqual(results.map(r=>r[0].expectedPages),[13,24,13]);
+});

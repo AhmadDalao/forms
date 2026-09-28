@@ -151,11 +151,13 @@ node scripts/preview-direction-audit.mjs
 
 These scripts start disposable local fixtures; they must not be aimed at production. To verify the generated PDFs independently, install Python 3 with `pypdfium2`, `pypdf`, `Pillow` and `numpy`, then run `python3 scripts/current-pdf-audit-verify.py tmp/client-corrections-pdfs`. These are development tools, not production requirements.
 
-The nine editable Word/PDF pairs are in `editable-documents/`. The subscription templates remain the approved reference. The other seven documents use the same typography, purple section bars, tables and answer color. Their current page counts are: signature 2, individual KYC 14, company KYC 11, individual FATCA/CRS 9, company FATCA/CRS 8, terms 24, and consent 1. Additional pages preserve readable content and signing space. Consent remains download-only.
+The eight editable Word/PDF pairs and the original Terms & Conditions PDF are in `editable-documents/`. The subscription templates remain the approved reference. Six other documents use the same typography, purple section bars, tables and answer color. Their current page counts are: signature 2, individual KYC 14, company KYC 11, individual FATCA/CRS 9, company FATCA/CRS 8, terms 13 (original), and consent 1. Additional pages preserve readable content and signing space. Consent remains download-only.
+
+Terms & Conditions was restored to the exact original 13-page PDF at the owner’s request. It has no matching editable Word source. The retired 24-page Word/PDF files are clearly marked under `source/reference/documents/archived/` for historical reference only. The builder and installer exclude Terms & Conditions, including stale generated output. Its active version is `20260928-original-2`; fields and signatures use the original positions.
 
 Original supplied PDFs are retained under `source/reference/pdfs/`. The immutable Word style reference and pre-redesign field definitions are under `source/reference/documents/`. Source declarations/instructions and their extraction locations are recorded in `source/scripts/pdf-design/source-text.json`; do not silently rewrite legal wording when changing presentation.
 
-To regenerate the seven redesigned templates, install Python 3 with `python-docx` and `pdfplumber`, LibreOffice, and Poppler (`pdftoppm`). Install the reference typefaces **Bahij TheSansArabic Plain** and **Arial** with appropriate font rights. The Word packages retain the embedded Arabic font; check exported PDFs for font substitution on a different workstation. These dependencies are for document authoring only, not the production website.
+To regenerate the six redesigned templates, install Python 3 with `python-docx` and `pdfplumber`, LibreOffice, and Poppler (`pdftoppm`). Install the reference typefaces **Bahij TheSansArabic Plain** and **Arial** with appropriate font rights. The Word packages retain the embedded Arabic font; check exported PDFs for font substitution on a different workstation. These dependencies are for document authoring only, not the production website.
 
 From `source/`, edit `scripts/pdf-design/build.py` and the intended wording sources, then run:
 

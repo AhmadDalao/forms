@@ -28,10 +28,5 @@
     "pages": 2,
     "pdf_sha256": "bee35532b73a9b1af31a4c7640ca313a1b047c3d80471a86974837467a2e606a",
     "docx_sha256": "f9a36bbf03a900d3f7d593e930a2e254a6c953471e3ee9d5027a5b080046d5dd"
-  },
-  "terms-and-conditions": {
-    "pages": 24,
-    "pdf_sha256": "53a873702980de539e38b32ae9b1881ef054117ceb11afbf7b46ff566cd69183",
-    "docx_sha256": "b3ee353cbb60d47610c19c1879ef60f8560c7b34f3836948d66a7f526e3c3b44"
   }
 }
