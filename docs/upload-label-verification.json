@@ -1,0 +1,20 @@
+{
+  "checks": [
+    "chrome individual en: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop",
+    "chrome individual ar: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop",
+    "individual: completed upload stays linked to the chosen document",
+    "chrome corporate en: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop",
+    "chrome corporate ar: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop",
+    "corporate: completed upload stays linked to the chosen document",
+    "firefox individual en: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop",
+    "firefox individual ar: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop",
+    "firefox corporate en: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop",
+    "firefox corporate ar: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop",
+    "webkit individual en: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop",
+    "webkit individual ar: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop",
+    "webkit corporate en: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop",
+    "webkit corporate ar: locked document value, gray background, bold text, no dropdown arrow at mobile/desktop"
+  ],
+  "errors": [],
+  "passed": true
+}
