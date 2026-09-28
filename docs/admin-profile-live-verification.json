@@ -1,0 +1,39 @@
+{
+  "url": "https://forms.ahmaddalao.com/",
+  "deployed_application_commit": "560be1976ab478ea7c82320fcb455f1a1029758b",
+  "uploaded_at_utc": "20260928T143122Z",
+  "profile_and_preview_checks": {
+    "checks": [
+      "ar 1440: login/signup fund name, layout and protected customer pages",
+      "ar 390: login/signup fund name, layout and protected customer pages",
+      "en 1440: login/signup fund name, layout and protected customer pages",
+      "en 390: login/signup fund name, layout and protected customer pages",
+      "admin ar 1440: client profile summary, no duplicate shared card, role permissions and responsive layout",
+      "admin ar 390: client profile summary, no duplicate shared card, role permissions and responsive layout",
+      "admin en 1440: client profile summary, no duplicate shared card, role permissions and responsive layout",
+      "admin en 390: client profile summary, no duplicate shared card, role permissions and responsive layout",
+      "admin: both preview entry points work; stored answer snapshot and PDF hash unchanged",
+      "superadmin ar 1440: client profile summary, no duplicate shared card, role permissions and responsive layout",
+      "superadmin ar 390: client profile summary, no duplicate shared card, role permissions and responsive layout",
+      "superadmin en 1440: client profile summary, no duplicate shared card, role permissions and responsive layout",
+      "superadmin en 390: client profile summary, no duplicate shared card, role permissions and responsive layout",
+      "superadmin: both preview entry points work; stored answer snapshot and PDF hash unchanged"
+    ],
+    "errors": [],
+    "blockedWrites": [],
+    "pdfs": 10,
+    "assets": 15,
+    "passed": true
+  },
+  "final_alignment_checks": {
+    "checks": [
+      "ar 1440: final profile layout, contact alignment, separate counts and no duplicate card",
+      "ar 390: final profile layout, contact alignment, separate counts and no duplicate card",
+      "en 1440: final profile layout, contact alignment, separate counts and no duplicate card",
+      "en 390: final profile layout, contact alignment, separate counts and no duplicate card",
+      "All hosted CSS assets match the final public build"
+    ],
+    "errors": [],
+    "passed": true
+  }
+}
