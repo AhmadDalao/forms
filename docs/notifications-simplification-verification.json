@@ -1,0 +1,21 @@
+{
+  "checks": [
+    "Empty state has a single heading; Escape closes and restores keyboard focus",
+    "Failed notification request offers a working retry without reloading the page",
+    "Arabic/English desktop/mobile list, reasons, read indicators and pagination; notifications stay scoped to their owner",
+    "One View form action opens the PDF and persists read state; badge updates; repeated clicks create one dialog; list avoids PDF/submission fetches",
+    "A failed read receipt leaves the notification unread and can be retried without blocking the document",
+    "Closing during loading cannot reopen the panel; expired sessions return to sign-in"
+  ],
+  "errors": [],
+  "passed": true,
+  "unit_tests": {
+    "passed": 229,
+    "failed": 0
+  },
+  "visual_checks": [
+    "English desktop 1440px",
+    "Arabic mobile 390px"
+  ],
+  "scope": "Simplified customer notification panel; preserved historical events and account isolation"
+}

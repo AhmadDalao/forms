@@ -256,7 +256,7 @@ try {
         $name=textValue($b['name']??'',160);$email=textValue($b['email']??'',254);if(mb_strlen($name)<2)reject('name_invalid');if($email!==''&&!filter_var($email,FILTER_VALIDATE_EMAIL))reject('email_invalid');
         execute('UPDATE users SET name=?,email=? WHERE id=?',[$name,$email,$u['id']]);reply(['ok'=>true]);
     }
-    if($action==='notifications')reply(reviewNotifications($u['id'],max(0,(int)($_GET['before']??0))));
+    if($action==='notifications')reply(['user_id'=>$u['id']]+reviewNotifications($u['id'],max(0,(int)($_GET['before']??0))));
     if($action==='notification_read'){
         $b=body();$id=$b['id']??null;if(!is_int($id)||$id<1)reject('invalid_request');
         if(!execute('SELECT r.id FROM submission_reviews r JOIN submissions s ON s.id=r.submission_id WHERE r.id=? AND s.user_id=?',[$id,$u['id']])->fetch())reject('not_found',404);
