@@ -133,7 +133,9 @@
 .admin-profile-overview .admin-client-facts{border:0;border-top:1px solid #eee8f2;border-radius:0;background:#fcfafd;margin:0;padding:20px 28px;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 .admin-profile-overview .admin-client-facts small{color:#8b7895;font-size:11px}
 .admin-profile-overview .admin-client-facts strong{margin-top:5px;color:#4e3b5c;font-size:14px;font-weight:500}
-.admin-profile-archive-count{font-size:11px;color:#95829f;margin-inline-start:12px;font-weight:400}
+.admin-profile-overview .admin-client-facts>div:last-child strong{display:flex;align-items:center;gap:12px}
+.client-management[dir=rtl] .admin-profile-overview .admin-client-facts strong{text-align:right}
+.admin-profile-archive-count{font-size:11px;color:#95829f;margin-inline-start:0;font-weight:400}
 .admin-profile-meta{display:flex;flex-wrap:wrap;gap:8px 28px;padding:14px 28px;border-top:1px solid #eee8f2;font-size:11px;color:#95829f;line-height:1.9}
 .admin-profile-meta bdi{margin-inline-start:8px;color:#6c587b}
 .admin-profile-overview .admin-account-type{padding:16px 28px;border-top:1px solid #eee8f2;background:#fcfafd}
