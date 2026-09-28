@@ -1,14 +1,14 @@
 {
-  "uploaded_at_utc": "20260928T160014Z",
+  "uploaded_at_utc": "20260928T160505Z",
   "url": "https://forms.ahmaddalao.com/",
-  "source_commit": "ba0c00cb2405438e0fdeba6bac11e16219bf68ab",
+  "source_commit": "b6b21ee395efd2b133c18d471bda94a7b8513bc3",
   "transport": "Explicit FTPS with verified Hostinger certificate",
-  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260928T160014Z",
+  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260928T160505Z",
   "files": [
     {
       "path": "index.html",
       "bytes": 2077,
-      "sha256": "bfb9fc54ef59361a16225d3ca391c961fcf2eeac4c2120a3da7c06ed8c7a5357"
+      "sha256": "3b84f062ba362bf1c452cc94862b6df60d6aadec40c5316c4b9dda9815374d6e"
     },
     {
       "path": ".user.ini",
@@ -28,7 +28,7 @@
     {
       "path": "my-applications/index.html",
       "bytes": 1404,
-      "sha256": "6798157f25199431806335f1b942c7fb6b2e1d6831969f012bae8b1298ab09e1"
+      "sha256": "fba69706a3572cf4d0d039a52c56b8e8325a304227f5c929aabb493f85e01f53"
     },
     {
       "path": "branding/itqan.png",
@@ -58,12 +58,12 @@
     {
       "path": "individuals/index.html",
       "bytes": 2111,
-      "sha256": "80bfb1294cadc6104f79bc86c5763554af99e69518a47e2ad84abda0452103df"
+      "sha256": "973a034a0a6c1c977dda5a6070045fc95e949ae9aeaa08eeed7d93e48eeadf42"
     },
     {
       "path": "management/index.html",
       "bytes": 1946,
-      "sha256": "662a8bf5435dfce54403abe528b8c32ceb01e5e70231e97bfafec7fb38c9027c"
+      "sha256": "449f0c194c41b0ff5b28d7a0c07d317afea999170225f915a805918567986cdb"
     },
     {
       "path": "_private/.htaccess",
@@ -73,7 +73,7 @@
     {
       "path": "register/index.html",
       "bytes": 1397,
-      "sha256": "dc2b9c6f05c8452a50350f7fd25948f3c4ecb813ccbd1cd24d6610d138a22ac8"
+      "sha256": "26c08f2fb7d821b7a84d04256d058e4fb5d9bd80a09a96ec92a638f943f14e81"
     },
     {
       "path": "api/installation-backup.php",
@@ -233,7 +233,7 @@
     {
       "path": "account/index.html",
       "bytes": 1396,
-      "sha256": "b4bdc6dfbaa161fb37c1596c21da8a7ed9b0e1577ad6d820ee129a102e76cd2a"
+      "sha256": "67289b9aef8bbda546f5c42d85e271dfd22de9425133a8a013a522ebfb78df97"
     },
     {
       "path": "assets/preview-D1wWfWPC.css",
@@ -316,11 +316,6 @@
       "sha256": "961709a180448eff671cffdb5c32c753de4ada7aaf662ea13959cc49b169c6aa"
     },
     {
-      "path": "assets/main-YRmny5Kw.js",
-      "bytes": 84247,
-      "sha256": "ded1f8a449395b45712d37fb7672169a9dbbf19429ffb033d7e3bee7fea471e2"
-    },
-    {
       "path": "assets/main-B72gXKZ_.css",
       "bytes": 17189,
       "sha256": "da98c81084a3fcb19e1680a813e1820b5bbfb854355a1264494aa78af2c77f02"
@@ -334,6 +329,11 @@
       "path": "assets/latin-400-CkJXGLVG.css",
       "bytes": 237,
       "sha256": "3df0f0359068fa8cd5a8af39c80c6d49e107f1fb918f3bf6f30fe4d3cb85b354"
+    },
+    {
+      "path": "assets/main-DyaVTBA-.css",
+      "bytes": 36711,
+      "sha256": "deb79144476de51f982315e1bcdb13c7e9d152fd31c07b58c1b9662a650bcb7d"
     },
     {
       "path": "assets/catalogue-DFXD2NrP.js",
@@ -361,14 +361,14 @@
       "sha256": "d38e162c9b778533c2b1d3912ea5690b9336600c6e06d14740136a0ade1a68c2"
     },
     {
+      "path": "assets/main-B03V_9jJ.js",
+      "bytes": 84247,
+      "sha256": "ded1f8a449395b45712d37fb7672169a9dbbf19429ffb033d7e3bee7fea471e2"
+    },
+    {
       "path": "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
       "bytes": 79084,
       "sha256": "6d47c7e4dfc76e221d078945ef2bbf47b047f1b316cf87c7663086639814c763"
-    },
-    {
-      "path": "assets/main-oiB-sBTF.css",
-      "bytes": 37221,
-      "sha256": "8d168d5661b20e35c9895b6f574493637add49965c5990b2c8bcd2821aaa2bd1"
     },
     {
       "path": "assets/review-BDSCeeGv.js",
@@ -394,11 +394,6 @@
       "path": "assets/access-DGlpSfBB.js",
       "bytes": 1254,
       "sha256": "b203be2521c5eeeab5d8d822c8f84f7a9a136102ccc09dd2769e8d0bc0d754fc"
-    },
-    {
-      "path": "assets/index-Bt0iM6sN.js",
-      "bytes": 2072,
-      "sha256": "c773f4fe43a5940122d9a0c284f06d670f871cc167aca9b75de4e262d9a8b0c4"
     },
     {
       "path": "assets/pdf.worker.min-FoBnJSGj.js",
@@ -439,6 +434,11 @@
       "path": "assets/catalogue-CR_2rN1N.js",
       "bytes": 1416,
       "sha256": "0e4fdba8269b33de65d9364cb945e118505cbf852136953ec6b460446d9f8074"
+    },
+    {
+      "path": "assets/index-BtD6xwpw.js",
+      "bytes": 2072,
+      "sha256": "2e0b27ceb5bd822e2f2d01be4fcbc0079cf7e60602961563de2f4ccdb27e4c6c"
     },
     {
       "path": "assets/preload-helper-uBIymjUX.js",
@@ -483,12 +483,12 @@
     {
       "path": "login/index.html",
       "bytes": 1394,
-      "sha256": "fe108a6a87bbd534d5da00f47a555704e88eb35aec7ca24e5fe988dce6083260"
+      "sha256": "4efffe5b47fcd3ebbc6c2ebedb6e8a107380f9d598bb1e920de84772601dd4c1"
     },
     {
       "path": "companies/index.html",
       "bytes": 2109,
-      "sha256": "ee98973f8898987f2c7014b2919dcaa20ff6a7e6c055926700f3afd05576c89b"
+      "sha256": "ff48249b0f2e589c7b082862de7433f8d8fb37e6251eb97a44edcad0cb721f1c"
     },
     {
       "path": "api/subscription/calculate.php",
@@ -502,9 +502,9 @@
     }
   ],
   "created": [
-    "assets/index-Bt0iM6sN.js",
-    "assets/main-Bqmb-H3W.js",
-    "assets/main-htYfCf9Z.css"
+    "assets/index-BtD6xwpw.js",
+    "assets/main-B03V_9jJ.js",
+    "assets/main-DyaVTBA-.css"
   ],
   "replaced": [
     "account/index.html",
@@ -565,8 +565,8 @@
     "assets/latin-400-CkJXGLVG.css",
     "assets/main-B72gXKZ_.css",
     "assets/main-BJVkyfTu.js",
-    "assets/main-YRmny5Kw.js",
-    "assets/main-oiB-sBTF.css",
+    "assets/main-Bqmb-H3W.js",
+    "assets/main-htYfCf9Z.css",
     "assets/notifications-DhnfPfRM.js",
     "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
     "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
@@ -608,9 +608,9 @@
   ],
   "static_only": true,
   "baseline": {
-    "uploaded_at_utc": "20260928T153741Z",
-    "source_commit": "5ac8426d1dff1343c72fd710463c95a8f6cc0c55",
-    "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260928T153741Z"
+    "uploaded_at_utc": "20260928T160014Z",
+    "source_commit": "ba0c00cb2405438e0fdeba6bac11e16219bf68ab",
+    "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260928T160014Z"
   },
   "verification": "Changed static files verified over FTPS; unchanged build files retained from the recorded release.",
   "completed": true
