@@ -25,6 +25,8 @@ SOURCES=json.loads((ROOT/'scripts/pdf-design/source-text.json').read_text())
 
 def render_document(target,out):
     if RENDER:
+        out.mkdir(parents=True,exist_ok=True)
+        for old in out.glob('page-*.png'):old.unlink()
         subprocess.run([sys.executable,RENDER,str(target),'--output_dir',str(out),'--emit_pdf'],check=True)
         return
     # Portable development path; neither Office nor Python is needed in production.
@@ -185,7 +187,11 @@ class Builder:
                 if ar and len(context)>1:para(c.add_paragraph(),context[1],8,True,True,PURPLE,11)
                 label=c.add_paragraph()
             else:label=c.paragraphs[0]
-            if ar:
+            if ar and en and len(ar)*6.2+len(en)*4.5+15<w-20:
+                # Short bilingual labels belong together, not on separate baselines.
+                para(label,'',9,leading=14)
+                run(label,'\u2067'+ar+'\u2069',9.5,True);run(label,' / ',8,color=MUTED);run(label,'\u2066'+en+'\u2069',7.5,color=MUTED)
+            elif ar:
                 para(label,ar,9.5,True,leading=13)
                 para(c.add_paragraph(),en,7.5,color=MUTED,leading=11)
             else:para(label,en,9,color=INK,leading=13)
@@ -201,8 +207,12 @@ class Builder:
         # the section spans several pages.
         outer=self.doc.add_table(rows=1,cols=1);table_setup(outer,[WIDTH]);cell=outer.cell(0,0)
         if self.id!='fatca-crs-corporate' and f.get('ar'):
-            para(cell.paragraphs[0],f['ar'],9.5,True,True,leading=13)
-            para(cell.add_paragraph(),f['label'],8,color=MUTED,leading=12)
+            if len(f['ar'])*6.2+len(f['label'])*4.8+15<WIDTH-32:
+                p=cell.paragraphs[0];para(p,'',9,leading=14)
+                run(p,'\u2067'+f['ar']+'\u2069',9.5,True,True);run(p,' / ',8,color=MUTED);run(p,'\u2066'+f['label']+'\u2069',8,color=MUTED)
+            else:
+                para(cell.paragraphs[0],f['ar'],9.5,True,True,leading=13)
+                para(cell.add_paragraph(),f['label'],8,color=MUTED,leading=12)
         else:para(cell.paragraphs[0],f['label'],9,bold=True,leading=13)
         if f['id'] in ['currencies','us_person','outside_tax'] and f.get('help'):
             para(cell.add_paragraph(),f['help'],8,color=MUTED,leading=12)
@@ -219,8 +229,11 @@ class Builder:
             para(p,'□ ',12,leading=16)
             token='M'+str(len(self.markers)+1).zfill(4)+'X';self.markers[token]={'id':f['id'],'option':o['value'],'kind':'choice'}
             run(p,token if self.probe else ' ',2)
-            run(p,o['label'],8)
-            if self.id!='fatca-crs-corporate' and o.get('ar'):para(c.add_paragraph(),o['ar'],9,True,leading=13)
+            if self.id!='fatca-crs-corporate' and o.get('ar'):
+                # Isolate each language so numeric ranges do not jump across the slash.
+                run(p,'\u2067'+o['ar']+'\u2069',9,True)
+                if o['label']:run(p,' / ',8)
+            if o['label']:run(p,'\u2066'+o['label']+'\u2069',8)
         # Word's mandatory trailing cell paragraph should take no extra room.
         para(cell.paragraphs[-1],'',1,leading=1)
         self.printed.add(f['id'])
@@ -293,7 +306,12 @@ class Builder:
 
     def manual_options(self,en,ar,options):
         self.heading(en,ar,True)
-        self.note('   '.join('□ '+o[0] for o in options),'   '.join('□ '+o[1] for o in options))
+        table=self.doc.add_table(rows=(len(options)+1)//2,cols=2)
+        table_setup(table,[WIDTH/2]*2,False)
+        for i,(en,ar) in enumerate(options):
+            p=table.cell(i//2,i%2).paragraphs[0];para(p,'□ ',12,leading=16)
+            run(p,'\u2067'+ar+'\u2069',9,True);run(p,' / ',8);run(p,'\u2066'+en+'\u2069',8)
+        self.space(3)
 
     def staff_kyc(self):
         self.heading('To be Completed by RM or CSR','يتم تعبئته من قبل مدير العلاقة أو ممثل خدمة العملاء')
@@ -402,7 +420,7 @@ def main():
                 with pdfplumber.open(pdf) as rendered:
                     assert len(rendered.pages)==pages,(id,len(rendered.pages),pages)
                     assert not any(re.search(r'M\d{4}X',p.extract_text() or '') for p in rendered.pages)
-                manifest[id]={'pages':pages,'fields':layout,'sources':b.sources,'version':'20260928-modern-1'}
+                manifest[id]={'pages':pages,'fields':layout,'sources':b.sources,'version':'20260928-inline-2'}
                 (base/'layout.json').write_text(json.dumps(manifest[id],ensure_ascii=False,indent=2)+'\n')
                 print(id,pages,'pages',len(layout),'mapped destinations',flush=True)
     (OUT/'build-result.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')

@@ -1,0 +1,1630 @@
+{
+  "date": "2026-09-28",
+  "layout_version": "20260928-inline-2",
+  "scope": [
+    "signature-form",
+    "kyc-individual",
+    "kyc-corporate",
+    "fatca-crs-individual"
+  ],
+  "unit_tests": {
+    "passed": 223,
+    "failed": 0
+  },
+  "build_passed": true,
+  "content_and_geometry": {
+    "documents": {
+      "al-naeem-terms-consent": {
+        "pages": [
+          {
+            "page": 1,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 436
+          }
+        ],
+        "source_fragments": [],
+        "mapped_destinations": 0,
+        "short_inline_choices_checked": 0,
+        "pdf_sha256": "4a8e74915de0acfe7206a1ed79f60b3e9b032876f0610a52d65f41e4899b48b1",
+        "docx_sha256": "874855f22f633c9cc37b1f3562393d90411ded1aec2f51304eb5b9ff7f99b7a1"
+      },
+      "fatca-crs-corporate": {
+        "pages": [
+          {
+            "page": 1,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1399
+          },
+          {
+            "page": 2,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1491
+          },
+          {
+            "page": 3,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1667
+          },
+          {
+            "page": 4,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 2109
+          },
+          {
+            "page": 5,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 967
+          },
+          {
+            "page": 6,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 967
+          },
+          {
+            "page": 7,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 2085
+          },
+          {
+            "page": 8,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 338
+          }
+        ],
+        "source_fragments": [
+          "entity-tax-instructions",
+          "entity-instructions",
+          "entity-fatca-note",
+          "entity-crs-note",
+          "entity-controller-intro",
+          "entity-controller-reasons",
+          "entity-declaration"
+        ],
+        "mapped_destinations": 78,
+        "short_inline_choices_checked": 0,
+        "pdf_sha256": "51756da6947c427e334333389b92b96d9ce42327001a1db43656ef70379ae8c9",
+        "docx_sha256": "1047d2f555c0bb735226c31bb470a1eb2f2ce6bd40e91f8e6e193c1242a0d5b9"
+      },
+      "fatca-crs-individual": {
+        "pages": [
+          {
+            "page": 1,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1619
+          },
+          {
+            "page": 2,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1511
+          },
+          {
+            "page": 3,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 3212
+          },
+          {
+            "page": 4,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1262
+          },
+          {
+            "page": 5,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 3926
+          },
+          {
+            "page": 6,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1762
+          },
+          {
+            "page": 7,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 411
+          },
+          {
+            "page": 8,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 3568
+          },
+          {
+            "page": 9,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 2900
+          }
+        ],
+        "source_fragments": [
+          "tax-intro-en",
+          "tax-intro-ar",
+          "tax-tin-en",
+          "tax-tin-ar",
+          "tax-tin-entry-en",
+          "tax-tin-entry-ar",
+          "tax-residency-en",
+          "tax-residency-ar",
+          "tax-reasons-en",
+          "tax-reasons-ar",
+          "tax-declaration-en",
+          "tax-declaration-ar",
+          "tax-definitions-en",
+          "tax-definitions-ar",
+          "tax-definitions-continued-en",
+          "tax-definitions-continued-ar"
+        ],
+        "mapped_destinations": 59,
+        "short_inline_choices_checked": 16,
+        "pdf_sha256": "ff2efddcaf491cccd7cd6546846afa1aa0555e7f44566c1da68265702d1ada64",
+        "docx_sha256": "f12c450533689efc0b666dcb279ee623277af4fd83460c4d5a0c7eb32eda96ce"
+      },
+      "kyc-corporate": {
+        "pages": [
+          {
+            "page": 1,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1345
+          },
+          {
+            "page": 2,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1402
+          },
+          {
+            "page": 3,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1375
+          },
+          {
+            "page": 4,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1611
+          },
+          {
+            "page": 5,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1633
+          },
+          {
+            "page": 6,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1960
+          },
+          {
+            "page": 7,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 766
+          },
+          {
+            "page": 8,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1237
+          },
+          {
+            "page": 9,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 3080
+          },
+          {
+            "page": 10,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 474
+          }
+        ],
+        "source_fragments": [],
+        "mapped_destinations": 103,
+        "short_inline_choices_checked": 49,
+        "pdf_sha256": "5514acd139103ff758d35d8e1ecbf6618fba59271c3c73ad79ca82230ee93f1f",
+        "docx_sha256": "eb3cba7dbad7767282fea3d37f6e7f13d9195cfd8bcae023237fd8278a175cb7"
+      },
+      "kyc-individual": {
+        "pages": [
+          {
+            "page": 1,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1129
+          },
+          {
+            "page": 2,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1058
+          },
+          {
+            "page": 3,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1782
+          },
+          {
+            "page": 4,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1993
+          },
+          {
+            "page": 5,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 2215
+          },
+          {
+            "page": 6,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1575
+          },
+          {
+            "page": 7,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1917
+          },
+          {
+            "page": 8,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1690
+          },
+          {
+            "page": 9,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1005
+          },
+          {
+            "page": 10,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 1239
+          },
+          {
+            "page": 11,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 3082
+          },
+          {
+            "page": 12,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 476
+          }
+        ],
+        "source_fragments": [],
+        "mapped_destinations": 111,
+        "short_inline_choices_checked": 96,
+        "pdf_sha256": "159874a7618917c88fb78c4d5ff3a24580e5e6ba2bf9493ff983838224faaf99",
+        "docx_sha256": "6c6c1baf9483016212593f0bd5342a2508ce56661d9e35e51497352230419d85"
+      },
+      "signature-form": {
+        "pages": [
+          {
+            "page": 1,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 783
+          },
+          {
+            "page": 2,
+            "width": 595.303937007874,
+            "height": 841.889763779528,
+            "characters": 603
+          }
+        ],
+        "source_fragments": [],
+        "mapped_destinations": 11,
+        "short_inline_choices_checked": 6,
+        "pdf_sha256": "2272b71bc91e3ac7ccce7777a25d8f521734a39d2d101685b7e57aa9a574766e",
+        "docx_sha256": "24fcf6f78813a034917453ede560e87ac684f6c825c33d4521419227bc1c95f1"
+      }
+    },
+    "failures": []
+  },
+  "preservation": {
+    "signature-form": {
+      "all_word_tokens_preserved": true
+    },
+    "kyc-individual": {
+      "all_word_tokens_preserved": true
+    },
+    "kyc-corporate": {
+      "all_word_tokens_preserved": true
+    },
+    "fatca-crs-individual": {
+      "all_word_tokens_preserved": true
+    },
+    "terms-and-conditions": {
+      "unchanged_pdf_bytes": true,
+      "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106"
+    },
+    "subscription-individual": {
+      "unchanged_pdf_bytes": true,
+      "sha256": "2313137002d478ee0f1ea71208f9ae4bf212beae355c0abbd2102e6ee76a0f0a"
+    },
+    "subscription-company": {
+      "unchanged_pdf_bytes": true,
+      "sha256": "c72c44c5441994eed7ec8a591fd8b69966b07eb05fa93bfe8d9115c88f8641ef"
+    },
+    "fatca-crs-corporate": {
+      "unchanged_pdf_bytes": true,
+      "sha256": "51756da6947c427e334333389b92b96d9ce42327001a1db43656ef70379ae8c9"
+    },
+    "al-naeem-terms-consent": {
+      "unchanged_pdf_bytes": true,
+      "sha256": "4a8e74915de0acfe7206a1ed79f60b3e9b032876f0610a52d65f41e4899b48b1"
+    }
+  },
+  "filled_pdfs": {
+    "counts": {
+      "pdfs": 53,
+      "pages": 470,
+      "text_rectangles": 1172,
+      "choice_rectangles": 871,
+      "signature_rectangles": 12,
+      "transparent_images": 12015,
+      "unchanged_pages": 165
+    },
+    "coverage": {
+      "signature-form": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 6,
+        "covered_choice_options": 6,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "fatca-crs-individual": {
+        "mapped_fields": 57,
+        "covered_fields": 57,
+        "uncovered_fields": [],
+        "choice_options": 16,
+        "covered_choice_options": 16,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 12,
+        "complete_success": 5
+      },
+      "kyc-individual": {
+        "mapped_fields": 109,
+        "covered_fields": 109,
+        "uncovered_fields": [],
+        "choice_options": 122,
+        "covered_choice_options": 122,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 16,
+        "complete_success": 5
+      },
+      "kyc-corporate": {
+        "mapped_fields": 102,
+        "covered_fields": 102,
+        "uncovered_fields": [],
+        "choice_options": 60,
+        "covered_choice_options": 60,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 15,
+        "complete_success": 5
+      }
+    },
+    "failures": [],
+    "visual_pages": [
+      [
+        "signature-form",
+        "english-long",
+        1,
+        "signature-form-english-long-p1.png"
+      ],
+      [
+        "signature-form",
+        "arabic-long",
+        1,
+        "signature-form-arabic-long-p1.png"
+      ],
+      [
+        "signature-form",
+        "arabic-long",
+        2,
+        "signature-form-arabic-long-p2.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        1,
+        "fatca-crs-individual-english-long-p1.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        2,
+        "fatca-crs-individual-english-long-p2.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        3,
+        "fatca-crs-individual-english-long-p3.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        4,
+        "fatca-crs-individual-english-long-p4.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        5,
+        "fatca-crs-individual-english-long-p5.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        6,
+        "fatca-crs-individual-english-long-p6.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        1,
+        "fatca-crs-individual-arabic-long-p1.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        2,
+        "fatca-crs-individual-arabic-long-p2.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        3,
+        "fatca-crs-individual-arabic-long-p3.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        4,
+        "fatca-crs-individual-arabic-long-p4.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        5,
+        "fatca-crs-individual-arabic-long-p5.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        6,
+        "fatca-crs-individual-arabic-long-p6.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        7,
+        "fatca-crs-individual-arabic-long-p7.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        1,
+        "kyc-individual-english-long-p1.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        2,
+        "kyc-individual-english-long-p2.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        3,
+        "kyc-individual-english-long-p3.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        4,
+        "kyc-individual-english-long-p4.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        5,
+        "kyc-individual-english-long-p5.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        6,
+        "kyc-individual-english-long-p6.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        7,
+        "kyc-individual-english-long-p7.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        8,
+        "kyc-individual-english-long-p8.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        9,
+        "kyc-individual-english-long-p9.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        11,
+        "kyc-individual-english-long-p11.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        12,
+        "kyc-individual-english-long-p12.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        1,
+        "kyc-individual-arabic-long-p1.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        2,
+        "kyc-individual-arabic-long-p2.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        3,
+        "kyc-individual-arabic-long-p3.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        4,
+        "kyc-individual-arabic-long-p4.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        5,
+        "kyc-individual-arabic-long-p5.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        6,
+        "kyc-individual-arabic-long-p6.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        7,
+        "kyc-individual-arabic-long-p7.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        8,
+        "kyc-individual-arabic-long-p8.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        9,
+        "kyc-individual-arabic-long-p9.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        11,
+        "kyc-individual-arabic-long-p11.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        12,
+        "kyc-individual-arabic-long-p12.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        1,
+        "kyc-corporate-english-long-p1.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        2,
+        "kyc-corporate-english-long-p2.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        3,
+        "kyc-corporate-english-long-p3.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        4,
+        "kyc-corporate-english-long-p4.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        5,
+        "kyc-corporate-english-long-p5.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        6,
+        "kyc-corporate-english-long-p6.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        7,
+        "kyc-corporate-english-long-p7.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        9,
+        "kyc-corporate-english-long-p9.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        10,
+        "kyc-corporate-english-long-p10.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        1,
+        "kyc-corporate-arabic-long-p1.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        2,
+        "kyc-corporate-arabic-long-p2.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        3,
+        "kyc-corporate-arabic-long-p3.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        4,
+        "kyc-corporate-arabic-long-p4.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        5,
+        "kyc-corporate-arabic-long-p5.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        6,
+        "kyc-corporate-arabic-long-p6.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        7,
+        "kyc-corporate-arabic-long-p7.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        9,
+        "kyc-corporate-arabic-long-p9.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        10,
+        "kyc-corporate-arabic-long-p10.png"
+      ]
+    ],
+    "contact_sheets": [
+      "contact-01.png",
+      "contact-02.png",
+      "contact-03.png",
+      "contact-04.png",
+      "contact-05.png",
+      "contact-06.png",
+      "contact-07.png",
+      "contact-08.png",
+      "contact-09.png",
+      "contact-10.png",
+      "contact-11.png",
+      "contact-12.png",
+      "contact-13.png",
+      "contact-14.png"
+    ]
+  },
+  "submission_cycle": {
+    "checks": [
+      "Login/signup: EN and AR, desktop/mobile, source logos and role labels, no PDF engine or PDF loaded",
+      "Logged-out document routes redirect to sign-in",
+      "Real form edits propagate separate Arabic/English names and joined city/district to account and other forms",
+      "Offline edits retry to account; intentional clear persists after reload",
+      "Multiple tabs, fresh browser and individual/company/account isolation",
+      "Company English sharing is bidirectional and separate from Arabic identity",
+      "One-click unsigned submission, lost-response retry, single immutable version and receipt reference",
+      "Signed replacement archives the earlier PDF and all captured answers; stale replacement is rejected",
+      "Consent PDF upload works without inventing structured answers or signature verification",
+      "Management receives current versions, exact answers and signature status; preview/PDF/ZIP work; review controls disabled and cross-account access blocked",
+      "All eight filled forms submitted: 556 field values matched management records, and downloaded PDFs matched byte for byte"
+    ],
+    "errors": [],
+    "base": "http://127.0.0.1:59183",
+    "allFormAnswers": 556,
+    "passed": true
+  },
+  "visual_inspection": {
+    "all_updated_template_pages": 33,
+    "filled_examples": [
+      "kyc-individual-arabic-long-p1",
+      "kyc-individual-english-long-p4",
+      "kyc-corporate-arabic-long-p9",
+      "fatca-crs-individual-arabic-long-p6"
+    ]
+  },
+  "deployment": {
+    "status": "pending"
+  },
+  "browser_previews": {
+    "checks": [
+      {
+        "engine": "chrome",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "signature-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "signature-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "signature-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      }
+    ],
+    "errors": [],
+    "passed": true
+  }
+}

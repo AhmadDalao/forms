@@ -11,22 +11,22 @@
   },
   "fatca-crs-individual": {
     "pages": 9,
-    "pdf_sha256": "6577c3488cf06b304e059133e650a132962dffe9e3efa683290233794ad17b7a",
-    "docx_sha256": "42563e1ac4853834e45bb83a7a2cd5c439e0e7a7e2cd37024e6ae78cefe21b19"
+    "pdf_sha256": "ff2efddcaf491cccd7cd6546846afa1aa0555e7f44566c1da68265702d1ada64",
+    "docx_sha256": "f12c450533689efc0b666dcb279ee623277af4fd83460c4d5a0c7eb32eda96ce"
   },
   "kyc-corporate": {
-    "pages": 11,
-    "pdf_sha256": "1dfcccd370669aafba788aa04a4452e7547f41b3dbaa3bd20334dcfede4b78ec",
-    "docx_sha256": "0523a857d7842c97244cf77314ade2bfc33b587691e5a04e4b0a08c969e82a4b"
+    "pages": 10,
+    "pdf_sha256": "5514acd139103ff758d35d8e1ecbf6618fba59271c3c73ad79ca82230ee93f1f",
+    "docx_sha256": "eb3cba7dbad7767282fea3d37f6e7f13d9195cfd8bcae023237fd8278a175cb7"
   },
   "kyc-individual": {
-    "pages": 14,
-    "pdf_sha256": "e763767caa36ff56998578f2eb1027b0b8a39b84ea13e26c12c198aa4b811f64",
-    "docx_sha256": "efe8d62e78451be717730700b05e496a7733c82bb915edce52dd9d63478075a8"
+    "pages": 12,
+    "pdf_sha256": "159874a7618917c88fb78c4d5ff3a24580e5e6ba2bf9493ff983838224faaf99",
+    "docx_sha256": "6c6c1baf9483016212593f0bd5342a2508ce56661d9e35e51497352230419d85"
   },
   "signature-form": {
     "pages": 2,
-    "pdf_sha256": "bee35532b73a9b1af31a4c7640ca313a1b047c3d80471a86974837467a2e606a",
-    "docx_sha256": "f9a36bbf03a900d3f7d593e930a2e254a6c953471e3ee9d5027a5b080046d5dd"
+    "pdf_sha256": "2272b71bc91e3ac7ccce7777a25d8f521734a39d2d101685b7e57aa9a574766e",
+    "docx_sha256": "24fcf6f78813a034917453ede560e87ac684f6c825c33d4521419227bc1c95f1"
   }
 }

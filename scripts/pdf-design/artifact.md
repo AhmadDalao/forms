@@ -41,3 +41,7 @@ final files, and every rendered page is inspected. Exercise blank, English,
 Arabic, long/mixed and restored/shared fills, all choices and signatures, then
 test client/admin preview, submit, replacement, archive and downloads before
 publishing. Retain original PDFs privately as the comparison authority.
+
+## Inline bilingual labels — 28 September 2026
+
+Bilingual choices are one paragraph in Arabic / English order, with one checkbox per choice. Short field labels share a baseline where their existing wording fits; long questions retain readable wrapping. Original T&C and English-only corporate FATCA are unchanged. Preserve every label and choice value; remeasure coordinates after reflow.
