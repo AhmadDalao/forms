@@ -68,7 +68,7 @@ try{
   for(const field of definition.fields){if(!(field.id in sample.values)||field.joinAudience&&field.joinAudience!==account.account_type)continue;assert.deepEqual(stored.answers[field.id],sample.values[field.id],definition.id+'/'+field.id);answerCount++;}
   const pdf=await ctx.request.get(f.base+'/api/portal.php?action=pdf&id='+stored.id);assert.equal(digest(await pdf.body()),digest(bytes));
  }
- report.allFormAnswers=answerCount;pass(`All eight filled forms submitted: ${answerCount} field values matched management records, and downloaded PDFs matched byte for byte`);
+ report.allFormAnswers=answerCount;pass(`All nine filled forms submitted: ${answerCount} field values matched management records, and downloaded PDFs matched byte for byte`);
  assert.deepEqual(report.errors,[]);report.passed=true;
 }catch(error){report.error=error.stack;await page?.screenshot({path:path.join(out,'failure.png'),fullPage:true}).catch(()=>{});throw error;}
 finally{await fs.writeFile(out+'/report.json',JSON.stringify(report,null,2));await browser.close();await f.close();console.log('REPORT '+out+'/report.json');}

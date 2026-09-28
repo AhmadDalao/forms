@@ -18,7 +18,7 @@ try{
  const u=await f.client(client,'individual'),co=await f.client(company,'corporate'),revision=(await f.call(client,'portal','session')).workflow.revision;
  const archived=await f.submit(client,u,{workflowRevision:revision}),current=await f.submit(client,u,{workflowRevision:revision,expectedCurrent:archived.id}),corporate=await f.submit(company,co,{workflowRevision:revision});
  const longDocument=await f.submit(client,u,{document:'terms-and-conditions',source:'upload',values:{},workflowRevision:revision});
- const clientState=await client.storageState();await browser.close();browser=null;
+ await browser.close();browser=null;
  for(const [engine,launcher] of Object.entries({chrome:chromium,firefox,webkit})){
   browser=await launcher.launch({...(engine==='chrome'?{channel:'chrome'}:{}),headless:true});
   for(const role of ['admin','superadmin','new-admin']){
@@ -34,18 +34,16 @@ try{
    }
    pass(engine+' '+role+': individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile');await c.close();
   }
-  const cc=await browser.newContext({storageState:clientState}),cp=await cc.newPage();cp.on('pageerror',e=>report.errors.push(e.message));await cp.goto(f.base+'/my-applications/');await preview(cp,'[data-preview="'+current.id+'"]');await cc.close();
-  pass(engine+': client My applications preview remains functional');
-  for(const audience of ['admin','client']){
-   const mc=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,...(audience==='client'?{storageState:clientState}:{})}),mp=await mc.newPage();mp.on('pageerror',e=>report.errors.push(e.message));
-   if(audience==='admin'){await f.login(mc,'admin');await mp.goto(f.base+'/management/');await profile(mp,u.id);}else await mp.goto(f.base+'/my-applications/');
+  {
+   const mc=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2}),mp=await mc.newPage();mp.on('pageerror',e=>report.errors.push(e.message));
+   await f.login(mc,'admin');await mp.goto(f.base+'/management/');await profile(mp,u.id);
    await mp.locator('[data-preview="'+longDocument.id+'"]').click();await ready(mp);
    const dimensions=await mp.locator('.portal-preview canvas').evaluateAll(nodes=>nodes.map(c=>({width:c.width,parent:c.parentElement.clientWidth,direction:getComputedStyle(c).direction})));
    assert.equal(dimensions.length,longPages);assert.ok(dimensions.every(c=>c.width<=c.parent*2+1&&c.direction==='ltr'));
-   if(engine==='chrome'&&audience==='admin')await mp.screenshot({path:f.out+'/mobile-long-preview.png'});
+   if(engine==='chrome')await mp.screenshot({path:f.out+'/mobile-long-preview.png'});
    await mp.locator('.portal-preview [data-close]').click();await mc.close();
   }
-  pass(engine+': all '+longPages+' PDF pages render for admin and client on a high-density phone at the actual available width');
+  pass(engine+': all '+longPages+' PDF pages render in management on a high-density phone at the actual available width');
   await browser.close();browser=null;
  }
  browser=await chromium.launch({channel:'chrome',headless:true});const c=await browser.newContext(),p=await c.newPage();p.on('pageerror',e=>report.errors.push(e.message));await f.login(c,'admin');await p.goto(f.base+'/management/');await p.locator('[data-users]').click();await p.locator('#client-search').waitFor();
@@ -63,6 +61,6 @@ try{
  await p.locator('[data-preview="'+current.id+'"]').click();await pdfStarted;await p.locator('.portal-preview [data-close]').click();assert.equal(await p.locator('.portal-preview').count(),0);resume();await pdfHandled;await p.unroute('**/api/portal.php?action=admin_pdf*');await preview(p,'[data-preview="'+current.id+'"]');pass('Closing a pending PDF cancels its load and a new preview opens normally');
  await f.call(c,'management','logout',{data:{}});await p.locator('[data-preview="'+current.id+'"]').click();await p.locator('#login').waitFor();assert.equal(await p.locator('.portal-preview').count(),0);pass('Expired admin preview session closes the dialog and returns to management sign-in');
  await f.login(c,'admin');await p.reload();await p.locator('[data-users]').click();await p.locator('#client-search').waitFor();await f.call(c,'management','logout',{data:{}});await p.locator('[data-client="'+u.id+'"]').click();await p.locator('#login').waitFor();pass('Expired client-profile request returns to management sign-in');
- const cc=await browser.newContext({storageState:clientState}),cp=await cc.newPage();await cp.goto(f.base+'/my-applications/');await cp.locator('[data-preview="'+current.id+'"]').waitFor();await cc.clearCookies();await cp.locator('[data-preview="'+current.id+'"]').click();await cp.waitForURL('**/login/?lang=*');await cp.locator('#auth-form').waitFor();pass('Expired client preview returns to client sign-in');
+ // Client previews now live in form review; customer-workflow-audit covers that flow.
  assert.deepEqual(report.errors,[]);report.passed=true;
 }finally{await fs.writeFile(f.out+'/management-views-report.json',JSON.stringify(report,null,2));console.log('REPORT '+f.out+'/management-views-report.json');await browser?.close();await f.close();}

@@ -23,6 +23,15 @@ KYC Word/PDF sources were updated together. The company KYC now has 9 pages afte
 - All nine documents passed categorized management details and both preview buttons in Arabic/English at 1440 and 390 pixels.
 - Management navigation passed Chrome, Firefox and WebKit, both languages, with delayed responses.
 - Loading tests confirmed the home/editor work while shared-profile loading is delayed, preserve edits and defer PDF assets/engines until needed.
+- Direct-intake regression passed offline retry, intentional clearing, multiple tabs, account isolation, duplicate/lost-response retries and archived-version immutability. All 557 submitted answer values matched management records, and downloaded PDFs matched byte for byte.
+- Management profile and PDF recovery passed Chrome, Firefox and WebKit for admin, superadmin and a newly created administrator, including interrupted requests, expired sessions and high-density mobile previews.
 - All final pages of both edited KYC documents were visually checked. Generated long Arabic/English examples and consent preview were also inspected.
 
 Machine-readable evidence and public-template checksums: `customer-workflow-verification.json`. These are application/PDF regression checks, not a legal compliance certification.
+
+
+## Publication and fresh handover
+
+Published to https://forms.ahmaddalao.com/ from application commit `ed0523d941335be4e2055ab80ae19c62c0a8e48a`. Replaced public files were backed up; production private data was preserved. Hosted checks passed both management preview entry points and both administrator roles in Arabic/English on desktop/mobile. All 13 deployed JavaScript/CSS asset hashes and 10 PDF hashes matched the release. Existing submitted answers and stored PDF hashes remained unchanged. See `customer-workflow-live-verification.json`.
+
+The refreshed developer package contains the same public build, source and current Word/PDF templates, bilingual own-domain deployment guides, and a private fresh bootstrap with `admin` and `superadmin` password hashes. Its restore and initialization passed with zero clients, shared profiles, submissions and archived PDFs. Both management credentials and permissions were verified privately; no plaintext passwords are included.
