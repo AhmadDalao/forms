@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "All changed live assets match the tested public build, including the simplified management client profile",
+    "Customer form authentication remains enforced",
+    "en 1366: Current documents and submissions table previews work; duplicate card and its request absent; saved data and PDF hash unchanged",
+    "ar 390: Current documents and submissions table previews work; duplicate card and its request absent; saved data and PDF hash unchanged"
+  ],
+  "errors": [],
+  "verifiedAssets": 3,
+  "passed": true
+}

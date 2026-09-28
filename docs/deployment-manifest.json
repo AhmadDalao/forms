@@ -1,14 +1,14 @@
 {
-  "uploaded_at_utc": "20260928T153741Z",
+  "uploaded_at_utc": "20260928T160014Z",
   "url": "https://forms.ahmaddalao.com/",
-  "source_commit": "5ac8426d1dff1343c72fd710463c95a8f6cc0c55",
+  "source_commit": "ba0c00cb2405438e0fdeba6bac11e16219bf68ab",
   "transport": "Explicit FTPS with verified Hostinger certificate",
-  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260928T153741Z",
+  "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260928T160014Z",
   "files": [
     {
       "path": "index.html",
       "bytes": 2077,
-      "sha256": "60fb1f879872879592fb25f523da24178774bef023efb876f0a9532a2a60f4f1"
+      "sha256": "bfb9fc54ef59361a16225d3ca391c961fcf2eeac4c2120a3da7c06ed8c7a5357"
     },
     {
       "path": ".user.ini",
@@ -28,7 +28,7 @@
     {
       "path": "my-applications/index.html",
       "bytes": 1404,
-      "sha256": "11e32d4655ece7e243200c74454ef04492164f1babac6ae795e722a39c899b72"
+      "sha256": "6798157f25199431806335f1b942c7fb6b2e1d6831969f012bae8b1298ab09e1"
     },
     {
       "path": "branding/itqan.png",
@@ -58,12 +58,12 @@
     {
       "path": "individuals/index.html",
       "bytes": 2111,
-      "sha256": "d12f64f87d93d0af45db89276d33ba7811a4bf599174ad9ee567866320187576"
+      "sha256": "80bfb1294cadc6104f79bc86c5763554af99e69518a47e2ad84abda0452103df"
     },
     {
       "path": "management/index.html",
       "bytes": 1946,
-      "sha256": "c5f66766c3d3d76fe64bf5f460e8fc9a983a2533e7e1baf70294cbd24b698317"
+      "sha256": "662a8bf5435dfce54403abe528b8c32ceb01e5e70231e97bfafec7fb38c9027c"
     },
     {
       "path": "_private/.htaccess",
@@ -73,7 +73,7 @@
     {
       "path": "register/index.html",
       "bytes": 1397,
-      "sha256": "097e40a36dbbb671220c08eed81add9a11b292e9ed970d630a55a1ed7d3fa6b8"
+      "sha256": "dc2b9c6f05c8452a50350f7fd25948f3c4ecb813ccbd1cd24d6610d138a22ac8"
     },
     {
       "path": "api/installation-backup.php",
@@ -233,7 +233,7 @@
     {
       "path": "account/index.html",
       "bytes": 1396,
-      "sha256": "d0053da80a33d7c44ee321ee2baa701ec4cd54d190c7a8c7f2aabf9e6ab3835d"
+      "sha256": "b4bdc6dfbaa161fb37c1596c21da8a7ed9b0e1577ad6d820ee129a102e76cd2a"
     },
     {
       "path": "assets/preview-D1wWfWPC.css",
@@ -241,9 +241,19 @@
       "sha256": "341e01a8ea1d5d7c480cc52ee831cfc6efeb23fe7d7ca8dd940f9dc5748b456c"
     },
     {
+      "path": "assets/main-htYfCf9Z.css",
+      "bytes": 29902,
+      "sha256": "e291c0b139bcc40359f73ef112f6267f83d07c29391e7d7aa4c084c2a6c6b521"
+    },
+    {
       "path": "assets/branding-DMJbIHtA.js",
       "bytes": 4508,
       "sha256": "55873e5486348a8f6b97fb0eecc424a655436a152f9283ad99b52c6dd310915e"
+    },
+    {
+      "path": "assets/main-Bqmb-H3W.js",
+      "bytes": 59193,
+      "sha256": "fef89e4cd123a2739046975eb8ee42228d5efbb9fda0f773c6bf65ecb117cbb1"
     },
     {
       "path": "assets/pdf.worker.min-Dswkl-cV.mjs",
@@ -294,11 +304,6 @@
       "path": "assets/inter-latin-500-normal-BL9OpVg8.woff",
       "bytes": 31284,
       "sha256": "9b42c108da48b5ed55a3072e815ffee2d271562e6c0dd6998910e8f9c09e0a3d"
-    },
-    {
-      "path": "assets/main-COPbBjdV.js",
-      "bytes": 62269,
-      "sha256": "7efd6e59a1a22ae362d312f958b7b43f941c26edb67c7cfe8c3971cccbc573e9"
     },
     {
       "path": "assets/submitted-details-CrfsGsug.js",
@@ -366,11 +371,6 @@
       "sha256": "8d168d5661b20e35c9895b6f574493637add49965c5990b2c8bcd2821aaa2bd1"
     },
     {
-      "path": "assets/main-BKSnFbf5.css",
-      "bytes": 31834,
-      "sha256": "44af6953d5891b4f5b0dbb0397fed9e24c7dc4d92622454519ff82d2e67a7152"
-    },
-    {
       "path": "assets/review-BDSCeeGv.js",
       "bytes": 2899,
       "sha256": "33ffe45e2be53e7d56e43d4547355414cbf435c683dc3e5b81d03d9f6c750d08"
@@ -396,9 +396,9 @@
       "sha256": "b203be2521c5eeeab5d8d822c8f84f7a9a136102ccc09dd2769e8d0bc0d754fc"
     },
     {
-      "path": "assets/index-CWRin7t8.js",
+      "path": "assets/index-Bt0iM6sN.js",
       "bytes": 2072,
-      "sha256": "2fb91d638a6e644b4e34ed2b0ef2c3389b79290ba4a0fcdca9cc3fc0c616b144"
+      "sha256": "c773f4fe43a5940122d9a0c284f06d670f871cc167aca9b75de4e262d9a8b0c4"
     },
     {
       "path": "assets/pdf.worker.min-FoBnJSGj.js",
@@ -483,12 +483,12 @@
     {
       "path": "login/index.html",
       "bytes": 1394,
-      "sha256": "b4fcb08b194b5e1a7bbdee3488b384869ec494833bb6e3ec0e2cf2719f0d6b3e"
+      "sha256": "fe108a6a87bbd534d5da00f47a555704e88eb35aec7ca24e5fe988dce6083260"
     },
     {
       "path": "companies/index.html",
       "bytes": 2109,
-      "sha256": "cf0098771693140b88e5858a2fce368c2fef25da00a9bfeb6c53dc2bf7083e02"
+      "sha256": "ee98973f8898987f2c7014b2919dcaa20ff6a7e6c055926700f3afd05576c89b"
     },
     {
       "path": "api/subscription/calculate.php",
@@ -502,17 +502,9 @@
     }
   ],
   "created": [
-    "assets/branding-DMJbIHtA.js",
-    "assets/index-CWRin7t8.js",
-    "assets/main-BJVkyfTu.js",
-    "assets/main-BKSnFbf5.css",
-    "assets/main-COPbBjdV.js",
-    "assets/main-YRmny5Kw.js",
-    "assets/notifications-DhnfPfRM.js",
-    "assets/preview-Cn96MkoJ.js",
-    "assets/preview-D1wWfWPC.css",
-    "assets/preview-DCDzaPuR.js",
-    "assets/submitted-details-CrfsGsug.js"
+    "assets/index-Bt0iM6sN.js",
+    "assets/main-Bqmb-H3W.js",
+    "assets/main-htYfCf9Z.css"
   ],
   "replaced": [
     "account/index.html",
@@ -556,6 +548,7 @@
     "assets/api-DJtC6y_-.js",
     "assets/arabic-600-DfnZHZ36.css",
     "assets/branding-BojbmjZv.css",
+    "assets/branding-DMJbIHtA.js",
     "assets/catalogue-B3tlQG9w.js",
     "assets/catalogue-CR_2rN1N.js",
     "assets/catalogue-DFXD2NrP.js",
@@ -571,7 +564,10 @@
     "assets/inter-latin-600-normal-LgqL8muc.woff2",
     "assets/latin-400-CkJXGLVG.css",
     "assets/main-B72gXKZ_.css",
+    "assets/main-BJVkyfTu.js",
+    "assets/main-YRmny5Kw.js",
     "assets/main-oiB-sBTF.css",
+    "assets/notifications-DhnfPfRM.js",
     "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2",
     "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff",
     "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff",
@@ -584,11 +580,15 @@
     "assets/pdf.worker.min-Dswkl-cV.mjs",
     "assets/pdf.worker.min-FoBnJSGj.js",
     "assets/preload-helper-uBIymjUX.js",
+    "assets/preview-Cn96MkoJ.js",
+    "assets/preview-D1wWfWPC.css",
+    "assets/preview-DCDzaPuR.js",
     "assets/review-BDSCeeGv.js",
     "assets/review-ClNmCBvP.css",
     "assets/routes-VETtnQjc.js",
     "assets/shared-fields-C-TVuEJ2.js",
     "assets/signatures-DQQVjmg0.js",
+    "assets/submitted-details-CrfsGsug.js",
     "branding/dinar-partner.png",
     "branding/itqan-fund.png",
     "branding/itqan.png",
@@ -608,9 +608,9 @@
   ],
   "static_only": true,
   "baseline": {
-    "uploaded_at_utc": "20260928T152844Z",
-    "source_commit": "a49ab0eff6fb8b02914cb993e17249eebe583d0d",
-    "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260928T152844Z"
+    "uploaded_at_utc": "20260928T153741Z",
+    "source_commit": "5ac8426d1dff1343c72fd710463c95a8f6cc0c55",
+    "backup": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20260928T153741Z"
   },
   "verification": "Changed static files verified over FTPS; unchanged build files retained from the recorded release.",
   "completed": true
