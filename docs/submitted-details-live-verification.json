@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "All changed live assets match the tested public build, including collapsed, restyled management details",
+    "Customer form authentication remains enforced",
+    "en 1366: both management preview entry points show collapsed sections and restyled fields without shared snapshot duplication; saved data and PDF hash unchanged",
+    "ar 390: both management preview entry points show collapsed sections and restyled fields without shared snapshot duplication; saved data and PDF hash unchanged"
+  ],
+  "errors": [],
+  "verifiedAssets": 11,
+  "passed": true
+}
