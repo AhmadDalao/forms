@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "All changed live assets match the tested public build, including latest-only client preview and notification assets",
+    "Customer form authentication remains enforced",
+    "en 1366: both management preview entry points retain full PDF/structured details; submitted data and PDF hash unchanged",
+    "ar 390: both management preview entry points retain full PDF/structured details; submitted data and PDF hash unchanged"
+  ],
+  "errors": [],
+  "verifiedAssets": 10,
+  "passed": true
+}
