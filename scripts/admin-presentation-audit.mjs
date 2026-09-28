@@ -64,10 +64,8 @@ try{
    }
    await preview(p,'[data-preview="'+person.submissions[0].id+'"]',docs.find(d=>d.id===person.submissions[0].doc_id).pages);
   }
-  pass(lang+' '+width+': all eight saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work');
+  pass(lang+' '+width+': all nine saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work');
  }
- for(const person of people){const cp=await person.context.newPage();cp.on('pageerror',e=>report.errors.push(e.message));await cp.goto(f.base+'/my-applications/');for(const s of person.submissions)await preview(cp,'[data-preview="'+s.id+'"]',docs.find(d=>d.id===s.doc_id).pages);await cp.close();}
- pass('Client My applications previews render every page for all eight submitted test forms');
  assert.deepEqual(report.errors,[]);report.passed=true;
 }catch(error){report.failure=error.stack;throw error;}
 finally{await fs.writeFile(f.out+'/admin-presentation-report.json',JSON.stringify(report,null,2)+'\n');console.log('REPORT '+f.out+'/admin-presentation-report.json');await browser.close();await f.close();}

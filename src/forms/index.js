@@ -1,4 +1,5 @@
 import './signature.js';
+import './consent.js';
 import './subscription.js';
 import './terms.js';
 import './individual-tax.js';
@@ -10,6 +11,7 @@ import {applyPersonNameFields} from '../person-names.js';
 import {applyPaperCopy} from './paper-copy.js';
 import {applyCatalogueNames} from '../catalogue.js';
 import {applyModernLayouts} from './modern-layouts.js';
+import {applyCustomerWorkflow} from './customer-workflow.js';
 applyPaperCopy(docs);
 {
  const d=docs.find(d=>d.id==='kyc-individual'),f=d.fields.find(f=>f.id==='city'),section=d.sections.find(s=>s.fields.includes(f));
@@ -26,6 +28,7 @@ for(const doc of docs)for(const field of doc.fields){
   field.dropdownOptions=doc.fields.find(f=>f.id==='id_type').options.filter(o=>o.value!=='family').map(o=>({value:o.ar+' / '+o.label,label:o.label,ar:o.ar}));
  }
 }
+applyCustomerWorkflow(docs);
 applyPersonNameFields(docs);
 applyCatalogueNames(docs);
 applyModernLayouts(docs);

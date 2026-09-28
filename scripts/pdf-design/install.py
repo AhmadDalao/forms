@@ -4,6 +4,7 @@ import json, shutil, hashlib
 ROOT=Path(__file__).resolve().parents[2]
 (ROOT/'output/documents').mkdir(parents=True,exist_ok=True)
 layouts={};report={}
+existing=json.loads((ROOT/'src/forms/modern-layouts.json').read_text())
 for file in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
     # Signature and T&C use original PDFs, even if stale generated files remain.
     if file.parent.name in {'terms-and-conditions','signature-form'}:continue
@@ -11,6 +12,8 @@ for file in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
     pdf=file.parent/'final'/f'{identifier}.pdf';docx=file.parent/f'{identifier}.docx'
     assert pdf.is_file() and docx.is_file()
     layouts[identifier]={key:layout[key] for key in ['pages','fields','version']}
+    # Consent now maps the existing blank areas; its paper itself is unchanged.
+    if identifier=='al-naeem-terms-consent' and not layout['fields']:layouts[identifier]=existing[identifier]
     shutil.copy2(pdf,ROOT/'public/pdfs'/pdf.name)
     shutil.copy2(docx,ROOT/'output/documents'/docx.name)
     # Developer source bundle keeps a matching, editable Word/PDF pair.

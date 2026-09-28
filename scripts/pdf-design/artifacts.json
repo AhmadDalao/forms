@@ -15,13 +15,13 @@
     "docx_sha256": "14750ee5c163f5fafbd883639ed591b84aa3521bd56bd8a191525642334ce6d1"
   },
   "kyc-corporate": {
-    "pages": 10,
-    "pdf_sha256": "cb54903c9d308c18ab75594e2da3305eaef855c6d3147a8212da189d38bbba83",
-    "docx_sha256": "659048060d2b7909d7b2272ab733f400573e876005a5dcb2e590b951e7aed599"
+    "pages": 9,
+    "pdf_sha256": "c272084a295866a1b10ffaca7837f0b78c592cfa1794999684736f444bdcea3f",
+    "docx_sha256": "06b63cf9e0bc0794462149c623a0f0a418c7620592c170eee6accbebf542e829"
   },
   "kyc-individual": {
     "pages": 11,
-    "pdf_sha256": "00491830d58ab4bc3a9243e39f8901ebfec0d280ad0184df373ce092fdfc1d2a",
-    "docx_sha256": "92abd947bba2826f55643fdf8a55ee627b606534f9188e626646ccbfd7501b7a"
+    "pdf_sha256": "c1902615737bfc4dcefd06812ef0fb016cf4aeaec4c3088a02f364d72abd612b",
+    "docx_sha256": "3776f8f84d2fe0820f4f6e6a42177a3d8a55491e6474a56d16c848b432322de8"
   }
 }

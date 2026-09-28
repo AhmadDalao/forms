@@ -13,6 +13,7 @@ from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ROW_HEIGHT_RULE, WD_CELL_VERT
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 import pdfplumber
+from customer_fields import customer_fields
 
 ROOT=Path(__file__).resolve().parents[2]
 REF=ROOT/'reference/documents/subscription-style.docx'
@@ -20,7 +21,7 @@ OUT=ROOT/'tmp/modern-pdfs'
 RENDER=os.environ.get('DOCX_RENDERER')
 PURPLE='401D58';INK='242235';MUTED='656575';BORDER='9B92A2';WIDTH=499.3
 FONT='Bahij TheSansArabic Plain'
-SCHEMA=json.loads((ROOT/'reference/documents/form-schema-20260927.json').read_text())
+SCHEMA=customer_fields(json.loads((ROOT/'reference/documents/form-schema-20260927.json').read_text()))
 SOURCES=json.loads((ROOT/'scripts/pdf-design/source-text.json').read_text())
 
 def render_document(target,out):
@@ -362,7 +363,6 @@ class Builder:
         elif id.startswith('kyc-'):
             for s in self.schema['sections']:
                 if s['id']=='suitability':
-                    if id=='kyc-corporate':self.doc.add_page_break()
                     self.staff_kyc();self.doc.add_page_break()
                 self.section(s['id'])
         elif id=='fatca-crs-individual':
@@ -451,7 +451,7 @@ def main():
                 with pdfplumber.open(pdf) as rendered:
                     assert len(rendered.pages)==pages,(id,len(rendered.pages),pages)
                     assert not any(re.search(r'M\d{4}X',p.extract_text() or '') for p in rendered.pages)
-                manifest[id]={'pages':pages,'fields':layout,'sources':b.sources,'version':'20260928-sections-3'}
+                manifest[id]={'pages':pages,'fields':layout,'sources':b.sources,'version':'20260928-client-flow-4'}
                 (base/'layout.json').write_text(json.dumps(manifest[id],ensure_ascii=False,indent=2)+'\n')
                 print(id,pages,'pages',len(layout),'mapped destinations',flush=True)
     (OUT/'build-result.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')

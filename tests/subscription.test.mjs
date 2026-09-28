@@ -54,7 +54,7 @@ test('nationality precedes the dropdown, ID fields follow the selected type, com
 });
 test('signature progress reflects a missing image without blocking direct intake',()=>{
  const v=normalizeSubscription(individual,{first_name:'A',second_name:'B',family_name:'C'});const section=individual.sections.find(s=>s.id==='applicant');
- assert.deepEqual(sectionProgress(individual,section,v,{}),{completed:3,total:3});
+ assert.deepEqual(sectionProgress(individual,section,v,{}),{completed:2,total:3});
  v.signature_mode='electronic';assert.deepEqual(sectionProgress(individual,section,v,{}),{completed:3,total:4});assert.ok(!missingRequired(individual,v,{}).includes('signature_mode'));
  assert.deepEqual(sectionProgress(individual,section,v,{applicant:'image'}),{completed:4,total:4});
 });

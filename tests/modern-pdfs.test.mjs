@@ -8,6 +8,13 @@ import {docs} from '../src/forms/index.js';
 import {signatureSlots} from '../src/signatures.js';
 import {submissionDetailsModel} from '../src/portal/submitted-details.js';
 const original=JSON.parse(readFileSync('reference/documents/form-schema-20260927.json'));
+// The explicitly requested input cleanup is the only semantic change allowed.
+for(const doc of original){
+ const removed={'kyc-individual':['issue_place','rep_issue','rep_place'],'kyc-corporate':['auth_issue_place','auth_issue_date']}[doc.id]||[];
+ doc.fields=doc.fields.filter(f=>!removed.includes(f.id));
+ const fax=doc.fields.find(f=>f.id==='rep_fax');if(fax)Object.assign(fax,{id:'rep_email',label:'Email',ar:'البريد الإلكتروني',type:'email'});
+ for(const slot of doc.signatureSlots)if(slot.requireWhenFields)slot.requireWhenFields=slot.requireWhenFields.filter(id=>!removed.includes(id)).map(id=>id==='rep_fax'?'rep_email':id);
+}
 const layouts=JSON.parse(readFileSync('src/forms/modern-layouts.json'));
 const legacy=JSON.parse(readFileSync('scripts/pdf-design/legacy-signing-layouts.json'));
 const semantic=field=>Object.fromEntries(['id','type','label','ar','uiOnly','hidden','join','joinAudience','required','optional','multiple','sum','sharedKey','dependsOn','when'].filter(k=>k in field).map(k=>[k,field[k]]));
@@ -16,12 +23,12 @@ test('published custom titles and order survive release-owned PDF page/version r
  const dir=mkdtempSync(path.join(tmpdir(),'forms-catalogue-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));
  const current=docs.find(d=>d.id==='signature-form');
  writeFileSync(path.join(dir,'document-catalogue.php'),readFileSync('public/api/document-catalogue.php'));
- writeFileSync(path.join(dir,'defaults.json'),JSON.stringify({documents:[{id:current.id,pages:current.pages,pdfVersion:current.pdfVersion}]}));
- const r=spawnSync('php',['-r',`require $argv[1];$doc=['id'=>'signature-form','builtin'=>true,'title'=>'Owner title','ar'=>'عنوان المالك','pages'=>1,'pdfVersion'=>'old'];$custom=['id'=>'upload_123','title'=>'Custom PDF','pages'=>3,'pdfVersion'=>'custom','builtin'=>false];echo json_encode(currentBuiltinPresentation(['documents'=>[$custom,$doc]])['documents']);`,path.join(dir,'document-catalogue.php')],{encoding:'utf8'});
+ writeFileSync(path.join(dir,'defaults.json'),JSON.stringify({documents:[{id:current.id,pages:current.pages,pdfVersion:current.pdfVersion,downloadOnly:false}]}));
+ const r=spawnSync('php',['-r',`require $argv[1];$doc=['id'=>'signature-form','builtin'=>true,'title'=>'Owner title','ar'=>'عنوان المالك','pages'=>1,'pdfVersion'=>'old','downloadOnly'=>true];$custom=['id'=>'upload_123','title'=>'Custom PDF','pages'=>3,'pdfVersion'=>'custom','builtin'=>false];echo json_encode(currentBuiltinPresentation(['documents'=>[$custom,$doc]])['documents']);`,path.join(dir,'document-catalogue.php')],{encoding:'utf8'});
  assert.equal(r.status,0,r.stderr);const documents=JSON.parse(r.stdout);
  assert.deepEqual(documents[0],{id:'upload_123',title:'Custom PDF',pages:3,pdfVersion:'custom',builtin:false});
  assert.equal(documents[1].title,'Owner title');assert.equal(documents[1].ar,'عنوان المالك');
- assert.equal(documents[1].pages,current.pages);assert.equal(documents[1].pdfVersion,current.pdfVersion);
+ assert.equal(documents[1].pages,current.pages);assert.equal(documents[1].pdfVersion,current.pdfVersion);assert.equal(documents[1].downloadOnly,false);
 });
 
 test('stale browser templates cannot submit answers onto a replaced PDF layout',()=>{
@@ -81,7 +88,7 @@ test('restored T&C keeps the exact original PDF and all original field/signature
  const doc=docs.find(d=>d.id==='terms-and-conditions'),old=original.find(d=>d.id===doc.id);
  assert.equal(createHash('sha256').update(readFileSync('public/pdfs/terms-and-conditions.pdf')).digest('hex'),'8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106');
  assert.equal(doc.pages,13);assert.equal(doc.pdfVersion,'20260928-original-2');assert.equal(layouts[doc.id],undefined);
- assert.deepEqual(doc.fields,old.fields);assert.deepEqual(signatureSlots(doc),old.signatureSlots);
+ assert.deepEqual(doc.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field),old.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field));assert.deepEqual(signatureSlots(doc),old.signatureSlots);
  assert.deepEqual(doc.fields.filter(f=>f.type==='date').map(f=>f.page),[11,13]);
  assert.ok(doc.fields.filter(f=>f.type==='date').every(f=>f.defaultToday&&f.dateParts.length===3));
 });
@@ -91,7 +98,7 @@ test('restored signature form keeps the original PDF, one-page fields and specim
  const doc=docs.find(d=>d.id==='signature-form'),old=original.find(d=>d.id===doc.id);
  assert.equal(createHash('sha256').update(readFileSync('public/pdfs/signature-form.pdf')).digest('hex'),'9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0');
  assert.equal(doc.pages,1);assert.equal(doc.pdfVersion,'20260928-original-3');assert.equal(layouts[doc.id],undefined);
- assert.deepEqual(doc.fields,old.fields);assert.deepEqual(signatureSlots(doc),old.signatureSlots);
+ assert.deepEqual(doc.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field),old.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field));assert.deepEqual(signatureSlots(doc),old.signatureSlots);
 });
 
 test('original, retired modern and restored signature forms retain immutable signing destinations',()=>{

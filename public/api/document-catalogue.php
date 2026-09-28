@@ -7,7 +7,7 @@ function currentBuiltinPresentation(array $catalogue): array {
     foreach($catalogue['documents'] as &$document){
         $current=$defaults[$document['id']]??null;
         if(($document['builtin']??false)&&$current){
-            foreach(['pages','pdfVersion'] as $key){
+            foreach(['pages','pdfVersion','downloadOnly'] as $key){
                 if(isset($current[$key]))$document[$key]=$current[$key];
             }
         }

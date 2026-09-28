@@ -45,3 +45,8 @@
  .site-header-navigation+.site-header-actions{justify-content:flex-start}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+.brand-lockup{width:auto;gap:18px;max-width:100%;justify-content:flex-start}
+.brand-fund-name{max-width:260px;min-width:0;color:#48235f;font-size:24px;font-weight:700;line-height:1.6;text-wrap:balance}
+.site-brand{min-width:0;flex-shrink:1}.site-header-inner{flex-wrap:wrap}.site-header-controls{margin-inline-start:auto}
+@media(max-width:600px){.brand-lockup{width:auto;gap:12px}.brand-fund-name{font-size:19px;max-width:220px}.site-header-controls{margin-inline-start:0}.site-header .site-header-controls{flex-basis:100%}}

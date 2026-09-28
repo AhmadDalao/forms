@@ -22,7 +22,7 @@ try{
  await p.waitForFunction(()=>document.querySelector('[name=second_name]')?.value==='محمد');
  assert.equal(await p.locator('[name=first_name]').inputValue(),'خالد');
  await p.locator('[data-shared-resolve=local]').click();
- await p.waitForFunction(()=>document.querySelector('[data-shared-save-status]')?.textContent.includes('saved'));
+ await p.waitForFunction(()=>document.querySelector('[data-shared-save-status]')?.textContent==='');
  const saved=(await f.call(c,'portal','shared_profile',{params:{account:u.id,audience:'individual'}})).shared;
  assert.equal(saved.profile.ar_first,'خالد');assert.equal(saved.profile.ar_second,'محمد');
  pass('Late account data fills untouched fields; an edit made while loading is preserved and conflict resolution saves it');

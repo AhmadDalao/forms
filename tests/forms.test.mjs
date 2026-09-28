@@ -22,7 +22,7 @@ test('printed details remain mapped for users to fill or skip themselves',()=>{
  for(const [doc,ids] of [
   ['fatca-crs-individual',['permanent_details','tax_country_0','tax_tin_0','tax_reason_0','tax_explanation_0','capacity_other','staff_account_holder','staff_employee_id','staff_cif']],
   ['fatca-crs-corporate',['us_tin','giin_3','giin_4','giin_5','exchange','person_0_name','person_4_tin']],
-  ['kyc-individual',['title_other','id_other','sector_other','listed_company','beneficiary_identity','representative_name','rep_fax','other_currency']],
+  ['kyc-individual',['title_other','id_other','sector_other','listed_company','beneficiary_identity','representative_name','rep_email','other_currency']],
   ['kyc-corporate',['other_currency']]
  ])for(const id of ids)assert.ok(field(doc,id)?.rect,`${doc}/${id}`);
 });
@@ -30,7 +30,7 @@ test('zero and identifiers with leading zeros are answers',()=>{
  assert.equal(hasValue('0'),true);assert.equal(hasValue('00001234'),true);
  assert.equal(hasValue('   '),false);assert.equal(hasValue([]),false);
 });
-test('eight fillable documents (separate subscription audiences) retain valid page mappings and field IDs',()=>{
- assert.equal(docs.length,8);
+test('nine fillable documents (separate subscription audiences) retain valid page mappings and field IDs',()=>{
+ assert.equal(docs.length,9);
  for(const d of docs){assert.equal(new Set(d.fields.map(f=>f.id)).size,d.fields.length);for(const f of d.fields)assert.ok(f.page>=1&&f.page<=d.pages);}
 });

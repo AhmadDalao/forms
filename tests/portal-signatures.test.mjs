@@ -47,7 +47,7 @@ test('additional named signers and representatives require their own electronic 
   ['terms-and-conditions','authorization_1',['authorization_name_1'],{terms_0:image,authorization_0:image}],
   ['terms-and-conditions','authorization_2',['authorization_name_2'],{terms_0:image,authorization_0:image}],
   ['fatca-crs-corporate','signatory_1',['signer_1_name','signer_1_capacity'],{signatory_0:image}],
-  ['kyc-individual','representative',['representative_name','rep_id','rep_type','rep_expiry','rep_issue','rep_phone','rep_place','rep_fax'],{client:image}],
+  ['kyc-individual','representative',['representative_name','rep_id','rep_type','rep_expiry','rep_phone','rep_email'],{client:image}],
  ]){
   const doc=document(id);
   for(const field of fields){

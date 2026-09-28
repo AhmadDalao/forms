@@ -12,6 +12,7 @@ const storage=()=>{
 const terms=docs.find(d=>d.id==='terms-and-conditions');
 const completionDates={
  'signature-form':['date'],
+ 'al-naeem-terms-consent':['date'],
  'terms-and-conditions':['terms_date','authorization_date'],
  'fatca-crs-individual':['date'],
  'fatca-crs-corporate':['date'],
@@ -25,8 +26,8 @@ test('only document completion dates default, while personal and historical date
   assert.deepEqual(values,Object.fromEntries((completionDates[doc.id]||[]).map(id=>[id,'2026-09-19'])),doc.id);
  }
  const historical={
-  'kyc-individual':['dob','id_expiry','rep_expiry','rep_issue'],
-  'kyc-corporate':['incorporation','expiry','auth_issue_date','auth_expiry'],
+  'kyc-individual':['dob','id_expiry','rep_expiry'],
+  'kyc-corporate':['incorporation','expiry','auth_expiry'],
   'fatca-crs-individual':['dob'],
   'fatca-crs-corporate':Array.from({length:5},(_,i)=>`person_${i}_dob`),
  };

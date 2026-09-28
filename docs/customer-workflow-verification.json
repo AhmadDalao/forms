@@ -1,0 +1,629 @@
+{
+  "release": "2026-09-28 customer workflow",
+  "unit_tests": {
+    "passed": 229,
+    "failed": 0
+  },
+  "reports": {
+    "customer_workflow": {
+      "evidence": "tmp/workflow-toggle-1790601264966-99465e/customer-workflow/report.json",
+      "passed": true,
+      "checks": [
+        "individual: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+        "Individual FATCA: role first, all four choices on one desktop row, account-holder names prefill",
+        "individual: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save",
+        "corporate: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+        "corporate: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save"
+      ],
+      "errors": []
+    },
+    "all_controls": {
+      "evidence": "tmp/workflow-toggle-1790601314819-d623ee/client-corrections/report.json",
+      "passed": true,
+      "checks": [
+        "signature-form: actual UI controls, reload, submit, management answers and PDF download match",
+        "al-naeem-terms-consent: actual UI controls, reload, submit, management answers and PDF download match",
+        "subscription-form: actual UI controls, reload, submit, management answers and PDF download match",
+        "subscription-company: actual UI controls, reload, submit, management answers and PDF download match",
+        "terms-and-conditions: actual UI controls, reload, submit, management answers and PDF download match",
+        "fatca-crs-individual: actual UI controls, reload, submit, management answers and PDF download match",
+        "fatca-crs-corporate: actual UI controls, reload, submit, management answers and PDF download match",
+        "KYC risk answers survive reload, submission and editing; resubmission archives original without changing answers or PDF",
+        "kyc-individual: actual UI controls, reload, submit, management answers and PDF download match",
+        "kyc-corporate: actual UI controls, reload, submit, management answers and PDF download match",
+        "Logout works on every editor; both account types list all six applicable forms in management",
+        "Short bold fund title, four logos and login/signup fit desktop and mobile in both languages"
+      ],
+      "errors": [],
+      "forms": [
+        {
+          "id": "signature-form",
+          "controls": 16,
+          "savedAnswers": 18
+        },
+        {
+          "id": "al-naeem-terms-consent",
+          "controls": 5,
+          "savedAnswers": 6
+        },
+        {
+          "id": "subscription-form",
+          "controls": 33,
+          "savedAnswers": 44
+        },
+        {
+          "id": "subscription-company",
+          "controls": 32,
+          "savedAnswers": 42
+        },
+        {
+          "id": "terms-and-conditions",
+          "controls": 28,
+          "savedAnswers": 34
+        },
+        {
+          "id": "fatca-crs-individual",
+          "controls": 68,
+          "savedAnswers": 73
+        },
+        {
+          "id": "fatca-crs-corporate",
+          "controls": 97,
+          "savedAnswers": 104
+        },
+        {
+          "id": "kyc-individual",
+          "controls": 114,
+          "savedAnswers": 119
+        },
+        {
+          "id": "kyc-corporate",
+          "controls": 105,
+          "savedAnswers": 108
+        }
+      ]
+    },
+    "management_presentation": {
+      "evidence": "tmp/workflow-toggle-1790601262141-770e54/admin-presentation-report.json",
+      "passed": true,
+      "checks": [
+        "en 1440: category titles/counts, audience filters and dashboard layout",
+        "en 1440: all nine saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work",
+        "en 390: category titles/counts, audience filters and dashboard layout",
+        "en 390: all nine saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work",
+        "ar 1440: category titles/counts, audience filters and dashboard layout",
+        "ar 1440: all nine saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work",
+        "ar 390: category titles/counts, audience filters and dashboard layout",
+        "ar 390: all nine saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work"
+      ],
+      "errors": [],
+      "forms": [
+        {
+          "document": "signature-form",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 2,
+          "fields": 18,
+          "previewPages": 1
+        },
+        {
+          "document": "al-naeem-terms-consent",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 1,
+          "fields": 6,
+          "previewPages": 1
+        },
+        {
+          "document": "subscription-form",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 4,
+          "fields": 49,
+          "previewPages": 2
+        },
+        {
+          "document": "terms-and-conditions",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 2,
+          "fields": 34,
+          "previewPages": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 5,
+          "fields": 73,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-individual",
+          "audience": "individual",
+          "lang": "en",
+          "width": 1440,
+          "groups": 6,
+          "fields": 120,
+          "previewPages": 11
+        },
+        {
+          "document": "subscription-company",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 1440,
+          "groups": 4,
+          "fields": 46,
+          "previewPages": 2
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 1440,
+          "groups": 6,
+          "fields": 104,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-corporate",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 1440,
+          "groups": 6,
+          "fields": 108,
+          "previewPages": 9
+        },
+        {
+          "document": "signature-form",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 2,
+          "fields": 18,
+          "previewPages": 1
+        },
+        {
+          "document": "al-naeem-terms-consent",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 1,
+          "fields": 6,
+          "previewPages": 1
+        },
+        {
+          "document": "subscription-form",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 4,
+          "fields": 49,
+          "previewPages": 2
+        },
+        {
+          "document": "terms-and-conditions",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 2,
+          "fields": 34,
+          "previewPages": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 5,
+          "fields": 73,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-individual",
+          "audience": "individual",
+          "lang": "en",
+          "width": 390,
+          "groups": 6,
+          "fields": 120,
+          "previewPages": 11
+        },
+        {
+          "document": "subscription-company",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 390,
+          "groups": 4,
+          "fields": 46,
+          "previewPages": 2
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 390,
+          "groups": 6,
+          "fields": 104,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-corporate",
+          "audience": "corporate",
+          "lang": "en",
+          "width": 390,
+          "groups": 6,
+          "fields": 108,
+          "previewPages": 9
+        },
+        {
+          "document": "signature-form",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 2,
+          "fields": 18,
+          "previewPages": 1
+        },
+        {
+          "document": "al-naeem-terms-consent",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 1,
+          "fields": 6,
+          "previewPages": 1
+        },
+        {
+          "document": "subscription-form",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 4,
+          "fields": 49,
+          "previewPages": 2
+        },
+        {
+          "document": "terms-and-conditions",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 2,
+          "fields": 34,
+          "previewPages": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 5,
+          "fields": 73,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-individual",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 6,
+          "fields": 120,
+          "previewPages": 11
+        },
+        {
+          "document": "subscription-company",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 4,
+          "fields": 46,
+          "previewPages": 2
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 6,
+          "fields": 104,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-corporate",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 1440,
+          "groups": 6,
+          "fields": 108,
+          "previewPages": 9
+        },
+        {
+          "document": "signature-form",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 2,
+          "fields": 18,
+          "previewPages": 1
+        },
+        {
+          "document": "al-naeem-terms-consent",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 1,
+          "fields": 6,
+          "previewPages": 1
+        },
+        {
+          "document": "subscription-form",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 4,
+          "fields": 49,
+          "previewPages": 2
+        },
+        {
+          "document": "terms-and-conditions",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 2,
+          "fields": 34,
+          "previewPages": 13
+        },
+        {
+          "document": "fatca-crs-individual",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 5,
+          "fields": 73,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-individual",
+          "audience": "individual",
+          "lang": "ar",
+          "width": 390,
+          "groups": 6,
+          "fields": 120,
+          "previewPages": 11
+        },
+        {
+          "document": "subscription-company",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 390,
+          "groups": 4,
+          "fields": 46,
+          "previewPages": 2
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 390,
+          "groups": 6,
+          "fields": 104,
+          "previewPages": 8
+        },
+        {
+          "document": "kyc-corporate",
+          "audience": "corporate",
+          "lang": "ar",
+          "width": 390,
+          "groups": 6,
+          "fields": 108,
+          "previewPages": 9
+        }
+      ]
+    },
+    "management_navigation": {
+      "evidence": "tmp/workflow-toggle-1790601036043-4a8128/management-navigation-report.json",
+      "passed": true,
+      "checks": [
+        "chrome en: delayed admins cannot replace submissions; reopening works",
+        "chrome en: delayed documents cannot replace submissions; reopening works",
+        "chrome ar: delayed admins cannot replace submissions; reopening works",
+        "chrome ar: delayed documents cannot replace submissions; reopening works",
+        "firefox en: delayed admins cannot replace submissions; reopening works",
+        "firefox en: delayed documents cannot replace submissions; reopening works",
+        "firefox ar: delayed admins cannot replace submissions; reopening works",
+        "firefox ar: delayed documents cannot replace submissions; reopening works",
+        "webkit en: delayed admins cannot replace submissions; reopening works",
+        "webkit en: delayed documents cannot replace submissions; reopening works",
+        "webkit ar: delayed admins cannot replace submissions; reopening works",
+        "webkit ar: delayed documents cannot replace submissions; reopening works"
+      ],
+      "errors": []
+    },
+    "loading": {
+      "evidence": "tmp/workflow-toggle-1790601141981-5f1787/loading-report.json",
+      "passed": true,
+      "checks": [
+        "Document centre and editor work while the shared-profile response is still pending",
+        "Late account data fills untouched fields; an edit made while loading is preserved and conflict resolution saves it",
+        "Opening the document centre and editing fields fetches no PDF or PDF engine",
+        "Reload restores the confirmed account values",
+        "Management overview defers form definitions and PDF downloads until they are needed"
+      ],
+      "errors": []
+    },
+    "pdf": {
+      "evidence": "tmp/client-flow-final-pdfs/verification.json",
+      "counts": {
+        "pdfs": 114,
+        "pages": 755,
+        "text_rectangles": 2094,
+        "choice_rectangles": 917,
+        "signature_rectangles": 34,
+        "transparent_images": 14645,
+        "unchanged_pages": 342
+      },
+      "coverage": {
+        "signature-form": {
+          "mapped_fields": 10,
+          "covered_fields": 10,
+          "uncovered_fields": [],
+          "choice_options": 6,
+          "covered_choice_options": 6,
+          "uncovered_choices": [],
+          "signature_slots": 1,
+          "covered_signatures": 1,
+          "samples": 10,
+          "complete_success": 5
+        },
+        "al-naeem-terms-consent": {
+          "mapped_fields": 2,
+          "covered_fields": 2,
+          "uncovered_fields": [],
+          "choice_options": 0,
+          "covered_choice_options": 0,
+          "uncovered_choices": [],
+          "signature_slots": 1,
+          "covered_signatures": 1,
+          "samples": 8,
+          "complete_success": 5
+        },
+        "subscription-form": {
+          "mapped_fields": 29,
+          "covered_fields": 29,
+          "uncovered_fields": [],
+          "choice_options": 0,
+          "covered_choice_options": 0,
+          "uncovered_choices": [],
+          "signature_slots": 1,
+          "covered_signatures": 1,
+          "samples": 13,
+          "complete_success": 5
+        },
+        "subscription-company": {
+          "mapped_fields": 30,
+          "covered_fields": 30,
+          "uncovered_fields": [],
+          "choice_options": 0,
+          "covered_choice_options": 0,
+          "uncovered_choices": [],
+          "signature_slots": 1,
+          "covered_signatures": 1,
+          "samples": 11,
+          "complete_success": 5
+        },
+        "terms-and-conditions": {
+          "mapped_fields": 10,
+          "covered_fields": 10,
+          "uncovered_fields": [],
+          "choice_options": 4,
+          "covered_choice_options": 4,
+          "uncovered_choices": [],
+          "signature_slots": 6,
+          "covered_signatures": 6,
+          "samples": 10,
+          "complete_success": 5
+        },
+        "fatca-crs-individual": {
+          "mapped_fields": 57,
+          "covered_fields": 57,
+          "uncovered_fields": [],
+          "choice_options": 16,
+          "covered_choice_options": 16,
+          "uncovered_choices": [],
+          "signature_slots": 2,
+          "covered_signatures": 2,
+          "samples": 12,
+          "complete_success": 5
+        },
+        "fatca-crs-corporate": {
+          "mapped_fields": 76,
+          "covered_fields": 76,
+          "uncovered_fields": [],
+          "choice_options": 19,
+          "covered_choice_options": 19,
+          "uncovered_choices": [],
+          "signature_slots": 2,
+          "covered_signatures": 2,
+          "samples": 19,
+          "complete_success": 5
+        },
+        "kyc-individual": {
+          "mapped_fields": 106,
+          "covered_fields": 106,
+          "uncovered_fields": [],
+          "choice_options": 122,
+          "covered_choice_options": 122,
+          "uncovered_choices": [],
+          "signature_slots": 2,
+          "covered_signatures": 2,
+          "samples": 16,
+          "complete_success": 5
+        },
+        "kyc-corporate": {
+          "mapped_fields": 100,
+          "covered_fields": 100,
+          "uncovered_fields": [],
+          "choice_options": 60,
+          "covered_choice_options": 60,
+          "uncovered_choices": [],
+          "signature_slots": 1,
+          "covered_signatures": 1,
+          "samples": 15,
+          "complete_success": 5
+        }
+      },
+      "failures": []
+    }
+  },
+  "pdf_templates": [
+    {
+      "name": "al-naeem-terms-consent.pdf",
+      "sha256": "431d85dbd2732871fd09ab32345427e566f8c75e8b04b6094e30d0f9b88aa7c6"
+    },
+    {
+      "name": "fatca-crs-corporate.pdf",
+      "sha256": "10948ab007a60dfd76ddabc68b604efe86772a25a6683d07291879d442384083"
+    },
+    {
+      "name": "fatca-crs-individual.pdf",
+      "sha256": "14aa4a0914fc1346fbc6b9f9e46cf2e7fcc998b2aeeee22fa954f9201b7e8bd1"
+    },
+    {
+      "name": "kyc-corporate.pdf",
+      "sha256": "c272084a295866a1b10ffaca7837f0b78c592cfa1794999684736f444bdcea3f"
+    },
+    {
+      "name": "kyc-individual.pdf",
+      "sha256": "c1902615737bfc4dcefd06812ef0fb016cf4aeaec4c3088a02f364d72abd612b"
+    },
+    {
+      "name": "signature-form.pdf",
+      "sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0"
+    },
+    {
+      "name": "subscription-company.pdf",
+      "sha256": "5bc580c782795e59c350d87e5c7cac83244ad2214ba6b404e6f04fba2c12bcea"
+    },
+    {
+      "name": "subscription-form.pdf",
+      "sha256": "00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a"
+    },
+    {
+      "name": "subscription-individual.pdf",
+      "sha256": "9947150d7cd0cd4cb6b179075d42c9137d5b8d68aaaab6ce41407e813d078365"
+    },
+    {
+      "name": "terms-and-conditions.pdf",
+      "sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106"
+    }
+  ],
+  "limits": [
+    "Synthetic browser submissions use isolated PHP/SQLite fixtures.",
+    "Automated PDF fit checks cover the tested strings and mapped destinations; they do not certify regulatory compliance.",
+    "Live release smoke checks are recorded separately after deployment."
+  ]
+}

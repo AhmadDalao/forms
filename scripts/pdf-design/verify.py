@@ -3,9 +3,10 @@ from pathlib import Path
 import json,re,hashlib
 from docx import Document
 import pdfplumber
+from customer_fields import customer_fields
 ROOT=Path(__file__).resolve().parents[2]
 sources=json.loads((ROOT/'scripts/pdf-design/source-text.json').read_text())
-schemas={d['id']:d for d in json.loads((ROOT/'reference/documents/form-schema-20260927.json').read_text())}
+schemas={d['id']:d for d in customer_fields(json.loads((ROOT/'reference/documents/form-schema-20260927.json').read_text()))}
 normalize=lambda text:re.sub(r'[\W_ـ]+','',text,flags=re.UNICODE).casefold()
 report={'documents':{},'failures':[]}
 for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
@@ -14,7 +15,7 @@ for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
     identifier=path.parent.name;layout=json.loads(path.read_text());schema=schemas.get(identifier,{})
     docx=path.parent/f'{identifier}.docx';pdf=path.parent/'final'/f'{identifier}.pdf'
     package=Document(docx);text=' '.join(package._element.xpath('.//w:t/text()'));normalized=normalize(text)
-    if layout['version']=='20260928-sections-3':
+    if layout['version'] in {'20260928-sections-3','20260928-client-flow-4'}:
         for label in (['Educational Level','Marital Status','Correspondence / Statement'] if identifier=='kyc-individual' else ['Correspondence / Statement'] if identifier=='kyc-corporate' else []):
             if text.count(label)!=1:report['failures'].append([identifier,'repeated section label',label])
         if re.search(r'\bBox [12]\b',text):report['failures'].append([identifier,'unnecessary Box context label'])
@@ -30,7 +31,7 @@ for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
     expected|={'signature:'+s['id'] for s in schema.get('signatureSlots',[])}
     if expected!=set(layout['fields']):report['failures'].append([identifier,'mapping coverage',sorted(expected^set(layout['fields']))])
     inline_choices=[]
-    if layout['version'] in {'20260928-inline-2','20260928-sections-3'} and identifier!='fatca-crs-corporate':
+    if layout['version'] in {'20260928-inline-2','20260928-sections-3','20260928-client-flow-4'} and identifier!='fatca-crs-corporate':
         paragraphs=[' '.join(p.xpath('.//w:t/text()')).replace('  ',' ') for p in package._element.xpath('.//w:p')]
         for field in schema.get('fields',[]):
             for option in field.get('options',[]):
@@ -52,7 +53,7 @@ for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
             if '/' not in line or not re.search(r'[\u0600-\u06ff]',line) or normalize(option['label']) not in normalize(line):
                 report['failures'].append([identifier,field['id'],option['value'],'short bilingual choice not on one line',line])
         for n,page in enumerate(rendered.pages,1):
-            if layout['version']=='20260928-sections-3':
+            if layout['version'] in {'20260928-sections-3','20260928-client-flow-4'}:
                 purple=tuple(int(v,16)/255 for v in ['40','1D','58'])
                 for bar in page.rects:
                     color=bar.get('non_stroking_color')

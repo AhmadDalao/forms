@@ -19,7 +19,7 @@ const slots = {
   ],
   'fatca-crs-corporate': [0, 1].map(i => slot(`signatory_${i}`, `Signatory ${i + 1} (${i ? 'right' : 'left'} box)`, `الموقع ${i + 1} (${i ? 'الخانة اليمنى' : 'الخانة اليسرى'})`, 6, [131 + i * 244.2, 277, 187, 34], 'signatories', i ? {requiredForSubmission:false,requireWhenFields:['signer_1_name','signer_1_capacity']} : {})),
   'kyc-individual': [
-    slot('representative', 'Special cases — representative signature', 'الحالات الخاصة — توقيع الوكيل أو الممثل', 3, [117, 566, 124, 23], 'disclosures', {requiredForSubmission:false,requireWhenFields:['representative_name','rep_id','rep_type','rep_expiry','rep_issue','rep_phone','rep_place','rep_fax']}),
+    slot('representative', 'Special cases — representative signature', 'الحالات الخاصة — توقيع الوكيل أو الممثل', 3, [117, 566, 124, 23], 'disclosures', {requiredForSubmission:false,requireWhenFields:['representative_name','rep_id','rep_type','rep_expiry','rep_phone','rep_email']}),
     slot('client', 'Client signature', 'توقيع العميل', 7, [58, 624, 241, 25], 'suitability'),
   ],
   'kyc-corporate': [slot('client', 'Client signature', 'توقيع العميل', 7, [58, 624, 241, 25], 'suitability')],

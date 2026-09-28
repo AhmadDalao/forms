@@ -13,8 +13,8 @@ export async function submitForm({doc,values,bytes,profile,audience,lang,user,si
  const dialog=document.createElement('dialog');dialog.className='submission-dialog';dialog.dir=lang==='ar'?'rtl':'ltr';
  document.body.append(dialog);
  let sending=false,closed=false,finished=false,initialized=false,expected=revision?.expectedCurrent??null;
- const requestKey=crypto.randomUUID();
- const close=()=>{if(sending)return;closed=true;dialog.close();dialog.remove();if(finished&&revision)location.href=appRoot+'my-applications/';};
+ const requestKey=crypto.randomUUID(),formsHref=appRoot+(audience==='corporate'?'companies/':'individuals/');
+ const close=()=>{if(sending)return;closed=true;dialog.close();dialog.remove();if(finished&&revision)location.href=formsHref;};
  dialog.addEventListener('cancel',ev=>{ev.preventDefault();close();});
  if(!user){
   dialog.innerHTML=`<h2>${t('Sign in to submit','سجّل الدخول لإرسال النموذج')}</h2><p>${t('Your draft stays saved while you sign in.','تبقى مسودتك محفوظة أثناء تسجيل الدخول.')}</p><div class="dialog-actions"><button class="button secondary" data-close>${t('Back','رجوع')}</button><a class="button primary" href="${appRoot}login/?next=${audience==='corporate'?'companies':'individuals'}&resume=1&lang=${lang}">${t('Sign in','تسجيل الدخول')}</a></div>`;
@@ -38,13 +38,13 @@ export async function submitForm({doc,values,bytes,profile,audience,lang,user,si
    const form=new FormData();form.set('pdf',new Blob([bytes],{type:'application/pdf'}),doc.id+'.pdf');
    form.set('metadata',JSON.stringify({submissionMode:'direct',pdfVersion:doc.pdfVersion,workflowRevision:workflow.revision,account:user.id,document:doc.id,audience,requestKey,values,profile:revision?.profile||profile,signatures,signatureModes,expectedCurrent:expected,editedFrom:revision?.sourceId??null}));
    const result=await api('submit',form);finished=true;onSaved(result.submission);
-   dialog.innerHTML=`<span class="submitted-mark">✓</span><h2>${t('Form received','تم استلام النموذج')}</h2><p>${t('Your form has been sent to Itqan Capital. You can view, download or update it in My applications. Previous versions stay in your archive.','تم إرسال نموذجك إلى إتقان كابيتال. يمكنك عرضه أو تنزيله أو تحديثه من طلباتي. تبقى النسخ السابقة في الأرشيف.')}</p><p class="submission-reference">${t('Reference','المرجع')}: ${e(result.submission.id.slice(0,8).toUpperCase())}</p><div class="dialog-actions"><button class="button secondary" data-close>${t('Continue','متابعة')}</button><a class="button primary" href="${appRoot}my-applications/">${t('My applications','طلباتي')}</a></div>`;
+   dialog.innerHTML=`<span class="submitted-mark">✓</span><h2>${t('Form received','تم استلام النموذج')}</h2><p>${t('Your form has been received. You can download or update it directly from its form card.','تم استلام نموذجك. يمكنك تنزيله أو تحديثه مباشرةً من بطاقة النموذج.')}</p><p class="submission-reference">${t('Reference','المرجع')}: ${e(result.submission.id.slice(0,8).toUpperCase())}</p><div class="dialog-actions"><button class="button secondary" data-close>${t('Continue','متابعة')}</button><a class="button primary" href="${formsHref}">${t('Back to forms','العودة إلى النماذج')}</a></div>`;
    dialog.querySelector('[data-close]').onclick=close;
   }catch(error){
    status.textContent=errorText(error,lang);status.className='error';
    const blocked=['login_required','password_change_required','account_changed','account_type_restricted','version_conflict','workflow_conflict','template_changed'].includes(error.message);
    dialog.querySelector('[data-retry]').hidden=blocked;
-   if(blocked){const a=document.createElement('a');a.href=appRoot+'my-applications/';a.textContent=t('Open my applications','فتح طلباتي');status.append(' ',a);}
+   if(blocked){const a=document.createElement('a');a.href=error.message==='password_change_required'?appRoot+'account/':formsHref;a.textContent=t('Open forms','فتح النماذج');status.append(' ',a);}
   }finally{sending=false;dialog.querySelectorAll('button').forEach(b=>b.disabled=false);}
  }
  dialog.querySelector('[data-retry]').onclick=send;

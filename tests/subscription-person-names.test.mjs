@@ -35,6 +35,6 @@ test('required hidden name targets remain validated without requiring all four n
 });
 test('splitting the applicant UI preserves its logical progress count',()=>{
  const values=normalizeSubscription(individual,{first_name:'A',second_name:'B',family_name:'C'}),section=individual.sections.find(section=>section.id==='applicant');
- assert.deepEqual(sectionProgress(individual,section,values,{}),{completed:3,total:3});
+ assert.deepEqual(sectionProgress(individual,section,values,{}),{completed:2,total:3});
  values.signature_mode='electronic';assert.deepEqual(sectionProgress(individual,section,values,{}),{completed:3,total:4});assert.deepEqual(sectionProgress(individual,section,values,{applicant:'image'}),{completed:4,total:4});
 });

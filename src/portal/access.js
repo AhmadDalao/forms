@@ -11,7 +11,7 @@ export async function allowFormPage(){
    if(management?.authenticated){formSession={...formSession,user:null,management:true};if(!audience){location.replace(appRoot+'management/');return false;}return true;}
    if(!formSession.user){location.replace(appRoot+'login/?lang='+language());return false;}
   }
-  if(formSession.user.reset_required){location.replace(appRoot+'my-applications/');return false;}
+  if(formSession.user.reset_required){location.replace(appRoot+'account/');return false;}
   if(!audience){location.replace(appRoot+accountFolder(formSession.user)+'/');return false;}
   if(audience&&!canUseAudience(formSession.user,audience)){
    location.replace(appRoot+accountFolder(formSession.user)+'/');return false;

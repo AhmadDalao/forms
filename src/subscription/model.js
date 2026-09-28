@@ -11,7 +11,7 @@ export function normalizeSubscription(doc,input,{applicantEdited=false}={}){
  const values=normalizePersonNames(doc,input,{audience:doc.group});
  if(values.id_type==='family'){values.id_type='other';values.id_other='بطاقة عائلية / Family ID';}
  if(!('date' in values))values.date=today();
- values.signature_mode=values.signature_mode||'manual';
+ values.signature_mode=values.signature_mode||'';
  values.full_name=doc.group==='individual'?joinedName(values):values.company_name||'';
  if(!applicantEdited){
   values.applicant_name=doc.group==='individual'?values.full_name:values.auth_name||'';

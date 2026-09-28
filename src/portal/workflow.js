@@ -9,4 +9,4 @@ export function receiveWorkflow(value){
  if(changed&&typeof window!=='undefined')window.dispatchEvent(new CustomEvent('forms-workflow-change',{detail:workflowState()}));
 }
 export const formSaveLabel=lang=>lang==='ar'?'إرسال النموذج':'Submit form';
-export const toolModeNotice=lang=>`<p class="notice" data-tool-mode>${lang==='ar'?'راجع النموذج ثم أرسله. ستجد نسختك ورقم المرجع في طلباتي.':'Review your form, then submit it. Your copy and reference will be in My applications.'}</p>`;
+export const toolModeNotice=lang=>`<p class="notice" data-tool-mode>${lang==='ar'?'راجع النموذج ثم أرسله. يمكنك تنزيل نسختك من بطاقة النموذج.':'Review your form, then submit it. You can download your copy from its form card.'}</p>`;

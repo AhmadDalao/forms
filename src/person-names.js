@@ -18,6 +18,7 @@ export function joinPersonName(parts){
 
 const one=(id,options={})=>({id,targets:[id],...options});
 const definitions={
+ 'al-naeem-terms-consent':[one('investor_name',{audience:'individual'})],
  'signature-form':[one('client_name',{audience:'individual'}),one('signer_name')],
  'subscription-form':[one('english_name',{prefix:'en',language:'en'}),one('applicant_name')],
  'subscription-company':[one('auth_name'),one('applicant_name')],

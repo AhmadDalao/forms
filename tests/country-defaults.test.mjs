@@ -14,6 +14,7 @@ const doc=id=>docs.find(d=>d.id===id);
 const record=values=>({values,overrides:[],shared:{},signatures:{},signatureModes:{},step:0});
 const expected={
  'signature-form':[],
+ 'al-naeem-terms-consent':[],
  'subscription-form':['country'],
  'subscription-company':['inc_country','country'],
  'terms-and-conditions':[],

@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import {docs} from '../src/forms/index.js';
 import {catalogueFor} from '../src/catalogue.js';
 import {createDraftStore} from '../src/drafts.js';
-test('each audience has one numbered six-document catalogue, including download-only consent',()=>{
+test('each audience has one numbered six-document catalogue, including fillable consent',()=>{
  for(const audience of ['individual','corporate']){
   const entries=catalogueFor(docs,audience);
   assert.deepEqual(entries.map(d=>d.number),[1,2,3,4,5,6]);
   assert.deepEqual(entries.map(d=>d.id),[audience==='individual'?'subscription-form':'subscription-company','kyc-'+audience,'signature-form','al-naeem-terms-consent','fatca-crs-'+audience,'terms-and-conditions']);
-  assert.equal(entries[3].downloadOnly,true);assert.equal(entries.filter(d=>d.group==='shared').length,3);
+  assert.ok(!entries[3].downloadOnly);assert.ok(entries[3].fields.some(f=>f.id==='investor_name'));assert.equal(entries.filter(d=>d.group==='shared').length,3);
   assert.ok(entries.every(d=>d.title&&d.ar));
  }
  assert.deepEqual(catalogueFor(docs,null),[]);
