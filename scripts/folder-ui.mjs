@@ -50,13 +50,11 @@ for(const [name,engine] of [['chrome',chromium],['firefox',firefox],['webkit',we
     await page.locator(`[name="${field.id}"]`).fill('اختبار Test');
     assert.equal(await page.locator(`[name="${field.id}"]`).evaluate(e=>getComputedStyle(e).color),'rgb(20, 86, 160)');
     const pending=page.waitForEvent('download');await page.locator('#download-now').click();const download=await pending;await download.saveAs(`${out}/${name}-${folder}-${doc.id}.pdf`);
-    assert.equal(await page.locator('.preview-panel').isHidden(),true,'Download should not reopen the preview');
-    await page.locator('#toggle-preview').click();await page.locator('#loading').waitFor({state:'hidden'});
-    assert.equal(await page.locator('.preview-panel').isVisible(),true);
-    await page.locator('#toggle-preview').click();
-    await page.locator('#review-tab').click();await page.locator('#download:not([disabled])').waitFor();await page.locator('#loading').waitFor({state:'hidden'});
-    assert.equal(await page.locator('.preview-panel').isVisible(),true);
-    await page.locator('#edit-again').click();assert.equal(await page.locator('.preview-panel').isHidden(),true);
+    assert.equal(await page.locator('#toggle-preview,#document-preview,#preview-prepared-pdf').count(),0);
+    await page.locator('#review-tab').click();await page.locator('#download:not([disabled])').waitFor();
+    assert.equal(await page.locator('[data-full-page]').count(),doc.pages);
+    await page.waitForFunction(()=>[...document.querySelectorAll('[data-full-page]')].every(c=>c.width>300));
+    await page.locator('#edit-again').click();assert.equal(await page.locator('[data-full-page]').count(),0);
     await page.reload();await page.locator(`[name="${field.id}"]`).waitFor();assert.equal(await page.locator(`[name="${field.id}"]`).inputValue(),'اختبار Test');
     await page.setViewportSize({width:390,height:844});await page.locator('#language').click();
     assert.equal(await page.locator('h1').innerText(),doc.ar||doc.title);

@@ -38,8 +38,8 @@ for(const [name,engine]of [['chrome',chromium],['firefox',firefox],['webkit',web
    const filled=await save('#save-prepared-pdf',doc.id+'-filled');
    assert.notEqual(hash(filled),hash(original));assert.equal(downloads,1);
    const href=await page.locator('#save-prepared-pdf').getAttribute('href');
-   await page.locator('#preview-prepared-pdf').click();await page.locator('#download:not([disabled])').waitFor();
-   await page.locator('#loading').waitFor({state:'hidden'});
+   await page.locator('#review-tab').click();await page.locator('#download:not([disabled])').waitFor();
+   await page.waitForFunction(()=>[...document.querySelectorAll('[data-full-page]')].every(c=>c.width>300));
    assert.equal(await page.locator('#save-prepared-pdf').getAttribute('href'),href);
    assert.equal(hash(await save('#save-prepared-pdf',doc.id+'-retry')),hash(filled));
    assert.equal(hash(await save(`[data-blank="${doc.id}"]`,doc.id+'-blank')),hash(original));

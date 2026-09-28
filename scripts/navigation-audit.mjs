@@ -122,19 +122,16 @@ async function responsive(browser,name){
   const {context,p}=await contextFor(browser,lang,width);page=p;
   try{
    await open(doc,lang);
-   for(const preview of [false,true]){
-    if(preview)await page.locator('#toggle-preview').click();
-    assert.equal(await page.locator('#toggle-preview').getAttribute('aria-expanded'),String(preview));
-    for(let i=0;i<doc.sections.length;i++){await go(i);await layout(`${name}/${lang}/${width}/preview-${preview}/step-${i}`);}
-    if(!preview)await keyboard(name);
-    if((lang==='en'&&width===1440||lang==='ar'&&[390,320].includes(width))&&!preview){
-     await go(doc.sections.length-1);await page.locator('.sections').screenshot({path:path.join(out,`${name}-${lang}-${width}-navigation.png`)});
-     await page.screenshot({path:path.join(out,`${name}-${lang}-${width}-page.png`)});
-    }
-    report.responsive.push({browser:name,lang,width,preview,steps:doc.sections.length,noClipping:true});
+   assert.equal(await page.locator('#toggle-preview,#document-preview').count(),0);
+   for(let i=0;i<doc.sections.length;i++){await go(i);await layout(`${name}/${lang}/${width}/step-${i}`);}
+   await keyboard(name);
+   if(lang==='en'&&width===1440||lang==='ar'&&[390,320].includes(width)){
+    await go(doc.sections.length-1);await page.locator('.sections').screenshot({path:path.join(out,`${name}-${lang}-${width}-navigation.png`)});
+    await page.screenshot({path:path.join(out,`${name}-${lang}-${width}-page.png`)});
    }
+   report.responsive.push({browser:name,lang,width,steps:doc.sections.length,noClipping:true});
    await review();await layout(`${name}/${lang}/${width}/review`);await go(doc.sections.length-1);
-   console.log('PASS',name,lang,width,'preview on/off, review, keyboard');
+   console.log('PASS',name,lang,width,'final-step preview, keyboard');
   }finally{await context.close();}
  }
 }

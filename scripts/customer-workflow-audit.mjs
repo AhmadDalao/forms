@@ -16,6 +16,26 @@ try{
    assert.equal(await page.locator('.shared-badge,.flow,#clear-all,.home-note').count(),0);
    assert.ok(!/Saved on this browser|مركز المستندات|محفوظ في هذا المتصفح/.test(await page.locator('body').innerText()));
    await shot(audience+'-'+lang+'-home');await page.setViewportSize({width:390,height:844});await shot(audience+'-'+lang+'-home-mobile');await page.locator('[data-card]').last().scrollIntoViewIfNeeded();assert.ok(await page.locator('[data-upload]').last().isVisible());await shot(audience+'-'+lang+'-home-bottom-mobile');await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));await page.setViewportSize({width:1440,height:1000});
+   for(const doc of docs.filter(d=>d.group===audience||d.group==='shared')){
+    await page.locator('[data-doc="'+doc.id+'"]').click();
+    const actions=page.locator(doc.workflow==='subscription'?'.sub-top-actions':'.document-actions');
+    assert.equal(await actions.locator('a,button').count(),2,doc.id+' has only two header downloads');
+    assert.equal(await page.locator('#toggle-preview,#document-preview,#preview-prepared-pdf').count(),0);
+    for(const width of [390,1440]){
+     await page.setViewportSize({width,height:1000});
+     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,doc.id+' header overflow');
+     const boxes=await actions.locator('a,button').evaluateAll(xs=>xs.map(x=>{const r=x.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,right:r.right};}));
+     assert.ok(boxes.every(b=>b.width>0&&b.x>=0&&b.right<=width+1),doc.id+' download buttons visible');
+    }
+    if(lang==='ar'&&doc.workflow!=='subscription'){
+     await page.locator('#review-tab').click();await page.locator('#submit-form:not([disabled])').waitFor({timeout:60000});
+     assert.equal(await page.locator('[data-full-page]').count(),doc.pages);
+     await page.waitForFunction(()=>[...document.querySelectorAll('[data-full-page]')].every(c=>c.width>300),{timeout:60000});
+     await page.locator('#edit-again').click();
+    }
+    await page.locator(doc.workflow==='subscription'?'#sub-home':'#back-home').click();
+   }
+   pass(audience+'/'+lang+': all form headers keep two downloads, no duplicate preview, desktop/mobile fit'+(lang==='ar'?' and every generic final review renders all pages':''));
    await page.locator('[data-doc="kyc-'+audience+'"]').click();
    const kyc=docs.find(d=>d.id==='kyc-'+audience);
    for(const [index,section] of kyc.sections.entries()){

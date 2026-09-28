@@ -1,0 +1,36 @@
+{
+  "unit_tests": {
+    "passed": 229,
+    "failed": 0
+  },
+  "customer_workflow": {
+    "checks": [
+      "individual/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+      "individual/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+      "individual: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+      "Individual FATCA: role first, all four choices on one desktop row, account-holder names prefill",
+      "individual: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save",
+      "corporate/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+      "corporate/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+      "corporate: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+      "corporate: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "loading": {
+    "checks": [
+      "Document centre and editor work while the shared-profile response is still pending",
+      "Late account data fills untouched fields; an edit made while loading is preserved and conflict resolution saves it",
+      "Opening the document centre and editing fields fetches no PDF or PDF engine",
+      "Reload restores the confirmed account values",
+      "Management overview defers form definitions and PDF downloads until they are needed"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "screenshots_reviewed": [
+    "individual-ar-identity-0.png"
+  ],
+  "scope": "Two header download actions on every form; final generic PDF review preserved. Client/admin submitted-document previews unchanged."
+}
