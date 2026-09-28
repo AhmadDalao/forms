@@ -1,0 +1,76 @@
+{
+  "unit_tests": {
+    "passed": 229,
+    "failed": 0
+  },
+  "reports": {
+    "client_preview": {
+      "checks": [
+        "chrome individual en 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "chrome individual en 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "chrome individual ar 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "chrome individual ar 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "Profile-page entry point, failed-download retry and close-during-load preserve a usable notification list",
+        "chrome corporate en 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "chrome corporate en 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "chrome corporate ar 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "chrome corporate ar 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "firefox individual en 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "firefox individual en 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "firefox individual ar 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "firefox individual ar 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "firefox corporate en 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "firefox corporate en 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "firefox corporate ar 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "firefox corporate ar 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "webkit individual en 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "webkit individual en 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "webkit individual ar 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "webkit individual ar 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "webkit corporate en 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "webkit corporate en 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "webkit corporate ar 1366: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications",
+        "webkit corporate ar 390: full-size PDF-only preview, archived/current switch, all 13 pages, download and return to notifications"
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "notifications": {
+      "checks": [
+        "Empty state has a single heading; Escape closes and restores keyboard focus",
+        "Failed notification request offers a working retry without reloading the page",
+        "Arabic/English desktop/mobile list, reasons, read indicators and pagination; notifications stay scoped to their owner",
+        "One View form action opens the PDF and persists read state; badge updates; repeated clicks create one dialog; list avoids PDF/submission fetches",
+        "A failed read receipt leaves the notification unread and can be retried without blocking the document",
+        "Closing during loading cannot reopen the panel; expired sessions return to sign-in"
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "management": {
+      "checks": [
+        "chrome admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "chrome superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "chrome new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "chrome: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "firefox admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "firefox superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "firefox new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "firefox: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "webkit admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "webkit superadmin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "webkit new-admin: individual/company profiles, current/archived PDFs, details-card preview, English/Arabic desktop/mobile",
+        "webkit: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "Slow profile shows feedback; switching sections cannot be overwritten by its delayed response",
+        "Interrupted profile request recovers through Try again",
+        "Interrupted PDF download recovers in the same preview without losing details",
+        "Repeated preview clicks keep a single dialog",
+        "Closing a pending PDF cancels its load and a new preview opens normally",
+        "Expired admin preview session closes the dialog and returns to management sign-in",
+        "Expired client-profile request returns to management sign-in"
+      ],
+      "errors": [],
+      "passed": true
+    }
+  }
+}

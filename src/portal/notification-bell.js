@@ -17,7 +17,7 @@ export function mountNotificationBell(node,{lang,userId}){
   document.body.append(panel);node.setAttribute('aria-expanded','true');panel.showModal();
   const load=async()=>{try{
    const {mountNotifications}=await import('./notifications.js');if(closed||stopped)return;
-   dispose=mountNotifications(panel.querySelector('[data-items]'),{lang,userId,onUnread:count=>{updateNotificationBell(node,count,lang);const badge=panel.querySelector('[data-panel-unread]');badge.textContent=t(`${count} new`,`${count} جديد`);badge.hidden=!count;}});
+   dispose=mountNotifications(panel.querySelector('[data-items]'),{lang,userId,onPreviewOpen:()=>{panel.close();node.setAttribute('aria-expanded','false');},onPreviewClose:()=>{if(!closed&&!stopped&&!panel.open){panel.showModal();node.setAttribute('aria-expanded','true');}},onUnread:count=>{updateNotificationBell(node,count,lang);const badge=panel.querySelector('[data-panel-unread]');badge.textContent=t(`${count} new`,`${count} جديد`);badge.hidden=!count;}});
   }catch{if(closed||stopped)return;const body=panel.querySelector('[data-items]');body.removeAttribute('aria-busy');body.innerHTML=`<div class="notification-empty"><p>${t('Could not load notifications','تعذّر تحميل الإشعارات')}</p><button type="button" data-notification-retry>${t('Try again','إعادة المحاولة')}</button></div>`;body.querySelector('button').onclick=load;}};
   load();
  };

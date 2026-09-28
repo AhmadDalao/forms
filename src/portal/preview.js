@@ -1,19 +1,19 @@
 import {api,endpoint,e,errorText,when} from './api.js';
 import {loadPreview,renderPage} from '../pdf.js';
 import {mountReview} from './review.js';
-import {reviewEnabled} from './workflow.js';
-import {signSubmittedForm,signatureEditUrl} from './sign-submission.js';
 import {appRoot} from '../routes.js';
 import './submitted-details.css';
+import './preview.css';
 let activePreview=null;
-export async function previewSubmission(id,{admin=false,lang='en',token,onReviewed,onSigned=()=>location.reload(),onError=()=>false}={}){
+export async function previewSubmission(id,{admin=false,lang='en',token,onReviewed,onError=()=>false,onClose=()=>{}}={}){
  if(activePreview?.id===id&&activePreview.admin===admin){activePreview.dialog.focus();return;}
  activePreview?.close();
  const t=(en,ar)=>lang==='ar'?ar:en,dialog=document.createElement('dialog');dialog.className='portal-preview';dialog.dir=lang==='ar'?'rtl':'ltr';document.body.append(dialog);
- dialog.innerHTML=`<div class="portal-preview-head"><h2>${t('Submitted document','المستند المرسل')}</h2><button type="button" data-close aria-label="${t('Close','إغلاق')}">×</button></div><div class="portal-preview-body"><p role="status">${t('Loading…','جارٍ التحميل…')}</p></div>`;
+ dialog.setAttribute('aria-labelledby','submitted-preview-title');
+ dialog.innerHTML=`<div class="portal-preview-head"><h2 id="submitted-preview-title">${t('Submitted document','المستند المرسل')}</h2><button type="button" data-close aria-label="${t('Close','إغلاق')}">×</button></div><div class="portal-preview-body"><p role="status">${t('Loading…','جارٍ التحميل…')}</p></div>`;
  let pdf=null,closed=false,loading=false,download=null;
  const disposePDF=()=>{pdf?.loadingTask.destroy().catch(()=>{});pdf=null;};
- const close=()=>{closed=true;download?.abort();disposePDF();dialog.close();dialog.remove();if(activePreview?.dialog===dialog)activePreview=null;};
+ const close=(notify=true)=>{if(closed)return;closed=true;download?.abort();disposePDF();dialog.close();dialog.remove();if(activePreview?.dialog===dialog)activePreview=null;if(notify)onClose();};
  activePreview={id,admin,dialog,close};dialog.tabIndex=-1;
  dialog.querySelector('[data-close]').onclick=close;dialog.addEventListener('cancel',ev=>{ev.preventDefault();close();});dialog.showModal();
  async function load(){
@@ -21,18 +21,12 @@ export async function previewSubmission(id,{admin=false,lang='en',token,onReview
  dialog.querySelector('.portal-preview-body').innerHTML=`<p role="status">${t('Loading…','جارٍ التحميل…')}</p>`;
  dialog.setAttribute('aria-busy','true');
  try{
-  const [{submission:s},{renderSubmissionDetails}]=await Promise.all([
-   api(admin?'admin_detail':'detail',undefined,{params:{id}}),import('./submitted-details.js'),
+  const [{submission:s},details]=await Promise.all([
+   api(admin?'admin_detail':'detail',undefined,{params:{id}}),admin?import('./submitted-details.js'):null,
   ]);if(closed)return;
-  dialog.querySelector('.portal-preview-body').innerHTML=`<h3>${e(t(s.title,s.ar))}</h3><p class="version-badge">${t('Version','النسخة')} ${s.version} · ${s.archived_at?t('Archived','مؤرشفة'):t('Current','الحالية')}${s.restored_from?' · '+t('Restored from an earlier version','مستعادة من نسخة سابقة'):''}</p><p>${e(when(s.created_at,lang))} · ${t('Riyadh time','بتوقيت الرياض')} · ${t(s.audience==='individual'?'Individual':'Company',s.audience==='individual'?'فرد':'شركة')}</p><a class="portal-button" href="${endpoint(admin?'admin_pdf':'pdf',{id})}">${t('Download PDF','تنزيل PDF')}</a>${s.archived_at&&s.current_id?`<button type="button" class="portal-button" data-current-version>${t('Open current version','فتح النسخة الحالية')}</button>`:''}<div data-submission-review></div><details class="portal-answer-details" open><summary>${t('Submitted details','البيانات المرسلة')}</summary>${renderSubmissionDetails(s,lang)}</details><div class="portal-pdf-pages"></div><p data-preview-status role="status">${t('Preparing preview…','جارٍ إعداد المعاينة…')}</p>`;
-  dialog.querySelector('[data-current-version]')?.addEventListener('click',()=>{close();previewSubmission(s.current_id,{admin,lang,token,onReviewed,onSigned,onError});});
-  mountReview(dialog.querySelector('[data-submission-review]'),s,{admin,lang,token,onReviewed,onSigned});
-  if(!admin&&s.can_replace&&(s.review_status==='signature_required'||s.signature_state==='unsigned'||(!reviewEnabled()&&s.signature_state==='unknown'))){
-   const required=reviewEnabled(),actions=document.createElement('div');actions.className='account-actions';
-   actions.innerHTML=`${s.can_sign_electronically?(s.source==='online'?`<a class="portal-button primary" href="${signatureEditUrl(s,lang)}">${required?t('Add electronic signature','إضافة توقيع إلكتروني'):t('Add signature (optional)','إضافة توقيع (اختياري)')}</a>`:`<button type="button" class="portal-button primary" data-sign-submission>${required?t('Add electronic signature','إضافة توقيع إلكتروني'):t('Add signature (optional)','إضافة توقيع (اختياري)')}</button>`):''}<a class="portal-button" href="${appRoot}account/?${new URLSearchParams({upload:s.doc_id,lang})}">${reviewEnabled()?t('Upload signed form','رفع النموذج الموقّع'):t('Upload replacement','رفع نسخة بديلة')}</a>`;
-   dialog.querySelector('[data-submission-review]').append(actions);
-   actions.querySelector('[data-sign-submission]')?.addEventListener('click',()=>{close();signSubmittedForm(id,{lang,onSaved:onSigned});});
-  }
+  dialog.querySelector('.portal-preview-body').innerHTML=`<h3>${e(t(s.title,s.ar))}</h3><div class="preview-document-meta"><span class="version-badge">${t('Version','النسخة')} ${s.version} · ${s.archived_at?t('Archived','مؤرشفة'):t('Current','الحالية')}${s.restored_from?' · '+t('Restored from an earlier version','مستعادة من نسخة سابقة'):''}</span><time>${e(when(s.created_at,lang))} · ${t('Riyadh time','بتوقيت الرياض')}</time></div><div class="preview-document-actions"><a class="portal-button" href="${endpoint(admin?'admin_pdf':'pdf',{id})}">${t('Download PDF','تنزيل PDF')}</a>${s.archived_at&&s.current_id?`<button type="button" class="portal-button" data-current-version>${t('Open current version','فتح النسخة الحالية')}</button>`:''}</div>${admin?`<div data-submission-review></div><details class="portal-answer-details" open><summary>${t('Submitted details','البيانات المرسلة')}</summary>${details.renderSubmissionDetails(s,lang)}</details>`:''}<div class="portal-pdf-pages"></div><p data-preview-status role="status">${t('Preparing preview…','جارٍ إعداد المعاينة…')}</p>`;
+  dialog.querySelector('[data-current-version]')?.addEventListener('click',()=>{close(false);previewSubmission(s.current_id,{admin,lang,token,onReviewed,onError,onClose});});
+  if(admin)mountReview(dialog.querySelector('[data-submission-review]'),s,{admin,lang,token,onReviewed});
   download=new AbortController();const timeout=setTimeout(()=>download?.abort(),60000);let bytes;
   try{
    const res=await fetch(endpoint(admin?'admin_pdf':'pdf',{id}),{credentials:'same-origin',cache:'no-store',signal:download.signal});

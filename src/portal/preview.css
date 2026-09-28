@@ -1,0 +1,19 @@
+/* Loaded with the preview itself, including entry points on the forms home. */
+dialog.portal-preview{box-sizing:border-box;width:min(1040px,calc(100% - 48px));max-width:none;max-height:92dvh;padding:0;border:1px solid #ddd5e5;border-radius:18px;background:#f8f7fa;color:#302538;font:inherit;overflow:hidden;overscroll-behavior:contain;box-shadow:0 20px 70px #29183629}
+dialog.portal-preview[open]{display:flex;flex-direction:column}
+dialog.portal-preview::backdrop{background:#25162b88}
+.portal-preview .portal-preview-head{display:flex;align-items:center;justify-content:space-between;gap:18px;flex:none;padding:18px 24px;background:#fff;border-bottom:1px solid #e5ddea}
+.portal-preview .portal-preview-head h2{font-size:20px;font-weight:700;line-height:1.5;margin:0}
+.portal-preview .portal-preview-head button{display:grid;place-items:center;flex:none;width:44px;height:44px;padding:0;border:1px solid #e6ddec;border-radius:10px;background:#f4eef8;color:#48235f;font:inherit;font-size:24px;cursor:pointer}
+.portal-preview .portal-preview-body{min-height:0;padding:24px;overflow:auto;overscroll-behavior:contain}
+.portal-preview .portal-preview-body>h3{font-size:18px;font-weight:600;line-height:1.65;margin:0 0 10px;overflow-wrap:anywhere}
+.portal-preview .preview-document-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;font-size:12px;line-height:1.8;color:#81718a}
+.portal-preview .version-badge{display:inline-block;margin:0;padding:4px 9px;border-radius:6px;background:#eee7f5;color:#58366f;font-size:12px;font-weight:600}
+.portal-preview .preview-document-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 22px}
+.portal-preview .portal-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid #d9cde3;border-radius:9px;background:#fff;color:#58366f;font:inherit;font-size:13px;font-weight:600;line-height:1.6;text-decoration:none;cursor:pointer}
+.portal-preview .portal-button:hover,.portal-preview .portal-preview-head button:hover{background:#f0e7f7}
+.portal-preview .portal-pdf-pages{display:grid;gap:22px;direction:ltr}
+.portal-preview .portal-pdf-pages canvas{display:block;width:100%;max-width:100%;height:auto;background:#fff;box-shadow:0 3px 16px #23133015}
+.portal-preview [data-preview-status]{font-size:13px;line-height:1.8;color:#81718a;margin:16px 0 0}
+.portal-preview [data-preview-status]:empty{display:none}
+@media(max-width:600px){dialog.portal-preview{width:calc(100% - 20px);max-height:95dvh;border-radius:14px}.portal-preview .portal-preview-head{padding:12px 16px}.portal-preview .portal-preview-head h2{font-size:18px}.portal-preview .portal-preview-body{padding:16px}.portal-preview .portal-preview-body>h3{font-size:16px}.portal-preview .preview-document-actions{gap:8px;margin-bottom:16px}.portal-preview .portal-button{padding:10px 12px}}

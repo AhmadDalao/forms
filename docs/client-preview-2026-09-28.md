@@ -1,0 +1,11 @@
+# Direct client PDF preview — 28 September 2026
+
+Opening a client notification now shows the submitted PDF directly after its title, version/time and download action. Repeated application, decision-history, answer-category, shared-data and signature-detail blocks are removed from the client preview. The existing current-version action remains for archived documents. Signing and replacement uploads remain available through the form editors and home cards.
+
+Preview styling is loaded with the preview component itself. This fixes the narrow, partly unstyled popup opened from the form catalogue. Desktop uses a wide preview with a fixed header and scrollable document area; mobile fits the available width. Opening a PDF temporarily closes the notification list, and closing the PDF restores the list and keyboard focus. There is only one open dialog, including during archived-to-current navigation and retries.
+
+Management retains its complete categorized submitted answers and historical review details. Original PDFs, saved answers, archive versions, account separation, APIs and database schema are unchanged.
+
+Verification: 229 existing tests passed. The new client-preview audit covers individual/company accounts in Arabic/English at desktop/mobile widths using Chrome, Firefox and WebKit. It checks full-size PDF-only layout, archived/current switching, one-page and 13-page rendering, downloads, return focus, profile-page entry, network retry, closing a pending preview and immutable historical snapshots. Notification regression checks cover pagination, read receipts, errors, account isolation and session expiry. Management regression checks retain all role-specific profile/preview workflows and categorized details, including both preview buttons and interrupted requests. Desktop Arabic and mobile English screenshots were visually inspected.
+
+After building, run `node scripts/client-preview-audit.mjs`, `node scripts/notifications-audit.mjs` and `node scripts/management-views-audit.mjs`. Each uses isolated local storage and synthetic clients. See `client-preview-verification.json` for results. No database migration or PDF regeneration is needed.
