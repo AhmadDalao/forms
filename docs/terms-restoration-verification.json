@@ -393,7 +393,23 @@
     "all_preserved": true
   },
   "live": {
-    "status": "pending"
+    "status": "passed",
+    "source_commit": "bc9e7baeee5baecd625d1a5f2472e0153d31db14",
+    "url": "https://forms.ahmaddalao.com/",
+    "uploaded_at_utc": "20260928T052953Z",
+    "checks": [
+      "Protected document pages, templates, client data and management endpoints deny anonymous access; private paths are inaccessible",
+      "Live login/signup display the supplied title and four partner logos in English/Arabic without desktop/mobile overflow",
+      "Served auth assets match release hashes; heavy PDF engines remain deferred",
+      "Superadmin login, direct-intake migration, current-submissions filters and management navigation work; previous records remain accessible",
+      "Live superadmin Administrators tab and chosen-password controls work in both languages; no accounts created or passwords changed",
+      "All eight editable templates and consent download match the verified local PDFs",
+      "Existing production submission details and its PDF remain readable and hash-consistent",
+      "Live management profile includes every applicable form and marks only absent current submissions as not submitted",
+      "Existing submitted PDF renders fully in the Arabic management preview with corrected canvas direction; download bytes remain unchanged"
+    ],
+    "errors": [],
+    "businessWrites": 0
   },
   "management_views": {
     "checks": [
@@ -442,5 +458,23 @@
     "base": "http://127.0.0.1:58277",
     "allFormAnswers": 556,
     "passed": true
+  },
+  "private_migration": {
+    "restore_verified": true,
+    "unchanged_tables": {
+      "users": 4,
+      "submissions": 15,
+      "client_shared_profiles": 5,
+      "submission_reviews": 2
+    },
+    "unchanged_pdf_files": 15,
+    "archived_versions": 9,
+    "snapshot_sha256": "419f459fabea27dd8352fabad496614978745ae758152a1c8e21bf13e8ec7d9e"
+  },
+  "handoff_structure": {
+    "editable_word_pdf_pairs": 8,
+    "original_terms_pdf_pages": 13,
+    "retired_terms_word_is_archived_only": true,
+    "public_private_boundary_verified": true
   }
 }
