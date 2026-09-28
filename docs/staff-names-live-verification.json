@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "All changed live assets exactly match the verified build",
+    "Both individual and company routes still require client login",
+    "Management login loads"
+  ],
+  "errors": [],
+  "verifiedAssets": 10,
+  "passed": true
+}
