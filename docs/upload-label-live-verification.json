@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "New live assets match the tested build and contain the locked document-label style",
+    "Client form authentication remains enforced"
+  ],
+  "errors": [],
+  "verified": [
+    "assets/index-vcL0MllM.js",
+    "assets/main-BKtgJ8er.css",
+    "assets/main-YBmT9ZNy.js"
+  ],
+  "passed": true
+}
