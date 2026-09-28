@@ -40,3 +40,16 @@ test('shared corporate snapshots hide only individual-only UI parts, preserving 
  const individual=submissionDetailsModel({...corporate,audience:'individual',answers:{client_name:'Ali Family',client_name_first:'Ali'}}).groups.flatMap(g=>g.fields);
  assert.equal(individual.find(f=>f.id==='client_name_first').value,'Ali');
 });
+test('management details start collapsed and omit duplicate shared information without changing saved data',()=>{
+ const s=sample({answers:{name:'Document name',notes:'Long mixed answer الرياض '.repeat(20)},profile:{en_first:'Shared name',field_definitions:[{id:'name',label:'Name'},{id:'notes',label:'Notes'}],signature_definitions:[{id:'applicant',label:'Signature'}]}}),before=structuredClone(s);
+ for(const lang of ['en','ar']){
+  const html=renderSubmissionDetails(s,lang);
+  assert.ok(!/<details\b[^>]*\bopen\b/.test(html));
+  assert.ok(!html.includes('data-shared-snapshot'));
+  assert.ok(!html.includes('Shared name'));
+  assert.ok(html.includes('Document name'));
+  assert.ok(html.includes(s.answers.notes));
+  assert.ok(html.includes('data-signature-snapshot'));
+ }
+ assert.deepEqual(s,before);
+});

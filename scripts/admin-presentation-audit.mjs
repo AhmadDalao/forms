@@ -11,7 +11,25 @@ const samples=JSON.parse(await fs.readFile(pdfDirectory+'/records.json','utf8'))
 const f=await fixture({protectedRoutes:true}),browser=await chromium.launch({channel:'chrome',headless:true});
 const report={checks:[],errors:[],forms:[],screenshots:[]};
 const pass=s=>{report.checks.push(s);console.log('PASS '+s);};
-const preview=async(p,selector,pages)=>{await p.locator(selector).first().click();await p.waitForFunction(()=>document.querySelector('.portal-preview [data-preview-status]')?.textContent==='');assert.equal(await p.locator('.portal-preview canvas').count(),pages);assert.ok((await p.locator('.portal-preview canvas').evaluateAll(items=>items.map(c=>({w:c.width,h:c.height,d:getComputedStyle(c).direction})))).every(c=>c.w>0&&c.h>0&&c.d==='ltr'));await p.locator('.portal-preview [data-close]').click();};
+const preview=async(p,selector,pages)=>{
+ await p.locator(selector).first().click();await p.waitForFunction(()=>document.querySelector('.portal-preview [data-preview-status]')?.textContent==='');
+ const modal=p.locator('.portal-preview');
+ assert.equal(await modal.locator('canvas').count(),pages);
+ assert.ok((await modal.locator('canvas').evaluateAll(items=>items.map(c=>({w:c.width,h:c.height,d:getComputedStyle(c).direction})))).every(c=>c.w>0&&c.h>0&&c.d==='ltr'));
+ assert.equal(await modal.locator('details[open], [data-shared-snapshot], [data-shared-field]').count(),0);
+ await modal.locator('.portal-answer-details>summary').click();
+ assert.equal(await modal.locator('.submitted-details details[open]').count(),0);
+ const section=modal.locator('[data-submission-section]').first();
+ await section.locator('summary').focus();await p.keyboard.press('Enter');
+ assert.equal(await section.getAttribute('open'),'');
+ assert.equal(await section.locator('summary').evaluate(el=>getComputedStyle(el).backgroundColor),'rgb(72, 35, 95)');
+ assert.equal(await section.locator('[data-answer-field]').first().isVisible(),true);
+ assert.equal(await modal.evaluate(el=>el.scrollWidth>el.clientWidth+1),false);
+ if(selector==='[data-details-preview]'&&pages===2){const path=f.out+'/preview-details-'+await p.locator('html').getAttribute('lang')+'-'+p.viewportSize().width+'.png';await modal.locator('.portal-answer-details').scrollIntoViewIfNeeded();await p.screenshot({path});report.screenshots.push(path);}
+ await section.locator('summary').focus();await p.keyboard.press('Enter');
+ assert.equal(await section.locator('[data-answer-field]').first().isVisible(),false);
+ await modal.locator('[data-close]').click();
+};
 try{
  const owner=await browser.newContext();await f.login(owner,'superadmin');
  const people=[];
@@ -53,11 +71,11 @@ try{
     await p.locator('#submitted-version').selectOption(s.id);await p.locator('[data-profile-details-body][aria-busy=false] [data-submitted-version="'+s.id+'"]').waitFor();
     const model=submissionDetailsModel(s,lang),body=p.locator('[data-profile-details-body]');
     assert.deepEqual(await body.locator('[data-submission-section]>summary').allTextContents(),model.groups.map(g=>g.label));
-    assert.equal(await body.locator('[data-submission-section][open]').count(),0);
+    assert.equal(await body.locator('details[open], [data-shared-snapshot], [data-shared-field]').count(),0);
     assert.equal(await body.locator('[data-answer-field]').count(),model.groups.reduce((n,g)=>n+g.fields.length,0));
     for(const group of model.groups){
      const section=body.locator('[data-submission-section="'+group.id+'"]');await section.locator(':scope>summary').click();
-     for(const field of group.fields){const row=section.locator('[data-answer-field="'+field.id+'"]');assert.equal(await row.count(),1);assert.equal(await row.locator('dt').innerText(),field.label);assert.equal((await row.locator('dd').innerText()).trim(),field.value.trim());}
+     for(const field of group.fields){const row=section.locator('[data-answer-field="'+field.id+'"]');assert.equal(await row.count(),1);assert.equal(await row.locator('dt').innerText(),field.label);assert.equal((await row.locator('dd').innerText()).trim(),field.value.trim());assert.equal(await row.locator('dd').getAttribute('dir'),field.direction);assert.equal(await row.evaluate(el=>el.scrollWidth>el.clientWidth+1),false);}
     }
     assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
     const cols=await body.locator('.submitted-fields').first().evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);assert.equal(cols,width===390?1:2);
@@ -67,7 +85,7 @@ try{
    }
    await preview(p,'[data-preview="'+person.submissions[0].id+'"]',docs.find(d=>d.id===person.submissions[0].doc_id).pages);
   }
-  pass(lang+' '+width+': all nine saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work');
+  pass(lang+' '+width+': all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work in both preview entry points');
  }
  assert.deepEqual(report.errors,[]);report.passed=true;
 }catch(error){report.failure=error.stack;throw error;}
