@@ -1,0 +1,314 @@
+{
+  "checks": [
+    "en 1440: category titles/counts, audience filters and dashboard layout",
+    "en 1440: all eight saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work",
+    "en 390: category titles/counts, audience filters and dashboard layout",
+    "en 390: all eight saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work",
+    "ar 1440: category titles/counts, audience filters and dashboard layout",
+    "ar 1440: all eight saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work",
+    "ar 390: category titles/counts, audience filters and dashboard layout",
+    "ar 390: all eight saved forms have categorized, collapsible, complete fields and full previews; both management preview buttons work",
+    "Client My applications previews render every page for all eight submitted test forms"
+  ],
+  "errors": [],
+  "forms": [
+    {
+      "document": "signature-form",
+      "audience": "individual",
+      "lang": "en",
+      "width": 1440,
+      "groups": 2,
+      "fields": 18,
+      "previewPages": 1
+    },
+    {
+      "document": "subscription-form",
+      "audience": "individual",
+      "lang": "en",
+      "width": 1440,
+      "groups": 4,
+      "fields": 49,
+      "previewPages": 2
+    },
+    {
+      "document": "terms-and-conditions",
+      "audience": "individual",
+      "lang": "en",
+      "width": 1440,
+      "groups": 2,
+      "fields": 34,
+      "previewPages": 13
+    },
+    {
+      "document": "fatca-crs-individual",
+      "audience": "individual",
+      "lang": "en",
+      "width": 1440,
+      "groups": 5,
+      "fields": 73,
+      "previewPages": 8
+    },
+    {
+      "document": "kyc-individual",
+      "audience": "individual",
+      "lang": "en",
+      "width": 1440,
+      "groups": 6,
+      "fields": 123,
+      "previewPages": 11
+    },
+    {
+      "document": "subscription-company",
+      "audience": "corporate",
+      "lang": "en",
+      "width": 1440,
+      "groups": 4,
+      "fields": 46,
+      "previewPages": 2
+    },
+    {
+      "document": "fatca-crs-corporate",
+      "audience": "corporate",
+      "lang": "en",
+      "width": 1440,
+      "groups": 6,
+      "fields": 104,
+      "previewPages": 8
+    },
+    {
+      "document": "kyc-corporate",
+      "audience": "corporate",
+      "lang": "en",
+      "width": 1440,
+      "groups": 6,
+      "fields": 110,
+      "previewPages": 10
+    },
+    {
+      "document": "signature-form",
+      "audience": "individual",
+      "lang": "en",
+      "width": 390,
+      "groups": 2,
+      "fields": 18,
+      "previewPages": 1
+    },
+    {
+      "document": "subscription-form",
+      "audience": "individual",
+      "lang": "en",
+      "width": 390,
+      "groups": 4,
+      "fields": 49,
+      "previewPages": 2
+    },
+    {
+      "document": "terms-and-conditions",
+      "audience": "individual",
+      "lang": "en",
+      "width": 390,
+      "groups": 2,
+      "fields": 34,
+      "previewPages": 13
+    },
+    {
+      "document": "fatca-crs-individual",
+      "audience": "individual",
+      "lang": "en",
+      "width": 390,
+      "groups": 5,
+      "fields": 73,
+      "previewPages": 8
+    },
+    {
+      "document": "kyc-individual",
+      "audience": "individual",
+      "lang": "en",
+      "width": 390,
+      "groups": 6,
+      "fields": 123,
+      "previewPages": 11
+    },
+    {
+      "document": "subscription-company",
+      "audience": "corporate",
+      "lang": "en",
+      "width": 390,
+      "groups": 4,
+      "fields": 46,
+      "previewPages": 2
+    },
+    {
+      "document": "fatca-crs-corporate",
+      "audience": "corporate",
+      "lang": "en",
+      "width": 390,
+      "groups": 6,
+      "fields": 104,
+      "previewPages": 8
+    },
+    {
+      "document": "kyc-corporate",
+      "audience": "corporate",
+      "lang": "en",
+      "width": 390,
+      "groups": 6,
+      "fields": 110,
+      "previewPages": 10
+    },
+    {
+      "document": "signature-form",
+      "audience": "individual",
+      "lang": "ar",
+      "width": 1440,
+      "groups": 2,
+      "fields": 18,
+      "previewPages": 1
+    },
+    {
+      "document": "subscription-form",
+      "audience": "individual",
+      "lang": "ar",
+      "width": 1440,
+      "groups": 4,
+      "fields": 49,
+      "previewPages": 2
+    },
+    {
+      "document": "terms-and-conditions",
+      "audience": "individual",
+      "lang": "ar",
+      "width": 1440,
+      "groups": 2,
+      "fields": 34,
+      "previewPages": 13
+    },
+    {
+      "document": "fatca-crs-individual",
+      "audience": "individual",
+      "lang": "ar",
+      "width": 1440,
+      "groups": 5,
+      "fields": 73,
+      "previewPages": 8
+    },
+    {
+      "document": "kyc-individual",
+      "audience": "individual",
+      "lang": "ar",
+      "width": 1440,
+      "groups": 6,
+      "fields": 123,
+      "previewPages": 11
+    },
+    {
+      "document": "subscription-company",
+      "audience": "corporate",
+      "lang": "ar",
+      "width": 1440,
+      "groups": 4,
+      "fields": 46,
+      "previewPages": 2
+    },
+    {
+      "document": "fatca-crs-corporate",
+      "audience": "corporate",
+      "lang": "ar",
+      "width": 1440,
+      "groups": 6,
+      "fields": 104,
+      "previewPages": 8
+    },
+    {
+      "document": "kyc-corporate",
+      "audience": "corporate",
+      "lang": "ar",
+      "width": 1440,
+      "groups": 6,
+      "fields": 110,
+      "previewPages": 10
+    },
+    {
+      "document": "signature-form",
+      "audience": "individual",
+      "lang": "ar",
+      "width": 390,
+      "groups": 2,
+      "fields": 18,
+      "previewPages": 1
+    },
+    {
+      "document": "subscription-form",
+      "audience": "individual",
+      "lang": "ar",
+      "width": 390,
+      "groups": 4,
+      "fields": 49,
+      "previewPages": 2
+    },
+    {
+      "document": "terms-and-conditions",
+      "audience": "individual",
+      "lang": "ar",
+      "width": 390,
+      "groups": 2,
+      "fields": 34,
+      "previewPages": 13
+    },
+    {
+      "document": "fatca-crs-individual",
+      "audience": "individual",
+      "lang": "ar",
+      "width": 390,
+      "groups": 5,
+      "fields": 73,
+      "previewPages": 8
+    },
+    {
+      "document": "kyc-individual",
+      "audience": "individual",
+      "lang": "ar",
+      "width": 390,
+      "groups": 6,
+      "fields": 123,
+      "previewPages": 11
+    },
+    {
+      "document": "subscription-company",
+      "audience": "corporate",
+      "lang": "ar",
+      "width": 390,
+      "groups": 4,
+      "fields": 46,
+      "previewPages": 2
+    },
+    {
+      "document": "fatca-crs-corporate",
+      "audience": "corporate",
+      "lang": "ar",
+      "width": 390,
+      "groups": 6,
+      "fields": 104,
+      "previewPages": 8
+    },
+    {
+      "document": "kyc-corporate",
+      "audience": "corporate",
+      "lang": "ar",
+      "width": 390,
+      "groups": 6,
+      "fields": 110,
+      "previewPages": 10
+    }
+  ],
+  "passed": true,
+  "completed_utc": "2026-09-28T08:25:04.121765+00:00",
+  "tested_application_commit": "bee654a",
+  "display_cases": 32,
+  "visual_inspection": [
+    "English desktop subscription detail card",
+    "English mobile company subscription details",
+    "Arabic desktop category dashboard",
+    "Arabic mobile individual and company details"
+  ]
+}

@@ -53,7 +53,7 @@ scripts = ['build-folders.mjs', 'management-defaults.mjs', 'management-router.ph
            'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'current-pdf-audit.mjs',
            'current-pdf-audit-verify.py', 'preview-font-audit.mjs', 'preview-direction-audit.mjs',
            'client-corrections-audit.mjs', 'direct-intake-audit.mjs', 'form-access-audit.mjs', 'management-views-audit.mjs',
-           'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'loading-audit.mjs']
+           'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'admin-presentation-audit.mjs', 'loading-audit.mjs']
 for name in scripts:
     copy(ROOT / 'scripts' / name, package / 'source/scripts' / name)
 for name in ['package.json', 'package-lock.json', 'vite.config.js', 'index.html', '.gitignore']:
@@ -72,6 +72,7 @@ copy(ROOT / 'docs/DEVELOPER-HANDOFF-AR.md', package / 'INSTALL-AR.md')
 for name in ['modern-pdf-release-2026-09-28.md', 'modern-pdf-verification.json', 'terms-restoration-2026-09-28.md', 'terms-restoration-verification.json', 'bilingual-pdf-update-2026-09-28.md', 'bilingual-pdf-verification.json', 'pdf-layout-refinement-2026-09-28.md', 'pdf-layout-refinement-verification.json', 'full-regression-2026-09-28.md', 'full-regression-verification.json']:
     copy(ROOT / 'docs' / name, package / 'verification' / name)
 copy(ROOT / 'docs/apache-vhost.example.conf', package / 'server/apache-vhost.conf')
+copy(ROOT / 'docs/admin-presentation-verification.json', package / 'verification/admin-presentation-verification.json')
 
 seed = out / 'empty-private'
 subprocess.run(['php', str(ROOT / 'scripts/installation-init.php'), str(seed)], check=True)
