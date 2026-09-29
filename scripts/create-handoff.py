@@ -62,7 +62,7 @@ scripts = ['build-folders.mjs', 'management-defaults.mjs', 'management-router.ph
            'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'current-pdf-audit.mjs',
            'current-pdf-audit-verify.py', 'preview-font-audit.mjs', 'preview-direction-audit.mjs',
            'client-corrections-audit.mjs', 'direct-intake-audit.mjs', 'form-access-audit.mjs', 'management-views-audit.mjs',
-           'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'admin-presentation-audit.mjs', 'loading-audit.mjs', 'customer-workflow-audit.mjs', 'notifications-audit.mjs', 'catalogue-layout-audit.mjs', 'client-preview-audit.mjs', 'staff-name-audit.mjs', 'optional-review-audit.mjs', 'optional-review-actions-audit.mjs', 'shared-profiles-audit.mjs']
+           'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'admin-presentation-audit.mjs', 'loading-audit.mjs', 'customer-workflow-audit.mjs', 'notifications-audit.mjs', 'catalogue-layout-audit.mjs', 'client-preview-audit.mjs', 'staff-name-audit.mjs', 'review-navigation-audit.mjs', 'optional-review-audit.mjs', 'optional-review-actions-audit.mjs', 'shared-profiles-audit.mjs']
 for name in scripts:
     copy(ROOT / 'scripts' / name, package / 'source/scripts' / name)
 for name in ['package.json', 'package-lock.json', 'vite.config.js', 'index.html', '.gitignore']:
@@ -93,7 +93,7 @@ for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verif
              'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
              'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',
              'latest-client-preview-2026-09-28.md', 'latest-client-preview-verification.json', 'latest-client-preview-live-verification.json',
-             'handover-verification-2026-09-29.json', 'live-loading-2026-09-29.json', 'optional-review-verification-2026-09-29.json', 'optional-review-live-2026-09-29.json']:
+             'handover-verification-2026-09-29.json', 'live-loading-2026-09-29.json', 'optional-review-verification-2026-09-29.json', 'optional-review-live-2026-09-29.json', 'review-navigation-verification-2026-09-29.json', 'review-navigation-live-2026-09-29.json']:
     copy(ROOT / 'docs' / name, package / 'verification' / name)
 
 # Verify the actual private archive, not just its label, before including it.
@@ -117,7 +117,7 @@ assert not list((restored / 'management/uploads').glob('*'))
 assert not (restored / 'management/state.json').exists()
 shutil.rmtree(restored)
 copy(bootstrap, package / 'private-bootstrap.zip')
-snapshot['application_release'] = '2026-09-29 optional reviews, schema 8 and verified fresh handover'
+snapshot['application_release'] = '2026-09-29 navigation review switch, schema 8 and verified fresh handover'
 snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
 (package / 'verification/bootstrap-verification-2026-09-29.json').write_text(json.dumps({

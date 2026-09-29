@@ -1,6 +1,6 @@
 # Optional reviews: how this release works
 
-Leave **Review new submissions** off if the team only wants to receive forms and contact clients manually. Turn it on from **Dashboard** as superadmin when the team wants decisions and follow-up inside the portal. Ordinary admins can review applications but cannot change this setting. The switch affects the whole installation; there is no email or SMS service.
+Leave **Review new submissions** off if the team only wants to receive forms and contact clients manually. Turn it on from the **management navigation bar** as superadmin when the team wants decisions and follow-up inside the portal. Ordinary admins can review applications but cannot change this setting. The switch affects the whole installation; there is no email or SMS service.
 
 ## What the client sees
 
@@ -30,7 +30,8 @@ Notification buttons re-fetch the current version and check its status before ac
 - `public/api/portal-versions.php`: server-owned enrollment and signature-request completion inside the version transaction.
 - `public/api/portal-reviews.php`: schema-8 migration, decision validation, locking and append-only history.
 - `public/api/portal.php`: authenticated API actions, CSRF, permissions, receipts, status filters and counts.
-- `src/portal/admin.js` and `review.js`: Dashboard, switch, audience columns and review controls.
+- `src/management/main.js`: the navigation switch and its save/retry state across management pages.
+- `src/portal/admin.js` and `review.js`: Dashboard, audience columns and review controls.
 - `src/portal/follow-up.js`: latest-version client correction/signature actions.
 
 ## API contracts

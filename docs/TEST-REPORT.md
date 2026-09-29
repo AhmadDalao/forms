@@ -2,7 +2,15 @@
 
 This release restores optional reviews and updates the management dashboard. Review is off by default. It changes the client database to schema 8; PDF templates, field definitions and sharing mappings are unchanged. The delivery manifest identifies the final commit and hashes every packaged file.
 
-## Checks rerun for this release
+## Navigation-switch follow-up
+
+The review switch now lives in the management navigation bar on every management page and client profile. It is superadmin-only. Changing it updates the control without navigating away or saving/discarding document edits.
+
+The follow-up reruns the 238-test unit suite, optional-review API and real UI action suites, management previews, account permissions/backup restore, all-nine-form customer workflows, navigation race checks and the loading audit. A new navigation audit covers Chrome, Firefox and WebKit in Arabic/English at 1440, 768, 390 and 320 pixels, including saved mode, retries, stale revisions, language changes, pending requests and unsaved catalogue edits. Exact results and source hashes are in `verification/review-navigation-verification-2026-09-29.json`; hosted checks are in `verification/review-navigation-live-2026-09-29.json`.
+
+Backend, database schema, PDF templates and field definitions are unchanged in this follow-up. The 114-PDF audit below belongs to the preceding optional-review release; it was not regenerated for moving the navigation control. Current form submission/preview workflows were rerun.
+
+## Earlier optional-review release checks
 
 | Check | Result |
 |---|---|

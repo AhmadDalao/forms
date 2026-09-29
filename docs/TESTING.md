@@ -17,6 +17,7 @@ Several scripts use the Chrome channel, so Google Chrome must also be installed 
 npm test
 npm run build
 node scripts/admin-handoff-audit.mjs
+node scripts/review-navigation-audit.mjs
 node scripts/optional-review-audit.mjs
 node scripts/optional-review-actions-audit.mjs
 node scripts/customer-workflow-audit.mjs

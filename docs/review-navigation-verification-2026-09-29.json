@@ -1,0 +1,144 @@
+{
+  "date": "2026-09-29T19:08:09.541404+00:00",
+  "release": "Review switch in management navigation",
+  "unit_tests": {
+    "passed": 238,
+    "failed": 0,
+    "skipped": 0
+  },
+  "production_build_passed": true,
+  "backend_and_pdf_bytes_match_preceding_deployment": true,
+  "schema_version": 8,
+  "suites": {
+    "navigation": {
+      "passed": true,
+      "checks": [
+        "chrome: one navigation switch on every superadmin page/profile; absent for admin; AR/EN at 1440/768/390/320, no overflow or header overlap",
+        "chrome: toggle persists from applications, clients, documents and administrators without changing the selected page; reload reflects saved mode",
+        "firefox: one navigation switch on every superadmin page/profile; absent for admin; AR/EN at 1440/768/390/320, no overflow or header overlap",
+        "firefox: toggle persists from applications, clients, documents and administrators without changing the selected page; reload reflects saved mode",
+        "webkit: one navigation switch on every superadmin page/profile; absent for admin; AR/EN at 1440/768/390/320, no overflow or header overlap",
+        "webkit: toggle persists from applications, clients, documents and administrators without changing the selected page; reload reflects saved mode",
+        "In-flight switch survives navigation and language change; toggling preserves unsaved catalogue edits without saving them",
+        "A stale setting revision refreshes to the current server mode and can be retried without leaving the page"
+      ],
+      "browser_errors": []
+    },
+    "review_api": {
+      "passed": true,
+      "checks": [
+        "Default off; superadmin-only switch; both mutations require sessions, CSRF and valid input",
+        "individual: unsigned direct/review, corrections, both signature follow-ups, approval/rejection, mode changes, duplicate decisions/signing, stale versions, read receipts, immutable snapshots and downloads",
+        "corporate: unsigned direct/review, corrections, both signature follow-ups, approval/rejection, mode changes, duplicate decisions/signing, stale versions, read receipts, immutable snapshots and downloads",
+        "Simultaneous administrators produce exactly one decision; the losing revision is rejected",
+        "Current-only status filters and dashboard counts; account isolation",
+        "chrome: review controls, all status filters, audience counts, AR/EN desktop/mobile layout and latest saved correction editor",
+        "firefox: review controls, all status filters, audience counts, AR/EN desktop/mobile layout and latest saved correction editor",
+        "webkit: review controls, all status filters, audience counts, AR/EN desktop/mobile layout and latest saved correction editor"
+      ],
+      "browser_errors": []
+    },
+    "review_actions": {
+      "passed": true,
+      "checks": [
+        "Actual superadmin switch retries a lost committed response without adding another event",
+        "Decision UI has no preselection, requires correction note, safely displays text and deduplicates double-click/lost-response retries",
+        "Online correction opens saved answers, resubmits unsigned, and an old correction notification opens the latest pending PDF without obsolete actions",
+        "Electronic signature request completes through the real editor and PDF generation with the global switch off",
+        "Notification signature follow-up requires confirmation on uploaded PDFs, preserves pending review and leaves the notification bell usable",
+        "Uploaded correction uses a replacement PDF, with unsigned corrections allowed",
+        "Approval records its optional note and locks the current version’s decision controls",
+        "PHP restart preserves mode, case decisions and version history"
+      ],
+      "browser_errors": []
+    },
+    "management_views": {
+      "passed": true,
+      "checks": [
+        "chrome admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "firefox admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "webkit admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "Slow profile shows feedback; switching sections cannot be overwritten by its delayed response",
+        "Interrupted profile request recovers through Try again",
+        "Interrupted PDF download recovers in the same preview without losing details",
+        "Repeated preview clicks keep a single dialog",
+        "Closing a pending PDF cancels its load and a new preview opens normally",
+        "Expired admin preview session closes the dialog and returns to management sign-in",
+        "Expired client-profile request returns to management sign-in"
+      ],
+      "browser_errors": []
+    },
+    "customer_workflow": {
+      "passed": true,
+      "checks": [
+        "individual/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+        "individual/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+        "individual: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+        "Individual FATCA: role first, all four choices on one desktop row, account-holder names prefill",
+        "individual: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save",
+        "corporate/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+        "corporate/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+        "corporate: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+        "corporate: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save"
+      ],
+      "browser_errors": []
+    },
+    "management_routing": {
+      "passed": true,
+      "checks": [
+        "chrome en: delayed admins cannot replace submissions; reopening works",
+        "chrome en: delayed documents cannot replace submissions; reopening works",
+        "chrome ar: delayed admins cannot replace submissions; reopening works",
+        "chrome ar: delayed documents cannot replace submissions; reopening works",
+        "firefox en: delayed admins cannot replace submissions; reopening works",
+        "firefox en: delayed documents cannot replace submissions; reopening works",
+        "firefox ar: delayed admins cannot replace submissions; reopening works",
+        "firefox ar: delayed documents cannot replace submissions; reopening works",
+        "webkit en: delayed admins cannot replace submissions; reopening works",
+        "webkit en: delayed documents cannot replace submissions; reopening works",
+        "webkit ar: delayed admins cannot replace submissions; reopening works",
+        "webkit ar: delayed documents cannot replace submissions; reopening works"
+      ],
+      "browser_errors": []
+    },
+    "loading": {
+      "passed": true,
+      "checks": [
+        "Document centre and editor work while the shared-profile response is still pending",
+        "Late account data fills untouched fields; an edit made while loading is preserved and conflict resolution saves it",
+        "Opening the document centre and editing fields fetches no PDF or PDF engine",
+        "Reload restores the confirmed account values",
+        "Management overview defers form definitions and PDF downloads until they are needed"
+      ],
+      "browser_errors": []
+    },
+    "accounts_permissions_backup_restore": {
+      "passed": true,
+      "checks": [
+        "Account creation/export are superadmin-only; CSRF, minimum length, confirmation and legacy username collisions enforced",
+        "Superadmin creates an admin through the UI; separate login works without document/account-management privileges or exposed hashes",
+        "Chosen eight-character admin passwords reset both new and legacy accounts and invalidate earlier sessions",
+        "Client reset UI accepts a chosen password, revokes sessions, requires a private client change and preserves all submissions",
+        "English/Arabic admin navigation and password dialogs fit mobile screens",
+        "Private snapshot restores exact accounts, structured answers, archives, PDF hashes and administrator credentials; replacement of existing data refused"
+      ],
+      "browser_errors": []
+    }
+  },
+  "source_sha256": {
+    "src/management/main.js": "580dac2c8b49de9fc5025a7e4db69038d370d5057dab7c52a83e4a0e3dbafa03",
+    "src/portal/admin.js": "70be72d77b540d7ef1dfae7b8debbf9da77459d88b6b30b4535080e33042a85c",
+    "src/portal/admin.css": "20a8a59f6a9a73121665c0f430ec20066c6a22d94724f33a4ab158818dbcccb0",
+    "src/branding.css": "276b68b0b0fd8897d133c71a5b50d730c4b550fbadcad55557b139457060290b",
+    "scripts/review-navigation-audit.mjs": "4da582e45bf81e0e32ff52585571e11dcb4a5dddabc0490dd967ca246126e7c1"
+  }
+}
