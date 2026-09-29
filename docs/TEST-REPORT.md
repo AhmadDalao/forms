@@ -61,3 +61,9 @@ Validation: 238 unit tests passed. Eight integration/browser suites passed (76 g
 The final build matches the tested build byte-for-byte. Backend and PDF hashes match the previous production release; this update changes no PDF contents, field mappings or database schema. Existing historical PDF-fit evidence still applies; that PDF audit was not regenerated for this settings-only change. Detailed current evidence: `submission-settings-verification-2026-09-29.json`.
 
 Hosted verification passed for admin and superadmin in Arabic/English at desktop/mobile widths: dedicated settings permissions and saved mode, hidden off-mode counters, no clipped controls, client profile and current PDF preview. Read-only checks confirmed the workflow setting and submission counts were unchanged. Review remains off. The deployment backed up eight replaced public entry pages and preserved private storage. Live evidence: `submission-settings-live-2026-09-29.json`.
+
+## 2026-09-29 — matching dashboard category order
+
+Dashboard categories previously filtered an individual-first combined catalogue, placing shared documents ahead of company-specific forms. Both columns now sort by their common form number: Subscription, KYC, Signature, Consent, FATCA/CRS, Terms and Conditions. Unknown/custom documents without a form number remain after the numbered forms in their existing order. The published client catalogues were checked and use this same six-form order.
+
+The existing optional-review audit passed all eight grouped checks, including explicit category-order and audience-count assertions for both administrator roles, Arabic/English, desktop/mobile, Chrome/Firefox/WebKit. Backend and PDF files are unchanged; the broad settings-release tests above remain the baseline. Evidence: `category-order-verification-2026-09-29.json`.

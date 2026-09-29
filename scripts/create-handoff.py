@@ -93,7 +93,7 @@ for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verif
              'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
              'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',
              'latest-client-preview-2026-09-28.md', 'latest-client-preview-verification.json', 'latest-client-preview-live-verification.json',
-             'handover-verification-2026-09-29.json', 'live-loading-2026-09-29.json', 'optional-review-verification-2026-09-29.json', 'optional-review-live-2026-09-29.json', 'review-navigation-verification-2026-09-29.json', 'review-navigation-live-2026-09-29.json', 'submission-settings-verification-2026-09-29.json', 'submission-settings-live-2026-09-29.json']:
+             'handover-verification-2026-09-29.json', 'live-loading-2026-09-29.json', 'optional-review-verification-2026-09-29.json', 'optional-review-live-2026-09-29.json', 'review-navigation-verification-2026-09-29.json', 'review-navigation-live-2026-09-29.json', 'submission-settings-verification-2026-09-29.json', 'submission-settings-live-2026-09-29.json', 'category-order-verification-2026-09-29.json', 'category-order-live-2026-09-29.json']:
     copy(ROOT / 'docs' / name, package / 'verification' / name)
 
 # Verify the actual private archive, not just its label, before including it.
@@ -117,7 +117,7 @@ assert not list((restored / 'management/uploads').glob('*'))
 assert not (restored / 'management/state.json').exists()
 shutil.rmtree(restored)
 copy(bootstrap, package / 'private-bootstrap.zip')
-snapshot['application_release'] = '2026-09-29 dedicated submission settings, conditional review counters and schema 8'
+snapshot['application_release'] = '2026-09-29 consistent dashboard category order, dedicated submission settings and schema 8'
 snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
 (package / 'verification/bootstrap-verification-2026-09-29.json').write_text(json.dumps({

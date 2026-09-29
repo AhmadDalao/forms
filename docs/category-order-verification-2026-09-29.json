@@ -1,0 +1,20 @@
+{
+  "checks": [
+    "Default off; superadmin-only switch; both mutations require sessions, CSRF and valid input",
+    "individual: unsigned direct/review, corrections, both signature follow-ups, approval/rejection, mode changes, duplicate decisions/signing, stale versions, read receipts, immutable snapshots and downloads",
+    "corporate: unsigned direct/review, corrections, both signature follow-ups, approval/rejection, mode changes, duplicate decisions/signing, stale versions, read receipts, immutable snapshots and downloads",
+    "Simultaneous administrators produce exactly one decision; the losing revision is rejected",
+    "Current-only status filters and dashboard counts; account isolation",
+    "chrome: review controls, all status filters, matching category order and audience counts, AR/EN desktop/mobile layout and latest saved correction editor",
+    "firefox: review controls, all status filters, matching category order and audience counts, AR/EN desktop/mobile layout and latest saved correction editor",
+    "webkit: review controls, all status filters, matching category order and audience counts, AR/EN desktop/mobile layout and latest saved correction editor"
+  ],
+  "errors": [],
+  "passed": true,
+  "at": "2026-09-29T19:32:51.586495+00:00",
+  "scope": "Dashboard category order; existing optional review browser/API regression suite rerun.",
+  "source_sha256": {
+    "src/portal/admin.js": "2058abc066f7f799c9355b3fb34425709fb7363a486113ef203fa2580fddf5c2",
+    "scripts/optional-review-audit.mjs": "9cb9cc0507d58fb8af92a05d85c6174ca3e542f78f279df3ecafbcb0b4936989"
+  }
+}
