@@ -30,6 +30,8 @@ Detailed assertions, coverage and source/build hashes: `verification/submit-only
 
 Public deployment backs up replaced entry pages and preserves private storage. Hosted checks and the deployed asset fingerprints are recorded separately in `verification/submit-only-cycle-live-2026-09-29.json`. The deployment manifest records the source commit. Live checks are read-only apart from authenticated sessions; they do not change the workflow setting or submit test client documents.
 
+Live verification passed for both management roles in Arabic/English on desktop/mobile: settings permissions and saved mode, hidden review counters, category order/counts, client profiles and PDF previews. Hosted JavaScript assets matched the tested build. Review stayed off and submission counts stayed unchanged. Eight overwritten public pages were backed up; private storage was preserved.
+
 The handover builder restores and verifies the fresh bootstrap: schema 8, review off, SQLite integrity, admin/superadmin credential hashes, and zero clients, submissions or saved PDF files. The delivery includes source, public build, installation/domain instructions, database documentation and test scripts. `SNAPSHOT.json`, `MANIFEST.json`, `SHA256SUMS.txt` and `verification/bootstrap-verification-2026-09-29.json` identify and verify that package. Keep the bootstrap private and send its account passwords separately.
 
 Earlier dated verification files remain as history. Their old navigation descriptions and schema/page counts do not override this report.

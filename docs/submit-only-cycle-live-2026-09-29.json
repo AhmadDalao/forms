@@ -1,0 +1,24 @@
+{
+  "date": "2026-09-29T19:52:57.563Z",
+  "checks": [
+    "Hosted JavaScript assets match the tested build byte for byte",
+    "superadmin: dedicated settings page permissions/state, off-mode counters hidden, AR/EN desktop/mobile, no clipping, live PDF preview and matching category order/counts; stored mode and submission counts unchanged",
+    "admin: dedicated settings page permissions/state, off-mode counters hidden, AR/EN desktop/mobile, no clipping, live PDF preview and matching category order/counts; stored mode and submission counts unchanged"
+  ],
+  "errors": [],
+  "passed": true,
+  "source_commit": "ab3375038567c2acedd8aa528e203e32e61f6269",
+  "javascript_assets_verified": 32,
+  "review_enabled": false,
+  "deployment": {
+    "uploaded_at_utc": "20260929T195115Z",
+    "source_commit": "ab3375038567c2acedd8aa528e203e32e61f6269",
+    "static_only": true,
+    "completed": true,
+    "replaced_public_entries": 8,
+    "private_storage_preserved": true
+  },
+  "limitations": [
+    "Live checks used existing management accounts and read-only application access. Full client transitions used isolated synthetic accounts; no production client password resets or submissions were made."
+  ]
+}
