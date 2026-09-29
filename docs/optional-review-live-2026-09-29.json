@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-29T17:52:16.106Z",
+  "site": "https://forms.ahmaddalao.com",
+  "checks": [
+    "superadmin: live AR/EN desktop/mobile labels, role switch, current audience counts, status filters, both management preview paths, PDF hash and no horizontal overflow",
+    "admin: live AR/EN desktop/mobile labels, role switch, current audience counts, status filters, both management preview paths, PDF hash and no horizontal overflow",
+    "Anonymous login loads without PDF engines; private databases/schema files and management data remain protected"
+  ],
+  "errors": [],
+  "review_enabled": false,
+  "passed": true,
+  "migration": {
+    "schema_before": 7,
+    "schema_after": 8,
+    "review_enabled": false,
+    "unchanged_tables": [
+      "users",
+      "submissions",
+      "client_shared_profiles",
+      "submission_reviews",
+      "audit",
+      "workflow_settings",
+      "workflow_setting_events"
+    ],
+    "review_ids_timestamps_read_receipts_preserved": true,
+    "all_indexes_and_sequences_preserved": true,
+    "all_pdf_bytes_preserved": true,
+    "management_credential_hashes_preserved": true,
+    "sqlite_integrity_and_foreign_keys_passed": true
+  },
+  "deployment": {
+    "uploaded_at_utc": "20260929T174418Z",
+    "source_commit": "71c5a41cb408bdbea591fc40a519c7df7f6af99c",
+    "transport": "Explicit FTPS with verified Hostinger certificate",
+    "public_files_verified": 105,
+    "private_storage_preserved": true
+  }
+}

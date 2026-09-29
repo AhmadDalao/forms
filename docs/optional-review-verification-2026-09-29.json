@@ -466,6 +466,7 @@
     "review_enabled": false,
     "users": 0,
     "submissions": 0,
-    "existing_management_hashes_preserved": true
+    "existing_management_hashes_preserved": true,
+    "both_management_logins_tested": true
   }
 }

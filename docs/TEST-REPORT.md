@@ -28,6 +28,8 @@ PDF checks covered 2,093 text destinations, 917 choice destinations and 34 signa
 
 The production backup remained private. All mutable workflow tests used disposable local installations. The exact assertions and source hashes are recorded in `verification/optional-review-verification-2026-09-29.json`. Live deployment checks are recorded separately in `verification/optional-review-live-2026-09-29.json`.
 
+Live Hostinger checks also passed for both management roles in Arabic/English on desktop/mobile, both preview entry points, PDF hashes, category counts, role controls and private-path denial. Review remained off. A post-release private backup confirmed schema 8 and unchanged existing client records, submissions, decisions, read receipts, indexes, sequence values, PDFs and credential hashes.
+
 ## Fresh handover
 
 Packaging restores the supplied admin/superadmin bootstrap and checks schema 8, review off, SQLite integrity, preserved credential hashes and empty client tables/PDF storage. It also creates clean database/schema examples. See `verification/bootstrap-verification-2026-09-29.json`, `SNAPSHOT.json`, `MANIFEST.json` and `SHA256SUMS.txt`. No production client data or plaintext passwords belong in this handover.
