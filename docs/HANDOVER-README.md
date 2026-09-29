@@ -1,6 +1,6 @@
 # Al Naeem Real Estate Fund — start here
 
-This is the fresh-install handover dated 29 September 2026. It contains the current website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
+This is the fresh-install handover dated 29 September 2026. It includes schema 8 and optional reviews, off by default. It contains the current website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
 
 Only upload the contents of `website/` to the public website folder. Keep this ZIP and everything else private.
 
@@ -9,6 +9,7 @@ Only upload the contents of `website/` to the public website folder. Keep this Z
 - [INSTALL.md](INSTALL.md): requirements and the exact installation commands.
 - [DOMAIN-SETUP.md](DOMAIN-SETUP.md): domain, HTTPS and hosting setup.
 - [DEVELOPER-REVIEW.md](DEVELOPER-REVIEW.md): how the code works, where to make changes and what to check in a review.
+- [REVIEW-WORKFLOW.md](REVIEW-WORKFLOW.md): the review switch, decisions, client follow-up and migration rules.
 - [DATABASE.md](DATABASE.md): tables, private files, version history and backups.
 - [TESTING.md](TESTING.md): repeatable test commands and the new-host acceptance checklist.
 - [TEST-REPORT.md](TEST-REPORT.md): what was rerun for this delivery, what is earlier evidence and what remains to check on the destination host.

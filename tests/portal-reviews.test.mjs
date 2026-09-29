@@ -10,6 +10,7 @@ test('review migration preserves snapshots; decisions and receipts remain tied t
   function execute($sql,$args=[]){global $db;$q=$db->prepare($sql);$q->execute($args);return $q;}
   $db->exec('PRAGMA foreign_keys=ON; PRAGMA user_version=2; CREATE TABLE submissions(id TEXT PRIMARY KEY,user_id TEXT,title TEXT,ar TEXT,version INTEGER,archived_at TEXT,answers TEXT,sha256 TEXT); CREATE TABLE audit(id INTEGER PRIMARY KEY,client_id TEXT,event TEXT,created_at TEXT)');
   execute('INSERT INTO submissions VALUES(?,?,?,?,?,?,?,?)',['old','client','Form','نموذج',1,null,'original answers','original hash']);
+  $db->exec("ALTER TABLE submissions ADD COLUMN profile TEXT DEFAULT '{\\"submission_mode\\":\\"review\\",\\"review_required\\":true}'");
   $before=execute('SELECT * FROM submissions')->fetchAll();migrateReviews();migrateReviews();migrateWorkflow();
   $pending=reviewDetails('old',true);$unchanged=$before===execute('SELECT * FROM submissions')->fetchAll();
   $one=recordReview('old','rejected','missing_details','Complete your name',0,'key-1','first.admin');
@@ -21,7 +22,7 @@ test('review migration preserves snapshots; decisions and receipts remain tied t
   $read=execute('SELECT * FROM submission_reviews WHERE id=1')->fetch();unset($old['read_at'],$read['read_at']);
   $client=reviewDetails('old',false);$unchanged=$unchanged&&$before===execute('SELECT * FROM submissions')->fetchAll();
   execute('UPDATE submissions SET archived_at=? WHERE id=?',['2026-09-19T13:00:00Z','old']);
-  execute('INSERT INTO submissions VALUES(?,?,?,?,?,?,?,?)',['new','client','Form','نموذج',2,null,'new answers','new hash']);
+  execute('INSERT INTO submissions(id,user_id,title,ar,version,archived_at,answers,sha256) VALUES(?,?,?,?,?,?,?,?)',['new','client','Form','نموذج',2,null,'new answers','new hash']);
   $archived=false;try{recordReview('old','rejected','other','Reason',$two['review']['review_revision'],'key-4','second.admin');}catch(DomainException $e){$archived=$e->getMessage()==='review_archived';}
   $fresh=reviewDetails('new',true);$notifications=reviewNotifications('client');$private=reviewNotifications('someone-else');
   // More than a page of events: distinct IDs, stable cursor and accurate unread count.
@@ -86,6 +87,7 @@ test('schema 3 review migration is atomic and preserves history, receipts, audit
    'history'=>reviewDetails('active',true),
    'notifications'=>reviewNotifications('client')
   ];}
+  $db->exec("ALTER TABLE submissions ADD COLUMN profile TEXT DEFAULT '{\\"submission_mode\\":\\"review\\",\\"review_required\\":true}'");
   // Force a copy failure after the table rebuild starts and prove the transaction restores everything.
   $db->exec("PRAGMA ignore_check_constraints=ON; UPDATE submission_reviews SET reason_code='invalid_legacy_code' WHERE id=7; PRAGMA ignore_check_constraints=OFF;");
   $rollbackBefore=snapshot();$schemaBefore=execute('SELECT type,name,tbl_name,sql FROM sqlite_schema ORDER BY type,name')->fetchAll();
@@ -151,6 +153,7 @@ test('approved versions reject later decisions without changing audit or notific
   function execute($sql,$args=[]){global $db;$q=$db->prepare($sql);$q->execute($args);return $q;}
   $db->exec('PRAGMA foreign_keys=ON; PRAGMA user_version=2; CREATE TABLE submissions(id TEXT PRIMARY KEY,user_id TEXT,title TEXT,ar TEXT,version INTEGER,archived_at TEXT); CREATE TABLE audit(id INTEGER PRIMARY KEY,client_id TEXT,event TEXT,created_at TEXT)');
   execute('INSERT INTO submissions VALUES(?,?,?,?,?,?)',['approved','client','Form','نموذج',1,null]);migrateReviews();migrateWorkflow();
+  $db->exec("ALTER TABLE submissions ADD COLUMN profile TEXT DEFAULT '{\\"submission_mode\\":\\"review\\",\\"review_required\\":true}'");
   $approved=recordReview('approved','approved','','',0,'approve-key','first.admin');
   $before=[execute('SELECT * FROM submission_reviews')->fetchAll(),execute('SELECT * FROM audit')->fetchAll(),reviewNotifications('client')];
   $blocked=[];
@@ -161,7 +164,7 @@ test('approved versions reject later decisions without changing audit or notific
   $unchanged=$before===[execute('SELECT * FROM submission_reviews')->fetchAll(),execute('SELECT * FROM audit')->fetchAll(),reviewNotifications('client')];
   $retry=recordReview('approved','approved','','',0,'approve-key','first.admin');
   execute('UPDATE submissions SET archived_at=? WHERE id=?',['2026-09-19T20:00:00Z','approved']);
-  execute('INSERT INTO submissions VALUES(?,?,?,?,?,?)',['new-version','client','Form','نموذج',2,null]);
+  execute('INSERT INTO submissions(id,user_id,title,ar,version,archived_at) VALUES(?,?,?,?,?,?)',['new-version','client','Form','نموذج',2,null]);
   $fresh=recordReview('new-version','signature_required','','Sign page 1',0,'new-key','second.admin');
   echo json_encode(compact('blocked','unchanged','retry','fresh'));
  `,path.resolve('public/api/portal-reviews.php')],{encoding:'utf8'});

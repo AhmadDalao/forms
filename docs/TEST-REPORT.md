@@ -1,37 +1,41 @@
-# Handover verification — 29 September 2026
+# Release verification — 29 September 2026
 
-The current application passed the checks below. This update changes the handover documentation and packaging, not the website, PDFs or database schema. Application code tested: `b4c4d160e92b9653227bae96af504335e9ce4167`. The delivery manifest records the later documentation/package commit and every packaged file's hash.
+This release restores optional reviews and updates the management dashboard. Review is off by default. It changes the client database to schema 8; PDF templates, field definitions and sharing mappings are unchanged. The delivery manifest identifies the final commit and hashes every packaged file.
 
-## Rerun for this delivery
+## Checks rerun for this release
 
 | Check | Result |
 |---|---|
-| Unit tests, `npm test` | **236 passed, 0 failed, 0 skipped** |
-| Production build, `npm run build` | **Passed** |
-| PHP syntax | **26 files passed**, including API and setup/backup scripts |
-| Admin handover audit | **6 checks passed**: role permissions, account creation, chosen password resets, session revocation and verified backup/restore |
-| Customer workflow audit | **9 grouped checks passed**: both audiences/languages, form headers and final review pages, identity/signature controls, consent submission, upload replacement, versions, ZIP, notifications and profile save |
-| Management views audit | **19 checks passed**: current/archived previews, downloads, roles, mobile, failed requests/retries, cancellation and session expiry |
-| Loading audit, run separately | **5 checks passed**: delayed profile data does not block editing, in-flight edits survive, confirmed values reload and opening screens avoid eager PDF loading |
+| Unit suite | **238 passed; 0 failures or skipped tests** |
+| Production build and PHP syntax | **Passed**; 26 PHP files checked |
+| Optional-review API and browser audit | **8 groups passed**: both audiences, role/CSRF checks, unsigned intake, corrections, signatures, rejection/approval, switches, concurrent administrators, duplicate requests, stale versions and preserved history |
+| Optional-review action audit | **8 groups passed**: actual UI decisions and notes, lost-response retries, corrections, electronic signing, replacement uploads, obsolete notifications, approval locking and restart |
+| Customer workflow | **9 groups passed**, including all nine forms, both audiences and languages, final review, submission, replacements, downloads and profile changes |
+| Direct intake | **11 groups passed**; every form's captured answers and PDF match management; unsigned Received behavior remains available |
+| Shared profiles | **6 groups passed**: sharing, account/category isolation, conflicts, clearing, reload and offline recovery |
+| Management views | **19 groups passed**, covering current/archive previews, roles, downloads, phones, retries and session expiry |
+| Management presentation | **8 groups passed**: nine documents × two languages × two widths, categorized answers match their saved snapshots; sections start closed |
+| Account/permission/backup audit | **6 groups passed**, including admin creation, chosen resets, revoked sessions and backup/restore |
+| Notifications | **6 groups passed**, including latest-version previews and simple client presentation |
+| Responsive catalogue | **186 measurements passed** across both audiences, languages and Chrome/Firefox/WebKit |
+| Loading audit | **5 groups passed**: editing stays usable while account data loads; late responses preserve edits; PDF engines/files stay deferred |
+| PDF generation and verification | **114 PDFs / 755 pages passed**, with all nine documents covered, five fill scenarios plus option/partial/blank cases; zero reported failures |
+| Schema-7 migration | **Passed** on synthetic edge cases and a private restored production backup: records, review IDs, read receipts, indexes, sequence values and PDF bytes preserved |
 
-The browser suites used temporary local databases and synthetic accounts. They reported no browser errors. They did not edit production clients, accounts or submissions. The build emits large-chunk notices for the deferred PDF engines; these are not build failures or evidence that those engines load at login.
+Optional-review controls were checked in Chrome, Firefox and WebKit, Arabic/English, desktop/mobile and both admin roles. Client corrections, electronic signing and upload follow-ups were exercised against real local PHP endpoints and synthetic accounts. The suites reported no browser errors.
 
-Exact grouped assertions and source-file hashes are in `verification/handover-verification-2026-09-29.json`. The fresh bootstrap is restored and initialized during packaging; its integrity, empty client tables and preserved credential-hash archive are checked in `verification/bootstrap-verification-2026-09-29.json`. `MANIFEST.json` and `SHA256SUMS.txt` cover the delivered files. ZIP integrity and source/build matching are checked before release.
+PDF checks covered 2,093 text destinations, 917 choice destinations and 34 signature destinations, including transparent answer overlays. Representative rendered Arabic/English pages from every document were visually inspected. Bounds/coverage checks ran across the generated set; this does not promise that every possible customer string will fit without shrinking.
 
-## Earlier evidence retained with this delivery
+The production backup remained private. All mutable workflow tests used disposable local installations. The exact assertions and source hashes are recorded in `verification/optional-review-verification-2026-09-29.json`. Live deployment checks are recorded separately in `verification/optional-review-live-2026-09-29.json`.
 
-These reports are dated **28 September**, and are not presented as new runs:
+## Fresh handover
 
-- `customer-workflow-verification.json`: actual input controls, reload, submission and management answer/PDF matching for all nine editable forms, plus shared/direct-submission checks.
-- `current-documents-verification.json`: 36 presentations across nine forms, both languages and desktop/mobile; 2,232 field label/value/direction checks through the current management entry point.
-- `roomy-cards-verification.json`: 186 responsive measurements across Chrome, Firefox and WebKit, individual/company, English/Arabic and card actions.
-- `latest-client-preview-verification.json`: client previews resolve the latest version; management can still inspect history.
-- Earlier `full-regression-verification.json` and PDF design reports: broader PDF generation, coverage and layout evidence. They describe earlier releases and may contain older page counts or UI descriptions. Read current customer-workflow reports when they differ.
+Packaging restores the supplied admin/superadmin bootstrap and checks schema 8, review off, SQLite integrity, preserved credential hashes and empty client tables/PDF storage. It also creates clean database/schema examples. See `verification/bootstrap-verification-2026-09-29.json`, `SNAPSHOT.json`, `MANIFEST.json` and `SHA256SUMS.txt`. No production client data or plaintext passwords belong in this handover.
 
-No template or field mapping changed in this handover. A fresh exhaustive field-by-field PDF visual audit was **not** rerun today. Future field/template changes require the broader commands and visual checks in TESTING.md.
+Earlier verification files are retained as dated evidence. Their older UI descriptions and schema/page counts do not override this report.
 
-## Performance and destination-host acceptance
+## What the receiving developer still needs to check
 
-The live Hostinger check reproduced a browser challenge adding roughly four seconds on fresh automated visits. Login became usable in 4.5–4.9 seconds; a repeat visit took 0.3 seconds. Management took 0.4–0.8 seconds. Some fonts finished as late as 7.1 seconds. See PERFORMANCE.md and the raw timing report. We did not reproduce the full reported 20-second delay or change CDN security settings.
+The destination domain has not been deployed by these tests. Verify HTTPS, PHP extensions/limits, private-path denial, account isolation, uploads/downloads, backup restore and cold/warm loading on that host using TESTING.md. Local routing tests cannot certify a provider's `.htaccess` behavior.
 
-The package is ready for developer handover. **The new domain has not been deployed or accepted by these tests.** The receiving developer must still verify HTTPS, PHP extensions and limits, private-path denial, account isolation, upload/download, restore and cold/warm loading on that host. Local routing tests do not certify a provider's `.htaccess` behavior. Software testing does not certify legal compliance or the authenticity of uploaded signatures.
+The earlier Hostinger timing investigation found a browser challenge adding about four seconds to fresh automated visits. This release keeps the application loading safeguards; it does not change CDN/security settings or claim to eliminate every network-related delay. See PERFORMANCE.md. Uploaded signatures remain client-confirmed, not authenticated by this software.

@@ -62,7 +62,7 @@ scripts = ['build-folders.mjs', 'management-defaults.mjs', 'management-router.ph
            'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'current-pdf-audit.mjs',
            'current-pdf-audit-verify.py', 'preview-font-audit.mjs', 'preview-direction-audit.mjs',
            'client-corrections-audit.mjs', 'direct-intake-audit.mjs', 'form-access-audit.mjs', 'management-views-audit.mjs',
-           'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'admin-presentation-audit.mjs', 'loading-audit.mjs', 'customer-workflow-audit.mjs', 'notifications-audit.mjs', 'catalogue-layout-audit.mjs', 'client-preview-audit.mjs', 'staff-name-audit.mjs']
+           'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'admin-presentation-audit.mjs', 'loading-audit.mjs', 'customer-workflow-audit.mjs', 'notifications-audit.mjs', 'catalogue-layout-audit.mjs', 'client-preview-audit.mjs', 'staff-name-audit.mjs', 'optional-review-audit.mjs', 'optional-review-actions-audit.mjs', 'shared-profiles-audit.mjs']
 for name in scripts:
     copy(ROOT / 'scripts' / name, package / 'source/scripts' / name)
 for name in ['package.json', 'package-lock.json', 'vite.config.js', 'index.html', '.gitignore']:
@@ -83,7 +83,7 @@ copy(ROOT / 'docs/DEVELOPER-HANDOFF-AR.md', package / 'README-AR.md')
 copy(ROOT / 'docs/DOMAIN-SETUP.md', package / 'DOMAIN-SETUP.md')
 copy(ROOT / 'docs/DATABASE-HANDOFF.md', package / 'DATABASE.md')
 copy(ROOT / 'docs/DATABASE-HANDOFF.md', package / 'database/README.md')
-for name in ['DEVELOPER-REVIEW.md', 'TESTING.md', 'TEST-REPORT.md', 'PERFORMANCE.md', 'HOSTING-ACCESS.md']:
+for name in ['DEVELOPER-REVIEW.md', 'TESTING.md', 'TEST-REPORT.md', 'PERFORMANCE.md', 'HOSTING-ACCESS.md', 'REVIEW-WORKFLOW.md']:
     copy(ROOT / 'docs' / name, package / name)
 for name in ['modern-pdf-release-2026-09-28.md', 'modern-pdf-verification.json', 'terms-restoration-2026-09-28.md', 'terms-restoration-verification.json', 'bilingual-pdf-update-2026-09-28.md', 'bilingual-pdf-verification.json', 'pdf-layout-refinement-2026-09-28.md', 'pdf-layout-refinement-verification.json', 'full-regression-2026-09-28.md', 'full-regression-verification.json']:
     copy(ROOT / 'docs' / name, package / 'verification' / name)
@@ -93,7 +93,7 @@ for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verif
              'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
              'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',
              'latest-client-preview-2026-09-28.md', 'latest-client-preview-verification.json', 'latest-client-preview-live-verification.json',
-             'handover-verification-2026-09-29.json', 'live-loading-2026-09-29.json']:
+             'handover-verification-2026-09-29.json', 'live-loading-2026-09-29.json', 'optional-review-verification-2026-09-29.json', 'optional-review-live-2026-09-29.json']:
     copy(ROOT / 'docs' / name, package / 'verification' / name)
 
 # Verify the actual private archive, not just its label, before including it.
@@ -104,7 +104,8 @@ with sqlite3.connect(restored / 'portal/clients.sqlite') as db:
     for table in ['users', 'submissions', 'client_shared_profiles', 'submission_reviews', 'audit', 'rates']:
         assert db.execute('SELECT COUNT(*) FROM ' + table).fetchone()[0] == 0, table
     assert db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
-    assert db.execute('PRAGMA user_version').fetchone()[0] == snapshot['schema_version']
+    assert db.execute('PRAGMA user_version').fetchone()[0] == snapshot['schema_version'] == 8
+    assert db.execute('SELECT review_enabled FROM workflow_settings WHERE id=1').fetchone()[0] == 0
 with sqlite3.connect(restored / 'management/administrators.sqlite') as db:
     assert db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
     for table in ['administrators', 'administrator_events']:
@@ -116,11 +117,12 @@ assert not list((restored / 'management/uploads').glob('*'))
 assert not (restored / 'management/state.json').exists()
 shutil.rmtree(restored)
 copy(bootstrap, package / 'private-bootstrap.zip')
-snapshot['application_release'] = '2026-09-29 developer review and verified fresh handover'
+snapshot['application_release'] = '2026-09-29 optional reviews, schema 8 and verified fresh handover'
 snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
 (package / 'verification/bootstrap-verification-2026-09-29.json').write_text(json.dumps({
     'verified_at': datetime.now(timezone.utc).isoformat(), 'restored_and_initialized': True,
+    'client_schema_version': 8, 'review_enabled': False,
     'client_tables_empty': True, 'pdfs_empty': True, 'catalogue_state_empty': True,
     'sqlite_integrity_passed': True, 'management_hash_files_present': True,
     'bootstrap_sha256': snapshot['sha256'], 'contains_client_data': False,
@@ -134,6 +136,8 @@ for name, folder in [('clients', 'portal'), ('administrators', 'management')]:
     copy(file, package / 'database' / file.name)
     with sqlite3.connect(file) as db:
         if name == 'clients':
+            assert db.execute('PRAGMA user_version').fetchone()[0] == 8
+            assert db.execute('SELECT review_enabled FROM workflow_settings WHERE id=1').fetchone()[0] == 0
             assert db.execute('SELECT COUNT(*) FROM users').fetchone()[0] == 0
             assert db.execute('SELECT COUNT(*) FROM submissions').fetchone()[0] == 0
         sql = '\n'.join(db.iterdump()) + '\n'

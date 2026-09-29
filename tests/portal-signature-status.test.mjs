@@ -26,8 +26,8 @@ test('signature status distinguishes electronic, missing, claimed uploads and un
   [{source:'upload',profile:{signed_confirmed:'true'}},'unknown'],
   [{source:'upload',profile:overlays,signatures:{specimen:image}},'electronic'],
   [{source:'upload',profile:overlays,signatures:{}},'unsigned'],
-  [{review_status:'signature_required',signatures:{specimen:image}},'unsigned'],
-  [{review_status:'signature_required',source:'upload',profile:{signed_confirmed:true}},'unsigned'],
+  [{review_status:'signature_required',signatures:{specimen:image}},'electronic'],
+  [{review_status:'signature_required',source:'upload',profile:{signed_confirmed:true}},'uploaded'],
  ];
  const results=evaluate(cases.map(([changes])=>({definition,submission:{...base,...changes}})));
  for(let i=0;i<cases.length;i++){

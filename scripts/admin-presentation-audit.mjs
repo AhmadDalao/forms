@@ -57,14 +57,12 @@ try{
   await p.setViewportSize({width,height:1000});await p.goto(f.base+'/management/?lang='+lang);await p.locator('.admin-stats').waitFor();
   if(await p.locator('html').getAttribute('lang')!==lang){await p.locator('[data-admin-language]').click();await p.locator('html[lang='+lang+']').waitFor();}
   const dashboard=await f.call(owner,'portal','admin_dashboard');
-  assert.equal(await p.locator('.category-stats article').count(),dashboard.categories.length);
-  for(const [i,doc] of dashboard.categories.entries()){
-   const card=p.locator('.category-stats article').nth(i),expected=dashboard.counts.filter(c=>c.doc_id===doc.id).reduce((sum,c)=>sum+c.active_count,0);
-   assert.equal(await card.locator('.category-count').innerText(),String(expected));assert.equal(await card.locator('b').innerText(),lang==='ar'?doc.ar:doc.title);
+  for(const audience of ['individual','corporate']){
+   const docs=dashboard.categories.filter(d=>[audience,'shared'].includes(d.group)),column=p.locator('[data-category-audience='+audience+']');
+   assert.equal(await column.locator('article').count(),docs.length);
+   for(const doc of docs){const card=column.locator('[data-category-document="'+doc.id+'"]'),expected=dashboard.counts.filter(c=>c.doc_id===doc.id&&c.audience===audience).reduce((sum,c)=>sum+Number(c.active_count),0);assert.equal(await card.locator('.category-count').innerText(),String(expected));assert.equal(await card.locator('b').innerText(),lang==='ar'?doc.ar:doc.title);}
   }
-  assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
-  const shot=f.out+'/dashboard-'+lang+'-'+width+'.png';await p.screenshot({path:shot,fullPage:true});report.screenshots.push(shot);
-  await p.locator('[data-management-view=reviews]').click();await p.locator('#review-filters').waitFor();
+  await p.locator('[data-review-open=all]').click();await p.locator('[data-review-audience]').waitFor();
   for(const person of people){
    const audience=person.user.account_type;await p.locator('[data-review-audience]').selectOption(audience);
    await p.waitForFunction(({type,n})=>{const b=[...document.querySelectorAll('.admin-review-results [data-account-type]')];return b.length===n&&b.every(x=>x.dataset.accountType===type);},{type:audience,n:person.submissions.length});

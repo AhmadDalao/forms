@@ -188,11 +188,11 @@ export function createDraftStore(documents, getStorage = () => window.localStora
     },
     loadSubmission(id,snapshot){
       const doc=documents.find(d=>d.id===id);if(!doc)return false;
-      if(this.get(id).revision?.sourceId===snapshot.id)return true;
+      if(this.get(id).revision?.sourceId===snapshot.id){const record=this.get(id);return persist(doc,{...record,revision:{...record.revision,signatureRequested:snapshot.submission_mode==='review'&&snapshot.review_status==='signature_required'}});}
       // Isolated edit drafts never replace the customer's normal working draft.
       // Blank submitted fields are deliberate too; shared data cannot refill them.
       const autoApplicant=doc.workflow==='subscription'&&snapshot.answers.applicant_name===(doc.group==='individual'?joinedName(snapshot.answers):snapshot.answers.auth_name);
-      return persist(doc,clean(doc,{values:snapshot.answers,signatures:snapshot.signatures||{},step:0,overrides:doc.fields.map(f=>f.id).filter(id=>!autoApplicant||(id!=='applicant_name'&&!doc.personNameGroups?.find(g=>g.id==='applicant_name')?.partIds.includes(id))),revision:{sourceId:snapshot.id,expectedCurrent:snapshot.current_id,version:snapshot.version,legacySignatures:snapshot.signatures===null,profile:snapshot.profile}}));
+      return persist(doc,clean(doc,{values:snapshot.answers,signatures:snapshot.signatures||{},step:0,overrides:doc.fields.map(f=>f.id).filter(id=>!autoApplicant||(id!=='applicant_name'&&!doc.personNameGroups?.find(g=>g.id==='applicant_name')?.partIds.includes(id))),revision:{signatureRequested:snapshot.submission_mode==='review'&&snapshot.review_status==='signature_required',sourceId:snapshot.id,expectedCurrent:snapshot.current_id,version:snapshot.version,legacySignatures:snapshot.signatures===null,profile:snapshot.profile}}));
     },
     beginSignatureRequest(id,reviewRevision){
       const doc=documents.find(d=>d.id===id),record=this.get(id);

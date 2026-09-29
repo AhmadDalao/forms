@@ -26,7 +26,7 @@ try{
  await api(anon,'shared_profile',{params:{account:user.id,audience:'individual'},status:401});
  await api(a,'shared_profile',{params:{account:stranger.id,audience:'individual'},status:409});await api(a,'shared_profile',{params:{account:user.id,audience:'corporate'},status:403});
  pass('Authenticated account/audience scope, absent revision0, and private profile data excluded from public session');
- const submission=await f.submit(a,user),original=(await api(a,'detail',{params:{id:submission.id}})).submission;
+ const submission=await f.submit(a,user,{workflowRevision:(await api(a,'session')).workflow.revision}),original=(await api(a,'detail',{params:{id:submission.id}})).submission;
  let state=(await save(a,user,0,{en_first:'Abdul ',en_second:' Ali ',en_third:'Hassan',en_last:'Family',city:'Riyadh',country:'',email:'partial@',also_residence:false})).shared;
  assert.equal(state.profile.en_first,'Abdul ');assert.equal(state.profile.en_second,' Ali ');assert.equal(state.profile.en_middle,'Ali Hassan');assert.equal(state.profile.country,'');assert.equal(state.profile.also_residence,false);assert.equal(state.profile.email,'partial@');assert.equal(state.revision,1);assert.match(state.updated_at,/^20\d\d-/);
  assert.deepEqual(await get(second,user),state);

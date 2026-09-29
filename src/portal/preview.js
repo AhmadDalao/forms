@@ -1,11 +1,12 @@
 import {api,endpoint,e,errorText,when} from './api.js';
 import {loadPreview,renderPage} from '../pdf.js';
-import {mountReview} from './review.js';
+import {mountReview,reviewBadge,signatureBadge,reviewAvailable} from './review.js';
+import {followUpMarkup,bindFollowUps} from './follow-up.js';
 import {appRoot} from '../routes.js';
 import './submitted-details.css';
 import './preview.css';
 let activePreview=null;
-export async function previewSubmission(id,{admin=false,lang='en',token,onReviewed,onError=()=>false,onClose=()=>{}}={}){
+export async function previewSubmission(id,{admin=false,lang='en',token,onReviewed,onError=()=>false,onClose=()=>{},onFollowUp=()=>{}}={}){
  if(activePreview?.id===id&&activePreview.admin===admin){activePreview.dialog.focus();return;}
  activePreview?.close();
  const t=(en,ar)=>lang==='ar'?ar:en,dialog=document.createElement('dialog');dialog.className='portal-preview';dialog.dir=lang==='ar'?'rtl':'ltr';document.body.append(dialog);
@@ -34,9 +35,10 @@ export async function previewSubmission(id,{admin=false,lang='en',token,onReview
    ({submission:s}=await api('detail',undefined,{params:{id:s.current_id}}));
    if(closed)return;
   }
-  dialog.querySelector('.portal-preview-body').innerHTML=`<h3>${e(t(s.title,s.ar))}</h3><div class="preview-document-meta">${admin?`<span class="version-badge">${t('Version','النسخة')} ${s.version} · ${s.archived_at?t('Archived','مؤرشفة'):t('Current','الحالية')}${s.restored_from?' · '+t('Restored from an earlier version','مستعادة من نسخة سابقة'):''}</span>`:''}<time>${e(when(s.created_at,lang))} · ${t('Riyadh time','بتوقيت الرياض')}</time></div>${admin?`<div class="preview-document-actions"><a class="portal-button" href="${endpoint(admin?'admin_pdf':'pdf',{id:s.id})}">${t('Download PDF','تنزيل PDF')}</a>${s.archived_at&&s.current_id?`<button type="button" class="portal-button" data-current-version>${t('Open current version','فتح النسخة الحالية')}</button>`:''}</div>`:''}${admin?`<div data-submission-review></div><details class="portal-answer-details"><summary>${t('Submitted details','البيانات المرسلة')}</summary>${details.renderSubmissionDetails(s,lang)}</details>`:''}<div class="portal-pdf-pages"></div><p data-preview-status role="status">${t('Preparing preview…','جارٍ إعداد المعاينة…')}</p>`;
-  dialog.querySelector('[data-current-version]')?.addEventListener('click',()=>{close(false);previewSubmission(s.current_id,{admin,lang,token,onReviewed,onError,onClose});});
+  dialog.querySelector('.portal-preview-body').innerHTML=`<h3>${e(t(s.title,s.ar))}</h3><div class="preview-document-meta">${admin?`<span class="version-badge">${t('Version','النسخة')} ${s.version} · ${s.archived_at?t('Archived','مؤرشفة'):t('Current','الحالية')}${s.restored_from?' · '+t('Restored from an earlier version','مستعادة من نسخة سابقة'):''}</span>`:''}<time>${e(when(s.created_at,lang))} · ${t('Riyadh time','بتوقيت الرياض')}</time></div>${admin?`<div class="preview-document-actions"><a class="portal-button" href="${endpoint(admin?'admin_pdf':'pdf',{id:s.id})}">${t('Download PDF','تنزيل PDF')}</a>${s.archived_at&&s.current_id?`<button type="button" class="portal-button" data-current-version>${t('Open current version','فتح النسخة الحالية')}</button>`:''}</div>`:''}${admin?`<div data-submission-review></div><details class="portal-answer-details"><summary>${t('Submitted details','البيانات المرسلة')}</summary>${details.renderSubmissionDetails(s,lang)}</details>`:''}${!admin&&reviewAvailable(s)?`<div class="preview-review-status">${reviewBadge(s,lang)} ${signatureBadge(s,lang)}${followUpMarkup(s,lang)}</div>`:''}<div class="portal-pdf-pages"></div><p data-preview-status role="status">${t('Preparing preview…','جارٍ إعداد المعاينة…')}</p>`;
+  dialog.querySelector('[data-current-version]')?.addEventListener('click',()=>{close(false);previewSubmission(s.current_id,{admin,lang,token,onReviewed,onError,onClose,onFollowUp});});
   if(admin)mountReview(dialog.querySelector('[data-submission-review]'),s,{admin,lang,token,onReviewed});
+  if(!admin)bindFollowUps(dialog,{lang,beforeOpen:()=>{close(false);onFollowUp();},onSaved:()=>previewSubmission(s.id,{lang})});
   download=new AbortController();const timeout=setTimeout(()=>download?.abort(),60000);let bytes;
   try{
    const res=await fetch(endpoint(admin?'admin_pdf':'pdf',{id:s.id}),{credentials:'same-origin',cache:'no-store',signal:download.signal});

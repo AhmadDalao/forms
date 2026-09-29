@@ -2,7 +2,7 @@ import {api,e,errorText,when} from './api.js';
 import {reviewLabels,reasonLabels} from './review.js';
 import {appRoot} from '../routes.js';
 
-export function mountNotifications(node,{lang,userId,onUnread=()=>{},onPreviewOpen=()=>{},onPreviewClose=()=>{}}){
+export function mountNotifications(node,{lang,userId,onUnread=()=>{},onPreviewOpen=()=>{},onPreviewClose=()=>{},onFollowUp=()=>{}}){
  const t=(en,ar)=>lang==='ar'?ar:en;
  let stopped=false,busy=false,cursor=null,unread=0,loaded=false,snapshot='',revision=0;
  const items=new Map(),reads=new Set();
@@ -30,7 +30,7 @@ export function mountNotifications(node,{lang,userId,onUnread=()=>{},onPreviewOp
     }).catch(err=>{if(!stopped&&!sessionError(err))message(errorText(err,lang));}).finally(()=>reads.delete(id));
    }
    const returnToList=()=>{if(stopped)return;onPreviewClose();const trigger=node.querySelector(`[data-event="${id}"]`);if(trigger){trigger.disabled=false;trigger.focus({preventScroll:true});}};
-   try{const {previewSubmission}=await import('./preview.js');if(!stopped){onPreviewOpen();await previewSubmission(button.dataset.notificationPreview,{lang,onClose:returnToList});}}
+   try{const {previewSubmission}=await import('./preview.js');if(!stopped){onPreviewOpen();await previewSubmission(button.dataset.notificationPreview,{lang,onClose:returnToList,onFollowUp});}}
    catch(err){if(!stopped&&!sessionError(err)){returnToList();message(errorText(err,lang));}}
    finally{if(!stopped)button.disabled=false;}
   });

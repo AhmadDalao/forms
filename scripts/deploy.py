@@ -168,10 +168,12 @@ try:
     upload('.htaccess', files['.htaccess'])
     # Existing API entrypoints may still be serving requests during this upload.
     # Publish the workflow dependency before the version/review helpers use it.
-    upload('api/portal-workflow.php', files['api/portal-workflow.php'])
+    dependencies = ['api/portal-workflow.php', 'api/portal-versions.php', 'api/portal-reviews.php', 'api/portal-database.php']
+    for dependency in dependencies:
+        upload(dependency, files[dependency])
     # Immutable assets and PHP dependencies precede the new HTML entrypoints.
     for name, data in sorted(files.items(), key=lambda item: (item[0].endswith('.html'), item[0] == 'index.html', item[0])):
-        if name in ['_private/.htaccess', '.htaccess', 'api/portal-workflow.php', 'api/form-access.php', 'api/page.php', 'api/template.php']:
+        if name in ['_private/.htaccess', '.htaccess', 'api/portal-workflow.php', 'api/form-access.php', 'api/page.php', 'api/template.php'] + dependencies:
             continue
         upload(name, data)
     for name, data in files.items():

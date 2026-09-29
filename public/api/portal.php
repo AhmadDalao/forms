@@ -85,8 +85,9 @@ function requestedWorkflow(array $meta): array {
     if(!is_int($revision)||$revision!==$workflow['revision'])reject('workflow_conflict',409);
     return $workflow;
 }
-function versionReceipt(array $row): array {$row=array_merge($row,submissionPresentation($row));$row['review_required']=workflowReviewRequired($row);unset($row['profile']);return $row;}
-function reviewEligibleSql(): string {return "COALESCE(json_type(s.profile,'$.review_required'),'')!='false'";}
+function versionReceipt(array $row): array {$row['review_status']=reviewDetails($row['id'],false)['review_status'];$row=array_merge($row,submissionPresentation($row));$row['review_required']=workflowReviewRequired($row);unset($row['profile']);return $row;}
+function reviewEligibleSql(): string {return "(COALESCE(json_extract(s.profile,'$.submission_mode'),'')='review' AND json_type(s.profile,'$.review_required')='true')";}
+function presentationStatusSql(): string {return "CASE WHEN ".reviewEligibleSql()." THEN COALESCE(r.status,'pending') ELSE 'received' END";}
 function submissionRows(?string $user=null,?int $limit=null,bool $admin=false,bool $currentOnly=false): array {
     $where=[];if($user!==null)$where[]='s.user_id=?';if($currentOnly)$where[]='s.archived_at IS NULL';
     return withSignatureStates(execute('SELECT s.id,s.user_id,s.doc_id,s.title,s.ar,s.audience,s.created_at,s.size,s.sha256,s.version,s.archived_at,s.replaces_id,s.restored_from,s.edited_from,s.source,u.name,u.phone,u.email,u.account_type'.signatureStateColumns().reviewColumns($admin||$user===null).' FROM submissions s JOIN users u ON u.id=s.user_id'.reviewJoin().($where?' WHERE '.implode(' AND ',$where):'').' ORDER BY s.created_at DESC,s.rowid DESC'.($limit?' LIMIT '.$limit:''),$user!==null?[$user]:[])->fetchAll());
@@ -165,19 +166,24 @@ try {
     }
     if($action==='logout'){$_SESSION=[];session_destroy();reply(['ok'=>true]);}
     if($action==='admin_workflow')reply(workflowDetails());
-    if($action==='admin_workflow_update')reject('workflow_disabled',409);
+    if($action==='admin_workflow_update'){
+        if(!managementPermissions($managementDir)['manage_workflow'])reject('workflow_forbidden',403);
+        $b=body();$expected=$b['expectedRevision']??null;
+        if(!is_int($expected))reject('invalid_request');
+        if(isset($b['reviewEnabled'],$b['review_enabled'])&&$b['reviewEnabled']!==$b['review_enabled'])reject('invalid_request');
+        reply(updateWorkflow($b['reviewEnabled']??$b['review_enabled']??null,$expected,requestKey($b),managementIdentity($managementDir)['username']));
+    }
     if($action==='admin_dashboard'){
         $stats=execute('SELECT (SELECT COUNT(*) FROM users) AS users,(SELECT COUNT(*) FROM submissions) AS submissions,(SELECT COUNT(*) FROM submissions WHERE archived_at IS NULL) AS active_submissions,(SELECT COUNT(DISTINCT user_id) FROM submissions) AS submitted_users')->fetch();
         $counts=execute('SELECT doc_id,audience,title,ar,COUNT(*) AS count,SUM(archived_at IS NULL) AS active_count,COUNT(DISTINCT user_id) AS clients FROM submissions GROUP BY doc_id,audience')->fetchAll();
         $categories=catalogue();
         foreach($counts as $c)if(!in_array($c['doc_id'],array_column($categories,'id'),true))$categories[]=['id'=>$c['doc_id'],'title'=>$c['title'],'ar'=>$c['ar'],'group'=>'shared','downloadOnly'=>false];
-        reply(['stats'=>$stats,'categories'=>$categories,'counts'=>$counts,'recent'=>submissionRows(null,12,true,true),'review_counts'=>workflowSettings()['review_enabled']?execute("SELECT COALESCE(r.status,'pending') AS status,COUNT(*) AS count FROM submissions s".reviewJoin().' WHERE s.archived_at IS NULL AND '.reviewEligibleSql().' GROUP BY status')->fetchAll():[]]);
+        reply(['stats'=>$stats,'categories'=>$categories,'counts'=>$counts,'recent'=>submissionRows(null,12,true,true),'review_counts'=>execute('SELECT '.presentationStatusSql().' AS status,COUNT(*) AS count FROM submissions s'.reviewJoin().' WHERE s.archived_at IS NULL GROUP BY status')->fetchAll()]);
     }
     if($action==='admin_review_queue'||$action==='admin_submissions'){
         $direct=$action==='admin_submissions';
-        if(!$direct&&!workflowSettings()['review_enabled'])reject('workflow_disabled',409);
-        $status=$direct?'all':($_GET['status']??'pending');$audience=$_GET['audience']??'all';$sort=$_GET['sort']??'oldest';
-        if(!in_array($status,['pending','approved','rejected','signature_required','all'],true)||!in_array($audience,['individual','corporate','all'],true)||!in_array($sort,['oldest','newest'],true))reject('invalid_request');
+        $status=$_GET['status']??($direct?'all':'pending');$audience=$_GET['audience']??'all';$sort=$_GET['sort']??'oldest';
+        if(!in_array($status,['received','pending','correction_required','approved','rejected','signature_required','all'],true)||!in_array($audience,['individual','corporate','all'],true)||!in_array($sort,['oldest','newest'],true))reject('invalid_request');
         $document=textValue($_GET['doc_id']??'all',100);$query=textValue($_GET['q']??'',160);
         $pageValue=$_GET['page']??'1';if(!is_string($pageValue)||!preg_match('/^[0-9]{1,6}$/D',$pageValue))reject('invalid_request');
         $page=max(1,min(100000,(int)$pageValue));$offset=($page-1)*30;
@@ -190,16 +196,22 @@ try {
             array_push($params,$search,$search,$search);
         }
         $from=' FROM submissions s JOIN users u ON u.id=s.user_id'.reviewJoin();
-        $counts=['all'=>0,'pending'=>0,'approved'=>0,'rejected'=>0,'signature_required'=>0];
-        foreach(execute("SELECT COALESCE(r.status,'pending') AS status,COUNT(*) AS count".$from.$where.' GROUP BY status',$params)->fetchAll() as $count){$counts[$count['status']]=(int)$count['count'];$counts['all']+=(int)$count['count'];}
-        if($status!=='all'){$where.=" AND COALESCE(r.status,'pending')=?";$params[]=$status;}
+        $counts=array_fill_keys(['all','received','pending','correction_required','approved','rejected','signature_required'],0);
+        foreach(execute('SELECT '.presentationStatusSql().' AS status,COUNT(*) AS count'.$from.$where.' GROUP BY status',$params)->fetchAll() as $count){$counts[$count['status']]=(int)$count['count'];$counts['all']+=(int)$count['count'];}
+        if($status!=='all'){$where.=' AND '.presentationStatusSql().'=?';$params[]=$status;}
         $direction=$sort==='newest'?' DESC':' ASC';
         $rows=withSignatureStates(execute('SELECT s.id,s.user_id,s.title,s.ar,s.doc_id,s.audience,s.created_at,s.version,s.archived_at,s.restored_from,s.source,s.sha256,u.name,u.phone,u.account_type'.signatureStateColumns().reviewColumns(true).$from.$where.' ORDER BY s.created_at'.$direction.',s.rowid'.$direction.' LIMIT 30 OFFSET '.$offset,$params)->fetchAll());
         $documents=[];foreach(catalogue() as $document)$documents[$document['id']]=array_intersect_key($document,array_flip(['id','title','ar']));
         foreach(execute('SELECT doc_id,title,ar FROM submissions WHERE rowid IN (SELECT MAX(rowid) FROM submissions GROUP BY doc_id) ORDER BY rowid DESC')->fetchAll() as $document)if(!isset($documents[$document['doc_id']]))$documents[$document['doc_id']]=['id'=>$document['doc_id'],'title'=>$document['title'],'ar'=>$document['ar']];
         reply(['submissions'=>$rows,'total'=>$counts[$status],'page'=>$page,'counts'=>$counts,'documents'=>array_values($documents)]);
     }
-    if($action==='admin_review')reject('workflow_disabled',409);
+    if($action==='admin_review'){
+        $b=body();$expected=$b['expectedRevision']??$b['expectedReview']??null;
+        if(isset($b['expectedRevision'],$b['expectedReview'])&&$b['expectedRevision']!==$b['expectedReview'])reject('invalid_request');
+        if(!is_int($expected))reject('invalid_request');
+        $status=textValue($b['status']??'',40);
+        reply(recordReview(textValue($b['id']??'',40),$status,$status==='rejected'?'other':'',textValue($b['reason_text']??''),$expected,requestKey($b),managementIdentity($managementDir)['username']));
+    }
     if($action==='admin_users'){
         $q=mb_substr((string)($_GET['q']??''),0,160);$q='%'.str_replace(['\\','%','_'],['\\\\','\\%','\\_'],$q).'%';
         $page=max(1,min(100000,(int)($_GET['page']??1)));$offset=($page-1)*30;
@@ -290,8 +302,8 @@ try {
         $answers=json_decode($s['answers'],true);$profile=json_decode($s['profile'],true);
         $signingAnswers=$answers;if(($doc['workflow']??'')==='subscription')$signingAnswers['signature_mode']='electronic';
         $signatures=cleanSignatureImages($doc,$meta['signatures']??[],$signingAnswers);
-        if($workflow['review_enabled'])requireOnlineSignatures($doc,$signatures,$signingAnswers,[]);
-        elseif(!$signatures)reject('signature_image_required',422);
+        if(!$signatures)reject('signature_image_required',422);
+        $s['signature_complete']=onlineSignaturesComplete($doc,$signatures,$signingAnswers,[]);
         $f=submittedPdf();
         // The browser overlays these images on the authenticated original PDF;
         // retain its snapshot and provenance, including PDF-only upload source.
@@ -321,9 +333,7 @@ try {
         $editedFrom=$meta['editedFrom']??null;
         if($editedFrom!==null&&!execute('SELECT id FROM submissions WHERE id=? AND user_id=? AND doc_id=? AND audience=?', [textValue($editedFrom,40),$u['id'],$doc['id'],$audience])->fetch())reject('not_found',404);
         $signatures=$source==='upload'?[]:cleanSignatureImages($doc,$meta['signatures']??[],$answers);
-        if($source==='upload'){
-            if($workflow['review_enabled']&&($meta['signedConfirmed']??false)!==true)reject('signed_confirmation_required',422);
-        }elseif($workflow['review_enabled'])requireOnlineSignatures($doc,$signatures,$answers,$meta['signatureModes']??[]);
+        $signatureComplete=$source==='online'&&onlineSignaturesComplete($doc,$signatures,$answers,$meta['signatureModes']??[]);
         $profile=submissionProfileSnapshot($doc,$audience,$meta['profile']??[],$source);
         $profile['submission_mode']='direct';$profile['review_required']=false;
         if($source==='upload')$profile['signed_confirmed']=($meta['signedConfirmed']??false)===true;
@@ -333,7 +343,7 @@ try {
         $email=$answers['email']??($profile['email']??'');
         if(!filter_var($email,FILTER_VALIDATE_EMAIL))$email='';
         $f=submittedPdf();
-        $result=saveVersion(['workflow_revision'=>$workflow['revision'],'user_id'=>$u['id'],'doc_id'=>$doc['id'],'title'=>$doc['title'],'ar'=>$doc['ar'],'audience'=>$audience,'answers'=>json_encode($answers,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'profile'=>json_encode($profile,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'request_key'=>$key,'source'=>$source,'signatures'=>json_encode((object)$signatures,JSON_THROW_ON_ERROR),'edited_from'=>$editedFrom],$f['tmp_name'],$expected,null,true);
+        $result=saveVersion(['signature_complete'=>$signatureComplete,'workflow_revision'=>$workflow['revision'],'user_id'=>$u['id'],'doc_id'=>$doc['id'],'title'=>$doc['title'],'ar'=>$doc['ar'],'audience'=>$audience,'answers'=>json_encode($answers,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'profile'=>json_encode($profile,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'request_key'=>$key,'source'=>$source,'signatures'=>json_encode((object)$signatures,JSON_THROW_ON_ERROR),'edited_from'=>$editedFrom],$f['tmp_name'],$expected,null,true);
         if($email!==''&&$u['email']==='')execute('UPDATE users SET email=? WHERE id=?',[$email,$u['id']]);
         reply($result,empty($result['duplicate'])?201:200);
     }
@@ -354,5 +364,5 @@ try {
         $zip->close();attachment('application/zip',fileName($u['name']).($history?'-history':'').'.zip');header('Content-Length: '.filesize($tmp));session_write_close();readfile($tmp);unlink($tmp);exit;
     }
     reject('not_found',404);
-}catch(DomainException $e){reject($e->getMessage(),match($e->getMessage()){'invalid_request'=>400,'account_type_restricted'=>403,'not_found'=>404,default=>409});}
+}catch(DomainException $e){reject($e->getMessage(),match($e->getMessage()){'invalid_request'=>400,'signature_required','signed_confirmation_required','review_reason_required'=>422,'account_type_restricted'=>403,'not_found'=>404,default=>409});}
 catch(Throwable $e){error_log('Client portal: '.$e->getMessage());reject('server_error',500);}

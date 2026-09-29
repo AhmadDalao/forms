@@ -62,7 +62,7 @@ test('workflow migration is repeatable, preserves exact legacy data and rolls ba
 test('direct intake migration preserves clients, answers, archived PDFs and decision history, is atomic and repeatable',()=>{
  const r=php(schema+`
   migrateWorkflow();seed('legacy');seed('archived','{"review_required":false}',null,'2026-09-19T13:00:00Z');
-  recordReview('legacy','rejected','other','Original decision',0,'old-decision','original.admin');
+  execute("INSERT INTO submission_reviews(submission_id,status,reason_code,reason_text,admin_username,created_at,request_key) VALUES('legacy','rejected','other','Original decision','original.admin','2026-09-19','old-decision')");
   $db->exec('PRAGMA user_version=6');$before=preserved();$workflowBefore=workflowDetails();
   $db->exec("CREATE TRIGGER refuse_direct_update BEFORE UPDATE ON workflow_settings BEGIN SELECT RAISE(ABORT,'forced failure'); END");
   $failed=false;try{migrateDirectIntake();}catch(PDOException){$failed=true;}
@@ -111,28 +111,20 @@ test('a failed workflow update rolls back both the event and current setting',()
  assert.equal(r.failed,true);assert.equal(r.unchanged,true);assert.equal(r.success.workflow.revision,1);assert.equal(r.success.history.length,1);assert.equal(r.success.duplicate,undefined);
 });
 
-test('disabled review preserves decisions and receipts, resumes prior eligibility and never enrolls tool saves',()=>{
+test('enrolled reviews remain actionable when disabled, while legacy and direct versions stay read-only',()=>{
  const r=php(schema+`
-  seed('legacy');seed('tool','{"review_required":false}');seed('approved');
-  // This initializes the helper during a mixed-file deployment, before the new route exists.
-  $one=recordReview('legacy','signature_required','','Sign page 1',0,'review-1','admin');
-  recordReview('approved','approved','','',0,'approved-1','admin');
-  execute('UPDATE submission_reviews SET read_at=? WHERE id=?',['2026-09-19T13:00:00Z',$one['review']['review_revision']]);
-  $before=preserved();$notifications=reviewNotifications('client');updateWorkflow(false,0,'off','owner');
-  $blocked=[];foreach(['approved','rejected','signature_required'] as $status)$blocked[]=failure(fn()=>recordReview('legacy',$status,$status==='rejected'?'other':'',$status==='approved'?'':'Changed',1,'blocked-'.$status,'admin'));
-  $retry=recordReview('legacy','signature_required','','Sign page 1',0,'review-1','admin');
-  $offPreserved=$before===preserved()&&$notifications===reviewNotifications('client');updateWorkflow(true,1,'on','owner');
-  $tool=failure(fn()=>recordReview('tool','approved','','',0,'tool-review','admin'));
-  $locked=failure(fn()=>recordReview('approved','signature_required','','Sign again',2,'locked','admin'));
-  $resumed=recordReview('legacy','approved','','',1,'review-2','admin');
-  $required=array_map('workflowReviewRequired',[[],['profile'=>[]],['profile'=>'{}'],['profile'=>'invalid JSON'],['profile'=>'false'],['profile'=>['review_required'=>false]],['profile'=>'{"review_required":false}'],['profile'=>['review_required'=>true]],['profile'=>['review_required'=>'false']],['profile'=>['review_required'=>0]]]);
-  echo json_encode(compact('blocked','retry','offPreserved','tool','locked','resumed','required')+['toolHistory'=>reviewDetails('tool',false),'private'=>reviewNotifications('other-client'),'client'=>reviewDetails('legacy',false)]);
+  migrateWorkflow();seed('enrolled','{"submission_mode":"review","review_required":true}');seed('legacy');seed('tool','{"submission_mode":"direct","review_required":false}');
+  $one=recordReview('enrolled','signature_required','','Sign page 1',0,'request','admin');
+  execute('UPDATE submission_reviews SET read_at=?',['2026-09-19T13:00:00Z']);$before=preserved();updateWorkflow(false,0,'off','owner');
+  $retry=recordReview('enrolled','signature_required','','Sign page 1',0,'request','admin');$retryPreserved=$before===preserved();
+  $legacy=failure(fn()=>recordReview('legacy','approved','','',0,'legacy','admin'));
+  $tool=failure(fn()=>recordReview('tool','approved','','',0,'tool','admin'));
+  $approved=recordReview('enrolled','approved','','',1,'approve','second.admin');
+  $locked=failure(fn()=>recordReview('enrolled','signature_required','','Again',2,'locked','admin'));
+  echo json_encode(compact('retry','retryPreserved','legacy','tool','approved','locked')+['notifications'=>reviewNotifications('client'),'private'=>reviewNotifications('other')]);
  `);
- assert.deepEqual(r.blocked,Array(3).fill('workflow_disabled'));assert.equal(r.retry.duplicate,true);assert.equal(r.offPreserved,true);
- assert.equal(r.tool,'workflow_not_required');assert.equal(r.locked,'review_locked');assert.equal(r.resumed.review.review_status,'approved');
- assert.deepEqual(r.required,[true,true,true,true,true,false,false,true,true,true]);
- assert.equal(r.toolHistory.review_status,'pending');assert.deepEqual(r.toolHistory.review_history,[]);assert.deepEqual(r.private.notifications,[]);
- assert.equal(r.client.reviewed_by,undefined);assert.equal(r.client.review_history.every(e=>!('admin_username' in e)),true);
+ assert.equal(r.retry.duplicate,true);assert.equal(r.retryPreserved,true);assert.equal(r.legacy,'workflow_not_required');assert.equal(r.tool,'workflow_not_required');
+ assert.equal(r.approved.review.review_status,'approved');assert.equal(r.locked,'review_locked');assert.equal(r.notifications.unread,1);assert.equal(r.private.notifications.length,0);
 });
 
 test('version saves reject stale workflow revisions before writing or archiving and preserve eligibility on restore',()=>{
@@ -157,15 +149,15 @@ test('version saves reject stale workflow revisions before writing or archiving 
    echo json_encode(compact('first','stale','noChanges','retry','tool','restored','stored','toolStored','toolRequired','restoredReview')+['schemaColumns'=>array_column(execute('PRAGMA table_info(submissions)')->fetchAll(),'name'),'original'=>execute('SELECT * FROM submissions WHERE id=?',[$id])->fetch()]);
   `,{args:[dir]});
   assert.equal(r.stale,'workflow_conflict');assert.equal(r.noChanges,true);assert.equal(r.retry.duplicate,true);assert.equal(r.retry.submission.review_required,true);
-  assert.equal(r.first.submission.review_required,true);assert.equal(r.tool.submission.review_required,false);assert.equal(r.restored.submission.review_required,true);
-  assert.equal(r.toolRequired,false);assert.equal(r.stored.profile,r.original.profile);assert.equal(r.stored.answers,r.original.answers);assert.equal(r.stored.sha256,r.original.sha256);
+  assert.equal(r.first.submission.review_required,true);assert.equal(r.tool.submission.review_required,true);assert.equal(r.restored.submission.review_required,true);
+  assert.equal(r.toolRequired,true);assert.equal(r.stored.profile,r.original.profile);assert.equal(r.stored.answers,r.original.answers);assert.equal(r.stored.sha256,r.original.sha256);
   assert.equal(r.stored.restored_from,r.original.id);assert.notEqual(r.original.archived_at,null);assert.notEqual(r.toolStored.archived_at,null);assert.equal(r.stored.archived_at,null);
   assert.equal(r.schemaColumns.includes('workflow_revision'),false);assert.equal(r.restoredReview.review.review_status,'signature_required');
   assert.equal(readdirSync(path.join(dir,'pdfs')).length,3);
  }finally{rmSync(dir,{recursive:true,force:true});}
 });
 
-test('review writes serialize behind a concurrent workflow toggle and observe its committed disabled state',async()=>{
+test('review writes serialize behind a concurrent toggle without enrolling legacy versions',async()=>{
  const dir=mkdtempSync(path.join(tmpdir(),'workflow-lock-')),dsn='sqlite:'+path.join(dir,'clients.sqlite');let toggle,review;
  try{
   php(schema+`seed('legacy');migrateWorkflow();echo json_encode(workflowSettings());`,{dsn});
@@ -183,7 +175,7 @@ test('review writes serialize behind a concurrent workflow toggle and observe it
   const toggleExit=once(toggle,'close'),reviewExit=once(review,'close');
   await waitForLine(review,'ready',()=>reviewOut,()=>reviewError);toggle.stdin.end('x');
   const [[a],[b]]=await Promise.all([toggleExit,reviewExit]);assert.equal(a,0,toggleError);assert.equal(b,0,reviewError);
-  assert.deepEqual(JSON.parse(reviewOut.slice(reviewOut.indexOf('ready\n')+'ready\n'.length)),{error:'workflow_disabled'});
+  assert.deepEqual(JSON.parse(reviewOut.slice(reviewOut.indexOf('ready\n')+'ready\n'.length)),{error:'workflow_not_required'});
   const final=php(`echo json_encode(['workflow'=>workflowSettings(),'reviews'=>execute('SELECT * FROM submission_reviews')->fetchAll(),'audit'=>execute('SELECT * FROM audit')->fetchAll()]);`,{dsn});
   assert.deepEqual(final.workflow,{review_enabled:false,revision:1});assert.deepEqual(final.reviews,[]);assert.deepEqual(final.audit,[]);
  }finally{toggle?.kill();review?.kill();rmSync(dir,{recursive:true,force:true});}

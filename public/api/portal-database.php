@@ -25,6 +25,7 @@ function initializePortalDatabase(string $dataDir): PDO {
     migrateWorkflow();
     migrateSharedProfiles();
     migrateDirectIntake();
+    migrateOptionalReviews();
     chmod($dataDir.'/clients.sqlite',0600);
     return $db;
 }

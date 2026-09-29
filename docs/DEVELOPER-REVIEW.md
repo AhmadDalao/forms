@@ -44,7 +44,9 @@ The browser generates the filled PDF from the template, answer values and any si
 
 A repeated request key protects retries from creating duplicates. An expected-version check prevents two edits from silently replacing the wrong current version. A replacement creates a new version and archives the previous one. Opening a past version does not rewrite its answers, the current shared profile or its PDF.
 
-The current workflow accepts online submissions as **Received**, including unsigned ones. Management follows up manually. The old approval/rejection API paths are disabled, but historical decisions stay readable. Keep receipt status and signature status separate.
+Review is optional and off by default. With the switch off, new submissions are **Received**; with it on, they enter **Under review**. Both modes accept unsigned initial forms. PHP decides enrollment inside the version transaction; browser metadata cannot opt out. Open review/correction/signature cases continue after the switch is turned off. A replacement after approval or rejection uses the current setting. Keep the decision and signature badges separate.
+
+`portal-workflow.php` owns the setting and explicit enrollment marker; `portal-versions.php` creates immutable replacements; `portal-reviews.php` records decisions and runs schema migration 8. `src/portal/review.js` renders management decisions, and `follow-up.js` resolves client actions against the latest version. Read REVIEW-WORKFLOW.md for transition rules, request fields and conflicts.
 
 An uploaded PDF is a file supplied by the client. It can be previewed, versioned and downloaded; it is not evidence that the application extracted its answers or verified its signature. Do not manufacture structured answers for uploads.
 
@@ -82,4 +84,4 @@ There is some deliberately retained legacy behavior: old routes, old decision hi
 
 SQL/filesystem boundaries and request authorization deserve particular attention in review. Keep both the record and its PDF consistent, never trust a supplied account ID without checking ownership, and keep every private file outside public download paths. Recheck `.htaccess` behavior on the destination host; the localhost router cannot certify that host's rules.
 
-The current first-visit slowdown has a measured hosting component: a Hostinger browser challenge before the application opens. PERFORMANCE.md separates that observation from application/API timing. The destination host is not yet tested. TESTING.md is the acceptance checklist, and TEST-REPORT.md records the evidence without claiming a new legal review or a fresh exhaustive visual audit.
+The current first-visit slowdown has a measured hosting component: a Hostinger browser challenge before the application opens. PERFORMANCE.md separates that observation from application/API timing. The destination host is not yet tested. TESTING.md is the acceptance checklist, and TEST-REPORT.md records the evidence including the current PDF, workflow and cross-browser regression evidence.

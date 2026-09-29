@@ -30,7 +30,7 @@ export const errors={
  signing_layout_mismatch:['This PDF layout does not match its signature positions. Download it, sign it, and upload the complete signed PDF instead.','تخطيط هذا الملف لا يطابق مواضع التوقيع. نزّله ووقّعه ثم ارفع ملف PDF الموقّع كاملًا.'],
  signature_required:['Sign electronically before submitting, or download the PDF, sign it and upload the signed form from its form card.','وقّع إلكترونيًا قبل الإرسال، أو نزّل ملف PDF ووقّعه ثم ارفع النموذج الموقّع من بطاقة النموذج.'],
  signed_confirmation_required:['Confirm that you have signed the uploaded form before submitting it.','أكّد أنك وقّعت النموذج المرفوع قبل إرساله.'],
- review_reason_required:['Choose a rejection reason and add an explanation when selecting Other.','اختر سبب الرفض واكتب توضيحًا عند اختيار «أخرى».'],
+ review_reason_required:['Add a note explaining the rejection or requested corrections.','أضف ملاحظة توضح سبب الرفض أو التصحيحات المطلوبة.'],
  review_conflict:['This review changed in another window. Close and reopen the document to see the latest decision.','تغيّر القرار في نافذة أخرى. أغلق المستند وأعد فتحه للاطلاع على أحدث قرار.'],
  review_archived:['This version has been archived. Open the current version to review it.','تمت أرشفة هذه النسخة. افتح النسخة الحالية لمراجعتها.'],
  review_locked:['This version has already been approved. Submit a new version if corrections are needed.','تمت الموافقة على هذه النسخة. أرسل نسخة جديدة إذا لزم إجراء تصحيحات.'],

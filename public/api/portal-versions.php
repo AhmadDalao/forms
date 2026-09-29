@@ -60,7 +60,6 @@ function signatureSubmissionPolicy(array $def): array {
 }
 function submissionSignatureState(array $submission,?array $definition=null): array {
     $requested=($submission['review_status']??'')==='signature_required';
-    if($requested)return ['signature_state'=>'unsigned','signature_requested'=>true];
     $profile=$submission['profile']??[];$images=$submission['signatures']??null;$answers=$submission['answers']??[];
     if(is_string($profile))$profile=json_decode($profile,true)??[];
     if(is_string($images))$images=json_decode($images,true);
@@ -77,7 +76,7 @@ function submissionSignatureState(array $submission,?array $definition=null): ar
             if(($policy['workflow']??'')==='subscription'&&!$electronicOverlay&&($answers['signature_mode']??'')!=='electronic')$state='unsigned';
         }
     }
-    return ['signature_state'=>$state,'signature_requested'=>false];
+    return ['signature_state'=>$state,'signature_requested'=>$requested];
 }
 function submissionSigningCapability(array $submission,?array $definition): array {
     $profile=$submission['profile']??[];if(is_string($profile))$profile=json_decode($profile,true)??[];
@@ -116,6 +115,16 @@ function requireOnlineSignatures(array $def,array $images,array $answers,mixed $
     // An online form with no configured customer signing area must use a signed PDF upload.
     if(!$required)reject('signature_required',422);
 }
+function onlineSignaturesComplete(array $def,array $images,array $answers,mixed $modes): bool {
+    if(!is_array($modes)||count($modes)>20)return false;
+    if(($def['workflow']??'')==='subscription'&&($answers['signature_mode']??'')!=='electronic')return false;
+    $required=requiredSubmissionSignatureSlots($def,$answers);
+    foreach($required as $slot){
+        $id=$slot['id'];
+        if(!isset($images[$id])||($modes[$id]??'electronic')!=='electronic')return false;
+    }
+    return $required!==[];
+}
 function saveVersion(array $s,string $sourcePath,?string $expected,?string $audit=null,bool $clientSubmission=false): array {
     global $db,$dataDir;
     $path=null;$db->exec('BEGIN IMMEDIATE');
@@ -123,13 +132,24 @@ function saveVersion(array $s,string $sourcePath,?string $expected,?string $audi
         // Recheck under the same lock as the write: management may have changed
         // this account while its PDF was being generated or uploaded.
         if($clientSubmission&&execute('SELECT account_type FROM users WHERE id=?',[$s['user_id']])->fetchColumn()!==$s['audience'])throw new DomainException('account_type_restricted');
-        $old=execute('SELECT id,created_at,version,archived_at,profile FROM submissions WHERE user_id=? AND request_key=?',[$s['user_id'],$s['request_key']])->fetch();
-        if($old){$old['review_required']=workflowReviewRequired($old);unset($old['profile']);$db->exec('COMMIT');return ['submission'=>$old,'duplicate'=>true];}
+        $old=execute('SELECT s.id,s.created_at,s.version,s.archived_at,s.profile'.($clientSubmission?reviewColumns():'').' FROM submissions s'.($clientSubmission?reviewJoin():'').' WHERE s.user_id=? AND s.request_key=?',[$s['user_id'],$s['request_key']])->fetch();
+        if($old){$receipt=array_intersect_key($old,array_flip(['id','created_at','version','archived_at']))+submissionPresentation($old)+['review_required'=>workflowReviewRequired($old)];$db->exec('COMMIT');return ['submission'=>$receipt,'duplicate'=>true];}
         if(array_key_exists('workflow_revision',$s)&&$s['workflow_revision']!==workflowSettings()['revision'])throw new DomainException('workflow_conflict');
         unset($s['workflow_revision']);
         $chain=[$s['user_id'],$s['doc_id'],$s['audience']];
-        $current=execute('SELECT id,version FROM submissions WHERE user_id=? AND doc_id=? AND audience=? AND archived_at IS NULL',$chain)->fetch();
+        $current=execute('SELECT s.*'.($clientSubmission?reviewColumns():'').' FROM submissions s'.($clientSubmission?reviewJoin():'').' WHERE s.user_id=? AND s.doc_id=? AND s.audience=? AND s.archived_at IS NULL',$chain)->fetch();
         if(($current['id']??null)!==$expected)throw new DomainException('version_conflict');
+        if($clientSubmission){
+            $ongoing=$current&&reviewEnrolled($current)&&in_array($current['review_status'],['pending','correction_required','signature_required'],true);
+            $profile=json_decode($s['profile'],true,512,JSON_THROW_ON_ERROR);
+            if($ongoing&&$current['review_status']==='signature_required'&&empty($s['signature_complete'])){
+                if($s['source']!=='upload'||isset($profile['electronic_signature'])||($profile['signed_confirmed']??false)!==true)throw new DomainException($s['source']==='upload'&&!isset($profile['electronic_signature'])?'signed_confirmation_required':'signature_required');
+            }
+            $enrolled=$ongoing||workflowSettings()['review_enabled'];
+            $profile['submission_mode']=$enrolled?'review':'direct';$profile['review_required']=$enrolled;
+            $s['profile']=json_encode($profile,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
+        }
+        unset($s['signature_complete']);
         $s['id']=bin2hex(random_bytes(16));$s['created_at']=gmdate('Y-m-d\TH:i:s\Z');$s['version']=($current['version']??0)+1;$s['replaces_id']=$current['id']??null;
         $s['restored_from']??=null;$s['edited_from']??=null;$s['archived_at']=null;
         $path=$dataDir.'/pdfs/'.$s['id'].'.pdf';if(!copy($sourcePath,$path))throw new RuntimeException('PDF copy failed');
@@ -138,6 +158,6 @@ function saveVersion(array $s,string $sourcePath,?string $expected,?string $audi
         $columns=['id','user_id','doc_id','title','ar','audience','created_at','size','sha256','answers','profile','request_key','version','archived_at','replaces_id','restored_from','edited_from','source','signatures'];
         execute('INSERT INTO submissions('.implode(',',$columns).') VALUES('.implode(',',array_fill(0,count($columns),'?')).')',array_map(fn($k)=>$s[$k],$columns));
         if($audit)execute('INSERT INTO audit(client_id,event,created_at) VALUES(?,?,?)',[$s['user_id'],$audit.':'.$s['restored_from'].':'.$s['id'],$s['created_at']]);
-        $db->exec('COMMIT');return ['submission'=>array_intersect_key($s,array_flip(['id','created_at','version','archived_at']))+['review_required'=>workflowReviewRequired($s)]];
+        $db->exec('COMMIT');return ['submission'=>array_intersect_key($s,array_flip(['id','created_at','version','archived_at']))+submissionPresentation($s)+['review_required'=>workflowReviewRequired($s)]];
     }catch(Throwable $e){$db->exec('ROLLBACK');if($path&&is_file($path))unlink($path);throw $e;}
 }

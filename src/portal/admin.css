@@ -51,7 +51,7 @@
 .admin-account-type{padding:24px}.admin-account-type label{display:block;font-weight:600;margin-bottom:12px}.admin-type-controls{display:flex;flex-wrap:wrap;gap:12px;max-width:540px}.admin-type-controls select{flex:1;min-width:140px;min-height:44px;padding:10px 14px;border:1px solid #ddd7e4;border-radius:9px;background:#fff;color:#493951;font:inherit}.admin-account-type .client-muted{margin:14px 0 0}.admin-account-type [data-type-status]{font-size:13px;color:#58366f;margin-bottom:0}.admin-account-type [data-type-status]:empty{display:none}
 
 /* Account labels remain readable without relying on color alone. */
-.admin-client-identity{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.admin-client-identity{display:flex;flex-wrap:nowrap;align-items:center;gap:8px 10px}
 .account-type-badge{display:inline-flex;align-items:center;width:fit-content;padding:4px 11px;border:1px solid;border-radius:999px;font-size:11px;font-weight:600;line-height:1.7;white-space:nowrap}
 .account-type-badge.type-individual{background:#f2eafa;border-color:#dfcfed;color:#5b3476}
 .account-type-badge.type-corporate{background:#e7f2fd;border-color:#c6dff5;color:#1f5684}
@@ -62,7 +62,7 @@
 .review-counts>button{display:flex;align-items:center;gap:12px;padding:8px 16px;border:1px solid #e4dce9;border-radius:12px;background:#fff;font-variant-numeric:tabular-nums}
 .review-counts>button:hover{border-color:#bda5cd;background:#f8f3fb}
 .review-workspace{margin-top:24px}
-.review-status-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:20px 24px;border-bottom:1px solid #eee8f2;background:#fcfafd}
+.review-status-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:20px 24px;border-bottom:1px solid #eee8f2;background:#fcfafd}
 .review-status-tab{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 15px;min-width:0;text-align:start;font-size:13px;line-height:1.7;color:#776681;border-color:transparent;background:transparent}
 .review-status-tab.selected{background:#eee5f5;border-color:#c7aed8;color:#48235f;box-shadow:0 1px 2px #48235f09}
 .review-status-tab b{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 7px;border-radius:8px;background:#ede7f2;color:#6c507c;font-size:12px;font-variant-numeric:tabular-nums;flex-shrink:0}
@@ -149,3 +149,5 @@
  .admin-profile-heading>.admin-row-actions>*{min-width:0;white-space:normal;text-align:center;font-size:11px;padding:10px 8px}
  .admin-profile-documents .admin-section-heading{padding:18px 20px}
 }
+
+.admin-client-identity>.account-type-badge{flex-shrink:0}.admin-client-identity>.client-text-button,.admin-client-identity>strong{min-width:0;overflow-wrap:anywhere}.admin-client-identity .client-text-button{font-weight:600;line-height:1.8}.category-audience{min-width:0}.category-audience h3{font-size:18px;color:#48235f;margin:20px 0 0;padding-bottom:15px;border-bottom:2px solid #eee5f5}.category-audience article{min-height:90px}.workflow-switch-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:22px 26px}.workflow-switch-card>div:first-child{flex:1;min-width:220px}.workflow-switch-card label{font-size:17px;font-weight:600;cursor:pointer}.workflow-switch-card p{font-size:12px;color:#756781;line-height:1.9;margin:8px 0 0}.workflow-switch-card>div:nth-child(2){display:flex;align-items:center;gap:10px;font-size:13px}.workflow-switch-card input[role=switch]{appearance:none;flex:none;width:46px;height:26px;min-height:0;margin:0;border:0;border-radius:20px;background:#c9c0d0;cursor:pointer;position:relative;padding:0}.workflow-switch-card input[role=switch]:before{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;background:white;border-radius:50%;transition:transform .15s}.workflow-switch-card input[role=switch]:checked{background:#48235f}.workflow-switch-card input[role=switch]:checked:before{transform:translateX(20px)}.workflow-switch-card input:focus-visible{outline:2px solid #7b5790;outline-offset:3px}.workflow-switch-card [data-workflow-status]:empty{display:none}.workflow-switch-card [data-workflow-status]{flex-basis:100%;color:#a02f46}

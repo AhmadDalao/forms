@@ -48,8 +48,16 @@ function migrateDirectIntake(): void {
 }
 function submissionPresentation(array $snapshot): array {
     $profile=$snapshot['profile']??[];if(is_string($profile))$profile=json_decode($profile,true);
-    $direct=($profile['submission_mode']??null)==='direct';
-    return ['submission_mode'=>$direct?'direct':'legacy','presentation_status'=>$direct?'received':(workflowReviewRequired($snapshot)?'received':'saved')];
+    $mode=$profile['submission_mode']??'legacy';
+    if(!in_array($mode,['direct','review'],true))$mode='legacy';
+    return ['submission_mode'=>$mode,'presentation_status'=>reviewEnrolled($snapshot)?($snapshot['review_status']??'pending'):($mode==='direct'||workflowReviewRequired($snapshot)?'received':'saved')];
+}
+
+// Only versions enrolled by the new intake path can receive new decisions.
+// Older snapshots and their historical decisions remain read-only.
+function reviewEnrolled(array $snapshot): bool {
+    $profile=$snapshot['profile']??[];if(is_string($profile))$profile=json_decode($profile,true);
+    return ($profile['submission_mode']??null)==='review'&&($profile['review_required']??false)===true;
 }
 
 function workflowSettings(bool $admin=false): array {

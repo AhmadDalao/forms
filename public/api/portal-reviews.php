@@ -44,6 +44,38 @@ function migrateReviews(): void {
 function reviewJoin(): string {
     return ' LEFT JOIN submission_reviews r ON r.id=(SELECT id FROM submission_reviews WHERE submission_id=s.id ORDER BY id DESC LIMIT 1) ';
 }
+
+function migrateOptionalReviews(): void {
+    global $db;
+    if((int)$db->query('PRAGMA user_version')->fetchColumn()>=8)return;
+    $db->exec('BEGIN IMMEDIATE');
+    try {
+        if((int)$db->query('PRAGMA user_version')->fetchColumn()<8){
+            $sequence=(int)execute("SELECT seq FROM sqlite_sequence WHERE name='submission_reviews'")->fetchColumn();
+            $indexes=execute("SELECT sql FROM sqlite_master WHERE type='index' AND tbl_name='submission_reviews' AND sql IS NOT NULL")->fetchAll(PDO::FETCH_COLUMN);
+            $db->exec("ALTER TABLE submission_reviews RENAME TO submission_reviews_previous;
+                CREATE TABLE submission_reviews(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                submission_id TEXT NOT NULL REFERENCES submissions(id) ON DELETE CASCADE,
+                status TEXT NOT NULL CHECK(status IN ('approved','rejected','correction_required','signature_required')),
+                reason_code TEXT NOT NULL DEFAULT '',reason_text TEXT NOT NULL DEFAULT '',
+                admin_username TEXT NOT NULL,created_at TEXT NOT NULL,
+                request_key TEXT NOT NULL,read_at TEXT,
+                CHECK((status IN ('approved','signature_required') AND reason_code='') OR
+                      (status='correction_required' AND reason_code='' AND length(trim(reason_text))>0) OR
+                      (status='rejected' AND reason_code IN ('missing_details','incorrect_data','other') AND (reason_code!='other' OR length(trim(reason_text))>0))),
+                UNIQUE(admin_username,request_key));
+                INSERT INTO submission_reviews SELECT * FROM submission_reviews_previous;
+                DROP TABLE submission_reviews_previous;");
+            foreach($indexes as $sql)$db->exec($sql);
+            $sequence=max($sequence,(int)execute('SELECT COALESCE(MAX(id),0) FROM submission_reviews')->fetchColumn());
+            execute("DELETE FROM sqlite_sequence WHERE name='submission_reviews'");
+            execute('INSERT INTO sqlite_sequence(name,seq) VALUES(?,CAST(? AS INTEGER))',['submission_reviews',$sequence]);
+            $db->exec('PRAGMA user_version=8');
+        }
+        $db->exec('COMMIT');
+    }catch(Throwable $e){$db->exec('ROLLBACK');throw $e;}
+}
 function reviewColumns(bool $admin=false): string {
     return ",COALESCE(r.status,'pending') AS review_status,COALESCE(r.id,0) AS review_revision,r.reason_code,r.reason_text,r.created_at AS reviewed_at".($admin?',r.admin_username AS reviewed_by':'');
 }
@@ -54,7 +86,9 @@ function reviewDetails(string $id,bool $admin): array {
 }
 function recordReview(string $id,string $status,string $code,string $text,int $expected,string $key,string $actor): array {
     global $db;
-    migrateWorkflow();
+    if(!in_array($status,['approved','rejected','correction_required','signature_required'],true)||$expected<0)throw new DomainException('invalid_request');
+    if(in_array($status,['rejected','correction_required'],true)&&trim($text)==='')throw new DomainException('review_reason_required');
+    if($status==='rejected'?!in_array($code,['other','missing_details','incorrect_data'],true):$code!=='')throw new DomainException('invalid_request');
     $db->exec('BEGIN IMMEDIATE');
     try {
         $old=execute('SELECT * FROM submission_reviews WHERE admin_username=? AND request_key=?',[$actor,$key])->fetch();
@@ -62,11 +96,10 @@ function recordReview(string $id,string $status,string $code,string $text,int $e
             if($old['submission_id']!==$id||$old['status']!==$status||$old['reason_code']!==$code||$old['reason_text']!==$text)throw new DomainException('review_conflict');
             $result=['review'=>reviewDetails($id,true),'duplicate'=>true];$db->exec('COMMIT');return $result;
         }
-        if(!workflowSettings()['review_enabled'])throw new DomainException('workflow_disabled');
         $s=execute('SELECT * FROM submissions WHERE id=?',[$id])->fetch();
         if(!$s)throw new DomainException('not_found');
         if($s['archived_at']!==null)throw new DomainException('review_archived');
-        if(!workflowReviewRequired($s))throw new DomainException('workflow_not_required');
+        if(!reviewEnrolled($s))throw new DomainException('workflow_not_required');
         $last=execute('SELECT * FROM submission_reviews WHERE submission_id=? ORDER BY id DESC LIMIT 1',[$id])->fetch();
         if((int)($last['id']??0)!==$expected)throw new DomainException('review_conflict');
         if($last&&$last['status']===$status&&$last['reason_code']===$code&&$last['reason_text']===$text)throw new DomainException('review_unchanged');

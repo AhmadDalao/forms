@@ -11,7 +11,7 @@ This application uses **SQLite files, not MySQL**. No database hostname, MySQL u
 | `database/*-schema.sql` | Readable clean schema/export examples; not an export of existing clients |
 | `SNAPSHOT.json` | Seed creation time, schema version, zero client/submission counts, included management usernames and checksum |
 
-`source/scripts/restore-installation.php` checks the archive paths, every file checksum, SQLite integrity, foreign keys, schema version, record counts and all submitted PDF hashes. It refuses to overwrite an existing destination. Then `installation-init.php` applies compatible migrations without deleting existing rows. Current client schema version is 7, recorded in `PRAGMA user_version`.
+`source/scripts/restore-installation.php` checks the archive paths, every file checksum, SQLite integrity, foreign keys, schema version, record counts and all submitted PDF hashes. It refuses to overwrite an existing destination. Then `installation-init.php` applies compatible migrations without deleting existing rows. Current client schema version is 8, recorded in `PRAGMA user_version`.
 
 ## Restored layout
 
@@ -39,7 +39,7 @@ The account/store files remain private. Names ending in `password.php` contain p
 | `users` | Client ID, name, normalized Saudi phone, optional email, password hash, account category, registration/sign-in times and session/reset state |
 | `client_shared_profiles` | Current reusable details as JSON, separately keyed by `(user_id, audience)` for individuals and companies; revision and last-saved time |
 | `submissions` | One immutable captured-answer/PDF version: client, document/category, titles, time, PDF size/hash, answer JSON, profile/definition snapshot, signature JSON, source and version links |
-| `submission_reviews` | Historical administrator decisions, reasons, reviewer identity and timestamps; retained although the current application uses direct Received submissions |
+| `submission_reviews` | Append-only administrator decisions, notes, reviewer identity, timestamps and client read receipts; active only for explicitly enrolled review-mode versions |
 | `workflow_settings` / `workflow_setting_events` | Migration/workflow configuration and its recorded history; do not edit these manually to change behavior |
 | `audit` | Client/account-related audit events |
 | `rates` | Login/request throttling state |
@@ -80,3 +80,11 @@ The client tables contain zero users, profiles, submissions, reviews, audit even
 ## ملخص بالعربية
 
 قاعدة المشروع SQLite وليست MySQL. تحتوي حزمة `private-bootstrap.zip` قاعدة عملاء فارغة وحسابي `admin` و`superadmin` بكلمات مرورهما الحالية مجزّأة. لا توجد بيانات عملاء أو حقول مشتركة أو نماذج مرسلة أو أرشيف. تُحفظ حسابات الإدارة الأساسية في الملفات المحمية، ويُحفظ المسؤولون الجدد في قاعدة الإدارة. شغّل الاستعادة ثم التهيئة واضبط المسارات خارج المجلد العام. ملفات `database/` أمثلة فارغة بلا حسابات إدارة، فلا تستخدمها بدل حزمة التهيئة.
+
+## Schema 8 and review enrollment
+
+Migration 8 rebuilds `submission_reviews` to add `correction_required` and allow approval notes. It copies old rows exactly, preserves IDs, timestamps, read receipts, explicit indexes and the AUTOINCREMENT high-water mark. Legacy rejection reasons without notes remain valid history. New rejection/correction requests require notes at the API. Foreign keys and integrity are checked in the migration regression tests.
+
+Enrollment is stored in the immutable submission profile as `submission_mode: "review"` and `review_required: true`. Both must be present. Old direct and legacy snapshots are left as stored; enabling the switch does not enroll them. A replacement is a new snapshot, with its enrollment decided under the database write lock. `workflow_settings` and `workflow_setting_events` retain the global setting and its audit trail. The fresh schema-8 bootstrap has review disabled.
+
+Back up the whole installation before upgrading. Do not downgrade the database by editing `user_version`: old code does not understand correction requests. A rollback to schema 7 requires the complete pre-release backup and matching code, and would discard any later activity unless it is migrated separately.

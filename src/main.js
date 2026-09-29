@@ -8,10 +8,11 @@ import '@fontsource/noto-sans-arabic/latin-400.css';
 import './style.css';
 import {siteHeader} from './branding.js';
 import {endpoint,authChanged,authChangeKey,api as portalApi,errorText as portalError,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
+import {followUpMarkup,bindFollowUps} from './portal/follow-up.js';
 import {reviewBadge,signatureBadge} from './portal/review.js';
 import {uploadCompleted} from './portal/upload.js';
 import {submitForm} from './portal/submit.js';
-import {reviewEnabled,formSaveLabel,toolModeNotice} from './portal/workflow.js';
+import {formSaveLabel,toolModeNotice} from './portal/workflow.js';
 import {signingNotice,showSigningGuide} from './portal/signing.js';
 import {formSession as client,checkAccountAccess} from './portal/access.js';
 import {createSubscriptionEditor} from './subscription/editor.js';
@@ -52,9 +53,10 @@ async function refreshSubmissions(){try{const result=await portalApi('submission
 function savedSubmission(id,s){drafts.submitted(id,s);void refreshSubmissions();}
 
 let manualGuideShown=false;
+const requiresSignature=()=>current&&(latestSubmission(current.id)?.submission_mode==='review'&&latestSubmission(current.id)?.review_status==='signature_required'||drafts.get(current.id).revision?.signatureRequested===true);
 const signingState=()=>submissionSigningState(current,values,signatures,drafts.get(current.id).signatureModes);
 function manualSigningGuide(force=false,downloaded=false){
- if(!reviewEnabled()||!signingState().manual||(!force&&manualGuideShown))return;
+ if(!requiresSignature()||!signingState().manual||(!force&&manualGuideShown))return;
  manualGuideShown=true;showSigningGuide({doc:current,lang,onDownload:!downloaded&&pdfBytes?download:null});
 }
 let lang=['en','ar'].includes(pageParams.get('lang'))?pageParams.get('lang'):drafts.preferences.lang||portalLanguage();
@@ -145,7 +147,7 @@ function render(){setLanguage();if(!current){renderHome();return;}renderEditor()
 function cardHTML(d){
  const submitted=latestSubmission(d.id),status=submitted?reviewBadge(submitted,lang)+signatureBadge(submitted,lang):`<span class="card-status-muted">${submissionsError?t('Status unavailable','الحالة غير متاحة'):!submissionsReady?t('Loading status…','جارٍ تحميل الحالة…'):t('Not submitted','لم يُرسل بعد')}</span>`;
  const body=`<span class="card-number">${d.number}</span><span class="card-body"><b>${e(t(d.title,d.ar))}</b>${d.description?`<span>${e(t(d.description,d.arDescription))}</span>`:''}</span><span class="card-arrow">${icon('arrow',18)}</span>`;
- return `<article class="doc-card" data-card="${d.id}" data-number="${d.number}">${d.downloadOnly?`<a class="card-open" href="${templateUrl(d)}" download="${d.id}.pdf">${body}</a>`:`<button class="card-open" data-doc="${d.id}">${body}</button>`}<div class="card-status">${status}</div><div class="card-actions">${blankLink(d,'blank-link')}${submitted?`<a class="blank-link" data-filled="${d.id}" href="${endpoint('pdf',{id:submitted.id})}">${icon('download',16)}${t('Download filled','تنزيل النموذج المعبّأ')}</a>`:`<button class="blank-link" data-download-draft="${d.id}" ${drafts.has(d.id)?'':'disabled'}>${icon('download',16)}${t('Download filled','تنزيل النموذج المعبّأ')}</button>`}<button class="blank-link" data-upload="${d.id}">${icon('file',16)}${t('Upload filled form','رفع النموذج المعبّأ')}</button></div></article>`;
+ return `<article class="doc-card" data-card="${d.id}" data-number="${d.number}">${d.downloadOnly?`<a class="card-open" href="${templateUrl(d)}" download="${d.id}.pdf">${body}</a>`:`<button class="card-open" data-doc="${d.id}">${body}</button>`}<div class="card-status">${status}</div>${submitted?`<div class="card-review-note">${followUpMarkup(submitted,lang)}</div>`:''}<div class="card-actions">${blankLink(d,'blank-link')}${submitted?`<a class="blank-link" data-filled="${d.id}" href="${endpoint('pdf',{id:submitted.id})}">${icon('download',16)}${t('Download filled','تنزيل النموذج المعبّأ')}</a>`:`<button class="blank-link" data-download-draft="${d.id}" ${drafts.has(d.id)?'':'disabled'}>${icon('download',16)}${t('Download filled','تنزيل النموذج المعبّأ')}</button>`}<button class="blank-link" data-upload="${d.id}">${icon('file',16)}${t('Upload filled form','رفع النموذج المعبّأ')}</button></div></article>`;
 }
 function renderHome(){
  app.innerHTML=header()+`<main class="home"><div class="home-heading"><div class="intro"><h1>${t(audience==='corporate'?'Company forms':'Individual forms',audience==='corporate'?'نماذج الشركات':'نماذج الأفراد')}</h1><p>${t('Please choose a document, complete the required details, then sign electronically or download the PDF and sign it manually.','فضلاً اختر المستند، أكمل البيانات المطلوبة، ثم وقّع المستند إلكترونيًا أو نزّله بصيغة PDF ووقّعه يدويًا.')}</p></div><div class="catalogue-toolbar">${submissions.some(s=>s.audience===audience&&!s.archived_at)?`<a class="button secondary" data-download-all href="${endpoint('zip')}">${icon('download',16)}${t('Download all filled forms · ZIP','تنزيل جميع النماذج المعبّأة · ZIP')}</a>`:''}</div></div><div id="home-status" class="status" role="status" aria-live="polite">${submissionsError?t('Unable to load form status.','تعذّر تحميل حالة النماذج.'):''}</div>${submissionsError?`<button class="button secondary" data-retry-submissions>${t('Retry','إعادة المحاولة')}</button>`:''}<div class="catalogue"><div class="cards">${catalogueFor(docs,audience,managedCards).map(cardHTML).join('')}</div></div></main>`+footer();
@@ -157,6 +159,7 @@ function renderHome(){
   selectDoc(id);
  });
  document.querySelectorAll('[data-download-draft]').forEach(btn=>btn.onclick=async()=>{const d=docs.find(d=>d.id===btn.dataset.downloadDraft),record=drafts.get(d.id);btn.disabled=true;try{const bytes=await generate(d,record.values,record.signatures),url=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'})),a=document.createElement('a');a.href=url;a.download=d.id+'-filled.pdf';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);}catch(err){document.querySelector('#home-status').textContent=err.fields?t('An answer is too long. Open the form to adjust it.','إحدى الإجابات طويلة. افتح النموذج لتعديلها.'):t('Could not download. Please try again.','تعذّر التنزيل. أعد المحاولة.');}finally{btn.disabled=false;}});
+ bindFollowUps(app,{lang,onSaved:refreshSubmissions});
  document.querySelectorAll('[data-upload]').forEach(btn=>btn.onclick=()=>openUpload(btn.dataset.upload));
 }
 async function openUpload(documentId){try{await uploadCompleted({documentId,lang,onSaved:async s=>{await refreshSubmissions();const status=document.querySelector('#home-status');if(status)status.textContent=t('Form received. Reference: ','تم استلام النموذج. الرقم المرجعي: ')+s.id.slice(0,8).toUpperCase();}});}catch(err){const status=document.querySelector('#home-status');if(status)status.textContent=portalError(err,lang);}}
@@ -270,7 +273,7 @@ function updateSectionProgress(){
 }
 function renderEditor(){
  if(current.workflow==='subscription'){
-  if(!subscriptionEditor)subscriptionEditor=createSubscriptionEditor({root:app,doc:current,drafts,audience,header,footer,bindCommon,home,submit:(doc,values,bytes,signatures)=>submitForm({doc,values,bytes,signatures,signatureModes:{applicant:values.signature_mode},revision:drafts.get(doc.id).revision,onSaved:s=>savedSubmission(doc.id,s),profile:drafts.profile,audience,lang,user:client.user}),onDetailsChange:syncFormDetails});
+  if(!subscriptionEditor)subscriptionEditor=createSubscriptionEditor({root:app,doc:current,drafts,audience,header,footer,bindCommon,home,requiresSignature,submit:(doc,values,bytes,signatures)=>submitForm({doc,values,bytes,signatures,signatureModes:{applicant:values.signature_mode},revision:drafts.get(doc.id).revision,onSaved:s=>savedSubmission(doc.id,s),profile:drafts.profile,audience,lang,user:client.user}),onDetailsChange:syncFormDetails});
   subscriptionEditor.render(lang);return;
  }
  const active=answerFields(current.fields), completed=active.filter(f=>hasValue(values[f.id])).length;
@@ -315,7 +318,7 @@ async function makeReview(downloadNow=false){
   }
  }finally{busy=false;setBusy(false);}
 }
-function setBusy(value){document.querySelectorAll('#next,#review-tab,#download,#submit-form,#download-now,#download-section,#fields input,#fields textarea,#fields select,[data-clear],.section-signatures button,.section-signatures input,#language,[data-step]').forEach(b=>b.disabled=value);const submit=document.querySelector('#submit-form');if(submit)submit.disabled=value||!pdfBytes||(reviewEnabled()&&!signingState().ready);const download=document.querySelector('#download');if(download)download.disabled=value||!pdfBytes;}
+function setBusy(value){document.querySelectorAll('#next,#review-tab,#download,#submit-form,#download-now,#download-section,#fields input,#fields textarea,#fields select,[data-clear],.section-signatures button,.section-signatures input,#language,[data-step]').forEach(b=>b.disabled=value);const submit=document.querySelector('#submit-form');if(submit)submit.disabled=value||!pdfBytes||(requiresSignature()&&!signingState().ready);const download=document.querySelector('#download');if(download)download.disabled=value||!pdfBytes;}
 let paintVersion=0;
 async function paint(){const version=++paintVersion,loaded=pdf;if(!loaded)return;try{
  const pages=[...document.querySelectorAll('[data-full-page]')];
@@ -390,5 +393,5 @@ document.addEventListener('visibilitychange',checkAccountAccess);
 window.addEventListener('forms-workflow-change',()=>{
  if(subscriptionEditor){subscriptionEditor.workflowChanged();return;}
  if(current&&review&&!busy)render();
- const note=document.querySelector('[data-workflow-home-note]');if(note)note.textContent=reviewEnabled()?t('Sign electronically to submit, or upload a signed PDF from the forms page.','وقّع إلكترونيًا للإرسال أو ارفع ملف PDF الموقّع من صفحة النماذج.'):t('Save your forms to your account or download them anytime.','احفظ نماذجك في حسابك أو نزّلها في أي وقت.');
+ const note=document.querySelector('[data-workflow-home-note]');if(note)note.textContent=requiresSignature()?t('Sign electronically to submit, or upload a signed PDF from the forms page.','وقّع إلكترونيًا للإرسال أو ارفع ملف PDF الموقّع من صفحة النماذج.'):t('Save your forms to your account or download them anytime.','احفظ نماذجك في حسابك أو نزّلها في أي وقت.');
 });

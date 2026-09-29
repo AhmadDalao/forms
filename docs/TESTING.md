@@ -17,6 +17,8 @@ Several scripts use the Chrome channel, so Google Chrome must also be installed 
 npm test
 npm run build
 node scripts/admin-handoff-audit.mjs
+node scripts/optional-review-audit.mjs
+node scripts/optional-review-actions-audit.mjs
 node scripts/customer-workflow-audit.mjs
 node scripts/management-views-audit.mjs
 node scripts/loading-audit.mjs
@@ -34,6 +36,7 @@ python3 scripts/current-pdf-audit-verify.py tmp/client-corrections-pdfs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/client-corrections-audit.mjs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/direct-intake-audit.mjs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/admin-presentation-audit.mjs
+node scripts/shared-profiles-audit.mjs
 node scripts/staff-name-audit.mjs
 node scripts/preview-direction-audit.mjs
 ```
@@ -65,6 +68,11 @@ Some suites cover Chrome, Firefox and WebKit. The card audit checks both audienc
 | Editing order | Enter a signer name before selecting Account holder, then reverse the order. Both give the correct values. |
 | Conflicts and clearing | Clear a common field deliberately, reload, use two tabs, disconnect/reconnect and retry. A stale response must not silently replace a newer edit. |
 | Submission | Preview every form, submit unsigned and signed examples, double-click/retry, then confirm one saved version and complete management answers/PDF. |
+| Optional review | Default off. Superadmin can switch it; ordinary admin cannot. Both roles decide enrolled cases. Initial unsigned forms work in either mode. Existing Received records remain Received. |
+| Decisions and notes | No preselection. Reject/correct require a note, approve/signature permit one. Check escaped notes in cards and notifications, read receipts, approval locking and obsolete notification actions. |
+| Review replacements | Switch off during a pending/correction/signature case: it continues. Unsigned signature follow-ups fail; electronic signatures or a confirmed signed PDF create a new Under review version. After approval/rejection, a replacement follows the current switch. |
+| Concurrent requests | Change modes during editing/upload, use two admins, repeat a request after a lost response, and try reviewing an archived version. Expect conflicts or one saved decision, never duplicate history. |
+| Schema upgrade | Restore a schema-7 backup into an isolated directory, initialize schema 8, then compare rows, IDs, timestamps, read receipts, indexes, decision sequences and PDF hashes. Never migrate the only copy. |
 | Replacements | Upload a filled PDF and submit an edited version. Management retains history; old client notifications open the latest file. |
 | Downloads | Blank PDF, current filled PDF and client ZIP work; a logged-out or wrong-account request cannot download them. |
 | Passwords | Admin-created account and chosen resets work; old sessions are revoked; reset clients choose a private password. |

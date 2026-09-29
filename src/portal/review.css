@@ -17,3 +17,5 @@
 .review-saved{color:#496755;background:#f1f7f3;border-color:#ceded3}
 
 .review-received{background:#eaf4f1;color:#256454;border-color:#d2e9e0}
+
+.review-correction_required{color:#825715;background:#fff5df;border-color:#ecd7a7}.review-reason-approved,.review-reason-approved p{color:#246344;border-color:#bfddcb}.review-followup{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}.review-followup button{border:1px solid #d7c4e2;border-radius:8px;padding:10px 14px;background:#f5eff9;color:#48235f;font:inherit;font-size:12px;font-weight:600;cursor:pointer}.review-followup [role=status]{flex-basis:100%;color:#a02f46;font-size:12px}.review-followup [role=status]:empty{display:none}.card-review-note{padding:0 18px}.card-review-note .review-followup{margin-top:0}
