@@ -1,15 +1,15 @@
 # Database and private storage
 
-This application uses **SQLite files, not MySQL**. No database hostname, MySQL user or MySQL password is needed. Restore the supplied private snapshot with the included script; copying the website alone does not transfer accounts or submitted PDFs.
+This application uses **SQLite files, not MySQL**. No database hostname, MySQL user or MySQL password is needed. Install the supplied private bootstrap with the included script. Copying the website alone does not install the included management credentials. This edition has no clients or submitted PDFs.
 
 ## Which database to use
 
 | Location in this delivery | Purpose |
 |---|---|
-| `private-migration.zip` | Existing clients, shared profiles, submissions, archived PDFs, management accounts and catalogue state. **Use this for the requested migration.** |
-| `database/clients.sqlite` and `database/administrators.sqlite` | Empty databases for a separate fresh installation only |
+| `private-bootstrap.zip` | Fresh empty client database and existing `admin`/`superadmin` credential hashes. **Use this for the fresh installation.** |
+| `database/clients.sqlite` and `database/administrators.sqlite` | Empty schema examples without the management logins; use the private bootstrap to retain them |
 | `database/*-schema.sql` | Readable clean schema/export examples; not an export of existing clients |
-| `SNAPSHOT.json` | Actual export timestamp, schema version, aggregate record counts and migration archive checksum |
+| `SNAPSHOT.json` | Seed creation time, schema version, zero client/submission counts, included management usernames and checksum |
 
 `source/scripts/restore-installation.php` checks the archive paths, every file checksum, SQLite integrity, foreign keys, schema version, record counts and all submitted PDF hashes. It refuses to overwrite an existing destination. Then `installation-init.php` applies compatible migrations without deleting existing rows. Current client schema version is 7, recorded in `PRAGMA user_version`.
 
@@ -71,6 +71,12 @@ php scripts/backup-installation.php /srv/alnaeem/private/management /srv/alnaeem
 
 Restore into a new private directory, verify, and switch the PHP paths after a planned cutover. Do not place databases, migration archives or credential files into the web root. Account data saved on the server migrates; local-only browser drafts from the old domain do not.
 
+## Initial state of this delivery
+
+`admin` and `superadmin` are included with their existing password hashes. The bootstrap accounts use the guarded files in `management/`; additional admins created in the dashboard use `administrators.sqlite`. All those files are installed by the single restore command. Do not copy only `clients.sqlite` and expect management logins to follow.
+
+The client tables contain zero users, profiles, submissions, reviews, audit events and rate-limit records. New database initialization creates the default workflow setting and its initialization event; these are application configuration, not old client activity. `administrator_events` is empty. No old catalogue state or custom uploaded files are included; the latest built-in templates load from the public build.
+
 ## ملخص بالعربية
 
-قاعدة البيانات SQLite وليست MySQL، ولا تحتاج إلى اسم مستخدم أو كلمة مرور لقاعدة MySQL. يحتوي `private-migration.zip` على البيانات الحالية المطلوب نقلها، بينما ملفات `database/` فارغة ومخصصة لتثبيت جديد فقط. تحفظ قاعدة `clients.sqlite` حسابات العملاء والحقول المشتركة وإجابات كل نسخة وسجلها، وتوجد ملفات PDF نفسها في `portal/pdfs/`. يجب نقل الاثنين معًا. بيانات الأفراد والشركات منفصلة، والطلبات القديمة لا تتغير عند تحديث الحقول المشتركة. تحفظ قاعدة الإدارة والملفات المحمية كلمات مرور مجزّأة، وتستمر كلمات المرور الحالية بالعمل بعد النقل. شغّل أداة الاستعادة ثم التهيئة، واضبط مجلدي التخزين في PHP خارج المسار العام، وقارن الأعداد مع `SNAPSHOT.json`.
+قاعدة المشروع SQLite وليست MySQL. تحتوي حزمة `private-bootstrap.zip` قاعدة عملاء فارغة وحسابي `admin` و`superadmin` بكلمات مرورهما الحالية مجزّأة. لا توجد بيانات عملاء أو حقول مشتركة أو نماذج مرسلة أو أرشيف. تُحفظ حسابات الإدارة الأساسية في الملفات المحمية، ويُحفظ المسؤولون الجدد في قاعدة الإدارة. شغّل الاستعادة ثم التهيئة واضبط المسارات خارج المجلد العام. ملفات `database/` أمثلة فارغة بلا حسابات إدارة، فلا تستخدمها بدل حزمة التهيئة.

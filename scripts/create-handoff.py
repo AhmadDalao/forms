@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Package reviewed code/public build and an empty database. Never collects live data."""
+"""Package the public build and an explicitly supplied, verified fresh admin bootstrap."""
 from pathlib import Path
 import argparse, hashlib, json, os, shutil, sqlite3, subprocess, zipfile
 from datetime import datetime, timezone
@@ -7,9 +7,18 @@ from datetime import datetime, timezone
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output', type=Path, required=True)
+parser.add_argument('--bootstrap', type=Path, required=True, help='Private fresh-install ZIP, never a live client export')
+parser.add_argument('--snapshot', type=Path, required=True, help='Metadata/checksum for that bootstrap')
 args = parser.parse_args()
 os.umask(0o077)
 out = args.output.resolve()
+bootstrap = args.bootstrap.resolve()
+snapshot = json.loads(args.snapshot.read_text())
+if (snapshot.get('contains_client_data') is not False
+        or any(snapshot.get('counts', {}).get(key) != 0 for key in ['users', 'submissions', 'client_shared_profiles', 'archived_versions'])
+        or snapshot.get('sha256') != hashlib.sha256(bootstrap.read_bytes()).hexdigest()
+        or sorted((row['username'], row['role']) for row in snapshot.get('management_accounts', [])) != [('admin', 'admin'), ('superadmin', 'superadmin')]):
+    parser.error('A verified, zero-client bootstrap containing admin and superadmin is required.')
 if out.exists():
     parser.error('Choose a new output directory; existing deliveries are never overwritten.')
 if not (ROOT / 'dist/api/portal.php').is_file():
@@ -74,10 +83,49 @@ copy(ROOT / 'docs/DEVELOPER-HANDOFF-AR.md', package / 'README-AR.md')
 copy(ROOT / 'docs/DOMAIN-SETUP.md', package / 'DOMAIN-SETUP.md')
 copy(ROOT / 'docs/DATABASE-HANDOFF.md', package / 'DATABASE.md')
 copy(ROOT / 'docs/DATABASE-HANDOFF.md', package / 'database/README.md')
+for name in ['DEVELOPER-REVIEW.md', 'TESTING.md', 'TEST-REPORT.md', 'PERFORMANCE.md', 'HOSTING-ACCESS.md']:
+    copy(ROOT / 'docs' / name, package / name)
 for name in ['modern-pdf-release-2026-09-28.md', 'modern-pdf-verification.json', 'terms-restoration-2026-09-28.md', 'terms-restoration-verification.json', 'bilingual-pdf-update-2026-09-28.md', 'bilingual-pdf-verification.json', 'pdf-layout-refinement-2026-09-28.md', 'pdf-layout-refinement-verification.json', 'full-regression-2026-09-28.md', 'full-regression-verification.json']:
     copy(ROOT / 'docs' / name, package / 'verification' / name)
 copy(ROOT / 'docs/apache-vhost.example.conf', package / 'server/apache-vhost.conf')
 copy(ROOT / 'docs/admin-presentation-verification.json', package / 'verification/admin-presentation-verification.json')
+for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verification.json',
+             'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
+             'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',
+             'latest-client-preview-2026-09-28.md', 'latest-client-preview-verification.json', 'latest-client-preview-live-verification.json',
+             'handover-verification-2026-09-29.json', 'live-loading-2026-09-29.json']:
+    copy(ROOT / 'docs' / name, package / 'verification' / name)
+
+# Verify the actual private archive, not just its label, before including it.
+restored = out / 'verified-private'
+subprocess.run(['php', str(ROOT / 'scripts/restore-installation.php'), str(bootstrap), str(restored)], check=True)
+subprocess.run(['php', str(ROOT / 'scripts/installation-init.php'), str(restored)], check=True)
+with sqlite3.connect(restored / 'portal/clients.sqlite') as db:
+    for table in ['users', 'submissions', 'client_shared_profiles', 'submission_reviews', 'audit', 'rates']:
+        assert db.execute('SELECT COUNT(*) FROM ' + table).fetchone()[0] == 0, table
+    assert db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
+    assert db.execute('PRAGMA user_version').fetchone()[0] == snapshot['schema_version']
+with sqlite3.connect(restored / 'management/administrators.sqlite') as db:
+    assert db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
+    for table in ['administrators', 'administrator_events']:
+        assert db.execute('SELECT COUNT(*) FROM ' + table).fetchone()[0] == 0, table
+for name in ['username.php', 'password.php', 'superadmin-username.php', 'superadmin-password.php']:
+    assert (restored / 'management' / name).is_file(), name
+assert not list((restored / 'portal/pdfs').glob('*'))
+assert not list((restored / 'management/uploads').glob('*'))
+assert not (restored / 'management/state.json').exists()
+shutil.rmtree(restored)
+copy(bootstrap, package / 'private-bootstrap.zip')
+snapshot['application_release'] = '2026-09-29 developer review and verified fresh handover'
+snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+(package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
+(package / 'verification/bootstrap-verification-2026-09-29.json').write_text(json.dumps({
+    'verified_at': datetime.now(timezone.utc).isoformat(), 'restored_and_initialized': True,
+    'client_tables_empty': True, 'pdfs_empty': True, 'catalogue_state_empty': True,
+    'sqlite_integrity_passed': True, 'management_hash_files_present': True,
+    'bootstrap_sha256': snapshot['sha256'], 'contains_client_data': False,
+    'note': 'Original bootstrap credential hashes preserved. Synthetic admin/password/restore workflows are recorded separately.'
+}, indent=2) + '\n')
 
 seed = out / 'empty-private'
 subprocess.run(['php', str(ROOT / 'scripts/installation-init.php'), str(seed)], check=True)
@@ -100,12 +148,16 @@ for file in sorted(package.rglob('*')):
         files.append({'path': rel, 'size': file.stat().st_size, 'sha256': hashlib.sha256(file.read_bytes()).hexdigest()})
 manifest = {'created_at': datetime.now(timezone.utc).isoformat(),
             'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
-            'contains_live_data': False, 'files': files}
+            'contains_client_data': False, 'contains_management_credentials': True,
+            'includes_management_accounts': ['admin', 'superadmin'], 'files': files}
 (package / 'MANIFEST.json').write_text(json.dumps(manifest, indent=2) + '\n')
-archive = out / 'developer-handoff.zip'
+(package / 'SHA256SUMS.txt').write_text(''.join(f"{f['sha256']}  {f['path']}\n" for f in files))
+archive = out / 'Al-Naeem-Developer-Handover-2026-09-29.zip'
 with zipfile.ZipFile(archive, 'x', zipfile.ZIP_DEFLATED) as z:
     for file in package.rglob('*'):
         if file.is_file():
             z.write(file, file.relative_to(out))
-print('Clean developer package: ' + str(archive))
-print('Existing client data must be exported separately to private-migration.zip.')
+with zipfile.ZipFile(archive) as z:
+    assert z.testzip() is None
+print('Fresh developer package: ' + str(archive))
+print('Includes admin/superadmin hashes; contains no clients or submitted forms. Keep the ZIP private.')
