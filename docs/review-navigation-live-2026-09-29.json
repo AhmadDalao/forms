@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-29T19:11:00.293Z",
+  "checks": [
+    "superadmin: navigation switch permission/state on all available pages and profile, AR/EN desktop/mobile, no clipping, live PDF preview; stored mode and submission counts unchanged",
+    "admin: navigation switch permission/state on all available pages and profile, AR/EN desktop/mobile, no clipping, live PDF preview; stored mode and submission counts unchanged"
+  ],
+  "errors": [],
+  "passed": true,
+  "review_enabled": false,
+  "deployment": {
+    "source_commit": "8e60843ae691ccada1f15872d05f2d2db60b4ea0",
+    "uploaded_at_utc": "20260929T190934Z",
+    "static_only": true,
+    "public_files": 105,
+    "overwritten_public_files_backed_up": true,
+    "private_storage_preserved": true
+  }
+}
