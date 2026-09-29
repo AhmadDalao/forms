@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-29T19:27:13.601Z",
+  "checks": [
+    "superadmin: dedicated settings page permissions/state, off-mode counters hidden, AR/EN desktop/mobile, no clipping, live PDF preview; stored mode and submission counts unchanged",
+    "admin: dedicated settings page permissions/state, off-mode counters hidden, AR/EN desktop/mobile, no clipping, live PDF preview; stored mode and submission counts unchanged"
+  ],
+  "errors": [],
+  "passed": true,
+  "review_enabled": false,
+  "deployment": {
+    "source_commit": "0ee8427fb92ab759f06bc0d3ef60c3961ac118f7",
+    "uploaded_at_utc": "20260929T192609Z",
+    "static_only": true,
+    "completed": true
+  }
+}
