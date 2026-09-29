@@ -1,0 +1,982 @@
+{
+  "passed": true,
+  "layouts": [
+    {
+      "engine": "chrome",
+      "lang": "en",
+      "width": 1440,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "lang": "en",
+      "width": 1280,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "lang": "en",
+      "width": 1024,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "lang": "en",
+      "width": 768,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "lang": "en",
+      "width": 390,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "lang": "en",
+      "width": 320,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "lang": "ar",
+      "width": 1440,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "lang": "ar",
+      "width": 1280,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "lang": "ar",
+      "width": 1024,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "lang": "ar",
+      "width": 768,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "lang": "ar",
+      "width": 390,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "lang": "ar",
+      "width": 320,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "en",
+      "width": 1440,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "en",
+      "width": 1280,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "en",
+      "width": 1024,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "en",
+      "width": 768,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "en",
+      "width": 390,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "en",
+      "width": 320,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "ar",
+      "width": 1440,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "ar",
+      "width": 1280,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "ar",
+      "width": 1024,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "ar",
+      "width": 768,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "ar",
+      "width": 390,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "lang": "ar",
+      "width": 320,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "en",
+      "width": 1440,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "en",
+      "width": 1280,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "en",
+      "width": 1024,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "en",
+      "width": 768,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "en",
+      "width": 390,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "en",
+      "width": 320,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "ar",
+      "width": 1440,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "ar",
+      "width": 1280,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "ar",
+      "width": 1024,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "ar",
+      "width": 768,
+      "pageOverflow": false,
+      "tableOverflow": true,
+      "names": [
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 17,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "ar",
+      "width": 390,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "lang": "ar",
+      "width": 320,
+      "pageOverflow": false,
+      "tableOverflow": false,
+      "names": [
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        },
+        {
+          "lines": 1,
+          "font": 16,
+          "whiteSpace": "nowrap",
+          "phoneBelow": true
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "date": "2026-09-30",
+  "scope": "Received applications only: wider content area and client column; client names 17px desktop, 16px phone, kept on one line beside account badges; phone number below.",
+  "source_sha256": "59f2d428553fa097d6ed2a3d097f49a6e59861a12800a881b6c52976e62d931f",
+  "visual_inspection": "English desktop and Arabic mobile name rows inspected. At tablet widths, the existing table scrolls horizontally; long phone names can scroll within their row without page overflow."
+}

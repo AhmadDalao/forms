@@ -41,3 +41,7 @@ Earlier dated verification files remain as history. Their old navigation descrip
 The receiving developer still needs to test HTTPS, PHP extensions/limits, private-path denial, account isolation, uploads/downloads, backup restore and cold/warm loading on their own domain using TESTING.md. Local routing tests do not certify a provider's web-server configuration.
 
 The earlier Hostinger investigation found a browser challenge adding about four seconds to fresh automated visits. This update preserves deferred loading; it does not change CDN/security settings. See PERFORMANCE.md. Uploaded signatures remain client-confirmed; the application does not authenticate handwritten signatures.
+
+## 30 September — larger received-application names
+
+The Received applications client column has more space. Client names use 17px text on desktop and 16px on phones, stay on one line beside their account badge, and keep the phone number below. Thirty-six responsive checks passed: three browsers, Arabic/English, and 1440/1280/1024/768/390/320 widths. Profile links still open; no page overflow or browser errors. Long rows retain horizontal scrolling when space is limited. English desktop and Arabic mobile samples were visually inspected. This CSS-only change does not alter form data, PDFs, submission behavior or review settings; the full-cycle evidence above remains the functional baseline. See `received-names-2026-09-30.json`.
