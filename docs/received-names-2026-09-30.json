@@ -978,5 +978,19 @@
   "date": "2026-09-30",
   "scope": "Received applications only: wider content area and client column; client names 17px desktop, 16px phone, kept on one line beside account badges; phone number below.",
   "source_sha256": "59f2d428553fa097d6ed2a3d097f49a6e59861a12800a881b6c52976e62d931f",
-  "visual_inspection": "English desktop and Arabic mobile name rows inspected. At tablet widths, the existing table scrolls horizontally; long phone names can scroll within their row without page overflow."
+  "visual_inspection": "English desktop and Arabic mobile name rows inspected. At tablet widths, the existing table scrolls horizontally; long phone names can scroll within their row without page overflow.",
+  "live": {
+    "passed": true,
+    "checks": [
+      "Hosted CSS matches the tested build",
+      "en 1440: larger single-line names and no page overflow",
+      "en 390: larger single-line names and no page overflow",
+      "ar 1440: larger single-line names and no page overflow",
+      "ar 390: larger single-line names and no page overflow",
+      "Name link opens the client profile",
+      "Review remains off; client/submission counts unchanged"
+    ],
+    "errors": [],
+    "source_commit": "a81fb1f9cdc88607108302b962c39eced3d22589"
+  }
 }
