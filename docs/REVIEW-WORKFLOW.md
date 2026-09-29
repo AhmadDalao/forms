@@ -1,6 +1,8 @@
 # Optional reviews: how this release works
 
-Leave **Review new submissions** off if the team only wants to receive forms and contact clients manually. Turn it on from the **management navigation bar** as superadmin when the team wants decisions and follow-up inside the portal. Ordinary admins can review applications but cannot change this setting. The switch affects the whole installation; there is no email or SMS service.
+Open **Submission settings / إعدادات الإرسال** from the management navigation as superadmin. Choose **Submit only / إرسال فقط** to receive forms and contact clients manually, or **Under review / تحت المراجعة** for decisions and follow-up inside the portal, then click **Save settings / حفظ الإعدادات**. The two choices explain their behavior on the page. Selecting a choice alone does not change the saved setting. Ordinary admins can review applications but cannot change this setting. The switch affects the whole installation; there is no email or SMS service.
+
+In Submit only mode, Dashboard review summary cards and Received applications status counters are hidden. The application list, client profiles and existing open-case review controls remain accessible. Enabling Under review restores the status counters.
 
 ## What the client sees
 
@@ -30,7 +32,7 @@ Notification buttons re-fetch the current version and check its status before ac
 - `public/api/portal-versions.php`: server-owned enrollment and signature-request completion inside the version transaction.
 - `public/api/portal-reviews.php`: schema-8 migration, decision validation, locking and append-only history.
 - `public/api/portal.php`: authenticated API actions, CSRF, permissions, receipts, status filters and counts.
-- `src/management/main.js`: the navigation switch and its save/retry state across management pages.
+- `src/management/main.js`: the dedicated Submission settings page and its save/retry state across navigation and language changes.
 - `src/portal/admin.js` and `review.js`: Dashboard, audience columns and review controls.
 - `src/portal/follow-up.js`: latest-version client correction/signature actions.
 

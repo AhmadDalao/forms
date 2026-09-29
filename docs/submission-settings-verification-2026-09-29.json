@@ -1,0 +1,142 @@
+{
+  "date": "2026-09-29T19:25:50.213491+00:00",
+  "passed": true,
+  "unit_tests": {
+    "passed": 238,
+    "failed": 0
+  },
+  "checks": {
+    "nav": {
+      "report": "tmp/workflow-toggle-1790709829753-3931d3/review-navigation-report.json",
+      "checks": [
+        "chrome: dedicated superadmin settings page, AR/EN at 1440/768/390/320; no switch in navigation/dashboard, no clipped controls; off hides counters for both roles while existing cases remain reviewable",
+        "chrome: Save settings persists both modes; counters return on enable and disappear on disable; old status filter resets, reload retains mode",
+        "firefox: dedicated superadmin settings page, AR/EN at 1440/768/390/320; no switch in navigation/dashboard, no clipped controls; off hides counters for both roles while existing cases remain reviewable",
+        "firefox: Save settings persists both modes; counters return on enable and disappear on disable; old status filter resets, reload retains mode",
+        "webkit: dedicated superadmin settings page, AR/EN at 1440/768/390/320; no switch in navigation/dashboard, no clipped controls; off hides counters for both roles while existing cases remain reviewable",
+        "webkit: Save settings persists both modes; counters return on enable and disappear on disable; old status filter resets, reload retains mode",
+        "In-flight save survives language changes and navigation without replacing the selected page",
+        "Concurrent setting changes show a conflict, refresh the saved mode and allow an explicit retry",
+        "Delayed settings load cannot replace a newer page"
+      ],
+      "passed": true
+    },
+    "review": {
+      "report": "tmp/workflow-toggle-1790709610517-063a95/optional-review-report.json",
+      "checks": [
+        "Default off; superadmin-only switch; both mutations require sessions, CSRF and valid input",
+        "individual: unsigned direct/review, corrections, both signature follow-ups, approval/rejection, mode changes, duplicate decisions/signing, stale versions, read receipts, immutable snapshots and downloads",
+        "corporate: unsigned direct/review, corrections, both signature follow-ups, approval/rejection, mode changes, duplicate decisions/signing, stale versions, read receipts, immutable snapshots and downloads",
+        "Simultaneous administrators produce exactly one decision; the losing revision is rejected",
+        "Current-only status filters and dashboard counts; account isolation",
+        "chrome: review controls, all status filters, audience counts, AR/EN desktop/mobile layout and latest saved correction editor",
+        "firefox: review controls, all status filters, audience counts, AR/EN desktop/mobile layout and latest saved correction editor",
+        "webkit: review controls, all status filters, audience counts, AR/EN desktop/mobile layout and latest saved correction editor"
+      ],
+      "passed": true
+    },
+    "actions": {
+      "report": "tmp/workflow-toggle-1790709612000-5f5c4b/optional-review-actions-report.json",
+      "checks": [
+        "Actual superadmin switch retries a lost committed response without adding another event",
+        "Decision UI has no preselection, requires correction note, safely displays text and deduplicates double-click/lost-response retries",
+        "Online correction opens saved answers, resubmits unsigned, and an old correction notification opens the latest pending PDF without obsolete actions",
+        "Electronic signature request completes through the real editor and PDF generation with the global switch off",
+        "Notification signature follow-up requires confirmation on uploaded PDFs, preserves pending review and leaves the notification bell usable",
+        "Uploaded correction uses a replacement PDF, with unsigned corrections allowed",
+        "Approval records its optional note and locks the current version’s decision controls",
+        "PHP restart preserves mode, case decisions and version history"
+      ],
+      "passed": true
+    },
+    "routing": {
+      "report": "tmp/workflow-toggle-1790709667993-6f06ac/management-navigation-report.json",
+      "checks": [
+        "chrome en: delayed admins cannot replace submissions; reopening works",
+        "chrome en: delayed documents cannot replace submissions; reopening works",
+        "chrome ar: delayed admins cannot replace submissions; reopening works",
+        "chrome ar: delayed documents cannot replace submissions; reopening works",
+        "firefox en: delayed admins cannot replace submissions; reopening works",
+        "firefox en: delayed documents cannot replace submissions; reopening works",
+        "firefox ar: delayed admins cannot replace submissions; reopening works",
+        "firefox ar: delayed documents cannot replace submissions; reopening works",
+        "webkit en: delayed admins cannot replace submissions; reopening works",
+        "webkit en: delayed documents cannot replace submissions; reopening works",
+        "webkit ar: delayed admins cannot replace submissions; reopening works",
+        "webkit ar: delayed documents cannot replace submissions; reopening works"
+      ],
+      "passed": true
+    },
+    "views": {
+      "report": "tmp/workflow-toggle-1790709685542-90b5a4/management-views-report.json",
+      "checks": [
+        "chrome admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "firefox admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "webkit admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "Slow profile shows feedback; switching sections cannot be overwritten by its delayed response",
+        "Interrupted profile request recovers through Try again",
+        "Interrupted PDF download recovers in the same preview without losing details",
+        "Repeated preview clicks keep a single dialog",
+        "Closing a pending PDF cancels its load and a new preview opens normally",
+        "Expired admin preview session closes the dialog and returns to management sign-in",
+        "Expired client-profile request returns to management sign-in"
+      ],
+      "passed": true
+    },
+    "customer": {
+      "report": "tmp/workflow-toggle-1790709685669-370954/customer-workflow/report.json",
+      "checks": [
+        "individual/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+        "individual/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+        "individual: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+        "Individual FATCA: role first, all four choices on one desktop row, account-holder names prefill",
+        "individual: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save",
+        "corporate/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+        "corporate/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+        "corporate: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+        "corporate: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save"
+      ],
+      "passed": true
+    },
+    "admin": {
+      "report": "tmp/workflow-toggle-1790709848922-306bb3/admin-handoff-report.json",
+      "checks": [
+        "Account creation/export are superadmin-only; CSRF, minimum length, confirmation and legacy username collisions enforced",
+        "Superadmin creates an admin through the UI; separate login works without document/account-management privileges or exposed hashes",
+        "Chosen eight-character admin passwords reset both new and legacy accounts and invalidate earlier sessions",
+        "Client reset UI accepts a chosen password, revokes sessions, requires a private client change and preserves all submissions",
+        "English/Arabic admin navigation and password dialogs fit mobile screens",
+        "Private snapshot restores exact accounts, structured answers, archives, PDF hashes and administrator credentials; replacement of existing data refused"
+      ],
+      "passed": true
+    },
+    "loading": {
+      "report": "tmp/workflow-toggle-1790709905272-99f824/loading-report.json",
+      "checks": [
+        "Document centre and editor work while the shared-profile response is still pending",
+        "Late account data fills untouched fields; an edit made while loading is preserved and conflict resolution saves it",
+        "Opening the document centre and editing fields fetches no PDF or PDF engine",
+        "Reload restores the confirmed account values",
+        "Management overview defers form definitions and PDF downloads until they are needed"
+      ],
+      "passed": true
+    }
+  },
+  "source_sha256": {
+    "src/management/main.js": "d6e2efbd7d7718357689f3872471b6fff457fde0a2032de956f0ac8803b5a41f",
+    "src/portal/admin.js": "0b71e58680da89c64daabf564f034731d16c67a7d31f8d5fad28222eb653d852",
+    "src/portal/admin.css": "928795d37c1d88e823d3b77614c3c0788dd54935cbd5a92362b8bafcd6f421a2",
+    "src/branding.css": "6c380755c223bcbe64407efbbd8920a3122caaf6f27c6848fd88929f8d9cbc0f",
+    "scripts/review-navigation-audit.mjs": "726aaf9ed109e959f218672c29026b17e1cb793aa455584f103286098c57ccef"
+  },
+  "scope": "Dedicated Submission settings page; explicit mode/save; conditional dashboard and application counters. Backend, database schema and PDF mappings unchanged."
+}

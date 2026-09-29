@@ -87,3 +87,7 @@ Record the domain, date, browser, result and evidence for each row. Delete only 
 ## What a passing report means
 
 TEST-REPORT.md distinguishes checks rerun on 29 September from older regression/PDF evidence. A passing local run is not proof of destination-host permissions, email/SMS delivery (the app has no such provider), a real signature's authenticity or legal compliance. Keep that distinction in the developer sign-off.
+
+## Submission settings page
+
+`review-navigation-audit.mjs` checks the dedicated settings page, explicit Save action, both modes, hidden off-mode counters, existing review access, conflict/retry handling, delayed navigation, both management roles and Arabic/English at desktop, tablet and phone widths in Chrome, Firefox and WebKit. `optional-review-actions-audit.mjs` also tests a committed settings response lost in transit; retrying must reuse the request key.

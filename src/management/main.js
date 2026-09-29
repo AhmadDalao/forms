@@ -21,7 +21,7 @@ const canManageAdmins=()=>managementSession?.authenticated===true&&managementSes
 const canManageDocuments=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.manage_documents===true;
 const canChangeAccountType=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.change_account_type===true;
 const canManageWorkflow=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.manage_workflow===true;
-let workflowBusy=false,workflowRequest=null,workflowError=null;
+let workflowBusy=false,workflowRequest=null,workflowError=null,workflowDraft=null,workflowSaved=false;
 let csrf='',state=null,dirty=false,editing=null,pageNumber=1,selected=null,pdf=null,drawType=null,serial=Date.now(),sampled=new Set(),renderEpoch=0;
 const endpoint=action=>`${appRoot}api/management.php?action=${action}`;
 async function api(action,body){
@@ -39,42 +39,56 @@ function bind(selector,event,handler){document.querySelectorAll(selector).forEac
 function changed(){dirty=true;sampled.clear();const reviewButton=document.querySelector('#review-document');if(reviewButton)reviewButton.disabled=true;const sampleStatus=document.querySelector('#sample-status');if(sampleStatus)sampleStatus.textContent='Layout changed — regenerate both samples.';if(editing)editing.reviewed=false;document.querySelector('#draft-status').textContent='Unsaved changes';}
 function shell(content,{view='documents'}={}){
  activeView=view;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
- const signedIn=managementSession?.authenticated===true,items=[['overview','Dashboard','لوحة التحكم','data-overview id="client-dashboard"'],['reviews','Received applications','الطلبات المستلمة','data-reviews'],['users','Clients','العملاء','data-users'],...(canManageDocuments()?[['documents','Documents','المستندات','data-documents']]:[]),...(canManageAdmins()?[['admins','Administrators','حسابات الإدارة','data-admins']]:[])];
- const navigation=signedIn?`<nav class="site-header-navigation management-navigation" aria-label="${t('Management navigation','التنقل في الإدارة')}">${items.map(([id,en,ar,attrs])=>`<button type="button" data-management-view="${id}" ${attrs} ${view===id?'aria-current="page"':''}>${t(en,ar)}</button>`).join('')}${workflowNavigation()}</nav>`:'';
+ const signedIn=managementSession?.authenticated===true,items=[['overview','Dashboard','لوحة التحكم','data-overview id="client-dashboard"'],['reviews','Received applications','الطلبات المستلمة','data-reviews'],['users','Clients','العملاء','data-users'],...(canManageDocuments()?[['documents','Documents','المستندات','data-documents']]:[]),...(canManageAdmins()?[['admins','Administrators','حسابات الإدارة','data-admins']]:[]),...(canManageWorkflow()?[['workflow','Submission settings','إعدادات الإرسال','data-workflow']]:[])];
+ const navigation=signedIn?`<nav class="site-header-navigation management-navigation" aria-label="${t('Management navigation','التنقل في الإدارة')}">${items.map(([id,en,ar,attrs])=>`<button type="button" data-management-view="${id}" ${attrs} ${view===id?'aria-current="page"':''}>${t(en,ar)}</button>`).join('')}</nav>`:'';
  const actions=`${signedIn?`<button type="button" class="notification-bell" id="management-notifications" aria-label="${t('Latest received applications','أحدث الطلبات المستلمة')}" title="${t('Latest received applications','أحدث الطلبات المستلمة')}">${bellIcon}</button>`:''}<button type="button" class="site-header-language" data-admin-language lang="${lang==='ar'?'en':'ar'}">${t('العربية','English')}</button>${signedIn?`<button type="button" class="site-header-signout" id="logout">${t('Sign out','تسجيل الخروج')}</button>`:''}`;
  app.innerHTML=siteHeader({lang,className:'management-header',navigation,actions})+`<div id="notice" role="status"></div>${content}`;
- bind('[data-management-view]','click',async(ev,button)=>{if(dirty)await saveDraft();if(button.dataset.managementView==='documents')await openDocuments();else if(button.dataset.managementView==='admins')await openAdmins();else await showDashboard(button.dataset.managementView);});
- bind('[data-admin-language]','click',async()=>{lang=lang==='ar'?'en':'ar';setLanguage(lang);if(!signedIn){showLogin();return;}if(activeView==='documents'){if(editing)await editor();else home();}else if(activeView==='admins')await openAdmins();else await dashboard.refresh();});
- bind('#review-new-submissions','change',updateReviewWorkflow);
+ bind('[data-management-view]','click',async(ev,button)=>{if(dirty)await saveDraft();if(button.dataset.managementView==='documents')await openDocuments();else if(button.dataset.managementView==='admins')await openAdmins();else if(button.dataset.managementView==='workflow')await openWorkflow();else await showDashboard(button.dataset.managementView);});
+ bind('[data-admin-language]','click',async()=>{lang=lang==='ar'?'en':'ar';setLanguage(lang);if(!signedIn){showLogin();return;}if(activeView==='documents'){if(editing)await editor();else home();}else if(activeView==='admins')await openAdmins();else if(activeView==='workflow')renderWorkflowPage();else await dashboard.refresh();});
+ bind('#workflow-settings-form','submit',updateReviewWorkflow);
+ bind('[name=review_enabled]','change',event=>{workflowDraft=event.target.value==='true';workflowSaved=false;workflowError=null;renderWorkflowState();});
  renderWorkflowState();
  bind('#management-notifications','click',async()=>{if(dirty)await saveDraft();await showDashboard('pendingReviews');});
  bind('#logout','click',async()=>{if(dirty&&!confirm(t('Discard unsaved changes and sign out?','تجاهل التغييرات غير المحفوظة وتسجيل الخروج؟')))return;await api('logout',{});dirty=false;location.reload();});
 }
-function workflowNavigation(){
- if(!canManageWorkflow())return '';
- return `<div class="management-review-control"><label for="review-new-submissions">${t('Review new submissions','مراجعة الطلبات الجديدة')}</label><input type="checkbox" role="switch" id="review-new-submissions" aria-describedby="workflow-nav-status"><span data-workflow-label></span><p id="workflow-nav-status" data-workflow-status role="status" aria-live="polite"></p></div>`;
+function renderWorkflowPage(){
+ const mode=managementWorkflow.review_enabled;
+ shell(`<main class="client-management" dir="${lang==='ar'?'rtl':'ltr'}"><div class="admin-heading"><div><h1>${t('Submission settings','إعدادات الإرسال')}</h1><p class="client-muted">${t('Choose how new applications are received across individual and company forms.','اختر طريقة استلام الطلبات الجديدة لنماذج الأفراد والشركات.')}</p></div></div><section class="admin-card workflow-settings"><p class="workflow-current">${t('Current mode:','الوضع الحالي:')} <strong data-workflow-current>${mode?t('Under review','تحت المراجعة'):t('Submit only','إرسال فقط')}</strong></p><form id="workflow-settings-form"><fieldset><legend>${t('How should new applications be handled?','كيف تُعالج الطلبات الجديدة؟')}</legend><div class="workflow-options"><label class="workflow-option"><input type="radio" name="review_enabled" value="false"><span><b>${t('Submit only','إرسال فقط')}</b><small>${t('Forms are received immediately, including unsigned forms. Clients see “Received”. Your team can view and download them and follow up manually. Review summary cards are hidden.','تُستلم النماذج مباشرة، بما فيها غير الموقّعة، وتظهر للعميل بحالة «تم الاستلام». يمكن لفريقك عرضها وتنزيلها والتواصل مع العميل يدويًا. تُخفى بطاقات إحصاءات المراجعة.')}</small></span></label><label class="workflow-option"><input type="radio" name="review_enabled" value="true"><span><b>${t('Under review','تحت المراجعة')}</b><small>${t('New forms enter “Under review”, including unsigned forms. Admins can approve, reject, request corrections or request a signature. Clients receive the decision and any note through in-app notifications.','تدخل النماذج الجديدة في حالة «تحت المراجعة»، بما فيها غير الموقّعة. يمكن للإدارة قبول الطلب أو رفضه أو طلب تصحيح أو توقيع. يصل القرار وأي ملاحظة إلى العميل عبر إشعارات الموقع.')}</small></span></label></div></fieldset><p class="workflow-follow-up">${t('This setting applies to new submissions. Previously received forms keep their status. Reviews and correction or signature requests already in progress continue in either mode. After approval or rejection, a new replacement follows the mode selected here.','ينطبق الإعداد على الطلبات الجديدة. تحتفظ النماذج المستلمة سابقًا بحالتها. تستمر المراجعات وطلبات التصحيح أو التوقيع الجارية في كلا الوضعين. بعد القبول أو الرفض، تتبع النسخة الجديدة الوضع المحدد هنا.')}</p><div class="actions"><button type="submit" class="primary">${t('Save settings','حفظ الإعدادات')}</button></div><p data-workflow-status role="status" aria-live="polite"></p></form></section></main>`,{view:'workflow'});
+}
+async function openWorkflow(){
+ if(!canManageWorkflow())return;
+ const revision=++navigationRevision;dashboard?.cancel();
+ shell(`<main class="client-management" aria-busy="true"><p role="status">${t('Loading submission settings…','جارٍ تحميل إعدادات الإرسال…')}</p></main>`,{view:'workflow'});
+ let result;try{result=await portalApi('admin_workflow');}catch(error){if(revision!==navigationRevision)return;throw error;}
+ if(revision!==navigationRevision)return;
+ receiveManagementWorkflow(result.workflow);if(!workflowRequest)workflowDraft=managementWorkflow.review_enabled;renderWorkflowPage();
 }
 function renderWorkflowState(){
- const input=document.querySelector('#review-new-submissions');if(!input)return;
- input.checked=workflowBusy&&workflowRequest?workflowRequest.reviewEnabled:managementWorkflow.review_enabled;input.disabled=workflowBusy;
- document.querySelector('[data-workflow-label]').textContent=workflowBusy?t('Saving…','جارٍ الحفظ…'):managementWorkflow.review_enabled?t('On','مفعّلة'):t('Off','معطّلة');
- document.querySelector('[data-workflow-status]').textContent=workflowError?(workflowError.status===409?t('Review setting changed in another window. Check its current state and try again.','تغيّر إعداد المراجعة في نافذة أخرى. تحقّق من الحالة الحالية ثم حاول مجددًا.'):errorText(workflowError,lang)):'';
+ const form=document.querySelector('#workflow-settings-form');if(!form)return;
+ const selected=workflowDraft??managementWorkflow.review_enabled;
+ form.querySelector('fieldset').disabled=workflowBusy;
+ form.querySelectorAll('[name=review_enabled]').forEach(input=>{input.checked=(input.value==='true')===selected;input.closest('label').classList.toggle('selected',input.checked);});
+ const button=form.querySelector('[type=submit]');button.disabled=workflowBusy||(!workflowRequest&&selected===managementWorkflow.review_enabled);button.textContent=workflowBusy?t('Saving…','جارٍ الحفظ…'):t('Save settings','حفظ الإعدادات');
+ document.querySelector('[data-workflow-current]').textContent=managementWorkflow.review_enabled?t('Under review','تحت المراجعة'):t('Submit only','إرسال فقط');
+ form.querySelector('[data-workflow-status]').textContent=workflowError?(workflowError.status===409?t('The setting changed in another window. The current mode is shown above. Choose your preferred mode and save again.','تغيّر الإعداد في نافذة أخرى. يظهر الوضع الحالي أعلاه. اختر الوضع المطلوب واحفظ مجددًا.'):errorText(workflowError,lang)):workflowSaved?t('Settings saved.','تم حفظ الإعدادات.'):'';
 }
 function receiveManagementWorkflow(value){
  if(managementSession?.authenticated&&value.revision>=managementWorkflow.revision){managementWorkflow=value;renderWorkflowState();}
 }
 async function updateReviewWorkflow(event){
+ event.preventDefault();
  if(workflowBusy||!canManageWorkflow())return;
- const enabled=event.target.checked;
+ const enabled=workflowDraft??managementWorkflow.review_enabled;
  // Keep one request across navigation/language changes and uncertain-response retries.
  if(workflowRequest?.reviewEnabled!==enabled)workflowRequest={reviewEnabled:enabled,expectedRevision:managementWorkflow.revision,requestKey:crypto.randomUUID()};
- workflowBusy=true;workflowError=null;renderWorkflowState();
+ workflowBusy=true;workflowError=null;workflowSaved=false;renderWorkflowState();
  try{
   const result=await portalApi('admin_workflow_update',workflowRequest,{token:csrf});
-  receiveManagementWorkflow(result.workflow);workflowRequest=null;
+  receiveManagementWorkflow(result.workflow);workflowRequest=null;workflowDraft=managementWorkflow.review_enabled;workflowSaved=true;
+  if(['overview','reviews'].includes(activeView))await dashboard?.refresh();
  }catch(error){
   if(handleError(error))return;workflowError=error;
-  if(error.status===409){workflowRequest=null;try{receiveManagementWorkflow((await portalApi('admin_workflow')).workflow);}catch(refreshError){handleError(refreshError);}}
+  if(error.status===409){workflowRequest=null;try{receiveManagementWorkflow((await portalApi('admin_workflow')).workflow);workflowDraft=managementWorkflow.review_enabled;}catch(refreshError){handleError(refreshError);}}
  }finally{workflowBusy=false;renderWorkflowState();}
 }
 function showLogin(){navigationRevision++;dashboard?.cancel();shell(`<main class="panel login"><h1>${t('Management sign in','تسجيل دخول الإدارة')}</h1><p class="muted">${t('Sign in with your management username and password.','أدخل اسم المستخدم وكلمة المرور لحساب الإدارة.')}</p><form id="login"><label>${t('Username','اسم المستخدم')}<input id="username" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="80" dir="ltr" required></label><label>${t('Password','كلمة المرور')}<input id="password" name="password" type="password" autocomplete="current-password" dir="ltr" required></label><div class="actions" style="margin-top:20px"><button class="primary">${t('Sign in','تسجيل الدخول')}</button></div></form></main>`,{view:'overview'});
