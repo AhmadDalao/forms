@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
+import {randomUUID} from 'node:crypto';
 import {spawnSync} from 'node:child_process';
 import {chromium} from 'playwright';
 import {fixture} from './workflow-harness.mjs';
@@ -20,6 +21,7 @@ try{
  await page.route('**/api/portal.php?action=notifications*',r=>r.abort());
  await page.locator('[data-notification-bell]').click();await page.locator('[data-notification-retry]').waitFor();await page.unroute('**/api/portal.php?action=notifications*');await page.locator('[data-notification-retry]').click();await page.locator('[data-notification-empty]').waitFor();await page.locator('.notification-dialog [data-close]').click();
  pass('Failed notification request offers a working retry without reloading the page');
+ const manager=await browser.newContext();await f.login(manager,'superadmin');const savedMode=(await f.call(manager,'portal','admin_workflow')).workflow;await f.call(manager,'portal','admin_workflow_update',{data:{reviewEnabled:true,expectedRevision:savedMode.revision,requestKey:randomUUID()}});
  const seed=spawnSync('php',['-r',`$v=json_decode(stream_get_contents(STDIN),true);$db=new PDO('sqlite:'.$v['db']);$q=$db->prepare('INSERT INTO submission_reviews(submission_id,status,reason_code,reason_text,admin_username,created_at,request_key) VALUES(?,?,?,?,?,?,?)');for($i=0;$i<26;$i++){$status=['approved','rejected','signature_required'][$i%3];$q->execute([$v['id'],$status,$status==='rejected'?'missing_details':'',$status==='rejected'?'Please complete the missing address. الرجاء استكمال العنوان.':($status==='signature_required'?'Please sign the document. الرجاء توقيع المستند.':''),'test.admin',sprintf('2026-09-28T10:%02d:00Z',$i),'notification-'.$i]);}$q->execute([$v['other'],'approved','','','test.admin','2026-09-28T11:00:00Z','private-notification']);`],{input:JSON.stringify({db:f.out+'/portal/clients.sqlite',id:submission.id,other:privateSubmission.id}),encoding:'utf8'});
  assert.equal(seed.status,0,seed.stderr);
  const data=await f.call(ctx,'portal','notifications');assert.equal(data.user_id,user.id);assert.equal(data.unread,26);assert.ok(data.notifications.every(n=>n.submission_id===submission.id));

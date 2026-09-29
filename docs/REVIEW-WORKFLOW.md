@@ -8,11 +8,13 @@ In Submit only mode, Dashboard review summary cards and Received applications st
 
 Both modes accept unsigned initial forms. With review off, the receipt says **Received**. With review on, it says **Under review**. Signature presence has its own badge; a request for a signature is a decision, not proof that an existing signature disappeared.
 
+In Submit only mode, client cards and previews show **Received** and signature status. Under review, Approved, Rejected, Corrections requested and Signature required labels are hidden. Historical notifications use **Form update / تحديث النموذج** without decision text, and approval/rejection notes are hidden. These are display rules: saved decisions are not rewritten. Already-issued correction/signature requests retain their action buttons and instructions so clients can complete them. Enabling review restores the decision labels. An open client tab updates when it next receives the setting, without closing its PDF preview or notification panel.
+
 A manager can approve, reject, request corrections or request a signature. No choice is selected initially. Rejection and correction need a note explaining what the client should do. Approval and signature requests can carry an optional note. Notes are sent with decisions; there is no separate messaging thread.
 
 Corrections open the latest saved online answers. A client who uploaded a PDF gets a replacement upload instead. Signature requests offer electronic signing where the stored layout supports it, or upload of a PDF the client confirms is signed. An unsigned replacement cannot complete a signature request. We record the client's confirmation; we do not claim to authenticate handwritten signatures or extract structured answers from uploads.
 
-Every successful follow-up creates a new version and returns the case to Under review. Previous PDFs, answers and decisions stay in history. Profile remains limited to account details and passwords. Card downloads and the simple PDF preview remain available.
+Every successful follow-up creates a new version and returns the case to Under review in management. If review is now off, its client receipt still says Received. Previous PDFs, answers and decisions stay in history. Profile remains limited to account details and passwords. Card downloads and the simple PDF preview remain available.
 
 ## Switch and version rules
 
@@ -35,6 +37,7 @@ Notification buttons re-fetch the current version and check its status before ac
 - `src/management/main.js`: the dedicated Submission settings page and its save/retry state across navigation and language changes.
 - `src/portal/admin.js` and `review.js`: Dashboard, audience columns and review controls.
 - `src/portal/follow-up.js`: latest-version client correction/signature actions.
+- `src/portal/review.js`, `notifications.js` and `preview.js`: client presentation follows the saved mode; management retains the stored status and history.
 
 ## API contracts
 

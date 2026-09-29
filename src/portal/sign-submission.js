@@ -77,6 +77,6 @@ export async function signSubmittedForm(id,{lang='en',onSaved=()=>{}}={}){
    }catch(err){status(errorText(err,lang));}finally{busy=false;if(!closed)lock();}
   };
   busy=true;lock();await paint(source);busy=false;lock();
- }catch(err){if(!closed){body.innerHTML=`<p role="alert">${e(errorText(err,lang))}</p><a class="portal-button primary" href="${appRoot}account/?${new URLSearchParams({upload:submitted?.doc_id||'',lang})}">${reviewEnabled()?t('Upload signed PDF instead','رفع ملف PDF موقّع'):t('Upload PDF instead','رفع ملف PDF')}</a>`;}}
+ }catch(err){if(!closed){body.innerHTML=`<p role="alert">${e(errorText(err,lang))}</p><a class="portal-button primary" href="${appRoot}account/?${new URLSearchParams({upload:submitted?.doc_id||'',lang})}">${requiresReview?t('Upload signed PDF instead','رفع ملف PDF موقّع'):t('Upload PDF instead','رفع ملف PDF')}</a>`;}}
  finally{busy=false;if(!closed)dialog.querySelector('[data-close]').disabled=false;}
 }

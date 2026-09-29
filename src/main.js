@@ -9,7 +9,7 @@ import './style.css';
 import {siteHeader} from './branding.js';
 import {endpoint,authChanged,authChangeKey,api as portalApi,errorText as portalError,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
 import {followUpMarkup,bindFollowUps} from './portal/follow-up.js';
-import {reviewBadge,signatureBadge} from './portal/review.js';
+import {clientReviewBadge,signatureBadge} from './portal/review.js';
 import {uploadCompleted} from './portal/upload.js';
 import {submitForm} from './portal/submit.js';
 import {formSaveLabel,toolModeNotice} from './portal/workflow.js';
@@ -145,7 +145,7 @@ function bindCommon(){
 function home(){if(revisionId){location.href=appRoot+(audience==='corporate'?'companies/':'individuals/');return;}clearDownload();generation++;if(current)saveDraft();if(subscriptionEditor){subscriptionEditor.destroy();subscriptionEditor=null;}drafts.setPreferences({active:null});current=null;review=false;pdfBytes=null;errors=[];paintVersion++;if(pdf){pdf.loadingTask.destroy();pdf=null;}render();window.scrollTo(0,0);}
 function render(){setLanguage();if(!current){renderHome();return;}renderEditor();}
 function cardHTML(d){
- const submitted=latestSubmission(d.id),status=submitted?reviewBadge(submitted,lang)+signatureBadge(submitted,lang):`<span class="card-status-muted">${submissionsError?t('Status unavailable','الحالة غير متاحة'):!submissionsReady?t('Loading status…','جارٍ تحميل الحالة…'):t('Not submitted','لم يُرسل بعد')}</span>`;
+ const submitted=latestSubmission(d.id),status=submitted?clientReviewBadge(submitted,lang)+signatureBadge(submitted,lang):`<span class="card-status-muted">${submissionsError?t('Status unavailable','الحالة غير متاحة'):!submissionsReady?t('Loading status…','جارٍ تحميل الحالة…'):t('Not submitted','لم يُرسل بعد')}</span>`;
  const body=`<span class="card-number">${d.number}</span><span class="card-body"><b>${e(t(d.title,d.ar))}</b>${d.description?`<span>${e(t(d.description,d.arDescription))}</span>`:''}</span><span class="card-arrow">${icon('arrow',18)}</span>`;
  return `<article class="doc-card" data-card="${d.id}" data-number="${d.number}">${d.downloadOnly?`<a class="card-open" href="${templateUrl(d)}" download="${d.id}.pdf">${body}</a>`:`<button class="card-open" data-doc="${d.id}">${body}</button>`}<div class="card-status">${status}</div>${submitted?`<div class="card-review-note">${followUpMarkup(submitted,lang)}</div>`:''}<div class="card-actions">${blankLink(d,'blank-link')}${submitted?`<a class="blank-link" data-filled="${d.id}" href="${endpoint('pdf',{id:submitted.id})}">${icon('download',16)}${t('Download filled','تنزيل النموذج المعبّأ')}</a>`:`<button class="blank-link" data-download-draft="${d.id}" ${drafts.has(d.id)?'':'disabled'}>${icon('download',16)}${t('Download filled','تنزيل النموذج المعبّأ')}</button>`}<button class="blank-link" data-upload="${d.id}">${icon('file',16)}${t('Upload filled form','رفع النموذج المعبّأ')}</button></div></article>`;
 }
@@ -391,6 +391,11 @@ window.addEventListener('focus',checkAccountAccess);
 document.addEventListener('visibilitychange',checkAccountAccess);
 
 window.addEventListener('forms-workflow-change',()=>{
+ if(!current){
+  // Update receipt labels without closing an open notification or PDF dialog.
+  document.querySelectorAll('[data-card]').forEach(card=>{const s=latestSubmission(card.dataset.card);if(!s)return;card.querySelector('.card-status').innerHTML=clientReviewBadge(s,lang)+signatureBadge(s,lang);card.querySelector('.card-review-note').innerHTML=followUpMarkup(s,lang);});
+  bindFollowUps(app,{lang,onSaved:refreshSubmissions});return;
+ }
  if(subscriptionEditor){subscriptionEditor.workflowChanged();return;}
  if(current&&review&&!busy)render();
  const note=document.querySelector('[data-workflow-home-note]');if(note)note.textContent=requiresSignature()?t('Sign electronically to submit, or upload a signed PDF from the forms page.','وقّع إلكترونيًا للإرسال أو ارفع ملف PDF الموقّع من صفحة النماذج.'):t('Save your forms to your account or download them anytime.','احفظ نماذجك في حسابك أو نزّلها في أي وقت.');

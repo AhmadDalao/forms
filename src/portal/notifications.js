@@ -1,5 +1,6 @@
 import {api,e,errorText,when} from './api.js';
 import {reviewLabels,reasonLabels} from './review.js';
+import {reviewEnabled} from './workflow.js';
 import {appRoot} from '../routes.js';
 
 export function mountNotifications(node,{lang,userId,onUnread=()=>{},onPreviewOpen=()=>{},onPreviewClose=()=>{},onFollowUp=()=>{}}){
@@ -10,8 +11,8 @@ export function mountNotifications(node,{lang,userId,onUnread=()=>{},onPreviewOp
  const sessionError=err=>{if(err.status!==401)return false;location.href=appRoot+'login/?lang='+lang;return true;};
  const accept=data=>{if(data.user_id===userId)return true;location.reload();return false;};
  function itemHTML(n){
-  const status=reviewLabels[n.status]?.[lang==='ar'?1:0]||t('Form update','تحديث النموذج');
-  const reason=n.reason_text||reasonLabels[n.reason_code]?.[lang==='ar'?1:0]||'';
+  const status=(reviewEnabled()?reviewLabels[n.status]?.[lang==='ar'?1:0]:null)||t('Form update','تحديث النموذج');
+  const reason=reviewEnabled()?(n.reason_text||reasonLabels[n.reason_code]?.[lang==='ar'?1:0]||''):'';
   return `<article class="notification-item ${n.read_at?'':'is-unread'}" data-notification="${n.id}"><div class="notification-item-head"><strong>${e(status)}</strong>${n.read_at?'':`<span class="notification-new">${t('New','جديد')}</span>`}</div><h3>${e(t(n.title,n.ar))}</h3>${reason?`<p class="notification-reason" dir="auto">${e(reason)}</p>`:''}<div class="notification-item-foot"><div><time datetime="${e(n.created_at)}" title="${t('Riyadh time','بتوقيت الرياض')}">${e(when(n.created_at,lang))}</time></div><button type="button" data-notification-preview="${e(n.submission_id)}" data-event="${n.id}">${t('View form','عرض النموذج')}<span aria-hidden="true">${lang==='ar'?'←':'→'}</span></button></div></article>`;
  }
  function render(){
@@ -52,7 +53,9 @@ export function mountNotifications(node,{lang,userId,onUnread=()=>{},onPreviewOp
    node.querySelector('[data-notification-retry]')?.addEventListener('click',()=>refresh());
   }finally{busy=false;node.removeAttribute('aria-busy');const moreButton=node.querySelector('[data-notification-more]');if(moreButton)moreButton.disabled=false;}
  }
+ const modeChanged=()=>{if(loaded&&!stopped)render();};
+ window.addEventListener('forms-workflow-change',modeChanged);
  const poll=()=>refresh();
  const timer=setInterval(poll,30000);window.addEventListener('focus',poll);document.addEventListener('visibilitychange',poll);refresh();
- return ()=>{stopped=true;clearInterval(timer);window.removeEventListener('focus',poll);document.removeEventListener('visibilitychange',poll);};
+ return ()=>{stopped=true;window.removeEventListener('forms-workflow-change',modeChanged);clearInterval(timer);window.removeEventListener('focus',poll);document.removeEventListener('visibilitychange',poll);};
 }

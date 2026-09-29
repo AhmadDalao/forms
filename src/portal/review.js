@@ -1,5 +1,6 @@
 import {api,e,when,errorText} from './api.js';
 import './review.css';
+import {reviewEnabled} from './workflow.js';
 export const reviewLabels={received:['Received','تم الاستلام'],pending:['Under review','قيد المراجعة'],correction_required:['Corrections requested','مطلوب تصحيح'],signature_required:['Signature required','التوقيع مطلوب'],approved:['Approved','مقبول'],rejected:['Rejected','مرفوض']};
 const signatureLabels={electronic:['Electronic signature added','أُضيف توقيع إلكتروني'],unsigned:['Not signed yet','لم يُوقّع بعد'],uploaded:['Signed PDF uploaded — check signature','PDF موقّع مرفوع — تحقّق من التوقيع'],unknown:['Signature not verified','لم يُتحقّق من التوقيع']};
 export const reasonLabels={missing_details:['Missing details','بيانات ناقصة'],incorrect_data:['Incorrect data','بيانات غير صحيحة'],other:['Other','أخرى']};
@@ -10,6 +11,8 @@ export function reviewBadge(s,lang,{decision=false}={}){
  const labels={...reviewLabels,received:['Received','تم الاستلام'],saved:['Saved form','نموذج محفوظ'],archived:['Archived','مؤرشفة']};
  return `<span class="review-badge review-${e(status)}">${label(labels,status,lang)}</span>`;
 }
+// Client receipt labels follow the current mode; stored/admin decisions stay intact.
+export const clientReviewBadge=(s,lang)=>reviewBadge(reviewEnabled()?s:{...s,presentation_status:'received',archived_at:null},lang);
 export function signatureBadge(s,lang){
  const state=Object.hasOwn(signatureLabels,s.signature_state)?s.signature_state:'unknown';
  return `<span class="signature-state signature-${state}" data-signature-state="${state}">${label(signatureLabels,state,lang)}</span>`;

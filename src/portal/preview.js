@@ -1,6 +1,6 @@
 import {api,endpoint,e,errorText,when} from './api.js';
 import {loadPreview,renderPage} from '../pdf.js';
-import {mountReview,reviewBadge,signatureBadge,reviewAvailable} from './review.js';
+import {mountReview,clientReviewBadge,signatureBadge,reviewAvailable} from './review.js';
 import {followUpMarkup,bindFollowUps} from './follow-up.js';
 import {appRoot} from '../routes.js';
 import './submitted-details.css';
@@ -12,9 +12,15 @@ export async function previewSubmission(id,{admin=false,lang='en',token,onReview
  const t=(en,ar)=>lang==='ar'?ar:en,dialog=document.createElement('dialog');dialog.className='portal-preview';dialog.dir=lang==='ar'?'rtl':'ltr';document.body.append(dialog);
  dialog.setAttribute('aria-labelledby','submitted-preview-title');
  dialog.innerHTML=`<div class="portal-preview-head"><h2 id="submitted-preview-title">${t('Submitted document','المستند المرسل')}</h2><button type="button" data-close aria-label="${t('Close','إغلاق')}">×</button></div><div class="portal-preview-body"><p role="status">${t('Loading…','جارٍ التحميل…')}</p></div>`;
- let pdf=null,closed=false,loading=false,download=null;
+ let pdf=null,closed=false,loading=false,download=null,currentSubmission=null;
+ const renderClientReview=()=>{
+  const node=dialog.querySelector('[data-client-review]'),s=currentSubmission;if(!node||!s)return;
+  node.innerHTML=reviewAvailable(s)?`<div class="preview-review-status">${clientReviewBadge(s,lang)} ${signatureBadge(s,lang)}${followUpMarkup(s,lang)}</div>`:'';
+  bindFollowUps(node,{lang,beforeOpen:()=>{close(false);onFollowUp();},onSaved:()=>previewSubmission(s.id,{lang})});
+ };
+ if(!admin)window.addEventListener('forms-workflow-change',renderClientReview);
  const disposePDF=()=>{pdf?.loadingTask.destroy().catch(()=>{});pdf=null;};
- const close=(notify=true)=>{if(closed)return;closed=true;download?.abort();disposePDF();dialog.close();dialog.remove();if(activePreview?.dialog===dialog)activePreview=null;if(notify)onClose();};
+ const close=(notify=true)=>{if(closed)return;closed=true;window.removeEventListener('forms-workflow-change',renderClientReview);download?.abort();disposePDF();dialog.close();dialog.remove();if(activePreview?.dialog===dialog)activePreview=null;if(notify)onClose();};
  activePreview={id,admin,dialog,close};dialog.tabIndex=-1;
  dialog.querySelector('[data-close]').onclick=close;dialog.addEventListener('cancel',ev=>{ev.preventDefault();close();});dialog.showModal();
  async function load(){
@@ -35,10 +41,10 @@ export async function previewSubmission(id,{admin=false,lang='en',token,onReview
    ({submission:s}=await api('detail',undefined,{params:{id:s.current_id}}));
    if(closed)return;
   }
-  dialog.querySelector('.portal-preview-body').innerHTML=`<h3>${e(t(s.title,s.ar))}</h3><div class="preview-document-meta">${admin?`<span class="version-badge">${t('Version','النسخة')} ${s.version} · ${s.archived_at?t('Archived','مؤرشفة'):t('Current','الحالية')}${s.restored_from?' · '+t('Restored from an earlier version','مستعادة من نسخة سابقة'):''}</span>`:''}<time>${e(when(s.created_at,lang))} · ${t('Riyadh time','بتوقيت الرياض')}</time></div>${admin?`<div class="preview-document-actions"><a class="portal-button" href="${endpoint(admin?'admin_pdf':'pdf',{id:s.id})}">${t('Download PDF','تنزيل PDF')}</a>${s.archived_at&&s.current_id?`<button type="button" class="portal-button" data-current-version>${t('Open current version','فتح النسخة الحالية')}</button>`:''}</div>`:''}${admin?`<div data-submission-review></div><details class="portal-answer-details"><summary>${t('Submitted details','البيانات المرسلة')}</summary>${details.renderSubmissionDetails(s,lang)}</details>`:''}${!admin&&reviewAvailable(s)?`<div class="preview-review-status">${reviewBadge(s,lang)} ${signatureBadge(s,lang)}${followUpMarkup(s,lang)}</div>`:''}<div class="portal-pdf-pages"></div><p data-preview-status role="status">${t('Preparing preview…','جارٍ إعداد المعاينة…')}</p>`;
+  dialog.querySelector('.portal-preview-body').innerHTML=`<h3>${e(t(s.title,s.ar))}</h3><div class="preview-document-meta">${admin?`<span class="version-badge">${t('Version','النسخة')} ${s.version} · ${s.archived_at?t('Archived','مؤرشفة'):t('Current','الحالية')}${s.restored_from?' · '+t('Restored from an earlier version','مستعادة من نسخة سابقة'):''}</span>`:''}<time>${e(when(s.created_at,lang))} · ${t('Riyadh time','بتوقيت الرياض')}</time></div>${admin?`<div class="preview-document-actions"><a class="portal-button" href="${endpoint(admin?'admin_pdf':'pdf',{id:s.id})}">${t('Download PDF','تنزيل PDF')}</a>${s.archived_at&&s.current_id?`<button type="button" class="portal-button" data-current-version>${t('Open current version','فتح النسخة الحالية')}</button>`:''}</div>`:''}${admin?`<div data-submission-review></div><details class="portal-answer-details"><summary>${t('Submitted details','البيانات المرسلة')}</summary>${details.renderSubmissionDetails(s,lang)}</details>`:''}${!admin?'<div data-client-review></div>':''}<div class="portal-pdf-pages"></div><p data-preview-status role="status">${t('Preparing preview…','جارٍ إعداد المعاينة…')}</p>`;
   dialog.querySelector('[data-current-version]')?.addEventListener('click',()=>{close(false);previewSubmission(s.current_id,{admin,lang,token,onReviewed,onError,onClose,onFollowUp});});
   if(admin)mountReview(dialog.querySelector('[data-submission-review]'),s,{admin,lang,token,onReviewed});
-  if(!admin)bindFollowUps(dialog,{lang,beforeOpen:()=>{close(false);onFollowUp();},onSaved:()=>previewSubmission(s.id,{lang})});
+  currentSubmission=s;if(!admin)renderClientReview();
   download=new AbortController();const timeout=setTimeout(()=>download?.abort(),60000);let bytes;
   try{
    const res=await fetch(endpoint(admin?'admin_pdf':'pdf',{id:s.id}),{credentials:'same-origin',cache:'no-store',signal:download.signal});

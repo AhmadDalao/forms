@@ -1,0 +1,513 @@
+{
+  "verified_at": "2026-09-29T19:50:09.476851+00:00",
+  "passed": true,
+  "scope": "Full regression cycle and submit-only client presentation. Review remains off by default. Existing requested correction/signature follow-ups stay usable; stored/admin statuses and history are unchanged.",
+  "unit_tests": {
+    "passed": 238,
+    "failed": 0,
+    "skipped": 0,
+    "includes_schema_8_migration_and_rollback": true
+  },
+  "php_api_syntax_files": 18,
+  "suite_count": 15,
+  "grouped_checks": 135,
+  "checks": {
+    "client_mode": {
+      "report": "tmp/workflow-toggle-1790710859178-906c54/submit-only-client-report.json",
+      "passed": true,
+      "checks": [
+        "Signing-details network failure displays an upload fallback without a JavaScript exception",
+        "chrome / individual: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved",
+        "chrome / corporate: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved",
+        "firefox / individual: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved",
+        "firefox / corporate: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved",
+        "webkit / individual: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved",
+        "webkit / corporate: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved"
+      ]
+    },
+    "notifications": {
+      "report": "tmp/workflow-toggle-1790710859772-3d05ac/notifications-report.json",
+      "passed": true,
+      "checks": [
+        "Empty state has a single heading; Escape closes and restores keyboard focus",
+        "Failed notification request offers a working retry without reloading the page",
+        "Arabic/English desktop/mobile list, reasons, read indicators and pagination; notifications stay scoped to their owner",
+        "One View form action opens the PDF and persists read state; badge updates; repeated clicks create one dialog; list avoids PDF/submission fetches",
+        "A failed read receipt leaves the notification unread and can be retried without blocking the document",
+        "Closing during loading cannot reopen the panel; expired sessions return to sign-in"
+      ]
+    },
+    "review_actions": {
+      "report": "tmp/workflow-toggle-1790710999727-74a073/optional-review-actions-report.json",
+      "passed": true,
+      "checks": [
+        "Actual superadmin switch retries a lost committed response without adding another event",
+        "Decision UI has no preselection, requires correction note, safely displays text and deduplicates double-click/lost-response retries",
+        "Online correction opens saved answers, resubmits unsigned, and an old correction notification opens the latest pending PDF without obsolete actions",
+        "Electronic signature request completes through the real editor and PDF generation with the global switch off",
+        "Notification signature follow-up requires confirmation on uploaded PDFs, preserves pending review and leaves the notification bell usable",
+        "Uploaded correction uses a replacement PDF, with unsigned corrections allowed",
+        "Approval records its optional note and locks the current version’s decision controls",
+        "PHP restart preserves mode, case decisions and version history"
+      ]
+    },
+    "optional_reviews": {
+      "report": "tmp/workflow-toggle-1790710818918-fd12c2/optional-review-report.json",
+      "passed": true,
+      "checks": [
+        "Default off; superadmin-only switch; both mutations require sessions, CSRF and valid input",
+        "individual: unsigned direct/review, corrections, both signature follow-ups, approval/rejection, mode changes, duplicate decisions/signing, stale versions, read receipts, immutable snapshots and downloads",
+        "corporate: unsigned direct/review, corrections, both signature follow-ups, approval/rejection, mode changes, duplicate decisions/signing, stale versions, read receipts, immutable snapshots and downloads",
+        "Simultaneous administrators produce exactly one decision; the losing revision is rejected",
+        "Current-only status filters and dashboard counts; account isolation",
+        "chrome: review controls, all status filters, matching category order and audience counts, AR/EN desktop/mobile layout and latest saved correction editor",
+        "firefox: review controls, all status filters, matching category order and audience counts, AR/EN desktop/mobile layout and latest saved correction editor",
+        "webkit: review controls, all status filters, matching category order and audience counts, AR/EN desktop/mobile layout and latest saved correction editor"
+      ]
+    },
+    "shared_profiles": {
+      "report": "tmp/workflow-toggle-1790710724451-488aa9/shared-profiles/report.json",
+      "passed": true,
+      "checks": [
+        "Authenticated account/audience scope, absent revision0, and private profile data excluded from public session",
+        "Two independent client sessions see durable typed values, blanks, false and canonical name aliases; company data stays separate",
+        "Stale autosaves return409 and refreshed patches preserve unrelated device edits",
+        "Unknown/signature/alias fields, invalid types/options/bounds, wrong methods and CSRF cannot mutate profiles",
+        "Deliberate full clear persists as a revisioned tombstone across server restart; admin sees it and submitted snapshots stay unchanged",
+        "Queued saves cannot cross management audience changes; old audience data stays separate and returns intact after switching back"
+      ]
+    },
+    "direct_intake": {
+      "report": "tmp/workflow-toggle-1790711337311-f9d376/direct-intake/report.json",
+      "passed": true,
+      "checks": [
+        "Login/signup: EN and AR, desktop/mobile, source logos and role labels, no PDF engine or PDF loaded",
+        "Logged-out document routes redirect to sign-in",
+        "Real form edits propagate separate Arabic/English names and joined city/district to account and other forms",
+        "Offline edits retry to account; intentional clear persists after reload",
+        "Multiple tabs, fresh browser and individual/company/account isolation",
+        "Company English sharing is bidirectional and separate from Arabic identity",
+        "One-click unsigned submission, lost-response retry, single immutable version and receipt reference",
+        "Signed replacement archives the earlier PDF and all captured answers; stale replacement is rejected",
+        "Consent PDF upload works without inventing structured answers or signature verification",
+        "Management receives current versions, exact answers and signature status; preview/PDF/ZIP work; direct records remain outside review and cross-account access blocked",
+        "All nine filled forms submitted: 557 field values matched management records, and downloaded PDFs matched byte for byte"
+      ],
+      "captured_answers_matched": 557
+    },
+    "customer_workflow": {
+      "report": "tmp/workflow-toggle-1790711336747-3f12b9/customer-workflow/report.json",
+      "passed": true,
+      "checks": [
+        "individual/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+        "individual/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+        "individual: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+        "Individual FATCA: role first, all four choices on one desktop row, account-holder names prefill",
+        "individual: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save",
+        "corporate/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+        "corporate/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+        "corporate: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+        "corporate: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save"
+      ]
+    },
+    "management_views": {
+      "report": "tmp/workflow-toggle-1790710999888-274dc1/management-views-report.json",
+      "passed": true,
+      "checks": [
+        "chrome admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "firefox admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "webkit admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "Slow profile shows feedback; switching sections cannot be overwritten by its delayed response",
+        "Interrupted profile request recovers through Try again",
+        "Interrupted PDF download recovers in the same preview without losing details",
+        "Repeated preview clicks keep a single dialog",
+        "Closing a pending PDF cancels its load and a new preview opens normally",
+        "Expired admin preview session closes the dialog and returns to management sign-in",
+        "Expired client-profile request returns to management sign-in"
+      ]
+    },
+    "review_navigation": {
+      "report": "tmp/workflow-toggle-1790711000254-a8efd5/review-navigation-report.json",
+      "passed": true,
+      "checks": [
+        "chrome: dedicated superadmin settings page, AR/EN at 1440/768/390/320; no switch in navigation/dashboard, no clipped controls; off hides counters for both roles while existing cases remain reviewable",
+        "chrome: Save settings persists both modes; counters return on enable and disappear on disable; old status filter resets, reload retains mode",
+        "firefox: dedicated superadmin settings page, AR/EN at 1440/768/390/320; no switch in navigation/dashboard, no clipped controls; off hides counters for both roles while existing cases remain reviewable",
+        "firefox: Save settings persists both modes; counters return on enable and disappear on disable; old status filter resets, reload retains mode",
+        "webkit: dedicated superadmin settings page, AR/EN at 1440/768/390/320; no switch in navigation/dashboard, no clipped controls; off hides counters for both roles while existing cases remain reviewable",
+        "webkit: Save settings persists both modes; counters return on enable and disappear on disable; old status filter resets, reload retains mode",
+        "In-flight save survives language changes and navigation without replacing the selected page",
+        "Concurrent setting changes show a conflict, refresh the saved mode and allow an explicit retry",
+        "Delayed settings load cannot replace a newer page"
+      ]
+    },
+    "management_navigation": {
+      "report": "tmp/workflow-toggle-1790710999714-994a7c/management-navigation-report.json",
+      "passed": true,
+      "checks": [
+        "chrome en: delayed admins cannot replace submissions; reopening works",
+        "chrome en: delayed documents cannot replace submissions; reopening works",
+        "chrome ar: delayed admins cannot replace submissions; reopening works",
+        "chrome ar: delayed documents cannot replace submissions; reopening works",
+        "firefox en: delayed admins cannot replace submissions; reopening works",
+        "firefox en: delayed documents cannot replace submissions; reopening works",
+        "firefox ar: delayed admins cannot replace submissions; reopening works",
+        "firefox ar: delayed documents cannot replace submissions; reopening works",
+        "webkit en: delayed admins cannot replace submissions; reopening works",
+        "webkit en: delayed documents cannot replace submissions; reopening works",
+        "webkit ar: delayed admins cannot replace submissions; reopening works",
+        "webkit ar: delayed documents cannot replace submissions; reopening works"
+      ]
+    },
+    "management_presentation": {
+      "report": "tmp/workflow-toggle-1790711086486-afbf8a/admin-presentation-report.json",
+      "passed": true,
+      "checks": [
+        "en 1440: category titles/counts, audience filters and dashboard layout",
+        "en 1440: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+        "en 390: category titles/counts, audience filters and dashboard layout",
+        "en 390: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+        "ar 1440: category titles/counts, audience filters and dashboard layout",
+        "ar 1440: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+        "ar 390: category titles/counts, audience filters and dashboard layout",
+        "ar 390: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent"
+      ]
+    },
+    "catalogue": {
+      "report": "tmp/workflow-toggle-1790711088653-d0a203/catalogue-layout-report.json",
+      "passed": true,
+      "checks": [
+        "chrome individual en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "chrome individual ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "chrome corporate en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "chrome corporate ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "chrome: shared header on login, signup and management sign-in",
+        "firefox individual en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "firefox individual ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "firefox corporate en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "firefox corporate ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "firefox: shared header on login, signup and management sign-in",
+        "webkit individual en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "webkit individual ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "webkit corporate en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "webkit corporate ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "webkit: shared header on login, signup and management sign-in"
+      ],
+      "layout_measurements": 186
+    },
+    "loading": {
+      "report": "tmp/workflow-toggle-1790711183567-4178a9/loading-report.json",
+      "passed": true,
+      "checks": [
+        "Document centre and editor work while the shared-profile response is still pending",
+        "Late account data fills untouched fields; an edit made while loading is preserved and conflict resolution saves it",
+        "Opening the document centre and editing fields fetches no PDF or PDF engine",
+        "Reload restores the confirmed account values",
+        "Management overview defers form definitions and PDF downloads until they are needed"
+      ]
+    },
+    "admin_backup": {
+      "report": "tmp/workflow-toggle-1790710859541-6585f7/admin-handoff-report.json",
+      "passed": true,
+      "checks": [
+        "Account creation/export are superadmin-only; CSRF, minimum length, confirmation and legacy username collisions enforced",
+        "Superadmin creates an admin through the UI; separate login works without document/account-management privileges or exposed hashes",
+        "Chosen eight-character admin passwords reset both new and legacy accounts and invalidate earlier sessions",
+        "Client reset UI accepts a chosen password, revokes sessions, requires a private client change and preserves all submissions",
+        "English/Arabic admin navigation and password dialogs fit mobile screens",
+        "Private snapshot restores exact accounts, structured answers, archives, PDF hashes and administrator credentials; replacement of existing data refused"
+      ]
+    },
+    "form_access": {
+      "report": "tmp/workflow-toggle-1790711086299-a80633/form-access-report.json",
+      "passed": true,
+      "checks": [
+        "Anonymous root/folder/index pages redirect; original PDFs, direct gateway and catalogue denied; defaults denied; retired preview redirects",
+        "Both client categories see only matching/shared catalogue and PDFs; direct opposite links denied; category landing works",
+        "Uploaded published documents enforce category; only superadmin can fetch draft uploads; management retains both-audience previews",
+        "Combined management/client cookies preserve preview access; logout restores category guard; reset revokes old PDF/page access; forged cookies fail closed",
+        "Temporary-password clients must replace password before forms/templates; replacing it restores authenticated access",
+        "Client logout immediately blocks catalogue and template access"
+      ]
+    }
+  },
+  "pdf": {
+    "counts": {
+      "pdfs": 114,
+      "pages": 755,
+      "text_rectangles": 2093,
+      "choice_rectangles": 917,
+      "signature_rectangles": 34,
+      "transparent_images": 14637,
+      "unchanged_pages": 342
+    },
+    "coverage": {
+      "signature-form": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 6,
+        "covered_choice_options": 6,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "al-naeem-terms-consent": {
+        "mapped_fields": 2,
+        "covered_fields": 2,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 8,
+        "complete_success": 5
+      },
+      "subscription-form": {
+        "mapped_fields": 29,
+        "covered_fields": 29,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 13,
+        "complete_success": 5
+      },
+      "subscription-company": {
+        "mapped_fields": 30,
+        "covered_fields": 30,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 11,
+        "complete_success": 5
+      },
+      "terms-and-conditions": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 4,
+        "covered_choice_options": 4,
+        "uncovered_choices": [],
+        "signature_slots": 6,
+        "covered_signatures": 6,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "fatca-crs-individual": {
+        "mapped_fields": 57,
+        "covered_fields": 57,
+        "uncovered_fields": [],
+        "choice_options": 16,
+        "covered_choice_options": 16,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 12,
+        "complete_success": 5
+      },
+      "fatca-crs-corporate": {
+        "mapped_fields": 76,
+        "covered_fields": 76,
+        "uncovered_fields": [],
+        "choice_options": 19,
+        "covered_choice_options": 19,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 19,
+        "complete_success": 5
+      },
+      "kyc-individual": {
+        "mapped_fields": 106,
+        "covered_fields": 106,
+        "uncovered_fields": [],
+        "choice_options": 122,
+        "covered_choice_options": 122,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 16,
+        "complete_success": 5
+      },
+      "kyc-corporate": {
+        "mapped_fields": 100,
+        "covered_fields": 100,
+        "uncovered_fields": [],
+        "choice_options": 60,
+        "covered_choice_options": 60,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 15,
+        "complete_success": 5
+      }
+    },
+    "failures": []
+  },
+  "visual_inspection": {
+    "pdf_contacts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      10,
+      12,
+      14,
+      17,
+      19
+    ],
+    "scope": "Sampled Arabic and English rendered pages from every document; blue text, bilingual labels, field placement and signature placement visually checked. Automated verification covers all generated files.",
+    "browser_samples": [
+      "English individual submit-only cards",
+      "Arabic mobile submission settings",
+      "English management categorized answers"
+    ]
+  },
+  "source_sha256": {
+    "scripts/create-handoff.py": "f9ecb4b77e2bdb21658a5eda6f7aa69c74a938ad7af626ef987d82ed6ab4d6f6",
+    "scripts/notifications-audit.mjs": "10af8cb1c4fee17089eeef3769f77c44c73c1bc764d214ce381a34af59dad42f",
+    "scripts/optional-review-actions-audit.mjs": "b4862ef5e9de720a0c3a061a48458218f81ef1cfb355a3b3abfe741ef215288c",
+    "src/main.js": "01c643718b94b82cd0e6eb1b42ef352f0b65d5dd707e3dcfc412b1b1ba63c3d4",
+    "src/portal/follow-up.js": "bc509e7f845b2c6a0671c220e77ea4649fb63d3f61f6ad297f77af4a58cc5cd9",
+    "src/portal/notifications.js": "269e9e9b9095d2a684126f31e894110c4c30b873fe26d3ce091bed29480c5665",
+    "src/portal/preview.js": "4c9b257d24ad7acd8bd8b86c4d789af2df96ce95362a129532c455206702ad74",
+    "src/portal/review.js": "d2bc3a130cf05151a8e76665efeb375a94956f3631db0ee513e02ceadf83b75d",
+    "src/portal/sign-submission.js": "6969e6180dc17ae29a689b4d82f0ad9bf1f9095ee39759ed1de1473cf6d61e22",
+    "src/portal/submit.js": "2aee5a04d7e47ac13ed7706b2b1a502835f6d6428df81503721d40707e019618",
+    "scripts/submit-only-client-audit.mjs": "417d604d44a75a6617c1e655387cbb6007a3a82b0d2c12e726344bf9ea14b03e"
+  },
+  "unchanged_production_backend_and_pdf_files": 33,
+  "build_sha256": {
+    ".htaccess": "131abbcc7b362906cf8d0233a326426e89302a985de5ec1454c3be1fdfdd2759",
+    ".user.ini": "8d0fa9185542a574fcb6198f7bbfa0e9f2a9ebca275e0e19cb3fef74fc78e6d5",
+    "_private/.htaccess": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+    "account/index.html": "47ac447338f9e8bf8de677c78e47d9084221fee13abab04f9398edea7a20f15f",
+    "api/client-profile-defaults.json": "f14d5eb897a253120daaad5bc147441151bdf2bd4978073ec35933b152cfad53",
+    "api/defaults.json": "5599b41c1ac902c9abb3e23205ddb7dadb6ac667539811877c70747de804d923",
+    "api/document-catalogue.php": "e251d62d046eb433dc2e6e1e9a62447d6d4fb8d5992e4d871a8c427485082d86",
+    "api/form-access.php": "55b00ac39542a85d4b91145aabaa1d3c75c5f18afbd148fe7763874012ba4ed5",
+    "api/installation-backup.php": "84f4dc66d6e13da7d58e11181d0d86c6d219fe1a6d186a9984eb1dbe8cb28633",
+    "api/management-accounts.php": "35e453dae1db9d8e1ae1f2e020f4a8618138580c6eff8faf38df241b8eacdef9",
+    "api/management-auth.php": "94fd9ff9961e597bde579f2be50841c991a3ed8dd46c80d4acfb1b9988ef9d72",
+    "api/management.php": "11b7ce29323c14b84a93deaa6fe40eaf4581d25aca8b0e6cab420cf0ad09f9b0",
+    "api/page.php": "2670e9436c349dd4d7146eec2b7e4fb47dfa75cec21664e1dd2ceef8c03fa9fa",
+    "api/portal-account-types.php": "bb42d83661cc4fd799df5458dcb90fa58c936e229c43dc88e7892533718736a6",
+    "api/portal-answers.php": "8123a4bc131cd42bc3057c560e32ee706a9897347d910c929586022a643316b1",
+    "api/portal-database.php": "332be1a1e42ecc96538327456a217227775f3752583f97fd101b9fa788f9d3a4",
+    "api/portal-defaults.json": "c29ee8bd12f29fafb0159464a27eee62d9437fce0eca84cc2e53ebee3a5044d9",
+    "api/portal-details.php": "74fe409eed71165eb0d129723d5d852f363a3569a6a5dbc631467c8697aae3be",
+    "api/portal-reviews.php": "fd7fa91ff099c756e420483162edcdb59682a49d0ae0522484189b5cc1f577ce",
+    "api/portal-shared.php": "9413bd690723501a3c6237579e82595d6b34336cc8920fc4fbb046044cd482dd",
+    "api/portal-versions.php": "0eeca6d8159f2bf7b97698ce8a2e009f0715967ecf92164421accbf9345ca4fd",
+    "api/portal-workflow.php": "e2251b5d8f040f5612afde05b58e0a8903ed41aa7a474b0a3f7aee8b18e3ce75",
+    "api/portal.php": "c1cb1092a2c9f8e3b05f624d107251be0153b8cd7427b60533f230af79fa55d4",
+    "api/session-scope.php": "872f452d5caa21f1aa97a7c29177b4b2510c1a664d31f4d6a9effb03acd05d62",
+    "api/subscription/calculate.php": "a092fcf81864efefcf66dbdeeeba665eb4006d3858043b7f86c66c0464363dd1",
+    "api/subscription/rules.json": "7d9951843cf9db7a24c22c87872cc32570413012133c702d18018bcb8f2378b7",
+    "api/template.php": "fe2af0c455a993851227c05ae8803d02e3e919e7bb3755f9c96bbd21ddfcbe12",
+    "assets/access-DSNMeEip.js": "dfa8b5b8b22a197c90f27b5714238ed04c5a8c3739a86d665752c8ff1c67705c",
+    "assets/access-DpDQIypX.js": "7e0a6a86444a3e95f1d406bfe336eb7ef36480fe3959b6473052b5736105332a",
+    "assets/api-COrqlYNC.js": "57b71dcab56f6126dadccd1f3b300df38926fb5840991953061ceb8cc6f7f770",
+    "assets/arabic-600-DfnZHZ36.css": "4408887cf67093d248dd499577fd4ab9e76c70e453555c1dd6bdaf429834e467",
+    "assets/branding-Bb343iPv.css": "db9fb64536c01e0e9912b3541804f7f16b840b9869b88d7f87927a507ce69d28",
+    "assets/branding-C_Wougw3.js": "78e6554ecf8331e0614a9047dbc94a46ce18fd9f96267295d3978e184ca8d78e",
+    "assets/catalogue-B3tlQG9w.js": "0dcecee31a507b72d6b650cdb58d989cffc6b7cefec66a5deed1861f5fbc527e",
+    "assets/catalogue-CR_2rN1N.js": "0e4fdba8269b33de65d9364cb945e118505cbf852136953ec6b460446d9f8074",
+    "assets/catalogue-DFXD2NrP.js": "02c01130b5d88b4f04592665c3395d8c60b4f243be2ae2ca4e727698a59ccb31",
+    "assets/catalogue-DlpGEFii.js": "089569cee1788b1927753e22b442560068797c454fae088d23353007000f9fe3",
+    "assets/es-DxWXVMsX.js": "884e9b58526ca894235cda27fe192373430507d5737106c1c8dfb114b3052c1c",
+    "assets/follow-up-CnvnEzHq.js": "a6a403b8581371d9151d90de8bf98fee09378f2694c5e4677347aa5c3e917252",
+    "assets/forms-CAJGXHxf.js": "f0ac31b9268a9df84c56a5436825158afe1fbec917e9df1d955f719b340e8f00",
+    "assets/forms-Dnyw-Xpm.js": "961709a180448eff671cffdb5c32c753de4ada7aaf662ea13959cc49b169c6aa",
+    "assets/index-BwOAMpw8.js": "0e805be1c2b7a31a9a66d37abd239ea261bbec420bb78553efe9de9c02807ba4",
+    "assets/inter-latin-400-normal-C38fXH4l.woff2": "8909904ab6c872eb994093482a88a28eca2cd95912d7b6fecd72103b0dc07edc",
+    "assets/inter-latin-400-normal-CyCys3Eg.woff": "e20fa0b4fd2dd26e4d14b3ac3cc922509c3a63fa5e910e90c614544aa042dd45",
+    "assets/inter-latin-500-normal-BL9OpVg8.woff": "9b42c108da48b5ed55a3072e815ffee2d271562e6c0dd6998910e8f9c09e0a3d",
+    "assets/inter-latin-500-normal-Cerq10X2.woff2": "f3779f1efccc4bdcdf9c0a02ab95bf6bd092ed09c48c08cedc725889edd1d19f",
+    "assets/inter-latin-600-normal-CiBQ2DWP.woff": "6a9cb3a509b4eeaf12b7dda6c4aacac3e85d07f4201bf4dd716e332e692b87bd",
+    "assets/inter-latin-600-normal-LgqL8muc.woff2": "f9a06e79cd3a2a20951c0f0e28f66dd0e6d3fda73911d640a2125c8fcb78f21a",
+    "assets/latin-400-CkJXGLVG.css": "3df0f0359068fa8cd5a8af39c80c6d49e107f1fb918f3bf6f30fe4d3cb85b354",
+    "assets/main-B5LRbaKe.css": "e678a6b55c1fdda1185ae9ad65b1c46d3c31ed52128211280f036853f39eb76b",
+    "assets/main-B72gXKZ_.css": "da98c81084a3fcb19e1680a813e1820b5bbfb854355a1264494aa78af2c77f02",
+    "assets/main-Bv2d98k5.js": "066560fad4c74d347c5d2a1d5def54096c71b8349e81cc1ea5ad5d2d64d50a56",
+    "assets/main-CNh7EAoz.js": "8224562b106f2877b2693e4e74fa4419de1f29c712ae1a502d7ba1f5a7e388a2",
+    "assets/main-SlFOdK9R.css": "c7b4126f8371405fcb35aae24f970792c1591bc0856ed4a25f79834582e537fd",
+    "assets/main-h5IbZF8_.js": "b7ffed82548e006a51d5ee19cb82469706cb46596583c01039950fdd317c7365",
+    "assets/notifications-BJ1emwYd.js": "8070f78886e2ae4201692a0c0ae7dede332f54bdd8d63e86d1f52c56dd85765b",
+    "assets/noto-sans-arabic-arabic-400-normal-AAMxebZb.woff2": "4e2ca0745c908761dc5c5db951662873887c59366fa1a5693ad22c0864abf1bd",
+    "assets/noto-sans-arabic-arabic-400-normal-hsqIUL9Q.woff": "6d47c7e4dfc76e221d078945ef2bbf47b047f1b316cf87c7663086639814c763",
+    "assets/noto-sans-arabic-arabic-600-normal-JLzruTOp.woff": "4cd5ad759d5ee84c12fa9aa6aa8747fb9e2fca225b87292bf42628f67ab3e4db",
+    "assets/noto-sans-arabic-arabic-600-normal-JPxwL-XU.woff2": "52a2cd4b0ff37ac84ef9af585af2eca0a300d49ea4934cf023827de54fdc354f",
+    "assets/noto-sans-arabic-latin-400-normal-CjsIS08k.woff2": "290bdad021425e6ba6263c27d38652403f9b1a9ee74f5bbd2c62905b13f71b8c",
+    "assets/noto-sans-arabic-latin-400-normal-lr8cikIT.woff": "86dab403db7f723e9c15de4324c2752c5a350bdd5344458850b2da9b7d2e332e",
+    "assets/passwords-CYgB0nvL.js": "2eecabfbd7f6ebc901bfca585841028477d1f3b2290af0486ea29dbce8940920",
+    "assets/pdf-CGE9QkSI.js": "d38e162c9b778533c2b1d3912ea5690b9336600c6e06d14740136a0ade1a68c2",
+    "assets/pdf-CS3FWNOH.js": "ecf0dc40c0e8cb8a52f7448570b66fe6ae9dfe89bc03b578f28cd58eaf876561",
+    "assets/pdf.worker.min-Dswkl-cV.mjs": "8ab0e5e30031b4a06ecfddd5ae9562f0227f830ee7ec9ed1a968b134243d2386",
+    "assets/pdf.worker.min-FoBnJSGj.js": "63b9c6ba8c0a3f245f23b068baab3e183833885db2db63896a03062e00bddad4",
+    "assets/preload-helper-uBIymjUX.js": "e1a22f3f73566f21ff932e058d32243e4a118f3491b91e96893aa5ab7eb49a00",
+    "assets/preview-D1wWfWPC.css": "341e01a8ea1d5d7c480cc52ee831cfc6efeb23fe7d7ca8dd940f9dc5748b456c",
+    "assets/preview-DwiPPIf4.js": "f8427f4eeab77471e1eb3928574575b9bc5c13071fbead0214e1f585886805d4",
+    "assets/preview-DzgNYU1S.js": "30d76c0f2a305e8b6d9cae0ab4de39ab0bf03a3c68f5a2d1e0ab134e285500a7",
+    "assets/review-BsWU0vV6.css": "b01a50ce61b8fa71d34c5d0d0e16c294bc8af589ed31ffbe89c12477a103cc1e",
+    "assets/review-FFU8meSH.js": "f2a0f797a9516ad7644d4468988f201433f19502562afcaf49af409e24441d33",
+    "assets/routes-VETtnQjc.js": "6c3436c95c68b54206953e92017d9a0edb4c1fdcb4823b5c27e236c2b02232fb",
+    "assets/shared-fields-C-TVuEJ2.js": "0cd0194e8e3104a1725d1b2e573ab3ec7372eb3d44977e25b4ed9894118a1793",
+    "assets/sign-submission-CkT-yXjv.css": "a363bf49da4e0d94271455cbbeb52b4069d2a1630490dddee417c0554d6703be",
+    "assets/sign-submission-poI_CobF.js": "16cf0756bf643f5abdc7f7ff4238058aca1443ffb06586f73ed7574c30bde9a3",
+    "assets/signatures-DQQVjmg0.js": "1de4326a39e3a9b7cf3c89940f6a28da837966c5090f90fad5335df01650516e",
+    "assets/submitted-details-BFHcrmWd.js": "b6b5ef9005660905c847f8b71470e2f31d0ffdd7de6cb6f54518936ef28e506d",
+    "assets/upload-DEsx752m.js": "b1b2f45bd3ee1b2fd971e3ecbb251f5876a0248f8fb848cecbe91f1ced2a8a37",
+    "assets/upload-DgZa0J_G.js": "5f4e1db7c866e65f804d858c94888c69c4abc5326af225fb550b3e07a9eb74ec",
+    "assets/upload-e-06JlEl.css": "b8c8d9adff65faaeb9f450f63a60596b47402375e9d35cd256904ff9ecb8525f",
+    "branding/dinar-partner.png": "d422772b565a593a33d8791f05275d38c08ba722ce12ed80c31d57d2ed5bd1e9",
+    "branding/itqan-fund.png": "a777045f03bc890aade25d3bcb4e7afc813837082c282cdefd8fdd46dd5c1dc0",
+    "branding/itqan.png": "e0c0369f0ab19fdf7baaa69ab284bf9f9a449aa473c0ff6208454f27bbeccdb0",
+    "branding/rsm-partner.png": "f98e40a1a8cb66d93dd2b043462379ffa57ab4770e34f6ba661c2034c4153ae2",
+    "branding/wessal-partner.png": "c5560fc2284593cd155ddbe358d3c59fb515bf75b45ff20c8421d69fe546e45b",
+    "companies/index.html": "37a286b3dc1f5e9d81f565229df23ac5bb0edea8edf123fe422c917610f24e8e",
+    "favicon.svg": "41c04134da8811ae64b2a60623801cc018d034003c1502fb4189bbf379d757fd",
+    "index.html": "ac3e6867f895040436b050ff5b732a29703142c30eee450ebc685b32ee5aa9d2",
+    "individuals/index.html": "950df80921c51b2ff38f6ffc03736d286bcaf26e7d474f73bf87d2e8eb840b62",
+    "login/index.html": "89b8aa8ba859229582a9bb0f2ab9f172c127795d7593a47e398baf68b7d1277f",
+    "management/index.html": "350bc29ad263c5b4901d3767a6ec5f0fc8a2971b404aca390d6b78d027295961",
+    "my-applications/index.html": "9fd5eb39cf1836a2c650032bae2031a9ceec88d410a16205f14d7508b039fb6e",
+    "pdfs/al-naeem-terms-consent.pdf": "431d85dbd2732871fd09ab32345427e566f8c75e8b04b6094e30d0f9b88aa7c6",
+    "pdfs/fatca-crs-corporate.pdf": "10948ab007a60dfd76ddabc68b604efe86772a25a6683d07291879d442384083",
+    "pdfs/fatca-crs-individual.pdf": "14aa4a0914fc1346fbc6b9f9e46cf2e7fcc998b2aeeee22fa954f9201b7e8bd1",
+    "pdfs/kyc-corporate.pdf": "c272084a295866a1b10ffaca7837f0b78c592cfa1794999684736f444bdcea3f",
+    "pdfs/kyc-individual.pdf": "c1902615737bfc4dcefd06812ef0fb016cf4aeaec4c3088a02f364d72abd612b",
+    "pdfs/signature-form.pdf": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+    "pdfs/subscription-company.pdf": "5bc580c782795e59c350d87e5c7cac83244ad2214ba6b404e6f04fba2c12bcea",
+    "pdfs/subscription-form.pdf": "00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a",
+    "pdfs/subscription-individual.pdf": "9947150d7cd0cd4cb6b179075d42c9137d5b8d68aaaab6ce41407e813d078365",
+    "pdfs/terms-and-conditions.pdf": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+    "register/index.html": "06f0472f5ffdbcf15c83617957710f296456b24095ed584f558c8d9b96e8d091"
+  },
+  "limitations": [
+    "Synthetic test data in isolated local installations; mutable workflows not exercised against real production client records.",
+    "PDF checks cover supplied sample values and mappings; arbitrary input length can still require smaller text.",
+    "Browser checks used Chrome, Firefox and WebKit desktop engines with responsive viewports, not physical devices."
+  ]
+}

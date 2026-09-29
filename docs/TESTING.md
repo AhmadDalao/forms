@@ -36,6 +36,7 @@ QA_OUT=tmp/client-corrections-pdfs node scripts/current-pdf-audit.mjs
 python3 scripts/current-pdf-audit-verify.py tmp/client-corrections-pdfs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/client-corrections-audit.mjs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/direct-intake-audit.mjs
+PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/submit-only-client-audit.mjs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/admin-presentation-audit.mjs
 node scripts/shared-profiles-audit.mjs
 node scripts/staff-name-audit.mjs
@@ -70,6 +71,7 @@ Some suites cover Chrome, Firefox and WebKit. The card audit checks both audienc
 | Conflicts and clearing | Clear a common field deliberately, reload, use two tabs, disconnect/reconnect and retry. A stale response must not silently replace a newer edit. |
 | Submission | Preview every form, submit unsigned and signed examples, double-click/retry, then confirm one saved version and complete management answers/PDF. |
 | Optional review | Default off. Superadmin can switch it; ordinary admin cannot. Both roles decide enrolled cases. Initial unsigned forms work in either mode. Existing Received records remain Received. |
+| Submit-only display | With review off, clients see Received plus signature status, generic notifications and no approval/rejection notes. Existing correction/signature actions and instructions remain usable. Switching modes updates open cards, notifications and PDF previews without closing them or changing stored decisions. |
 | Decisions and notes | No preselection. Reject/correct require a note, approve/signature permit one. Check escaped notes in cards and notifications, read receipts, approval locking and obsolete notification actions. |
 | Review replacements | Switch off during a pending/correction/signature case: it continues. Unsigned signature follow-ups fail; electronic signatures or a confirmed signed PDF create a new Under review version. After approval/rejection, a replacement follows the current switch. |
 | Concurrent requests | Change modes during editing/upload, use two admins, repeat a request after a lost response, and try reviewing an archived version. Expect conflicts or one saved decision, never duplicate history. |
@@ -91,3 +93,5 @@ TEST-REPORT.md distinguishes checks rerun on 29 September from older regression/
 ## Submission settings page
 
 `review-navigation-audit.mjs` checks the dedicated settings page, explicit Save action, both modes, hidden off-mode counters, existing review access, conflict/retry handling, delayed navigation, both management roles and Arabic/English at desktop, tablet and phone widths in Chrome, Firefox and WebKit. `optional-review-actions-audit.mjs` also tests a committed settings response lost in transit; retrying must reuse the request key.
+
+`submit-only-client-audit.mjs` uses the generated PDF audit's `records.json` as valid sample answers. It checks six saved statuses for each audience, both languages, desktop/mobile and Chrome/Firefox/WebKit; generic off-mode notifications; live setting changes while the PDF and notification panel are open; preserved answers, PDF hashes and decisions; and signing-details network failure. Generate the samples with the command above before running it. The optional-review action audit separately verifies that completing a previously issued request while review is off uses a Received receipt.
