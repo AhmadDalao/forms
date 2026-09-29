@@ -1,0 +1,15 @@
+{
+  "at": "2026-09-29T19:33:47.467Z",
+  "checks": [
+    "superadmin: both columns follow Subscription, KYC, Signature, Consent, FATCA/CRS, Terms; audience counts unchanged; AR/EN desktop/mobile",
+    "admin: both columns follow Subscription, KYC, Signature, Consent, FATCA/CRS, Terms; audience counts unchanged; AR/EN desktop/mobile"
+  ],
+  "errors": [],
+  "passed": true,
+  "deployment": {
+    "source_commit": "359337894a165372216804aae0e940d26119bed0",
+    "uploaded_at_utc": "20260929T193251Z",
+    "static_only": true,
+    "completed": true
+  }
+}
