@@ -1,6 +1,6 @@
 # Al Naeem Real Estate Fund — start here
 
-This is the fresh-install handover dated 29 September 2026. It includes schema 8 and optional reviews, off by default. It contains the current website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
+This is the fresh-install handover dated 30 September 2026. It includes the latest larger, single-line client names in Received applications, schema 8 and optional reviews, off by default. It contains the current website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
 
 Only upload the contents of `website/` to the public website folder. Keep this ZIP and everything else private.
 

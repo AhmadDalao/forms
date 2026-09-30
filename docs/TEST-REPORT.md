@@ -1,6 +1,6 @@
-# Release verification — 29 September 2026
+# Handover verification — 30 September 2026
 
-The latest update keeps Submit only simple on the client side. With review off, submitted cards and previews show **Received** plus signature status. Review decision labels and approval/rejection notes are hidden; notifications say **Form update** without decision text. Already-issued correction/signature actions and their instructions remain usable. Management keeps the actual case status and history. The setting stays on its dedicated superadmin page, and both dashboard category columns use the same six-form order.
+This delivery includes the full-cycle release tested on 29 September and the name-layout update checked on 30 September. The submit-only update keeps the client side simple. With review off, submitted cards and previews show **Received** plus signature status. Review decision labels and approval/rejection notes are hidden; notifications say **Form update** without decision text. Already-issued correction/signature actions and their instructions remain usable. Management keeps the actual case status and history. The setting stays on its dedicated superadmin page, and both dashboard category columns use the same six-form order.
 
 This update changes frontend presentation only. Backend, database schema, PDF templates and field mappings match the preceding production release. The migration remains schema 8. Review is off by default.
 
@@ -32,7 +32,7 @@ Public deployment backs up replaced entry pages and preserves private storage. H
 
 Live verification passed for both management roles in Arabic/English on desktop/mobile: settings permissions and saved mode, hidden review counters, category order/counts, client profiles and PDF previews. Hosted JavaScript assets matched the tested build. Review stayed off and submission counts stayed unchanged. Eight overwritten public pages were backed up; private storage was preserved.
 
-The handover builder restores and verifies the fresh bootstrap: schema 8, review off, SQLite integrity, admin/superadmin credential hashes, and zero clients, submissions or saved PDF files. The delivery includes source, public build, installation/domain instructions, database documentation and test scripts. `SNAPSHOT.json`, `MANIFEST.json`, `SHA256SUMS.txt` and `verification/bootstrap-verification-2026-09-29.json` identify and verify that package. Keep the bootstrap private and send its account passwords separately.
+The handover builder restores and verifies the fresh bootstrap: schema 8, review off, SQLite integrity, admin/superadmin credential hashes, and zero clients, submissions or saved PDF files. The delivery includes source, public build, installation/domain instructions, database documentation and test scripts. `SNAPSHOT.json`, `MANIFEST.json`, `SHA256SUMS.txt` and `verification/bootstrap-verification-2026-09-30.json` identify and verify that package. Keep the bootstrap private and send its account passwords separately.
 
 Earlier dated verification files remain as history. Their old navigation descriptions and schema/page counts do not override this report.
 
@@ -44,6 +44,6 @@ The earlier Hostinger investigation found a browser challenge adding about four 
 
 ## 30 September — larger received-application names
 
-The Received applications client column has more space. Client names use 17px text on desktop and 16px on phones, stay on one line beside their account badge, and keep the phone number below. Thirty-six responsive checks passed: three browsers, Arabic/English, and 1440/1280/1024/768/390/320 widths. Profile links still open; no page overflow or browser errors. Long rows retain horizontal scrolling when space is limited. English desktop and Arabic mobile samples were visually inspected. This CSS-only change does not alter form data, PDFs, submission behavior or review settings; the full-cycle evidence above remains the functional baseline. See `received-names-2026-09-30.json`.
+The Received applications client column has more space. Client names use 17px text on desktop and 16px on phones, stay on one line beside their account badge, and keep the phone number below. Thirty-six responsive checks passed: three browsers, Arabic/English, and 1440/1280/1024/768/390/320 widths. Profile links still open; no page overflow or browser errors. Long rows retain horizontal scrolling when space is limited. English desktop and Arabic mobile samples were visually inspected. This CSS-only change does not alter form data, PDFs, submission behavior or review settings; the full-cycle evidence above remains the functional baseline. See `verification/received-names-2026-09-30.json`.
 
 Live checks passed in Arabic and English at desktop and phone widths. Hosted CSS matched the tested build, names stayed on one line, profile links opened, and review remained off. Client and submission counts were unchanged. Public files were backed up before deployment.

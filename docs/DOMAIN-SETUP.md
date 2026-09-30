@@ -58,13 +58,13 @@ Use `private-bootstrap.zip` for this fresh installation. It contains the existin
 
 ## 4. Verify the new domain
 
-Run the acceptance checklist in `INSTALL.md`. At minimum:
+Run the acceptance checklist in `TESTING.md`. At minimum:
 
 - Visit `/` without signing in: it should lead to login. Direct category, template and private-data links must remain protected.
 - Check `/login/`, `/register/`, `/individuals/`, `/companies/`, `/account/` (with `/my-applications/` as a legacy alias) and `/management/`. A client must see only their account category.
 - Sign in as both included management accounts. Compare with `SNAPSHOT.json`: zero clients, zero submissions, zero archived versions. Verify the superadmin-only controls. Use synthetic clients and new submissions to test preview/download and ZIP behavior before opening registration.
 - With synthetic accounts, verify shared data, a new submission, replacement/archive behavior and passwords. Check both languages and a phone-sized screen.
-- Confirm Review new submissions starts off. Using synthetic accounts, test unsigned Received, then enable review as superadmin and test correction, signature replacement, approval and rejection for both audiences. Turn it off and confirm ongoing cases still work. Leave it off for launch unless the owner chooses otherwise.
+- Confirm Submission settings starts in Submit only mode. Using synthetic accounts, test unsigned Received, then enable review as superadmin and test correction, signature replacement, approval and rejection for both audiences. Turn it off and confirm ongoing cases still work. Leave it off for launch unless the owner chooses otherwise.
 - Confirm source ZIPs, SQLite files and `api/*.json` schema files cannot be downloaded anonymously.
 
 ## 5. Launch the fresh installation

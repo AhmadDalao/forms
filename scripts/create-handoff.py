@@ -2,14 +2,16 @@
 """Package the public build and an explicitly supplied, verified fresh admin bootstrap."""
 from pathlib import Path
 import argparse, hashlib, json, os, shutil, sqlite3, subprocess, zipfile
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output', type=Path, required=True)
 parser.add_argument('--bootstrap', type=Path, required=True, help='Private fresh-install ZIP, never a live client export')
 parser.add_argument('--snapshot', type=Path, required=True, help='Metadata/checksum for that bootstrap')
+parser.add_argument('--release-date', type=date.fromisoformat, default=date.today(), help='Delivery date, YYYY-MM-DD')
 args = parser.parse_args()
+release_date = args.release_date.isoformat()
 os.umask(0o077)
 out = args.output.resolve()
 bootstrap = args.bootstrap.resolve()
@@ -89,6 +91,7 @@ for name in ['modern-pdf-release-2026-09-28.md', 'modern-pdf-verification.json',
     copy(ROOT / 'docs' / name, package / 'verification' / name)
 copy(ROOT / 'docs/apache-vhost.example.conf', package / 'server/apache-vhost.conf')
 copy(ROOT / 'docs/admin-presentation-verification.json', package / 'verification/admin-presentation-verification.json')
+copy(ROOT / 'docs/received-names-2026-09-30.json', package / 'verification/received-names-2026-09-30.json')
 for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verification.json',
              'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
              'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',
@@ -117,10 +120,10 @@ assert not list((restored / 'management/uploads').glob('*'))
 assert not (restored / 'management/state.json').exists()
 shutil.rmtree(restored)
 copy(bootstrap, package / 'private-bootstrap.zip')
-snapshot['application_release'] = '2026-09-29 submit-only client display, full regression cycle, dedicated submission settings and schema 8'
+snapshot['application_release'] = release_date + ' latest received-application name layout, submit-only client display, dedicated submission settings and schema 8'
 snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
-(package / 'verification/bootstrap-verification-2026-09-29.json').write_text(json.dumps({
+(package / ('verification/bootstrap-verification-' + release_date + '.json')).write_text(json.dumps({
     'verified_at': datetime.now(timezone.utc).isoformat(), 'restored_and_initialized': True,
     'client_schema_version': 8, 'review_enabled': False,
     'client_tables_empty': True, 'pdfs_empty': True, 'catalogue_state_empty': True,
@@ -156,7 +159,7 @@ manifest = {'created_at': datetime.now(timezone.utc).isoformat(),
             'includes_management_accounts': ['admin', 'superadmin'], 'files': files}
 (package / 'MANIFEST.json').write_text(json.dumps(manifest, indent=2) + '\n')
 (package / 'SHA256SUMS.txt').write_text(''.join(f"{f['sha256']}  {f['path']}\n" for f in files))
-archive = out / 'Al-Naeem-Developer-Handover-2026-09-29.zip'
+archive = out / ('Al-Naeem-Developer-Handover-' + release_date + '.zip')
 with zipfile.ZipFile(archive, 'x', zipfile.ZIP_DEFLATED) as z:
     for file in package.rglob('*'):
         if file.is_file():
