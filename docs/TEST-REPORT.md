@@ -15,6 +15,10 @@ Preview testing caught an unnecessary image mask introduced while editing the or
 
 Evidence: `verification/all-forms-address-verification-2026-10-07.json`. These are synthetic isolated tests. The backend/schema and optional-review behavior are unchanged; their broader regression remains the dated September baseline.
 
+Published to Hostinger after backing up all **18 overwritten public files**. Live checks confirmed all ten template hashes and new browser assets, a working management profile/PDF preview, an unchanged stored PDF hash, unchanged client/submission counts, and review still off. Existing private storage and PHP application code were preserved.
+
+The fresh handover includes the same admin/superadmin bootstrap with schema 8 and no clients. Its builder restores and checks that bootstrap. Authoring helpers now accept portable renderer/font settings, and address verification requires all seven Word sources, including their packaged location.
+
 ## 7 October — earlier KYC-only stage
 
 Only the current individual and corporate KYC PDF templates and matching Word sources are in scope. The owner supplied this footer and explicitly confirmed the spelling **Branch**:

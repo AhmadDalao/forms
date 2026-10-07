@@ -3622,13 +3622,58 @@
     "src/forms/subscription.js": "25d9c0787ce44045421911078f109a5b50435922d137c1e3b0cad18b29df16b6",
     "scripts/pdf-design/national-address.json": "57a138fa7c961f3e600fbfe658ef8413a64f5e7a5b89da10e2ebd7b13fc42400",
     "scripts/pdf-design/build.py": "8104434fe1044650c52e27fcc27885b5dc60ad8e629cc2a23bcb18ccf6ffbc4e",
-    "scripts/rebuild-subscription.py": "1a2e60ae25a5f4cd6357ac7a4eadb67ae1a73d281ed49a07585504aec9740a24",
-    "scripts/update-original-footers.py": "9202d913211c81e811a4302d4a4f26632e64b56f66753f04d6b5ec50620b1fe6",
-    "scripts/preview-direction-audit.mjs": "5db173cfdb2183af063f312aab369139a1dce8bdeec4fca83f9618793b2dcbf0"
+    "scripts/rebuild-subscription.py": "faee9685c928c7b4cd0bdf77fc926e4f83e89c6c69e248ce9430833072470159",
+    "scripts/update-original-footers.py": "f2028e00a9ae7a71dcc18241a204423f2a6d5364e3d9508838c5b4c875f1a6d3",
+    "scripts/preview-direction-audit.mjs": "5db173cfdb2183af063f312aab369139a1dce8bdeec4fca83f9618793b2dcbf0",
+    "scripts/verify-national-address.py": "7ed08cc79b6566a7aec7041e0688df214d17df106d8b624e3167737476774c7b"
   },
   "release": {
-    "production": "pending",
-    "github": "pending",
-    "fresh_handover": "pending"
+    "production": {
+      "passed": true,
+      "url": "https://forms.ahmaddalao.com/",
+      "source_commit": "37730579ab8f1b64b6ee49864b277512256ed40a",
+      "uploaded_at_utc": "20261007T150959Z",
+      "overwritten_files_backed_up": 18,
+      "private_storage_preserved": true,
+      "live": {
+        "stage": "after",
+        "passed": true,
+        "checks": [
+          "Review remains off; workflow revision and client/submission counts unchanged",
+          "subscription-individual: authenticated hosted template matches verified local PDF",
+          "subscription-company: authenticated hosted template matches verified local PDF",
+          "subscription-form: authenticated hosted template matches verified local PDF",
+          "kyc-individual: authenticated hosted template matches verified local PDF",
+          "kyc-corporate: authenticated hosted template matches verified local PDF",
+          "signature-form: authenticated hosted template matches verified local PDF",
+          "al-naeem-terms-consent: authenticated hosted template matches verified local PDF",
+          "fatca-crs-individual: authenticated hosted template matches verified local PDF",
+          "fatca-crs-corporate: authenticated hosted template matches verified local PDF",
+          "terms-and-conditions: authenticated hosted template matches verified local PDF",
+          "Existing submitted PDF bytes unchanged",
+          "New hosted browser assets match the tested build",
+          "Live management profile and stored PDF preview open successfully"
+        ],
+        "errors": [],
+        "source_commit": "37730579ab8f1b64b6ee49864b277512256ed40a"
+      }
+    },
+    "fresh_handover": "Generated from this revision; see MANIFEST.json, SNAPSHOT.json and bootstrap-verification-2026-10-07.json inside the ZIP."
+  },
+  "handover_authoring_tools": {
+    "portable_subscription_config": true,
+    "embedded_brand_font_matches_original": true,
+    "import_does_not_regenerate_assets": true,
+    "word_sources_required_for_footer_verification": true,
+    "packaged_word_source_path_supported": true,
+    "libreoffice_fallback_smoke": {
+      "renderer": "LibreOffice fallback (DOCX_RENDERER unset)",
+      "source": "tmp/subscription-portability-smoke/portable-renderer.docx",
+      "output": "tmp/subscription-portability-smoke/rendered/portable-renderer.pdf",
+      "pdf_pages": 1,
+      "expected_text_found": true,
+      "pdf_bytes": 10158,
+      "public_pdf_word_and_maps_unchanged": true
+    }
   }
 }

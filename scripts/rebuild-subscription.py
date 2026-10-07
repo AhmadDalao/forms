@@ -1,9 +1,9 @@
-"""Editable Word templates + measured PDF maps. Run with bundled Python.
+"""Editable Word templates + measured PDF maps. Run with Python dependencies installed.
 The probe uses identical fixed rows; only the blank answer paragraphs contain markers.
 Their PDF positions determine blue overlay areas; final Word/PDF contain no markers.
 """
 from pathlib import Path
-import json, subprocess, shutil, zipfile, uuid, sys, io, re
+import json, subprocess, shutil, zipfile, uuid, sys, io, re, os, tempfile
 from lxml import etree
 from docx import Document
 from docx.shared import Pt, Mm, RGBColor
@@ -14,8 +14,8 @@ from docx.oxml.ns import qn
 import pdfplumber
 
 ROOT=Path(__file__).resolve().parents[1]
-RUNTIME=Path('/Users/ahmaddalao/.cache/codex-runtimes/codex-primary-runtime/dependencies')
-RENDER=Path('/Users/ahmaddalao/.codex/plugins/cache/openai-primary-runtime/documents/26.904.11930/skills/documents/render_docx.py')
+RENDER=os.environ.get('DOCX_RENDERER')
+RENDER_PYTHON=os.environ.get('DOCX_PYTHON',sys.executable)
 RULES=json.loads((ROOT/'public/api/subscription/rules.json').read_text())
 NATIONAL_ADDRESS=json.loads((ROOT/'scripts/pdf-design/national-address.json').read_text())['text']
 FONT='Bahij TheSansArabic Plain'
@@ -43,8 +43,52 @@ def para(p,txt='',size=10,ar=False,bold=False,color=INK,leading=None):
   p._p.get_or_add_pPr().get_or_add_jc().set(qn('w:val'),'start')
  run(p,txt,size,ar,bold,color);return p
 
+def brand_font():
+ configured=os.environ.get('SUBSCRIPTION_ARABIC_FONT')
+ if configured:
+  path=Path(configured).expanduser()
+  if not path.is_file():raise RuntimeError('SUBSCRIPTION_ARABIC_FONT must point to BahijTheSansArabic-Plain.ttf: '+str(path))
+  return path.read_bytes()
+ # Reuse the complete font already embedded in the checked-in reference.
+ with zipfile.ZipFile(ROOT/'reference/documents/subscription-style.docx') as z:
+  fonts=etree.fromstring(z.read('word/fontTable.xml'))
+  entry=next(n for n in fonts if n.get(qn('w:name'))==FONT)
+  embed=entry.find(qn('w:embedRegular'))
+  rels=etree.fromstring(z.read('word/_rels/fontTable.xml.rels'))
+  target=next(n.get('Target') for n in rels if n.get('Id')==embed.get(qn('r:id')))
+  font=bytearray(z.read('word/'+target));mask=uuid.UUID(embed.get(qn('w:fontKey'))).bytes[::-1]
+  for i in range(32):font[i]^=mask[i%16]
+  return bytes(font)
+
+def arial_font():
+ configured=os.environ.get('SUBSCRIPTION_ARIAL_FONT')
+ candidates=[Path(configured).expanduser()] if configured else [
+  ROOT/'reference/fonts/Arial.ttf',ROOT/'public/fonts/Arial.ttf',
+  Path('/System/Library/Fonts/Supplemental/Arial.ttf'),
+  Path.home()/'Library/Fonts/Arial.ttf',
+  Path('/usr/share/fonts/truetype/msttcorefonts/Arial.ttf'),
+  Path('/usr/share/fonts/truetype/msttcorefonts/arial.ttf')]
+ font=next((path for path in candidates if path.is_file()),None)
+ if not font:raise RuntimeError('Install Arial and set SUBSCRIPTION_ARIAL_FONT to the Arial.ttf file; font substitution would change the approved PDF layout.')
+ return font
+
+def render_document(target,out):
+ out.mkdir(parents=True,exist_ok=True)
+ pdf=out/(target.stem+'.pdf');pdf.unlink(missing_ok=True)
+ if RENDER:
+  renderer=Path(RENDER).expanduser()
+  if not renderer.is_file():raise RuntimeError('DOCX_RENDERER must point to an existing render_docx.py script: '+str(renderer))
+  subprocess.run([RENDER_PYTHON,str(renderer),str(target),'--output_dir',str(out),'--emit_pdf'],check=True)
+ else:
+  soffice=shutil.which('soffice') or shutil.which('libreoffice')
+  if not soffice and Path('/Applications/LibreOffice.app/Contents/MacOS/soffice').is_file():soffice='/Applications/LibreOffice.app/Contents/MacOS/soffice'
+  if not soffice:raise RuntimeError('Install LibreOffice (soffice on PATH), or set DOCX_RENDERER and optionally DOCX_PYTHON.')
+  with tempfile.TemporaryDirectory(prefix='forms-office-') as profile:
+   subprocess.run([soffice,'-env:UserInstallation='+Path(profile).as_uri(),'--headless','--convert-to','pdf:writer_pdf_Export','--outdir',str(out),str(target)],check=True,timeout=180)
+ if not pdf.is_file():raise RuntimeError('The document renderer did not produce '+str(pdf))
+
 def font_embed(path):
- font=bytearray(Path('/Users/ahmaddalao/Library/Fonts/BahijTheSansArabic-Plain.ttf').read_bytes());key=uuid.uuid4();mask=bytes.fromhex(key.hex)[::-1]
+ font=bytearray(brand_font());key=uuid.uuid4();mask=bytes.fromhex(key.hex)[::-1]
  for i in range(32):font[i]^=mask[i%16]
  with zipfile.ZipFile(path) as z:files={n:z.read(n) for n in z.namelist()}
  w='http://schemas.openxmlformats.org/wordprocessingml/2006/main';r='http://schemas.openxmlformats.org/officeDocument/2006/relationships';ns='http://schemas.openxmlformats.org/package/2006/relationships'
@@ -78,7 +122,7 @@ def refresh_legacy_subscription():
  form.set_data(raw[:start]+re.sub(rb'\[[\s\S]*?\]TJ',b'[]TJ',address_ops)+raw[end:])
  overlay=io.BytesIO();pdf=canvas.Canvas(overlay,pagesize=(596,842))
  pdf.setFillColorRGB(1,1,1);pdf.rect(156,842-838,199,23,fill=1,stroke=0)
- registerFont(TTFont('AddressArial','/System/Library/Fonts/Supplemental/Arial.ttf'))
+ registerFont(TTFont('AddressArial',str(arial_font())))
  pdf.setFillColorRGB(.247059,.101961,.345098);pdf.setFont('AddressArial',6)
  parts=NATIONAL_ADDRESS.split(' | ')
  lines=[parts[0],'| '+' | '.join(parts[1:4]),'| '+parts[4]]
@@ -220,29 +264,36 @@ def build(corporate,probe):
    para(table.cell(0,i).paragraphs[0],label+'  __________________',8,True,leading=18)
  return doc,markers
 
-for corporate in ([False] if "--individual-only" in sys.argv else [False,True]):
- name='subscription-company' if corporate else 'subscription-individual';base=ROOT/'tmp/subscription'/name;base.mkdir(parents=True,exist_ok=True)
- maps={}
- for probe in [True,False]:
-  doc,markers=build(corporate,probe);target=base/'probe.docx' if probe else ROOT/'output/documents'/f'{name}.docx';doc.save(target);font_embed(target)
-  out=base/('probe' if probe else 'final')
-  subprocess.run([str(RUNTIME/'python/bin/python3'),str(RENDER),str(target),'--output_dir',str(out),'--emit_pdf'],check=True)
-  pdf=out/(target.stem+'.pdf')
-  with pdfplumber.open(pdf) as rendered:
-   assert len(rendered.pages)==2,(name,len(rendered.pages))
-   if probe:
-    for page_number,page in enumerate(rendered.pages,1):
-     for token,info in markers.items():
-      for match in page.search(token,regex=False):
-       bottom=min(edge['top'] for edge in page.edges if edge['orientation']=='h' and edge['x0']<=match['x0']<=edge['x1'] and edge['top']>=match['bottom'])
-       maps[info['id']]={'page':page_number,'rect':[round(match['x0'],2),round(bottom-info['height']-4,2),round(info['width'],2),round(info['height'],2)]}
-   else:
-    assert all(not page.search(r'S\d{3}X') for page in rendered.pages)
-  if not probe:
-   shutil.copyfile(pdf,ROOT/'output/pdf'/f'{name}.pdf')
-   shutil.copyfile(pdf,ROOT/'public/pdfs'/f'{name}.pdf')
-   shutil.copyfile(pdf,ROOT/'output/documents'/f'{name}.pdf')
- (ROOT/'src/subscription'/f'{name}-layout.json').write_text(json.dumps(maps,ensure_ascii=False,indent=2)+'\n')
- print(name,len(maps),'mapped fields')
+def main():
+ arial_font()
+ brand_font()
+ for folder in ('output/documents','output/pdf'):(ROOT/folder).mkdir(parents=True,exist_ok=True)
+ for corporate in ([False] if "--individual-only" in sys.argv else [False,True]):
+  name='subscription-company' if corporate else 'subscription-individual';base=ROOT/'tmp/subscription'/name;base.mkdir(parents=True,exist_ok=True)
+  maps={}
+  for probe in [True,False]:
+   doc,markers=build(corporate,probe);target=base/'probe.docx' if probe else ROOT/'output/documents'/f'{name}.docx';doc.save(target);font_embed(target)
+   out=base/('probe' if probe else 'final')
+   render_document(target,out)
+   pdf=out/(target.stem+'.pdf')
+   with pdfplumber.open(pdf) as rendered:
+    assert len(rendered.pages)==2,(name,len(rendered.pages))
+    if probe:
+     for page_number,page in enumerate(rendered.pages,1):
+      for token,info in markers.items():
+       for match in page.search(token,regex=False):
+        bottom=min(edge['top'] for edge in page.edges if edge['orientation']=='h' and edge['x0']<=match['x0']<=edge['x1'] and edge['top']>=match['bottom'])
+        maps[info['id']]={'page':page_number,'rect':[round(match['x0'],2),round(bottom-info['height']-4,2),round(info['width'],2),round(info['height'],2)]}
+    else:
+     assert all(not page.search(r'S\d{3}X') for page in rendered.pages)
+   if not probe:
+    shutil.copyfile(pdf,ROOT/'output/pdf'/f'{name}.pdf')
+    shutil.copyfile(pdf,ROOT/'public/pdfs'/f'{name}.pdf')
+    shutil.copyfile(pdf,ROOT/'output/documents'/f'{name}.pdf')
+  (ROOT/'src/subscription'/f'{name}-layout.json').write_text(json.dumps(maps,ensure_ascii=False,indent=2)+'\n')
+  print(name,len(maps),'mapped fields')
 
-refresh_legacy_subscription()
+ refresh_legacy_subscription()
+
+if __name__=='__main__':
+ main()

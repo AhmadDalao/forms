@@ -32,6 +32,10 @@ for name in documents:
                    for c in footer.chars if c['text'].strip()):
                 report['failures'].append([name, number, 'footer outside page'])
     word = ROOT / 'output/documents' / (name + '.docx')
+    if not word.is_file():
+        word = ROOT.parent / 'editable-documents' / (name + '.docx')
+    if name not in {'signature-form', 'terms-and-conditions', 'subscription-form'} and not word.is_file():
+        report['failures'].append([name, 'editable Word source missing'])
     if word.exists():
         for section in Document(word).sections:
             if normalize(ADDRESS['text']) not in normalize(' '.join(p.text for p in section.footer.paragraphs)):

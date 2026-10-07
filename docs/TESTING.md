@@ -11,6 +11,12 @@ npx playwright install
 
 Several scripts use the Chrome channel, so Google Chrome must also be installed (or install it using `npx playwright install chrome` on a supported development machine). PHP CLI needs the same extensions as production. Python PDF inspection uses `pypdfium2`, `pypdf`, `pdfplumber`, `python-docx`, `Pillow` and `numpy`. Editing source documents also uses `reportlab`, `PyMuPDF`, `lxml` and LibreOffice. These are development tools, not hosting requirements.
 
+## Editing document templates
+
+The address source is `scripts/pdf-design/national-address.json`. Rebuild subscriptions with `python3 scripts/rebuild-subscription.py`; this writes Word/PDF files and recalculates their answer maps. The script uses LibreOffice on `PATH` (or its standard macOS installation), or an explicit `DOCX_RENDERER=/path/to/render_docx.py`. A custom renderer runs with the current Python; set `DOCX_PYTHON=/path/to/python3` to use another environment. The modern document builder also accepts `DOCX_RENDERER` and otherwise uses LibreOffice plus Poppler.
+
+The subscription builder reuses the Bahij font embedded in `reference/documents/subscription-style.docx`; `SUBSCRIPTION_ARABIC_FONT=/path/to/BahijTheSansArabic-Plain.ttf` overrides it. Install Arial for document rendering and set `SUBSCRIPTION_ARIAL_FONT=/path/to/Arial.ttf` if it is outside the usual macOS or Linux locations. Keep the approved fonts available to LibreOffice. Re-rendered files and recalculated maps require the PDF checks below and visual review before publication; changing renderer or fonts can change layout. `python3 scripts/update-original-footers.py` separately updates the original-style signature and terms footers with PyMuPDF.
+
 ## First pass
 
 ```sh

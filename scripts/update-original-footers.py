@@ -57,6 +57,7 @@ def update_form(name):
     payload = doc.tobytes(garbage=4, deflate=True)
     doc.close()
     for folder in ('public/pdfs', 'output/documents'):
+        (ROOT / folder).mkdir(parents=True, exist_ok=True)
         (ROOT / folder / f'{name}.pdf').write_bytes(payload)
     return {'name': name, 'version': ADDRESS['version'], 'pages': len(fitz.open(stream=payload))}
 
