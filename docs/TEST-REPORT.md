@@ -26,6 +26,8 @@ Evidence: `verification/kyc-original-restoration-2026-10-07.json`. All fixtures 
 
 Published to Hostinger from `64fc44387e61f5ff6dcf81f81e8beef649879d81`, after backing up all **12 overwritten public files**. Authenticated live checks passed: all ten hosted PDF templates and new assets match the tested build, both KYC catalogue entries show seven pages and the new version, and the management profile/stored PDF preview opens. The checked existing submission retained its exact PDF hash; client/submission counts and workflow revision are unchanged, with review still off. Private storage and PHP application logic were preserved.
 
+The supplied-PDF release was re-confirmed after undoing a mistakenly continued rollback. The active build again matches `70bab7f` byte for byte. Fresh checks passed: **242 unit tests**, all **557 captured answers** against management, **36 management form views**, and **42 KYC page/direction comparisons** across Chrome, Firefox and WebKit. Live template hashes, both seven-page catalogue entries, management preview, existing PDF bytes, client/submission counts and review-off state passed again. The corrective publication is recorded as `70e653960c5605a193daf1efbceffe8199a6786d`; private storage was not replaced.
+
 ## Earlier modern-KYC release — full overlap and regression follow-up
 
 The owner requested another full pass focused on overlapping content after the address release. The tested application is `188abfe3d7`. No PDF or application changes were needed.
