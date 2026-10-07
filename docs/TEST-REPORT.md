@@ -24,6 +24,8 @@ Workflow browser suites used the recorded intermediate answer positions. The fin
 
 Evidence: `verification/kyc-original-restoration-2026-10-07.json`. All fixtures use synthetic data. These checks establish the tested examples, not a guarantee that unlimited customer text will fit; overflowing input is rejected rather than clipped.
 
+Published to Hostinger from `64fc44387e61f5ff6dcf81f81e8beef649879d81`, after backing up all **12 overwritten public files**. Authenticated live checks passed: all ten hosted PDF templates and new assets match the tested build, both KYC catalogue entries show seven pages and the new version, and the management profile/stored PDF preview opens. The checked existing submission retained its exact PDF hash; client/submission counts and workflow revision are unchanged, with review still off. Private storage and PHP application logic were preserved.
+
 ## Earlier modern-KYC release — full overlap and regression follow-up
 
 The owner requested another full pass focused on overlapping content after the address release. The tested application is `188abfe3d7`. No PDF or application changes were needed.

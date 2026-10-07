@@ -2684,7 +2684,35 @@
     "Body words, order and coordinates are preserved; small per-renderer antialiasing differences from PDF stream rewriting are recorded, so byte/pixel identity outside the footer is not claimed for every renderer."
   ],
   "release": {
-    "published": false,
-    "note": "Local verification complete; live release evidence will be added after deployment."
+    "published": true,
+    "url": "https://forms.ahmaddalao.com/",
+    "source_commit": "64fc44387e61f5ff6dcf81f81e8beef649879d81",
+    "uploaded_at_utc": "20261007T174404Z",
+    "overwritten_files_backed_up": 12,
+    "new_public_files": 15,
+    "private_storage_preserved": true,
+    "live_smoke": {
+      "stage": "after",
+      "passed": true,
+      "checks": [
+        "Review remains off; workflow revision and client/submission counts unchanged",
+        "subscription-individual: authenticated hosted template matches verified local PDF",
+        "subscription-company: authenticated hosted template matches verified local PDF",
+        "subscription-form: authenticated hosted template matches verified local PDF",
+        "kyc-individual: authenticated hosted template matches verified local PDF",
+        "kyc-corporate: authenticated hosted template matches verified local PDF",
+        "signature-form: authenticated hosted template matches verified local PDF",
+        "al-naeem-terms-consent: authenticated hosted template matches verified local PDF",
+        "fatca-crs-individual: authenticated hosted template matches verified local PDF",
+        "fatca-crs-corporate: authenticated hosted template matches verified local PDF",
+        "terms-and-conditions: authenticated hosted template matches verified local PDF",
+        "Existing submitted PDF bytes unchanged",
+        "New hosted browser assets match the tested build",
+        "Live catalogue advertises both original seven-page KYC templates and their new cache version",
+        "Live management profile and stored PDF preview open successfully"
+      ],
+      "errors": [],
+      "source_commit": "64fc44387e61f5ff6dcf81f81e8beef649879d81"
+    }
   }
 }

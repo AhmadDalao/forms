@@ -10,6 +10,8 @@ All nine current form templates use the new Itqan national address: individual/c
 
 The address is maintained in `source/scripts/pdf-design/national-address.json`. The owner confirmed **Prince Naif Branch** and subsequently requested the original KYC PDF designs in place of their modern Word redesigns. `source/scripts/pdf-design/template-sources.json` identifies current sources; retired KYC Word/layout files are historical references and must never regenerate the current PDFs. Earlier address-only reports describe the pre-restoration templates.
 
+The restored-KYC release passed 242 unit tests, 114 generated PDFs / 661 pages, 147 browser page/direction checks and 45 isolated workflow checks. All 14 blank KYC pages and 28 long English/Arabic filled pages were inspected, including fresh renders after spacing corrections. Current evidence is `verification/kyc-original-restoration-2026-10-07.json`; see TEST-REPORT.md for the scope and limits.
+
 Before the original KYC restoration, the overlap/regression pass covered 114 fresh PDFs, 56 blank pages and 78 populated pages, with zero detected answer/signature ink collisions and 16 passing workflow suites. Its evidence is `verification/pdf-overlap-verification-2026-10-07.json`; it is historical evidence, not verification of the restored KYC templates.
 
 ## Where to start
