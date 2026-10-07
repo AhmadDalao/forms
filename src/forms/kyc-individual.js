@@ -1,8 +1,6 @@
 import {document,section,text,choice,option as o} from '../schema.js';
 import {accountType,correspondence,investment,portfolio,risk} from './kyc-shared.js';
 const d=document('kyc-individual','Individual KYC','اعرف عميلك — أفراد','individual','Personal, financial and investment information.','البيانات الشخصية والمالية والاستثمارية.',7,[3,7]);
-d.pdfVersion='20261007-original-kyc';
-d.pageSizes=Array.from({length:7},()=>[612,792]);
 let s=section(d,'identity','Personal details','البيانات الشخصية',1);
 accountType(d,s);
 choice(d,s,'title','Title','اللقب',[o('mr','Mr','السيد',[335.8,139.7,11.5,13.5]),o('mrs','Mrs','السيدة',[255.4,138.7,11.5,13.5]),o('miss','Miss','الآنسة',[178.7,138.2,11.5,13.5]),o('dr','Dr','الدكتور',[105.7,139,11.5,13.5]),o('eng','Eng','المهندس',[335.6,160.9,11.5,13.5]),o('other','Other','أخرى',[254.9,162.6,11.5,13.5])]);
@@ -65,11 +63,6 @@ for(const [id,rect,rtlRect] of [
 for(const id of ['other_finance','other_finance_2']){
  const f=d.fields.find(f=>f.id===id);f.rect[3]=12.5;f.fontSize=8;f.minFontSize=6.5;f.padding=.6;
 }
-
-// Leave clear space above the original dotted writing guides, including Arabic
-// descenders and the taller IBAN text. The supplied paper itself is unchanged.
-for(const id of ['employer','employer_address','employer_phone','job','years_employed','bank'])d.fields.find(f=>f.id===id).rect[1]-=2;
-d.fields.find(f=>f.id==='iban').rect[1]-=3.5;
 
 // The two name boxes form one reading row. Arabic starts in the right box;
 // decide the row direction from the whole name so mixed-script chunks cannot collide.

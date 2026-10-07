@@ -77,7 +77,7 @@ template_sources = json.loads((ROOT / 'scripts/pdf-design/template-sources.json'
 for name in documents:
     if (ROOT / 'dist/pdfs' / (name + '.pdf')).read_bytes() != (ROOT / 'public/pdfs' / (name + '.pdf')).read_bytes():
         raise RuntimeError('Public build has an outdated PDF; rebuild before handover: ' + name)
-    # Supplied KYC/signature/T&C PDFs have no matching current Word source.
+    # Supplied signature/T&C PDFs have no matching current Word source.
     # Never package a retired redesign under the current PDF's filename.
     if name in template_sources['word_documents']:
         copy(ROOT / 'output/documents' / (name + '.docx'), package / 'editable-documents' / (name + '.docx'))
@@ -85,10 +85,10 @@ for name in documents:
 copy(ROOT / 'scripts/pdf-design/template-sources.json', package / 'editable-documents/template-sources.json')
 (package / 'editable-documents/README.md').write_text('''# Current document sources
 
-This folder contains nine current PDF templates and five matching Word sources:
-individual/company subscription, consent, and individual/company FATCA/CRS.
+This folder contains nine current PDF templates and seven matching Word sources:
+individual/company subscription, consent, individual/company KYC, and individual/company FATCA/CRS.
 
-Individual/company KYC are the supplied seven-page PDFs with the approved national-address footer. Signature and terms also retain their supplied PDF bodies. These four PDFs have no matching current Word source. Do not regenerate them from retired modern Word documents.
+Individual/company KYC use the modern 11-page and 9-page designs with the approved national-address footer. Signature and terms retain their supplied PDF bodies; these two PDFs have no matching current Word source. Do not regenerate them from retired modern Word documents. The supplied seven-page KYC PDFs are historical references only.
 
 The preserved inputs and authoring tools are under `../source/reference/` and `../source/scripts/`. See `../source/scripts/pdf-design/artifact.md` and `template-sources.json` for the current source policy. Files under `reference/documents/archived/` are historical evidence only; their page counts and mappings are not current templates.
 ''')
@@ -111,6 +111,7 @@ copy(ROOT / 'docs/kyc-address-verification-2026-10-07.json', package / 'verifica
 copy(ROOT / 'docs/all-forms-address-verification-2026-10-07.json', package / 'verification/all-forms-address-verification-2026-10-07.json')
 copy(ROOT / 'docs/pdf-overlap-verification-2026-10-07.json', package / 'verification/pdf-overlap-verification-2026-10-07.json')
 copy(ROOT / 'docs/kyc-original-restoration-2026-10-07.json', package / 'verification/kyc-original-restoration-2026-10-07.json')
+copy(ROOT / 'docs/kyc-modern-restoration-2026-10-07.json', package / 'verification/kyc-modern-restoration-2026-10-07.json')
 for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verification.json',
              'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
              'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',
@@ -139,7 +140,7 @@ assert not list((restored / 'management/uploads').glob('*'))
 assert not (restored / 'management/state.json').exists()
 shutil.rmtree(restored)
 copy(bootstrap, package / 'private-bootstrap.zip')
-snapshot['application_release'] = release_date + ' original seven-page KYC PDFs with approved national-address footer, five current Word sources, submit-only client display, dedicated submission settings and schema 8'
+snapshot['application_release'] = release_date + ' modern 11/9-page KYC designs with approved national-address footer, seven current Word sources, submit-only client display, dedicated submission settings and schema 8'
 snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
 (package / ('verification/bootstrap-verification-' + release_date + '.json')).write_text(json.dumps({

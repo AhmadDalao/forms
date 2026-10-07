@@ -1,0 +1,2391 @@
+{
+  "release_date": "2026-10-07",
+  "created_at_utc": "2026-10-07T18:20:18.317282+00:00",
+  "passed": true,
+  "scope": "Restore the modern individual/company KYC designs with the approved national address, reversing the temporary supplied seven-page KYC release. Saved submissions and their frozen PDF/signature snapshots remain unchanged.",
+  "baseline": {
+    "commit": "c4e665fccbdf4c19f8c93e8f17b82d6b98795f7c",
+    "frontend_and_backend_sources_exact": true,
+    "all_public_build_files_exact": true,
+    "public_file_count": 105
+  },
+  "templates": [
+    {
+      "id": "kyc-individual",
+      "pages": 11,
+      "pdf_version": "20261007-national-address",
+      "sha256": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29"
+    },
+    {
+      "id": "kyc-corporate",
+      "pages": 9,
+      "pdf_version": "20261007-national-address",
+      "sha256": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6"
+    }
+  ],
+  "unit_tests": {
+    "passed": 241,
+    "failed": 0,
+    "skipped": 0,
+    "log_sha256": "51eb424139794cc4d38231782b0b582f4ec94bdaa4dc67dc262fb9e87636f402"
+  },
+  "production_build": {
+    "passed": true,
+    "log_sha256": "0a8e7adfd05e50eb1a73c9ba253990eb27945ee0a6b647ba177fc8855f8d1d09"
+  },
+  "pdf_generation": {
+    "counts": {
+      "pdfs": 114,
+      "pages": 755,
+      "text_rectangles": 2093,
+      "choice_rectangles": 917,
+      "signature_rectangles": 34,
+      "transparent_images": 14637,
+      "unchanged_pages": 342
+    },
+    "coverage": {
+      "signature-form": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 6,
+        "covered_choice_options": 6,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "al-naeem-terms-consent": {
+        "mapped_fields": 2,
+        "covered_fields": 2,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 8,
+        "complete_success": 5
+      },
+      "subscription-form": {
+        "mapped_fields": 29,
+        "covered_fields": 29,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 13,
+        "complete_success": 5
+      },
+      "subscription-company": {
+        "mapped_fields": 30,
+        "covered_fields": 30,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 11,
+        "complete_success": 5
+      },
+      "terms-and-conditions": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 4,
+        "covered_choice_options": 4,
+        "uncovered_choices": [],
+        "signature_slots": 6,
+        "covered_signatures": 6,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "fatca-crs-individual": {
+        "mapped_fields": 57,
+        "covered_fields": 57,
+        "uncovered_fields": [],
+        "choice_options": 16,
+        "covered_choice_options": 16,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 12,
+        "complete_success": 5
+      },
+      "fatca-crs-corporate": {
+        "mapped_fields": 76,
+        "covered_fields": 76,
+        "uncovered_fields": [],
+        "choice_options": 19,
+        "covered_choice_options": 19,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 19,
+        "complete_success": 5
+      },
+      "kyc-individual": {
+        "mapped_fields": 106,
+        "covered_fields": 106,
+        "uncovered_fields": [],
+        "choice_options": 122,
+        "covered_choice_options": 122,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 16,
+        "complete_success": 5
+      },
+      "kyc-corporate": {
+        "mapped_fields": 100,
+        "covered_fields": 100,
+        "uncovered_fields": [],
+        "choice_options": 60,
+        "covered_choice_options": 60,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 15,
+        "complete_success": 5
+      }
+    },
+    "failures": []
+  },
+  "ink_overlap": {
+    "scale": 2,
+    "images": 2127,
+    "signature_images": 34,
+    "pages": 755,
+    "collision_candidates": [],
+    "outside_page": [],
+    "transform_errors": [],
+    "files": 114,
+    "generation_errors": [],
+    "passed": true
+  },
+  "browser_rendering": {
+    "checks": [
+      {
+        "engine": "chrome",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 9.72877358490566e-05,
+        "meanDifference": 0.0014928917714884696
+      },
+      {
+        "engine": "chrome",
+        "document": "al-naeem-terms-consent",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0.0004964643488509134,
+        "meanDifference": 0.01011114384862175
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-company",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-company",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 13,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0.002473973679041446,
+        "meanDifference": 0.034733844038499315
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "al-naeem-terms-consent",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-company",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-company",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 13,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0,
+        "meanDifference": 6.551362683438155e-07
+      },
+      {
+        "engine": "webkit",
+        "document": "al-naeem-terms-consent",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-form",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0,
+        "meanDifference": 5.0743141491520986e-06
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-company",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0,
+        "meanDifference": 8.18437765992274e-07
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-company",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 13,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      }
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "national_address": {
+    "version": "20261007-national-address",
+    "address": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor | 2505 - Al Zahra Dist | Unit No 7940 | Jeddah 23425-2753 | Kingdom of Saudi Arabia",
+    "documents": {
+      "subscription-individual": {
+        "pages": 2,
+        "word_source": true,
+        "sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e"
+      },
+      "subscription-company": {
+        "pages": 2,
+        "word_source": true,
+        "sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86"
+      },
+      "kyc-individual": {
+        "pages": 11,
+        "word_source": true,
+        "sha256": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29"
+      },
+      "kyc-corporate": {
+        "pages": 9,
+        "word_source": true,
+        "sha256": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6"
+      },
+      "signature-form": {
+        "pages": 1,
+        "word_source": false,
+        "sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f"
+      },
+      "al-naeem-terms-consent": {
+        "pages": 1,
+        "word_source": true,
+        "sha256": "5b22452a0fdd909e682b61bc7a2e53e12532d28e100f22ad96c36f67fd2efd3d"
+      },
+      "fatca-crs-individual": {
+        "pages": 8,
+        "word_source": true,
+        "sha256": "4c860ccb85dd2949365d92de6794860bdcbb5dd53cd29d5c501c28d476a9b895"
+      },
+      "fatca-crs-corporate": {
+        "pages": 8,
+        "word_source": true,
+        "sha256": "5133c0ed41a290a468c35aafaf6baf9ec9b98415d1d6fa57b85dde159ce038e1"
+      },
+      "terms-and-conditions": {
+        "pages": 13,
+        "word_source": false,
+        "sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15"
+      },
+      "subscription-form": {
+        "pages": 1,
+        "word_source": false,
+        "sha256": "5d85ee6922a6224ca85a6238955c4be8abf4f71ccb933e9aa2cce4de7c49f2bb"
+      }
+    },
+    "failures": [],
+    "pages": 56,
+    "word_sources": 7,
+    "passed": true
+  },
+  "visual_review": {
+    "scope": "Bounded visual review of modern KYC rollback: English-long and Arabic-long page1 and last/signature page only; eight pages total. Other pages are not included in this fresh visual review. No template or application edits.",
+    "renderer": "Poppler pdftoppm144dpi",
+    "documents": [
+      {
+        "document": "kyc-individual",
+        "template_sha256": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29",
+        "pages": 11,
+        "scenarios": [
+          {
+            "scenario": "english-long",
+            "pdf_sha256": "4c4250b09001cdc7f9ab4d0dbbd445e5b96cafc77f03a49fcbfdfd2402074832",
+            "review_pages": [
+              1,
+              11
+            ],
+            "visual_result": "pass",
+            "canonical_address_text_present_on_reviewed_pages": {
+              "1": true,
+              "11": true
+            }
+          },
+          {
+            "scenario": "arabic-long",
+            "pdf_sha256": "9f2592d4acf893fee3ceda9a287c6a540487e9a760ae363c90e4a43c64393004",
+            "review_pages": [
+              1,
+              11
+            ],
+            "visual_result": "pass",
+            "canonical_address_text_present_on_reviewed_pages": {
+              "1": true,
+              "11": true
+            }
+          }
+        ],
+        "findings": [
+          "Long split name p1 and full name p11 fit inside cells",
+          "Date/ID/checkbox placements have clear spacing",
+          "Arabic signature fits its cell on p11; English scenario signature is intentionally empty",
+          "All four inspected footers contain the updated address and clear separated contact/address/legal/page-number lines"
+        ]
+      },
+      {
+        "document": "kyc-corporate",
+        "template_sha256": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6",
+        "pages": 9,
+        "scenarios": [
+          {
+            "scenario": "english-long",
+            "pdf_sha256": "25287e1a084386cfa1844b3e1cc382af56e45fa7cd5d737a19a1d7c2431afa93",
+            "review_pages": [
+              1,
+              9
+            ],
+            "visual_result": "pass",
+            "canonical_address_text_present_on_reviewed_pages": {
+              "1": true,
+              "9": true
+            }
+          },
+          {
+            "scenario": "arabic-long",
+            "pdf_sha256": "c9ed2b412b5d627c172a178fb85234ee01d8771623239a69485859169f143db3",
+            "review_pages": [
+              1,
+              9
+            ],
+            "visual_result": "pass",
+            "canonical_address_text_present_on_reviewed_pages": {
+              "1": true,
+              "9": true
+            }
+          }
+        ],
+        "findings": [
+          "Long company name Al Noor Real Estate Investment Company and شركة النور للتطوير والاستثمار العقاري both fit company-name cells on p1",
+          "Registration numbers, dates, address, long country name and website fit their cells",
+          "Full client names and Arabic signature fit separate cells on p9",
+          "All four inspected footers have readable separated contact/address/legal/page-number lines without clipping"
+        ]
+      }
+    ],
+    "issues": [],
+    "result": "pass",
+    "fresh_visual_pages_reviewed": 8,
+    "footer_crops_reviewed": 8,
+    "evidence": [
+      "individual-{english,arabic}-p{1,11}.png",
+      "corporate-{english,arabic}-p{1,9}.png",
+      "individual-footers.png",
+      "corporate-footers.png"
+    ],
+    "reviewer": "all_address_originals (all eight pages independently rendered and visually inspected)"
+  },
+  "workflows": {
+    "fixture_count": 5,
+    "grouped_checks": 42,
+    "management_field_displays": 2232,
+    "reports": {
+      "shared_profiles": {
+        "base": "http://127.0.0.1:49206",
+        "checks": [
+          "Authenticated account/audience scope, absent revision0, and private profile data excluded from public session",
+          "Two independent client sessions see durable typed values, blanks, false and canonical name aliases; company data stays separate",
+          "Stale autosaves return409 and refreshed patches preserve unrelated device edits",
+          "Unknown/signature/alias fields, invalid types/options/bounds, wrong methods and CSRF cannot mutate profiles",
+          "Deliberate full clear persists as a revisioned tombstone across server restart; admin sees it and submitted snapshots stay unchanged",
+          "Queued saves cannot cross management audience changes; old audience data stays separate and returns intact after switching back"
+        ],
+        "passed": true,
+        "limits": [
+          "Isolated local build snapshot with synthetic accounts; no production requests."
+        ],
+        "coverage": {
+          "accounts": 3,
+          "independentSessionsForSameClient": 2,
+          "groups": 6,
+          "storedAudienceRows": 3,
+          "originalSnapshotsPreserved": 1
+        }
+      },
+      "customer_workflow": {
+        "checks": [
+          "individual/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+          "individual/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+          "individual: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+          "Individual FATCA: role first, all four choices on one desktop row, account-holder names prefill",
+          "individual: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save",
+          "corporate/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+          "corporate/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+          "corporate: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+          "corporate: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save"
+        ],
+        "errors": [],
+        "passed": true
+      },
+      "direct_intake": {
+        "checks": [
+          "Login/signup: EN and AR, desktop/mobile, source logos and role labels, no PDF engine or PDF loaded",
+          "Logged-out document routes redirect to sign-in",
+          "Real form edits propagate separate Arabic/English names and joined city/district to account and other forms",
+          "Offline edits retry to account; intentional clear persists after reload",
+          "Multiple tabs, fresh browser and individual/company/account isolation",
+          "Company English sharing is bidirectional and separate from Arabic identity",
+          "One-click unsigned submission, lost-response retry, single immutable version and receipt reference",
+          "Signed replacement archives the earlier PDF and all captured answers; stale replacement is rejected",
+          "Consent PDF upload works without inventing structured answers or signature verification",
+          "Management receives current versions, exact answers and signature status; preview/PDF/ZIP work; direct records remain outside review and cross-account access blocked",
+          "All nine filled forms submitted: 557 field values matched management records, and downloaded PDFs matched byte for byte"
+        ],
+        "errors": [],
+        "base": "http://127.0.0.1:50153",
+        "allFormAnswers": 557,
+        "passed": true
+      },
+      "management": {
+        "checks": [
+          "en 1440: category titles/counts, audience filters and dashboard layout",
+          "en 1440: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+          "en 390: category titles/counts, audience filters and dashboard layout",
+          "en 390: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+          "ar 1440: category titles/counts, audience filters and dashboard layout",
+          "ar 1440: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+          "ar 390: category titles/counts, audience filters and dashboard layout",
+          "ar 390: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent"
+        ],
+        "errors": [],
+        "forms": [
+          {
+            "document": "signature-form",
+            "audience": "individual",
+            "lang": "en",
+            "width": 1440,
+            "groups": 2,
+            "fields": 18,
+            "previewPages": 1
+          },
+          {
+            "document": "al-naeem-terms-consent",
+            "audience": "individual",
+            "lang": "en",
+            "width": 1440,
+            "groups": 1,
+            "fields": 6,
+            "previewPages": 1
+          },
+          {
+            "document": "subscription-form",
+            "audience": "individual",
+            "lang": "en",
+            "width": 1440,
+            "groups": 4,
+            "fields": 49,
+            "previewPages": 2
+          },
+          {
+            "document": "terms-and-conditions",
+            "audience": "individual",
+            "lang": "en",
+            "width": 1440,
+            "groups": 2,
+            "fields": 34,
+            "previewPages": 13
+          },
+          {
+            "document": "fatca-crs-individual",
+            "audience": "individual",
+            "lang": "en",
+            "width": 1440,
+            "groups": 5,
+            "fields": 73,
+            "previewPages": 8
+          },
+          {
+            "document": "kyc-individual",
+            "audience": "individual",
+            "lang": "en",
+            "width": 1440,
+            "groups": 6,
+            "fields": 120,
+            "previewPages": 11
+          },
+          {
+            "document": "subscription-company",
+            "audience": "corporate",
+            "lang": "en",
+            "width": 1440,
+            "groups": 4,
+            "fields": 46,
+            "previewPages": 2
+          },
+          {
+            "document": "fatca-crs-corporate",
+            "audience": "corporate",
+            "lang": "en",
+            "width": 1440,
+            "groups": 6,
+            "fields": 104,
+            "previewPages": 8
+          },
+          {
+            "document": "kyc-corporate",
+            "audience": "corporate",
+            "lang": "en",
+            "width": 1440,
+            "groups": 6,
+            "fields": 108,
+            "previewPages": 9
+          },
+          {
+            "document": "signature-form",
+            "audience": "individual",
+            "lang": "en",
+            "width": 390,
+            "groups": 2,
+            "fields": 18,
+            "previewPages": 1
+          },
+          {
+            "document": "al-naeem-terms-consent",
+            "audience": "individual",
+            "lang": "en",
+            "width": 390,
+            "groups": 1,
+            "fields": 6,
+            "previewPages": 1
+          },
+          {
+            "document": "subscription-form",
+            "audience": "individual",
+            "lang": "en",
+            "width": 390,
+            "groups": 4,
+            "fields": 49,
+            "previewPages": 2
+          },
+          {
+            "document": "terms-and-conditions",
+            "audience": "individual",
+            "lang": "en",
+            "width": 390,
+            "groups": 2,
+            "fields": 34,
+            "previewPages": 13
+          },
+          {
+            "document": "fatca-crs-individual",
+            "audience": "individual",
+            "lang": "en",
+            "width": 390,
+            "groups": 5,
+            "fields": 73,
+            "previewPages": 8
+          },
+          {
+            "document": "kyc-individual",
+            "audience": "individual",
+            "lang": "en",
+            "width": 390,
+            "groups": 6,
+            "fields": 120,
+            "previewPages": 11
+          },
+          {
+            "document": "subscription-company",
+            "audience": "corporate",
+            "lang": "en",
+            "width": 390,
+            "groups": 4,
+            "fields": 46,
+            "previewPages": 2
+          },
+          {
+            "document": "fatca-crs-corporate",
+            "audience": "corporate",
+            "lang": "en",
+            "width": 390,
+            "groups": 6,
+            "fields": 104,
+            "previewPages": 8
+          },
+          {
+            "document": "kyc-corporate",
+            "audience": "corporate",
+            "lang": "en",
+            "width": 390,
+            "groups": 6,
+            "fields": 108,
+            "previewPages": 9
+          },
+          {
+            "document": "signature-form",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 1440,
+            "groups": 2,
+            "fields": 18,
+            "previewPages": 1
+          },
+          {
+            "document": "al-naeem-terms-consent",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 1440,
+            "groups": 1,
+            "fields": 6,
+            "previewPages": 1
+          },
+          {
+            "document": "subscription-form",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 1440,
+            "groups": 4,
+            "fields": 49,
+            "previewPages": 2
+          },
+          {
+            "document": "terms-and-conditions",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 1440,
+            "groups": 2,
+            "fields": 34,
+            "previewPages": 13
+          },
+          {
+            "document": "fatca-crs-individual",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 1440,
+            "groups": 5,
+            "fields": 73,
+            "previewPages": 8
+          },
+          {
+            "document": "kyc-individual",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 1440,
+            "groups": 6,
+            "fields": 120,
+            "previewPages": 11
+          },
+          {
+            "document": "subscription-company",
+            "audience": "corporate",
+            "lang": "ar",
+            "width": 1440,
+            "groups": 4,
+            "fields": 46,
+            "previewPages": 2
+          },
+          {
+            "document": "fatca-crs-corporate",
+            "audience": "corporate",
+            "lang": "ar",
+            "width": 1440,
+            "groups": 6,
+            "fields": 104,
+            "previewPages": 8
+          },
+          {
+            "document": "kyc-corporate",
+            "audience": "corporate",
+            "lang": "ar",
+            "width": 1440,
+            "groups": 6,
+            "fields": 108,
+            "previewPages": 9
+          },
+          {
+            "document": "signature-form",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 390,
+            "groups": 2,
+            "fields": 18,
+            "previewPages": 1
+          },
+          {
+            "document": "al-naeem-terms-consent",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 390,
+            "groups": 1,
+            "fields": 6,
+            "previewPages": 1
+          },
+          {
+            "document": "subscription-form",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 390,
+            "groups": 4,
+            "fields": 49,
+            "previewPages": 2
+          },
+          {
+            "document": "terms-and-conditions",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 390,
+            "groups": 2,
+            "fields": 34,
+            "previewPages": 13
+          },
+          {
+            "document": "fatca-crs-individual",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 390,
+            "groups": 5,
+            "fields": 73,
+            "previewPages": 8
+          },
+          {
+            "document": "kyc-individual",
+            "audience": "individual",
+            "lang": "ar",
+            "width": 390,
+            "groups": 6,
+            "fields": 120,
+            "previewPages": 11
+          },
+          {
+            "document": "subscription-company",
+            "audience": "corporate",
+            "lang": "ar",
+            "width": 390,
+            "groups": 4,
+            "fields": 46,
+            "previewPages": 2
+          },
+          {
+            "document": "fatca-crs-corporate",
+            "audience": "corporate",
+            "lang": "ar",
+            "width": 390,
+            "groups": 6,
+            "fields": 104,
+            "previewPages": 8
+          },
+          {
+            "document": "kyc-corporate",
+            "audience": "corporate",
+            "lang": "ar",
+            "width": 390,
+            "groups": 6,
+            "fields": 108,
+            "previewPages": 9
+          }
+        ],
+        "screenshots": [
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/profile-individual-en-1440.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/preview-details-individual-en-1440.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/profile-corporate-en-1440.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/preview-details-corporate-en-1440.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/profile-individual-en-390.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/preview-details-individual-en-390.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/profile-corporate-en-390.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/preview-details-corporate-en-390.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/profile-individual-ar-1440.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/preview-details-individual-ar-1440.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/profile-corporate-ar-1440.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/preview-details-corporate-ar-1440.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/profile-individual-ar-390.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/preview-details-individual-ar-390.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/profile-corporate-ar-390.png",
+          "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396476614-9c1704/preview-details-corporate-ar-390.png"
+        ],
+        "passed": true
+      },
+      "historical_signing": {
+        "passed": true,
+        "fixture": "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396466192-caa533",
+        "samples": "tmp/pdfs/modern-kyc-rollback-20261007/filled",
+        "checks": [
+          "kyc-individual: every current field captured, replacement/archive immutable, restore exact PDF/answers/profile/signatures, old signing rejected and restored modern layout retained",
+          "kyc-individual/original: frozen signing positions, valid overlay, exact source provenance, immutable history and both original/signed admin previews",
+          "kyc-individual/supplied-seven: frozen signing positions, valid overlay, exact source provenance, immutable history and both original/signed admin previews",
+          "kyc-individual/current-modern: frozen signing positions, valid overlay, exact source provenance, immutable history and both original/signed admin previews",
+          "kyc-corporate: every current field captured, replacement/archive immutable, restore exact PDF/answers/profile/signatures, old signing rejected and restored modern layout retained",
+          "kyc-corporate/original: frozen signing positions, valid overlay, exact source provenance, immutable history and both original/signed admin previews",
+          "kyc-corporate/supplied-seven: frozen signing positions, valid overlay, exact source provenance, immutable history and both original/signed admin previews",
+          "kyc-corporate/current-modern: frozen signing positions, valid overlay, exact source provenance, immutable history and both original/signed admin previews"
+        ],
+        "cases": [
+          {
+            "doc": "kyc-individual",
+            "kind": "all-field-snapshot-restore",
+            "fields": 120,
+            "answers": 120,
+            "uiOnly": [
+              "name_first",
+              "name_second",
+              "name_third",
+              "name_last",
+              "address_city",
+              "address_district",
+              "representative_name_first",
+              "representative_name_second",
+              "representative_name_third",
+              "representative_name_last",
+              "risk_client_name_first",
+              "risk_client_name_second",
+              "risk_client_name_third",
+              "risk_client_name_last"
+            ],
+            "pdfSha256": "48619d975c7197f00a27785917a31ba92353946fd2d9fdff26a8f9754f447d71",
+            "versions": [
+              "d77a988f16e994ed6e05c882a6156f68",
+              "b7f2b0d322a6bfbdf487d965b221d5e0",
+              "f1e8c79c78664b38c7456837b6ff323a"
+            ],
+            "previewPages": [
+              11,
+              11
+            ]
+          },
+          {
+            "doc": "kyc-individual",
+            "kind": "original",
+            "source": "reference/pdfs/kyc-individual.pdf",
+            "sourceSha256": "79d7e6298f841bfc69dc627c4594448adb62a09266961087c28514df96b12d51",
+            "signedSha256": "f79fd44e664614d1f3eb4ac995226a60d0d2b561a0ab0570abb0642e507825d7",
+            "pages": 7,
+            "signatureSlots": [
+              {
+                "id": "representative",
+                "label": "Special cases — representative signature",
+                "ar": "الحالات الخاصة — توقيع الوكيل أو الممثل",
+                "page": 3,
+                "rect": [
+                  117,
+                  566,
+                  124,
+                  23
+                ],
+                "requiredForSubmission": false,
+                "requireWhenFields": [
+                  "representative_name",
+                  "rep_id",
+                  "rep_type",
+                  "rep_expiry",
+                  "rep_issue",
+                  "rep_phone",
+                  "rep_place",
+                  "rep_fax"
+                ]
+              },
+              {
+                "id": "client",
+                "label": "Client signature",
+                "ar": "توقيع العميل",
+                "page": 7,
+                "rect": [
+                  58,
+                  624,
+                  241,
+                  25
+                ]
+              }
+            ],
+            "originalSnapshotPreserved": true,
+            "signedPdf": "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396466192-caa533/kyc-modern-history/kyc-individual-original-signed.pdf"
+          },
+          {
+            "doc": "kyc-individual",
+            "kind": "supplied-seven",
+            "source": "tmp/pdfs/original-kyc-release-20261007/final-verified/kyc-individual-original.pdf",
+            "sourceSha256": "2b3c814935ce6671c503e8887e0d496d60e81de37d3204a7fcad6ef33fefb3c9",
+            "signedSha256": "617b612316ae929f17e93e6cbbda7b326dd6c0448aac8909f0a3e5838143e4e1",
+            "pages": 7,
+            "signatureSlots": [
+              {
+                "id": "representative",
+                "label": "Special cases — representative signature",
+                "ar": "الحالات الخاصة — توقيع الوكيل أو الممثل",
+                "page": 3,
+                "rect": [
+                  117,
+                  566,
+                  124,
+                  23
+                ],
+                "requiredForSubmission": false,
+                "requireWhenFields": [
+                  "representative_name",
+                  "rep_id",
+                  "rep_type",
+                  "rep_expiry",
+                  "rep_phone",
+                  "rep_email"
+                ]
+              },
+              {
+                "id": "client",
+                "label": "Client signature",
+                "ar": "توقيع العميل",
+                "page": 7,
+                "rect": [
+                  58,
+                  624,
+                  241,
+                  25
+                ]
+              }
+            ],
+            "originalSnapshotPreserved": true,
+            "signedPdf": "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396466192-caa533/kyc-modern-history/kyc-individual-supplied-seven-signed.pdf"
+          },
+          {
+            "doc": "kyc-individual",
+            "kind": "current-modern",
+            "source": "public/pdfs/kyc-individual.pdf",
+            "sourceSha256": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29",
+            "signedSha256": "1098730c05ddf9f7efd2af39223395f2762be09ebd7d8e81f077839f3419467c",
+            "pages": 11,
+            "signatureSlots": [
+              {
+                "id": "representative",
+                "label": "Special cases — representative signature",
+                "ar": "الحالات الخاصة — توقيع الوكيل أو الممثل",
+                "page": 5,
+                "rect": [
+                  302.75,
+                  469.7,
+                  237.65,
+                  43
+                ],
+                "requiredForSubmission": false,
+                "requireWhenFields": [
+                  "representative_name",
+                  "rep_id",
+                  "rep_type",
+                  "rep_expiry",
+                  "rep_phone",
+                  "rep_email"
+                ]
+              },
+              {
+                "id": "client",
+                "label": "Client signature",
+                "ar": "توقيع العميل",
+                "page": 11,
+                "rect": [
+                  302.75,
+                  178.4,
+                  237.65,
+                  43
+                ]
+              }
+            ],
+            "originalSnapshotPreserved": true,
+            "signedPdf": "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396466192-caa533/kyc-modern-history/kyc-individual-current-modern-signed.pdf"
+          },
+          {
+            "doc": "kyc-corporate",
+            "kind": "all-field-snapshot-restore",
+            "fields": 108,
+            "answers": 108,
+            "uiOnly": [
+              "contact_name_first",
+              "contact_name_second",
+              "contact_name_third",
+              "contact_name_last",
+              "auth_name_first",
+              "auth_name_second",
+              "auth_name_third",
+              "auth_name_last"
+            ],
+            "pdfSha256": "c2a1dff4a4e2e884076e9061e740388be45ffd56b7b65f63f102a8490e5dc5eb",
+            "versions": [
+              "58ad4410c10dc452b8f544d5207ff008",
+              "73c16c0c47f00df4e4477c838fc7fff2",
+              "9e263166301a2b28a97accedf2c79a13"
+            ],
+            "previewPages": [
+              9,
+              9
+            ]
+          },
+          {
+            "doc": "kyc-corporate",
+            "kind": "original",
+            "source": "reference/pdfs/kyc-corporate.pdf",
+            "sourceSha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+            "signedSha256": "8cfb110bd0aaecbf91cf19d6ce55538daeb1c78c6f9687f2e35af976f9c599b9",
+            "pages": 7,
+            "signatureSlots": [
+              {
+                "id": "client",
+                "label": "Client signature",
+                "ar": "توقيع العميل",
+                "page": 7,
+                "rect": [
+                  58,
+                  624,
+                  241,
+                  25
+                ]
+              }
+            ],
+            "originalSnapshotPreserved": true,
+            "signedPdf": "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396466192-caa533/kyc-modern-history/kyc-corporate-original-signed.pdf"
+          },
+          {
+            "doc": "kyc-corporate",
+            "kind": "supplied-seven",
+            "source": "tmp/pdfs/original-kyc-release-20261007/final-verified/kyc-corporate-original.pdf",
+            "sourceSha256": "47e887db96ffc9105984380fb3008efd5f99fa7251a318c2ab6031021240844b",
+            "signedSha256": "5a4e82ce7add2f83a0ad1d3e8610acfee86c5099f18730c5346c22c34dc08b17",
+            "pages": 7,
+            "signatureSlots": [
+              {
+                "id": "client",
+                "label": "Client signature",
+                "ar": "توقيع العميل",
+                "page": 7,
+                "rect": [
+                  58,
+                  624,
+                  241,
+                  25
+                ]
+              }
+            ],
+            "originalSnapshotPreserved": true,
+            "signedPdf": "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396466192-caa533/kyc-modern-history/kyc-corporate-supplied-seven-signed.pdf"
+          },
+          {
+            "doc": "kyc-corporate",
+            "kind": "current-modern",
+            "source": "public/pdfs/kyc-corporate.pdf",
+            "sourceSha256": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6",
+            "signedSha256": "903e38607e1540a2e84cb4997d591142dbc62b8dadc3e36588539734ec5c2823",
+            "pages": 9,
+            "signatureSlots": [
+              {
+                "id": "client",
+                "label": "Client signature",
+                "ar": "توقيع العميل",
+                "page": 9,
+                "rect": [
+                  302.75,
+                  178.4,
+                  237.65,
+                  43
+                ]
+              }
+            ],
+            "originalSnapshotPreserved": true,
+            "signedPdf": "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791396466192-caa533/kyc-modern-history/kyc-corporate-current-modern-signed.pdf"
+          }
+        ],
+        "errors": [],
+        "limits": [
+          "Only synthetic clients and private local fixture storage; original/supplied-seven layouts seeded only in fixture SQLite to represent historical records.",
+          "Signing overlay generated using application signaturePlacement, then posted through the real signing API. Client generation and admin rendering are separately exercised by customer-workflow/admin-presentation."
+        ],
+        "inputHashes": {
+          "records": "112b793075662917af6148eaa3609f95f17fc3981f7c770053f8fa727a02d85d",
+          "builtDefaults": "0fba7103f4e57244cbd8a1d097dbea6bb42cff258042b3abdc8d20c6e5a62e4c",
+          "publicPdfs": {
+            "kyc-individual": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29",
+            "kyc-corporate": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6"
+          },
+          "fixturePdfs": {
+            "kyc-individual": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29",
+            "kyc-corporate": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6"
+          }
+        }
+      }
+    }
+  },
+  "manual_ui_check": {
+    "passed": true,
+    "scope": [
+      "English desktop management submitted details",
+      "Arabic mobile management submitted details",
+      "Arabic individual KYC special-case identity/email/signature inputs",
+      "English company catalogue two-column cards"
+    ],
+    "screenshots": "Fresh customer-workflow and admin-presentation fixtures above"
+  },
+  "limits": [
+    "Synthetic test records only; no legal/regulatory certification.",
+    "The active build is byte-identical to the earlier modern release. Fresh visual review is scoped to eight long English/Arabic KYC pages and enlarged footers; complete earlier visual coverage remains in the dated overlap report.",
+    "No new backend application logic or database migration; broader review/permissions/loading suites remain the dated baseline."
+  ],
+  "release": {
+    "published": false
+  }
+}

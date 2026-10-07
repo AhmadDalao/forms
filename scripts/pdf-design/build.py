@@ -1,6 +1,6 @@
-"""Rebuild FATCA/CRS and consent in the approved subscription Word style.
+"""Rebuild KYC, FATCA/CRS and consent in the approved subscription Word style.
 
-KYC, signature and terms use the supplied PDFs, not retired Word redesigns.
+Signature and terms retain their supplied PDF bodies.
 
 The probe has identical geometry, with tiny coordinate markers beside blank
 answer areas. Its measured positions produce the application layout manifest.
@@ -445,12 +445,14 @@ def measure(pdf,markers):
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--only');ap.add_argument('--author-only',action='store_true');args=ap.parse_args()
     titles={
+        'kyc-individual':('Investor Information (Individuals)','معلومات المستثمر (أفراد)'),
+        'kyc-corporate':('Investor Information (Corporate)','معلومات المستثمر (الشركات)'),
         'fatca-crs-individual':('INTERNATIONAL TAX TRANSPARENCY — Self-Certification & Declaration Form (FATCA & CRS) – INDIVIDUAL','الشفافية الضريبية الدولية — نموذج شهادة إقرار ذاتي (قانون الامتثال الضريبي للحسابات الأجنبية ومعيار الإبلاغ المشترك) – الأفراد'),
         'fatca-crs-corporate':('International Tax Self-Certification Form (For ENTITIES)',''),
         'al-naeem-terms-consent':('','إتقان كابيتال | صندوق النعيم العقاري')}
     assert set(titles)==set(TEMPLATE_SOURCES['modern_documents'])
     if args.only and set(args.only.split(','))-set(titles):
-        ap.error('Unknown or excluded document. KYC, signature and terms must retain their supplied PDFs; use the original-footer pipeline.')
+        ap.error('Unknown or excluded document. Signature and terms retain their supplied PDFs; use the original-footer pipeline.')
     documents=[d for d in SCHEMA if d['id'] in titles]+[{'id':'al-naeem-terms-consent'}]
     manifest={}
     for schema in documents:

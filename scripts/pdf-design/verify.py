@@ -12,7 +12,7 @@ normalize=lambda text:re.sub(r'[\W_ـ]+','',text,flags=re.UNICODE).casefold()
 report={'documents':{},'failures':[]}
 section_versions={'20260928-sections-3','20260928-client-flow-4','20261007-itqan-address',NATIONAL_ADDRESS['version']}
 for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
-    # Retired KYC/signature/T&C output is not evidence for the current originals.
+    # Retired signature/T&C output is not evidence for the current originals.
     if path.parent.name not in TEMPLATE_SOURCES['modern_documents']:continue
     identifier=path.parent.name;layout=json.loads(path.read_text());schema=schemas.get(identifier,{})
     docx=path.parent/f'{identifier}.docx';pdf=path.parent/'final'/f'{identifier}.pdf'

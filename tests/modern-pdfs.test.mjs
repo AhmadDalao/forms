@@ -4,7 +4,6 @@ import {readFileSync,writeFileSync,mkdtempSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
-import {createHash} from 'node:crypto';
 import {docs} from '../src/forms/index.js';
 import {signatureSlots} from '../src/signatures.js';
 import {submissionDetailsModel} from '../src/portal/submitted-details.js';
@@ -13,7 +12,7 @@ const original=JSON.parse(readFileSync('reference/documents/form-schema-20260927
 for(const doc of original){
  const removed={'kyc-individual':['issue_place','rep_issue','rep_place'],'kyc-corporate':['auth_issue_place','auth_issue_date']}[doc.id]||[];
  doc.fields=doc.fields.filter(f=>!removed.includes(f.id));
- const fax=doc.fields.find(f=>f.id==='rep_fax');if(fax)Object.assign(fax,{id:'rep_email',label:'Email',ar:'البريد الإلكتروني',type:'email',uiOnly:true});
+ const fax=doc.fields.find(f=>f.id==='rep_fax');if(fax)Object.assign(fax,{id:'rep_email',label:'Email',ar:'البريد الإلكتروني',type:'email'});
  for(const slot of doc.signatureSlots)if(slot.requireWhenFields)slot.requireWhenFields=slot.requireWhenFields.filter(id=>!removed.includes(id)).map(id=>id==='rep_fax'?'rep_email':id);
 }
 const layouts=JSON.parse(readFileSync('src/forms/modern-layouts.json'));
@@ -136,32 +135,24 @@ test('original, retired modern and restored T&C submissions retain their own sig
  assert.deepEqual(results.map(r=>r[0].expectedPages),[13,24,13]);
 });
 
-test('restored KYC templates use seven Letter pages and preserve original, modern and restored signing snapshots',()=>{
- const suppliedHashes={'kyc-individual':'79beab46fbc249f91d8d6945b5ac84b950bbd32f7e26eb82577b1c581f1f483e','kyc-corporate':'9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276'};
- for(const id of ['kyc-individual','kyc-corporate']){
-  assert.equal(createHash('sha256').update(readFileSync(`reference/pdfs/supplied-20261007/${id}.pdf`)).digest('hex'),suppliedHashes[id]);
-  const doc=docs.find(d=>d.id===id);
-  assert.equal(doc.pages,7);assert.equal(doc.pdfVersion,'20261007-original-kyc');assert.equal(layouts[id],undefined);
-  assert.deepEqual(doc.pageSizes,Array.from({length:7},()=>[612,792]));
-  const retired=JSON.parse(readFileSync(`reference/documents/archived/${id}-modern-layout.json`));
-  const restored={pages:doc.pages,pdfVersion:doc.pdfVersion,pageSizes:doc.pageSizes,signatureSlots:signatureSlots(doc)};
+test('modern KYC rollback keeps national-address templates and signs earlier seven-page submissions in their frozen positions',async()=>{
+ const {createHash}=await import('node:crypto');
+ const hashes={'kyc-individual':'1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29','kyc-corporate':'0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6'};
+ for(const id of Object.keys(hashes)){
+  const doc=docs.find(d=>d.id===id),pages=id==='kyc-individual'?11:9;
+  assert.equal(doc.pages,pages);assert.equal(doc.pdfVersion,'20261007-national-address');
+  assert.equal(createHash('sha256').update(readFileSync(`public/pdfs/${id}.pdf`)).digest('hex'),hashes[id]);
+  const supplied=JSON.parse(readFileSync(`reference/documents/archived/${id}-supplied-layout-20261007.json`));
+  const current={pages:doc.pages,pdfVersion:doc.pdfVersion,signatureSlots:signatureSlots(doc)};
   const source={id:'a'.repeat(32),sha256:'b'.repeat(64),profile:{},answers:{},source:'online'};
-  const cases=[source,...[retired,restored].map(pdf_layout=>({...source,profile:{pdf_layout}}))];
+  const cases=[source,...[supplied,current].map(pdf_layout=>({...source,profile:{pdf_layout}}))];
   const r=spawnSync('php',['-r',`require 'public/api/portal-versions.php';$p=json_decode(stream_get_contents(STDIN),true);$out=[];foreach($p['cases'] as $s){$before=$s;$out[]=[submissionSigningCapability($s,$p['doc']),$before===$s];}echo json_encode($out);`],{input:JSON.stringify({doc:{...doc,legacyPdfLayout:legacy[id]},cases}),encoding:'utf8'});
   assert.equal(r.status,0,r.stderr);const results=JSON.parse(r.stdout);
-  for(const [i,layout] of [legacy[id],retired,restored].entries()){
+  for(const [i,layout] of [legacy[id],supplied,current].entries()){
    assert.equal(results[i][0].expectedPages,layout.pages);
    assert.deepEqual(results[i][0].signatureSlots,layout.signatureSlots.map(({section,...slot})=>slot));
    assert.equal(results[i][1],true);
   }
-  assert.deepEqual(results.map(r=>r[0].expectedPages),[7,id==='kyc-individual'?11:9,7]);
+  assert.deepEqual(results.map(r=>r[0].expectedPages),[7,7,pages]);
  }
-});
-
-test('representative email stays captured in management without printing in the original Fax box',()=>{
- const doc=docs.find(d=>d.id==='kyc-individual'),email=doc.fields.find(f=>f.id==='rep_email');
- assert.equal(email.uiOnly,true);assert.equal(email.rect,null);assert.equal(email.type,'email');
- const model=submissionDetailsModel({doc_id:doc.id,audience:'individual',source:'online',profile:{},answers:{rep_email:'representative@example.com'}});
- const captured=model.groups.flatMap(g=>g.fields).find(f=>f.id==='rep_email');
- assert.equal(captured.value,'representative@example.com');assert.equal(captured.label,'Email');
 });

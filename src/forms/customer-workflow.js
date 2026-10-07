@@ -10,11 +10,7 @@ export function applyCustomerWorkflow(docs){
  for(const doc of docs){
   const removed=new Set(retiredIdentityFields[doc.id]||[]);
   const fax=doc.fields.find(f=>f.id==='rep_fax');
-  // The restored original has a Fax box, not an email box. Keep the requested
-  // email in captured application details without printing it under Fax.
-  if(fax){Object.assign(fax,{id:'rep_email',label:'Email',ar:'البريد الإلكتروني',type:'email',direction:'ltr',uiOnly:true,rect:null,
-   help:'Saved with your application details. The original PDF has no representative email field.',
-   arHelp:'يُحفظ ضمن بيانات الطلب. لا توجد خانة للبريد الإلكتروني للممثل في ملف PDF الأصلي.'});}
+  if(fax){Object.assign(fax,{id:'rep_email',label:'Email',ar:'البريد الإلكتروني',type:'email',direction:'ltr'});}
   doc.fields=doc.fields.filter(f=>!removed.has(f.id));
   for(const section of doc.sections){
    section.fields=section.fields.filter(f=>!removed.has(f.id));

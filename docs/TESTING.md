@@ -15,7 +15,7 @@ Several scripts use the Chrome channel, so Google Chrome must also be installed 
 
 The address source is `scripts/pdf-design/national-address.json`. Rebuild subscriptions with `python3 scripts/rebuild-subscription.py`; this writes Word/PDF files and recalculates their answer maps. The script uses LibreOffice on `PATH` (or its standard macOS installation), or an explicit `DOCX_RENDERER=/path/to/render_docx.py`. A custom renderer runs with the current Python; set `DOCX_PYTHON=/path/to/python3` to use another environment. The modern document builder also accepts `DOCX_RENDERER` and otherwise uses LibreOffice plus Poppler.
 
-The subscription builder reuses the Bahij font embedded in `reference/documents/subscription-style.docx`; `SUBSCRIPTION_ARABIC_FONT=/path/to/BahijTheSansArabic-Plain.ttf` overrides it. Install Arial for document rendering and set `SUBSCRIPTION_ARIAL_FONT=/path/to/Arial.ttf` if it is outside the usual macOS or Linux locations. Keep the approved fonts available to LibreOffice. Re-rendered files and recalculated maps require the PDF checks below and visual review before publication; changing renderer or fonts can change layout. `python3 scripts/update-original-footers.py` separately updates the original-style KYC, signature and terms footers with PyMuPDF. To update only the supplied KYC files, run `python3 scripts/update-original-footers.py kyc-individual kyc-corporate`. The immutable KYC inputs are in `reference/pdfs/supplied-20261007/`; both are seven-page Letter PDFs. Do not regenerate them from the retired Word redesigns. The source policy in `scripts/pdf-design/template-sources.json` lists the five current Word documents.
+The subscription builder reuses the Bahij font embedded in `reference/documents/subscription-style.docx`; `SUBSCRIPTION_ARABIC_FONT=/path/to/BahijTheSansArabic-Plain.ttf` overrides it. Install Arial for document rendering and set `SUBSCRIPTION_ARIAL_FONT=/path/to/Arial.ttf` if it is outside the usual macOS or Linux locations. Keep the approved fonts available to LibreOffice. Re-rendered files and recalculated maps require the PDF checks below and visual review before publication; changing renderer or fonts can change layout. `python3 scripts/update-original-footers.py` separately updates the original signature and terms footers with PyMuPDF. Current KYC uses the modern Word pipeline: 11 pages for individuals and nine for companies. The supplied seven-page Letter PDFs in `reference/pdfs/supplied-20261007/` are historical references only. The source policy in `scripts/pdf-design/template-sources.json` lists seven current Word documents, including the five modern documents: the two KYC forms, consent and the two FATCA/CRS forms.
 
 ## First pass
 
@@ -55,13 +55,13 @@ Inspect the generated PDFs as well as the reports. Check long Arabic/English nam
 
 The overlap check compares the actual transparent answer/signature ink at 144 dpi with printed content and other answers, excluding dotted placeholders that the PDF generator intentionally removes. It writes `ink-overlap.json` and fails on collisions, unsupported transforms, generation errors or ink outside the page. Pair it with the placement audit for checkbox coverage and visual inspection for printed-label typography; it does not replace those checks.
 
-## Restored KYC templates
+## Current and historical KYC templates
 
-Check all seven pages of each supplied KYC, especially the dotted employment/banking guides, boxed identity/date values, bilingual checkboxes and client signatures. Compare the blank template against `reference/pdfs/supplied-20261007/`; differences should be confined to the approved footer address, apart from renderer antialiasing.
+Check all 11 pages of the modern individual KYC and all nine pages of the modern company KYC, including long bilingual values, checkboxes, signatures and the national-address footer. Compare the PDFs with their current Word sources and `src/forms/modern-layouts.json`; the supplied seven-page PDFs are historical references, not the current layout baseline.
 
-The original individual KYC has a representative **Fax** box and no representative email box. The requested email remains an online field captured in submission details (`rep_email`, `uiOnly`); it must never print beneath the Fax label. Removed issue-place/date fields remain blank on the unchanged paper. Test primary email and representative email independently.
+Test primary email and representative email independently. The current individual KYC prints `rep_email` in its email field. In the historical seven-page restoration, this value was captured as `uiOnly` because the original paper has a representative **Fax** box; preserve that snapshot behavior and never print an email beneath its Fax label.
 
-Historical original (7 pages), retired modern (individual 11 / company 9) and restored (7 pages) submissions retain their own PDF/signature snapshots. Test adding a signature to each layout; editing an old submission creates a new version using the current seven-page template. A stale browser with the retired template version must receive `template_changed`, rather than submit misplaced answers.
+Historical original (7 pages), earlier modern (individual 11 / company 9) and seven-page restoration submissions retain their own PDF/signature snapshots. Test adding a signature to each layout; editing an old submission creates a new version using the current modern template. A stale browser with an obsolete template version must receive `template_changed`, rather than submit misplaced answers. Record current results in `verification/kyc-modern-restoration-2026-10-07.json`; the original-restoration report remains historical.
 
 ## After changing navigation or layout
 
@@ -81,7 +81,7 @@ Some suites cover Chrome, Firefox and WebKit. The card audit checks both audienc
 | Area | Expected result |
 |---|---|
 | Anonymous visitor | `/` and direct form/category/template URLs require login. Private files and API schema JSON cannot be downloaded. Check direct index URLs too. |
-| Fresh database | admin and superadmin can sign in; zero clients, shared profiles and submissions before synthetic testing. |
+| Fresh database | Schema 8; admin and superadmin can sign in; zero clients, shared profiles and submissions before synthetic testing. |
 | Permissions | Ordinary admin cannot create admins, publish catalogue changes or change client account type. Superadmin can. |
 | Client routing | Individual and company clients enter their own catalogue after login; another client's data is inaccessible. |
 | Shared values | Enter common names, phone/email and address in one form; verify other matching forms and account reload. Arabic/English, company/person and other people's details remain separate. |
@@ -106,7 +106,7 @@ Record the domain, date, browser, result and evidence for each row. Delete only 
 
 ## What a passing report means
 
-TEST-REPORT.md records the 7 October all-form address checks separately from the earlier KYC-only checks and September workflow evidence. A passing local run is not proof of destination-host permissions, email/SMS delivery (the app has no such provider), a real signature's authenticity or legal compliance. Keep that distinction in the developer sign-off.
+TEST-REPORT.md records the current modern-KYC restoration checks separately from the historical seven-page restoration, earlier all-form address checks and September workflow evidence. A passing local run is not proof of destination-host permissions, email/SMS delivery (the app has no such provider), a real signature's authenticity or legal compliance. Keep that distinction in the developer sign-off.
 
 ## Submission settings page
 

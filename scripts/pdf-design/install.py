@@ -12,7 +12,7 @@ artifact_file=ROOT/'scripts/pdf-design/artifacts.json'
 report={key:value for key,value in json.loads(artifact_file.read_text()).items() if key in allowed}
 installed=0
 for file in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
-    # A whitelist also rejects stale KYC/signature/T&C and unknown candidates.
+    # A whitelist rejects stale signature/T&C and unknown candidates.
     if file.parent.name not in allowed:continue
     identifier=file.parent.name;layout=json.loads(file.read_text())
     pdf=file.parent/'final'/f'{identifier}.pdf';docx=file.parent/f'{identifier}.docx'

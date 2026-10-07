@@ -1,0 +1,71 @@
+{
+  "pages": 7,
+  "pdfVersion": "20261007-original-kyc",
+  "pageSizes": [
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ]
+  ],
+  "signatureSlots": [
+    {
+      "id": "representative",
+      "label": "Special cases — representative signature",
+      "ar": "الحالات الخاصة — توقيع الوكيل أو الممثل",
+      "page": 3,
+      "rect": [
+        117,
+        566,
+        124,
+        23
+      ],
+      "section": "disclosures",
+      "requiredForSubmission": false,
+      "requireWhenFields": [
+        "representative_name",
+        "rep_id",
+        "rep_type",
+        "rep_expiry",
+        "rep_phone",
+        "rep_email"
+      ]
+    },
+    {
+      "id": "client",
+      "label": "Client signature",
+      "ar": "توقيع العميل",
+      "page": 7,
+      "rect": [
+        58,
+        624,
+        241,
+        25
+      ],
+      "section": "suitability"
+    }
+  ]
+}

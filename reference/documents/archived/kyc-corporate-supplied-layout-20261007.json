@@ -1,0 +1,49 @@
+{
+  "pages": 7,
+  "pdfVersion": "20261007-original-kyc",
+  "pageSizes": [
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ],
+    [
+      612,
+      792
+    ]
+  ],
+  "signatureSlots": [
+    {
+      "id": "client",
+      "label": "Client signature",
+      "ar": "توقيع العميل",
+      "page": 7,
+      "rect": [
+        58,
+        624,
+        241,
+        25
+      ],
+      "section": "suitability"
+    }
+  ]
+}
