@@ -3,11 +3,17 @@ from pathlib import Path
 import json, shutil, hashlib
 ROOT=Path(__file__).resolve().parents[2]
 (ROOT/'output/documents').mkdir(parents=True,exist_ok=True)
-layouts={};report={}
+sources=json.loads((ROOT/'scripts/pdf-design/template-sources.json').read_text())
+allowed=set(sources['modern_documents'])
 existing=json.loads((ROOT/'src/forms/modern-layouts.json').read_text())
+# Preserve other reviewed mappings, but never reactivate retired original-PDF layouts.
+layouts={key:value for key,value in existing.items() if key not in sources['original_pdf_documents']}
+artifact_file=ROOT/'scripts/pdf-design/artifacts.json'
+report={key:value for key,value in json.loads(artifact_file.read_text()).items() if key in allowed}
+installed=0
 for file in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
-    # Signature and T&C use original PDFs, even if stale generated files remain.
-    if file.parent.name in {'terms-and-conditions','signature-form'}:continue
+    # A whitelist also rejects stale KYC/signature/T&C and unknown candidates.
+    if file.parent.name not in allowed:continue
     identifier=file.parent.name;layout=json.loads(file.read_text())
     pdf=file.parent/'final'/f'{identifier}.pdf';docx=file.parent/f'{identifier}.docx'
     assert pdf.is_file() and docx.is_file()
@@ -19,6 +25,7 @@ for file in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
     # Developer source bundle keeps a matching, editable Word/PDF pair.
     shutil.copy2(pdf,ROOT/'output/documents'/pdf.name)
     report[identifier]={'pages':layout['pages'],'pdf_sha256':hashlib.sha256(pdf.read_bytes()).hexdigest(),'docx_sha256':hashlib.sha256(docx.read_bytes()).hexdigest()}
+    installed+=1
 (ROOT/'src/forms/modern-layouts.json').write_text(json.dumps(layouts,ensure_ascii=False,separators=(',',':'))+'\n')
 (ROOT/'scripts/pdf-design/artifacts.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-print('Installed',len(layouts),'review candidates locally; nothing deployed.')
+print('Installed',installed,'review candidates locally; original PDF templates untouched; nothing deployed.')

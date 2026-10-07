@@ -1,0 +1,20 @@
+{
+  "word_documents": [
+    "subscription-individual",
+    "subscription-company",
+    "al-naeem-terms-consent",
+    "fatca-crs-individual",
+    "fatca-crs-corporate"
+  ],
+  "modern_documents": [
+    "al-naeem-terms-consent",
+    "fatca-crs-individual",
+    "fatca-crs-corporate"
+  ],
+  "original_pdf_documents": [
+    "kyc-individual",
+    "kyc-corporate",
+    "signature-form",
+    "terms-and-conditions"
+  ]
+}

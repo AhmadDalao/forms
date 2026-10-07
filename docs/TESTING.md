@@ -15,7 +15,7 @@ Several scripts use the Chrome channel, so Google Chrome must also be installed 
 
 The address source is `scripts/pdf-design/national-address.json`. Rebuild subscriptions with `python3 scripts/rebuild-subscription.py`; this writes Word/PDF files and recalculates their answer maps. The script uses LibreOffice on `PATH` (or its standard macOS installation), or an explicit `DOCX_RENDERER=/path/to/render_docx.py`. A custom renderer runs with the current Python; set `DOCX_PYTHON=/path/to/python3` to use another environment. The modern document builder also accepts `DOCX_RENDERER` and otherwise uses LibreOffice plus Poppler.
 
-The subscription builder reuses the Bahij font embedded in `reference/documents/subscription-style.docx`; `SUBSCRIPTION_ARABIC_FONT=/path/to/BahijTheSansArabic-Plain.ttf` overrides it. Install Arial for document rendering and set `SUBSCRIPTION_ARIAL_FONT=/path/to/Arial.ttf` if it is outside the usual macOS or Linux locations. Keep the approved fonts available to LibreOffice. Re-rendered files and recalculated maps require the PDF checks below and visual review before publication; changing renderer or fonts can change layout. `python3 scripts/update-original-footers.py` separately updates the original-style signature and terms footers with PyMuPDF.
+The subscription builder reuses the Bahij font embedded in `reference/documents/subscription-style.docx`; `SUBSCRIPTION_ARABIC_FONT=/path/to/BahijTheSansArabic-Plain.ttf` overrides it. Install Arial for document rendering and set `SUBSCRIPTION_ARIAL_FONT=/path/to/Arial.ttf` if it is outside the usual macOS or Linux locations. Keep the approved fonts available to LibreOffice. Re-rendered files and recalculated maps require the PDF checks below and visual review before publication; changing renderer or fonts can change layout. `python3 scripts/update-original-footers.py` separately updates the original-style KYC, signature and terms footers with PyMuPDF. To update only the supplied KYC files, run `python3 scripts/update-original-footers.py kyc-individual kyc-corporate`. The immutable KYC inputs are in `reference/pdfs/supplied-20261007/`; both are seven-page Letter PDFs. Do not regenerate them from the retired Word redesigns. The source policy in `scripts/pdf-design/template-sources.json` lists the five current Word documents.
 
 ## First pass
 
@@ -54,6 +54,14 @@ node scripts/preview-direction-audit.mjs
 Inspect the generated PDFs as well as the reports. Check long Arabic/English names, an omitted third name, mixed text, phone/email direction, every choice, blue answer text, signing areas and page breaks. Automated bounds/coverage checks help but cannot approve every possible customer string.
 
 The overlap check compares the actual transparent answer/signature ink at 144 dpi with printed content and other answers, excluding dotted placeholders that the PDF generator intentionally removes. It writes `ink-overlap.json` and fails on collisions, unsupported transforms, generation errors or ink outside the page. Pair it with the placement audit for checkbox coverage and visual inspection for printed-label typography; it does not replace those checks.
+
+## Restored KYC templates
+
+Check all seven pages of each supplied KYC, especially the dotted employment/banking guides, boxed identity/date values, bilingual checkboxes and client signatures. Compare the blank template against `reference/pdfs/supplied-20261007/`; differences should be confined to the approved footer address, apart from renderer antialiasing.
+
+The original individual KYC has a representative **Fax** box and no representative email box. The requested email remains an online field captured in submission details (`rep_email`, `uiOnly`); it must never print beneath the Fax label. Removed issue-place/date fields remain blank on the unchanged paper. Test primary email and representative email independently.
+
+Historical original (7 pages), retired modern (individual 11 / company 9) and restored (7 pages) submissions retain their own PDF/signature snapshots. Test adding a signature to each layout; editing an old submission creates a new version using the current seven-page template. A stale browser with the retired template version must receive `template_changed`, rather than submit misplaced answers.
 
 ## After changing navigation or layout
 

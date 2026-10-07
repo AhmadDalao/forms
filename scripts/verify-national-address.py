@@ -7,6 +7,7 @@ import pdfplumber
 
 ROOT = Path(__file__).resolve().parents[1]
 ADDRESS = json.loads((ROOT / 'scripts/pdf-design/national-address.json').read_text())
+WORD_DOCUMENTS = set(json.loads((ROOT / 'scripts/pdf-design/template-sources.json').read_text())['word_documents'])
 normalize = lambda value: re.sub(r'[^a-z0-9]', '', value.lower())
 documents = ['subscription-individual', 'subscription-company', 'kyc-individual',
              'kyc-corporate', 'signature-form', 'al-naeem-terms-consent',
@@ -31,12 +32,15 @@ for name in documents:
             if any(c['x0'] < 0 or c['x1'] > paper.width + .5 or c['bottom'] > paper.height + .5
                    for c in footer.chars if c['text'].strip()):
                 report['failures'].append([name, number, 'footer outside page'])
-    word = ROOT / 'output/documents' / (name + '.docx')
-    if not word.is_file():
-        word = ROOT.parent / 'editable-documents' / (name + '.docx')
-    if name not in {'signature-form', 'terms-and-conditions', 'subscription-form'} and not word.is_file():
-        report['failures'].append([name, 'editable Word source missing'])
-    if word.exists():
+    # Ignore retired Word redesigns even if they remain in output/documents.
+    word = None
+    if name in WORD_DOCUMENTS:
+        word = ROOT / 'output/documents' / (name + '.docx')
+        if not word.is_file():
+            word = ROOT.parent / 'editable-documents' / (name + '.docx')
+        if not word.is_file():
+            report['failures'].append([name, 'editable Word source missing'])
+    if word and word.is_file():
         for section in Document(word).sections:
             if normalize(ADDRESS['text']) not in normalize(' '.join(p.text for p in section.footer.paragraphs)):
                 report['failures'].append([name, 'Word footer missing address'])
@@ -44,9 +48,10 @@ for name in documents:
         copy = ROOT / folder / path.name
         if copy.exists() and copy.read_bytes() != path.read_bytes():
             report['failures'].append([name, folder, 'PDF copy differs'])
-    report['documents'][name] = {'pages': len(pdf.pages), 'word_source': word.exists(),
+    report['documents'][name] = {'pages': len(pdf.pages), 'word_source': bool(word and word.is_file()),
                                 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
 report['pages'] = sum(item['pages'] for item in report['documents'].values())
+report['word_sources'] = sum(item['word_source'] for item in report['documents'].values())
 report['passed'] = not report['failures']
 if len(sys.argv) > 1:
     target = Path(sys.argv[1]); target.parent.mkdir(parents=True, exist_ok=True)

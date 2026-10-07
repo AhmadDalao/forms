@@ -6,11 +6,11 @@ Only upload the contents of `website/` to the public website folder. Keep this Z
 
 ## 7 October — national address on every form
 
-All nine current form templates use the new Itqan national address: individual/company subscription, individual/company KYC, signature, consent, individual/company FATCA/CRS, and terms and conditions. The public legacy one-page subscription PDF also receives the address. The seven editable Word sources match their PDFs. Signature and terms retain their original body design; only their address footer changes. Field definitions, answer/signature positions and saved submission bytes are preserved.
+All nine current form templates use the new Itqan national address: individual/company subscription, individual/company KYC, signature, consent, individual/company FATCA/CRS, and terms and conditions. The public legacy one-page subscription PDF also receives the address. Five editable Word sources match their PDFs. KYC now uses the owner's supplied seven-page PDFs; signature and terms also retain their original body designs. These four templates have no matching current Word source. Their address footer is updated, and saved submission bytes remain unchanged.
 
-The address is maintained in `source/scripts/pdf-design/national-address.json`. The owner confirmed **Prince Naif Branch**. No new KYC fields or content changes were found in the supplied PDFs. See `TEST-REPORT.md` and `verification/all-forms-address-verification-2026-10-07.json` for the completed release checks; the earlier KYC-only report is retained as history.
+The address is maintained in `source/scripts/pdf-design/national-address.json`. The owner confirmed **Prince Naif Branch** and subsequently requested the original KYC PDF designs in place of their modern Word redesigns. `source/scripts/pdf-design/template-sources.json` identifies current sources; retired KYC Word/layout files are historical references and must never regenerate the current PDFs. Earlier address-only reports describe the pre-restoration templates.
 
-The subsequent overlap/regression pass also passed: 114 fresh PDFs, 56 blank pages and 78 populated pages visually checked, zero actual answer/signature ink collisions, and 16 workflow suites. Its evidence is `verification/pdf-overlap-verification-2026-10-07.json`; the public application and templates did not need further changes.
+Before the original KYC restoration, the overlap/regression pass covered 114 fresh PDFs, 56 blank pages and 78 populated pages, with zero detected answer/signature ink collisions and 16 passing workflow suites. Its evidence is `verification/pdf-overlap-verification-2026-10-07.json`; it is historical evidence, not verification of the restored KYC templates.
 
 ## Where to start
 
@@ -34,7 +34,7 @@ The subsequent overlap/regression pass also passed: 114 fresh PDFs, 56 blank pag
 | `private-bootstrap.zip` | Restore outside the web root to install the included management accounts and empty client database. |
 | `SNAPSHOT.json` | Bootstrap date, counts and checksum. |
 | `database/` | Empty SQLite schema examples for review; these do not contain the management logins. |
-| `editable-documents/` | Seven Word sources and nine current PDF templates. Original signature and T&C PDFs have no matching Word redesign. |
+| `editable-documents/` | Five matching Word sources, nine current PDFs and the source-policy manifest. Original KYC, signature and T&C PDFs have no matching current Word source. |
 | `verification/` | Dated test reports; older reports are historical evidence, not a description of today's UI. |
 | `server/` | Optional Apache example for a self-managed server. Shared hosting normally supplies the web server. |
 | `MANIFEST.json`, `SHA256SUMS.txt` | File inventory and checksums for this delivery. |

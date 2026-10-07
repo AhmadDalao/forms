@@ -4,7 +4,7 @@ import json,re,hashlib
 from docx import Document
 import pdfplumber
 from customer_fields import customer_fields
-from build import NATIONAL_ADDRESS
+from build import NATIONAL_ADDRESS, TEMPLATE_SOURCES
 ROOT=Path(__file__).resolve().parents[2]
 sources=json.loads((ROOT/'scripts/pdf-design/source-text.json').read_text())
 schemas={d['id']:d for d in customer_fields(json.loads((ROOT/'reference/documents/form-schema-20260927.json').read_text()))}
@@ -12,8 +12,8 @@ normalize=lambda text:re.sub(r'[\W_ـ]+','',text,flags=re.UNICODE).casefold()
 report={'documents':{},'failures':[]}
 section_versions={'20260928-sections-3','20260928-client-flow-4','20261007-itqan-address',NATIONAL_ADDRESS['version']}
 for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
-    # Signature and T&C use original PDFs, even if stale generated files remain.
-    if path.parent.name in {'terms-and-conditions','signature-form'}:continue
+    # Retired KYC/signature/T&C output is not evidence for the current originals.
+    if path.parent.name not in TEMPLATE_SOURCES['modern_documents']:continue
     identifier=path.parent.name;layout=json.loads(path.read_text());schema=schemas.get(identifier,{})
     docx=path.parent/f'{identifier}.docx';pdf=path.parent/'final'/f'{identifier}.pdf'
     package=Document(docx);text=' '.join(package._element.xpath('.//w:t/text()'));normalized=normalize(text)

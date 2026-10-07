@@ -52,11 +52,11 @@ An uploaded PDF is a file supplied by the client. It can be previewed, versioned
 
 ## PDF details worth knowing
 
-Subscription uses its dedicated layout files under `src/subscription/`. Other documents use their definitions plus `src/forms/modern-layouts.json`. Joined names and addresses can have several UI inputs but one printed destination. UI-only fields are intentional where the paper has a combined space.
+Subscription uses its dedicated layout files under `src/subscription/`. Consent and the two FATCA/CRS documents use `src/forms/modern-layouts.json`. Individual/company KYC use their supplied seven-page PDFs and original field geometry; signature and T&C also use supplied PDF bodies. These four PDFs have no matching current Word source. The authoring policy in `scripts/pdf-design/template-sources.json` excludes them from modern generation and installation, even when retired Word outputs remain on disk. Joined names and addresses can have several UI inputs but one printed destination. UI-only fields retain captured answers where the original paper has no corresponding space.
 
 `pdf-lib` creates the output and PDF.js renders previews. A browser-preview rendering fault does not automatically mean the downloaded PDF is wrong. Compare the downloaded file before changing the template. Browser previews should not trigger eager loading of every document on the login page.
 
-For a template change, keep the content and stable field IDs, update coordinates/layout metadata and the relevant version, regenerate the build defaults and test the **filled** document. A blank PDF looking good proves very little about long Arabic names, email direction, checkbox marks or signatures. Keep the original signature and T&C PDFs intact unless the owner specifically asks to change them.
+For a template change, keep the content and stable field IDs, update coordinates/layout metadata and the relevant version, regenerate the build defaults and test the **filled** document. A blank PDF looking good proves very little about long Arabic names, email direction, checkbox marks or signatures. Preserve the supplied KYC, signature and T&C bodies; use the original-footer pipeline for the approved address update. Historical layout snapshots and saved PDFs stay unchanged.
 
 ## Management and accounts
 

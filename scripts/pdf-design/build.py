@@ -1,4 +1,6 @@
-"""Rebuild the remaining documents in the approved subscription Word style.
+"""Rebuild FATCA/CRS and consent in the approved subscription Word style.
+
+KYC, signature and terms use the supplied PDFs, not retired Word redesigns.
 
 The probe has identical geometry, with tiny coordinate markers beside blank
 answer areas. Its measured positions produce the application layout manifest.
@@ -22,6 +24,7 @@ RENDER=os.environ.get('DOCX_RENDERER')
 PURPLE='401D58';INK='242235';MUTED='656575';BORDER='9B92A2';WIDTH=499.3
 FONT='Bahij TheSansArabic Plain'
 NATIONAL_ADDRESS=json.loads((ROOT/'scripts/pdf-design/national-address.json').read_text())
+TEMPLATE_SOURCES=json.loads((ROOT/'scripts/pdf-design/template-sources.json').read_text())
 SCHEMA=customer_fields(json.loads((ROOT/'reference/documents/form-schema-20260927.json').read_text()))
 SOURCES=json.loads((ROOT/'scripts/pdf-design/source-text.json').read_text())
 
@@ -442,13 +445,12 @@ def measure(pdf,markers):
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--only');ap.add_argument('--author-only',action='store_true');args=ap.parse_args()
     titles={
-        'kyc-individual':('Investor Information (Individuals)','معلومات المستثمر (أفراد)'),
-        'kyc-corporate':('Investor Information (Corporate)','معلومات المستثمر (الشركات)'),
         'fatca-crs-individual':('INTERNATIONAL TAX TRANSPARENCY — Self-Certification & Declaration Form (FATCA & CRS) – INDIVIDUAL','الشفافية الضريبية الدولية — نموذج شهادة إقرار ذاتي (قانون الامتثال الضريبي للحسابات الأجنبية ومعيار الإبلاغ المشترك) – الأفراد'),
         'fatca-crs-corporate':('International Tax Self-Certification Form (For ENTITIES)',''),
         'al-naeem-terms-consent':('','إتقان كابيتال | صندوق النعيم العقاري')}
+    assert set(titles)==set(TEMPLATE_SOURCES['modern_documents'])
     if args.only and set(args.only.split(','))-set(titles):
-        ap.error('Unknown or excluded document. Signature form and terms and conditions must retain their original PDFs.')
+        ap.error('Unknown or excluded document. KYC, signature and terms must retain their supplied PDFs; use the original-footer pipeline.')
     documents=[d for d in SCHEMA if d['id'] in titles]+[{'id':'al-naeem-terms-consent'}]
     manifest={}
     for schema in documents:

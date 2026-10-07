@@ -1,6 +1,30 @@
 # Handover verification — 7 October 2026
 
-## Full overlap and regression follow-up
+## Current release — supplied original KYC PDFs restored
+
+Both current KYC templates now use the supplied **seven-page Letter PDFs**, with only the approved national-address footer changed. Their cache version is `20261007-original-kyc`. The supplied source copies are preserved under `reference/pdfs/supplied-20261007/`. Both document bodies retain their original wording, order and geometry; per-renderer antialiasing differences are recorded in the preservation evidence.
+
+| Check | Result |
+|---|---|
+| Unit suite and production build | 242 tests passed; zero failures/skips; build passed |
+| All-form PDF generation | 114 test PDFs / 661 pages; five complete fills for each of nine editable forms, plus blank, partial, shared and every-choice cases |
+| Placement and ink | 2,168 text, 1,008 checkbox and 34 signature placements checked; 2,202 answer/signature images checked for actual collisions; zero remaining overlaps or clipping |
+| KYC visual review | All 14 blank pages and 28 long English/Arabic filled pages inspected, followed by fresh renders of every corrected page |
+| Browser rendering | 147 current page/direction checks across Chrome, Firefox and WebKit; final KYC pages independently rechecked after the spacing fixes |
+| Client/management workflows | Six isolated fixtures / 45 checks passed; 557 captured answers and 2,232 management field displays checked |
+| Historical versions | Original 7-page, retired modern 11-/9-page and restored 7-page signing snapshots passed; archive/restore retained answers and PDF bytes |
+| Final PDF delivery | Four final English/Arabic KYC submissions downloaded through both client and management APIs with exact PDF hashes |
+| Address and authoring | All 50 public PDF pages contain the new address; five current Word sources verified; retired KYC Word outputs cannot overwrite the originals |
+
+The first populated pass exposed answer descenders touching dotted writing guides. Only answer positions were moved within the existing spaces; the paper was not redesigned. High-resolution visual checks found two additional rule contacts that are also corrected. The long-company-name fixture now uses a real multiword company name.
+
+The original individual KYC has a Fax box, not a representative email box. `rep_email` remains captured in application details and is marked online-only, with an explanatory hint. It does not print beneath Fax. Previously removed issue-place/date fields remain blank on the unchanged original.
+
+Workflow browser suites used the recorded intermediate answer positions. The final position-only changes were followed by complete PDF/overlap/visual checks, final KYC browser rendering, unchanged-semantic comparisons and four final API byte round-trips. No backend application logic, database migration or review-setting change is included. Broader permissions/review/loading results below remain the dated regression baseline, not newly repeated claims.
+
+Evidence: `verification/kyc-original-restoration-2026-10-07.json`. All fixtures use synthetic data. These checks establish the tested examples, not a guarantee that unlimited customer text will fit; overflowing input is rejected rather than clipped.
+
+## Earlier modern-KYC release — full overlap and regression follow-up
 
 The owner requested another full pass focused on overlapping content after the address release. The tested application is `188abfe3d7`. No PDF or application changes were needed.
 

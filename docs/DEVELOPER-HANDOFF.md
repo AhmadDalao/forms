@@ -65,12 +65,20 @@ FORMS_DATA_DIR=/tmp/alnaeem-preview/management FORMS_PORTAL_DATA_DIR=/tmp/alnaee
 
 This local initialization creates empty databases, not the included management accounts. Restore the private seed into a new local directory if those accounts are needed. The automated browser tests create their own synthetic accounts and private storage. PHP's localhost server is for development; the hosting provider's web server serves production.
 
+## Maintain the document templates
+
+`editable-documents/` contains nine current PDFs and five matching Word sources: individual/company subscription, consent, and individual/company FATCA/CRS. Individual/company KYC use the supplied seven-page PDFs with the approved national-address footer; signature and T&C also retain their supplied PDF bodies. These four templates have no matching current Word source.
+
+`scripts/pdf-design/template-sources.json` defines this source policy. The modern Word generator, installer and verifier accept only consent and the two FATCA/CRS forms. The subscription builder remains separate. Rebuild original-PDF footers with `scripts/update-original-footers.py`, preserving the supplied inputs under `reference/`. `npm run build` copies reviewed public PDF assets; it does not recreate them from Word.
+
+Do not regenerate KYC from old files left in `output/documents/` or `tmp/modern-pdfs/`. Archived Word/layout files under `reference/documents/archived/` are historical evidence only. Verify footer text with `scripts/verify-national-address.py`, then check filled geometry and all template versions. See `scripts/pdf-design/artifact.md` for the authoring contract.
+
 ## Current behavior to expect
 
 - Visitors must sign in. Clients land on the individual or company forms catalogue matching their account.
 - The catalogue has two roomy columns on desktop and one on phones. Each card provides blank download, filled download and filled-PDF upload. Current filled files can also be downloaded as a ZIP.
 - Profile is for account details and passwords. `/my-applications/` remains a legacy alias.
-- All nine templates are editable online. Consent has its own editor. T&C starts with its complete original 13-page document. Both T&C and the signature template retain their original PDFs.
+- All nine templates are editable online. Consent has its own editor. Individual/company KYC retain their supplied seven-page designs; T&C and signature retain their original 13-page and one-page designs. Their national-address footer is updated without a Word redesign.
 - Final review shows the generated PDF, then one Submit form action. Unsigned initial forms are accepted. They become Received by default, or Under review when the superadmin selects Under review on the dedicated Submission settings page. Submit only hides review counters on Dashboard and Received applications. Existing open cases remain accessible and continue after review is turned off. Signature status is separate; uploaded replacements remain identifiable as uploads. See REVIEW-WORKFLOW.md.
 - Management reviews a client's documents from Current documents → Preview & details. Categorized answers start collapsed. The separate details card and shared-profile display were removed; stored data was preserved.
 - Client notification previews open the latest saved PDF and do not show archive labels or duplicate downloads. Management keeps version history.

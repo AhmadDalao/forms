@@ -49,7 +49,7 @@ function answer(field,sample,index){
  if(/ownership/.test(id))return digits('25');
  if(/tin/.test(id))return digits(w<60?'001234':'0012345678');
  if(/sector_other/.test(id))return ar?'تعليم':'IT';
- if(/company|entity|institution/.test(id)&&/name/.test(id))return ar?(long?'شركة النور للتطوير والاستثمار العقاري':'شركة النور'):(long?'Al Noor Real Estate Investment Company':'Al Noor Company');
+ if(id==='company'||/company|entity|institution/.test(id)&&/name/.test(id))return ar?(long?'شركة النور للتطوير والاستثمار العقاري':'شركة النور'):(long?'Al Noor Real Estate Investment Company':'Al Noor Company');
  if(field.direction==='ltr')return long&&w>=150?enparts.join(' '):w<100?'Omar':'Omar Ali';
  if(field.direction==='rtl')return long&&w>=150?arparts.join(' '):w<100?'أحمد':'أحمد علي';
  if(/name/.test(id))return (ar?arparts:enparts).join(' ');

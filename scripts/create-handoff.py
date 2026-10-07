@@ -73,11 +73,25 @@ for name in ['package.json', 'package-lock.json', 'vite.config.js', 'index.html'
 documents = ['subscription-individual', 'subscription-company', 'al-naeem-terms-consent',
              'signature-form', 'kyc-individual', 'kyc-corporate', 'fatca-crs-individual',
              'fatca-crs-corporate', 'terms-and-conditions']
+template_sources = json.loads((ROOT / 'scripts/pdf-design/template-sources.json').read_text())
 for name in documents:
-    # The restored original T&C and signature PDFs have no matching Word sources; never ship the retired redesign as current.
-    if name not in {'terms-and-conditions','signature-form'}:
+    if (ROOT / 'dist/pdfs' / (name + '.pdf')).read_bytes() != (ROOT / 'public/pdfs' / (name + '.pdf')).read_bytes():
+        raise RuntimeError('Public build has an outdated PDF; rebuild before handover: ' + name)
+    # Supplied KYC/signature/T&C PDFs have no matching current Word source.
+    # Never package a retired redesign under the current PDF's filename.
+    if name in template_sources['word_documents']:
         copy(ROOT / 'output/documents' / (name + '.docx'), package / 'editable-documents' / (name + '.docx'))
     copy(ROOT / 'public/pdfs' / (name + '.pdf'), package / 'editable-documents' / (name + '.pdf'))
+copy(ROOT / 'scripts/pdf-design/template-sources.json', package / 'editable-documents/template-sources.json')
+(package / 'editable-documents/README.md').write_text('''# Current document sources
+
+This folder contains nine current PDF templates and five matching Word sources:
+individual/company subscription, consent, and individual/company FATCA/CRS.
+
+Individual/company KYC are the supplied seven-page PDFs with the approved national-address footer. Signature and terms also retain their supplied PDF bodies. These four PDFs have no matching current Word source. Do not regenerate them from retired modern Word documents.
+
+The preserved inputs and authoring tools are under `../source/reference/` and `../source/scripts/`. See `../source/scripts/pdf-design/artifact.md` and `template-sources.json` for the current source policy. Files under `reference/documents/archived/` are historical evidence only; their page counts and mappings are not current templates.
+''')
 copy(ROOT / 'docs/DEVELOPER-HANDOFF.md', package / 'INSTALL.md')
 copy(ROOT / 'docs/DEVELOPER-HANDOFF.md', package / 'source/README.md')
 copy(ROOT / 'docs/DEVELOPER-HANDOFF-AR.md', package / 'INSTALL-AR.md')
@@ -96,6 +110,7 @@ copy(ROOT / 'docs/received-names-2026-09-30.json', package / 'verification/recei
 copy(ROOT / 'docs/kyc-address-verification-2026-10-07.json', package / 'verification/kyc-address-verification-2026-10-07.json')
 copy(ROOT / 'docs/all-forms-address-verification-2026-10-07.json', package / 'verification/all-forms-address-verification-2026-10-07.json')
 copy(ROOT / 'docs/pdf-overlap-verification-2026-10-07.json', package / 'verification/pdf-overlap-verification-2026-10-07.json')
+copy(ROOT / 'docs/kyc-original-restoration-2026-10-07.json', package / 'verification/kyc-original-restoration-2026-10-07.json')
 for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verification.json',
              'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
              'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',
@@ -124,7 +139,7 @@ assert not list((restored / 'management/uploads').glob('*'))
 assert not (restored / 'management/state.json').exists()
 shutil.rmtree(restored)
 copy(bootstrap, package / 'private-bootstrap.zip')
-snapshot['application_release'] = release_date + ' updated Itqan national address on every form, submit-only client display, dedicated submission settings and schema 8'
+snapshot['application_release'] = release_date + ' original seven-page KYC PDFs with approved national-address footer, five current Word sources, submit-only client display, dedicated submission settings and schema 8'
 snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
 (package / ('verification/bootstrap-verification-' + release_date + '.json')).write_text(json.dumps({
