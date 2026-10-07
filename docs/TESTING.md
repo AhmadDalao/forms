@@ -41,6 +41,7 @@ Run the broader checks in this order:
 ```sh
 QA_OUT=tmp/client-corrections-pdfs node scripts/current-pdf-audit.mjs
 python3 scripts/current-pdf-audit-verify.py tmp/client-corrections-pdfs
+python3 scripts/verify-pdf-overlap.py tmp/client-corrections-pdfs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/client-corrections-audit.mjs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/direct-intake-audit.mjs
 PDF_AUDIT_OUTPUT=tmp/client-corrections-pdfs node scripts/submit-only-client-audit.mjs
@@ -51,6 +52,8 @@ node scripts/preview-direction-audit.mjs
 ```
 
 Inspect the generated PDFs as well as the reports. Check long Arabic/English names, an omitted third name, mixed text, phone/email direction, every choice, blue answer text, signing areas and page breaks. Automated bounds/coverage checks help but cannot approve every possible customer string.
+
+The overlap check compares the actual transparent answer/signature ink at 144 dpi with printed content and other answers, excluding dotted placeholders that the PDF generator intentionally removes. It writes `ink-overlap.json` and fails on collisions, unsupported transforms, generation errors or ink outside the page. Pair it with the placement audit for checkbox coverage and visual inspection for printed-label typography; it does not replace those checks.
 
 ## After changing navigation or layout
 

@@ -10,6 +10,8 @@ All nine current form templates use the new Itqan national address: individual/c
 
 The address is maintained in `source/scripts/pdf-design/national-address.json`. The owner confirmed **Prince Naif Branch**. No new KYC fields or content changes were found in the supplied PDFs. See `TEST-REPORT.md` and `verification/all-forms-address-verification-2026-10-07.json` for the completed release checks; the earlier KYC-only report is retained as history.
 
+The subsequent overlap/regression pass also passed: 114 fresh PDFs, 56 blank pages and 78 populated pages visually checked, zero actual answer/signature ink collisions, and 16 workflow suites. Its evidence is `verification/pdf-overlap-verification-2026-10-07.json`; the public application and templates did not need further changes.
+
 ## Where to start
 
 - [INSTALL.md](INSTALL.md): requirements and the exact installation commands.

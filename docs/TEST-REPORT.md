@@ -1,5 +1,26 @@
 # Handover verification — 7 October 2026
 
+## Full overlap and regression follow-up
+
+The owner requested another full pass focused on overlapping content after the address release. The tested application is `188abfe3d7`. No PDF or application changes were needed.
+
+| Check | Result |
+|---|---|
+| Unit suite | 238 passed; zero failures or skips |
+| Fresh PDF generation | 114 PDFs / 755 pages across all nine editable forms |
+| Answer placement | 2,093 text, 917 checkbox and 34 signature rectangles; complete field/option/signature coverage |
+| Actual ink collisions | All 2,127 answer/signature images checked against printed content and other answers; zero collisions, out-of-page ink or unsupported transforms |
+| Detector validation | A disposable PDF with two deliberately misplaced answers was correctly rejected for printed-text and answer-to-answer collisions |
+| Visual inspection | All 56 current blank pages, every enlarged footer and 78 populated long English/Arabic page renders; no visible clipping or overlapping content |
+| Browser PDF previews | 165 page/direction comparisons passed in Chrome, Firefox and WebKit; zero page/image-decoding errors |
+| Workflow regression | 16 suites / 161 grouped checks passed, including loading, permissions, backup/restore, sharing, direct submission, optional reviews and responsive views |
+
+All 557 captured answers across nine forms matched management, and submitted/downloaded PDF bytes matched. The management audit checked 36 English/Arabic desktop/mobile form presentations; the catalogue audit measured 186 responsive layouts. Interrupted requests, offline retries, duplicate submissions, current-version notifications, account isolation, signatures and archived snapshots passed.
+
+The original T&C pages 5–6 retain tight word spacing from the supplied source. The legacy one-page subscription retains its lower-resolution contact/legal artwork. Neither is a new overlap, and their original designs remain preserved. Footers and actual answer ink were inspected separately. Local Fontconfig warnings did not prevent successful renders or indicate PDF corruption.
+
+Evidence: `verification/pdf-overlap-verification-2026-10-07.json`. Reproduce the additional collision check with `scripts/verify-pdf-overlap.py` after generating the samples. Testing uses synthetic local accounts; arbitrary customer text and legal compliance are outside this result. The handover includes the new check and this report; the public build is unchanged from the verified address release.
+
 ## 7 October — national address across all forms
 
 The owner expanded the address update to all nine current templates plus the public legacy subscription PDF. Seven editable Word sources match their PDFs. Signature and terms retain their original body design. The address source is `scripts/pdf-design/national-address.json`, version `20261007-national-address`.

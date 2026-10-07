@@ -63,7 +63,7 @@ scripts = ['build-folders.mjs', 'management-defaults.mjs', 'management-router.ph
            'rebuild-subscription.py', 'update-original-footers.py', 'verify-national-address.py',
            'management-init.php', 'management-superadmin-init.php', 'installation-init.php', 'backup-installation.php',
            'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'current-pdf-audit.mjs',
-           'current-pdf-audit-verify.py', 'preview-font-audit.mjs', 'preview-direction-audit.mjs',
+           'current-pdf-audit-verify.py', 'verify-pdf-overlap.py', 'preview-font-audit.mjs', 'preview-direction-audit.mjs',
            'client-corrections-audit.mjs', 'direct-intake-audit.mjs', 'form-access-audit.mjs', 'management-views-audit.mjs',
            'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'admin-presentation-audit.mjs', 'loading-audit.mjs', 'customer-workflow-audit.mjs', 'notifications-audit.mjs', 'catalogue-layout-audit.mjs', 'client-preview-audit.mjs', 'staff-name-audit.mjs', 'review-navigation-audit.mjs', 'optional-review-audit.mjs', 'optional-review-actions-audit.mjs', 'submit-only-client-audit.mjs', 'shared-profiles-audit.mjs']
 for name in scripts:
@@ -95,6 +95,7 @@ copy(ROOT / 'docs/admin-presentation-verification.json', package / 'verification
 copy(ROOT / 'docs/received-names-2026-09-30.json', package / 'verification/received-names-2026-09-30.json')
 copy(ROOT / 'docs/kyc-address-verification-2026-10-07.json', package / 'verification/kyc-address-verification-2026-10-07.json')
 copy(ROOT / 'docs/all-forms-address-verification-2026-10-07.json', package / 'verification/all-forms-address-verification-2026-10-07.json')
+copy(ROOT / 'docs/pdf-overlap-verification-2026-10-07.json', package / 'verification/pdf-overlap-verification-2026-10-07.json')
 for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verification.json',
              'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
              'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',

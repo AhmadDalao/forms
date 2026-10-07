@@ -1,0 +1,3411 @@
+{
+  "date": "2026-10-07",
+  "tested_application_commit": "188abfe3d7b819d76aaf5a2440312d62cf5668b9",
+  "scope": "All current individual/company/shared PDFs and final website workflows; added focus on newly updated national-address footers.",
+  "passed": true,
+  "application_or_pdf_changes_required": false,
+  "unit_tests": {
+    "passed": 238,
+    "failed": 0,
+    "skipped": 0
+  },
+  "pdf_generation": {
+    "files": 114,
+    "pages": 755,
+    "five_complete_scenarios_per_form": true,
+    "other_samples": [
+      "blank",
+      "partial",
+      "shared-data",
+      "every option"
+    ],
+    "errors": []
+  },
+  "placement": {
+    "counts": {
+      "pdfs": 114,
+      "pages": 755,
+      "text_rectangles": 2093,
+      "choice_rectangles": 917,
+      "signature_rectangles": 34,
+      "transparent_images": 14637,
+      "unchanged_pages": 342
+    },
+    "coverage": {
+      "signature-form": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 6,
+        "covered_choice_options": 6,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "al-naeem-terms-consent": {
+        "mapped_fields": 2,
+        "covered_fields": 2,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 8,
+        "complete_success": 5
+      },
+      "subscription-form": {
+        "mapped_fields": 29,
+        "covered_fields": 29,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 13,
+        "complete_success": 5
+      },
+      "subscription-company": {
+        "mapped_fields": 30,
+        "covered_fields": 30,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 11,
+        "complete_success": 5
+      },
+      "terms-and-conditions": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 4,
+        "covered_choice_options": 4,
+        "uncovered_choices": [],
+        "signature_slots": 6,
+        "covered_signatures": 6,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "fatca-crs-individual": {
+        "mapped_fields": 57,
+        "covered_fields": 57,
+        "uncovered_fields": [],
+        "choice_options": 16,
+        "covered_choice_options": 16,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 12,
+        "complete_success": 5
+      },
+      "fatca-crs-corporate": {
+        "mapped_fields": 76,
+        "covered_fields": 76,
+        "uncovered_fields": [],
+        "choice_options": 19,
+        "covered_choice_options": 19,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 19,
+        "complete_success": 5
+      },
+      "kyc-individual": {
+        "mapped_fields": 106,
+        "covered_fields": 106,
+        "uncovered_fields": [],
+        "choice_options": 122,
+        "covered_choice_options": 122,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 16,
+        "complete_success": 5
+      },
+      "kyc-corporate": {
+        "mapped_fields": 100,
+        "covered_fields": 100,
+        "uncovered_fields": [],
+        "choice_options": 60,
+        "covered_choice_options": 60,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 15,
+        "complete_success": 5
+      }
+    },
+    "failures": []
+  },
+  "actual_ink_collision_test": {
+    "scale": 2,
+    "images": 2127,
+    "signature_images": 34,
+    "pages": 755,
+    "collision_candidates": [],
+    "outside_page": [],
+    "transform_errors": [],
+    "files": 114,
+    "generation_errors": [],
+    "passed": true,
+    "expected_image_placements": 2127,
+    "complete_image_coverage": true
+  },
+  "detector_positive_control": {
+    "expected_failure": true,
+    "detected_both_printed_text_and_other_answer_collisions": true,
+    "deliberately_corrupted_copy_only": true,
+    "candidates": [
+      {
+        "document": "al-naeem-terms-consent",
+        "sample": "intentional-collision",
+        "page": 1,
+        "image": "/Image-7098480789",
+        "rect": [
+          308.0,
+          249.00000022047197,
+          234.0,
+          54.0
+        ],
+        "printed_ink_pixels": 0,
+        "other_answer_pixels": 545,
+        "answers_bounds": [
+          622,
+          547,
+          995,
+          556
+        ]
+      },
+      {
+        "document": "al-naeem-terms-consent",
+        "sample": "intentional-collision",
+        "page": 1,
+        "image": "/Image-7098480789",
+        "rect": [
+          305.0,
+          21.000000220471975,
+          234.0,
+          54.0
+        ],
+        "printed_ink_pixels": 654,
+        "other_answer_pixels": 0,
+        "printed_bounds": [
+          657,
+          89,
+          995,
+          102
+        ]
+      }
+    ]
+  },
+  "footer_verification": {
+    "version": "20261007-national-address",
+    "address": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor | 2505 - Al Zahra Dist | Unit No 7940 | Jeddah 23425-2753 | Kingdom of Saudi Arabia",
+    "documents": {
+      "subscription-individual": {
+        "pages": 2,
+        "word_source": true,
+        "sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e"
+      },
+      "subscription-company": {
+        "pages": 2,
+        "word_source": true,
+        "sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86"
+      },
+      "kyc-individual": {
+        "pages": 11,
+        "word_source": true,
+        "sha256": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29"
+      },
+      "kyc-corporate": {
+        "pages": 9,
+        "word_source": true,
+        "sha256": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6"
+      },
+      "signature-form": {
+        "pages": 1,
+        "word_source": false,
+        "sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f"
+      },
+      "al-naeem-terms-consent": {
+        "pages": 1,
+        "word_source": true,
+        "sha256": "5b22452a0fdd909e682b61bc7a2e53e12532d28e100f22ad96c36f67fd2efd3d"
+      },
+      "fatca-crs-individual": {
+        "pages": 8,
+        "word_source": true,
+        "sha256": "4c860ccb85dd2949365d92de6794860bdcbb5dd53cd29d5c501c28d476a9b895"
+      },
+      "fatca-crs-corporate": {
+        "pages": 8,
+        "word_source": true,
+        "sha256": "5133c0ed41a290a468c35aafaf6baf9ec9b98415d1d6fa57b85dde159ce038e1"
+      },
+      "terms-and-conditions": {
+        "pages": 13,
+        "word_source": false,
+        "sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15"
+      },
+      "subscription-form": {
+        "pages": 1,
+        "word_source": false,
+        "sha256": "5d85ee6922a6224ca85a6238955c4be8abf4f71ccb933e9aa2cce4de7c49f2bb"
+      }
+    },
+    "failures": [],
+    "pages": 56,
+    "passed": true
+  },
+  "visual_review": {
+    "blank_pages": 56,
+    "populated_pages": 78,
+    "modern_blank_report": {
+      "audit_date": "2026-10-07",
+      "scope": "Independent visual overlap/clipping review of five current blank public PDF templates only.",
+      "status": "No visible printed overlaps or clipping observed within the inspected scope.",
+      "page_count": 37,
+      "documents": [
+        {
+          "document": "kyc-individual",
+          "path": "public/pdfs/kyc-individual.pdf",
+          "sha256": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29",
+          "pages": 11,
+          "render_dpi": 144,
+          "sha256_after_audit": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29",
+          "unchanged_during_audit": true,
+          "page_coverage": [
+            {
+              "page": 1,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 2,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 3,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 4,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Disclosure questions and bottom beneficiary question; distinct gap above footer.",
+              "issues": []
+            },
+            {
+              "page": 5,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Investment information and bottom knowledge/experience block; distinct gap above footer.",
+              "issues": []
+            },
+            {
+              "page": 6,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 7,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 8,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 9,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 10,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Dense risk suitability questionnaire, score field, and two-column scoring paragraphs; also inspected enlarged.",
+              "issues": []
+            },
+            {
+              "page": 11,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            }
+          ]
+        },
+        {
+          "document": "kyc-corporate",
+          "path": "public/pdfs/kyc-corporate.pdf",
+          "sha256": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6",
+          "pages": 9,
+          "render_dpi": 144,
+          "sha256_after_audit": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6",
+          "unchanged_during_audit": true,
+          "page_coverage": [
+            {
+              "page": 1,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 2,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 3,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Authorization/contact table; bottom mobile/e-mail row clear of footer.",
+              "issues": []
+            },
+            {
+              "page": 4,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 5,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 6,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 7,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            },
+            {
+              "page": 8,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Dense risk suitability questionnaire and score explanations; also inspected enlarged.",
+              "issues": []
+            },
+            {
+              "page": 9,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Full page and native-resolution footer reviewed for printed overlap, boundary collisions and clipping.",
+              "issues": []
+            }
+          ]
+        },
+        {
+          "document": "fatca-crs-individual",
+          "path": "public/pdfs/fatca-crs-individual.pdf",
+          "sha256": "4c860ccb85dd2949365d92de6794860bdcbb5dd53cd29d5c501c28d476a9b895",
+          "pages": 8,
+          "render_dpi": 144,
+          "sha256_after_audit": "4c860ccb85dd2949365d92de6794860bdcbb5dd53cd29d5c501c28d476a9b895",
+          "unchanged_during_audit": true,
+          "page_coverage": [
+            {
+              "page": 1,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Long bilingual title, identity/address fields, final district/postal row.",
+              "issues": []
+            },
+            {
+              "page": 2,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Tax/immigration screening choices.",
+              "issues": []
+            },
+            {
+              "page": 3,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "SSN/ITIN/ATIN fields and two-column TIN instructions; also inspected enlarged.",
+              "issues": []
+            },
+            {
+              "page": 4,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Continuation instructions and tax-residency table.",
+              "issues": []
+            },
+            {
+              "page": 5,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Country/reason rows and bilingual legal declaration; also inspected enlarged.",
+              "issues": []
+            },
+            {
+              "page": 6,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Legal continuation, three-column names/signature row, capacity choices and representative fields; also inspected enlarged.",
+              "issues": []
+            },
+            {
+              "page": 7,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Dense bilingual definitions; also inspected enlarged.",
+              "issues": []
+            },
+            {
+              "page": 8,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Definitions continuation.",
+              "issues": []
+            }
+          ]
+        },
+        {
+          "document": "fatca-crs-corporate",
+          "path": "public/pdfs/fatca-crs-corporate.pdf",
+          "sha256": "5133c0ed41a290a468c35aafaf6baf9ec9b98415d1d6fa57b85dde159ce038e1",
+          "pages": 8,
+          "render_dpi": 144,
+          "sha256_after_audit": "5133c0ed41a290a468c35aafaf6baf9ec9b98415d1d6fa57b85dde159ce038e1",
+          "unchanged_during_audit": true,
+          "page_coverage": [
+            {
+              "page": 1,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Long entity title, identity and current/head-office address tables.",
+              "issues": []
+            },
+            {
+              "page": 2,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Three tax-residency rows and instructions.",
+              "issues": []
+            },
+            {
+              "page": 3,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "FATCA choice questionnaire and TIN/GIIN table.",
+              "issues": []
+            },
+            {
+              "page": 4,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "CRS choices, addendum introduction and controlling-person table; also inspected enlarged.",
+              "issues": []
+            },
+            {
+              "page": 5,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Controlling-person continuation tables.",
+              "issues": []
+            },
+            {
+              "page": 6,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Controlling-person continuation tables.",
+              "issues": []
+            },
+            {
+              "page": 7,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "TIN reason text, declaration and two signatory blocks; also inspected enlarged.",
+              "issues": []
+            },
+            {
+              "page": 8,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Account-officer fields and intentionally blank remainder.",
+              "issues": []
+            }
+          ]
+        },
+        {
+          "document": "al-naeem-terms-consent",
+          "path": "public/pdfs/al-naeem-terms-consent.pdf",
+          "sha256": "5b22452a0fdd909e682b61bc7a2e53e12532d28e100f22ad96c36f67fd2efd3d",
+          "pages": 1,
+          "render_dpi": 144,
+          "sha256_after_audit": "5b22452a0fdd909e682b61bc7a2e53e12532d28e100f22ad96c36f67fd2efd3d",
+          "unchanged_during_audit": true,
+          "page_coverage": [
+            {
+              "page": 1,
+              "full_page_visually_inspected": true,
+              "footer_visually_inspected_at_render_resolution": true,
+              "observation": "Arabic title, declaration, name/signature/date table and named officer captions. Right-aligned white bar headings sit close to the right edge but glyphs remain visible; header/body also checked at 288 dpi.",
+              "issues": []
+            }
+          ]
+        }
+      ],
+      "method": {
+        "renderer": "Fresh Poppler pdftoppm renders at 144 dpi, generated for this audit from the listed public PDFs.",
+        "full_pages": "Every page inspected in sequential two-page spreads, each page displayed approximately 900 x 1275 pixels.",
+        "footers": "Every page bottom 16 percent inspected at native 144 dpi in footer sheets.",
+        "enlarged_regions": [
+          "kyc-individual p10",
+          "kyc-corporate p8",
+          "fatca-crs-individual p3,p5,p6,p7",
+          "fatca-crs-corporate p4,p7",
+          "al-naeem-terms-consent p1 header/body freshly rendered at 288 dpi"
+        ],
+        "checks": [
+          "header/logo/title separation",
+          "printed label/table boundary collisions",
+          "adjacent column text collisions",
+          "body/footer separation",
+          "complete national-address line within page margins",
+          "footer/page-number separation",
+          "page-edge clipping"
+        ],
+        "source_files_modified": false
+      },
+      "issues": [],
+      "limits": [
+        "Filled answer values and signature overlays are outside this independent visual pass. Parent is separately testing actual-ink collision cases.",
+        "No claim is made that every possible user input has been visually inspected."
+      ]
+    },
+    "original_blank_and_filled_report": {
+      "task": "Independent overlap audit of current subscription, legacy subscription, signature and terms PDFs",
+      "renderer": "/Users/ahmaddalao/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/pdftoppm",
+      "render_dpi": 144,
+      "originals": [
+        {
+          "id": "subscription-individual",
+          "path": "public/pdfs/subscription-individual.pdf",
+          "sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e",
+          "page_count": 2,
+          "render_warnings": "",
+          "pages": [
+            {
+              "page": 1,
+              "media_box": [
+                0,
+                0,
+                595.303937007874,
+                841.889763779528
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/subscription-individual/page-1.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/subscription-individual/footer-01.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 2,
+              "media_box": [
+                0,
+                0,
+                595.303937007874,
+                841.889763779528
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/subscription-individual/page-2.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/subscription-individual/footer-02.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            }
+          ]
+        },
+        {
+          "id": "subscription-company",
+          "path": "public/pdfs/subscription-company.pdf",
+          "sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86",
+          "page_count": 2,
+          "render_warnings": "",
+          "pages": [
+            {
+              "page": 1,
+              "media_box": [
+                0,
+                0,
+                595.303937007874,
+                841.889763779528
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/subscription-company/page-1.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/subscription-company/footer-01.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 2,
+              "media_box": [
+                0,
+                0,
+                595.303937007874,
+                841.889763779528
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/subscription-company/page-2.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/subscription-company/footer-02.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            }
+          ]
+        },
+        {
+          "id": "subscription-form",
+          "path": "public/pdfs/subscription-form.pdf",
+          "sha256": "5d85ee6922a6224ca85a6238955c4be8abf4f71ccb933e9aa2cce4de7c49f2bb",
+          "page_count": 1,
+          "render_warnings": "",
+          "pages": [
+            {
+              "page": 1,
+              "media_box": [
+                0,
+                0,
+                596,
+                842
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/subscription-form/page-1.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/subscription-form/footer-01.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            }
+          ]
+        },
+        {
+          "id": "signature-form",
+          "path": "public/pdfs/signature-form.pdf",
+          "sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f",
+          "page_count": 1,
+          "render_warnings": "Local Fontconfig configuration/cache warnings only; complete page rendered successfully.",
+          "pages": [
+            {
+              "page": 1,
+              "media_box": [
+                0,
+                0,
+                595.44,
+                841.68
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/signature-form/page-1.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/signature-form/footer-01.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            }
+          ],
+          "render_warning_summary": {
+            "kind": "local_fontconfig_environment",
+            "unique_messages": [
+              "Fontconfig error: Cannot load default config file: File not found",
+              "Fontconfig error: No writable cache directories"
+            ],
+            "pdf_syntax_or_decode_errors": false,
+            "render_exit_code": 0,
+            "bytes_in_log": 2392444,
+            "repeated_cache_warnings": 12022
+          },
+          "render_warning_log": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/signature-form/render.log"
+        },
+        {
+          "id": "terms-and-conditions",
+          "path": "public/pdfs/terms-and-conditions.pdf",
+          "sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15",
+          "page_count": 13,
+          "render_warnings": "Local Fontconfig configuration/cache warnings only; complete page rendered successfully.",
+          "pages": [
+            {
+              "page": 1,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-01.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-01.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 2,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-02.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-02.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 3,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-03.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-03.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 4,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-04.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-04.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 5,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-05.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-05.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 6,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-06.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-06.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 7,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-07.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-07.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 8,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-08.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-08.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 9,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-09.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-09.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 10,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-10.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-10.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 11,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-11.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-11.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 12,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-12.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-12.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            },
+            {
+              "page": 13,
+              "media_box": [
+                0,
+                0,
+                612,
+                792
+              ],
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/page-13.png",
+              "footer_crop": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/footer-13.png",
+              "visually_inspected": true,
+              "footer_crop_inspected": true,
+              "body_overlap_found": false,
+              "footer_overlap_found": false,
+              "clipped_labels_found": false,
+              "signature_region_collision_found": false
+            }
+          ],
+          "render_warning_summary": {
+            "kind": "local_fontconfig_environment",
+            "unique_messages": [
+              "Fontconfig error: Cannot load default config file: File not found",
+              "Fontconfig error: No writable cache directories"
+            ],
+            "pdf_syntax_or_decode_errors": false,
+            "render_exit_code": 0,
+            "bytes_in_log": 2392444,
+            "repeated_cache_warnings": 12022
+          },
+          "render_warning_log": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/terms-and-conditions/render.log"
+        }
+      ],
+      "reused_samples": [
+        {
+          "id": "subscription-form",
+          "sample": "english-long",
+          "path": "tmp/pdfs/all-address-audit-20261007/subscription-form-english-long.pdf",
+          "sha256": "b180a02fb76f7701b7064a02fd71f01931c1aa704d603f85baf180f6c059c3c8",
+          "original_sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e",
+          "current_public_sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e",
+          "baseline_matches_current": true,
+          "render_warnings": "",
+          "pages": [
+            {
+              "page": 1,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/subscription-form-english-long/page-1.png",
+              "diff_bbox_pixels": [
+                110,
+                449,
+                1078,
+                1342
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 2,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/subscription-form-english-long/page-2.png",
+              "diff_bbox_pixels": [
+                110,
+                303,
+                1078,
+                1126
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            }
+          ]
+        },
+        {
+          "id": "subscription-form",
+          "sample": "arabic-long",
+          "path": "tmp/pdfs/all-address-audit-20261007/subscription-form-arabic-long.pdf",
+          "sha256": "19c9e2c1d7d54193e6c6ae14b44adfde3785b7785ff2057e33e00bad0e87fcae",
+          "original_sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e",
+          "current_public_sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e",
+          "baseline_matches_current": true,
+          "render_warnings": "",
+          "pages": [
+            {
+              "page": 1,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/subscription-form-arabic-long/page-1.png",
+              "diff_bbox_pixels": [
+                110,
+                450,
+                1078,
+                1342
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 2,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/subscription-form-arabic-long/page-2.png",
+              "diff_bbox_pixels": [
+                110,
+                302,
+                1078,
+                1136
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            }
+          ]
+        },
+        {
+          "id": "subscription-company",
+          "sample": "english-long",
+          "path": "tmp/pdfs/all-address-audit-20261007/subscription-company-english-long.pdf",
+          "sha256": "d261e6bdc2fd4d18c886720a2a7e5c49b0409909e4d890edfa845af2056c3a19",
+          "original_sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86",
+          "current_public_sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86",
+          "baseline_matches_current": true,
+          "render_warnings": "",
+          "pages": [
+            {
+              "page": 1,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/subscription-company-english-long/page-1.png",
+              "diff_bbox_pixels": [
+                110,
+                449,
+                1078,
+                1432
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 2,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/subscription-company-english-long/page-2.png",
+              "diff_bbox_pixels": [
+                110,
+                303,
+                1078,
+                1126
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            }
+          ]
+        },
+        {
+          "id": "subscription-company",
+          "sample": "arabic-long",
+          "path": "tmp/pdfs/all-address-audit-20261007/subscription-company-arabic-long.pdf",
+          "sha256": "3625e399ee15c0ed7c78e87f12a392a297a9b15f2842124ceca1a7cc57eac95b",
+          "original_sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86",
+          "current_public_sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86",
+          "baseline_matches_current": true,
+          "render_warnings": "",
+          "pages": [
+            {
+              "page": 1,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/subscription-company-arabic-long/page-1.png",
+              "diff_bbox_pixels": [
+                110,
+                450,
+                1078,
+                1432
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 2,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/subscription-company-arabic-long/page-2.png",
+              "diff_bbox_pixels": [
+                110,
+                302,
+                1078,
+                1136
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            }
+          ]
+        },
+        {
+          "id": "signature-form",
+          "sample": "english-long",
+          "path": "tmp/pdfs/all-address-audit-20261007/signature-form-english-long.pdf",
+          "sha256": "f9d0e65b95311b4d89594ba1f6b8e1e833570deb127c418829fc91eeb8c7d1dc",
+          "original_sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f",
+          "current_public_sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f",
+          "baseline_matches_current": true,
+          "render_warnings": "Local Fontconfig configuration/cache warnings only; complete page rendered successfully.",
+          "pages": [
+            {
+              "page": 1,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/signature-form-english-long/page-1.png",
+              "diff_bbox_pixels": [
+                107,
+                218,
+                1015,
+                935
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            }
+          ],
+          "render_warning_summary": {
+            "kind": "local_fontconfig_environment",
+            "unique_messages": [
+              "Fontconfig error: Cannot load default config file: File not found",
+              "Fontconfig error: No writable cache directories"
+            ],
+            "pdf_syntax_or_decode_errors": false,
+            "render_exit_code": 0,
+            "bytes_in_log": 2392444,
+            "repeated_cache_warnings": 12022
+          },
+          "render_warning_log": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/signature-form-english-long/render.log"
+        },
+        {
+          "id": "signature-form",
+          "sample": "arabic-long",
+          "path": "tmp/pdfs/all-address-audit-20261007/signature-form-arabic-long.pdf",
+          "sha256": "b6a583ae48ac2eaffe18bfc6da11e9180c0e001935c263e4b0a685613acaa78c",
+          "original_sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f",
+          "current_public_sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f",
+          "baseline_matches_current": true,
+          "render_warnings": "Local Fontconfig configuration/cache warnings only; complete page rendered successfully.",
+          "pages": [
+            {
+              "page": 1,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/signature-form-arabic-long/page-1.png",
+              "diff_bbox_pixels": [
+                106,
+                218,
+                1080,
+                932
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            }
+          ],
+          "render_warning_summary": {
+            "kind": "local_fontconfig_environment",
+            "unique_messages": [
+              "Fontconfig error: Cannot load default config file: File not found",
+              "Fontconfig error: No writable cache directories"
+            ],
+            "pdf_syntax_or_decode_errors": false,
+            "render_exit_code": 0,
+            "bytes_in_log": 2392444,
+            "repeated_cache_warnings": 12022
+          },
+          "render_warning_log": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/signature-form-arabic-long/render.log"
+        },
+        {
+          "id": "terms-and-conditions",
+          "sample": "english-long",
+          "path": "tmp/pdfs/all-address-audit-20261007/terms-and-conditions-english-long.pdf",
+          "sha256": "920b80ec3dd7bf49b4c5d2994bdbcd5a45b564c87a43b7bff5f0f1afefc92835",
+          "original_sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15",
+          "current_public_sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15",
+          "baseline_matches_current": true,
+          "render_warnings": "Local Fontconfig configuration/cache warnings only; complete page rendered successfully.",
+          "pages": [
+            {
+              "page": 1,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-01.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 2,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-02.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 3,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-03.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 4,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-04.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 5,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-05.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 6,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-06.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 7,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-07.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 8,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-08.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 9,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-09.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 10,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-10.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 11,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-11.png",
+              "diff_bbox_pixels": [
+                548,
+                171,
+                1031,
+                551
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 12,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-12.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 13,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/page-13.png",
+              "diff_bbox_pixels": [
+                548,
+                565,
+                1031,
+                936
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            }
+          ],
+          "render_warning_summary": {
+            "kind": "local_fontconfig_environment",
+            "unique_messages": [
+              "Fontconfig error: Cannot load default config file: File not found",
+              "Fontconfig error: No writable cache directories"
+            ],
+            "pdf_syntax_or_decode_errors": false,
+            "render_exit_code": 0,
+            "bytes_in_log": 2392444,
+            "repeated_cache_warnings": 12022
+          },
+          "render_warning_log": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-english-long/render.log"
+        },
+        {
+          "id": "terms-and-conditions",
+          "sample": "arabic-long",
+          "path": "tmp/pdfs/all-address-audit-20261007/terms-and-conditions-arabic-long.pdf",
+          "sha256": "02797455053c1ba41ae18f6ef878e5fec7fc1c2767898d4a0cf46e4be8f43658",
+          "original_sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15",
+          "current_public_sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15",
+          "baseline_matches_current": true,
+          "render_warnings": "Local Fontconfig configuration/cache warnings only; complete page rendered successfully.",
+          "pages": [
+            {
+              "page": 1,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-01.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 2,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-02.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 3,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-03.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 4,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-04.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 5,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-05.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 6,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-06.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 7,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-07.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 8,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-08.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 9,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-09.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 10,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-10.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 11,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-11.png",
+              "diff_bbox_pixels": [
+                296,
+                171,
+                1054,
+                551
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 12,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-12.png",
+              "diff_bbox_pixels": null,
+              "pixel_identical_to_current_original": true,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Pixel-identical to freshly rendered and visually inspected original page",
+              "overlap_or_clipping_found": false
+            },
+            {
+              "page": 13,
+              "png": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/page-13.png",
+              "diff_bbox_pixels": [
+                296,
+                565,
+                1054,
+                936
+              ],
+              "pixel_identical_to_current_original": false,
+              "bottom_65pt_identical_to_original": true,
+              "inspection": "Visually reviewed populated page",
+              "overlap_or_clipping_found": false
+            }
+          ],
+          "render_warning_summary": {
+            "kind": "local_fontconfig_environment",
+            "unique_messages": [
+              "Fontconfig error: Cannot load default config file: File not found",
+              "Fontconfig error: No writable cache directories"
+            ],
+            "pdf_syntax_or_decode_errors": false,
+            "render_exit_code": 0,
+            "bytes_in_log": 2392444,
+            "repeated_cache_warnings": 12022
+          },
+          "render_warning_log": "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled/terms-and-conditions-arabic-long/render.log"
+        }
+      ],
+      "issues": [],
+      "original-contact_sheets": [
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/original-contact-01.png",
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/original-contact-02.png",
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/original-contact-03.png",
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/original-contact-04.png",
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/original-contact-05.png"
+      ],
+      "footer-contact_sheets": [
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/footer-contact-01.png",
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/footer-contact-02.png",
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/footer-contact-03.png",
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/footer-contact-04.png",
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/footer-contact-05.png"
+      ],
+      "filled_contact_sheets": [
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled-contact-01.png",
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled-contact-02.png",
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled-contact-03.png",
+        "tmp/pdfs/overlap-audit-20261007/originals-subscriptions/filled-contact-04.png"
+      ],
+      "filled_changed_pages": [
+        [
+          "subscription-form",
+          "english-long",
+          1
+        ],
+        [
+          "subscription-form",
+          "english-long",
+          2
+        ],
+        [
+          "subscription-form",
+          "arabic-long",
+          1
+        ],
+        [
+          "subscription-form",
+          "arabic-long",
+          2
+        ],
+        [
+          "subscription-company",
+          "english-long",
+          1
+        ],
+        [
+          "subscription-company",
+          "english-long",
+          2
+        ],
+        [
+          "subscription-company",
+          "arabic-long",
+          1
+        ],
+        [
+          "subscription-company",
+          "arabic-long",
+          2
+        ],
+        [
+          "signature-form",
+          "english-long",
+          1
+        ],
+        [
+          "signature-form",
+          "arabic-long",
+          1
+        ],
+        [
+          "terms-and-conditions",
+          "english-long",
+          11
+        ],
+        [
+          "terms-and-conditions",
+          "english-long",
+          13
+        ],
+        [
+          "terms-and-conditions",
+          "arabic-long",
+          11
+        ],
+        [
+          "terms-and-conditions",
+          "arabic-long",
+          13
+        ]
+      ],
+      "observations": [
+        {
+          "severity": "informational",
+          "category": "pre_existing_source_typography",
+          "document": "terms-and-conditions",
+          "pages": [
+            5,
+            6
+          ],
+          "regions_pt": {
+            "5": [
+              36,
+              366,
+              576,
+              727
+            ],
+            "6": [
+              36,
+              73,
+              576,
+              89
+            ]
+          },
+          "description": "Section19 and its continuation have highly compressed word spacing in the supplied English and Arabic text. This is present in the private source, remains readable at full size, and is separate from the new footer. No inter-line collision or clipped text identified.",
+          "private_source": "reference/pdfs/terms-and-conditions.pdf",
+          "source_character_geometry_comparison": [
+            {
+              "page": 5,
+              "body_character_count": 10489,
+              "body_characters_identical": true,
+              "max_coordinate_delta_pt": 0.0002505999999584674,
+              "font_size_identical": true
+            },
+            {
+              "page": 6,
+              "body_character_count": 9425,
+              "body_characters_identical": true,
+              "max_coordinate_delta_pt": 0.0002503999993450634,
+              "font_size_identical": true
+            }
+          ],
+          "pixel_comparison_note": "Strict Poppler body pixels differ slightly because coordinates serialize with sub-millipoint precision changes (maximum 0.000251pt); the compressed spacing is visibly present in the original source."
+        },
+        {
+          "severity": "informational",
+          "category": "pre_existing_raster_quality",
+          "document": "subscription-form",
+          "pages": [
+            1
+          ],
+          "region_pt": [
+            49,
+            817,
+            560,
+            835
+          ],
+          "description": "Legacy public one-page form retains low-resolution raster contact/legal text supplied in its original footer. New address text is crisp and does not intersect those items."
+        }
+      ],
+      "summary": {
+        "result": "passed",
+        "original_pdf_count": 5,
+        "original_pages_rendered_and_inspected": 19,
+        "enlarged_footer_crops_inspected": 19,
+        "filled_pdf_count": 8,
+        "filled_pages_rendered": 36,
+        "filled_pages_visually_inspected": 14,
+        "filled_pages_pixel_identical_to_inspected_originals": 22,
+        "filled_footer_regions_pixel_identical": 36,
+        "sample_baseline_hashes_match_current_public": true,
+        "render_warning_count": 6,
+        "overlap_or_clipping_defects": 0,
+        "informational_source_observations": 2,
+        "source_files_changed": false,
+        "deployment_performed": false,
+        "pdf_syntax_or_decoder_errors": 0
+      },
+      "inspection_details": "All19 original full pages reviewed in five labelled contact sheets; all19 enlarged footer crops reviewed in five footer sheets. Dense terms pages5,6,9 additionally reviewed at full native144dpi, and signature footer enlarged. All14 pages with rendered long English/Arabic answers reviewed in four new contact sheets; remaining22 filled pages are pixel-identical to originals already inspected. Populated signature Arabic page1 and terms Arabic page11/English page13 additionally inspected at full144dpi. Local Fontconfig configuration/cache diagnostics are documented independently from PDF defects; there were no PDF syntax or decoder diagnostics.",
+      "environment_note": "The bundled Poppler runtime cannot load its default Fontconfig configuration/cache in this sandbox. Six successful render processes emitted environment-only diagnostics; all55 page images were produced and inspected or compared pixel-for-pixel as documented."
+    },
+    "modern_filled": {
+      "populated_page_renders": 64,
+      "samples": [
+        "english-long",
+        "arabic-long"
+      ],
+      "pages_per_sample": {
+        "al-naeem-terms-consent": [
+          1
+        ],
+        "fatca-crs-individual": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "fatca-crs-corporate": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "kyc-individual": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "kyc-corporate": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          9
+        ]
+      },
+      "dense_crops_inspected": 8,
+      "issues": []
+    }
+  },
+  "browser_previews": {
+    "checks": [
+      {
+        "engine": "chrome",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 7.321147798742139e-05,
+        "meanDifference": 0.0011243776205450734
+      },
+      {
+        "engine": "chrome",
+        "document": "al-naeem-terms-consent",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0.0004964643488509134,
+        "meanDifference": 0.01011114384862175
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-company",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-company",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 13,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0.002473973679041446,
+        "meanDifference": 0.034733844038499315
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "al-naeem-terms-consent",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-company",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-company",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 13,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0,
+        "meanDifference": 1.6378406708595387e-07
+      },
+      {
+        "engine": "webkit",
+        "document": "al-naeem-terms-consent",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-form",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0,
+        "meanDifference": 5.0743141491520986e-06
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-company",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0,
+        "meanDifference": 4.910626595953644e-06
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-company",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 13,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      }
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "workflow_suites": [
+    {
+      "suite": "shared-profiles",
+      "checks": [
+        "Authenticated account/audience scope, absent revision0, and private profile data excluded from public session",
+        "Two independent client sessions see durable typed values, blanks, false and canonical name aliases; company data stays separate",
+        "Stale autosaves return409 and refreshed patches preserve unrelated device edits",
+        "Unknown/signature/alias fields, invalid types/options/bounds, wrong methods and CSRF cannot mutate profiles",
+        "Deliberate full clear persists as a revisioned tombstone across server restart; admin sees it and submitted snapshots stay unchanged",
+        "Queued saves cannot cross management audience changes; old audience data stays separate and returns intact after switching back"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "8f2057495b56c4d10e92d4abca8ef75eab12a12d721a4a7dcc8e5f72da94cedf"
+    },
+    {
+      "suite": "direct-intake",
+      "checks": [
+        "Login/signup: EN and AR, desktop/mobile, source logos and role labels, no PDF engine or PDF loaded",
+        "Logged-out document routes redirect to sign-in",
+        "Real form edits propagate separate Arabic/English names and joined city/district to account and other forms",
+        "Offline edits retry to account; intentional clear persists after reload",
+        "Multiple tabs, fresh browser and individual/company/account isolation",
+        "Company English sharing is bidirectional and separate from Arabic identity",
+        "One-click unsigned submission, lost-response retry, single immutable version and receipt reference",
+        "Signed replacement archives the earlier PDF and all captured answers; stale replacement is rejected",
+        "Consent PDF upload works without inventing structured answers or signature verification",
+        "Management receives current versions, exact answers and signature status; preview/PDF/ZIP work; direct records remain outside review and cross-account access blocked",
+        "All nine filled forms submitted: 557 field values matched management records, and downloaded PDFs matched byte for byte"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "4a16e046d8dc1a0a7922a67a69613027d0b863dbe6dfed612393a75b6fa56593"
+    },
+    {
+      "suite": "admin-presentation",
+      "checks": [
+        "en 1440: category titles/counts, audience filters and dashboard layout",
+        "en 1440: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+        "en 390: category titles/counts, audience filters and dashboard layout",
+        "en 390: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+        "ar 1440: category titles/counts, audience filters and dashboard layout",
+        "ar 1440: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+        "ar 390: category titles/counts, audience filters and dashboard layout",
+        "ar 390: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "f005c95ecd4dd7204c7ff720b5ae01b24c4f54a32c007263f11144f693f65431"
+    },
+    {
+      "suite": "optional-review",
+      "checks": [
+        "Default off; superadmin-only switch; both mutations require sessions, CSRF and valid input",
+        "individual: unsigned direct/review, corrections, both signature follow-ups, approval/rejection, mode changes, duplicate decisions/signing, stale versions, read receipts, immutable snapshots and downloads",
+        "corporate: unsigned direct/review, corrections, both signature follow-ups, approval/rejection, mode changes, duplicate decisions/signing, stale versions, read receipts, immutable snapshots and downloads",
+        "Simultaneous administrators produce exactly one decision; the losing revision is rejected",
+        "Current-only status filters and dashboard counts; account isolation",
+        "chrome: review controls, all status filters, matching category order and audience counts, AR/EN desktop/mobile layout and latest saved correction editor",
+        "firefox: review controls, all status filters, matching category order and audience counts, AR/EN desktop/mobile layout and latest saved correction editor",
+        "webkit: review controls, all status filters, matching category order and audience counts, AR/EN desktop/mobile layout and latest saved correction editor"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "aeea53cdd850b7e7caca5a9b0bb063c56c5293ae3a0f59e8c256c8900f3f91c2"
+    },
+    {
+      "suite": "optional-review-actions",
+      "checks": [
+        "Actual superadmin switch retries a lost committed response without adding another event",
+        "Decision UI has no preselection, requires correction note, safely displays text and deduplicates double-click/lost-response retries",
+        "Online correction opens saved answers, resubmits unsigned, and an old correction notification opens the latest pending PDF without obsolete actions",
+        "Electronic signature request completes through the real editor and PDF generation with the global switch off",
+        "Notification signature follow-up requires confirmation on uploaded PDFs, preserves pending review and leaves the notification bell usable",
+        "Uploaded correction uses a replacement PDF, with unsigned corrections allowed",
+        "Approval records its optional note and locks the current version’s decision controls",
+        "PHP restart preserves mode, case decisions and version history"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "f859956e1b66229586ca77b956c9282050433d1e3a7f04f503066e44fc3e4337"
+    },
+    {
+      "suite": "customer-workflow",
+      "checks": [
+        "individual/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+        "individual/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+        "individual: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+        "Individual FATCA: role first, all four choices on one desktop row, account-holder names prefill",
+        "individual: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save",
+        "corporate/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+        "corporate/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+        "corporate: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+        "corporate: fillable consent, electronic preview/submission, card statuses/download, signed upload replacement, immutable archive, ZIP, notifications and profile save"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "14357c24e6506454bade5a48d0c4520b6e520d3a55163fe94e71a037e86b7a01"
+    },
+    {
+      "suite": "management-views",
+      "checks": [
+        "chrome admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "chrome: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "firefox admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "firefox: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "webkit admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit superadmin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit new-admin: individual/company profiles, current/archived PDFs, single Current documents entry point, English/Arabic desktop/mobile",
+        "webkit: all 13 PDF pages render in management on a high-density phone at the actual available width",
+        "Slow profile shows feedback; switching sections cannot be overwritten by its delayed response",
+        "Interrupted profile request recovers through Try again",
+        "Interrupted PDF download recovers in the same preview without losing details",
+        "Repeated preview clicks keep a single dialog",
+        "Closing a pending PDF cancels its load and a new preview opens normally",
+        "Expired admin preview session closes the dialog and returns to management sign-in",
+        "Expired client-profile request returns to management sign-in"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "b435e40e984b3a65b65e9497437e9e9ad621ea9030ee8cec329fdf1704461498"
+    },
+    {
+      "suite": "admin-handoff",
+      "checks": [
+        "Account creation/export are superadmin-only; CSRF, minimum length, confirmation and legacy username collisions enforced",
+        "Superadmin creates an admin through the UI; separate login works without document/account-management privileges or exposed hashes",
+        "Chosen eight-character admin passwords reset both new and legacy accounts and invalidate earlier sessions",
+        "Client reset UI accepts a chosen password, revokes sessions, requires a private client change and preserves all submissions",
+        "English/Arabic admin navigation and password dialogs fit mobile screens",
+        "Private snapshot restores exact accounts, structured answers, archives, PDF hashes and administrator credentials; replacement of existing data refused"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "2357b4fa56e229eef4ad4418151098e81f2128e790831d21230509b6720d67a8"
+    },
+    {
+      "suite": "form-access",
+      "checks": [
+        "Anonymous root/folder/index pages redirect; original PDFs, direct gateway and catalogue denied; defaults denied; retired preview redirects",
+        "Both client categories see only matching/shared catalogue and PDFs; direct opposite links denied; category landing works",
+        "Uploaded published documents enforce category; only superadmin can fetch draft uploads; management retains both-audience previews",
+        "Combined management/client cookies preserve preview access; logout restores category guard; reset revokes old PDF/page access; forged cookies fail closed",
+        "Temporary-password clients must replace password before forms/templates; replacing it restores authenticated access",
+        "Client logout immediately blocks catalogue and template access"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "e1ca714dbf9cafb36a925378ab61eecba139d2cc21df628371c883b272d5c6fd"
+    },
+    {
+      "suite": "review-navigation",
+      "checks": [
+        "chrome: dedicated superadmin settings page, AR/EN at 1440/768/390/320; no switch in navigation/dashboard, no clipped controls; off hides counters for both roles while existing cases remain reviewable",
+        "chrome: Save settings persists both modes; counters return on enable and disappear on disable; old status filter resets, reload retains mode",
+        "firefox: dedicated superadmin settings page, AR/EN at 1440/768/390/320; no switch in navigation/dashboard, no clipped controls; off hides counters for both roles while existing cases remain reviewable",
+        "firefox: Save settings persists both modes; counters return on enable and disappear on disable; old status filter resets, reload retains mode",
+        "webkit: dedicated superadmin settings page, AR/EN at 1440/768/390/320; no switch in navigation/dashboard, no clipped controls; off hides counters for both roles while existing cases remain reviewable",
+        "webkit: Save settings persists both modes; counters return on enable and disappear on disable; old status filter resets, reload retains mode",
+        "In-flight save survives language changes and navigation without replacing the selected page",
+        "Concurrent setting changes show a conflict, refresh the saved mode and allow an explicit retry",
+        "Delayed settings load cannot replace a newer page"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "bf04ff5649ea07e667fb67499fd0ffdd6ff5208fe44aac0535fd26e6432757cf"
+    },
+    {
+      "suite": "submit-only-client",
+      "checks": [
+        "Signing-details network failure displays an upload fallback without a JavaScript exception",
+        "chrome / individual: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved",
+        "chrome / corporate: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved",
+        "firefox / individual: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved",
+        "firefox / corporate: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved",
+        "webkit / individual: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved",
+        "webkit / corporate: off shows receipt/signature status only across cards, notifications and preview; on restores decisions; live mode changes update open views; existing follow-ups and stored decisions/PDFs preserved"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "080bcef1314e0826a954fa73dcee1fdfe2c4f5c9f3ecb9c160044c501e0cab94"
+    },
+    {
+      "suite": "catalogue-layout",
+      "checks": [
+        "chrome individual en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "chrome individual ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "chrome corporate en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "chrome corporate ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "chrome: shared header on login, signup and management sign-in",
+        "firefox individual en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "firefox individual ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "firefox corporate en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "firefox corporate ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "firefox: shared header on login, signup and management sign-in",
+        "webkit individual en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "webkit individual ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "webkit corporate en: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "webkit corporate ar: two-column desktop cards, single-line fund name, responsive layout and card actions",
+        "webkit: shared header on login, signup and management sign-in"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "15172fa10ae20e8ea95727167099e105695ece513b17755358d00c25afe20171"
+    },
+    {
+      "suite": "notifications",
+      "checks": [
+        "Empty state has a single heading; Escape closes and restores keyboard focus",
+        "Failed notification request offers a working retry without reloading the page",
+        "Arabic/English desktop/mobile list, reasons, read indicators and pagination; notifications stay scoped to their owner",
+        "One View form action opens the PDF and persists read state; badge updates; repeated clicks create one dialog; list avoids PDF/submission fetches",
+        "A failed read receipt leaves the notification unread and can be retried without blocking the document",
+        "Closing during loading cannot reopen the panel; expired sessions return to sign-in"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "24ca72ff876ba9a399a13ae805cf0560bff324125b98e682ff62941916f9cac0"
+    },
+    {
+      "suite": "client-preview",
+      "checks": [
+        "chrome individual en 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "chrome individual en 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "chrome individual ar 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "chrome individual ar 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "A newly replaced file is resolved after the list loads; failed latest lookup retries without fetching or exposing an archive",
+        "Profile-page entry point, failed-preview retry and close-during-load preserve a usable notification list",
+        "chrome corporate en 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "chrome corporate en 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "chrome corporate ar 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "chrome corporate ar 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "firefox individual en 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "firefox individual en 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "firefox individual ar 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "firefox individual ar 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "firefox corporate en 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "firefox corporate en 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "firefox corporate ar 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "firefox corporate ar 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "webkit individual en 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "webkit individual en 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "webkit individual ar 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "webkit individual ar 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "webkit corporate en 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "webkit corporate en 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "webkit corporate ar 1366: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications",
+        "webkit corporate ar 390: latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "234fcaa15733ba80075a5abae04be43d546dd684e884ba8ecd8bff4be5e3c3fe"
+    },
+    {
+      "suite": "management-navigation",
+      "checks": [
+        "chrome en: delayed admins cannot replace submissions; reopening works",
+        "chrome en: delayed documents cannot replace submissions; reopening works",
+        "chrome ar: delayed admins cannot replace submissions; reopening works",
+        "chrome ar: delayed documents cannot replace submissions; reopening works",
+        "firefox en: delayed admins cannot replace submissions; reopening works",
+        "firefox en: delayed documents cannot replace submissions; reopening works",
+        "firefox ar: delayed admins cannot replace submissions; reopening works",
+        "firefox ar: delayed documents cannot replace submissions; reopening works",
+        "webkit en: delayed admins cannot replace submissions; reopening works",
+        "webkit en: delayed documents cannot replace submissions; reopening works",
+        "webkit ar: delayed admins cannot replace submissions; reopening works",
+        "webkit ar: delayed documents cannot replace submissions; reopening works"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "11a819eb6a6ea45d1346349ba7fb2c0e037c8c9d2e181ea0e11cc5911da1f49e"
+    },
+    {
+      "suite": "loading",
+      "checks": [
+        "Document centre and editor work while the shared-profile response is still pending",
+        "Late account data fills untouched fields; an edit made while loading is preserved and conflict resolution saves it",
+        "Opening the document centre and editing fields fetches no PDF or PDF engine",
+        "Reload restores the confirmed account values",
+        "Management overview defers form definitions and PDF downloads until they are needed"
+      ],
+      "passed": true,
+      "errors": [],
+      "report_sha256": "cbb9c0658c7319c5b9f7e39430de80d0cd6324eac2eaf4e3ddc52ea30130d2f3"
+    }
+  ],
+  "workflow_suite_count": 16,
+  "workflow_check_count": 161,
+  "notes": [
+    "Original T&C pages 5–6 retain their source document’s tight word spacing; no new overlap was found.",
+    "The legacy one-page subscription retains its original raster contact/legal footer; the new national address is crisp.",
+    "PDF overlays are bounded and oversized text is rejected by the generator; these samples do not prove every arbitrary string will fit.",
+    "Local Fontconfig cache/config warnings occurred in some successful Poppler renders, with no PDF syntax/decoder errors.",
+    "Test accounts and corrupted positive-control PDFs are isolated under tmp; no production client data was changed."
+  ],
+  "handover": "This report and the reproducible overlap script are included in the refreshed developer handover.",
+  "script_sha256": "a25711f2bbe702b535cf590e7dd72cc4b40af1801ee2674963c5792fdbca5299"
+}
