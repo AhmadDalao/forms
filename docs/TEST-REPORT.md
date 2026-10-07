@@ -24,6 +24,10 @@ Scoped verification passed. The 11-page individual and 9-page corporate template
 
 The workflow checks use synthetic local clients and Chrome. Initial submissions use the production API code, replacements use the customer UI, and historical notification events are fixture data. The per-page preview checks also run Firefox/WebKit. These are scoped checks for the changed templates; the nine-form regression below was not rerun in October. Evidence: `verification/kyc-address-verification-2026-10-07.json` (under `docs/` in the repository).
 
+The release was published to Hostinger after backing up all 12 overwritten public files. Live checks passed: both authenticated KYC templates and all new browser assets matched the verified build, a stored submission retained its exact PDF hash, and the management profile/PDF preview opened. Review remained off; workflow revision and client/submission counts were unchanged. PHP application code and private storage were not replaced.
+
+The refreshed October handover retains the same private fresh-install admin/superadmin bootstrap with no client data. The builder restores it and verifies schema 8, review off, empty client/submission tables and SQLite integrity. The dated result is `verification/bootstrap-verification-2026-10-07.json`; the included application is identified by `MANIFEST.json` and `SNAPSHOT.json`.
+
 ## 29–30 September — previous tested baseline
 
 The previous delivery included the full-cycle release tested on 29 September and the name-layout update checked on 30 September. The submit-only update keeps the client side simple. With review off, submitted cards and previews show **Received** plus signature status. Review decision labels and approval/rejection notes are hidden; notifications say **Form update** without decision text. Already-issued correction/signature actions and their instructions remain usable. Management keeps the actual case status and history. The setting stays on its dedicated superadmin page, and both dashboard category columns use the same six-form order.

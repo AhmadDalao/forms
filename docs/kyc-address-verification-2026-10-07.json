@@ -972,5 +972,40 @@
     ],
     "captured_answers": 228
   },
-  "local_verification_passed": true
+  "local_verification_passed": true,
+  "live": {
+    "stage": "after",
+    "passed": true,
+    "checks": [
+      "Review remains off; workflow revision and client/submission counts unchanged",
+      "kyc-individual: authenticated hosted template matches verified local PDF",
+      "kyc-corporate: authenticated hosted template matches verified local PDF",
+      "Existing submitted PDF bytes unchanged",
+      "New hosted browser assets match the tested build",
+      "Live management profile and stored PDF preview open successfully"
+    ],
+    "errors": [],
+    "source_commit": "b70d4e20e3bd4362f68bd2b4ced0525249128161"
+  },
+  "deployment": {
+    "completed": true,
+    "source_commit": "b70d4e20e3bd4362f68bd2b4ced0525249128161",
+    "overwritten_public_files_backed_up": 12,
+    "private_storage_preserved": true,
+    "changed_public_files": [
+      "api/defaults.json",
+      "api/portal-defaults.json",
+      "pdfs/kyc-corporate.pdf",
+      "pdfs/kyc-individual.pdf",
+      "account/index.html",
+      "companies/index.html",
+      "individuals/index.html",
+      "login/index.html",
+      "management/index.html",
+      "my-applications/index.html",
+      "register/index.html",
+      "index.html"
+    ]
+  },
+  "passed": true
 }
