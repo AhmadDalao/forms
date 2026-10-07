@@ -1,6 +1,6 @@
 import {document,section,text,choice,option as o} from '../schema.js';
 const d=document('signature-form','Signature form','نموذج التوقيع','shared','Client and authorized signatory details.','بيانات العميل والمفوض بالتوقيع.',1,[1]);
-d.pdfVersion='20260928-original-3';
+d.pdfVersion='20261007-national-address';
 let s=section(d,'client','Client details','بيانات العميل',1);
 text(d,s,'date','Date','التاريخ',[80,103,164,19],{type:'date',defaultToday:true,dateParts:[[80,103,50,19],[138,103,50,19],[195,103,48,19]],dateOrder:'dmy'});
 text(d,s,'client_name','Client name','اسم العميل',[308.35,158.35,220.5,16.35]);

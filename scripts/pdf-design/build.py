@@ -21,10 +21,7 @@ OUT=ROOT/'tmp/modern-pdfs'
 RENDER=os.environ.get('DOCX_RENDERER')
 PURPLE='401D58';INK='242235';MUTED='656575';BORDER='9B92A2';WIDTH=499.3
 FONT='Bahij TheSansArabic Plain'
-ITQAN_ADDRESS_PARTS=(
-    'Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor',
-    '2505 - Al Zahra Dist | Unit No 7940 | Jeddah 23425-2753 | Kingdom of Saudi Arabia',
-)
+NATIONAL_ADDRESS=json.loads((ROOT/'scripts/pdf-design/national-address.json').read_text())
 SCHEMA=customer_fields(json.loads((ROOT/'reference/documents/form-schema-20260927.json').read_text()))
 SOURCES=json.loads((ROOT/'scripts/pdf-design/source-text.json').read_text())
 
@@ -67,16 +64,19 @@ def para(p,text='',size=9,ar=False,bold=False,color=INK,leading=None,keep=False)
         p._p.get_or_add_pPr().append(OxmlElement('w:bidi'));p._p.get_or_add_pPr().get_or_add_jc().set(qn('w:val'),'start')
     run(p,text,size,ar,bold,color);return p
 
-def update_kyc_address(doc):
-    """Replace only Itqan's postal line, retaining the contact/legal footer."""
+def update_national_address(doc):
+    """Keep the owner's address in every footer without changing form content."""
     for section in doc.sections:
-        for p in section.footer.paragraphs:
-            if '7855' not in p.text or '2563' not in p.text:continue
-            p.clear()
-            for bidi in p._p.xpath('./w:pPr/w:bidi'):bidi.getparent().remove(bidi)
-            # One line fits the 499 pt footer and preserves every body position.
-            para(p,' | '.join(ITQAN_ADDRESS_PARTS),7,color=MUTED,leading=9)
-            p.alignment=WD_ALIGN_PARAGRAPH.CENTER
+        paragraphs=section.footer.paragraphs
+        p=next((p for p in paragraphs if ('7855' in p.text and '2563' in p.text) or 'Prince Naif Branch' in p.text),None)
+        if p is None:
+            p=section.footer.add_paragraph()
+            paragraphs[-1]._p.addprevious(p._p)
+        p.clear()
+        for bidi in p._p.xpath('./w:pPr/w:bidi'):bidi.getparent().remove(bidi)
+        # One line fits the 499 pt footer and preserves every body position.
+        para(p,NATIONAL_ADDRESS['text'],7,color=MUTED,leading=9)
+        p.alignment=WD_ALIGN_PARAGRAPH.CENTER
 
 def cell_setup(cell,shade=None):
     pr=cell._tc.get_or_add_tcPr()
@@ -120,8 +120,8 @@ class Builder:
             p=para(cell.add_paragraph(),schema['paperTitle'],8 if self.id=='fatca-crs-individual' else 9,False,True,MUTED,12);p.alignment=WD_ALIGN_PARAGRAPH.RIGHT
         else:
             para(cell.paragraphs[0],schema['paperTitle'],14,False,True,PURPLE,19)
-        # Original branded forms retain their company/legal footer. Tax forms
-        # had page numbering only; do not append business assertions to them.
+        # Retain document titles/page numbering on tax/consent forms; the owner
+        # requested the same national address on every current form.
         if self.id.startswith('fatca-') or self.id=='al-naeem-terms-consent':
             for p in list(sec.footer.paragraphs):p._element.getparent().remove(p._element)
             p=sec.footer.add_paragraph();para(p,schema['paperTitle'],7,color=MUTED)
@@ -131,7 +131,7 @@ class Builder:
         self.signatures={s['id']:s for s in schema.get('signatureSlots',[])}
         for p in list(sec.footer.paragraphs):
             if 'Client copy' in p.text or 'custody' in p.text.lower():p._element.getparent().remove(p._element)
-        if self.id.startswith('kyc-'):update_kyc_address(self.doc)
+        update_national_address(self.doc)
 
     def space(self,height=5):
         p=self.doc.add_paragraph();para(p,' ',1,leading=height)
@@ -467,7 +467,7 @@ def main():
                 with pdfplumber.open(pdf) as rendered:
                     assert len(rendered.pages)==pages,(id,len(rendered.pages),pages)
                     assert not any(re.search(r'M\d{4}X',p.extract_text() or '') for p in rendered.pages)
-                manifest[id]={'pages':pages,'fields':layout,'sources':b.sources,'version':'20261007-itqan-address' if id.startswith('kyc-') else '20260928-client-flow-4'}
+                manifest[id]={'pages':pages,'fields':layout,'sources':b.sources,'version':NATIONAL_ADDRESS['version']}
                 (base/'layout.json').write_text(json.dumps(manifest[id],ensure_ascii=False,indent=2)+'\n')
                 print(id,pages,'pages',len(layout),'mapped destinations',flush=True)
     (OUT/'build-result.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')

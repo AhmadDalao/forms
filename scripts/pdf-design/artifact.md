@@ -15,7 +15,7 @@ white 9 pt English / 10.5 pt Arabic, with 19 pt leading. Field labels use
 9.5 pt Arabic and 7.5 pt English. Answer spaces have at least 22 pt height.
 Long declarations use 8.5 pt English / 10 pt Arabic and generous leading.
 
-Terms & Conditions and the signature form are excluded from this redesign at the owner’s request. Their exact original 13-page and 1-page PDFs, input coordinates and signature positions are restored. Archived modern output must never be reinstalled.
+Terms & Conditions and the signature form are excluded from this redesign at the owner’s request. Their original 13-page and 1-page body designs, input coordinates and signature positions are restored; the 7 October national-address update changes only their footer address. Archived modern output must never be reinstalled.
 
 ## Slots and intentional differences
 
@@ -30,7 +30,7 @@ Terms & Conditions and the signature form are excluded from this redesign at the
   Generate new coordinates from marker copies, never estimate them by eye.
 - Keep current and archived submitted PDF bytes untouched. Refilled or newly
   submitted versions use the new templates and get their own immutable file.
-- Consent remains download-only. Its editable source retains the full supplied
+- Consent is fillable online in its existing signing areas. Its editable source retains the full supplied
   declaration, investor signing area and named officials; page 38 stays removed.
 
 ## Verification gates
@@ -76,3 +76,16 @@ Word body XML and all 209 mapped destinations, 31 generated PDFs / 311 pages,
 three-browser previews and isolated customer/admin submission/replacement flows.
 Saved submissions are not regenerated. September full-system verification remains
 historical evidence, separate from this scoped footer check.
+
+## Address on all forms — 7 October 2026
+
+The owner clarified that the address applies to every current form, not just KYC.
+The canonical address and browser cache version live in `national-address.json`.
+`build.py` retains it in all five generated modern documents, the subscription
+builder uses it for both audience templates, and `scripts/update-original-footers.py`
+updates only the address column of the original signature and terms PDFs.
+The private source/reference PDFs remain immutable, as do submitted versions.
+Seven editable Word sources and all public form PDF variants must contain the
+new address. Preserve all body pixels, page sizes, fields and signature maps.
+All-form checks are recorded separately in
+`docs/all-forms-address-verification-2026-10-07.json`.

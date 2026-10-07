@@ -1,14 +1,14 @@
 # Al Naeem Real Estate Fund — start here
 
-This fresh-install handover documentation was updated on 7 October 2026 for the individual and corporate KYC footer change. The previous tested baseline is 30 September 2026: larger, single-line client names in Received applications, schema 8 and optional reviews, off by default. The handover contains the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
+This fresh-install handover documentation was updated on 7 October 2026 for the national-address footer update across all current forms. The previous tested baseline is 30 September 2026: larger, single-line client names in Received applications, schema 8 and optional reviews, off by default. The handover contains the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
 
 Only upload the contents of `website/` to the public website folder. Keep this ZIP and everything else private.
 
-## 7 October — KYC address footer
+## 7 October — national address on every form
 
-The scoped change covers only the current individual and corporate KYC PDF templates and their matching Word sources. The owner supplied the address and explicitly confirmed **Branch**. Field definitions and PDF mappings are unchanged; saved submissions and archived PDF bytes remain immutable. The supplied corporate PDF matches the original exactly; the individual PDF reprints the same seven-page content. Neither is annotated, and neither introduces a new content or field requirement.
+All nine current form templates use the new Itqan national address: individual/company subscription, individual/company KYC, signature, consent, individual/company FATCA/CRS, and terms and conditions. The public legacy one-page subscription PDF also receives the address. The seven editable Word sources match their PDFs. Signature and terms retain their original body design; only their address footer changes. Field definitions, answer/signature positions and saved submission bytes are preserved.
 
-Scoped verification passed: 238 unit tests, 31 generated KYC samples / 311 pages, unchanged answer coordinates, three-browser previews, and customer/admin submission and replacement checks. See `TEST-REPORT.md` and `verification/kyc-address-verification-2026-10-07.json`. The full nine-form regression remains the dated September baseline.
+The address is maintained in `source/scripts/pdf-design/national-address.json`. The owner confirmed **Prince Naif Branch**. No new KYC fields or content changes were found in the supplied PDFs. See `TEST-REPORT.md` and `verification/all-forms-address-verification-2026-10-07.json` for the completed release checks; the earlier KYC-only report is retained as history.
 
 ## Where to start
 
@@ -41,4 +41,4 @@ The application uses PHP and SQLite. There is no MySQL setup, Node production se
 
 Get management passwords from the owner privately. The bundle contains hashes, not plaintext passwords. This is not a publicly distributable starter kit with universal default credentials.
 
-The 7 October KYC refresh passed its scoped verification; earlier full-system checks remain dated September evidence. The new hosting environment also needs its own acceptance check, especially private-path protection, PHP settings, HTTPS and the CDN security challenge described in PERFORMANCE.md.
+The 7 October national-address refresh is documented separately from the earlier September full-system evidence. The new hosting environment also needs its own acceptance check, especially private-path protection, PHP settings, HTTPS and the CDN security challenge described in PERFORMANCE.md.

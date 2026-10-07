@@ -63,7 +63,7 @@ The older `subscription-smoke.mjs`, `subscription-audit.mjs` and `subscription-e
 
 ## Original-form correction — 19 September 2026
 
-The current client-portal branch retains the supplied original at `reference/pdfs/subscription-form.pdf` and `public/pdfs/subscription-form.pdf`. Both match the uploaded `ItqanSubscriptionFormV3.11.pdf` byte for byte (SHA-256 `00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a`). The editable sources build on its sections rather than reducing them to a summary.
+The supplied original remains at `reference/pdfs/subscription-form.pdf`, matching the uploaded `ItqanSubscriptionFormV3.11.pdf` byte for byte (SHA-256 `00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a`). The public legacy copy at `public/pdfs/subscription-form.pdf` received only the owner-requested national-address footer update on 7 October 2026. The editable sources build on its sections rather than reducing them to a summary.
 
 | Original content | Current editable document |
 | --- | --- |
@@ -82,3 +82,11 @@ The original's combined identity area remains split into individual and company 
 The corrected PDFs are version 3. The September 19 preview ran on port 8185; the current local preview command is above. Registration at `/register/` asks for account type, first and last name, mobile, password and confirmation. The official application collects its required name parts separately and reuses matching account data. Existing client accounts and archived PDFs are preserved.
 
 Historical validation at that correction: 50 unit tests; five complete fills per audience; 20 generated pages checked for overlap/transparency; manual-signature blanks; English/Arabic signup/mobile layouts; submissions, archives, restores, resets and named ZIP exports. That correction was initially tested before publication; these historical counts do not describe today's release or deployment status.
+
+## Current national address — 7 October 2026
+
+Both editable subscription templates and the public legacy one-page PDF use the
+address from `scripts/pdf-design/national-address.json`. Word sources, public PDF
+copies and handover copies match. Form body content, answer/signature coordinates
+and previously submitted PDFs remain unchanged. See the current `TEST-REPORT.md`
+for verification of this footer-only change.

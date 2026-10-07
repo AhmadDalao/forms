@@ -1,0 +1,3634 @@
+{
+  "date": "2026-10-07",
+  "scope": "All nine current forms plus the public legacy one-page subscription PDF",
+  "address": {
+    "version": "20261007-national-address",
+    "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor | 2505 - Al Zahra Dist | Unit No 7940 | Jeddah 23425-2753 | Kingdom of Saudi Arabia"
+  },
+  "branch_spelling_confirmed_by_owner": true,
+  "blank_pdf_and_word_verification": {
+    "version": "20261007-national-address",
+    "address": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor | 2505 - Al Zahra Dist | Unit No 7940 | Jeddah 23425-2753 | Kingdom of Saudi Arabia",
+    "documents": {
+      "subscription-individual": {
+        "pages": 2,
+        "word_source": true,
+        "sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e"
+      },
+      "subscription-company": {
+        "pages": 2,
+        "word_source": true,
+        "sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86"
+      },
+      "kyc-individual": {
+        "pages": 11,
+        "word_source": true,
+        "sha256": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29"
+      },
+      "kyc-corporate": {
+        "pages": 9,
+        "word_source": true,
+        "sha256": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6"
+      },
+      "signature-form": {
+        "pages": 1,
+        "word_source": false,
+        "sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f"
+      },
+      "al-naeem-terms-consent": {
+        "pages": 1,
+        "word_source": true,
+        "sha256": "5b22452a0fdd909e682b61bc7a2e53e12532d28e100f22ad96c36f67fd2efd3d"
+      },
+      "fatca-crs-individual": {
+        "pages": 8,
+        "word_source": true,
+        "sha256": "4c860ccb85dd2949365d92de6794860bdcbb5dd53cd29d5c501c28d476a9b895"
+      },
+      "fatca-crs-corporate": {
+        "pages": 8,
+        "word_source": true,
+        "sha256": "5133c0ed41a290a468c35aafaf6baf9ec9b98415d1d6fa57b85dde159ce038e1"
+      },
+      "terms-and-conditions": {
+        "pages": 13,
+        "word_source": false,
+        "sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15"
+      },
+      "subscription-form": {
+        "pages": 1,
+        "word_source": false,
+        "sha256": "5d85ee6922a6224ca85a6238955c4be8abf4f71ccb933e9aa2cce4de7c49f2bb"
+      }
+    },
+    "failures": [],
+    "pages": 56,
+    "passed": true
+  },
+  "preservation": {
+    "all_modern_field_maps_identical": true,
+    "modern": {
+      "fatca-crs-individual": {
+        "pages": 8,
+        "fields_unchanged": true,
+        "word_body_xml_identical": true,
+        "body_pixels_identical": true,
+        "per_page": [
+          {
+            "page": 1,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 2,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 3,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 4,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 5,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 6,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 7,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 8,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          }
+        ]
+      },
+      "fatca-crs-corporate": {
+        "pages": 8,
+        "fields_unchanged": true,
+        "word_body_xml_identical": true,
+        "body_pixels_identical": true,
+        "per_page": [
+          {
+            "page": 1,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 2,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 3,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 4,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 5,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 6,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 7,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          },
+          {
+            "page": 8,
+            "changed_bounds_at_144dpi": [
+              96,
+              1601,
+              1065,
+              1634
+            ]
+          }
+        ]
+      },
+      "al-naeem-terms-consent": {
+        "pages": 1,
+        "fields_unchanged": true,
+        "word_body_xml_identical": true,
+        "body_pixels_identical": true,
+        "per_page": [
+          {
+            "page": 1,
+            "changed_bounds_at_144dpi": [
+              125,
+              1619,
+              1065,
+              1634
+            ]
+          }
+        ]
+      }
+    },
+    "subscriptions": {
+      "address": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor | 2505 - Al Zahra Dist | Unit No 7940 | Jeddah 23425-2753 | Kingdom of Saudi Arabia",
+      "version": "20261007-national-address",
+      "dpi": 150,
+      "pdfs": {
+        "public/pdfs/subscription-individual.pdf": {
+          "before_sha256": "9947150d7cd0cd4cb6b179075d42c9137d5b8d68aaaab6ce41407e813d078365",
+          "after_sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e",
+          "pages_before": 2,
+          "pages_after": 2,
+          "pages": [
+            {
+              "page": 1,
+              "media_box": [
+                0,
+                0,
+                595.303937007874,
+                841.889763779528
+              ],
+              "diff_bbox_pixels": [
+                230,
+                1665,
+                1141,
+                1682
+              ],
+              "diff_bbox_points": [
+                110.4,
+                799.2,
+                547.68,
+                807.36
+              ],
+              "allowed_address_region_points": [
+                105,
+                797,
+                550,
+                810
+              ],
+              "all_pixels_outside_address_identical": true,
+              "body_pixels_identical": true,
+              "body_character_text_and_positions_identical": true,
+              "address_exact": true,
+              "old_address_text_absent": true,
+              "widget_count_before": 0,
+              "widget_count_after": 0
+            },
+            {
+              "page": 2,
+              "media_box": [
+                0,
+                0,
+                595.303937007874,
+                841.889763779528
+              ],
+              "diff_bbox_pixels": [
+                230,
+                1665,
+                1141,
+                1682
+              ],
+              "diff_bbox_points": [
+                110.4,
+                799.2,
+                547.68,
+                807.36
+              ],
+              "allowed_address_region_points": [
+                105,
+                797,
+                550,
+                810
+              ],
+              "all_pixels_outside_address_identical": true,
+              "body_pixels_identical": true,
+              "body_character_text_and_positions_identical": true,
+              "address_exact": true,
+              "old_address_text_absent": true,
+              "widget_count_before": 0,
+              "widget_count_after": 0
+            }
+          ],
+          "matching_output_copies": [
+            {
+              "path": "output/pdf/subscription-individual.pdf",
+              "before_sha256": "9947150d7cd0cd4cb6b179075d42c9137d5b8d68aaaab6ce41407e813d078365",
+              "after_sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e"
+            },
+            {
+              "path": "output/documents/subscription-individual.pdf",
+              "before_sha256": "9947150d7cd0cd4cb6b179075d42c9137d5b8d68aaaab6ce41407e813d078365",
+              "after_sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e"
+            }
+          ]
+        },
+        "public/pdfs/subscription-company.pdf": {
+          "before_sha256": "5bc580c782795e59c350d87e5c7cac83244ad2214ba6b404e6f04fba2c12bcea",
+          "after_sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86",
+          "pages_before": 2,
+          "pages_after": 2,
+          "pages": [
+            {
+              "page": 1,
+              "media_box": [
+                0,
+                0,
+                595.303937007874,
+                841.889763779528
+              ],
+              "diff_bbox_pixels": [
+                230,
+                1665,
+                1141,
+                1682
+              ],
+              "diff_bbox_points": [
+                110.4,
+                799.2,
+                547.68,
+                807.36
+              ],
+              "allowed_address_region_points": [
+                105,
+                797,
+                550,
+                810
+              ],
+              "all_pixels_outside_address_identical": true,
+              "body_pixels_identical": true,
+              "body_character_text_and_positions_identical": true,
+              "address_exact": true,
+              "old_address_text_absent": true,
+              "widget_count_before": 0,
+              "widget_count_after": 0
+            },
+            {
+              "page": 2,
+              "media_box": [
+                0,
+                0,
+                595.303937007874,
+                841.889763779528
+              ],
+              "diff_bbox_pixels": [
+                230,
+                1665,
+                1141,
+                1682
+              ],
+              "diff_bbox_points": [
+                110.4,
+                799.2,
+                547.68,
+                807.36
+              ],
+              "allowed_address_region_points": [
+                105,
+                797,
+                550,
+                810
+              ],
+              "all_pixels_outside_address_identical": true,
+              "body_pixels_identical": true,
+              "body_character_text_and_positions_identical": true,
+              "address_exact": true,
+              "old_address_text_absent": true,
+              "widget_count_before": 0,
+              "widget_count_after": 0
+            }
+          ],
+          "matching_output_copies": [
+            {
+              "path": "output/pdf/subscription-company.pdf",
+              "before_sha256": "5bc580c782795e59c350d87e5c7cac83244ad2214ba6b404e6f04fba2c12bcea",
+              "after_sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86"
+            },
+            {
+              "path": "output/documents/subscription-company.pdf",
+              "before_sha256": "5bc580c782795e59c350d87e5c7cac83244ad2214ba6b404e6f04fba2c12bcea",
+              "after_sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86"
+            }
+          ]
+        },
+        "public/pdfs/subscription-form.pdf": {
+          "before_sha256": "00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a",
+          "after_sha256": "5d85ee6922a6224ca85a6238955c4be8abf4f71ccb933e9aa2cce4de7c49f2bb",
+          "pages_before": 1,
+          "pages_after": 1,
+          "pages": [
+            {
+              "page": 1,
+              "media_box": [
+                0,
+                0,
+                596,
+                842
+              ],
+              "diff_bbox_pixels": [
+                349,
+                1698,
+                740,
+                1742
+              ],
+              "diff_bbox_points": [
+                167.52,
+                815.04,
+                355.2,
+                836.16
+              ],
+              "allowed_address_region_points": [
+                156,
+                815,
+                356,
+                838
+              ],
+              "all_pixels_outside_address_identical": true,
+              "body_pixels_identical": true,
+              "body_character_text_and_positions_identical": true,
+              "address_exact": true,
+              "old_address_text_absent": true,
+              "widget_count_before": 0,
+              "widget_count_after": 0
+            }
+          ],
+          "matching_output_copies": []
+        }
+      },
+      "docx": {
+        "output/documents/subscription-individual.docx": {
+          "before_sha256": "65ef5e764d7ff7bd561229ccf2040b4ae1a5d20b6e15bcbe3f656bbe2fefb275",
+          "after_sha256": "e7adbe6ebc2af5bcfc08f102d4a7ac3a1148ab8aaa11b2769691493d06ef55eb",
+          "changed_zip_members": [
+            "word/footer1.xml"
+          ],
+          "document_xml_sha256": "2a66b1b97ecb2318f6599df304f3ef81331a7161be8b963860200333d3b011ab",
+          "body_xml_byte_identical": true,
+          "all_other_members_byte_identical": true,
+          "unrelated_footer_paragraphs_identical": true
+        },
+        "output/documents/subscription-company.docx": {
+          "before_sha256": "a7dc9e437515f9282d3baa75c86d0d9bb284c350043b9c3e51db09330eaf65b7",
+          "after_sha256": "40bf90f3e2e9446357f012cbc01e34268137e088cc99a6ce7a8aca810504b67a",
+          "changed_zip_members": [
+            "word/footer1.xml"
+          ],
+          "document_xml_sha256": "98e7bd19133fb30453e9386c43f0aa24b9a67a76811f6c362f749d8f966037b2",
+          "body_xml_byte_identical": true,
+          "all_other_members_byte_identical": true,
+          "unrelated_footer_paragraphs_identical": true
+        }
+      },
+      "sources": {
+        "scripts/rebuild-subscription.py": {
+          "before_sha256": "5cb560e5cbbf189923dab9178811ccad135a5601b8936e69c266869c62c4c91b",
+          "after_sha256": "1a2e60ae25a5f4cd6357ac7a4eadb67ae1a73d281ed49a07585504aec9740a24"
+        },
+        "src/forms/subscription.js": {
+          "before_sha256": "94964ca097c1411208e6d104d4a6a846591529a1f24efd09f5e6f141b2e8ae66",
+          "after_sha256": "25d9c0787ce44045421911078f109a5b50435922d137c1e3b0cad18b29df16b6"
+        }
+      },
+      "visually_inspected": [
+        "subscription-individual, page 1",
+        "subscription-individual, page 2",
+        "subscription-company, page 1",
+        "subscription-company, page 2",
+        "subscription-form, page 1"
+      ],
+      "notes": [
+        "Private reference/pdfs/subscription-form.pdf remains the supplied original. Public legacy PDF changes only its address area; body, ornament, contact and legal pixels remain identical.",
+        "Legacy source combines text and raster footer; old address text drawing operators removed, existing address raster area masked in the public copy, and embedded Arial used for the new address."
+      ],
+      "reference_sha256": "00f425442280ac98c154a4a40c17951695fc8ee6ba10af2aaf7bed87bf990a0a",
+      "unchanged_application_layout_maps": {
+        "src/subscription/subscription-company-layout.json": "825cba2f8333a40d41e045c991c044b5d738b2fc42cbe6d5c6383aa3cbee5f0a",
+        "src/subscription/subscription-individual-layout.json": "4b37b2d3a50de2e3ccee5f66dec4cf1e0415ab7847b0c70dee3093e0b88ae2c6"
+      },
+      "bundled_renderer": "/Users/ahmaddalao/.codex/plugins/cache/openai-primary-runtime/documents/26.904.11930/skills/documents/render_docx.py",
+      "bundled_soffice": "/Users/ahmaddalao/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/soffice"
+    },
+    "original_signature_and_terms": {
+      "version": "20261007-national-address",
+      "address": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor | 2505 - Al Zahra Dist | Unit No 7940 | Jeddah 23425-2753 | Kingdom of Saudi Arabia",
+      "scope": [
+        "public/pdfs/signature-form.pdf",
+        "public/pdfs/terms-and-conditions.pdf",
+        "output/documents/signature-form.pdf",
+        "output/documents/terms-and-conditions.pdf",
+        "src/forms/signature.js",
+        "src/forms/terms.js",
+        "scripts/update-original-footers.py"
+      ],
+      "method": "True text redaction of obsolete address, whole-image removal of obsolete map pin and completely transparent legacy footer filler. Exact new three-line English address inserted in the middle footer column. Existing contact/legal information and all body content preserved.",
+      "assertions": {
+        "saved_submissions_untouched": true,
+        "reference_inputs_unchanged": true,
+        "field_and_answer_maps_unchanged": true
+      },
+      "documents": [
+        {
+          "name": "signature-form",
+          "pages": 1,
+          "before_sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+          "after_sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f",
+          "output_documents_sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f",
+          "reference_sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+          "page_checks": [
+            {
+              "page": 1,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                595.4400024414062,
+                841.6799926757812
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                595.4400024414062,
+                841.6799926757812
+              ],
+              "edited_rectangle": [
+                148.5,
+                804.3779541015625,
+                351.5,
+                833.5779541015626
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1915128,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 747980,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1913937,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 6.103515625e-05
+            }
+          ],
+          "source_map_unchanged_except_version": true,
+          "stream_filters": {
+            "/FlateDecode": 29,
+            "/DCTDecode": 1
+          }
+        },
+        {
+          "name": "terms-and-conditions",
+          "pages": 13,
+          "before_sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+          "after_sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15",
+          "output_documents_sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15",
+          "reference_sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+          "page_checks": [
+            {
+              "page": 1,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                750.4739624023438,
+                359.75,
+                779.6739624023438
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 643,
+                "total_pixels": 716805,
+                "changed_fraction": 0.0008970361534866526,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.031314420704840695
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1836000,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 0.0
+            },
+            {
+              "page": 2,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                751.193994140625,
+                359.75,
+                780.3939941406251
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1838448,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 610,
+                "total_pixels": 717570,
+                "changed_fraction": 0.0008500912802932118,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.03163454436500968
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 3.0517578125e-05
+            },
+            {
+              "page": 3,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                750.4739624023438,
+                359.75,
+                779.6739624023438
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 384,
+                "total_pixels": 716805,
+                "changed_fraction": 0.0005357105488940507,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.020331889425994516
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 62,
+                "total_pixels": 1836000,
+                "changed_fraction": 3.376906318082789e-05,
+                "max_channel_difference": 76,
+                "mean_channel_difference": 0.001005446623093682
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 3.0517578125e-05
+            },
+            {
+              "page": 4,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                751.193994140625,
+                359.75,
+                780.3939941406251
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1838448,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 374,
+                "total_pixels": 717570,
+                "changed_fraction": 0.0005212035062781332,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.017938319606449545
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 6.103515625e-05
+            },
+            {
+              "page": 5,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                750.4739624023438,
+                359.75,
+                779.6739624023438
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 6567,
+                "total_pixels": 716805,
+                "changed_fraction": 0.009161487433820914,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.31889146978606453
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1836000,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 6.103515625e-05
+            },
+            {
+              "page": 6,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                751.193994140625,
+                359.75,
+                780.3939941406251
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1838448,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 845,
+                "total_pixels": 717570,
+                "changed_fraction": 0.0011775854620455148,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.04329055005086612
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 6.103515625e-05
+            },
+            {
+              "page": 7,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                750.4739624023438,
+                359.75,
+                779.6739624023438
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 380,
+                "total_pixels": 716805,
+                "changed_fraction": 0.0005301302306764043,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.02001241620803426
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 167,
+                "total_pixels": 1836000,
+                "changed_fraction": 9.095860566448802e-05,
+                "max_channel_difference": 76,
+                "mean_channel_difference": 0.0028594771241830064
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 6.103515625e-05
+            },
+            {
+              "page": 8,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                751.193994140625,
+                359.75,
+                780.3939941406251
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1838448,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 772,
+                "total_pixels": 717570,
+                "changed_fraction": 0.0010758532268628845,
+                "max_channel_difference": 65,
+                "mean_channel_difference": 0.037678554008668146
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 222,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.00012083447636216379,
+                "max_channel_difference": 74,
+                "mean_channel_difference": 0.004010942596003536
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 1.52587890625e-05
+            },
+            {
+              "page": 9,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                750.4739624023438,
+                359.75,
+                779.6739624023438
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 559,
+                "total_pixels": 716805,
+                "changed_fraction": 0.000779849470916079,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.02794065331575533
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1836000,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 3.0517578125e-05
+            },
+            {
+              "page": 10,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                751.193994140625,
+                359.75,
+                780.3939941406251
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1838448,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 548,
+                "total_pixels": 717570,
+                "changed_fraction": 0.0007636885600011149,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.026651058433323577
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 160,
+                "total_pixels": 1837224,
+                "changed_fraction": 8.708791089164957e-05,
+                "max_channel_difference": 74,
+                "mean_channel_difference": 0.0027345604019977966
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 3.0517578125e-05
+            },
+            {
+              "page": 11,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                750.4739624023438,
+                359.75,
+                779.6739624023438
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 148,
+                "total_pixels": 716805,
+                "changed_fraction": 0.00020647177405291536,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.00636853816588891
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1836000,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 6.103515625e-05
+            },
+            {
+              "page": 12,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                751.193994140625,
+                359.75,
+                780.3939941406251
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1838448,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 570,
+                "total_pixels": 717570,
+                "changed_fraction": 0.0007943475897821816,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.027880206809091795
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 3.0517578125e-05
+            },
+            {
+              "page": 13,
+              "dimensions_before": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "dimensions_after": [
+                0.0,
+                0.0,
+                612.0,
+                792.0
+              ],
+              "edited_rectangle": [
+                156.75,
+                750.4739624023438,
+                359.75,
+                779.6739624023438
+              ],
+              "body_mupdf_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1837224,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "body_poppler_90dpi": {
+                "changed_pixels": 128,
+                "total_pixels": 716805,
+                "changed_fraction": 0.00017857018296468357,
+                "max_channel_difference": 64,
+                "mean_channel_difference": 0.005431044705324321
+              },
+              "body_pdfium_144dpi": {
+                "changed_pixels": 0,
+                "total_pixels": 1836000,
+                "changed_fraction": 0.0,
+                "max_channel_difference": 0,
+                "mean_channel_difference": 0.0
+              },
+              "changed_pixels_outside_footer_rectangle_mupdf_144dpi": 0,
+              "body_text_unchanged": true,
+              "new_address_exact_normalized": true,
+              "old_address_absent_from_extracted_text": true,
+              "widgets_before": 0,
+              "widgets_after": 0,
+              "body_word_bbox_max_delta_points": 3.0517578125e-05
+            }
+          ],
+          "source_map_unchanged_except_version": true,
+          "stream_filters": {
+            "/DCTDecode": 1,
+            "/FlateDecode": 39
+          }
+        }
+      ],
+      "visual_qa": {
+        "full_page_renders": "after-renders/poppler-*.png",
+        "footer_renders": "after-renders/*-footer.png",
+        "status": "Compatibility-fixed output: all 14 full pages and all 14 footer renders inspected again. Exact address readable and complete; no overlap, clipping, image seams or missing body content."
+      },
+      "renderer_notes": "MuPDF at 144 dpi is pixel-identical above the edited footer on every page; signature is pixel-identical in all three engines. Poppler 90 dpi shows subpixel antialiasing differences in terms, up to 0.9162% of body pixels (max channel delta 65; largest per-page mean channel delta 0.319/255). PDFium 144 dpi is identical on 9 of 13 terms pages; remaining four differ on 62-222 pixels each, maximum fraction 0.0121%. All body words and coordinates match within 0.001 point. No shifted text or missing content.",
+      "pdfjs_compatibility": {
+        "introduced_CCITT_soft_mask_removed": true,
+        "JBIG2_or_CCITT_streams_remaining": false,
+        "shared_src_pdf_js_changed": false,
+        "source_footer_filler_mask": "1464 by 59 pixels, all zero alpha (fully transparent)",
+        "fix": "apply_redactions(images=1) removes the invisible filler whole, preventing needless CCITT soft-mask generation."
+      }
+    },
+    "kyc": "Already updated in the earlier same-day KYC release; bytes unchanged in this expansion. See kyc-address-verification-2026-10-07.json."
+  },
+  "unit_tests": {
+    "passed": 238,
+    "failed": 0,
+    "skipped": 0
+  },
+  "production_build": "passed",
+  "pdf_generation": {
+    "records": 114,
+    "failed": [],
+    "final_originals_regenerated_after_browser_fix": true
+  },
+  "pdf_placement": {
+    "counts": {
+      "pdfs": 114,
+      "pages": 755,
+      "text_rectangles": 2093,
+      "choice_rectangles": 917,
+      "signature_rectangles": 34,
+      "transparent_images": 14637,
+      "unchanged_pages": 342
+    },
+    "coverage": {
+      "signature-form": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 6,
+        "covered_choice_options": 6,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "al-naeem-terms-consent": {
+        "mapped_fields": 2,
+        "covered_fields": 2,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 8,
+        "complete_success": 5
+      },
+      "subscription-form": {
+        "mapped_fields": 29,
+        "covered_fields": 29,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 13,
+        "complete_success": 5
+      },
+      "subscription-company": {
+        "mapped_fields": 30,
+        "covered_fields": 30,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 11,
+        "complete_success": 5
+      },
+      "terms-and-conditions": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 4,
+        "covered_choice_options": 4,
+        "uncovered_choices": [],
+        "signature_slots": 6,
+        "covered_signatures": 6,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "fatca-crs-individual": {
+        "mapped_fields": 57,
+        "covered_fields": 57,
+        "uncovered_fields": [],
+        "choice_options": 16,
+        "covered_choice_options": 16,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 12,
+        "complete_success": 5
+      },
+      "fatca-crs-corporate": {
+        "mapped_fields": 76,
+        "covered_fields": 76,
+        "uncovered_fields": [],
+        "choice_options": 19,
+        "covered_choice_options": 19,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 19,
+        "complete_success": 5
+      },
+      "kyc-individual": {
+        "mapped_fields": 106,
+        "covered_fields": 106,
+        "uncovered_fields": [],
+        "choice_options": 122,
+        "covered_choice_options": 122,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 16,
+        "complete_success": 5
+      },
+      "kyc-corporate": {
+        "mapped_fields": 100,
+        "covered_fields": 100,
+        "uncovered_fields": [],
+        "choice_options": 60,
+        "covered_choice_options": 60,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 15,
+        "complete_success": 5
+      }
+    },
+    "failures": [],
+    "visual_pages": [
+      [
+        "signature-form",
+        "english-long",
+        1,
+        "signature-form-english-long-p1.png"
+      ],
+      [
+        "signature-form",
+        "arabic-long",
+        1,
+        "signature-form-arabic-long-p1.png"
+      ],
+      [
+        "al-naeem-terms-consent",
+        "english-long",
+        1,
+        "al-naeem-terms-consent-english-long-p1.png"
+      ],
+      [
+        "al-naeem-terms-consent",
+        "arabic-long",
+        1,
+        "al-naeem-terms-consent-arabic-long-p1.png"
+      ],
+      [
+        "subscription-form",
+        "english-long",
+        1,
+        "subscription-form-english-long-p1.png"
+      ],
+      [
+        "subscription-form",
+        "english-long",
+        2,
+        "subscription-form-english-long-p2.png"
+      ],
+      [
+        "subscription-form",
+        "arabic-long",
+        1,
+        "subscription-form-arabic-long-p1.png"
+      ],
+      [
+        "subscription-form",
+        "arabic-long",
+        2,
+        "subscription-form-arabic-long-p2.png"
+      ],
+      [
+        "subscription-company",
+        "english-long",
+        1,
+        "subscription-company-english-long-p1.png"
+      ],
+      [
+        "subscription-company",
+        "english-long",
+        2,
+        "subscription-company-english-long-p2.png"
+      ],
+      [
+        "subscription-company",
+        "arabic-long",
+        1,
+        "subscription-company-arabic-long-p1.png"
+      ],
+      [
+        "subscription-company",
+        "arabic-long",
+        2,
+        "subscription-company-arabic-long-p2.png"
+      ],
+      [
+        "terms-and-conditions",
+        "english-long",
+        11,
+        "terms-and-conditions-english-long-p11.png"
+      ],
+      [
+        "terms-and-conditions",
+        "english-long",
+        13,
+        "terms-and-conditions-english-long-p13.png"
+      ],
+      [
+        "terms-and-conditions",
+        "arabic-long",
+        11,
+        "terms-and-conditions-arabic-long-p11.png"
+      ],
+      [
+        "terms-and-conditions",
+        "arabic-long",
+        13,
+        "terms-and-conditions-arabic-long-p13.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        1,
+        "fatca-crs-individual-english-long-p1.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        2,
+        "fatca-crs-individual-english-long-p2.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        3,
+        "fatca-crs-individual-english-long-p3.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        4,
+        "fatca-crs-individual-english-long-p4.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        5,
+        "fatca-crs-individual-english-long-p5.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        6,
+        "fatca-crs-individual-english-long-p6.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        1,
+        "fatca-crs-individual-arabic-long-p1.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        2,
+        "fatca-crs-individual-arabic-long-p2.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        3,
+        "fatca-crs-individual-arabic-long-p3.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        4,
+        "fatca-crs-individual-arabic-long-p4.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        5,
+        "fatca-crs-individual-arabic-long-p5.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        6,
+        "fatca-crs-individual-arabic-long-p6.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        1,
+        "fatca-crs-corporate-english-long-p1.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        2,
+        "fatca-crs-corporate-english-long-p2.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        3,
+        "fatca-crs-corporate-english-long-p3.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        4,
+        "fatca-crs-corporate-english-long-p4.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        5,
+        "fatca-crs-corporate-english-long-p5.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        6,
+        "fatca-crs-corporate-english-long-p6.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        7,
+        "fatca-crs-corporate-english-long-p7.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        1,
+        "fatca-crs-corporate-arabic-long-p1.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        2,
+        "fatca-crs-corporate-arabic-long-p2.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        3,
+        "fatca-crs-corporate-arabic-long-p3.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        4,
+        "fatca-crs-corporate-arabic-long-p4.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        5,
+        "fatca-crs-corporate-arabic-long-p5.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        6,
+        "fatca-crs-corporate-arabic-long-p6.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        7,
+        "fatca-crs-corporate-arabic-long-p7.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        1,
+        "kyc-individual-english-long-p1.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        2,
+        "kyc-individual-english-long-p2.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        3,
+        "kyc-individual-english-long-p3.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        4,
+        "kyc-individual-english-long-p4.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        5,
+        "kyc-individual-english-long-p5.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        6,
+        "kyc-individual-english-long-p6.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        7,
+        "kyc-individual-english-long-p7.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        8,
+        "kyc-individual-english-long-p8.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        10,
+        "kyc-individual-english-long-p10.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        11,
+        "kyc-individual-english-long-p11.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        1,
+        "kyc-individual-arabic-long-p1.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        2,
+        "kyc-individual-arabic-long-p2.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        3,
+        "kyc-individual-arabic-long-p3.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        4,
+        "kyc-individual-arabic-long-p4.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        5,
+        "kyc-individual-arabic-long-p5.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        6,
+        "kyc-individual-arabic-long-p6.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        7,
+        "kyc-individual-arabic-long-p7.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        8,
+        "kyc-individual-arabic-long-p8.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        10,
+        "kyc-individual-arabic-long-p10.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        11,
+        "kyc-individual-arabic-long-p11.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        1,
+        "kyc-corporate-english-long-p1.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        2,
+        "kyc-corporate-english-long-p2.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        3,
+        "kyc-corporate-english-long-p3.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        4,
+        "kyc-corporate-english-long-p4.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        5,
+        "kyc-corporate-english-long-p5.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        6,
+        "kyc-corporate-english-long-p6.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        8,
+        "kyc-corporate-english-long-p8.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        9,
+        "kyc-corporate-english-long-p9.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        1,
+        "kyc-corporate-arabic-long-p1.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        2,
+        "kyc-corporate-arabic-long-p2.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        3,
+        "kyc-corporate-arabic-long-p3.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        4,
+        "kyc-corporate-arabic-long-p4.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        5,
+        "kyc-corporate-arabic-long-p5.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        6,
+        "kyc-corporate-arabic-long-p6.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        8,
+        "kyc-corporate-arabic-long-p8.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        9,
+        "kyc-corporate-arabic-long-p9.png"
+      ]
+    ],
+    "contact_sheets": [
+      "contact-01.png",
+      "contact-02.png",
+      "contact-03.png",
+      "contact-04.png",
+      "contact-05.png",
+      "contact-06.png",
+      "contact-07.png",
+      "contact-08.png",
+      "contact-09.png",
+      "contact-10.png",
+      "contact-11.png",
+      "contact-12.png",
+      "contact-13.png",
+      "contact-14.png",
+      "contact-15.png",
+      "contact-16.png",
+      "contact-17.png",
+      "contact-18.png",
+      "contact-19.png",
+      "contact-20.png"
+    ]
+  },
+  "browser_previews": {
+    "checks": [
+      {
+        "engine": "chrome",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 7.321147798742139e-05,
+        "meanDifference": 0.0011243776205450734
+      },
+      {
+        "engine": "chrome",
+        "document": "al-naeem-terms-consent",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0.0004964643488509134,
+        "meanDifference": 0.01011114384862175
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-company",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "subscription-company",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "terms-and-conditions",
+        "page": 13,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0.002473973679041446,
+        "meanDifference": 0.034733844038499315
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "fatca-crs-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "al-naeem-terms-consent",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-company",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "subscription-company",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "terms-and-conditions",
+        "page": 13,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "fatca-crs-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "signature-form",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "al-naeem-terms-consent",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-form",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0,
+        "meanDifference": 5.0743141491520986e-06
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-form",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-company",
+        "page": 1,
+        "exactMatch": false,
+        "changedFraction": 0,
+        "meanDifference": 8.18437765992274e-07
+      },
+      {
+        "engine": "webkit",
+        "document": "subscription-company",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 12,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "terms-and-conditions",
+        "page": 13,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "fatca-crs-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      }
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "admin_presentation": {
+    "checks": [
+      "en 1440: category titles/counts, audience filters and dashboard layout",
+      "en 1440: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+      "en 390: category titles/counts, audience filters and dashboard layout",
+      "en 390: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+      "ar 1440: category titles/counts, audience filters and dashboard layout",
+      "ar 1440: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+      "ar 390: category titles/counts, audience filters and dashboard layout",
+      "ar 390: all nine saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent"
+    ],
+    "errors": [],
+    "forms": [
+      {
+        "document": "signature-form",
+        "audience": "individual",
+        "lang": "en",
+        "width": 1440,
+        "groups": 2,
+        "fields": 18,
+        "previewPages": 1
+      },
+      {
+        "document": "al-naeem-terms-consent",
+        "audience": "individual",
+        "lang": "en",
+        "width": 1440,
+        "groups": 1,
+        "fields": 6,
+        "previewPages": 1
+      },
+      {
+        "document": "subscription-form",
+        "audience": "individual",
+        "lang": "en",
+        "width": 1440,
+        "groups": 4,
+        "fields": 49,
+        "previewPages": 2
+      },
+      {
+        "document": "terms-and-conditions",
+        "audience": "individual",
+        "lang": "en",
+        "width": 1440,
+        "groups": 2,
+        "fields": 34,
+        "previewPages": 13
+      },
+      {
+        "document": "fatca-crs-individual",
+        "audience": "individual",
+        "lang": "en",
+        "width": 1440,
+        "groups": 5,
+        "fields": 73,
+        "previewPages": 8
+      },
+      {
+        "document": "kyc-individual",
+        "audience": "individual",
+        "lang": "en",
+        "width": 1440,
+        "groups": 6,
+        "fields": 120,
+        "previewPages": 11
+      },
+      {
+        "document": "subscription-company",
+        "audience": "corporate",
+        "lang": "en",
+        "width": 1440,
+        "groups": 4,
+        "fields": 46,
+        "previewPages": 2
+      },
+      {
+        "document": "fatca-crs-corporate",
+        "audience": "corporate",
+        "lang": "en",
+        "width": 1440,
+        "groups": 6,
+        "fields": 104,
+        "previewPages": 8
+      },
+      {
+        "document": "kyc-corporate",
+        "audience": "corporate",
+        "lang": "en",
+        "width": 1440,
+        "groups": 6,
+        "fields": 108,
+        "previewPages": 9
+      },
+      {
+        "document": "signature-form",
+        "audience": "individual",
+        "lang": "en",
+        "width": 390,
+        "groups": 2,
+        "fields": 18,
+        "previewPages": 1
+      },
+      {
+        "document": "al-naeem-terms-consent",
+        "audience": "individual",
+        "lang": "en",
+        "width": 390,
+        "groups": 1,
+        "fields": 6,
+        "previewPages": 1
+      },
+      {
+        "document": "subscription-form",
+        "audience": "individual",
+        "lang": "en",
+        "width": 390,
+        "groups": 4,
+        "fields": 49,
+        "previewPages": 2
+      },
+      {
+        "document": "terms-and-conditions",
+        "audience": "individual",
+        "lang": "en",
+        "width": 390,
+        "groups": 2,
+        "fields": 34,
+        "previewPages": 13
+      },
+      {
+        "document": "fatca-crs-individual",
+        "audience": "individual",
+        "lang": "en",
+        "width": 390,
+        "groups": 5,
+        "fields": 73,
+        "previewPages": 8
+      },
+      {
+        "document": "kyc-individual",
+        "audience": "individual",
+        "lang": "en",
+        "width": 390,
+        "groups": 6,
+        "fields": 120,
+        "previewPages": 11
+      },
+      {
+        "document": "subscription-company",
+        "audience": "corporate",
+        "lang": "en",
+        "width": 390,
+        "groups": 4,
+        "fields": 46,
+        "previewPages": 2
+      },
+      {
+        "document": "fatca-crs-corporate",
+        "audience": "corporate",
+        "lang": "en",
+        "width": 390,
+        "groups": 6,
+        "fields": 104,
+        "previewPages": 8
+      },
+      {
+        "document": "kyc-corporate",
+        "audience": "corporate",
+        "lang": "en",
+        "width": 390,
+        "groups": 6,
+        "fields": 108,
+        "previewPages": 9
+      },
+      {
+        "document": "signature-form",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 1440,
+        "groups": 2,
+        "fields": 18,
+        "previewPages": 1
+      },
+      {
+        "document": "al-naeem-terms-consent",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 1440,
+        "groups": 1,
+        "fields": 6,
+        "previewPages": 1
+      },
+      {
+        "document": "subscription-form",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 1440,
+        "groups": 4,
+        "fields": 49,
+        "previewPages": 2
+      },
+      {
+        "document": "terms-and-conditions",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 1440,
+        "groups": 2,
+        "fields": 34,
+        "previewPages": 13
+      },
+      {
+        "document": "fatca-crs-individual",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 1440,
+        "groups": 5,
+        "fields": 73,
+        "previewPages": 8
+      },
+      {
+        "document": "kyc-individual",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 1440,
+        "groups": 6,
+        "fields": 120,
+        "previewPages": 11
+      },
+      {
+        "document": "subscription-company",
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 1440,
+        "groups": 4,
+        "fields": 46,
+        "previewPages": 2
+      },
+      {
+        "document": "fatca-crs-corporate",
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 1440,
+        "groups": 6,
+        "fields": 104,
+        "previewPages": 8
+      },
+      {
+        "document": "kyc-corporate",
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 1440,
+        "groups": 6,
+        "fields": 108,
+        "previewPages": 9
+      },
+      {
+        "document": "signature-form",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 390,
+        "groups": 2,
+        "fields": 18,
+        "previewPages": 1
+      },
+      {
+        "document": "al-naeem-terms-consent",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 390,
+        "groups": 1,
+        "fields": 6,
+        "previewPages": 1
+      },
+      {
+        "document": "subscription-form",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 390,
+        "groups": 4,
+        "fields": 49,
+        "previewPages": 2
+      },
+      {
+        "document": "terms-and-conditions",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 390,
+        "groups": 2,
+        "fields": 34,
+        "previewPages": 13
+      },
+      {
+        "document": "fatca-crs-individual",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 390,
+        "groups": 5,
+        "fields": 73,
+        "previewPages": 8
+      },
+      {
+        "document": "kyc-individual",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 390,
+        "groups": 6,
+        "fields": 120,
+        "previewPages": 11
+      },
+      {
+        "document": "subscription-company",
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 390,
+        "groups": 4,
+        "fields": 46,
+        "previewPages": 2
+      },
+      {
+        "document": "fatca-crs-corporate",
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 390,
+        "groups": 6,
+        "fields": 104,
+        "previewPages": 8
+      },
+      {
+        "document": "kyc-corporate",
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 390,
+        "groups": 6,
+        "fields": 108,
+        "previewPages": 9
+      }
+    ],
+    "screenshots": [
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/profile-individual-en-1440.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/preview-details-individual-en-1440.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/profile-corporate-en-1440.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/preview-details-corporate-en-1440.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/profile-individual-en-390.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/preview-details-individual-en-390.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/profile-corporate-en-390.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/preview-details-corporate-en-390.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/profile-individual-ar-1440.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/preview-details-individual-ar-1440.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/profile-corporate-ar-1440.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/preview-details-corporate-ar-1440.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/profile-individual-ar-390.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/preview-details-individual-ar-390.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/profile-corporate-ar-390.png",
+      "/Users/ahmaddalao/Desktop/forms/tmp/workflow-toggle-1791385452927-557611/preview-details-corporate-ar-390.png"
+    ],
+    "passed": true
+  },
+  "direct_intake": {
+    "checks": [
+      "Login/signup: EN and AR, desktop/mobile, source logos and role labels, no PDF engine or PDF loaded",
+      "Logged-out document routes redirect to sign-in",
+      "Real form edits propagate separate Arabic/English names and joined city/district to account and other forms",
+      "Offline edits retry to account; intentional clear persists after reload",
+      "Multiple tabs, fresh browser and individual/company/account isolation",
+      "Company English sharing is bidirectional and separate from Arabic identity",
+      "One-click unsigned submission, lost-response retry, single immutable version and receipt reference",
+      "Signed replacement archives the earlier PDF and all captured answers; stale replacement is rejected",
+      "Consent PDF upload works without inventing structured answers or signature verification",
+      "Management receives current versions, exact answers and signature status; preview/PDF/ZIP work; direct records remain outside review and cross-account access blocked",
+      "All nine filled forms submitted: 557 field values matched management records, and downloaded PDFs matched byte for byte"
+    ],
+    "errors": [],
+    "allFormAnswers": 557,
+    "passed": true
+  },
+  "visual_inspection": {
+    "all_blank_pages": 56,
+    "filled_contact_sheets": 20,
+    "filled_pages": 78,
+    "result": "No clipping, footer overlap or changed answer positions found. All sampled long English/Arabic pages inspected; automated coverage spans every mapped field, option and signature slot."
+  },
+  "limitations": [
+    "Synthetic local workflow accounts; not a claim of legal or regulatory approval.",
+    "Physical devices and arbitrary customer text are not exhaustively tested.",
+    "Historical stored PDFs intentionally retain their original bytes.",
+    "Full optional-review, permissions and backup/restore regression remains the dated September baseline; schema and backend code are unchanged."
+  ],
+  "source_hashes": {
+    "src/forms/modern-layouts.json": "3f721b0f7acf661d9159cb1941a307fcd7ebb9cfb245af8a7bab903b4a04c3a5",
+    "src/forms/signature.js": "aa27f4b460a3d7368288790861fdda56b67cf78d9c3d32fa93e75888c6f372eb",
+    "src/forms/terms.js": "a4d3e13141ac399cd877f9f57889fd32c49eb73f2bee9beea0e3b50dea0a2953",
+    "src/forms/subscription.js": "25d9c0787ce44045421911078f109a5b50435922d137c1e3b0cad18b29df16b6",
+    "scripts/pdf-design/national-address.json": "57a138fa7c961f3e600fbfe658ef8413a64f5e7a5b89da10e2ebd7b13fc42400",
+    "scripts/pdf-design/build.py": "8104434fe1044650c52e27fcc27885b5dc60ad8e629cc2a23bcb18ccf6ffbc4e",
+    "scripts/rebuild-subscription.py": "1a2e60ae25a5f4cd6357ac7a4eadb67ae1a73d281ed49a07585504aec9740a24",
+    "scripts/update-original-footers.py": "9202d913211c81e811a4302d4a4f26632e64b56f66753f04d6b5ec50620b1fe6",
+    "scripts/preview-direction-audit.mjs": "5db173cfdb2183af063f312aab369139a1dce8bdeec4fca83f9618793b2dcbf0"
+  },
+  "release": {
+    "production": "pending",
+    "github": "pending",
+    "fresh_handover": "pending"
+  }
+}

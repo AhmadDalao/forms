@@ -3,7 +3,7 @@ The probe uses identical fixed rows; only the blank answer paragraphs contain ma
 Their PDF positions determine blue overlay areas; final Word/PDF contain no markers.
 """
 from pathlib import Path
-import json, subprocess, shutil, zipfile, uuid, sys
+import json, subprocess, shutil, zipfile, uuid, sys, io, re
 from lxml import etree
 from docx import Document
 from docx.shared import Pt, Mm, RGBColor
@@ -17,6 +17,7 @@ ROOT=Path(__file__).resolve().parents[1]
 RUNTIME=Path('/Users/ahmaddalao/.cache/codex-runtimes/codex-primary-runtime/dependencies')
 RENDER=Path('/Users/ahmaddalao/.codex/plugins/cache/openai-primary-runtime/documents/26.904.11930/skills/documents/render_docx.py')
 RULES=json.loads((ROOT/'public/api/subscription/rules.json').read_text())
+NATIONAL_ADDRESS=json.loads((ROOT/'scripts/pdf-design/national-address.json').read_text())['text']
 FONT='Bahij TheSansArabic Plain'
 PURPLE='401D58';INK='242235';MUTED='656575';BORDER='9B92A2'
 WIDTH=499.3
@@ -56,6 +57,37 @@ def font_embed(path):
  with zipfile.ZipFile(path,'w',zipfile.ZIP_DEFLATED) as z:
   for n,data in files.items():z.writestr(n,data)
 
+def refresh_legacy_subscription():
+ # Preserve the supplied one-page form and change only its national-address area.
+ # The reference stays untouched; this public copy also contains a raster footer.
+ from pypdf import PdfReader, PdfWriter
+ from reportlab.pdfgen import canvas
+ from reportlab.pdfbase.pdfmetrics import stringWidth, registerFont
+ from reportlab.pdfbase.ttfonts import TTFont
+ reader=PdfReader(ROOT/'reference/pdfs/subscription-form.pdf')
+ assert len(reader.pages)==1
+ writer=PdfWriter();writer.clone_document_from_reader(reader)
+ page=writer.pages[0]
+ form=page['/Resources']['/XObject']['/x7'].get_object()
+ raw=form.get_data()
+ start=raw.index(b'12.460937 0 0 -12.460937 608.645813 1691.499878 Tm')
+ end=raw.index(b'40.775755 1.645141 Td',start)
+ address_ops=raw[start:end]
+ assert b'[(7)4(8)4(5)-11(5)]TJ' in address_ops
+ # Keep text-position operators so the following legal text remains fixed.
+ form.set_data(raw[:start]+re.sub(rb'\[[\s\S]*?\]TJ',b'[]TJ',address_ops)+raw[end:])
+ overlay=io.BytesIO();pdf=canvas.Canvas(overlay,pagesize=(596,842))
+ pdf.setFillColorRGB(1,1,1);pdf.rect(156,842-838,199,23,fill=1,stroke=0)
+ registerFont(TTFont('AddressArial','/System/Library/Fonts/Supplemental/Arial.ttf'))
+ pdf.setFillColorRGB(.247059,.101961,.345098);pdf.setFont('AddressArial',6)
+ parts=NATIONAL_ADDRESS.split(' | ')
+ lines=[parts[0],'| '+' | '.join(parts[1:4]),'| '+parts[4]]
+ assert ' '.join(lines)==NATIONAL_ADDRESS
+ assert all(stringWidth(line,'AddressArial',6)<=195 for line in lines)
+ for i,line in enumerate(lines):pdf.drawCentredString(255.5,842-821-i*7,line)
+ pdf.save();overlay.seek(0);page.merge_page(PdfReader(overlay).pages[0])
+ with (ROOT/'public/pdfs/subscription-form.pdf').open('wb') as target:writer.write(target)
+
 LABELS={
  'title_label':('Title','الصفة'),'english_name':('Client’s full name in English','اسم العميل كاملاً بالإنجليزية'),'po_box':('P.O. Box (if applicable)','صندوق البريد (إن وجد)'),
  'client_account':('Client / Account No. (fund manager use)','رقم العميل / الحساب (لاستخدام مدير الصندوق)'),
@@ -82,7 +114,7 @@ def build(corporate,probe):
  doc.core_properties.title='طلب الإشتراك في صندوق النعيم العقاري '+('(للشركات)' if corporate else '(للأفراد)');doc.core_properties.author='';doc.core_properties.last_modified_by=''
  f=sec.footer.paragraphs[0];para(f,'إتقان كابيتال | www.itqancapital.com | +966 12 263 8787',8,True,color=MUTED,leading=11)
  p=sec.footer.add_paragraph();para(p,'الأصل: العمليات والحفظ • نسخة العميل   |   Original: operations & custody • Client copy',7.5,True,color=MUTED,leading=10)
- p=sec.footer.add_paragraph();para(p,'7855 أحمد العطاس، حي الزهراء، وحدة 2563، جدة 23425-2753، المملكة العربية السعودية',6.5,True,color=MUTED,leading=9)
+ p=sec.footer.add_paragraph();para(p,NATIONAL_ADDRESS,6.5,False,color=MUTED,leading=9);p.alignment=WD_ALIGN_PARAGRAPH.RIGHT
  p=sec.footer.add_paragraph();para(p,'شركة مساهمة سعودية مقفلة • رأس المال: 56,042,030 ريال سعودي • سجل تجاري: 4030167335 • ترخيص هيئة السوق المالية: 37-07058',6.5,True,color=MUTED,leading=9)
  p=sec.footer.add_paragraph();p.alignment=WD_ALIGN_PARAGRAPH.CENTER
  field=OxmlElement('w:fldSimple');field.set(qn('w:instr'),'PAGE');p._p.append(field)
@@ -212,3 +244,5 @@ for corporate in ([False] if "--individual-only" in sys.argv else [False,True]):
    shutil.copyfile(pdf,ROOT/'output/documents'/f'{name}.pdf')
  (ROOT/'src/subscription'/f'{name}-layout.json').write_text(json.dumps(maps,ensure_ascii=False,indent=2)+'\n')
  print(name,len(maps),'mapped fields')
+
+refresh_legacy_subscription()

@@ -1,6 +1,21 @@
 # Handover verification — 7 October 2026
 
-## 7 October — KYC address footer
+## 7 October — national address across all forms
+
+The owner expanded the address update to all nine current templates plus the public legacy subscription PDF. Seven editable Word sources match their PDFs. Signature and terms retain their original body design. The address source is `scripts/pdf-design/national-address.json`, version `20261007-national-address`.
+
+The full address is present on all **56 public PDF pages** and all seven Word sources. Modern and subscription Word body XML and answer coordinates are unchanged. The original signature/T&C word positions and field maps remain unchanged; MuPDF body comparisons are exact, while PDFium/Poppler show small renderer antialiasing differences on some terms pages. The source originals remain untouched.
+
+- **238 unit tests** and the production build passed.
+- **114 generated PDFs / 755 pages** passed; **2,093 text**, **917 choice** and **34 signature** rectangles were checked. Every mapped field, option and signature slot was covered, with five complete fills per form plus blank, partial, shared-data and option samples.
+- **19 isolated customer/management check groups** passed on the final build. All **557 captured answers** across nine forms matched management, and downloaded PDFs matched submitted bytes. The management audit inspected **36 Arabic/English desktop/mobile views** containing **2,232 displayed values**. Both fixture template sets match the final public build by SHA-256.
+- Visual inspection covered all 56 blank pages and 78 populated long Arabic/English sample pages across 20 contact sheets. No footer overlap, answer clipping or shifted fields was found.
+
+Preview testing caught an unnecessary image mask introduced while editing the original-style footers. The footer builder now removes the old address decoration and completely transparent filler without creating that mask. The browser audit now treats image-decoding warnings as failures. All **165 page/direction comparisons** passed across Chrome, Firefox and WebKit, covering all 55 pages of the nine editable forms in Arabic/English browser directions, with zero page or image-decoding errors.
+
+Evidence: `verification/all-forms-address-verification-2026-10-07.json`. These are synthetic isolated tests. The backend/schema and optional-review behavior are unchanged; their broader regression remains the dated September baseline.
+
+## 7 October — earlier KYC-only stage
 
 Only the current individual and corporate KYC PDF templates and matching Word sources are in scope. The owner supplied this footer and explicitly confirmed the spelling **Branch**:
 
@@ -22,7 +37,7 @@ Scoped verification passed. The 11-page individual and 9-page corporate template
 - **20 isolated workflow checks** passed. All **228 applicable captured answers** matched management records. Customer/admin downloads matched submitted hashes; desktop/mobile Arabic/English previews rendered every page. Customer upload replacements preserved prior answers and PDF hashes, and historical notifications opened the latest file.
 - All 20 blank pages and eight populated sample pages were visually inspected. No footer wrapping, clipping or overlap was found.
 
-The workflow checks use synthetic local clients and Chrome. Initial submissions use the production API code, replacements use the customer UI, and historical notification events are fixture data. The per-page preview checks also run Firefox/WebKit. These are scoped checks for the changed templates; the nine-form regression below was not rerun in October. Evidence: `verification/kyc-address-verification-2026-10-07.json` (under `docs/` in the repository).
+The workflow checks use synthetic local clients and Chrome. Initial submissions use the production API code, replacements use the customer UI, and historical notification events are fixture data. The per-page preview checks also run Firefox/WebKit. At that earlier KYC-only stage, the nine-form regression had not been rerun. The expanded address release above records the subsequent all-form PDF and customer/management checks. Evidence: `verification/kyc-address-verification-2026-10-07.json` (under `docs/` in the repository).
 
 The release was published to Hostinger after backing up all 12 overwritten public files. Live checks passed: both authenticated KYC templates and all new browser assets matched the verified build, a stored submission retained its exact PDF hash, and the management profile/PDF preview opened. Review remained off; workflow revision and client/submission counts were unchanged. PHP application code and private storage were not replaced.
 

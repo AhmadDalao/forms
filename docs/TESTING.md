@@ -9,13 +9,14 @@ npm ci
 npx playwright install
 ```
 
-Several scripts use the Chrome channel, so Google Chrome must also be installed (or install it using `npx playwright install chrome` on a supported development machine). PHP CLI needs the same extensions as production. Python PDF inspection additionally uses `pypdfium2`, `pypdf`, `Pillow` and `numpy`; these are development dependencies only.
+Several scripts use the Chrome channel, so Google Chrome must also be installed (or install it using `npx playwright install chrome` on a supported development machine). PHP CLI needs the same extensions as production. Python PDF inspection uses `pypdfium2`, `pypdf`, `pdfplumber`, `python-docx`, `Pillow` and `numpy`. Editing source documents also uses `reportlab`, `PyMuPDF`, `lxml` and LibreOffice. These are development tools, not hosting requirements.
 
 ## First pass
 
 ```sh
 npm test
 npm run build
+python3 scripts/verify-national-address.py tmp/national-address-verification.json
 node scripts/admin-handoff-audit.mjs
 node scripts/review-navigation-audit.mjs
 node scripts/optional-review-audit.mjs
@@ -88,7 +89,7 @@ Record the domain, date, browser, result and evidence for each row. Delete only 
 
 ## What a passing report means
 
-TEST-REPORT.md distinguishes checks rerun on 29 September from older regression/PDF evidence. A passing local run is not proof of destination-host permissions, email/SMS delivery (the app has no such provider), a real signature's authenticity or legal compliance. Keep that distinction in the developer sign-off.
+TEST-REPORT.md records the 7 October all-form address checks separately from the earlier KYC-only checks and September workflow evidence. A passing local run is not proof of destination-host permissions, email/SMS delivery (the app has no such provider), a real signature's authenticity or legal compliance. Keep that distinction in the developer sign-off.
 
 ## Submission settings page
 

@@ -1,18 +1,18 @@
 {
   "al-naeem-terms-consent": {
     "pages": 1,
-    "pdf_sha256": "431d85dbd2732871fd09ab32345427e566f8c75e8b04b6094e30d0f9b88aa7c6",
-    "docx_sha256": "c66eb4faeed45db5376692fca3b97a52cf31b7494db4853ef4f4fb454a3e8434"
+    "pdf_sha256": "5b22452a0fdd909e682b61bc7a2e53e12532d28e100f22ad96c36f67fd2efd3d",
+    "docx_sha256": "2e03b58257c9bccd25678b6880ae32dafdc9726d8744e0b0bf1631732ed6011b"
   },
   "fatca-crs-corporate": {
     "pages": 8,
-    "pdf_sha256": "10948ab007a60dfd76ddabc68b604efe86772a25a6683d07291879d442384083",
-    "docx_sha256": "243dd5c307dc4afe5a1401a92803e32e260e780e47649a2e50af641a2c9a812a"
+    "pdf_sha256": "5133c0ed41a290a468c35aafaf6baf9ec9b98415d1d6fa57b85dde159ce038e1",
+    "docx_sha256": "2480cee36fabb50c6329243b34ba1359b6743fe9270af10626fb8e8153319785"
   },
   "fatca-crs-individual": {
     "pages": 8,
-    "pdf_sha256": "14aa4a0914fc1346fbc6b9f9e46cf2e7fcc998b2aeeee22fa954f9201b7e8bd1",
-    "docx_sha256": "14750ee5c163f5fafbd883639ed591b84aa3521bd56bd8a191525642334ce6d1"
+    "pdf_sha256": "4c860ccb85dd2949365d92de6794860bdcbb5dd53cd29d5c501c28d476a9b895",
+    "docx_sha256": "3ab86b20d9fcb9b77b5f56174947bd65d339de158b3845aabad7945af3ed4242"
   },
   "kyc-corporate": {
     "pages": 9,

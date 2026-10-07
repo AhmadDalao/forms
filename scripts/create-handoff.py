@@ -60,6 +60,7 @@ for folder in ['src', 'public', 'tests', 'reference/pdfs', 'reference/documents'
             continue
         copy(file, package / 'source' / rel)
 scripts = ['build-folders.mjs', 'management-defaults.mjs', 'management-router.php', 'protected-router.php',
+           'rebuild-subscription.py', 'update-original-footers.py', 'verify-national-address.py',
            'management-init.php', 'management-superadmin-init.php', 'installation-init.php', 'backup-installation.php',
            'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'current-pdf-audit.mjs',
            'current-pdf-audit-verify.py', 'preview-font-audit.mjs', 'preview-direction-audit.mjs',
@@ -93,6 +94,7 @@ copy(ROOT / 'docs/apache-vhost.example.conf', package / 'server/apache-vhost.con
 copy(ROOT / 'docs/admin-presentation-verification.json', package / 'verification/admin-presentation-verification.json')
 copy(ROOT / 'docs/received-names-2026-09-30.json', package / 'verification/received-names-2026-09-30.json')
 copy(ROOT / 'docs/kyc-address-verification-2026-10-07.json', package / 'verification/kyc-address-verification-2026-10-07.json')
+copy(ROOT / 'docs/all-forms-address-verification-2026-10-07.json', package / 'verification/all-forms-address-verification-2026-10-07.json')
 for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verification.json',
              'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
              'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',
@@ -121,7 +123,7 @@ assert not list((restored / 'management/uploads').glob('*'))
 assert not (restored / 'management/state.json').exists()
 shutil.rmtree(restored)
 copy(bootstrap, package / 'private-bootstrap.zip')
-snapshot['application_release'] = release_date + ' updated Itqan address on individual/corporate KYC templates, submit-only client display, dedicated submission settings and schema 8'
+snapshot['application_release'] = release_date + ' updated Itqan national address on every form, submit-only client display, dedicated submission settings and schema 8'
 snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
 (package / ('verification/bootstrap-verification-' + release_date + '.json')).write_text(json.dumps({

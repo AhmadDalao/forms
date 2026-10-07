@@ -4,13 +4,13 @@ import json,re,hashlib
 from docx import Document
 import pdfplumber
 from customer_fields import customer_fields
-from build import ITQAN_ADDRESS_PARTS
+from build import NATIONAL_ADDRESS
 ROOT=Path(__file__).resolve().parents[2]
 sources=json.loads((ROOT/'scripts/pdf-design/source-text.json').read_text())
 schemas={d['id']:d for d in customer_fields(json.loads((ROOT/'reference/documents/form-schema-20260927.json').read_text()))}
 normalize=lambda text:re.sub(r'[\W_ـ]+','',text,flags=re.UNICODE).casefold()
 report={'documents':{},'failures':[]}
-section_versions={'20260928-sections-3','20260928-client-flow-4','20261007-itqan-address'}
+section_versions={'20260928-sections-3','20260928-client-flow-4','20261007-itqan-address',NATIONAL_ADDRESS['version']}
 for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
     # Signature and T&C use original PDFs, even if stale generated files remain.
     if path.parent.name in {'terms-and-conditions','signature-form'}:continue
@@ -55,8 +55,8 @@ for path in sorted((ROOT/'tmp/modern-pdfs').glob('*/layout.json')):
             if '/' not in line or not re.search(r'[\u0600-\u06ff]',line) or normalize(option['label']) not in normalize(line):
                 report['failures'].append([identifier,field['id'],option['value'],'short bilingual choice not on one line',line])
         for n,page in enumerate(rendered.pages,1):
-            if layout['version']=='20261007-itqan-address':
-                address=' | '.join(ITQAN_ADDRESS_PARTS)
+            if layout['version'] in {'20261007-itqan-address',NATIONAL_ADDRESS['version']}:
+                address=NATIONAL_ADDRESS['text']
                 lines=[line for line in page.extract_text_lines() if address in line['text']]
                 if len(lines)!=1 or lines[0]['x0']<48 or lines[0]['x1']>547.3:
                     report['failures'].append([identifier,n,'national address missing, wrapped or clipped'])

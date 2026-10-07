@@ -83,21 +83,23 @@ test('old PDFs use frozen signing positions and new snapshots use their own posi
  assert.equal(model.shared.flatMap(g=>g.fields).some(f=>f.id==='pdf_layout'),false);
 });
 
-test('restored T&C keeps the exact original PDF and all original field/signature geometry',async()=>{
+test('restored T&C keeps the approved footer-updated PDF and original field/signature geometry',async()=>{
  const {createHash}=await import('node:crypto');
  const doc=docs.find(d=>d.id==='terms-and-conditions'),old=original.find(d=>d.id===doc.id);
- assert.equal(createHash('sha256').update(readFileSync('public/pdfs/terms-and-conditions.pdf')).digest('hex'),'8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106');
- assert.equal(doc.pages,13);assert.equal(doc.pdfVersion,'20260928-original-2');assert.equal(layouts[doc.id],undefined);
+ assert.equal(createHash('sha256').update(readFileSync('reference/pdfs/terms-and-conditions.pdf')).digest('hex'),'8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106');
+ assert.equal(createHash('sha256').update(readFileSync('public/pdfs/terms-and-conditions.pdf')).digest('hex'),'f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15');
+ assert.equal(doc.pages,13);assert.equal(doc.pdfVersion,'20261007-national-address');assert.equal(layouts[doc.id],undefined);
  assert.deepEqual(doc.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field),old.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field));assert.deepEqual(signatureSlots(doc),old.signatureSlots);
  assert.deepEqual(doc.fields.filter(f=>f.type==='date').map(f=>f.page),[11,13]);
  assert.ok(doc.fields.filter(f=>f.type==='date').every(f=>f.defaultToday&&f.dateParts.length===3));
 });
 
-test('restored signature form keeps the original PDF, one-page fields and specimen signature area',async()=>{
+test('restored signature form keeps the approved footer update, one-page fields and specimen signature area',async()=>{
  const {createHash}=await import('node:crypto');
  const doc=docs.find(d=>d.id==='signature-form'),old=original.find(d=>d.id===doc.id);
- assert.equal(createHash('sha256').update(readFileSync('public/pdfs/signature-form.pdf')).digest('hex'),'9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0');
- assert.equal(doc.pages,1);assert.equal(doc.pdfVersion,'20260928-original-3');assert.equal(layouts[doc.id],undefined);
+ assert.equal(createHash('sha256').update(readFileSync('reference/pdfs/signature-form.pdf')).digest('hex'),'9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0');
+ assert.equal(createHash('sha256').update(readFileSync('public/pdfs/signature-form.pdf')).digest('hex'),'9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f');
+ assert.equal(doc.pages,1);assert.equal(doc.pdfVersion,'20261007-national-address');assert.equal(layouts[doc.id],undefined);
  assert.deepEqual(doc.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field),old.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field));assert.deepEqual(signatureSlots(doc),old.signatureSlots);
 });
 
