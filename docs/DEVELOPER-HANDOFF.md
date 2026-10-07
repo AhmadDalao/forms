@@ -1,6 +1,6 @@
 # Installing the forms portal
 
-This package starts a new schema-8 installation with the supplied admin and superadmin accounts. It does not migrate clients or submissions from the current site. Current KYC templates use the modern 11-page individual and nine-page company designs. See TEST-REPORT.md and `verification/kyc-modern-restoration-2026-10-07.json` for release verification.
+This package starts a new installation with the supplied admin and superadmin accounts. It does not migrate clients or submissions from the current site. The public application is unchanged from the latest delivered release; this handover consolidates the documentation and includes fresh verification.
 
 ## Hosting requirements
 
@@ -67,18 +67,18 @@ This local initialization creates empty databases, not the included management a
 
 ## Maintain the document templates
 
-`editable-documents/` contains nine current PDFs and seven matching Word sources: individual/company subscription, individual/company KYC, consent, and individual/company FATCA/CRS. Individual KYC uses the modern 11-page design and company KYC the modern nine-page design, both with the approved national-address footer. Signature and T&C retain their supplied PDF bodies and have no matching current Word source.
+`editable-documents/` contains nine current PDFs and five matching Word sources: individual/company subscription, consent, and individual/company FATCA/CRS. Individual/company KYC use the supplied seven-page PDFs with the approved national-address footer; signature and T&C also retain their supplied PDF bodies. These four templates have no matching current Word source.
 
-`scripts/pdf-design/template-sources.json` defines this source policy. The modern Word generator, installer and verifier cover five documents: the two KYC forms, consent and the two FATCA/CRS forms. The subscription builder remains separate. Rebuild the original signature and T&C footers with `scripts/update-original-footers.py`, preserving the supplied inputs under `reference/`. `npm run build` copies reviewed public PDF assets; it does not recreate them from Word.
+`scripts/pdf-design/template-sources.json` defines this source policy. The modern Word generator, installer and verifier accept only consent and the two FATCA/CRS forms. The subscription builder remains separate. Rebuild original-PDF footers with `scripts/update-original-footers.py`, preserving the supplied inputs under `reference/`. `npm run build` copies reviewed public PDF assets; it does not recreate them from Word.
 
-Use the current Word sources and layout maps for KYC. The supplied seven-page KYC PDFs under `reference/pdfs/supplied-20261007/` and archived Word/layout files under `reference/documents/archived/` are historical evidence only; do not install them as current templates. Verify footer text with `scripts/verify-national-address.py`, then check filled geometry and all template versions. See `scripts/pdf-design/artifact.md` for the authoring contract.
+Do not regenerate KYC from old files left in `output/documents/` or `tmp/modern-pdfs/`. Archived Word/layout files under `reference/documents/archived/` are historical evidence only. Verify footer text with `scripts/verify-national-address.py`, then check filled geometry and all template versions. See `scripts/pdf-design/artifact.md` for the authoring contract.
 
 ## Current behavior to expect
 
 - Visitors must sign in. Clients land on the individual or company forms catalogue matching their account.
 - The catalogue has two roomy columns on desktop and one on phones. Each card provides blank download, filled download and filled-PDF upload. Current filled files can also be downloaded as a ZIP.
 - Profile is for account details and passwords. `/my-applications/` remains a legacy alias.
-- All nine templates are editable online. Consent has its own editor. Individual/company KYC use their modern 11-page and nine-page designs. T&C and signature retain their original 13-page and one-page designs, with the approved national-address footer.
+- All nine templates are editable online. Consent has its own editor. Individual/company KYC retain their supplied seven-page designs; T&C and signature retain their original 13-page and one-page designs. Their national-address footer is updated without a Word redesign.
 - Final review shows the generated PDF, then one Submit form action. Unsigned initial forms are accepted. They become Received by default, or Under review when the superadmin selects Under review on the dedicated Submission settings page. Submit only hides review counters on Dashboard and Received applications. Existing open cases remain accessible and continue after review is turned off. Signature status is separate; uploaded replacements remain identifiable as uploads. See REVIEW-WORKFLOW.md.
 - Management reviews a client's documents from Current documents → Preview & details. Categorized answers start collapsed. The separate details card and shared-profile display were removed; stored data was preserved.
 - Client notification previews open the latest saved PDF and do not show archive labels or duplicate downloads. Management keeps version history.

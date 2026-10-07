@@ -1,29 +1,6 @@
 # Handover verification — 7 October 2026
 
-## Current release — modern KYC designs restored at the owner’s request
-
-The active individual and company KYC forms again use our **11-page and nine-page modern designs**, including the approved Itqan national address. Their PDF bytes, all frontend/backend application code and every public build file match the previously tested modern release at `c4e665f`. The temporary seven-page supplied KYC templates are historical references. Signature and T&C keep their existing designs; all other forms are unchanged.
-
-Fresh rollback verification:
-
-| Check | Result |
-|---|---|
-| Unit suite / production build | 241 tests passed, zero failures/skips; build passed |
-| All-form PDF generation | 114 PDFs / 755 pages; five complete fills per editable form plus blank, partial, shared and every-choice cases |
-| PDF placements | 2,093 text, 917 choice and 34 signature placements; full mapped-field/option/signature coverage |
-| Answer ink | 2,127 answer/signature images; no detected collisions, clipping or invalid transforms |
-| Preview rendering | 165 page/direction comparisons passed across Chrome, Firefox and WebKit |
-| Address / fresh visual review | Updated address on all 56 public PDF pages and seven Word sources; eight long English/Arabic KYC pages and enlarged footers visually passed |
-| Client and backend | All 557 captured answers across nine forms match management; downloaded PDFs match submitted bytes |
-| Shared data | Account/audience isolation, revision conflicts, explicit clears, restart persistence and unchanged submitted snapshots pass |
-| Management presentation | All nine forms in Arabic/English on desktop/mobile: 36 form views; categorized details and complete previews pass |
-| Historical signing | Eight cases and 16 previews cover original seven-page, supplied seven-page and current modern layouts; saved answers, PDFs and signing positions remain preserved |
-
-The workflow checks use five independent local fixtures and 42 grouped checks. All records are synthetic. No application backend logic or database migration is included. The earlier wider review/permissions/loading results remain dated baseline evidence; this rollback does not claim a new legal or regulatory certification.
-
-Evidence: `verification/kyc-modern-restoration-2026-10-07.json`. The fresh handover includes nine current PDFs and seven matching Word sources, with the schema-8 admin/superadmin bootstrap, review off and no client data.
-
-## Superseded release — supplied original KYC PDFs restored
+## Current release — supplied original KYC PDFs restored
 
 Both current KYC templates now use the supplied **seven-page Letter PDFs**, with only the approved national-address footer changed. Their cache version is `20261007-original-kyc`. The supplied source copies are preserved under `reference/pdfs/supplied-20261007/`. Both document bodies retain their original wording, order and geometry; per-renderer antialiasing differences are recorded in the preservation evidence.
 

@@ -13,15 +13,5 @@
     "pages": 8,
     "pdf_sha256": "4c860ccb85dd2949365d92de6794860bdcbb5dd53cd29d5c501c28d476a9b895",
     "docx_sha256": "3ab86b20d9fcb9b77b5f56174947bd65d339de158b3845aabad7945af3ed4242"
-  },
-  "kyc-corporate": {
-    "pages": 9,
-    "pdf_sha256": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6",
-    "docx_sha256": "986c241362bef094f14fdca12b071c89d5aafb3c755a2203b34e4cace1120895"
-  },
-  "kyc-individual": {
-    "pages": 11,
-    "pdf_sha256": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29",
-    "docx_sha256": "47a6ed759ff4b12a6bd855b6107fbfa8fc8cd486fb55ead2654fb538a41b3587"
   }
 }

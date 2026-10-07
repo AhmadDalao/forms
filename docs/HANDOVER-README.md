@@ -1,18 +1,18 @@
 # Al Naeem Real Estate Fund — start here
 
-This fresh-install handover documentation was updated on 7 October 2026 for the national-address footer update and the return to the modern KYC designs. The previous tested baseline is 30 September 2026: larger, single-line client names in Received applications, schema 8 and optional reviews, off by default. The handover contains the website, its source, tests, PDF templates and a fresh schema-8 private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
+This fresh-install handover documentation was updated on 7 October 2026 for the national-address footer update across all current forms. The previous tested baseline is 30 September 2026: larger, single-line client names in Received applications, schema 8 and optional reviews, off by default. The handover contains the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
 
 Only upload the contents of `website/` to the public website folder. Keep this ZIP and everything else private.
 
 ## 7 October — national address on every form
 
-All nine current form templates use the new Itqan national address: individual/company subscription, individual/company KYC, signature, consent, individual/company FATCA/CRS, and terms and conditions. The public legacy one-page subscription PDF also receives the address. Seven editable Word sources match their PDFs. KYC uses the modern 11-page individual and nine-page company designs with the approved address. Signature and terms retain their original body designs and have no matching current Word source; only their address footer changes. Saved submission bytes remain unchanged.
+All nine current form templates use the new Itqan national address: individual/company subscription, individual/company KYC, signature, consent, individual/company FATCA/CRS, and terms and conditions. The public legacy one-page subscription PDF also receives the address. Five editable Word sources match their PDFs. KYC now uses the owner's supplied seven-page PDFs; signature and terms also retain their original body designs. These four templates have no matching current Word source. Their address footer is updated, and saved submission bytes remain unchanged.
 
-The address is maintained in `source/scripts/pdf-design/national-address.json`. The owner confirmed **Prince Naif Branch** and chose to return to the modern KYC designs. `source/scripts/pdf-design/template-sources.json` identifies seven current Word sources, five modern documents (KYC, FATCA/CRS and consent) and two original PDF templates (signature and terms). The supplied seven-page KYC PDFs remain historical references only.
+The address is maintained in `source/scripts/pdf-design/national-address.json`. The owner confirmed **Prince Naif Branch** and subsequently requested the original KYC PDF designs in place of their modern Word redesigns. `source/scripts/pdf-design/template-sources.json` identifies current sources; retired KYC Word/layout files are historical references and must never regenerate the current PDFs. Earlier address-only reports describe the pre-restoration templates.
 
-Fresh rollback checks passed: 241 unit tests, 114 PDFs / 755 pages, 165 browser comparisons and 42 workflow checks. Current-release evidence is in `verification/kyc-modern-restoration-2026-10-07.json`; see TEST-REPORT.md for completed checks and their scope. `verification/kyc-original-restoration-2026-10-07.json` records the earlier seven-page KYC restoration and is historical evidence, not verification of the current release.
+The restored-KYC release passed 242 unit tests, 114 generated PDFs / 661 pages, 147 browser page/direction checks and 45 isolated workflow checks. All 14 blank KYC pages and 28 long English/Arabic filled pages were inspected, including fresh renders after spacing corrections. Current evidence is `verification/kyc-original-restoration-2026-10-07.json`; see TEST-REPORT.md for the scope and limits.
 
-The earlier overlap/regression pass covered 114 fresh PDFs, 56 blank pages and 78 populated pages, with zero detected answer/signature ink collisions and 16 passing workflow suites. Its evidence is `verification/pdf-overlap-verification-2026-10-07.json`; keep that dated baseline separate from the current restoration checks.
+Before the original KYC restoration, the overlap/regression pass covered 114 fresh PDFs, 56 blank pages and 78 populated pages, with zero detected answer/signature ink collisions and 16 passing workflow suites. Its evidence is `verification/pdf-overlap-verification-2026-10-07.json`; it is historical evidence, not verification of the restored KYC templates.
 
 ## Where to start
 
@@ -33,10 +33,10 @@ The earlier overlap/regression pass covered 114 fresh PDFs, 56 blank pages and 7
 |---|---|
 | `website/` | Ready-built website. Upload its contents, including hidden files. |
 | `source/` | JavaScript, PHP, tests and build/setup/backup tools. |
-| `private-bootstrap.zip` | Restore outside the web root to install the included management accounts and an empty schema-8 client database. |
+| `private-bootstrap.zip` | Restore outside the web root to install the included management accounts and empty client database. |
 | `SNAPSHOT.json` | Bootstrap date, counts and checksum. |
 | `database/` | Empty SQLite schema examples for review; these do not contain the management logins. |
-| `editable-documents/` | Seven matching Word sources, nine current PDFs and the source-policy manifest. Original signature and T&C PDFs have no matching current Word source. |
+| `editable-documents/` | Five matching Word sources, nine current PDFs and the source-policy manifest. Original KYC, signature and T&C PDFs have no matching current Word source. |
 | `verification/` | Dated test reports; older reports are historical evidence, not a description of today's UI. |
 | `server/` | Optional Apache example for a self-managed server. Shared hosting normally supplies the web server. |
 | `MANIFEST.json`, `SHA256SUMS.txt` | File inventory and checksums for this delivery. |

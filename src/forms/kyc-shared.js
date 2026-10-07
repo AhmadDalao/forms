@@ -12,7 +12,7 @@ export function investment(d,corporate=false){
  ['years_investing','Years investing in securities','عدد سنوات الاستثمار',158,240,180],['previous_products','Products previously invested in','المنتجات التي سبق الاستثمار فيها',180,200,225],['loan_ratio','Loan to invested money ratio','نسبة القروض إلى الأموال المستثمرة',202,220,177],['margin_transactions','Margin transactions in the last five years','صفقات التمويل بالهامش خلال خمس سنوات',224,244,113],['overseas_transactions','Securities transactions outside KSA in the last five years','الصفقات خارج المملكة خلال خمس سنوات',246,285,72]
  ]:[['years_investing','Years investing in securities','عدد سنوات الاستثمار',160,240,180],['previous_products','Products previously invested in','المنتجات التي سبق الاستثمار فيها',182,200,225],['certificates','Professional certificates','الشهادات المهنية',204,182,265],['loan_ratio','Loan to invested money ratio','نسبة القروض إلى الأموال المستثمرة',226,220,177],['margin_transactions','Margin transactions in the last five years','صفقات التمويل بالهامش خلال خمس سنوات',248,244,113],['overseas_transactions','Securities transactions outside KSA in the last five years','الصفقات خارج المملكة خلال خمس سنوات',270,285,72]];
  for(const [id,en,ar,y,x,w]of rows)text(d,s,id,en,ar,[x,y-4,w,16],{fontSize:9});
- text(d,s,'overseas_countries','Countries where those transactions occurred','الدول التي نُفذت فيها الصفقات',[60,corporate?284:309,490,14],{fontSize:8});
+ text(d,s,'overseas_countries','Countries where those transactions occurred','الدول التي نُفذت فيها الصفقات',[60,corporate?280.5:305.5,490,14],{fontSize:8});
  const riskY=corporate?321:349;
  choice(d,s,'risk_appetite','Risk appetite','القدرة على تحمل المخاطر',[o('extensive','High','عالية',[113.4,riskY,10,10]),o('good','Medium','متوسطة',[299.7,riskY,10,10]),o('limited','Low','منخفضة',[480.7,riskY,10,10])]);
  const ys=corporate?[365,387,409,431,453,475,497]:[393,415,437,459,481,503,525];
@@ -52,6 +52,6 @@ export function risk(d){
  ];
  for(const [id,en,ar,opts]of questions)choice(d,s,id,en,ar,opts.map(([en,ar,y],i)=>o(String(i+1),en,ar,[305.7,y,11.5,11.5])));
  text(d,s,'risk_total','Total points','مجموع النقاط',[299,472,22,9],{sum:questions.map(q=>q[0]),fontSize:7,minFontSize:6,align:'center'});
- text(d,s,'desired_funds','Funds / portfolios you wish to invest in','الصناديق أو المحافظ التي ترغب بالاستثمار فيها',[270,568,241,16],{fontSize:9});
+ text(d,s,'desired_funds','Funds / portfolios you wish to invest in','الصناديق أو المحافظ التي ترغب بالاستثمار فيها',[270,565,241,16],{fontSize:9});
  text(d,s,'risk_client_name','Client name','اسم العميل',[343,624,200,18]);
 }
