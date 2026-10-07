@@ -49,3 +49,30 @@ Bilingual choices are one paragraph in Arabic / English order, with one checkbox
 ## Section and signing rows — 28 September 2026
 
 Every section bar uses full-width purple with white type, with edges aligned to the table. Suppress the repeated field label when it matches the immediately preceding section title. Omit generic Box 1/2 context, but retain person, address and portfolio distinctions. Keep name/signature boxes on one row where feasible; remeasure both destinations together. Source words, choice values, required rules and saved history remain unchanged.
+
+## KYC address footer — 7 October 2026
+
+Change only the current individual and corporate KYC PDFs and their matching
+Word sources. Retain these owner-supplied address elements, compacted into one
+7 pt footer line to preserve the body layout; **Branch** is explicitly confirmed:
+
+```text
+Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor
+2505 - Al Zahra Dist
+Unit No 7940
+Jeddah 23425-2753
+Kingdom of Saudi Arabia
+```
+
+The supplied corporate PDF matches the original exactly; the individual PDF
+reprints the same seven-page content. Neither contains annotations, and neither
+adds a content or field requirement. Retain the current KYC body, field IDs,
+options, page layout and mappings. Current and archived submitted PDFs remain
+immutable; only future template-based outputs use this footer.
+
+Scoped verification passed and is recorded in
+`docs/kyc-address-verification-2026-10-07.json`: all 20 template pages, unchanged
+Word body XML and all 209 mapped destinations, 31 generated PDFs / 311 pages,
+three-browser previews and isolated customer/admin submission/replacement flows.
+Saved submissions are not regenerated. September full-system verification remains
+historical evidence, separate from this scoped footer check.

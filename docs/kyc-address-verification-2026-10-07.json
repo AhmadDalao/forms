@@ -1,0 +1,976 @@
+{
+  "date": "2026-10-07",
+  "scope": [
+    "kyc-individual",
+    "kyc-corporate"
+  ],
+  "address": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor | 2505 - Al Zahra Dist | Unit No 7940 | Jeddah 23425-2753 | Kingdom of Saudi Arabia",
+  "branch_spelling_confirmed_by_owner": true,
+  "template_version": "20261007-itqan-address",
+  "supplied_documents": {
+    "corporate": {
+      "sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+      "matches_original_bytes": true,
+      "pages": 7,
+      "annotations": 0
+    },
+    "individual": {
+      "sha256": "79beab46fbc249f91d8d6945b5ac84b950bbd32f7e26eb82577b1c581f1f483e",
+      "same_content_reprinted": true,
+      "english_numeric_character_sequence_matches_each_page": true,
+      "rendered_pages_visually_compared": 7,
+      "pages": 7,
+      "annotations": 0
+    },
+    "new_fields_or_content_required": false
+  },
+  "preservation": {
+    "kyc-individual": {
+      "pages": 11,
+      "answer_positions_identical": true,
+      "word_body_xml_identical": true,
+      "changed_pixels_confined_to_address_line": true,
+      "per_page": [
+        {
+          "page": 1,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 2,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 3,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 4,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 5,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 6,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 7,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 8,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 9,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 10,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 11,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        }
+      ]
+    },
+    "kyc-corporate": {
+      "pages": 9,
+      "answer_positions_identical": true,
+      "word_body_xml_identical": true,
+      "changed_pixels_confined_to_address_line": true,
+      "per_page": [
+        {
+          "page": 1,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 2,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 3,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 4,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 5,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 6,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 7,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 8,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        },
+        {
+          "page": 9,
+          "changed_pixel_bounds_at_144dpi": [
+            125,
+            1600,
+            1095,
+            1616
+          ]
+        }
+      ]
+    }
+  },
+  "unit_tests": {
+    "passed": 238,
+    "failed": 0,
+    "skipped": 0
+  },
+  "production_build_passed": true,
+  "pdf_verification": {
+    "counts": {
+      "pdfs": 31,
+      "pages": 311,
+      "text_rectangles": 818,
+      "choice_rectangles": 794,
+      "signature_rectangles": 6,
+      "transparent_images": 8190,
+      "unchanged_pages": 91
+    },
+    "coverage": {
+      "kyc-individual": {
+        "mapped_fields": 106,
+        "covered_fields": 106,
+        "uncovered_fields": [],
+        "choice_options": 122,
+        "covered_choice_options": 122,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 16,
+        "complete_success": 5
+      },
+      "kyc-corporate": {
+        "mapped_fields": 100,
+        "covered_fields": 100,
+        "uncovered_fields": [],
+        "choice_options": 60,
+        "covered_choice_options": 60,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 15,
+        "complete_success": 5
+      }
+    },
+    "failures": []
+  },
+  "visual_checks": {
+    "blank_pages_reviewed": 20,
+    "filled_pages_sampled": 8,
+    "footer_clipping_or_overlap": false
+  },
+  "templates": {
+    "kyc-individual": {
+      "pdf_sha256": "1dea337e9822251fb0e163a1941245caaf88af6a1eef5477cef4546ca3f23a29",
+      "word_sha256": "47a6ed759ff4b12a6bd855b6107fbfa8fc8cd486fb55ead2654fb538a41b3587"
+    },
+    "kyc-corporate": {
+      "pdf_sha256": "0a69648b5cb9fdae4a7ec58f73137aa49f279fc428fde031d3ef4b940dc3fbf6",
+      "word_sha256": "986c241362bef094f14fdca12b071c89d5aafb3c755a2203b34e4cace1120895"
+    }
+  },
+  "browser_preview": {
+    "checks": [
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "chrome",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "firefox",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 10,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-individual",
+        "page": 11,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 1,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 2,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 3,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 4,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 5,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 6,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 7,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 8,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      },
+      {
+        "engine": "webkit",
+        "document": "kyc-corporate",
+        "page": 9,
+        "exactMatch": true,
+        "changedFraction": 0,
+        "meanDifference": 0
+      }
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "workflow": {
+    "checks": [
+      "kyc-individual: 120 exact captured answers and customer/admin downloads match uploaded PDF bytes",
+      "kyc-corporate: 108 exact captured answers and customer/admin downloads match uploaded PDF bytes",
+      "en 1440: category titles/counts, audience filters and dashboard layout",
+      "en 1440: both KYC saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+      "en 390: category titles/counts, audience filters and dashboard layout",
+      "en 390: both KYC saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+      "ar 1440: category titles/counts, audience filters and dashboard layout",
+      "ar 1440: both KYC saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+      "ar 390: category titles/counts, audience filters and dashboard layout",
+      "ar 390: both KYC saved forms retain every answer and full PDF; all sections start closed, no duplicate shared data, keyboard toggles work through Current documents; duplicate details card absent",
+      "kyc-individual en 1440: customer download and all 11 preview pages",
+      "kyc-individual en 390: customer download and all 11 preview pages",
+      "kyc-individual ar 1440: customer download and all 11 preview pages",
+      "kyc-individual ar 390: customer download and all 11 preview pages",
+      "kyc-individual: customer upload replacement archives immutable answers/PDF; customer/admin new bytes match; old notification opens latest 11 pages",
+      "kyc-corporate en 1440: customer download and all 9 preview pages",
+      "kyc-corporate en 390: customer download and all 9 preview pages",
+      "kyc-corporate ar 1440: customer download and all 9 preview pages",
+      "kyc-corporate ar 390: customer download and all 9 preview pages",
+      "kyc-corporate: customer upload replacement archives immutable answers/PDF; customer/admin new bytes match; old notification opens latest 9 pages"
+    ],
+    "errors": [],
+    "forms": [
+      {
+        "document": "kyc-individual",
+        "audience": "individual",
+        "lang": "en",
+        "width": 1440,
+        "groups": 6,
+        "fields": 120,
+        "previewPages": 11
+      },
+      {
+        "document": "kyc-corporate",
+        "audience": "corporate",
+        "lang": "en",
+        "width": 1440,
+        "groups": 6,
+        "fields": 108,
+        "previewPages": 9
+      },
+      {
+        "document": "kyc-individual",
+        "audience": "individual",
+        "lang": "en",
+        "width": 390,
+        "groups": 6,
+        "fields": 120,
+        "previewPages": 11
+      },
+      {
+        "document": "kyc-corporate",
+        "audience": "corporate",
+        "lang": "en",
+        "width": 390,
+        "groups": 6,
+        "fields": 108,
+        "previewPages": 9
+      },
+      {
+        "document": "kyc-individual",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 1440,
+        "groups": 6,
+        "fields": 120,
+        "previewPages": 11
+      },
+      {
+        "document": "kyc-corporate",
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 1440,
+        "groups": 6,
+        "fields": 108,
+        "previewPages": 9
+      },
+      {
+        "document": "kyc-individual",
+        "audience": "individual",
+        "lang": "ar",
+        "width": 390,
+        "groups": 6,
+        "fields": 120,
+        "previewPages": 11
+      },
+      {
+        "document": "kyc-corporate",
+        "audience": "corporate",
+        "lang": "ar",
+        "width": 390,
+        "groups": 6,
+        "fields": 108,
+        "previewPages": 9
+      }
+    ],
+    "passed": true,
+    "limitations": "Isolated synthetic clients; Chrome; initial submissions through the API and upload replacements through the customer UI; historical notification events seeded in fixture.",
+    "submissions": [
+      {
+        "document": "kyc-individual",
+        "pages": 11,
+        "capturedAnswers": 120,
+        "sha256": "48619d975c7197f00a27785917a31ba92353946fd2d9fdff26a8f9754f447d71",
+        "customerDownloadMatches": true,
+        "adminDownloadMatches": true
+      },
+      {
+        "document": "kyc-corporate",
+        "pages": 9,
+        "capturedAnswers": 108,
+        "sha256": "1ce35e40da50543468240fbac4b0b7b4f46eaa805993cd884287da93d086eb3f",
+        "customerDownloadMatches": true,
+        "adminDownloadMatches": true
+      }
+    ],
+    "customers": [
+      {
+        "document": "kyc-individual",
+        "lang": "en",
+        "width": 1440,
+        "pages": 11,
+        "downloadMatches": true
+      },
+      {
+        "document": "kyc-individual",
+        "lang": "en",
+        "width": 390,
+        "pages": 11,
+        "downloadMatches": true
+      },
+      {
+        "document": "kyc-individual",
+        "lang": "ar",
+        "width": 1440,
+        "pages": 11,
+        "downloadMatches": true
+      },
+      {
+        "document": "kyc-individual",
+        "lang": "ar",
+        "width": 390,
+        "pages": 11,
+        "downloadMatches": true
+      },
+      {
+        "document": "kyc-corporate",
+        "lang": "en",
+        "width": 1440,
+        "pages": 9,
+        "downloadMatches": true
+      },
+      {
+        "document": "kyc-corporate",
+        "lang": "en",
+        "width": 390,
+        "pages": 9,
+        "downloadMatches": true
+      },
+      {
+        "document": "kyc-corporate",
+        "lang": "ar",
+        "width": 1440,
+        "pages": 9,
+        "downloadMatches": true
+      },
+      {
+        "document": "kyc-corporate",
+        "lang": "ar",
+        "width": 390,
+        "pages": 9,
+        "downloadMatches": true
+      }
+    ],
+    "replacements": [
+      {
+        "document": "kyc-individual",
+        "oldSha256": "48619d975c7197f00a27785917a31ba92353946fd2d9fdff26a8f9754f447d71",
+        "newSha256": "4c4250b09001cdc7f9ab4d0dbbd445e5b96cafc77f03a49fcbfdfd2402074832",
+        "archivePdfUnchanged": true,
+        "capturedAnswersUnchanged": true,
+        "customerAndAdminCurrentDownloadsMatch": true,
+        "oldCustomerNotificationOpensCurrent": true
+      },
+      {
+        "document": "kyc-corporate",
+        "oldSha256": "1ce35e40da50543468240fbac4b0b7b4f46eaa805993cd884287da93d086eb3f",
+        "newSha256": "068010e38319daedb15c7e29cda99283deb0ae3b6123f9fdb286a5ee46ecaf02",
+        "archivePdfUnchanged": true,
+        "capturedAnswersUnchanged": true,
+        "customerAndAdminCurrentDownloadsMatch": true,
+        "oldCustomerNotificationOpensCurrent": true
+      }
+    ],
+    "limits": [
+      "Initial filled submissions use the production API through the fixture, not the editor submit button.",
+      "Replacement uploads use the customer UI.",
+      "Historical review notifications are seeded only in the synthetic fixture because direct receipts do not create notifications.",
+      "This local fixture does not verify live hosting or production data.",
+      "Other browsers and filled-PDF layout are covered separately by the parent audit."
+    ],
+    "captured_answers": 228
+  },
+  "local_verification_passed": true
+}

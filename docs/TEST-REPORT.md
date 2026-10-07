@@ -1,10 +1,36 @@
-# Handover verification — 30 September 2026
+# Handover verification — 7 October 2026
 
-This delivery includes the full-cycle release tested on 29 September and the name-layout update checked on 30 September. The submit-only update keeps the client side simple. With review off, submitted cards and previews show **Received** plus signature status. Review decision labels and approval/rejection notes are hidden; notifications say **Form update** without decision text. Already-issued correction/signature actions and their instructions remain usable. Management keeps the actual case status and history. The setting stays on its dedicated superadmin page, and both dashboard category columns use the same six-form order.
+## 7 October — KYC address footer
 
-This update changes frontend presentation only. Backend, database schema, PDF templates and field mappings match the preceding production release. The migration remains schema 8. Review is off by default.
+Only the current individual and corporate KYC PDF templates and matching Word sources are in scope. The owner supplied this footer and explicitly confirmed the spelling **Branch**:
 
-## Tests completed for this update
+```text
+Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor
+2505 - Al Zahra Dist
+Unit No 7940
+Jeddah 23425-2753
+Kingdom of Saudi Arabia
+```
+
+The supplied corporate PDF matches the original exactly. The individual PDF is a reprint of the same seven-page content. Neither supplied PDF contains annotations; no new content or field requirement was identified. Field definitions, options and PDF mappings remain unchanged. Existing submitted PDFs and their archived versions must retain their bytes.
+
+Scoped verification passed. The 11-page individual and 9-page corporate templates have identical body pixels, Word body XML and all 209 mapped destinations compared with the previous release. Only the footer address pixels changed. Both PDFs use cache version `20261007-itqan-address`.
+
+- All **238 unit tests** and the production build passed.
+- **31 generated PDFs / 311 pages** passed content, geometry, transparent blue answer ink and clipping checks: **818 text, 794 choice and 6 signature rectangle checks**. Five complete fills per KYC plus blank, partial, shared and option samples cover every mapped field and choice.
+- **60 page/direction comparisons** passed across Chrome, Firefox and WebKit, covering all 20 pages in Arabic/English browser directions.
+- **20 isolated workflow checks** passed. All **228 applicable captured answers** matched management records. Customer/admin downloads matched submitted hashes; desktop/mobile Arabic/English previews rendered every page. Customer upload replacements preserved prior answers and PDF hashes, and historical notifications opened the latest file.
+- All 20 blank pages and eight populated sample pages were visually inspected. No footer wrapping, clipping or overlap was found.
+
+The workflow checks use synthetic local clients and Chrome. Initial submissions use the production API code, replacements use the customer UI, and historical notification events are fixture data. The per-page preview checks also run Firefox/WebKit. These are scoped checks for the changed templates; the nine-form regression below was not rerun in October. Evidence: `verification/kyc-address-verification-2026-10-07.json` (under `docs/` in the repository).
+
+## 29–30 September — previous tested baseline
+
+The previous delivery included the full-cycle release tested on 29 September and the name-layout update checked on 30 September. The submit-only update keeps the client side simple. With review off, submitted cards and previews show **Received** plus signature status. Review decision labels and approval/rejection notes are hidden; notifications say **Form update** without decision text. Already-issued correction/signature actions and their instructions remain usable. Management keeps the actual case status and history. The setting stays on its dedicated superadmin page, and both dashboard category columns use the same six-form order.
+
+That September update changed frontend presentation only. Backend, database schema, PDF templates and field mappings matched the preceding production release. The migration remains schema 8. Review is off by default.
+
+## Tests completed for the September baseline
 
 | Check | Result |
 |---|---|
@@ -26,7 +52,7 @@ Arabic and English rendered PDF samples from every document were visually inspec
 
 Detailed assertions, coverage and source/build hashes: `verification/submit-only-cycle-verification-2026-09-29.json`. Tests use disposable local installations and synthetic clients. Real production submissions are not changed by these tests. Browser device checks use responsive viewports, not physical phones.
 
-## Release and fresh handover
+## September release and fresh handover
 
 Public deployment backs up replaced entry pages and preserves private storage. Hosted checks and the deployed asset fingerprints are recorded separately in `verification/submit-only-cycle-live-2026-09-29.json`. The deployment manifest records the source commit. Live checks are read-only apart from authenticated sessions; they do not change the workflow setting or submit test client documents.
 

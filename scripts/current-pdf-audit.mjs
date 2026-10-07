@@ -60,7 +60,7 @@ try{
  await page.route(base,route=>route.fulfill({contentType:'text/html',body:'<!doctype html><html><body>PDF audit</body></html>'}));
  await page.goto(base);await page.evaluate(async()=>{window.qa={...(await import('/src/pdf.js')),docs:(await import('/src/forms/index.js')).docs,names:await import('/src/person-names.js'),sub:await import('/src/subscription/model.js')};await document.fonts.ready;});
  const signature='data:image/png;base64,'+(await fs.readFile('tests/fixtures/signature.png')).toString('base64');
- await fs.writeFile(out+'/schema.json',JSON.stringify(docs.map(doc=>({...doc,signatureSlots:signatureSlots(doc)})),null,2));
+ await fs.writeFile(out+'/schema.json',JSON.stringify(docs.filter(doc=>!selected||selected.includes(doc.id)).map(doc=>({...doc,signatureSlots:signatureSlots(doc)})),null,2));
  for(const doc of docs.filter(d=>!selected||selected.includes(d.id))){
   const original=await page.evaluate(async id=>Array.from(await qa.original(qa.docs.find(d=>d.id===id))),doc.id);await fs.writeFile(out+'/'+doc.id+'-original.pdf',Buffer.from(original));
   const supplements=doc.fields.filter(field=>['choice','select','cards'].includes(field.type));
