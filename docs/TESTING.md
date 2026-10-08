@@ -108,7 +108,7 @@ Record the domain, date, browser, result and evidence for each row. Delete only 
 
 ## What a passing report means
 
-TEST-REPORT.md records the 7 October all-form address checks separately from the earlier KYC-only checks and September workflow evidence. A passing local run is not proof of destination-host permissions, email/SMS delivery (the app has no such provider), a real signature's authenticity or legal compliance. Keep that distinction in the developer sign-off.
+TEST-REPORT.md separates the 8 October KYC input/content checks, 7 October PDF/address checks and September workflow evidence. A passing local run is not proof of destination-host permissions, email/SMS delivery (the app has no such provider), a real signature's authenticity or legal compliance. Keep that distinction in the developer sign-off.
 
 ## Submission settings page
 

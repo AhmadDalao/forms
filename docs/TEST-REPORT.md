@@ -16,6 +16,7 @@ A fresh page-by-page comparison of both supplied PDFs found missing inline risk 
 | Placement / ink | 893 text, 885 checkbox and 6 signature placements; 899 answer/signature images, no detected collisions or out-of-page ink |
 | PDF previews | 42 page comparisons across Chrome, Firefox and WebKit passed |
 | Shared identity | Family ID survives profile normalization, reload, changes and clearing; subscription options and historical revisions remain unchanged |
+| Production smoke check | Published asset/template hashes match; management PDF preview works; review remains off; client/submission counts and an existing submitted PDF hash are unchanged |
 
 The checks use synthetic data. Literal text in percentage cells intentionally triggers the existing warning; it is not a valid allocation example. Tested longer text fits, but arbitrary-length answers still produce a fit error rather than silent clipping.
 

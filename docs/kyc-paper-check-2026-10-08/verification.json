@@ -606,6 +606,29 @@
     "Broader nine-form/review/permission audit results retain their original dates and are not claimed as repeated in this update."
   ],
   "production": {
-    "status": "pending publication"
+    "status": "published and verified",
+    "url": "https://forms.ahmaddalao.com/",
+    "source_commit": "10ff723535e6aadb5caed4082a15b262bc12f886",
+    "backup_directory": "/Users/ahmaddalao/Desktop/forms/tmp/deployment-backups/20261008T083631Z",
+    "completed": true,
+    "checks": [
+      "Review remains off; workflow revision and client/submission counts unchanged",
+      "subscription-individual: authenticated hosted template matches verified local PDF",
+      "subscription-company: authenticated hosted template matches verified local PDF",
+      "subscription-form: authenticated hosted template matches verified local PDF",
+      "kyc-individual: authenticated hosted template matches verified local PDF",
+      "kyc-corporate: authenticated hosted template matches verified local PDF",
+      "signature-form: authenticated hosted template matches verified local PDF",
+      "al-naeem-terms-consent: authenticated hosted template matches verified local PDF",
+      "fatca-crs-individual: authenticated hosted template matches verified local PDF",
+      "fatca-crs-corporate: authenticated hosted template matches verified local PDF",
+      "terms-and-conditions: authenticated hosted template matches verified local PDF",
+      "Existing submitted PDF bytes unchanged",
+      "New hosted browser assets match the tested build",
+      "Live catalogue advertises both original seven-page KYC templates with the existing cache version",
+      "Live management profile and stored PDF preview open successfully"
+    ],
+    "browser_errors": [],
+    "private_storage_preserved": true
   }
 }
