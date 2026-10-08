@@ -1,0 +1,1028 @@
+{
+  "date": "2026-10-08",
+  "purpose": "Documentation reference and unchanged-PDF integrity check only; not a functional test report.",
+  "sourceModule": "src/forms/index.js",
+  "pdfIntegrity": [
+    {
+      "documentId": "kyc-individual",
+      "role": "supplied_source",
+      "path": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+      "baselineSha256": "79beab46fbc249f91d8d6945b5ac84b950bbd32f7e26eb82577b1c581f1f483e",
+      "currentSha256": "79beab46fbc249f91d8d6945b5ac84b950bbd32f7e26eb82577b1c581f1f483e",
+      "unchanged": true
+    },
+    {
+      "documentId": "kyc-individual",
+      "role": "active_public_template",
+      "path": "public/pdfs/kyc-individual.pdf",
+      "baselineSha256": "2b3c814935ce6671c503e8887e0d496d60e81de37d3204a7fcad6ef33fefb3c9",
+      "currentSha256": "2b3c814935ce6671c503e8887e0d496d60e81de37d3204a7fcad6ef33fefb3c9",
+      "unchanged": true
+    },
+    {
+      "documentId": "kyc-corporate",
+      "role": "supplied_source",
+      "path": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+      "baselineSha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+      "currentSha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+      "unchanged": true
+    },
+    {
+      "documentId": "kyc-corporate",
+      "role": "active_public_template",
+      "path": "public/pdfs/kyc-corporate.pdf",
+      "baselineSha256": "47e887db96ffc9105984380fb3008efd5f99fa7251a318c2ab6031021240844b",
+      "currentSha256": "47e887db96ffc9105984380fb3008efd5f99fa7251a318c2ab6031021240844b",
+      "unchanged": true
+    }
+  ],
+  "linkedFieldIds": [
+    {
+      "documentId": "kyc-individual",
+      "currentFieldCount": 120,
+      "baselineFieldCount": 120,
+      "paperChecklistRows": 129,
+      "reverseChecklistRows": 115,
+      "linkedIdCount": 126,
+      "unresolvedIds": [],
+      "resolvedIds": [
+        {
+          "fieldId": "account_type",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "address_city",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "address_district",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "annual_income",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "bank",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "bank_beneficiary",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "bank_country",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "bank_currency",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "beneficial_owner",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "beneficiary_identity",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "branch",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "building",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "certificates",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "city",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "country",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "currencies",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_alternative",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_debt",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_deposits",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_derivatives",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_equity",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_funds",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_property",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "custodian_account",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "custodian_address",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "custodian_name",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "dependents",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "desired_funds",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "dob",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "education",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "email",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "employer",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "employer_address",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "employer_phone",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "experience",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "financial_experience",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "financial_work",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "gender",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "horizon",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "iban",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "id_expiry",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "id_number",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "id_other",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "id_type",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_alternative",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_debt",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_deposits",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_derivatives",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_equity",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_funds",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_property",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "income_sources",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "instructions_certificates",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "instructions_dividends",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "instructions_proceeds",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "issue_place",
+          "status": "intentional_retired_field",
+          "reason": "explicit user removal"
+        },
+        {
+          "fieldId": "job",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "language",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "listed_association",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "listed_company",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "loan_ratio",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "margin_transactions",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "marital",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "mobile",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "name_1",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "name_2",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "name_first",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "name_last",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "name_second",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "name_third",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "nationality",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "net_worth",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "objectives",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "objectives_other",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "other_currency",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "other_finance",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "other_finance_2",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "overseas_countries",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "overseas_transactions",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "phone",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "postal",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "postal_additional",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "previous_products",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "public_role",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "related_public_role",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "rep_email",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "rep_expiry",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "rep_fax",
+          "status": "intentional_retired_field",
+          "reason": "replaced with UI-only rep_email; no printing under Fax"
+        },
+        {
+          "fieldId": "rep_id",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "rep_issue",
+          "status": "intentional_retired_field",
+          "reason": "explicit user removal"
+        },
+        {
+          "fieldId": "rep_phone",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "rep_place",
+          "status": "intentional_retired_field",
+          "reason": "explicit user removal"
+        },
+        {
+          "fieldId": "rep_type",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "representative_name",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "representative_name_first",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "representative_name_last",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "representative_name_second",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "representative_name_third",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "restrictions",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_age",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_appetite",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_capital",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_client_name",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_client_name_first",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_client_name_last",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_client_name_second",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_client_name_third",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_duration",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_experience",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_reaction",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_total",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "sector",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "sector_other",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "send_certificates",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "send_dividends",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "send_proceeds",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "signature:client",
+          "status": "current_signature_slot"
+        },
+        {
+          "fieldId": "signature:representative",
+          "status": "current_signature_slot"
+        },
+        {
+          "fieldId": "special_case",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "statement_delivery",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "statement_frequency",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "street",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "title",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "title_other",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "years_employed",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "years_investing",
+          "status": "current_field"
+        }
+      ],
+      "retiredIds": {
+        "issue_place": "explicit user removal",
+        "rep_issue": "explicit user removal",
+        "rep_place": "explicit user removal",
+        "rep_fax": "replaced with UI-only rep_email; no printing under Fax"
+      }
+    },
+    {
+      "documentId": "kyc-corporate",
+      "currentFieldCount": 108,
+      "baselineFieldCount": 108,
+      "paperChecklistRows": 115,
+      "reverseChecklistRows": 108,
+      "linkedIdCount": 111,
+      "unresolvedIds": [],
+      "resolvedIds": [
+        {
+          "fieldId": "account_type",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "additional",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "address",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_additional",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_address",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_city",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_district",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_email",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_expiry",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_id",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_id_type",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_issue_date",
+          "status": "intentional_retired_field",
+          "reason": "explicit user removal"
+        },
+        {
+          "fieldId": "auth_issue_place",
+          "status": "intentional_retired_field",
+          "reason": "explicit user removal"
+        },
+        {
+          "fieldId": "auth_mobile",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_name",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_name_first",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_name_last",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_name_second",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_name_third",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_nationality",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_phone",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_pob",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_postal",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_relationship",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "auth_unit",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "bank",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "bank_account",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "bank_country",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "bank_currency",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "bank_owner",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "branch",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "building",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "business",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "business_phone",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "capital",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "city",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "company",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "contact_address",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "contact_name",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "contact_name_first",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "contact_name_last",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "contact_name_second",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "contact_name_third",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "cr",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "currencies",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_alternative",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_debt",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_deposits",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_derivatives",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_equity",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_funds",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "current_property",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "custodian_account",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "custodian_address",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "custodian_name",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "desired_funds",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "directors",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "district",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "email",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "employees",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "experience",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "expiry",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "financial_info",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "horizon",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_alternative",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_debt",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_deposits",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_derivatives",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_equity",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_funds",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "ideal_property",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "inc_country",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "incorporation",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "instructions_certificates",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "instructions_dividends",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "instructions_proceeds",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "legal_entity",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "listed",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "loan_ratio",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "margin_transactions",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "mobile",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "objectives",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "objectives_other",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "other_currency",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "overseas_countries",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "overseas_transactions",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "owners",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "phone",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "postal",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "previous_products",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "registration_country",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "restrictions",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_age",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_appetite",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_capital",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_client_name",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_duration",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_experience",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_reaction",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "risk_total",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "send_certificates",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "send_dividends",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "send_proceeds",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "signature:client",
+          "status": "current_signature_slot"
+        },
+        {
+          "fieldId": "statement_delivery",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "statement_frequency",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "street",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "turnover",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "unified",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "website",
+          "status": "current_field"
+        },
+        {
+          "fieldId": "years_investing",
+          "status": "current_field"
+        }
+      ],
+      "retiredIds": {
+        "auth_issue_place": "explicit user removal",
+        "auth_issue_date": "explicit user removal"
+      }
+    }
+  ],
+  "unresolvedReferenceCount": 0
+}

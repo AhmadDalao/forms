@@ -1,0 +1,519 @@
+{
+  "date": "2026-10-08",
+  "status": "source_corrections_recorded_not_release_test_results",
+  "scope": "Root implementation following supplied-paper audits. Supplied seven-page layouts and current national-address footers retained.",
+  "corrections": [
+    {
+      "id": "portfolio_cap_and_units",
+      "status": "corrected",
+      "description": "Removed maxLength:6 from all 28 ideal/current portfolio percentage fields; restored explicit (%) / (٪) column context. Numeric percentage meaning and printed 100% guidance remain."
+    },
+    {
+      "id": "authored_family_identity_options",
+      "status": "corrected",
+      "description": "All authored KYC identity choices render, including Family Registration/Family ID. Existing shared-profile/subscription schema continues to represent family through Other plus the exact Family ID detail; KYC-specific conversion retains that representation without broadening subscription options."
+    },
+    {
+      "id": "risk_static_copy",
+      "status": "corrected",
+      "description": "Three source risk-guidance paragraphs restored near risk_total; Despite recommendation Itqan Capital / بالرغم من توصية إتقان كابيتال restored for desired_funds. No new question or automatic investment recommendation."
+    },
+    {
+      "id": "source_wording",
+      "status": "corrected",
+      "description": "Corporate income option restored to Realization of Income; individual retains its printed Realization Income. Both Balanced Arabic labels now متوازنة; both risk_capital Arabic questions start ماهي نسبة."
+    }
+  ],
+  "currentComposedEvidence": [
+    {
+      "documentId": "kyc-individual",
+      "portfolio": [
+        {
+          "fieldId": "ideal_deposits",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_debt",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_equity",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_funds",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_property",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_derivatives",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_alternative",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_deposits",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_debt",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_equity",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_funds",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_property",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_derivatives",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_alternative",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        }
+      ],
+      "identity": {
+        "fieldId": "id_type",
+        "authoredOptions": [
+          {
+            "value": "national",
+            "label": "National ID",
+            "ar": "أحوال مدنية"
+          },
+          {
+            "value": "passport",
+            "label": "Passport",
+            "ar": "جواز سفر"
+          },
+          {
+            "value": "residence",
+            "label": "ResidenceID",
+            "ar": "هوية مقيم"
+          },
+          {
+            "value": "family",
+            "label": "Family Registration",
+            "ar": "بطاقة عائلة"
+          },
+          {
+            "value": "other",
+            "label": "Other",
+            "ar": "أخرى"
+          }
+        ],
+        "rendererDisposition": "All authored options rendered, including family."
+      },
+      "riskScore": {
+        "fieldId": "risk_total",
+        "sourceStaticParagraphs": [
+          [
+            "No. Of Points between (1) and (6): Low to medium risks (recommends client to invest in the funds/ portfolio of Low risks)",
+            "عدد النقاط من (1) إلى (6): مخاطر منخفضة (ننصح العميل بالاستثمار في منتجات منخفضة المخاطر)"
+          ],
+          [
+            "No. Of Points between (7) and (15): medium to high risks (recommends client to invest in the funds/ portfolio medium risks)",
+            "عدد النقاط من (7) إلى (15): مخاطر متوسطة إلى مرتفعة (ننصح العميل بالاستثمار في منتجات متوسطة المخاطر)"
+          ],
+          [
+            "No. Of Points more than (15): high risks (recommends client to invest in the funds/ portfolio high risks)",
+            "عدد النقاط أكثر من (15): مخاطر مرتفعة (ننصح العميل بالاستثمار في منتجات عالية المخاطر)"
+          ]
+        ]
+      },
+      "desiredFunds": {
+        "fieldId": "desired_funds",
+        "context": [
+          "the client desires to invest in:",
+          "يرغب العميل الاستثمار في"
+        ],
+        "help": "Despite recommendation Itqan Capital",
+        "arHelp": "بالرغم من توصية إتقان كابيتال"
+      },
+      "copy": {
+        "incomeOption": "Realization Income",
+        "balancedArabic": "متوازنة",
+        "riskCapitalArabic": "5. ماهي نسبة رأس المال التي سوف تستعملها لهذا الاستثمار (من إجمالي رأس المال باستثناء العقارات والاستثمارات غير النقدية) ؟"
+      }
+    },
+    {
+      "documentId": "kyc-corporate",
+      "portfolio": [
+        {
+          "fieldId": "ideal_deposits",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_debt",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_equity",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_funds",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_property",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_derivatives",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "ideal_alternative",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "ideal",
+          "context": [
+            "Ideal Client Portfolio (%)",
+            "المحفظة المثالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_deposits",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_debt",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_equity",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_funds",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_property",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_derivatives",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        },
+        {
+          "fieldId": "current_alternative",
+          "maxLength": null,
+          "numeric": true,
+          "percentageColumn": "current",
+          "context": [
+            "Current Client Portfolio (%)",
+            "المحفظة الحالية للعميل (٪)"
+          ]
+        }
+      ],
+      "identity": {
+        "fieldId": "auth_id_type",
+        "authoredOptions": [
+          {
+            "value": "family",
+            "label": "Family ID",
+            "ar": "هوية عائلية"
+          },
+          {
+            "value": "national",
+            "label": "National ID",
+            "ar": "هوية وطنية"
+          },
+          {
+            "value": "passport",
+            "label": "Passport",
+            "ar": "جواز سفر"
+          },
+          {
+            "value": "residence",
+            "label": "Residence",
+            "ar": "إقامة"
+          }
+        ],
+        "rendererDisposition": "All authored options rendered, including family."
+      },
+      "riskScore": {
+        "fieldId": "risk_total",
+        "sourceStaticParagraphs": [
+          [
+            "No. Of Points between (1) and (6): Low to medium risks (recommends client to invest in the funds/ portfolio of Low risks)",
+            "عدد النقاط من (1) إلى (6): مخاطر منخفضة (ننصح العميل بالاستثمار في منتجات منخفضة المخاطر)"
+          ],
+          [
+            "No. Of Points between (7) and (15): medium to high risks (recommends client to invest in the funds/ portfolio medium risks)",
+            "عدد النقاط من (7) إلى (15): مخاطر متوسطة إلى مرتفعة (ننصح العميل بالاستثمار في منتجات متوسطة المخاطر)"
+          ],
+          [
+            "No. Of Points more than (15): high risks (recommends client to invest in the funds/ portfolio high risks)",
+            "عدد النقاط أكثر من (15): مخاطر مرتفعة (ننصح العميل بالاستثمار في منتجات عالية المخاطر)"
+          ]
+        ]
+      },
+      "desiredFunds": {
+        "fieldId": "desired_funds",
+        "context": [
+          "the client desires to invest in:",
+          "يرغب العميل الاستثمار في"
+        ],
+        "help": "Despite recommendation Itqan Capital",
+        "arHelp": "بالرغم من توصية إتقان كابيتال"
+      },
+      "copy": {
+        "incomeOption": "Realization of Income",
+        "balancedArabic": "متوازنة",
+        "riskCapitalArabic": "5. ماهي نسبة رأس المال التي سوف تستعملها لهذا الاستثمار (من إجمالي رأس المال باستثناء العقارات والاستثمارات غير النقدية) ؟"
+      }
+    }
+  ],
+  "pdfIntegrity": [
+    {
+      "documentId": "kyc-individual",
+      "role": "supplied_source",
+      "path": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+      "baselineSha256": "79beab46fbc249f91d8d6945b5ac84b950bbd32f7e26eb82577b1c581f1f483e",
+      "currentSha256": "79beab46fbc249f91d8d6945b5ac84b950bbd32f7e26eb82577b1c581f1f483e",
+      "unchanged": true
+    },
+    {
+      "documentId": "kyc-individual",
+      "role": "active_public_template",
+      "path": "public/pdfs/kyc-individual.pdf",
+      "baselineSha256": "2b3c814935ce6671c503e8887e0d496d60e81de37d3204a7fcad6ef33fefb3c9",
+      "currentSha256": "2b3c814935ce6671c503e8887e0d496d60e81de37d3204a7fcad6ef33fefb3c9",
+      "unchanged": true
+    },
+    {
+      "documentId": "kyc-corporate",
+      "role": "supplied_source",
+      "path": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+      "baselineSha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+      "currentSha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+      "unchanged": true
+    },
+    {
+      "documentId": "kyc-corporate",
+      "role": "active_public_template",
+      "path": "public/pdfs/kyc-corporate.pdf",
+      "baselineSha256": "47e887db96ffc9105984380fb3008efd5f99fa7251a318c2ab6031021240844b",
+      "currentSha256": "47e887db96ffc9105984380fb3008efd5f99fa7251a318c2ab6031021240844b",
+      "unchanged": true
+    }
+  ],
+  "preservedExceptions": [
+    {
+      "documentId": "kyc-individual",
+      "retiredFieldIds": [
+        "issue_place",
+        "rep_issue",
+        "rep_place"
+      ],
+      "uiOnlyReplacement": {
+        "old": "rep_fax",
+        "current": "rep_email",
+        "rule": "Saved in application details; never printed below source Fax label."
+      }
+    },
+    {
+      "documentId": "kyc-corporate",
+      "retiredFieldIds": [
+        "auth_issue_place",
+        "auth_issue_date"
+      ]
+    },
+    {
+      "documentIds": [
+        "kyc-individual",
+        "kyc-corporate"
+      ],
+      "rule": "Four-part names remain joined into printed name spaces; individual city/district remains a joined printed row."
+    },
+    {
+      "documentIds": [
+        "kyc-individual",
+        "kyc-corporate"
+      ],
+      "page": 6,
+      "rule": "RM/CSR and Internal Use fields remain staff/manual paper areas, not customer questions."
+    },
+    {
+      "documentId": "kyc-individual",
+      "fieldId": "rep_type",
+      "rule": "Prior requested representative identity dropdown retained; unrestricted printed blank does not authorize invented new controls."
+    }
+  ],
+  "excludedFromPackage": [
+    "Customer submissions and values",
+    "Render PNGs and machine-specific image paths",
+    "Application test or deployment results"
+  ]
+}

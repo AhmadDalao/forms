@@ -111,6 +111,10 @@ copy(ROOT / 'docs/kyc-address-verification-2026-10-07.json', package / 'verifica
 copy(ROOT / 'docs/all-forms-address-verification-2026-10-07.json', package / 'verification/all-forms-address-verification-2026-10-07.json')
 copy(ROOT / 'docs/pdf-overlap-verification-2026-10-07.json', package / 'verification/pdf-overlap-verification-2026-10-07.json')
 copy(ROOT / 'docs/kyc-original-restoration-2026-10-07.json', package / 'verification/kyc-original-restoration-2026-10-07.json')
+copy(ROOT / 'scripts/kyc-input-audit.mjs', package / 'source/scripts/kyc-input-audit.mjs')
+for file in (ROOT / 'docs/kyc-paper-check-2026-10-08').rglob('*'):
+    if file.is_file():
+        copy(file, package / 'verification/kyc-paper-check-2026-10-08' / file.relative_to(ROOT / 'docs/kyc-paper-check-2026-10-08'))
 for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verification.json',
              'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
              'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',

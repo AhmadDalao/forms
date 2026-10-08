@@ -1,6 +1,29 @@
-# Handover verification — 7 October 2026
+# Handover verification — 8 October 2026
 
-## Current release — supplied original KYC PDFs restored
+## Current release — KYC input limits and source-copy corrections
+
+The screenshot exposed a six-character input cap that the earlier sample fills had not exercised. That cap is removed from all 28 KYC portfolio cells. Each column now explicitly says percentage; the existing 0–100 and total-100% warnings remain. The supplied seven-page templates, footer, field destinations and historical submissions are unchanged.
+
+A fresh page-by-page comparison of both supplied PDFs found missing inline risk guidance, a hidden Family ID option and a few copy differences. Those are corrected. No other missing customer questions were found. Staff-only page 6, the previously removed issue fields, and the online-only representative email remain documented exceptions.
+
+| Fresh check | Result |
+|---|---|
+| Full unit suite / production build | 259 tests passed, zero failures/skips; build passed |
+| Longer inputs | 28 cells × 3 values = 84 entry/draft/reload checks, plus actual keystrokes beyond six characters in both forms |
+| Frontend/backend round-trip | Both KYC forms submitted; customer and management answers exact; generated and downloaded PDF hashes match |
+| Risk section | All five questions, 19 choices, three score explanations and the fund-selection qualification checked in English/Arabic, desktop/mobile (8 views) |
+| PDF coverage | 31 PDFs / 217 pages, five complete fills per KYC plus blank/shared/partial and every-choice samples; all 205 mapped fields and 182 paper options covered |
+| Placement / ink | 893 text, 885 checkbox and 6 signature placements; 899 answer/signature images, no detected collisions or out-of-page ink |
+| PDF previews | 42 page comparisons across Chrome, Firefox and WebKit passed |
+| Shared identity | Family ID survives profile normalization, reload, changes and clearing; subscription options and historical revisions remain unchanged |
+
+The checks use synthetic data. Literal text in percentage cells intentionally triggers the existing warning; it is not a valid allocation example. Tested longer text fits, but arbitrary-length answers still produce a fit error rather than silent clipping.
+
+Evidence and the complete paper-to-UI checklists: `verification/kyc-paper-check-2026-10-08/`. The older results below remain dated baselines, not additional fresh test claims.
+
+## Previous verification — 7 October 2026
+
+### Supplied original KYC PDFs restored
 
 Both current KYC templates now use the supplied **seven-page Letter PDFs**, with only the approved national-address footer changed. Their cache version is `20261007-original-kyc`. The supplied source copies are preserved under `reference/pdfs/supplied-20261007/`. Both document bodies retain their original wording, order and geometry; per-renderer antialiasing differences are recorded in the preservation evidence.
 

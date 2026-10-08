@@ -25,7 +25,7 @@ for(const doc of docs)for(const field of doc.fields){
  if(field.type==='choice'&&/(?:^|_)id_type$/.test(field.id))field.control='select';
  if(doc.id==='kyc-individual'&&field.id==='rep_type'){
   field.control='select';
-  field.dropdownOptions=doc.fields.find(f=>f.id==='id_type').options.filter(o=>o.value!=='family').map(o=>({value:o.ar+' / '+o.label,label:o.label,ar:o.ar}));
+  field.dropdownOptions=doc.fields.find(f=>f.id==='id_type').options.map(o=>({value:o.ar+' / '+o.label,label:o.label,ar:o.ar}));
  }
 }
 applyCustomerWorkflow(docs);

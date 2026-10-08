@@ -10,6 +10,7 @@ const addressFields=()=>[
  field('city','City','المدينة'),field('postal','Postal code','الرمز البريدي'),field('additional','Additional number','الرقم الإضافي'),field('country','Country','الدولة'),
 ];
 const otherId=(id,dependsOn)=>({...field(id,'Specify other ID type','حدد نوع الهوية الأخرى'),dependsOn,when:['other']});
+const familyIdDetail='بطاقة عائلية / Family ID';
 export const sharedFieldVisible=(field,profile)=>!field.when||field.when.includes(profile?.[field.dependsOn]);
 function addressRoles(audience){return {label:'Address details',ar:'تفاصيل العناوين',fields:[{...field('address_primary_role','Primary address source','مصدر العنوان الرئيسي','select',[['mail','Mailing','المراسلة'],['residence','Residence','الإقامة'],['registered','Registered','المسجل'],['head','Head office','المقر الرئيسي']]),hidden:true,sync:true},...['mail','residence',...(audience==='corporate'?['registered','head']:[])].flatMap(role=>addressFields().map(f=>({...f,id:role+'_'+f.id,label:({mail:'Mailing',residence:'Residence',registered:'Registered',head:'Head office'})[role]+': '+f.label,ar:({mail:'المراسلة',residence:'الإقامة',registered:'المسجل',head:'المقر الرئيسي'})[role]+': '+f.ar}))),...(audience==='corporate'?[field('registered_address_text','Registered address (original text)','العنوان المسجل (النص الأصلي)'),field('mail_address_text','Mailing address (original text)','عنوان المراسلة (النص الأصلي)')]:[])]};}
 export function sharedGroups(audience){
@@ -42,7 +43,7 @@ export function cleanShared(audience,profile){
  if(audience==='corporate'&&!authKeys.some(key=>key in profile)&&profile.auth_name){const parts=splitPersonName(profile.auth_name);for(const part of ['first','second','third','last'])profile['auth_'+part]=parts[part];}
  if(audience==='corporate'&&authKeys.some(key=>key in profile))profile.auth_name=joinPersonName(authKeys.map(key=>profile[key]));
  for(const [type,detail] of [['id_type','id_other'],['auth_id_type','auth_id_other']])if(profile[type]==='family'){
-  profile[type]='other';profile[detail]='بطاقة عائلية / Family ID';
+  profile[type]='other';profile[detail]=familyIdDetail;
  }
  for(const lang of ['en','ar'])if(!(lang+'_second' in profile)&&profile[lang+'_middle'])profile[lang+'_second']=profile[lang+'_middle'];
  // Earlier language-neutral subscription drafts duplicated the English row
@@ -74,6 +75,14 @@ export function sharedRules(doc,values={},profile={},audience=doc.group){
  const rules={},p=profile,individual=audience==='individual';
  const bind=(id,key,config={})=>rules[id]={keys:[key],read:()=>p[key]??'',write:value=>({[key]:value}),...config};
  const same=ids=>ids.forEach(id=>bind(id,id));
+ // KYC still authors a Family ID option. The shared/subscription schema keeps
+ // its retired value under Other; translate only that exact legacy detail.
+ const kycIdentity=(type,detail,hasOther)=>{
+  const family=()=>p[type]==='other'&&p[detail]===familyIdDetail;
+  bind(type,type,{keys:[type,detail],read:()=>family()?'family':p[type]==='other'&&!hasOther?'':p[type]??'',
+   write:value=>value==='family'?{[type]:'other',[detail]:familyIdDetail}:{[type]:value,[detail]:value==='other'&&!family()?p[detail]??'':''}});
+  if(rules[detail])Object.assign(rules[detail],{keys:[type,detail],read:()=>family()?'':p[detail]??''});
+ };
  const preferred=p.name_language||(p.en_first?'en':p.ar_first?'ar':'en');
  const autoLanguage=parts=>{const value=joinPersonName(parts);return /\p{Script=Arabic}/u.test(value)?'ar':value?'en':preferred;};
  const full=language=>joinPersonName(['first','second','third','last'].map(part=>p[language+'_'+part]??(part==='second'?p[language+'_middle']:'')??''));
@@ -118,6 +127,7 @@ export function sharedRules(doc,values={},profile={},audience=doc.group){
  if(doc.id==='al-naeem-terms-consent'){if(individual)name('investor_name');else company('investor_name');}
  if(doc.id==='kyc-individual'){
   name('name');name('risk_client_name');same(['title','gender','dob','nationality','id_type','id_other','id_number','phone','mobile','email']);
+  kycIdentity('id_type','id_other',true);
   for(const key of ['building','street','postal','country'])address(key,key,'mail');
   address('postal_additional','additional','mail');address('address_city','city','mail');address('address_district','district','mail');
   composite('city',['mail_city','mail_district','city','district'],()=>joined(rules.address_city.read(),rules.address_district.read()));
@@ -136,7 +146,7 @@ export function sharedRules(doc,values={},profile={},audience=doc.group){
  }
  if(doc.id==='kyc-corporate'){
   company('company');company('risk_client_name');bind('cr','company_id_number');same(['inc_country','phone','mobile','email','auth_id_type','auth_id']);
-  rules.auth_id_type.read=()=>p.auth_id_type==='other'?'':p.auth_id_type||'';
+  kycIdentity('auth_id_type','auth_id_other',false);
   for(const key of ['building','street','district','city','postal','additional'])address(key,key,'registered');
   bind('business_phone','phone');name('auth_name','auth');
   composite('address',addressKeys.flatMap(key=>['registered_'+key,key]),()=>p.registered_address_text??joined(...addressKeys.filter(k=>k!=='short_address').map(k=>p['registered_'+k]??p[k])));

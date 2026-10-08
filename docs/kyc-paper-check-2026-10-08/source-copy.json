@@ -1,0 +1,75 @@
+{
+  "source": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+  "page": 7,
+  "guidance": [
+    {
+      "en": [
+        "No. Of Points between (1) and (6): Low to medium risks",
+        "(recommends client to invest in the funds/ portfolio of Low risks)"
+      ],
+      "ar": [
+        "عدد النقاط من (1) إلى (6): مخاطر منخفضة",
+        "(ننصح العميل بالاستثمار في منتجات منخفضة المخاطر)"
+      ]
+    },
+    {
+      "en": [
+        "No. Of Points between (7) and (15): medium to high risks",
+        "(recommends client to invest in the funds/ portfolio medium risks)"
+      ],
+      "ar": [
+        "عدد النقاط من (7) إلى (15): مخاطر متوسطة إلى مرتفعة",
+        "(ننصح العميل بالاستثمار في منتجات متوسطة المخاطر)"
+      ]
+    },
+    {
+      "en": [
+        "No. Of Points more than (15): high risks",
+        "(recommends client to invest in the funds/ portfolio high risks)"
+      ],
+      "ar": [
+        "عدد النقاط أكثر من (15): مخاطر مرتفعة",
+        "(ننصح العميل بالاستثمار في منتجات عالية المخاطر)"
+      ]
+    }
+  ],
+  "desiredFunds": {
+    "alreadyInEditorContext": {
+      "en": "the client desires to invest in:",
+      "ar": "يرغب العميل الاستثمار في"
+    },
+    "alreadyInEditorLabel": {
+      "en": "(funds / portfolios of:",
+      "ar": "(صناديق / محافظ:"
+    },
+    "missingInEditorTail": {
+      "en": "Despite recommendation Itqan Capital",
+      "ar": "بالرغم من توصية إتقان كابيتال"
+    }
+  },
+  "p4CrossDocumentDifferences": {
+    "income": {
+      "corporate": "Realization of Income",
+      "individual": "Realization Income"
+    },
+    "balancedArabic": {
+      "both": "متوازنة"
+    },
+    "buyingAsset": {
+      "corporate": {
+        "en": "Buying an asset",
+        "ar": "شراء أصل"
+      },
+      "individual": {
+        "en": "Buying an asset (for example: a real estate, or a vehicle)",
+        "ar": "شراء أصل (على سبيل المثال: عقار أو مركبة)"
+      }
+    },
+    "professionalCertificates": {
+      "individual": true,
+      "corporate": false
+    }
+  },
+  "phase": "source_transcription",
+  "note": "Exact source text transcribed during local visual review. No PNGs included. The keys alreadyInEditor/missingInEditor describe baseline disposition only; corrections.json records restored current copy."
+}

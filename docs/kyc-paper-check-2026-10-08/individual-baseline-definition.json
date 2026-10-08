@@ -1,0 +1,4101 @@
+{
+  "phase": "pre_fix_baseline",
+  "documentId": "kyc-individual",
+  "pages": 7,
+  "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+  "note": "Blank composed template metadata from the pre-fix audit snapshot; no submitted values. Geometry and authored labels preserved for comparison.",
+  "sections": [
+    {
+      "id": "identity",
+      "title": "Investor Information (Individuals)",
+      "ar": "معلومات المستثمر (أفراد)",
+      "page": 1,
+      "note": "",
+      "arNote": "",
+      "paperGroups": [
+        {
+          "title": "",
+          "ar": "",
+          "fields": [
+            "account_type",
+            "title",
+            "title_other",
+            "gender"
+          ],
+          "paired": false
+        },
+        {
+          "title": "",
+          "ar": "",
+          "fields": [
+            "name_first",
+            "name_second",
+            "name_third",
+            "name_last",
+            "dob"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Type Of ID",
+          "ar": "نوع الهوية",
+          "fields": [
+            "id_type",
+            "id_number",
+            "id_expiry",
+            "id_other",
+            "nationality"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Marital Status",
+          "ar": "الحالة الاجتماعية",
+          "fields": [
+            "marital",
+            "dependents"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Educational Level",
+          "ar": "المستوى التعليمي",
+          "fields": [
+            "education"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Correspondence Address",
+          "ar": "عنوان المراسلة",
+          "fields": [
+            "building",
+            "street",
+            "address_city",
+            "address_district",
+            "postal",
+            "postal_additional",
+            "email",
+            "language",
+            "country",
+            "phone",
+            "mobile"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Income Source",
+          "ar": "مصادر الدخل",
+          "fields": [
+            "income_sources"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Correspondence / Statement",
+          "ar": "الإشعارات وكشوف الحساب",
+          "fields": [
+            "statement_frequency",
+            "statement_delivery"
+          ],
+          "paired": false
+        }
+      ],
+      "fieldIds": [
+        "account_type",
+        "title",
+        "title_other",
+        "gender",
+        "name_1",
+        "name_first",
+        "name_second",
+        "name_third",
+        "name_last",
+        "name_2",
+        "dob",
+        "marital",
+        "dependents",
+        "id_type",
+        "id_number",
+        "id_expiry",
+        "id_other",
+        "nationality",
+        "education",
+        "building",
+        "street",
+        "city",
+        "address_city",
+        "address_district",
+        "email",
+        "country",
+        "phone",
+        "mobile",
+        "postal",
+        "postal_additional",
+        "language",
+        "income_sources",
+        "statement_frequency",
+        "statement_delivery"
+      ]
+    },
+    {
+      "id": "finances",
+      "title": "Employment & finances",
+      "ar": "العمل والبيانات المالية",
+      "page": 2,
+      "note": "",
+      "arNote": "",
+      "paperGroups": [
+        {
+          "title": "",
+          "ar": "",
+          "fields": [
+            "annual_income",
+            "net_worth"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Employment Related Information",
+          "ar": "معلومات عن جهة العمل",
+          "fields": [
+            "sector",
+            "sector_other",
+            "employer",
+            "employer_address",
+            "employer_phone",
+            "job",
+            "years_employed"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Client’s Banking Information",
+          "ar": "معلومات الحساب البنكي",
+          "fields": [
+            "bank",
+            "iban"
+          ],
+          "paired": true
+        },
+        {
+          "title": "",
+          "ar": "",
+          "fields": [
+            "branch",
+            "bank_country",
+            "bank_currency"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Client’s Professional Experiences in The Financial Sector",
+          "ar": "الخبرات العملية في القطاع المالي",
+          "fields": [
+            "financial_work",
+            "financial_experience"
+          ],
+          "paired": false
+        }
+      ],
+      "fieldIds": [
+        "annual_income",
+        "net_worth",
+        "sector",
+        "sector_other",
+        "employer",
+        "employer_address",
+        "employer_phone",
+        "job",
+        "years_employed",
+        "bank",
+        "iban",
+        "branch",
+        "bank_country",
+        "bank_currency",
+        "financial_work",
+        "financial_experience"
+      ]
+    },
+    {
+      "id": "disclosures",
+      "title": "Disclosures & special cases",
+      "ar": "الإفصاحات والحالات الخاصة",
+      "page": 3,
+      "note": "",
+      "arNote": "",
+      "paperGroups": [
+        {
+          "title": "General Information",
+          "ar": "معلومات عامة",
+          "fields": [
+            "listed_association",
+            "listed_company",
+            "public_role",
+            "related_public_role",
+            "beneficial_owner",
+            "beneficiary_identity",
+            "bank_beneficiary",
+            "other_finance",
+            "other_finance_2"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Information for special case",
+          "ar": "معلومات الحالات الخاصة",
+          "fields": [
+            "special_case",
+            "representative_name_first",
+            "representative_name_second",
+            "representative_name_third",
+            "representative_name_last",
+            "rep_type",
+            "rep_id",
+            "rep_expiry",
+            "rep_phone",
+            "rep_email"
+          ],
+          "paired": false
+        }
+      ],
+      "fieldIds": [
+        "listed_association",
+        "listed_company",
+        "public_role",
+        "related_public_role",
+        "beneficial_owner",
+        "beneficiary_identity",
+        "bank_beneficiary",
+        "other_finance",
+        "other_finance_2",
+        "special_case",
+        "representative_name",
+        "representative_name_first",
+        "representative_name_second",
+        "representative_name_third",
+        "representative_name_last",
+        "rep_type",
+        "rep_id",
+        "rep_expiry",
+        "rep_phone",
+        "rep_email"
+      ]
+    },
+    {
+      "id": "investment",
+      "title": "Investment Information Form",
+      "ar": "نموذج معلومات الاستثمار",
+      "page": 4,
+      "note": "",
+      "arNote": "",
+      "paperGroups": [
+        {
+          "title": "Investment Knowledge and Experience",
+          "ar": "المعرفة والخبرات الاستثمارية",
+          "fields": [
+            "experience",
+            "years_investing",
+            "previous_products",
+            "certificates",
+            "loan_ratio",
+            "margin_transactions",
+            "overseas_transactions",
+            "overseas_countries",
+            "risk_appetite"
+          ],
+          "paired": false
+        },
+        {
+          "title": "General Investment objectives",
+          "ar": "الأهداف الاستثمارية العامة",
+          "fields": [
+            "objectives",
+            "objectives_other"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Investment restrictions",
+          "ar": "القيود الاستثمارية",
+          "fields": [
+            "restrictions"
+          ],
+          "paired": false
+        }
+      ],
+      "fieldIds": [
+        "experience",
+        "years_investing",
+        "previous_products",
+        "certificates",
+        "loan_ratio",
+        "margin_transactions",
+        "overseas_transactions",
+        "overseas_countries",
+        "risk_appetite",
+        "objectives",
+        "objectives_other",
+        "restrictions"
+      ]
+    },
+    {
+      "id": "portfolio",
+      "title": "Portfolio & preferences",
+      "ar": "المحفظة والتفضيلات",
+      "page": 5,
+      "note": "If you enter portfolio percentages, each completed column should total 100%.",
+      "arNote": "إذا أدخلت نسب المحفظة، يجب أن يكون مجموع كل عمود مكتمل ١٠٠٪.",
+      "paperGroups": [
+        {
+          "title": "Preferred Investment Currency",
+          "ar": "ما الأصول الاستثمارية المفضلة للعميل؟",
+          "fields": [
+            "currencies",
+            "other_currency"
+          ],
+          "paired": false
+        },
+        {
+          "title": "",
+          "ar": "",
+          "fields": [
+            "horizon"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Client’s portfolio information",
+          "ar": "معلومات عن المحافظ الاستثمارية للعميل",
+          "fields": [
+            "ideal_deposits",
+            "current_deposits",
+            "ideal_debt",
+            "current_debt",
+            "ideal_equity",
+            "current_equity",
+            "ideal_funds",
+            "current_funds",
+            "ideal_property",
+            "current_property",
+            "ideal_derivatives",
+            "current_derivatives",
+            "ideal_alternative",
+            "current_alternative"
+          ],
+          "paired": true
+        },
+        {
+          "title": "Custodian information",
+          "ar": "معلومات أمين الحفظ",
+          "fields": [
+            "custodian_account",
+            "custodian_name",
+            "custodian_address"
+          ],
+          "paired": false
+        },
+        {
+          "title": "Where would you like to send the following:",
+          "ar": "أين ترغب بإرسال الآتي:",
+          "fields": [
+            "send_certificates",
+            "instructions_certificates",
+            "send_dividends",
+            "instructions_dividends",
+            "send_proceeds",
+            "instructions_proceeds"
+          ],
+          "paired": false
+        }
+      ],
+      "fieldIds": [
+        "currencies",
+        "other_currency",
+        "horizon",
+        "ideal_deposits",
+        "ideal_debt",
+        "ideal_equity",
+        "ideal_funds",
+        "ideal_property",
+        "ideal_derivatives",
+        "ideal_alternative",
+        "current_deposits",
+        "current_debt",
+        "current_equity",
+        "current_funds",
+        "current_property",
+        "current_derivatives",
+        "current_alternative",
+        "custodian_account",
+        "custodian_name",
+        "custodian_address",
+        "send_certificates",
+        "instructions_certificates",
+        "send_dividends",
+        "instructions_dividends",
+        "send_proceeds",
+        "instructions_proceeds"
+      ]
+    },
+    {
+      "id": "suitability",
+      "title": "Risk Assessment Suitability",
+      "ar": "استبيان تقييم المخاطر / الملائمة",
+      "page": 7,
+      "note": "Select your own answers. The total uses only the points printed on the form.",
+      "arNote": "اختر إجاباتك بنفسك. يُحسب المجموع من النقاط المطبوعة في النموذج فقط.",
+      "fieldIds": [
+        "risk_experience",
+        "risk_age",
+        "risk_reaction",
+        "risk_duration",
+        "risk_capital",
+        "risk_total",
+        "desired_funds",
+        "risk_client_name",
+        "risk_client_name_first",
+        "risk_client_name_second",
+        "risk_client_name_third",
+        "risk_client_name_last"
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "id": "account_type",
+      "label": "Investor Information (Individuals)",
+      "ar": "معلومات المستثمر (أفراد)",
+      "type": "choice",
+      "page": 1,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "new",
+          "label": "New Account",
+          "ar": "حساب جديد",
+          "rect": [
+            537.1,
+            97,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "additional",
+          "label": "Additional account",
+          "ar": "حساب إضافي",
+          "rect": [
+            396.1,
+            96.8,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "update",
+          "label": "Update Information",
+          "ar": "تحديث بيانات",
+          "rect": [
+            214,
+            96.8,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        }
+      ],
+      "wide": true
+    },
+    {
+      "id": "title",
+      "label": "Title",
+      "ar": "لقب المستثمر",
+      "type": "choice",
+      "page": 1,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "mr",
+          "label": "Mr.",
+          "ar": "السيد",
+          "rect": [
+            335.8,
+            139.7,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "mrs",
+          "label": "Mrs.",
+          "ar": "السيدة",
+          "rect": [
+            255.4,
+            138.7,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "miss",
+          "label": "Miss",
+          "ar": "الآنسة",
+          "rect": [
+            178.7,
+            138.2,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "dr",
+          "label": "Dr.",
+          "ar": "الدكتور",
+          "rect": [
+            105.7,
+            139,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "eng",
+          "label": "Eng.",
+          "ar": "المهندس",
+          "rect": [
+            335.6,
+            160.9,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "other",
+          "label": "Other",
+          "ar": "أخرى",
+          "rect": [
+            254.9,
+            162.6,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        }
+      ]
+    },
+    {
+      "id": "title_other",
+      "label": "Other",
+      "ar": "أخرى",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        195.8,
+        160,
+        20.5,
+        13
+      ],
+      "fontSize": 8
+    },
+    {
+      "id": "gender",
+      "label": "Gender",
+      "ar": "الجنس",
+      "type": "choice",
+      "page": 1,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "male",
+          "label": "Male",
+          "ar": "ذكر",
+          "rect": [
+            549.8,
+            138.8,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "female",
+          "label": "Female",
+          "ar": "أنثى",
+          "rect": [
+            453.4,
+            138.7,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        }
+      ]
+    },
+    {
+      "id": "name_1",
+      "label": "Name",
+      "ar": "الاسم الرباعي",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        55.3,
+        207.32,
+        138,
+        13.7
+      ],
+      "fontSize": 10,
+      "rtlRect": [
+        210,
+        207.32,
+        138,
+        13.7
+      ],
+      "rectDirectionFrom": [
+        "name_first",
+        "name_second",
+        "name_third",
+        "name_last",
+        "name_1",
+        "name_2"
+      ],
+      "context": [
+        "Box 1",
+        "الخانة 1"
+      ],
+      "join": [
+        "name_first",
+        "name_second"
+      ],
+      "personNameDerived": true,
+      "personNameGroup": "name",
+      "hidden": true
+    },
+    {
+      "id": "name_first",
+      "label": "First name",
+      "ar": "الاسم الأول",
+      "type": "text",
+      "page": 1,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "name",
+      "personNamePart": "first"
+    },
+    {
+      "id": "name_second",
+      "label": "Second name",
+      "ar": "الاسم الثاني",
+      "type": "text",
+      "page": 1,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "name",
+      "personNamePart": "second"
+    },
+    {
+      "id": "name_third",
+      "label": "Third name (optional)",
+      "ar": "الاسم الثالث (اختياري)",
+      "type": "text",
+      "page": 1,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "name",
+      "personNamePart": "third",
+      "optional": true
+    },
+    {
+      "id": "name_last",
+      "label": "Family name",
+      "ar": "اسم العائلة",
+      "type": "text",
+      "page": 1,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "name",
+      "personNamePart": "last"
+    },
+    {
+      "id": "name_2",
+      "label": "Name",
+      "ar": "الاسم الرباعي",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        210,
+        207.32,
+        138,
+        13.7
+      ],
+      "fontSize": 10,
+      "rtlRect": [
+        55.3,
+        207.32,
+        138,
+        13.7
+      ],
+      "rectDirectionFrom": [
+        "name_first",
+        "name_second",
+        "name_third",
+        "name_last",
+        "name_1",
+        "name_2"
+      ],
+      "context": [
+        "Box 2",
+        "الخانة 2"
+      ],
+      "join": [
+        "name_third",
+        "name_last"
+      ],
+      "personNameDerived": true,
+      "personNameGroup": "name",
+      "hidden": true
+    },
+    {
+      "id": "dob",
+      "label": "Date of Birth",
+      "ar": "تاريخ الميلاد",
+      "type": "date",
+      "page": 1,
+      "rect": [
+        383,
+        204,
+        176,
+        20
+      ],
+      "fontSize": 10,
+      "dateParts": [
+        [
+          379.35,
+          206.22,
+          48.75,
+          13.7
+        ],
+        [
+          445.5,
+          206.22,
+          48.75,
+          13.7
+        ],
+        [
+          510.75,
+          206.22,
+          48.75,
+          13.7
+        ]
+      ],
+      "dateOrder": "ymd",
+      "placeholderRects": [
+        [
+          392,
+          209,
+          23,
+          8
+        ],
+        [
+          455.5,
+          209,
+          29,
+          8
+        ],
+        [
+          522.5,
+          209,
+          26,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "marital",
+      "label": "Marital Status",
+      "ar": "الحالة الاجتماعية",
+      "type": "choice",
+      "page": 1,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "single",
+          "label": "Single",
+          "ar": "أعزب",
+          "rect": [
+            546.8,
+            246.5,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "married",
+          "label": "Married",
+          "ar": "متزوج",
+          "rect": [
+            458.8,
+            245.9,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        }
+      ]
+    },
+    {
+      "id": "dependents",
+      "label": "Number of Dependents",
+      "ar": "عدد أفراد الأسرة",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        548.25,
+        262.38,
+        8.5,
+        9.65
+      ],
+      "fontSize": 7,
+      "numeric": true,
+      "maxLength": 2,
+      "minFontSize": 6,
+      "padding": 0.4,
+      "align": "center"
+    },
+    {
+      "id": "id_type",
+      "label": "Type Of ID",
+      "ar": "نوع الهوية",
+      "type": "choice",
+      "page": 1,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "national",
+          "label": "National ID",
+          "ar": "أحوال مدنية",
+          "rect": [
+            337.9,
+            246.6,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "passport",
+          "label": "Passport",
+          "ar": "جواز سفر",
+          "rect": [
+            181.4,
+            245.8,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "residence",
+          "label": "ResidenceID",
+          "ar": "هوية مقيم",
+          "rect": [
+            338.1,
+            265.4,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "family",
+          "label": "Family Registration",
+          "ar": "بطاقة عائلة",
+          "rect": [
+            181,
+            264,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "other",
+          "label": "Other",
+          "ar": "أخرى",
+          "rect": [
+            338.1,
+            282.8,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        }
+      ],
+      "control": "select",
+      "identityRow": "id_type"
+    },
+    {
+      "id": "id_other",
+      "label": "Other",
+      "ar": "أخرى",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        262,
+        280,
+        34,
+        20
+      ],
+      "fontSize": 7,
+      "minFontSize": 5.5,
+      "padding": 0.5,
+      "multiline": true,
+      "rows": 2,
+      "wide": false
+    },
+    {
+      "id": "id_number",
+      "label": "ID Number",
+      "ar": "رقم الهوية",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        56.85,
+        302.18,
+        174.45,
+        13.7
+      ],
+      "fontSize": 10,
+      "identityRow": "id_type"
+    },
+    {
+      "id": "id_expiry",
+      "label": "Expiry Date",
+      "ar": "تاريخ الانتهاء",
+      "type": "date",
+      "page": 1,
+      "rect": [
+        63,
+        321,
+        178,
+        20
+      ],
+      "fontSize": 10,
+      "dateParts": [
+        [
+          57,
+          325.03,
+          48.75,
+          13.7
+        ],
+        [
+          118.85,
+          324.88,
+          48.75,
+          13.7
+        ],
+        [
+          182.1,
+          324.88,
+          48.75,
+          13.7
+        ]
+      ],
+      "dateOrder": "ymd",
+      "placeholderRects": [
+        [
+          70,
+          328,
+          23,
+          7
+        ],
+        [
+          129,
+          328,
+          29,
+          7
+        ],
+        [
+          196,
+          328,
+          21,
+          7
+        ]
+      ],
+      "identityRow": "id_type"
+    },
+    {
+      "id": "nationality",
+      "label": "Nationality",
+      "ar": "الجنسية",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        56.85,
+        368.02,
+        174.45,
+        13.7
+      ],
+      "fontSize": 10
+    },
+    {
+      "id": "education",
+      "label": "Educational Level",
+      "ar": "المستوى التعليمي",
+      "type": "choice",
+      "page": 1,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary",
+          "ar": "ابتدائي",
+          "rect": [
+            545.2,
+            323.1,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "intermediate",
+          "label": "Intermediate",
+          "ar": "متوسط",
+          "rect": [
+            545.2,
+            345.6,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "high",
+          "label": "High School",
+          "ar": "ثانوي",
+          "rect": [
+            545.2,
+            366.7,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "diploma",
+          "label": "Diploma",
+          "ar": "دبلوم",
+          "rect": [
+            545.2,
+            388.2,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "bachelor",
+          "label": "Bachelor",
+          "ar": "جامعي",
+          "rect": [
+            545.2,
+            406.5,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "postgraduate",
+          "label": "Postgraduate",
+          "ar": "دراسات عليا",
+          "rect": [
+            545.2,
+            427.5,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        }
+      ]
+    },
+    {
+      "id": "building",
+      "label": "Building",
+      "ar": "رقم المبنى",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        63.2,
+        407.77,
+        174.45,
+        13.7
+      ],
+      "fontSize": 10
+    },
+    {
+      "id": "street",
+      "label": "Street Name",
+      "ar": "اسم الشارع",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        63.3,
+        429.72,
+        174.45,
+        13.7
+      ],
+      "fontSize": 10
+    },
+    {
+      "id": "city",
+      "label": "City & District",
+      "ar": "المدينة والحي",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        64.3,
+        450.97,
+        174.45,
+        13.7
+      ],
+      "fontSize": 10,
+      "hidden": true,
+      "join": [
+        "address_city",
+        "address_district"
+      ]
+    },
+    {
+      "id": "address_city",
+      "label": "City",
+      "ar": "المدينة",
+      "type": "text",
+      "page": 1,
+      "rect": null,
+      "uiOnly": true
+    },
+    {
+      "id": "address_district",
+      "label": "District",
+      "ar": "الحي",
+      "type": "text",
+      "page": 1,
+      "rect": null,
+      "uiOnly": true
+    },
+    {
+      "id": "email",
+      "label": "Email",
+      "ar": "البريد الإلكتروني",
+      "type": "email",
+      "page": 1,
+      "rect": [
+        63.6,
+        494.82,
+        174.45,
+        13.7
+      ],
+      "fontSize": 10
+    },
+    {
+      "id": "country",
+      "label": "Country of residence",
+      "ar": "دولة الإقامة",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        62.15,
+        537.77,
+        174.45,
+        13.7
+      ],
+      "fontSize": 10
+    },
+    {
+      "id": "phone",
+      "label": "Phone",
+      "ar": "الهاتف",
+      "type": "tel",
+      "page": 1,
+      "rect": [
+        61.95,
+        560.57,
+        174.45,
+        13.7
+      ],
+      "fontSize": 10
+    },
+    {
+      "id": "mobile",
+      "label": "Mobile",
+      "ar": "الجوال",
+      "type": "tel",
+      "page": 1,
+      "rect": [
+        61.55,
+        583.22,
+        175.05,
+        13.7
+      ],
+      "fontSize": 10
+    },
+    {
+      "id": "postal",
+      "label": "Zip code",
+      "ar": "الرمز البريدي",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        64.85,
+        472.27,
+        76.15,
+        13.7
+      ],
+      "fontSize": 10,
+      "context": [
+        "Box 1",
+        "الخانة 1"
+      ]
+    },
+    {
+      "id": "postal_additional",
+      "label": "Zip code",
+      "ar": "الرمز البريدي",
+      "type": "text",
+      "page": 1,
+      "rect": [
+        155.95,
+        472.57,
+        82.25,
+        13.7
+      ],
+      "fontSize": 10,
+      "context": [
+        "Box 2",
+        "الخانة 2"
+      ]
+    },
+    {
+      "id": "language",
+      "label": "Language of Correspondence",
+      "ar": "لغة المراسلة",
+      "type": "choice",
+      "page": 1,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "en",
+          "label": "English",
+          "ar": "",
+          "rect": [
+            152.2,
+            516,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "ar",
+          "label": "",
+          "ar": "عربي",
+          "rect": [
+            200.3,
+            516.2,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        }
+      ]
+    },
+    {
+      "id": "income_sources",
+      "label": "Income Source",
+      "ar": "مصادر الدخل",
+      "type": "choice",
+      "page": 1,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "employment",
+          "label": "employment",
+          "ar": "وظيفة",
+          "rect": [
+            543.3,
+            470.6,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "business",
+          "label": "Business",
+          "ar": "تجارة",
+          "rect": [
+            543.3,
+            492.6,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "property",
+          "label": "Real Estate",
+          "ar": "عقارات",
+          "rect": [
+            543.3,
+            514.6,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "inheritance",
+          "label": "Inheritance",
+          "ar": "إرث",
+          "rect": [
+            543.3,
+            535.6,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "stock",
+          "label": "Stock",
+          "ar": "أسهم",
+          "rect": [
+            543.3,
+            558,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "other",
+          "label": "Other",
+          "ar": "أخرى",
+          "rect": [
+            543.3,
+            580.1,
+            11.5,
+            13.6
+          ],
+          "extraRects": []
+        }
+      ],
+      "multiple": true
+    },
+    {
+      "id": "statement_frequency",
+      "label": "Correspondence / Statement",
+      "ar": "الإشعارات وكشوف الحساب",
+      "type": "choice",
+      "page": 1,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "request",
+          "label": "Upon Request",
+          "ar": "عند الطلب",
+          "rect": [
+            123.6,
+            625.8,
+            10,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "monthly",
+          "label": "Monthly",
+          "ar": "شهري",
+          "rect": [
+            241.4,
+            625.8,
+            10,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "daily",
+          "label": "Daily",
+          "ar": "يومي",
+          "rect": [
+            332.8,
+            625.8,
+            10.2,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "transaction",
+          "label": "Per Transaction",
+          "ar": "عند كل عملية",
+          "rect": [
+            483.4,
+            625.8,
+            10.2,
+            13.6
+          ],
+          "extraRects": []
+        }
+      ],
+      "wide": true
+    },
+    {
+      "id": "statement_delivery",
+      "label": "Correspondence / Statement",
+      "ar": "الإشعارات وكشوف الحساب",
+      "type": "choice",
+      "page": 1,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "fax",
+          "label": "Fax",
+          "ar": "فاكس",
+          "rect": [
+            123.6,
+            648,
+            10,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "mail",
+          "label": "Mail",
+          "ar": "بريد",
+          "rect": [
+            241.4,
+            648,
+            10,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "sms",
+          "label": "SMS",
+          "ar": "رسالة قصيرة",
+          "rect": [
+            332.8,
+            648,
+            10.2,
+            13.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "email",
+          "label": "E-mail",
+          "ar": "البريد الإلكتروني",
+          "rect": [
+            483.4,
+            648,
+            10.2,
+            13.6
+          ],
+          "extraRects": []
+        }
+      ],
+      "multiple": true,
+      "wide": true
+    },
+    {
+      "id": "annual_income",
+      "label": "The approximate annual income (In SAR)",
+      "ar": "الدخل السنوي التقريبي (بالريال السعودي)",
+      "type": "choice",
+      "page": 2,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "100000",
+          "label": "100,000 Or less",
+          "ar": "100,000 أو أقل",
+          "rect": [
+            537.4,
+            99,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "300000",
+          "label": "300,000-100,001",
+          "ar": "",
+          "rect": [
+            530.8,
+            120.1,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "600000",
+          "label": "600,000 – 300,001",
+          "ar": "",
+          "rect": [
+            407.3,
+            98,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "1500000",
+          "label": "1,500,000 – 600,001",
+          "ar": "",
+          "rect": [
+            410.2,
+            120,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "5000000",
+          "label": "5,000,000 – 1,500,001",
+          "ar": "",
+          "rect": [
+            285.6,
+            98.2,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "10000000",
+          "label": "10,000,000 – 5,000,001",
+          "ar": "",
+          "rect": [
+            288.8,
+            120,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "50000000",
+          "label": "50,000,000 – 10,000,001",
+          "ar": "",
+          "rect": [
+            158.1,
+            99.4,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "more",
+          "label": "More Than 50,000,000",
+          "ar": "أكثر من 50,000,000",
+          "rect": [
+            169.6,
+            120.6,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        }
+      ]
+    },
+    {
+      "id": "net_worth",
+      "label": "Approximate Net Worth (Excluding Current residence) – In SAR",
+      "ar": "صافي الثروة التقريبي (باستثناء المنزل) – بالريال السعودي",
+      "type": "choice",
+      "page": 2,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "100000",
+          "label": "100,000 Or less",
+          "ar": "100,000 أو أقل",
+          "rect": [
+            537.4,
+            167.7,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "300000",
+          "label": "300,000-100,001",
+          "ar": "",
+          "rect": [
+            530.8,
+            188.8,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "600000",
+          "label": "600,000 – 300,001",
+          "ar": "",
+          "rect": [
+            407.3,
+            166.7,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "1500000",
+          "label": "1,500,000 – 600,001",
+          "ar": "",
+          "rect": [
+            410.2,
+            188.7,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "5000000",
+          "label": "5,000,000 – 1,500,001",
+          "ar": "",
+          "rect": [
+            285.6,
+            166.9,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "10000000",
+          "label": "10,000,000 – 5,000,001",
+          "ar": "",
+          "rect": [
+            288.8,
+            188.7,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "50000000",
+          "label": "50,000,000 – 10,000,001",
+          "ar": "",
+          "rect": [
+            158.1,
+            168.10000000000002,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "more",
+          "label": "More Than 50,000,000",
+          "ar": "أكثر من 50,000,000",
+          "rect": [
+            169.6,
+            189.3,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        }
+      ]
+    },
+    {
+      "id": "sector",
+      "label": "Sector",
+      "ar": "قطاع",
+      "type": "choice",
+      "page": 2,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "government",
+          "label": "Government",
+          "ar": "حكومي",
+          "rect": [
+            536,
+            248.8,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "private",
+          "label": "Private",
+          "ar": "خاص",
+          "rect": [
+            434.8,
+            249,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "self",
+          "label": "Self- Employment",
+          "ar": "أعمال خاصة",
+          "rect": [
+            343.9,
+            249.4,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "other",
+          "label": "Other",
+          "ar": "أخرى",
+          "rect": [
+            199.3,
+            249.4,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        }
+      ]
+    },
+    {
+      "id": "sector_other",
+      "label": "Other",
+      "ar": "أخرى",
+      "type": "text",
+      "page": 2,
+      "rect": [
+        80,
+        246,
+        47,
+        15
+      ],
+      "fontSize": 8
+    },
+    {
+      "id": "employer",
+      "label": "Employer’s Name",
+      "ar": "اسم جهة العمل",
+      "type": "text",
+      "page": 2,
+      "rect": [
+        160,
+        266,
+        210,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "employer_address",
+      "label": "Employer’s Address",
+      "ar": "عنوان جهة العمل",
+      "type": "text",
+      "page": 2,
+      "rect": [
+        160,
+        288,
+        210,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "employer_phone",
+      "label": "Employer’s Phone Number",
+      "ar": "هاتف جهة العمل",
+      "type": "tel",
+      "page": 2,
+      "rect": [
+        160,
+        309,
+        210,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "job",
+      "label": "Job Title",
+      "ar": "مسمى الوظيفة",
+      "type": "text",
+      "page": 2,
+      "rect": [
+        160,
+        331,
+        210,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "years_employed",
+      "label": "Years Employment",
+      "ar": "مدة الخدمة",
+      "type": "text",
+      "page": 2,
+      "rect": [
+        160,
+        353,
+        210,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "bank",
+      "label": "Bank Name",
+      "ar": "اسم البنك",
+      "type": "text",
+      "page": 2,
+      "rect": [
+        197,
+        400,
+        211,
+        17
+      ],
+      "fontSize": 10
+    },
+    {
+      "id": "iban",
+      "label": "IBAN Number",
+      "ar": "رقم الحساب المصرفي الدولي",
+      "type": "text",
+      "page": 2,
+      "rect": [
+        195,
+        421.5,
+        252,
+        19
+      ],
+      "fontSize": 10,
+      "direction": "ltr"
+    },
+    {
+      "id": "branch",
+      "label": "Branch",
+      "ar": "الفرع",
+      "type": "text",
+      "page": 2,
+      "rect": [
+        61,
+        446.5,
+        116,
+        13
+      ],
+      "fontSize": 8
+    },
+    {
+      "id": "bank_country",
+      "label": "Country",
+      "ar": "الدولة",
+      "type": "text",
+      "page": 2,
+      "rect": [
+        223,
+        446.5,
+        105,
+        13
+      ],
+      "fontSize": 8
+    },
+    {
+      "id": "bank_currency",
+      "label": "Currency",
+      "ar": "عملة الحساب",
+      "type": "text",
+      "page": 2,
+      "rect": [
+        380,
+        446.5,
+        113,
+        13
+      ],
+      "fontSize": 8
+    },
+    {
+      "id": "financial_work",
+      "label": "Has The Client worked in the financial sector during the past five years? (this Includes, for example: working for capital market institutions, banks, finance companies, insurance companies)",
+      "ar": "هل سبق للعميل العمل في القطاع المالي خلال السنوات الخمس السابقة (يشمل ذلك على سبيل المثال: العمل لدى مؤسسات السوق المالية، البنوك، شركات التمويل، شركات التأمين)؟",
+      "type": "choice",
+      "page": 2,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم",
+          "rect": [
+            57.6,
+            527.3,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              543.8,
+              528,
+              11.5,
+              13.5
+            ]
+          ]
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا",
+          "rect": [
+            186.9,
+            527,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              415.2,
+              528.1,
+              11.5,
+              13.5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "financial_experience",
+      "label": "Does the Client have any other practical experience? related to the financial sector?",
+      "ar": "هل للعميل أي خبرات عملية أخرى ذات صلة بالقطاع المالي؟",
+      "type": "choice",
+      "page": 2,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم",
+          "rect": [
+            57.9,
+            561.7,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              546.5,
+              563.2,
+              11.5,
+              13.5
+            ]
+          ]
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا",
+          "rect": [
+            187.9,
+            561.6,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              416.3,
+              562.9,
+              11.5,
+              13.5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listed_association",
+      "label": "Does the client a director or have a close association with a board of directors’ member, an audit committee member, or a senior executive a listed company?",
+      "ar": "هل العميل عضو أو ذو علاقة بعضو مجلس إدارة أو لجنة مراجعة أو أحد كبار التنفيذيين في شركة مدرجة؟",
+      "type": "choice",
+      "page": 3,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم",
+          "rect": [
+            59.8,
+            115.7,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              544.2,
+              116.7,
+              11.5,
+              13.5
+            ]
+          ]
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا",
+          "rect": [
+            187.5,
+            115.7,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              415.6,
+              116.7,
+              11.5,
+              13.5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listed_company",
+      "label": "If Yes, Mention The company name.",
+      "ar": "إذا كان الجواب نعم يرجى ذكر اسم الشركة",
+      "type": "text",
+      "page": 3,
+      "rect": [
+        56,
+        141,
+        106,
+        12
+      ],
+      "fontSize": 8,
+      "rtlRect": [
+        381,
+        141,
+        106,
+        12
+      ],
+      "minFontSize": 6.5
+    },
+    {
+      "id": "public_role",
+      "label": "Is the client entrusted with prominent public functions in the kingdom or a foreign country, senior management positions, or a position in an international organization?",
+      "ar": "هل العميل مكلف بمهمات عليا في المملكة أو في دولة أجنبية أو مناصب إدارة عليا أو وظيفة في إحدى المنظمات الدولية؟",
+      "type": "choice",
+      "page": 3,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم",
+          "rect": [
+            59.8,
+            181.2,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              544.2,
+              182.2,
+              11.5,
+              13.5
+            ]
+          ]
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا",
+          "rect": [
+            187.5,
+            181.2,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              415.6,
+              182.2,
+              11.5,
+              13.5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "related_public_role",
+      "label": "Does The client have a relationship (by blood or marriage up to the second degree), or have association with a person entrusted with a prominent public function in the kingdom or a foreign country, senior management positions, or a position in an international organization?",
+      "ar": "هل للعميل صلة قرابة (بعلاقة الدم أو الزواج وصولاً إلى الدرجة الثانية) أو يعد مقرباً من شخص مكلف بمهمات عليا في المملكة أو في دولة أجنبية أو مناصب إدارة عليا أو وظيفة في إحدى المنظمات الدولية؟",
+      "type": "choice",
+      "page": 3,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم",
+          "rect": [
+            59.8,
+            241.2,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              544.2,
+              242.2,
+              11.5,
+              13.5
+            ]
+          ]
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا",
+          "rect": [
+            187.5,
+            241.2,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              415.6,
+              242.2,
+              11.5,
+              13.5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "beneficial_owner",
+      "label": "Are you the sole and final owner and beneficiary of the investment account or business relationship?",
+      "ar": "هل أنت المالك والمستفيد الحقيقي والنهائي والوحيد للحساب الاستثماري أو علاقة العمل؟",
+      "type": "choice",
+      "page": 3,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم",
+          "rect": [
+            59.8,
+            270.2,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              544.2,
+              271.2,
+              11.5,
+              13.5
+            ]
+          ]
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا",
+          "rect": [
+            187.5,
+            270.2,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              415.6,
+              271.2,
+              11.5,
+              13.5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "beneficiary_identity",
+      "label": "The identity of the beneficial owner of the account or business relationship (if the answer to above questions I no)",
+      "ar": "هوية المستفيد الحقيقي من الحساب أو علاقة العمل (في حال الإجابة عن السؤال أعلاه بلا)",
+      "type": "text",
+      "page": 3,
+      "rect": [
+        62,
+        306,
+        106,
+        9.5
+      ],
+      "fontSize": 8,
+      "rtlRect": [
+        378,
+        302.5,
+        106,
+        12
+      ],
+      "minFontSize": 6.5
+    },
+    {
+      "id": "bank_beneficiary",
+      "label": "Is the bank account you entered in the box assigned to the account opening file in your name and are you the owner and the real and final beneficiary and only?",
+      "ar": "هل الحساب البنكي الذي قمت بإدخاله في الخانة المخصصة له بملف فتح الحساب باسمك وهل أنت المالك والمستفيد الحقيقي والنهائي والوحيد له؟",
+      "type": "choice",
+      "page": 3,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم",
+          "rect": [
+            59.8,
+            340.9,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              544.2,
+              341.9,
+              11.5,
+              13.5
+            ]
+          ]
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا",
+          "rect": [
+            187.5,
+            340.9,
+            11.5,
+            13.5
+          ],
+          "extraRects": [
+            [
+              415.6,
+              341.9,
+              11.5,
+              13.5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other_finance",
+      "label": "Any other financial information on the investor’s financial situation:",
+      "ar": "أي معلومات أخرى عن الوضع المالي للمستثمر",
+      "type": "text",
+      "page": 3,
+      "rect": [
+        61.3,
+        374.79,
+        238.8,
+        12.5
+      ],
+      "fontSize": 8,
+      "minFontSize": 6.5,
+      "padding": 0.6,
+      "context": [
+        "Box 1",
+        "الخانة 1"
+      ]
+    },
+    {
+      "id": "other_finance_2",
+      "label": "Any other financial information on the investor’s financial situation:",
+      "ar": "أي معلومات أخرى عن الوضع المالي للمستثمر",
+      "type": "text",
+      "page": 3,
+      "rect": [
+        316.1,
+        375.14,
+        238.8,
+        12.5
+      ],
+      "fontSize": 8,
+      "minFontSize": 6.5,
+      "padding": 0.6,
+      "context": [
+        "Box 2",
+        "الخانة 2"
+      ]
+    },
+    {
+      "id": "special_case",
+      "label": "Information for special case",
+      "ar": "معلومات الحالات الخاصة",
+      "type": "choice",
+      "page": 3,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "guardian",
+          "label": "Court Appointed Guardian",
+          "ar": "قيم لناقص الأهلية",
+          "rect": [
+            163.4,
+            436.5,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "witness",
+          "label": "Illiterate and Blind Witness",
+          "ar": "شاهد للأمي والكفيف",
+          "rect": [
+            163.4,
+            455.7,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "heirs",
+          "label": "Inheritors Agent",
+          "ar": "وكيل الورثة",
+          "rect": [
+            163.4,
+            477.4,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "veiled",
+          "label": "Veiled Woman Witness",
+          "ar": "معرف المحجبة",
+          "rect": [
+            452.4,
+            434.6,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "minor",
+          "label": "Father / Guardian of a Minor",
+          "ar": "ولي / وصي للقاصر",
+          "rect": [
+            452.6,
+            458.1,
+            11.5,
+            13.5
+          ],
+          "extraRects": []
+        }
+      ],
+      "multiple": true
+    },
+    {
+      "id": "representative_name",
+      "label": "Name",
+      "ar": "الاسم",
+      "type": "text",
+      "page": 3,
+      "rect": [
+        116.3,
+        497.5,
+        386.6,
+        11.4
+      ],
+      "fontSize": 8,
+      "minFontSize": 6.5,
+      "join": [
+        "representative_name_first",
+        "representative_name_second",
+        "representative_name_third",
+        "representative_name_last"
+      ],
+      "personNameDerived": true,
+      "personNameGroup": "representative_name",
+      "hidden": true
+    },
+    {
+      "id": "representative_name_first",
+      "label": "First name",
+      "ar": "الاسم الأول",
+      "type": "text",
+      "page": 3,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "representative_name",
+      "personNamePart": "first"
+    },
+    {
+      "id": "representative_name_second",
+      "label": "Second name",
+      "ar": "الاسم الثاني",
+      "type": "text",
+      "page": 3,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "representative_name",
+      "personNamePart": "second"
+    },
+    {
+      "id": "representative_name_third",
+      "label": "Third name (optional)",
+      "ar": "الاسم الثالث (اختياري)",
+      "type": "text",
+      "page": 3,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "representative_name",
+      "personNamePart": "third",
+      "optional": true
+    },
+    {
+      "id": "representative_name_last",
+      "label": "Family name",
+      "ar": "اسم العائلة",
+      "type": "text",
+      "page": 3,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "representative_name",
+      "personNamePart": "last"
+    },
+    {
+      "id": "rep_id",
+      "label": "ID No",
+      "ar": "رقمها",
+      "type": "text",
+      "page": 3,
+      "rect": [
+        116.3,
+        514.3,
+        126.1,
+        11.4
+      ],
+      "fontSize": 8,
+      "minFontSize": 6.5,
+      "identityRow": "rep_type"
+    },
+    {
+      "id": "rep_type",
+      "label": "ID Type",
+      "ar": "نوع الهوية",
+      "type": "text",
+      "page": 3,
+      "rect": [
+        377.1,
+        514.3,
+        125.8,
+        11.4
+      ],
+      "fontSize": 8,
+      "minFontSize": 6.5,
+      "control": "select",
+      "dropdownOptions": [
+        {
+          "value": "أحوال مدنية / National ID",
+          "label": "National ID",
+          "ar": "أحوال مدنية"
+        },
+        {
+          "value": "جواز سفر / Passport",
+          "label": "Passport",
+          "ar": "جواز سفر"
+        },
+        {
+          "value": "هوية مقيم / ResidenceID",
+          "label": "ResidenceID",
+          "ar": "هوية مقيم"
+        },
+        {
+          "value": "أخرى / Other",
+          "label": "Other",
+          "ar": "أخرى"
+        }
+      ],
+      "identityRow": "rep_type"
+    },
+    {
+      "id": "rep_expiry",
+      "label": "Date of Expiry",
+      "ar": "تاريخ الانتهاء",
+      "type": "date",
+      "page": 3,
+      "rect": [
+        116.3,
+        531.1,
+        126.1,
+        11.4
+      ],
+      "fontSize": 8,
+      "minFontSize": 6.5,
+      "identityRow": "rep_type"
+    },
+    {
+      "id": "rep_phone",
+      "label": "Tel No",
+      "ar": "رقم الهاتف",
+      "type": "tel",
+      "page": 3,
+      "rect": [
+        116.3,
+        547.9,
+        126.1,
+        11.4
+      ],
+      "fontSize": 8,
+      "minFontSize": 6.5
+    },
+    {
+      "id": "rep_email",
+      "label": "Email",
+      "ar": "البريد الإلكتروني",
+      "type": "email",
+      "page": 3,
+      "rect": null,
+      "fontSize": 8,
+      "minFontSize": 6.5,
+      "direction": "ltr",
+      "uiOnly": true,
+      "help": "Saved with your application details. The original PDF has no representative email field.",
+      "arHelp": "يُحفظ ضمن بيانات الطلب. لا توجد خانة للبريد الإلكتروني للممثل في ملف PDF الأصلي."
+    },
+    {
+      "id": "experience",
+      "label": "How do you describe your investment Knowledge and Experience?",
+      "ar": "كيف تصنف معرفتك وخبراتك الاستثمارية؟",
+      "type": "choice",
+      "page": 4,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "extensive",
+          "label": "Extensive",
+          "ar": "عالية",
+          "rect": [
+            114.6,
+            136.2,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "good",
+          "label": "Good",
+          "ar": "متوسطة",
+          "rect": [
+            306.2,
+            136.2,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "limited",
+          "label": "Limited",
+          "ar": "منخفضة",
+          "rect": [
+            492,
+            136.2,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        }
+      ],
+      "wide": true
+    },
+    {
+      "id": "years_investing",
+      "label": "Number of Years of Investment in Securities",
+      "ar": "عدد سنوات الاستثمار في أسواق الأوراق المالية",
+      "type": "text",
+      "page": 4,
+      "rect": [
+        240,
+        156,
+        180,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "previous_products",
+      "label": "Products Previously Invested In",
+      "ar": "المنتجات التي سبق الاستثمار فيها",
+      "type": "text",
+      "page": 4,
+      "rect": [
+        200,
+        178,
+        225,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "certificates",
+      "label": "Professional Certificates",
+      "ar": "الشهادات المهنية",
+      "type": "text",
+      "page": 4,
+      "rect": [
+        182,
+        200,
+        265,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "loan_ratio",
+      "label": "Loan to Invested Money Ratio",
+      "ar": "نسبة القروض من الأموال المستثمرة",
+      "type": "text",
+      "page": 4,
+      "rect": [
+        220,
+        222,
+        177,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "margin_transactions",
+      "label": "Margin Transactions Over the Past Five Years",
+      "ar": "صفقات التمويل بالهامش خلال السنوات الخمس السابقة",
+      "type": "text",
+      "page": 4,
+      "rect": [
+        244,
+        244,
+        113,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "overseas_transactions",
+      "label": "Securities Transactions Outside the Kingdom Over the Past Five Years",
+      "ar": "صفقات الأوراق المالية خارج المملكة خلال السنوات الخمس السابقة",
+      "type": "text",
+      "page": 4,
+      "rect": [
+        285,
+        266,
+        72,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "overseas_countries",
+      "label": "If Securities Transactions Were Executed Outside the Kingdom Over the Past Five Years, Which Countries Were These Transactions Executed?",
+      "ar": "إذا كان قد تم تنفيذ صفقات أوراق مالية خارج المملكة خلال السنوات الخمس السابقة، ما هي الدول التي تم تنفيذ تلك الصفقات فيها؟",
+      "type": "text",
+      "page": 4,
+      "rect": [
+        60,
+        305.5,
+        490,
+        14
+      ],
+      "fontSize": 8
+    },
+    {
+      "id": "risk_appetite",
+      "label": "Risk Appetite",
+      "ar": "قدرتك على تحمل المخاطر",
+      "type": "choice",
+      "page": 4,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "extensive",
+          "label": "Extensive",
+          "ar": "عالية",
+          "rect": [
+            114.6,
+            346.6,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "good",
+          "label": "Good",
+          "ar": "متوسطة",
+          "rect": [
+            300.8,
+            346.6,
+            7.6,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "limited",
+          "label": "Limited",
+          "ar": "منخفضة",
+          "rect": [
+            481.8,
+            346.6,
+            7.6,
+            10.2
+          ],
+          "extraRects": []
+        }
+      ],
+      "wide": true
+    },
+    {
+      "id": "objectives",
+      "label": "General Investment objectives",
+      "ar": "الأهداف الاستثمارية العامة",
+      "type": "choice",
+      "page": 4,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "capital",
+          "label": "Protection of capital",
+          "ar": "حماية رأس المال",
+          "rect": [
+            302.6,
+            390.2,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "income",
+          "label": "Realization Income",
+          "ar": "تحقيق الدخل",
+          "rect": [
+            302.6,
+            412.4,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "balanced",
+          "label": "Balanced",
+          "ar": "موازنة",
+          "rect": [
+            302.6,
+            434.4,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "growth",
+          "label": "Growth of Capital",
+          "ar": "نمو رأس المال",
+          "rect": [
+            302.6,
+            456.6,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "retirement",
+          "label": "Create Savings for Retirement",
+          "ar": "تكوين مدخرات للتقاعد",
+          "rect": [
+            302.6,
+            478.6,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "project",
+          "label": "Project Finance",
+          "ar": "تمويل مشروع",
+          "rect": [
+            302.6,
+            500.8,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "asset",
+          "label": "Buying an asset (for example: a real estate, or a vehicle)",
+          "ar": "شراء أصل (على سبيل المثال: عقار أو مركبة)",
+          "rect": [
+            302.6,
+            522.8,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        }
+      ],
+      "multiple": true
+    },
+    {
+      "id": "objectives_other",
+      "label": "Other (Please specify)",
+      "ar": "غيرها (يرجى التحديد)",
+      "type": "text",
+      "page": 4,
+      "rect": [
+        178,
+        543,
+        303,
+        17
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "restrictions",
+      "label": "Do You have any Investment restrictions?",
+      "ar": "هل لديك قيود استثمارية؟",
+      "type": "text",
+      "page": 4,
+      "rect": [
+        59,
+        601,
+        493,
+        30
+      ],
+      "fontSize": 9,
+      "multiline": true
+    },
+    {
+      "id": "currencies",
+      "label": "Preferred Investment Currency",
+      "ar": "ما الأصول الاستثمارية المفضلة للعميل؟",
+      "type": "choice",
+      "page": 5,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "sar",
+          "label": "Assets in Saudi Riyal",
+          "ar": "أصول بالريال السعودي",
+          "rect": [
+            271.4,
+            112.2,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "other",
+          "label": "Assets in Other Foreign Currencies",
+          "ar": "أصول بعملات أجنبية أخرى",
+          "rect": [
+            271.4,
+            130.6,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        }
+      ],
+      "multiple": true,
+      "wide": true,
+      "help": "(Please tick as many as required)",
+      "arHelp": "(يمكنك اختيار أكثر من فئة)"
+    },
+    {
+      "id": "other_currency",
+      "label": "Please Specify Other Foreign Currencies",
+      "ar": "يرجى التحديد العملات الأجنبية",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        241,
+        147,
+        134,
+        16
+      ],
+      "fontSize": 9
+    },
+    {
+      "id": "horizon",
+      "label": "The Period during which the Client expects to recover the invested money",
+      "ar": "المدة التي يتوقع العميل خلالها استرداد الأموال المستثمرة",
+      "type": "choice",
+      "page": 5,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "short",
+          "label": "Short Term (less than a year)",
+          "ar": "مدة قصيرة المدى (أقل من سنة)",
+          "rect": [
+            267.2,
+            200.4,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "mid",
+          "label": "Mid Term (1 to 5 years)",
+          "ar": "مدة متوسطة المدى (من سنة إلى خمس سنوات)",
+          "rect": [
+            267.2,
+            219,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "long",
+          "label": "Long Term (More Than 5 years)",
+          "ar": "مدة طويلة المدى (أكثر من خمس سنوات)",
+          "rect": [
+            267.2,
+            237.4,
+            7.4,
+            10.2
+          ],
+          "extraRects": []
+        }
+      ]
+    },
+    {
+      "id": "ideal_deposits",
+      "label": "Deposits/Murabah",
+      "ar": "ودائع ومرابحات",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        184,
+        307,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "ideal",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ]
+    },
+    {
+      "id": "ideal_debt",
+      "label": "Debit Instruments",
+      "ar": "أدوات دين",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        184,
+        325.5,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "ideal",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ]
+    },
+    {
+      "id": "ideal_equity",
+      "label": "Equity",
+      "ar": "أسهم",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        184,
+        344,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "ideal",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ]
+    },
+    {
+      "id": "ideal_funds",
+      "label": "Investment Fund",
+      "ar": "صناديق استثمارية",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        184,
+        362.5,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "ideal",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ]
+    },
+    {
+      "id": "ideal_property",
+      "label": "Real estate",
+      "ar": "عقارات",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        184,
+        381,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "ideal",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ]
+    },
+    {
+      "id": "ideal_derivatives",
+      "label": "Derivatives contracts",
+      "ar": "عقود مشتقات",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        184,
+        399.5,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "ideal",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ]
+    },
+    {
+      "id": "ideal_alternative",
+      "label": "Alternative Investments",
+      "ar": "استثمارات بديلة",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        184,
+        418,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "ideal",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ]
+    },
+    {
+      "id": "current_deposits",
+      "label": "Deposits/Murabah",
+      "ar": "ودائع ومرابحات",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        310,
+        307,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "current",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ]
+    },
+    {
+      "id": "current_debt",
+      "label": "Debit Instruments",
+      "ar": "أدوات دين",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        310,
+        325.5,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "current",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ]
+    },
+    {
+      "id": "current_equity",
+      "label": "Equity",
+      "ar": "أسهم",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        310,
+        344,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "current",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ]
+    },
+    {
+      "id": "current_funds",
+      "label": "Investment Fund",
+      "ar": "صناديق استثمارية",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        310,
+        362.5,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "current",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ]
+    },
+    {
+      "id": "current_property",
+      "label": "Real estate",
+      "ar": "عقارات",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        310,
+        381,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "current",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ]
+    },
+    {
+      "id": "current_derivatives",
+      "label": "Derivatives contracts",
+      "ar": "عقود مشتقات",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        310,
+        399.5,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "current",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ]
+    },
+    {
+      "id": "current_alternative",
+      "label": "Alternative Investments",
+      "ar": "استثمارات بديلة",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        310,
+        418,
+        111,
+        19
+      ],
+      "fontSize": 10,
+      "numeric": true,
+      "total": "current",
+      "align": "center",
+      "maxLength": 6,
+      "context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ]
+    },
+    {
+      "id": "custodian_account",
+      "label": "Account No",
+      "ar": "رقم الحساب",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        64,
+        481,
+        348,
+        16
+      ],
+      "fontSize": 10
+    },
+    {
+      "id": "custodian_name",
+      "label": "Custodian Name",
+      "ar": "اسم أمين الحفظ",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        64,
+        503,
+        348,
+        16
+      ],
+      "fontSize": 10
+    },
+    {
+      "id": "custodian_address",
+      "label": "Custodian Address",
+      "ar": "عنوان أمين الحفظ",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        64,
+        525,
+        348,
+        16
+      ],
+      "fontSize": 10
+    },
+    {
+      "id": "send_certificates",
+      "label": "Certificates",
+      "ar": "الشهادات",
+      "type": "choice",
+      "page": 5,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "client",
+          "label": "Client",
+          "ar": "العميل",
+          "rect": [
+            273.4,
+            582,
+            8.6,
+            11.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ",
+          "rect": [
+            376.8,
+            582,
+            8.6,
+            11.6
+          ],
+          "extraRects": []
+        }
+      ],
+      "context": [
+        "Where would you like to send the following:",
+        "أين ترغب بإرسال الآتي:"
+      ]
+    },
+    {
+      "id": "instructions_certificates",
+      "label": "Other Parties: Specify any instructions issued by the Client regarding the party.",
+      "ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        60,
+        581,
+        148,
+        19
+      ],
+      "fontSize": 8,
+      "context": [
+        "Certificates",
+        "الشهادات"
+      ]
+    },
+    {
+      "id": "send_dividends",
+      "label": "Dividends or any other income",
+      "ar": "حصص الأرباح أو أي دخل آخر",
+      "type": "choice",
+      "page": 5,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "client",
+          "label": "Client",
+          "ar": "العميل",
+          "rect": [
+            273.4,
+            604.4,
+            8.6,
+            11.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ",
+          "rect": [
+            376.8,
+            604.4,
+            8.6,
+            11.6
+          ],
+          "extraRects": []
+        }
+      ],
+      "context": [
+        "Where would you like to send the following:",
+        "أين ترغب بإرسال الآتي:"
+      ]
+    },
+    {
+      "id": "instructions_dividends",
+      "label": "Other Parties: Specify any instructions issued by the Client regarding the party.",
+      "ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        60,
+        603.5,
+        148,
+        19
+      ],
+      "fontSize": 8,
+      "context": [
+        "Dividends or any other income",
+        "حصص الأرباح أو أي دخل آخر"
+      ]
+    },
+    {
+      "id": "send_proceeds",
+      "label": "Sales proceed",
+      "ar": "حصيلة البيع",
+      "type": "choice",
+      "page": 5,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "client",
+          "label": "Client",
+          "ar": "العميل",
+          "rect": [
+            273.4,
+            627,
+            8.6,
+            11.6
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ",
+          "rect": [
+            376.8,
+            627,
+            8.6,
+            11.6
+          ],
+          "extraRects": []
+        }
+      ],
+      "context": [
+        "Where would you like to send the following:",
+        "أين ترغب بإرسال الآتي:"
+      ]
+    },
+    {
+      "id": "instructions_proceeds",
+      "label": "Other Parties: Specify any instructions issued by the Client regarding the party.",
+      "ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة",
+      "type": "text",
+      "page": 5,
+      "rect": [
+        60,
+        626,
+        148,
+        19
+      ],
+      "fontSize": 8,
+      "context": [
+        "Sales proceed",
+        "حصيلة البيع"
+      ]
+    },
+    {
+      "id": "risk_experience",
+      "label": "1. What is Your level of experience with investment products?",
+      "ar": "1. ما هو مدى خبرتك في مجال المنتجات الاستثمارية؟",
+      "type": "choice",
+      "page": 7,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "1",
+          "label": "No Investment experience (1 Point)",
+          "ar": "لا يوجد أي خبرة استثمارية (نقطة واحدة)",
+          "rect": [
+            305.7,
+            109.9,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "2",
+          "label": "Little Investment experience (2 Points)",
+          "ar": "خبرة استثمارية قليلة (نقطتان)",
+          "rect": [
+            305.7,
+            124.7,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "3",
+          "label": "High Investment experience (3 Points)",
+          "ar": "خبرة عالية في الاستثمار (3 نقاط)",
+          "rect": [
+            305.7,
+            139.5,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        }
+      ],
+      "wide": true
+    },
+    {
+      "id": "risk_age",
+      "label": "2. What is your age?",
+      "ar": "2. كم هو عمرك؟",
+      "type": "choice",
+      "page": 7,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "1",
+          "label": "Over 65 (1 Point)",
+          "ar": "فوق 65 (نقطة واحدة)",
+          "rect": [
+            305.7,
+            169.5,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "2",
+          "label": "between 51-65 (2 Points)",
+          "ar": "بين 51-65 (نقطتان)",
+          "rect": [
+            305.7,
+            184.4,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "3",
+          "label": "Between 35-50 (3 Points)",
+          "ar": "بين 35-50 (3 نقاط)",
+          "rect": [
+            305.7,
+            199.2,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "4",
+          "label": "Younger Than 35 (4 Points)",
+          "ar": "أقل من 35 (4 نقاط)",
+          "rect": [
+            305.7,
+            214,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        }
+      ],
+      "wide": true
+    },
+    {
+      "id": "risk_reaction",
+      "label": "3. What will be your reaction if your investment suddenly drops in value?",
+      "ar": "3. ماهي ردة فعلك إذا هبطت قيمة استثمارك فجأة؟",
+      "type": "choice",
+      "page": 7,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "1",
+          "label": "Sell it to Prevent further Losses (1 Point)",
+          "ar": "بيعها لتفادي أي خسارة مستقبلية (نقطة واحدة)",
+          "rect": [
+            305.7,
+            243.8,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "2",
+          "label": "Partially sell it to prevent losses (2 Points)",
+          "ar": "بيع جزء منها لتفادي الخسائر (نقطتان)",
+          "rect": [
+            305.7,
+            258.9,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "3",
+          "label": "I would hold the investment (3 Points)",
+          "ar": "أحافظ عليها (3 نقاط)",
+          "rect": [
+            305.7,
+            273.8,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "4",
+          "label": "Buy more if it was attractive at a higher price, it looks even better at its current price (4 Points)",
+          "ar": "شراء المزيد إذا كان الاستثمار مغري على الأسعار المرتفعة ويظهر بأنه أفضل على سعره الحالي (4 نقاط)",
+          "rect": [
+            305.7,
+            295.9,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        }
+      ],
+      "wide": true
+    },
+    {
+      "id": "risk_duration",
+      "label": "4. For how long do you think you are going to keep your investment ?",
+      "ar": "4. ما هي المدة التي ستبقى فيها على استثمارك؟",
+      "type": "choice",
+      "page": 7,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "1",
+          "label": "Less Than 1 Year (1 Point)",
+          "ar": "أقل من سنة (نقطة واحدة)",
+          "rect": [
+            305.7,
+            326.4,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "2",
+          "label": "Between 1 and 2 years (2 Points)",
+          "ar": "بين 1-2 سنة (نقطتان)",
+          "rect": [
+            305.7,
+            341.3,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "3",
+          "label": "Between 2 and 3 years (3 Points)",
+          "ar": "بين 2-3 سنوات (3 نقاط)",
+          "rect": [
+            305.7,
+            356.1,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "4",
+          "label": "More Than 3 Years (4 Points)",
+          "ar": "أكثر من 3 سنوات (4 نقاط)",
+          "rect": [
+            305.7,
+            370.9,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        }
+      ],
+      "wide": true
+    },
+    {
+      "id": "risk_capital",
+      "label": "5. What percentage of your total capital (excluding property and other non-financial investment) would you use for this investment?",
+      "ar": "5. كم أي نسبة رأس المال التي سوف تستعملها لهذا الاستثمار (من إجمالي رأس المال باستثناء العقارات والاستثمارات غير النقدية) ؟",
+      "type": "choice",
+      "page": 7,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "1",
+          "label": "Less Than 25% (1 point)",
+          "ar": "أقل من 25% (نقطة واحدة)",
+          "rect": [
+            305.7,
+            408.8,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "2",
+          "label": "Between 26% and 50% (2 points)",
+          "ar": "بين 26% - 50% (نقطتان)",
+          "rect": [
+            305.7,
+            423.6,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "3",
+          "label": "Between 51% and 75% (3 points)",
+          "ar": "بين 51% - 75% (3 نقاط)",
+          "rect": [
+            305.7,
+            438.9,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "4",
+          "label": "More Than 75% (4 points)",
+          "ar": "أكثر من 75% (4 نقاط)",
+          "rect": [
+            305.7,
+            453.6,
+            11.5,
+            11.5
+          ],
+          "extraRects": []
+        }
+      ],
+      "wide": true
+    },
+    {
+      "id": "risk_total",
+      "label": "Result (Number of Points)=",
+      "ar": "النتيجة (عدد النقاط) =",
+      "type": "text",
+      "page": 7,
+      "rect": [
+        299,
+        472,
+        22,
+        9
+      ],
+      "fontSize": 7,
+      "sum": [
+        "risk_experience",
+        "risk_age",
+        "risk_reaction",
+        "risk_duration",
+        "risk_capital"
+      ],
+      "minFontSize": 6,
+      "align": "center"
+    },
+    {
+      "id": "desired_funds",
+      "label": "(funds / portfolios of:",
+      "ar": "(صناديق / محافظ:",
+      "type": "text",
+      "page": 7,
+      "rect": [
+        270,
+        565,
+        241,
+        16
+      ],
+      "fontSize": 9,
+      "context": [
+        "the client desires to invest in:",
+        "يرغب العميل الاستثمار في"
+      ]
+    },
+    {
+      "id": "risk_client_name",
+      "label": "Client Name",
+      "ar": "اسم العميل",
+      "type": "text",
+      "page": 7,
+      "rect": [
+        343,
+        624,
+        200,
+        18
+      ],
+      "fontSize": 10,
+      "join": [
+        "risk_client_name_first",
+        "risk_client_name_second",
+        "risk_client_name_third",
+        "risk_client_name_last"
+      ],
+      "personNameDerived": true,
+      "personNameGroup": "risk_client_name",
+      "hidden": true
+    },
+    {
+      "id": "risk_client_name_first",
+      "label": "First name",
+      "ar": "الاسم الأول",
+      "type": "text",
+      "page": 7,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "risk_client_name",
+      "personNamePart": "first"
+    },
+    {
+      "id": "risk_client_name_second",
+      "label": "Second name",
+      "ar": "الاسم الثاني",
+      "type": "text",
+      "page": 7,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "risk_client_name",
+      "personNamePart": "second"
+    },
+    {
+      "id": "risk_client_name_third",
+      "label": "Third name (optional)",
+      "ar": "الاسم الثالث (اختياري)",
+      "type": "text",
+      "page": 7,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "risk_client_name",
+      "personNamePart": "third",
+      "optional": true
+    },
+    {
+      "id": "risk_client_name_last",
+      "label": "Family name",
+      "ar": "اسم العائلة",
+      "type": "text",
+      "page": 7,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "risk_client_name",
+      "personNamePart": "last"
+    }
+  ],
+  "signatureSlots": [
+    {
+      "id": "representative",
+      "label": "Special cases — representative signature",
+      "ar": "الحالات الخاصة — توقيع الوكيل أو الممثل",
+      "page": 3,
+      "rect": [
+        117,
+        566,
+        124,
+        23
+      ],
+      "section": "disclosures",
+      "requiredForSubmission": false,
+      "requireWhenFields": [
+        "representative_name",
+        "rep_id",
+        "rep_type",
+        "rep_expiry",
+        "rep_phone",
+        "rep_email"
+      ]
+    },
+    {
+      "id": "client",
+      "label": "Client signature",
+      "ar": "توقيع العميل",
+      "page": 7,
+      "rect": [
+        58,
+        624,
+        241,
+        25
+      ],
+      "section": "suitability"
+    }
+  ],
+  "personNameGroups": [
+    {
+      "id": "name",
+      "targets": [
+        {
+          "id": "name_1",
+          "join": [
+            "name_first",
+            "name_second"
+          ]
+        },
+        {
+          "id": "name_2",
+          "join": [
+            "name_third",
+            "name_last"
+          ]
+        }
+      ],
+      "partIds": [
+        "name_first",
+        "name_second",
+        "name_third",
+        "name_last"
+      ],
+      "label": "Name",
+      "ar": "الاسم الرباعي",
+      "language": "auto",
+      "required": false,
+      "optional": false,
+      "context": [
+        "Box 1",
+        "الخانة 1"
+      ]
+    },
+    {
+      "id": "representative_name",
+      "targets": [
+        {
+          "id": "representative_name",
+          "join": [
+            "representative_name_first",
+            "representative_name_second",
+            "representative_name_third",
+            "representative_name_last"
+          ]
+        }
+      ],
+      "partIds": [
+        "representative_name_first",
+        "representative_name_second",
+        "representative_name_third",
+        "representative_name_last"
+      ],
+      "label": "Name",
+      "ar": "الاسم",
+      "language": "auto",
+      "required": false,
+      "optional": false
+    },
+    {
+      "id": "risk_client_name",
+      "targets": [
+        {
+          "id": "risk_client_name",
+          "join": [
+            "risk_client_name_first",
+            "risk_client_name_second",
+            "risk_client_name_third",
+            "risk_client_name_last"
+          ]
+        }
+      ],
+      "partIds": [
+        "risk_client_name_first",
+        "risk_client_name_second",
+        "risk_client_name_third",
+        "risk_client_name_last"
+      ],
+      "label": "Client Name",
+      "ar": "اسم العميل",
+      "language": "auto",
+      "required": false,
+      "optional": false
+    }
+  ]
+}

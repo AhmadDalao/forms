@@ -9,12 +9,19 @@ import {docs} from '../src/forms/index.js';
 import {signatureSlots} from '../src/signatures.js';
 import {submissionDetailsModel} from '../src/portal/submitted-details.js';
 const original=JSON.parse(readFileSync('reference/documents/form-schema-20260927.json'));
-// The explicitly requested input cleanup is the only semantic change allowed.
+// Explicit input cleanup and source-verified KYC copy corrections are allowed;
+// the historical snapshot itself remains unchanged.
 for(const doc of original){
  const removed={'kyc-individual':['issue_place','rep_issue','rep_place'],'kyc-corporate':['auth_issue_place','auth_issue_date']}[doc.id]||[];
  doc.fields=doc.fields.filter(f=>!removed.includes(f.id));
  const fax=doc.fields.find(f=>f.id==='rep_fax');if(fax)Object.assign(fax,{id:'rep_email',label:'Email',ar:'البريد الإلكتروني',type:'email',uiOnly:true});
  for(const slot of doc.signatureSlots)if(slot.requireWhenFields)slot.requireWhenFields=slot.requireWhenFields.filter(id=>!removed.includes(id)).map(id=>id==='rep_fax'?'rep_email':id);
+ if(doc.id.startsWith('kyc-')){
+  doc.fields.find(f=>f.id==='risk_capital').ar='5. ماهي نسبة رأس المال التي سوف تستعملها لهذا الاستثمار (من إجمالي رأس المال باستثناء العقارات والاستثمارات غير النقدية) ؟';
+  const objectives=doc.fields.find(f=>f.id==='objectives').options;
+  objectives.find(o=>o.value==='balanced').ar='متوازنة';
+  if(doc.id==='kyc-corporate')objectives.find(o=>o.value==='income').label='Realization of Income';
+ }
 }
 const layouts=JSON.parse(readFileSync('src/forms/modern-layouts.json'));
 const legacy=JSON.parse(readFileSync('scripts/pdf-design/legacy-signing-layouts.json'));

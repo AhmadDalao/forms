@@ -1,0 +1,4593 @@
+{
+  "scope": "READ-ONLY audit of all7 supplied individual KYC pages against final composed src/forms/index.js definition and main.js rendering rules, both paper-to-UI and UI-to-paper. No app/PDF source edits.",
+  "audited_at_utc": "2026-10-08T08:20:23.095277+00:00",
+  "source_pdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+  "source_sha256": "79beab46fbc249f91d8d6945b5ac84b950bbd32f7e26eb82577b1c581f1f483e",
+  "active_template_sha256": "2b3c814935ce6671c503e8887e0d496d60e81de37d3204a7fcad6ef33fefb3c9",
+  "composed_snapshot_sha256": "191fb5c51b9a4353e2b5cc2761cfdaf3f17cab9434721f97b4e2c81d49c8e1d9",
+  "rendering": "All seven source PDF pages were rendered at 144 dpi and visually inspected during baseline audit. PNGs are not included in this evidence folder.",
+  "coverage": {
+    "source_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "composed_fields": 120,
+    "visible_ui_fields": 115,
+    "paper_evidence_rows": 129,
+    "unmapped_visible_ui_fields": [],
+    "source_customer_question_presence": "All printed customer answer rows accounted for; explicit issue-place/date removals and fax/email change listed separately. Staff-only page6 listed individually."
+  },
+  "material_findings": [
+    {
+      "id": "IND-01",
+      "severity": "usability",
+      "page": 5,
+      "fields": [
+        "ideal_deposits",
+        "ideal_debt",
+        "ideal_equity",
+        "ideal_funds",
+        "ideal_property",
+        "ideal_derivatives",
+        "ideal_alternative",
+        "current_deposits",
+        "current_debt",
+        "current_equity",
+        "current_funds",
+        "current_property",
+        "current_derivatives",
+        "current_alternative"
+      ],
+      "finding": "All14 portfolio inputs are percentage cells but use maxlength6; per-cell labels lose the percent marker after applyPaperCopy. Long decimal strings are truncated, though the paper specifies no character cap.",
+      "action": "Root owns numeric-cap fix; retain0–100 percentage meaning, ideal/current context and100% total guidance."
+    },
+    {
+      "id": "IND-02",
+      "severity": "source_copy_omission",
+      "page": 7,
+      "fields": [
+        "risk_total",
+        "desired_funds"
+      ],
+      "finding": "Three printed score interpretation paragraphs and Despite recommendation Itqan Capital are absent from composed UI paperNotes/labels. The PDF still contains them.",
+      "action": "Add static explanatory copy only; do not create an answer or auto recommendation."
+    },
+    {
+      "id": "IND-03",
+      "severity": "confirmed_paper_option_hidden",
+      "page": 1,
+      "fields": [
+        "id_type"
+      ],
+      "finding": "Family Registration is printed and remains in composed options, but main.js filters it out of new select controls; saved family value can remain visible.",
+      "action": "Restore authored KYC family option and lossless shared-profile bridge; preserve subscription Family-ID retirement."
+    },
+    {
+      "id": "IND-04",
+      "severity": "historical_control_limitation",
+      "page": 3,
+      "fields": [
+        "rep_type"
+      ],
+      "finding": "Printed ID Type is an unrestricted blank. Requested dropdown gives four predefined strings; Other cannot be qualified.",
+      "action": "Record limitation. Preserve authorized dropdown; do not independently invent a separate question or broaden options."
+    }
+  ],
+  "paper_to_ui": [
+    {
+      "page": 1,
+      "printed_label": "Investor Information (Individuals)",
+      "field_ids": [
+        "account_type"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "معلومات المستثمر (أفراد)",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "new",
+          "label": "New Account",
+          "ar": "حساب جديد"
+        },
+        {
+          "value": "additional",
+          "label": "Additional account",
+          "ar": "حساب إضافي"
+        },
+        {
+          "value": "update",
+          "label": "Update Information",
+          "ar": "تحديث بيانات"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Title",
+      "field_ids": [
+        "title"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "لقب المستثمر",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "mr",
+          "label": "Mr.",
+          "ar": "السيد"
+        },
+        {
+          "value": "mrs",
+          "label": "Mrs.",
+          "ar": "السيدة"
+        },
+        {
+          "value": "miss",
+          "label": "Miss",
+          "ar": "الآنسة"
+        },
+        {
+          "value": "dr",
+          "label": "Dr.",
+          "ar": "الدكتور"
+        },
+        {
+          "value": "eng",
+          "label": "Eng.",
+          "ar": "المهندس"
+        },
+        {
+          "value": "other",
+          "label": "Other",
+          "ar": "أخرى"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Other",
+      "field_ids": [
+        "title_other"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "أخرى",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Gender",
+      "field_ids": [
+        "gender"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الجنس",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "male",
+          "label": "Male",
+          "ar": "ذكر"
+        },
+        {
+          "value": "female",
+          "label": "Female",
+          "ar": "أنثى"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Name",
+      "field_ids": [
+        "name_1",
+        "name_2",
+        "name_first",
+        "name_second",
+        "name_third",
+        "name_last"
+      ],
+      "verdict": "authorized_name_split",
+      "action": "Preserve the explicitly requested name-part controls and join them into the printed name area.",
+      "printed_ar": "الاسم الرباعي",
+      "ui_context": [
+        "Box 1",
+        "الخانة 1"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Date of Birth",
+      "field_ids": [
+        "dob"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "تاريخ الميلاد",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "date",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Marital Status",
+      "field_ids": [
+        "marital"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الحالة الاجتماعية",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "single",
+          "label": "Single",
+          "ar": "أعزب"
+        },
+        {
+          "value": "married",
+          "label": "Married",
+          "ar": "متزوج"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Number of Dependents",
+      "field_ids": [
+        "dependents"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "عدد أفراد الأسرة",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 2,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Type Of ID",
+      "field_ids": [
+        "id_type"
+      ],
+      "verdict": "confirmed_paper_option_hidden",
+      "action": "Restore authored KYC family option; global dropdown filter originated in7d321d0, not a KYC-specific paper retirement.",
+      "printed_ar": "نوع الهوية",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "national",
+          "label": "National ID",
+          "ar": "أحوال مدنية"
+        },
+        {
+          "value": "passport",
+          "label": "Passport",
+          "ar": "جواز سفر"
+        },
+        {
+          "value": "residence",
+          "label": "ResidenceID",
+          "ar": "هوية مقيم"
+        },
+        {
+          "value": "family",
+          "label": "Family Registration",
+          "ar": "بطاقة عائلة"
+        },
+        {
+          "value": "other",
+          "label": "Other",
+          "ar": "أخرى"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Other",
+      "field_ids": [
+        "id_other"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "أخرى",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "ID Number",
+      "field_ids": [
+        "id_number"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "رقم الهوية",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Expiry Date",
+      "field_ids": [
+        "id_expiry"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "تاريخ الانتهاء",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "date",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Nationality",
+      "field_ids": [
+        "nationality"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الجنسية",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Educational Level",
+      "field_ids": [
+        "education"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "المستوى التعليمي",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary",
+          "ar": "ابتدائي"
+        },
+        {
+          "value": "intermediate",
+          "label": "Intermediate",
+          "ar": "متوسط"
+        },
+        {
+          "value": "high",
+          "label": "High School",
+          "ar": "ثانوي"
+        },
+        {
+          "value": "diploma",
+          "label": "Diploma",
+          "ar": "دبلوم"
+        },
+        {
+          "value": "bachelor",
+          "label": "Bachelor",
+          "ar": "جامعي"
+        },
+        {
+          "value": "postgraduate",
+          "label": "Postgraduate",
+          "ar": "دراسات عليا"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Building",
+      "field_ids": [
+        "building"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "رقم المبنى",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Street Name",
+      "field_ids": [
+        "street"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "اسم الشارع",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "City & District",
+      "field_ids": [
+        "city",
+        "address_city",
+        "address_district"
+      ],
+      "verdict": "authorized_city_district_split",
+      "action": "Preserve the requested separate city and district inputs, joined into the single printed row.",
+      "printed_ar": "المدينة والحي",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Email",
+      "field_ids": [
+        "email"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "البريد الإلكتروني",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "email",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Country of residence",
+      "field_ids": [
+        "country"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "دولة الإقامة",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Phone",
+      "field_ids": [
+        "phone"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الهاتف",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "tel",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Mobile",
+      "field_ids": [
+        "mobile"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الجوال",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "tel",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Zip code",
+      "field_ids": [
+        "postal"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الرمز البريدي",
+      "ui_context": [
+        "Box 1",
+        "الخانة 1"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Zip code",
+      "field_ids": [
+        "postal_additional"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الرمز البريدي",
+      "ui_context": [
+        "Box 2",
+        "الخانة 2"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Language of Correspondence",
+      "field_ids": [
+        "language"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "لغة المراسلة",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "en",
+          "label": "English",
+          "ar": ""
+        },
+        {
+          "value": "ar",
+          "label": "",
+          "ar": "عربي"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Income Source",
+      "field_ids": [
+        "income_sources"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "مصادر الدخل",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "employment",
+          "label": "employment",
+          "ar": "وظيفة"
+        },
+        {
+          "value": "business",
+          "label": "Business",
+          "ar": "تجارة"
+        },
+        {
+          "value": "property",
+          "label": "Real Estate",
+          "ar": "عقارات"
+        },
+        {
+          "value": "inheritance",
+          "label": "Inheritance",
+          "ar": "إرث"
+        },
+        {
+          "value": "stock",
+          "label": "Stock",
+          "ar": "أسهم"
+        },
+        {
+          "value": "other",
+          "label": "Other",
+          "ar": "أخرى"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": true,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Correspondence / Statement",
+      "field_ids": [
+        "statement_frequency"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الإشعارات وكشوف الحساب",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "request",
+          "label": "Upon Request",
+          "ar": "عند الطلب"
+        },
+        {
+          "value": "monthly",
+          "label": "Monthly",
+          "ar": "شهري"
+        },
+        {
+          "value": "daily",
+          "label": "Daily",
+          "ar": "يومي"
+        },
+        {
+          "value": "transaction",
+          "label": "Per Transaction",
+          "ar": "عند كل عملية"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Correspondence / Statement",
+      "field_ids": [
+        "statement_delivery"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الإشعارات وكشوف الحساب",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "fax",
+          "label": "Fax",
+          "ar": "فاكس"
+        },
+        {
+          "value": "mail",
+          "label": "Mail",
+          "ar": "بريد"
+        },
+        {
+          "value": "sms",
+          "label": "SMS",
+          "ar": "رسالة قصيرة"
+        },
+        {
+          "value": "email",
+          "label": "E-mail",
+          "ar": "البريد الإلكتروني"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": true,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "The approximate annual income (In SAR)",
+      "field_ids": [
+        "annual_income"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الدخل السنوي التقريبي (بالريال السعودي)",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "100000",
+          "label": "100,000 Or less",
+          "ar": "100,000 أو أقل"
+        },
+        {
+          "value": "300000",
+          "label": "300,000-100,001",
+          "ar": ""
+        },
+        {
+          "value": "600000",
+          "label": "600,000 – 300,001",
+          "ar": ""
+        },
+        {
+          "value": "1500000",
+          "label": "1,500,000 – 600,001",
+          "ar": ""
+        },
+        {
+          "value": "5000000",
+          "label": "5,000,000 – 1,500,001",
+          "ar": ""
+        },
+        {
+          "value": "10000000",
+          "label": "10,000,000 – 5,000,001",
+          "ar": ""
+        },
+        {
+          "value": "50000000",
+          "label": "50,000,000 – 10,000,001",
+          "ar": ""
+        },
+        {
+          "value": "more",
+          "label": "More Than 50,000,000",
+          "ar": "أكثر من 50,000,000"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Approximate Net Worth (Excluding Current residence) – In SAR",
+      "field_ids": [
+        "net_worth"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "صافي الثروة التقريبي (باستثناء المنزل) – بالريال السعودي",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "100000",
+          "label": "100,000 Or less",
+          "ar": "100,000 أو أقل"
+        },
+        {
+          "value": "300000",
+          "label": "300,000-100,001",
+          "ar": ""
+        },
+        {
+          "value": "600000",
+          "label": "600,000 – 300,001",
+          "ar": ""
+        },
+        {
+          "value": "1500000",
+          "label": "1,500,000 – 600,001",
+          "ar": ""
+        },
+        {
+          "value": "5000000",
+          "label": "5,000,000 – 1,500,001",
+          "ar": ""
+        },
+        {
+          "value": "10000000",
+          "label": "10,000,000 – 5,000,001",
+          "ar": ""
+        },
+        {
+          "value": "50000000",
+          "label": "50,000,000 – 10,000,001",
+          "ar": ""
+        },
+        {
+          "value": "more",
+          "label": "More Than 50,000,000",
+          "ar": "أكثر من 50,000,000"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Sector",
+      "field_ids": [
+        "sector"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "قطاع",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "government",
+          "label": "Government",
+          "ar": "حكومي"
+        },
+        {
+          "value": "private",
+          "label": "Private",
+          "ar": "خاص"
+        },
+        {
+          "value": "self",
+          "label": "Self- Employment",
+          "ar": "أعمال خاصة"
+        },
+        {
+          "value": "other",
+          "label": "Other",
+          "ar": "أخرى"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Other",
+      "field_ids": [
+        "sector_other"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "أخرى",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Employer’s Name",
+      "field_ids": [
+        "employer"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "اسم جهة العمل",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Employer’s Address",
+      "field_ids": [
+        "employer_address"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "عنوان جهة العمل",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Employer’s Phone Number",
+      "field_ids": [
+        "employer_phone"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "هاتف جهة العمل",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "tel",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Job Title",
+      "field_ids": [
+        "job"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "مسمى الوظيفة",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Years Employment",
+      "field_ids": [
+        "years_employed"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "مدة الخدمة",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Bank Name",
+      "field_ids": [
+        "bank"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "اسم البنك",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "IBAN Number",
+      "field_ids": [
+        "iban"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "رقم الحساب المصرفي الدولي",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Branch",
+      "field_ids": [
+        "branch"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الفرع",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Country",
+      "field_ids": [
+        "bank_country"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الدولة",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Currency",
+      "field_ids": [
+        "bank_currency"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "عملة الحساب",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Has The Client worked in the financial sector during the past five years? (this Includes, for example: working for capital market institutions, banks, finance companies, insurance companies)",
+      "field_ids": [
+        "financial_work"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "هل سبق للعميل العمل في القطاع المالي خلال السنوات الخمس السابقة (يشمل ذلك على سبيل المثال: العمل لدى مؤسسات السوق المالية، البنوك، شركات التمويل، شركات التأمين)؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم"
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "Does the Client have any other practical experience? related to the financial sector?",
+      "field_ids": [
+        "financial_experience"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "هل للعميل أي خبرات عملية أخرى ذات صلة بالقطاع المالي؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم"
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Does the client a director or have a close association with a board of directors’ member, an audit committee member, or a senior executive a listed company?",
+      "field_ids": [
+        "listed_association"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "هل العميل عضو أو ذو علاقة بعضو مجلس إدارة أو لجنة مراجعة أو أحد كبار التنفيذيين في شركة مدرجة؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم"
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "If Yes, Mention The company name.",
+      "field_ids": [
+        "listed_company"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "إذا كان الجواب نعم يرجى ذكر اسم الشركة",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Is the client entrusted with prominent public functions in the kingdom or a foreign country, senior management positions, or a position in an international organization?",
+      "field_ids": [
+        "public_role"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "هل العميل مكلف بمهمات عليا في المملكة أو في دولة أجنبية أو مناصب إدارة عليا أو وظيفة في إحدى المنظمات الدولية؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم"
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Does The client have a relationship (by blood or marriage up to the second degree), or have association with a person entrusted with a prominent public function in the kingdom or a foreign country, senior management positions, or a position in an international organization?",
+      "field_ids": [
+        "related_public_role"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "هل للعميل صلة قرابة (بعلاقة الدم أو الزواج وصولاً إلى الدرجة الثانية) أو يعد مقرباً من شخص مكلف بمهمات عليا في المملكة أو في دولة أجنبية أو مناصب إدارة عليا أو وظيفة في إحدى المنظمات الدولية؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم"
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Are you the sole and final owner and beneficiary of the investment account or business relationship?",
+      "field_ids": [
+        "beneficial_owner"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "هل أنت المالك والمستفيد الحقيقي والنهائي والوحيد للحساب الاستثماري أو علاقة العمل؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم"
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "The identity of the beneficial owner of the account or business relationship (if the answer to above questions I no)",
+      "field_ids": [
+        "beneficiary_identity"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "هوية المستفيد الحقيقي من الحساب أو علاقة العمل (في حال الإجابة عن السؤال أعلاه بلا)",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Is the bank account you entered in the box assigned to the account opening file in your name and are you the owner and the real and final beneficiary and only?",
+      "field_ids": [
+        "bank_beneficiary"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "هل الحساب البنكي الذي قمت بإدخاله في الخانة المخصصة له بملف فتح الحساب باسمك وهل أنت المالك والمستفيد الحقيقي والنهائي والوحيد له؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم"
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Any other financial information on the investor’s financial situation:",
+      "field_ids": [
+        "other_finance"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "أي معلومات أخرى عن الوضع المالي للمستثمر",
+      "ui_context": [
+        "Box 1",
+        "الخانة 1"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Any other financial information on the investor’s financial situation:",
+      "field_ids": [
+        "other_finance_2"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "أي معلومات أخرى عن الوضع المالي للمستثمر",
+      "ui_context": [
+        "Box 2",
+        "الخانة 2"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Information for special case",
+      "field_ids": [
+        "special_case"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "معلومات الحالات الخاصة",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "guardian",
+          "label": "Court Appointed Guardian",
+          "ar": "قيم لناقص الأهلية"
+        },
+        {
+          "value": "witness",
+          "label": "Illiterate and Blind Witness",
+          "ar": "شاهد للأمي والكفيف"
+        },
+        {
+          "value": "heirs",
+          "label": "Inheritors Agent",
+          "ar": "وكيل الورثة"
+        },
+        {
+          "value": "veiled",
+          "label": "Veiled Woman Witness",
+          "ar": "معرف المحجبة"
+        },
+        {
+          "value": "minor",
+          "label": "Father / Guardian of a Minor",
+          "ar": "ولي / وصي للقاصر"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": true,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Name",
+      "field_ids": [
+        "representative_name",
+        "representative_name_first",
+        "representative_name_second",
+        "representative_name_third",
+        "representative_name_last"
+      ],
+      "verdict": "authorized_name_split",
+      "action": "Preserve the explicitly requested name-part controls and join them into the printed name area.",
+      "printed_ar": "الاسم",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "ID No",
+      "field_ids": [
+        "rep_id"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "رقمها",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "ID Type",
+      "field_ids": [
+        "rep_type"
+      ],
+      "verdict": "authorized_control_change_with_limitation",
+      "action": "Retain prior requested dropdown. Printed ID Type is free text; dropdown only permits National ID/Passport/ResidenceID/Other. Other has no detail input, so unsupported custom ID descriptions cannot be entered; decide in integration without inventing a separate question.",
+      "printed_ar": "نوع الهوية",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Date of Expiry",
+      "field_ids": [
+        "rep_expiry"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "تاريخ الانتهاء",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "date",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Tel No",
+      "field_ids": [
+        "rep_phone"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "رقم الهاتف",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "tel",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "How do you describe your investment Knowledge and Experience?",
+      "field_ids": [
+        "experience"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "كيف تصنف معرفتك وخبراتك الاستثمارية؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "extensive",
+          "label": "Extensive",
+          "ar": "عالية"
+        },
+        {
+          "value": "good",
+          "label": "Good",
+          "ar": "متوسطة"
+        },
+        {
+          "value": "limited",
+          "label": "Limited",
+          "ar": "منخفضة"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "Number of Years of Investment in Securities",
+      "field_ids": [
+        "years_investing"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "عدد سنوات الاستثمار في أسواق الأوراق المالية",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "Products Previously Invested In",
+      "field_ids": [
+        "previous_products"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "المنتجات التي سبق الاستثمار فيها",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "Professional Certificates",
+      "field_ids": [
+        "certificates"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الشهادات المهنية",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "Loan to Invested Money Ratio",
+      "field_ids": [
+        "loan_ratio"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "نسبة القروض من الأموال المستثمرة",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "Margin Transactions Over the Past Five Years",
+      "field_ids": [
+        "margin_transactions"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "صفقات التمويل بالهامش خلال السنوات الخمس السابقة",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "Securities Transactions Outside the Kingdom Over the Past Five Years",
+      "field_ids": [
+        "overseas_transactions"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "صفقات الأوراق المالية خارج المملكة خلال السنوات الخمس السابقة",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "If Securities Transactions Were Executed Outside the Kingdom Over the Past Five Years, Which Countries Were These Transactions Executed?",
+      "field_ids": [
+        "overseas_countries"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "إذا كان قد تم تنفيذ صفقات أوراق مالية خارج المملكة خلال السنوات الخمس السابقة، ما هي الدول التي تم تنفيذ تلك الصفقات فيها؟",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "Risk Appetite",
+      "field_ids": [
+        "risk_appetite"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "قدرتك على تحمل المخاطر",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "extensive",
+          "label": "Extensive",
+          "ar": "عالية"
+        },
+        {
+          "value": "good",
+          "label": "Good",
+          "ar": "متوسطة"
+        },
+        {
+          "value": "limited",
+          "label": "Limited",
+          "ar": "منخفضة"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "General Investment objectives",
+      "field_ids": [
+        "objectives"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الأهداف الاستثمارية العامة",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "capital",
+          "label": "Protection of capital",
+          "ar": "حماية رأس المال"
+        },
+        {
+          "value": "income",
+          "label": "Realization Income",
+          "ar": "تحقيق الدخل"
+        },
+        {
+          "value": "balanced",
+          "label": "Balanced",
+          "ar": "موازنة"
+        },
+        {
+          "value": "growth",
+          "label": "Growth of Capital",
+          "ar": "نمو رأس المال"
+        },
+        {
+          "value": "retirement",
+          "label": "Create Savings for Retirement",
+          "ar": "تكوين مدخرات للتقاعد"
+        },
+        {
+          "value": "project",
+          "label": "Project Finance",
+          "ar": "تمويل مشروع"
+        },
+        {
+          "value": "asset",
+          "label": "Buying an asset (for example: a real estate, or a vehicle)",
+          "ar": "شراء أصل (على سبيل المثال: عقار أو مركبة)"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": true,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "Other (Please specify)",
+      "field_ids": [
+        "objectives_other"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "غيرها (يرجى التحديد)",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "printed_label": "Do You have any Investment restrictions?",
+      "field_ids": [
+        "restrictions"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "هل لديك قيود استثمارية؟",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 4,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Preferred Investment Currency",
+      "field_ids": [
+        "currencies"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "ما الأصول الاستثمارية المفضلة للعميل؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "sar",
+          "label": "Assets in Saudi Riyal",
+          "ar": "أصول بالريال السعودي"
+        },
+        {
+          "value": "other",
+          "label": "Assets in Other Foreign Currencies",
+          "ar": "أصول بعملات أجنبية أخرى"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": true,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Please Specify Other Foreign Currencies",
+      "field_ids": [
+        "other_currency"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "يرجى التحديد العملات الأجنبية",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "The Period during which the Client expects to recover the invested money",
+      "field_ids": [
+        "horizon"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "المدة التي يتوقع العميل خلالها استرداد الأموال المستثمرة",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "short",
+          "label": "Short Term (less than a year)",
+          "ar": "مدة قصيرة المدى (أقل من سنة)"
+        },
+        {
+          "value": "mid",
+          "label": "Mid Term (1 to 5 years)",
+          "ar": "مدة متوسطة المدى (من سنة إلى خمس سنوات)"
+        },
+        {
+          "value": "long",
+          "label": "Long Term (More Than 5 years)",
+          "ar": "مدة طويلة المدى (أكثر من خمس سنوات)"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Deposits/Murabah",
+      "field_ids": [
+        "ideal_deposits"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "ودائع ومرابحات",
+      "ui_context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Debit Instruments",
+      "field_ids": [
+        "ideal_debt"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "أدوات دين",
+      "ui_context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Equity",
+      "field_ids": [
+        "ideal_equity"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "أسهم",
+      "ui_context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Investment Fund",
+      "field_ids": [
+        "ideal_funds"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "صناديق استثمارية",
+      "ui_context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Real estate",
+      "field_ids": [
+        "ideal_property"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "عقارات",
+      "ui_context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Derivatives contracts",
+      "field_ids": [
+        "ideal_derivatives"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "عقود مشتقات",
+      "ui_context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Alternative Investments",
+      "field_ids": [
+        "ideal_alternative"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "استثمارات بديلة",
+      "ui_context": [
+        "Ideal Client Portfolio",
+        "المحفظة المثالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Deposits/Murabah",
+      "field_ids": [
+        "current_deposits"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "ودائع ومرابحات",
+      "ui_context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Debit Instruments",
+      "field_ids": [
+        "current_debt"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "أدوات دين",
+      "ui_context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Equity",
+      "field_ids": [
+        "current_equity"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "أسهم",
+      "ui_context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Investment Fund",
+      "field_ids": [
+        "current_funds"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "صناديق استثمارية",
+      "ui_context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Real estate",
+      "field_ids": [
+        "current_property"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "عقارات",
+      "ui_context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Derivatives contracts",
+      "field_ids": [
+        "current_derivatives"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "عقود مشتقات",
+      "ui_context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Alternative Investments",
+      "field_ids": [
+        "current_alternative"
+      ],
+      "verdict": "portfolio_percentage_usability",
+      "action": "Preserve percentage semantics and ideal/current column. Remove arbitrary six-character input truncation and make percent unit clear; do not turn this into currency amounts or add mandatory answers.",
+      "printed_ar": "استثمارات بديلة",
+      "ui_context": [
+        "Current Client Portfolio",
+        "المحفظة الحالية للعميل"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": 6,
+      "numeric": true,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Account No",
+      "field_ids": [
+        "custodian_account"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "رقم الحساب",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Custodian Name",
+      "field_ids": [
+        "custodian_name"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "اسم أمين الحفظ",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Custodian Address",
+      "field_ids": [
+        "custodian_address"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "عنوان أمين الحفظ",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Certificates",
+      "field_ids": [
+        "send_certificates"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "الشهادات",
+      "ui_context": [
+        "Where would you like to send the following:",
+        "أين ترغب بإرسال الآتي:"
+      ],
+      "options": [
+        {
+          "value": "client",
+          "label": "Client",
+          "ar": "العميل"
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Other Parties: Specify any instructions issued by the Client regarding the party.",
+      "field_ids": [
+        "instructions_certificates"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة",
+      "ui_context": [
+        "Certificates",
+        "الشهادات"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Dividends or any other income",
+      "field_ids": [
+        "send_dividends"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "حصص الأرباح أو أي دخل آخر",
+      "ui_context": [
+        "Where would you like to send the following:",
+        "أين ترغب بإرسال الآتي:"
+      ],
+      "options": [
+        {
+          "value": "client",
+          "label": "Client",
+          "ar": "العميل"
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Other Parties: Specify any instructions issued by the Client regarding the party.",
+      "field_ids": [
+        "instructions_dividends"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة",
+      "ui_context": [
+        "Dividends or any other income",
+        "حصص الأرباح أو أي دخل آخر"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Sales proceed",
+      "field_ids": [
+        "send_proceeds"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "حصيلة البيع",
+      "ui_context": [
+        "Where would you like to send the following:",
+        "أين ترغب بإرسال الآتي:"
+      ],
+      "options": [
+        {
+          "value": "client",
+          "label": "Client",
+          "ar": "العميل"
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Other Parties: Specify any instructions issued by the Client regarding the party.",
+      "field_ids": [
+        "instructions_proceeds"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة",
+      "ui_context": [
+        "Sales proceed",
+        "حصيلة البيع"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "1. What is Your level of experience with investment products?",
+      "field_ids": [
+        "risk_experience"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "1. ما هو مدى خبرتك في مجال المنتجات الاستثمارية؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "1",
+          "label": "No Investment experience (1 Point)",
+          "ar": "لا يوجد أي خبرة استثمارية (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Little Investment experience (2 Points)",
+          "ar": "خبرة استثمارية قليلة (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "High Investment experience (3 Points)",
+          "ar": "خبرة عالية في الاستثمار (3 نقاط)"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "2. What is your age?",
+      "field_ids": [
+        "risk_age"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "2. كم هو عمرك؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "1",
+          "label": "Over 65 (1 Point)",
+          "ar": "فوق 65 (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "between 51-65 (2 Points)",
+          "ar": "بين 51-65 (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "Between 35-50 (3 Points)",
+          "ar": "بين 35-50 (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "Younger Than 35 (4 Points)",
+          "ar": "أقل من 35 (4 نقاط)"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "3. What will be your reaction if your investment suddenly drops in value?",
+      "field_ids": [
+        "risk_reaction"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "3. ماهي ردة فعلك إذا هبطت قيمة استثمارك فجأة؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "1",
+          "label": "Sell it to Prevent further Losses (1 Point)",
+          "ar": "بيعها لتفادي أي خسارة مستقبلية (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Partially sell it to prevent losses (2 Points)",
+          "ar": "بيع جزء منها لتفادي الخسائر (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "I would hold the investment (3 Points)",
+          "ar": "أحافظ عليها (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "Buy more if it was attractive at a higher price, it looks even better at its current price (4 Points)",
+          "ar": "شراء المزيد إذا كان الاستثمار مغري على الأسعار المرتفعة ويظهر بأنه أفضل على سعره الحالي (4 نقاط)"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "4. For how long do you think you are going to keep your investment ?",
+      "field_ids": [
+        "risk_duration"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "4. ما هي المدة التي ستبقى فيها على استثمارك؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "1",
+          "label": "Less Than 1 Year (1 Point)",
+          "ar": "أقل من سنة (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Between 1 and 2 years (2 Points)",
+          "ar": "بين 1-2 سنة (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "Between 2 and 3 years (3 Points)",
+          "ar": "بين 2-3 سنوات (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "More Than 3 Years (4 Points)",
+          "ar": "أكثر من 3 سنوات (4 نقاط)"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "5. What percentage of your total capital (excluding property and other non-financial investment) would you use for this investment?",
+      "field_ids": [
+        "risk_capital"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "5. كم أي نسبة رأس المال التي سوف تستعملها لهذا الاستثمار (من إجمالي رأس المال باستثناء العقارات والاستثمارات غير النقدية) ؟",
+      "ui_context": null,
+      "options": [
+        {
+          "value": "1",
+          "label": "Less Than 25% (1 point)",
+          "ar": "أقل من 25% (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Between 26% and 50% (2 points)",
+          "ar": "بين 26% - 50% (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "Between 51% and 75% (3 points)",
+          "ar": "بين 51% - 75% (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "More Than 75% (4 points)",
+          "ar": "أكثر من 75% (4 نقاط)"
+        }
+      ],
+      "ui_type": "choice",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "Result (Number of Points)=",
+      "field_ids": [
+        "risk_total"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "النتيجة (عدد النقاط) =",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "(funds / portfolios of:",
+      "field_ids": [
+        "desired_funds"
+      ],
+      "verdict": "match",
+      "action": "No change.",
+      "printed_ar": "(صناديق / محافظ:",
+      "ui_context": [
+        "the client desires to invest in:",
+        "يرغب العميل الاستثمار في"
+      ],
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "Client Name",
+      "field_ids": [
+        "risk_client_name",
+        "risk_client_name_first",
+        "risk_client_name_second",
+        "risk_client_name_third",
+        "risk_client_name_last"
+      ],
+      "verdict": "authorized_name_split",
+      "action": "Preserve the explicitly requested name-part controls and join them into the printed name area.",
+      "printed_ar": "اسم العميل",
+      "ui_context": null,
+      "options": null,
+      "ui_type": "text",
+      "multiple": false,
+      "ui_max_length": null,
+      "numeric": false,
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "printed_label": "Place of Issue",
+      "field_ids": [
+        "issue_place"
+      ],
+      "verdict": "authorized_removal",
+      "action": "Do not restore: prior explicit user instruction removed issue date/place from the UI.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 1,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Date of Issue",
+      "field_ids": [
+        "rep_issue"
+      ],
+      "verdict": "authorized_removal",
+      "action": "Do not restore: prior explicit user instruction removed issue date/place from the UI.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Place of Issue",
+      "field_ids": [
+        "rep_place"
+      ],
+      "verdict": "authorized_removal",
+      "action": "Do not restore: prior explicit user instruction removed issue date/place from the UI.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Fax No",
+      "field_ids": [
+        "rep_fax",
+        "rep_email"
+      ],
+      "verdict": "authorized_fax_to_email_exception",
+      "action": "Preserve requested email UI. Email is saved as application detail and does not print into the original Fax box. Original PDF label remains unchanged.",
+      "ui_only_ids": [
+        "rep_email"
+      ],
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "printed_label": "Signature",
+      "field_ids": [
+        "signature:representative"
+      ],
+      "verdict": "match_signature",
+      "action": "Existing representative signature slot covers the paper signature box; no new field.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 3,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "Signature",
+      "field_ids": [
+        "signature:client"
+      ],
+      "verdict": "match_signature",
+      "action": "Existing client signature slot covers the paper signature box; no new field.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Account Holder’s Full Name",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Signature of RM/CSR",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Client CIF",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Review: Complete Document",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Review: Client Signature",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Establish Investment Account in the System",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Client Classification: Institutional / Qualified / Retail",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Client Risk Rating: High / Medium / Low",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Senior Management Approval (if needed): Name",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Senior Management Approval (if needed): Position",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Senior Management Approval (if needed): Date",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "printed_label": "Senior Management Approval (if needed): Signature",
+      "field_ids": [],
+      "verdict": "staff_only_source_area",
+      "action": "Absent from client entry UI. Source labels this page RM/CSR/Internal Use; do not add customer questions or requirements. Paper remains visible in PDF review.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 6,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "1–6 points: Low to medium risks; recommends low-risk funds/portfolio",
+      "field_ids": [
+        "risk_total",
+        "desired_funds"
+      ],
+      "verdict": "printed_explanation_missing_in_ui",
+      "action": "Restore as static source text near score/fund controls if paper-to-UI copy parity is required; do not auto-select a portfolio or invent consent/acknowledgment inputs.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "7–15 points: Medium to high risks; recommends medium-risk funds/portfolio",
+      "field_ids": [
+        "risk_total",
+        "desired_funds"
+      ],
+      "verdict": "printed_explanation_missing_in_ui",
+      "action": "Restore as static source text near score/fund controls if paper-to-UI copy parity is required; do not auto-select a portfolio or invent consent/acknowledgment inputs.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "More than15 points: High risks; recommends high-risk funds/portfolio",
+      "field_ids": [
+        "risk_total",
+        "desired_funds"
+      ],
+      "verdict": "printed_explanation_missing_in_ui",
+      "action": "Restore as static source text near score/fund controls if paper-to-UI copy parity is required; do not auto-select a portfolio or invent consent/acknowledgment inputs.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "Despite recommendation Itqan Capital / بالرغم من توصية إتقان كابيتال",
+      "field_ids": [
+        "risk_total",
+        "desired_funds"
+      ],
+      "verdict": "printed_explanation_missing_in_ui",
+      "action": "Restore as static source text near score/fund controls if paper-to-UI copy parity is required; do not auto-select a portfolio or invent consent/acknowledgment inputs.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "printed_label": "Ensure That the sum of all percentages above equal100%",
+      "field_ids": [
+        "ideal_deposits",
+        "ideal_debt",
+        "ideal_equity",
+        "ideal_funds",
+        "ideal_property",
+        "ideal_derivatives",
+        "ideal_alternative",
+        "current_deposits",
+        "current_debt",
+        "current_equity",
+        "current_funds",
+        "current_property",
+        "current_derivatives",
+        "current_alternative"
+      ],
+      "verdict": "match_with_clearer_percentage_presentation",
+      "action": "Both seven-row ideal/current columns exist. UI section note and review warnings cover percentage totals; keep 0–100 and100% guidance without requiring blank portfolios to be filled.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 5,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "printed_label": "10,0000,000 –5,000,001 (printed typo in income/net-worth option)",
+      "field_ids": [
+        "annual_income",
+        "net_worth"
+      ],
+      "verdict": "source_typo_normalized",
+      "action": "UI says10,000,000–5,000,001, consistent with adjacent bands. Do not restore the obvious extra-zero source typo without a deliberate decision.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 2,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "printed_label": "Risk capital choices:<25%;26–50%;51–75%;>75%",
+      "field_ids": [
+        "risk_capital"
+      ],
+      "verdict": "source_boundary_gap_preserved",
+      "action": "Paper excludes exactly25% (and noninteger gaps). UI matches paper; do not invent additional choices in this audit.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+        "page": 7,
+        "baselineDefinition": "individual-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    }
+  ],
+  "ui_to_paper": [
+    {
+      "field_id": "account_type",
+      "ui_label": "Investor Information (Individuals)",
+      "page": 1,
+      "source_row_indexes": [
+        0
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "title",
+      "ui_label": "Title",
+      "page": 1,
+      "source_row_indexes": [
+        1
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "title_other",
+      "ui_label": "Other",
+      "page": 1,
+      "source_row_indexes": [
+        2
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "gender",
+      "ui_label": "Gender",
+      "page": 1,
+      "source_row_indexes": [
+        3
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "name_first",
+      "ui_label": "First name",
+      "page": 1,
+      "source_row_indexes": [
+        4
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "name_second",
+      "ui_label": "Second name",
+      "page": 1,
+      "source_row_indexes": [
+        4
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "name_third",
+      "ui_label": "Third name (optional)",
+      "page": 1,
+      "source_row_indexes": [
+        4
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "name_last",
+      "ui_label": "Family name",
+      "page": 1,
+      "source_row_indexes": [
+        4
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "dob",
+      "ui_label": "Date of Birth",
+      "page": 1,
+      "source_row_indexes": [
+        5
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "marital",
+      "ui_label": "Marital Status",
+      "page": 1,
+      "source_row_indexes": [
+        6
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "dependents",
+      "ui_label": "Number of Dependents",
+      "page": 1,
+      "source_row_indexes": [
+        7
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "id_type",
+      "ui_label": "Type Of ID",
+      "page": 1,
+      "source_row_indexes": [
+        8
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "id_other",
+      "ui_label": "Other",
+      "page": 1,
+      "source_row_indexes": [
+        9
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "id_number",
+      "ui_label": "ID Number",
+      "page": 1,
+      "source_row_indexes": [
+        10
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "id_expiry",
+      "ui_label": "Expiry Date",
+      "page": 1,
+      "source_row_indexes": [
+        11
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "nationality",
+      "ui_label": "Nationality",
+      "page": 1,
+      "source_row_indexes": [
+        12
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "education",
+      "ui_label": "Educational Level",
+      "page": 1,
+      "source_row_indexes": [
+        13
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "building",
+      "ui_label": "Building",
+      "page": 1,
+      "source_row_indexes": [
+        14
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "street",
+      "ui_label": "Street Name",
+      "page": 1,
+      "source_row_indexes": [
+        15
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "address_city",
+      "ui_label": "City",
+      "page": 1,
+      "source_row_indexes": [
+        16
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "address_district",
+      "ui_label": "District",
+      "page": 1,
+      "source_row_indexes": [
+        16
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "email",
+      "ui_label": "Email",
+      "page": 1,
+      "source_row_indexes": [
+        17
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "country",
+      "ui_label": "Country of residence",
+      "page": 1,
+      "source_row_indexes": [
+        18
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "phone",
+      "ui_label": "Phone",
+      "page": 1,
+      "source_row_indexes": [
+        19
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "mobile",
+      "ui_label": "Mobile",
+      "page": 1,
+      "source_row_indexes": [
+        20
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "postal",
+      "ui_label": "Zip code",
+      "page": 1,
+      "source_row_indexes": [
+        21
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "postal_additional",
+      "ui_label": "Zip code",
+      "page": 1,
+      "source_row_indexes": [
+        22
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "language",
+      "ui_label": "Language of Correspondence",
+      "page": 1,
+      "source_row_indexes": [
+        23
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "income_sources",
+      "ui_label": "Income Source",
+      "page": 1,
+      "source_row_indexes": [
+        24
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "statement_frequency",
+      "ui_label": "Correspondence / Statement",
+      "page": 1,
+      "source_row_indexes": [
+        25
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "statement_delivery",
+      "ui_label": "Correspondence / Statement",
+      "page": 1,
+      "source_row_indexes": [
+        26
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "annual_income",
+      "ui_label": "The approximate annual income (In SAR)",
+      "page": 2,
+      "source_row_indexes": [
+        27,
+        127
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "net_worth",
+      "ui_label": "Approximate Net Worth (Excluding Current residence) – In SAR",
+      "page": 2,
+      "source_row_indexes": [
+        28,
+        127
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "sector",
+      "ui_label": "Sector",
+      "page": 2,
+      "source_row_indexes": [
+        29
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "sector_other",
+      "ui_label": "Other",
+      "page": 2,
+      "source_row_indexes": [
+        30
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "employer",
+      "ui_label": "Employer’s Name",
+      "page": 2,
+      "source_row_indexes": [
+        31
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "employer_address",
+      "ui_label": "Employer’s Address",
+      "page": 2,
+      "source_row_indexes": [
+        32
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "employer_phone",
+      "ui_label": "Employer’s Phone Number",
+      "page": 2,
+      "source_row_indexes": [
+        33
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "job",
+      "ui_label": "Job Title",
+      "page": 2,
+      "source_row_indexes": [
+        34
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "years_employed",
+      "ui_label": "Years Employment",
+      "page": 2,
+      "source_row_indexes": [
+        35
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "bank",
+      "ui_label": "Bank Name",
+      "page": 2,
+      "source_row_indexes": [
+        36
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "iban",
+      "ui_label": "IBAN Number",
+      "page": 2,
+      "source_row_indexes": [
+        37
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "branch",
+      "ui_label": "Branch",
+      "page": 2,
+      "source_row_indexes": [
+        38
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "bank_country",
+      "ui_label": "Country",
+      "page": 2,
+      "source_row_indexes": [
+        39
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "bank_currency",
+      "ui_label": "Currency",
+      "page": 2,
+      "source_row_indexes": [
+        40
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "financial_work",
+      "ui_label": "Has The Client worked in the financial sector during the past five years? (this Includes, for example: working for capital market institutions, banks, finance companies, insurance companies)",
+      "page": 2,
+      "source_row_indexes": [
+        41
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "financial_experience",
+      "ui_label": "Does the Client have any other practical experience? related to the financial sector?",
+      "page": 2,
+      "source_row_indexes": [
+        42
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "listed_association",
+      "ui_label": "Does the client a director or have a close association with a board of directors’ member, an audit committee member, or a senior executive a listed company?",
+      "page": 3,
+      "source_row_indexes": [
+        43
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "listed_company",
+      "ui_label": "If Yes, Mention The company name.",
+      "page": 3,
+      "source_row_indexes": [
+        44
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "public_role",
+      "ui_label": "Is the client entrusted with prominent public functions in the kingdom or a foreign country, senior management positions, or a position in an international organization?",
+      "page": 3,
+      "source_row_indexes": [
+        45
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "related_public_role",
+      "ui_label": "Does The client have a relationship (by blood or marriage up to the second degree), or have association with a person entrusted with a prominent public function in the kingdom or a foreign country, senior management positions, or a position in an international organization?",
+      "page": 3,
+      "source_row_indexes": [
+        46
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "beneficial_owner",
+      "ui_label": "Are you the sole and final owner and beneficiary of the investment account or business relationship?",
+      "page": 3,
+      "source_row_indexes": [
+        47
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "beneficiary_identity",
+      "ui_label": "The identity of the beneficial owner of the account or business relationship (if the answer to above questions I no)",
+      "page": 3,
+      "source_row_indexes": [
+        48
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "bank_beneficiary",
+      "ui_label": "Is the bank account you entered in the box assigned to the account opening file in your name and are you the owner and the real and final beneficiary and only?",
+      "page": 3,
+      "source_row_indexes": [
+        49
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "other_finance",
+      "ui_label": "Any other financial information on the investor’s financial situation:",
+      "page": 3,
+      "source_row_indexes": [
+        50
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "other_finance_2",
+      "ui_label": "Any other financial information on the investor’s financial situation:",
+      "page": 3,
+      "source_row_indexes": [
+        51
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "special_case",
+      "ui_label": "Information for special case",
+      "page": 3,
+      "source_row_indexes": [
+        52
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "representative_name_first",
+      "ui_label": "First name",
+      "page": 3,
+      "source_row_indexes": [
+        53
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "representative_name_second",
+      "ui_label": "Second name",
+      "page": 3,
+      "source_row_indexes": [
+        53
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "representative_name_third",
+      "ui_label": "Third name (optional)",
+      "page": 3,
+      "source_row_indexes": [
+        53
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "representative_name_last",
+      "ui_label": "Family name",
+      "page": 3,
+      "source_row_indexes": [
+        53
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "rep_id",
+      "ui_label": "ID No",
+      "page": 3,
+      "source_row_indexes": [
+        54
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "rep_type",
+      "ui_label": "ID Type",
+      "page": 3,
+      "source_row_indexes": [
+        55
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "rep_expiry",
+      "ui_label": "Date of Expiry",
+      "page": 3,
+      "source_row_indexes": [
+        56
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "rep_phone",
+      "ui_label": "Tel No",
+      "page": 3,
+      "source_row_indexes": [
+        57
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "rep_email",
+      "ui_label": "Email",
+      "page": 3,
+      "source_row_indexes": [
+        107
+      ],
+      "verdict": "authorized_extra_ui_email"
+    },
+    {
+      "field_id": "experience",
+      "ui_label": "How do you describe your investment Knowledge and Experience?",
+      "page": 4,
+      "source_row_indexes": [
+        58
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "years_investing",
+      "ui_label": "Number of Years of Investment in Securities",
+      "page": 4,
+      "source_row_indexes": [
+        59
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "previous_products",
+      "ui_label": "Products Previously Invested In",
+      "page": 4,
+      "source_row_indexes": [
+        60
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "certificates",
+      "ui_label": "Professional Certificates",
+      "page": 4,
+      "source_row_indexes": [
+        61
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "loan_ratio",
+      "ui_label": "Loan to Invested Money Ratio",
+      "page": 4,
+      "source_row_indexes": [
+        62
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "margin_transactions",
+      "ui_label": "Margin Transactions Over the Past Five Years",
+      "page": 4,
+      "source_row_indexes": [
+        63
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "overseas_transactions",
+      "ui_label": "Securities Transactions Outside the Kingdom Over the Past Five Years",
+      "page": 4,
+      "source_row_indexes": [
+        64
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "overseas_countries",
+      "ui_label": "If Securities Transactions Were Executed Outside the Kingdom Over the Past Five Years, Which Countries Were These Transactions Executed?",
+      "page": 4,
+      "source_row_indexes": [
+        65
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "risk_appetite",
+      "ui_label": "Risk Appetite",
+      "page": 4,
+      "source_row_indexes": [
+        66
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "objectives",
+      "ui_label": "General Investment objectives",
+      "page": 4,
+      "source_row_indexes": [
+        67
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "objectives_other",
+      "ui_label": "Other (Please specify)",
+      "page": 4,
+      "source_row_indexes": [
+        68
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "restrictions",
+      "ui_label": "Do You have any Investment restrictions?",
+      "page": 4,
+      "source_row_indexes": [
+        69
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "currencies",
+      "ui_label": "Preferred Investment Currency",
+      "page": 5,
+      "source_row_indexes": [
+        70
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "other_currency",
+      "ui_label": "Please Specify Other Foreign Currencies",
+      "page": 5,
+      "source_row_indexes": [
+        71
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "horizon",
+      "ui_label": "The Period during which the Client expects to recover the invested money",
+      "page": 5,
+      "source_row_indexes": [
+        72
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "ideal_deposits",
+      "ui_label": "Deposits/Murabah",
+      "page": 5,
+      "source_row_indexes": [
+        73,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "ideal_debt",
+      "ui_label": "Debit Instruments",
+      "page": 5,
+      "source_row_indexes": [
+        74,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "ideal_equity",
+      "ui_label": "Equity",
+      "page": 5,
+      "source_row_indexes": [
+        75,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "ideal_funds",
+      "ui_label": "Investment Fund",
+      "page": 5,
+      "source_row_indexes": [
+        76,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "ideal_property",
+      "ui_label": "Real estate",
+      "page": 5,
+      "source_row_indexes": [
+        77,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "ideal_derivatives",
+      "ui_label": "Derivatives contracts",
+      "page": 5,
+      "source_row_indexes": [
+        78,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "ideal_alternative",
+      "ui_label": "Alternative Investments",
+      "page": 5,
+      "source_row_indexes": [
+        79,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "current_deposits",
+      "ui_label": "Deposits/Murabah",
+      "page": 5,
+      "source_row_indexes": [
+        80,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "current_debt",
+      "ui_label": "Debit Instruments",
+      "page": 5,
+      "source_row_indexes": [
+        81,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "current_equity",
+      "ui_label": "Equity",
+      "page": 5,
+      "source_row_indexes": [
+        82,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "current_funds",
+      "ui_label": "Investment Fund",
+      "page": 5,
+      "source_row_indexes": [
+        83,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "current_property",
+      "ui_label": "Real estate",
+      "page": 5,
+      "source_row_indexes": [
+        84,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "current_derivatives",
+      "ui_label": "Derivatives contracts",
+      "page": 5,
+      "source_row_indexes": [
+        85,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "current_alternative",
+      "ui_label": "Alternative Investments",
+      "page": 5,
+      "source_row_indexes": [
+        86,
+        126
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "custodian_account",
+      "ui_label": "Account No",
+      "page": 5,
+      "source_row_indexes": [
+        87
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "custodian_name",
+      "ui_label": "Custodian Name",
+      "page": 5,
+      "source_row_indexes": [
+        88
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "custodian_address",
+      "ui_label": "Custodian Address",
+      "page": 5,
+      "source_row_indexes": [
+        89
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "send_certificates",
+      "ui_label": "Certificates",
+      "page": 5,
+      "source_row_indexes": [
+        90
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "instructions_certificates",
+      "ui_label": "Other Parties: Specify any instructions issued by the Client regarding the party.",
+      "page": 5,
+      "source_row_indexes": [
+        91
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "send_dividends",
+      "ui_label": "Dividends or any other income",
+      "page": 5,
+      "source_row_indexes": [
+        92
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "instructions_dividends",
+      "ui_label": "Other Parties: Specify any instructions issued by the Client regarding the party.",
+      "page": 5,
+      "source_row_indexes": [
+        93
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "send_proceeds",
+      "ui_label": "Sales proceed",
+      "page": 5,
+      "source_row_indexes": [
+        94
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "instructions_proceeds",
+      "ui_label": "Other Parties: Specify any instructions issued by the Client regarding the party.",
+      "page": 5,
+      "source_row_indexes": [
+        95
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "risk_experience",
+      "ui_label": "1. What is Your level of experience with investment products?",
+      "page": 7,
+      "source_row_indexes": [
+        96
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "risk_age",
+      "ui_label": "2. What is your age?",
+      "page": 7,
+      "source_row_indexes": [
+        97
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "risk_reaction",
+      "ui_label": "3. What will be your reaction if your investment suddenly drops in value?",
+      "page": 7,
+      "source_row_indexes": [
+        98
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "risk_duration",
+      "ui_label": "4. For how long do you think you are going to keep your investment ?",
+      "page": 7,
+      "source_row_indexes": [
+        99
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "risk_capital",
+      "ui_label": "5. What percentage of your total capital (excluding property and other non-financial investment) would you use for this investment?",
+      "page": 7,
+      "source_row_indexes": [
+        100,
+        128
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "risk_total",
+      "ui_label": "Result (Number of Points)=",
+      "page": 7,
+      "source_row_indexes": [
+        101,
+        122,
+        123,
+        124,
+        125
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "desired_funds",
+      "ui_label": "(funds / portfolios of:",
+      "page": 7,
+      "source_row_indexes": [
+        102,
+        122,
+        123,
+        124,
+        125
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "risk_client_name_first",
+      "ui_label": "First name",
+      "page": 7,
+      "source_row_indexes": [
+        103
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "risk_client_name_second",
+      "ui_label": "Second name",
+      "page": 7,
+      "source_row_indexes": [
+        103
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "risk_client_name_third",
+      "ui_label": "Third name (optional)",
+      "page": 7,
+      "source_row_indexes": [
+        103
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    },
+    {
+      "field_id": "risk_client_name_last",
+      "ui_label": "Family name",
+      "page": 7,
+      "source_row_indexes": [
+        103
+      ],
+      "verdict": "mapped_to_printed_question_or_authorized_split"
+    }
+  ],
+  "intentional_exceptions": [
+    "Issue place and representative issue date/place removed by explicit prior request.",
+    "Representative Fax replaced by saved UI-only Email; no email printed beneath Fax.",
+    "Four-part names and separate city/district controls are user-requested.",
+    "ID type dropdown controls were explicitly requested; family retirement scope needs parent history confirmation.",
+    "Staff-only page6 is not a customer questionnaire."
+  ],
+  "portfolio_semantics": {
+    "source": "Page5 labels ideal/current portfolio, seven investment categories, and a percentage-total100% instruction.",
+    "rows": [
+      "Deposits/Murabah",
+      "Debit Instruments",
+      "Equity",
+      "Investment Fund",
+      "Real estate",
+      "Derivatives contracts",
+      "Alternative Investments"
+    ],
+    "column_mapping": "ideal_* maps left/Ideal;current_* maps right/Current. Both have all seven inputs.",
+    "input_snapshot": "numeric:true,total:ideal|current,maxLength:6; applyPaperCopy labels omit%; contextual column labels retained.",
+    "do_not_change": "Do not interpret these as balances/currency amounts or impose completion of blank portfolio columns."
+  },
+  "page7_exact_notes": [
+    [
+      "No. Of Points between (1) and (6): Low to medium risks\n(recommends client to invest in the funds/ portfolio of Low risks)",
+      "عدد النقاط من (1) إلى (6): مخاطر منخفضة\n(ننصح العميل بالاستثمار في منتجات منخفضة المخاطر)"
+    ],
+    [
+      "No. Of Points between (7) and (15): medium to high risks\n(recommends client to invest in the funds/ portfolio medium risks)",
+      "عدد النقاط من (7) إلى (15): مخاطر متوسطة إلى مرتفعة\n(ننصح العميل بالاستثمار في منتجات متوسطة المخاطر)"
+    ],
+    [
+      "No. Of Points more than (15): high risks\n(recommends client to invest in the funds/ portfolio high risks)",
+      "عدد النقاط أكثر من (15): مخاطر مرتفعة\n(ننصح العميل بالاستثمار في منتجات عالية المخاطر)"
+    ],
+    [
+      "Despite recommendation Itqan Capital",
+      "بالرغم من توصية إتقان كابيتال"
+    ]
+  ],
+  "family_history": {
+    "retirement_commit": "27550ab",
+    "scope": "subscription/shared options only; no KYC source edit",
+    "global_filter_commit": "7d321d0",
+    "comment": "Change only the controls: the approved paper options and PDF destinations stay intact.",
+    "finding": "No KYC-specific user authorization found in repository history; root requested narrow paper-option restoration."
+  },
+  "phase": "pre_fix_baseline",
+  "status_notice": "Historical findings captured before the 2026-10-08 corrections. Read corrections.json and README.md for current disposition; do not treat baseline missing/hidden/cap statements as current behavior.",
+  "evidence_package": "Portable transcription and blank template definitions only. Render PNGs were reviewed locally and are not included. No customer answers or test results are included."
+}

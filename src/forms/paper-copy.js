@@ -53,12 +53,12 @@ export function applyPaperCopy(docs){
    ['custodian_account','Account No','رقم الحساب'],['custodian_name','Custodian Name','اسم أمين الحفظ'],['custodian_address','Custodian Address','عنوان أمين الحفظ'],
   ])F(...row);
   O('objectives',[
-   ['capital','Protection of capital','حماية رأس المال'],['income','Realization Income','تحقيق الدخل'],['balanced','Balanced','موازنة'],['growth','Growth of Capital','نمو رأس المال'],['retirement','Create Savings for Retirement','تكوين مدخرات للتقاعد'],['project','Project Finance','تمويل مشروع'],['asset',corporate?'Buying an asset':'Buying an asset (for example: a real estate, or a vehicle)',corporate?'شراء أصل':'شراء أصل (على سبيل المثال: عقار أو مركبة)']]);
+   ['capital','Protection of capital','حماية رأس المال'],['income',corporate?'Realization of Income':'Realization Income','تحقيق الدخل'],['balanced','Balanced','متوازنة'],['growth','Growth of Capital','نمو رأس المال'],['retirement','Create Savings for Retirement','تكوين مدخرات للتقاعد'],['project','Project Finance','تمويل مشروع'],['asset',corporate?'Buying an asset':'Buying an asset (for example: a real estate, or a vehicle)',corporate?'شراء أصل':'شراء أصل (على سبيل المثال: عقار أو مركبة)']]);
   F('currencies','Preferred Investment Currency','ما الأصول الاستثمارية المفضلة للعميل؟',{wide:true,help:'(Please tick as many as required)',arHelp:'(يمكنك اختيار أكثر من فئة)'});
   O('currencies',[['sar','Assets in Saudi Riyal','أصول بالريال السعودي'],['other','Assets in Other Foreign Currencies','أصول بعملات أجنبية أخرى']]);
   O('horizon',[['short','Short Term (less than a year)','مدة قصيرة المدى (أقل من سنة)'],['mid','Mid Term (1 to 5 years)','مدة متوسطة المدى (من سنة إلى خمس سنوات)'],['long','Long Term (More Than 5 years)','مدة طويلة المدى (أكثر من خمس سنوات)']]);
   const portfolioTypes=[['deposits','Deposits/Murabah','ودائع ومرابحات'],['debt','Debit Instruments','أدوات دين'],['equity','Equity','أسهم'],['funds','Investment Fund','صناديق استثمارية'],['property','Real estate','عقارات'],['derivatives','Derivatives contracts','عقود مشتقات'],['alternative','Alternative Investments','استثمارات بديلة']];
-  for(const [id,en,ar]of portfolioTypes)for(const prefix of ['ideal','current'])F(`${prefix}_${id}`,en,ar,{context:prefix==='ideal'?['Ideal Client Portfolio','المحفظة المثالية للعميل']:['Current Client Portfolio','المحفظة الحالية للعميل']});
+  for(const [id,en,ar]of portfolioTypes)for(const prefix of ['ideal','current'])F(`${prefix}_${id}`,en,ar,{context:prefix==='ideal'?['Ideal Client Portfolio (%)','المحفظة المثالية للعميل (٪)']:['Current Client Portfolio (%)','المحفظة الحالية للعميل (٪)']});
   for(const [id,en,ar]of [['certificates','Certificates','الشهادات'],['dividends','Dividends or any other income','حصص الأرباح أو أي دخل آخر'],['proceeds','Sales proceed','حصيلة البيع']]){
    F('send_'+id,en,ar,{context:['Where would you like to send the following:','أين ترغب بإرسال الآتي:']});
    O('send_'+id,[['client',corporate?'Customer':'Client','العميل'],['custodian','Custodian','أمين الحفظ']]);
@@ -79,12 +79,16 @@ export function applyPaperCopy(docs){
     ['Sell it to Prevent further Losses (1 Point)','بيعها لتفادي أي خسارة مستقبلية (نقطة واحدة)'],['Partially sell it to prevent losses (2 Points)','بيع جزء منها لتفادي الخسائر (نقطتان)'],['I would hold the investment (3 Points)','أحافظ عليها (3 نقاط)'],['Buy more if it was attractive at a higher price, it looks even better at its current price (4 Points)','شراء المزيد إذا كان الاستثمار مغري على الأسعار المرتفعة ويظهر بأنه أفضل على سعره الحالي (4 نقاط)']]],
    ['risk_duration','4. For how long do you think you are going to keep your investment ?','4. ما هي المدة التي ستبقى فيها على استثمارك؟',[
     ['Less Than 1 Year (1 Point)','أقل من سنة (نقطة واحدة)'],['Between 1 and 2 years (2 Points)','بين 1-2 سنة (نقطتان)'],['Between 2 and 3 years (3 Points)','بين 2-3 سنوات (3 نقاط)'],['More Than 3 Years (4 Points)','أكثر من 3 سنوات (4 نقاط)']]],
-   ['risk_capital','5. What percentage of your total capital (excluding property and other non-financial investment) would you use for this investment?','5. كم أي نسبة رأس المال التي سوف تستعملها لهذا الاستثمار (من إجمالي رأس المال باستثناء العقارات والاستثمارات غير النقدية) ؟',[
+   ['risk_capital','5. What percentage of your total capital (excluding property and other non-financial investment) would you use for this investment?','5. ماهي نسبة رأس المال التي سوف تستعملها لهذا الاستثمار (من إجمالي رأس المال باستثناء العقارات والاستثمارات غير النقدية) ؟',[
     ['Less Than 25% (1 point)','أقل من 25% (نقطة واحدة)'],['Between 26% and 50% (2 points)','بين 26% - 50% (نقطتان)'],['Between 51% and 75% (3 points)','بين 51% - 75% (3 نقاط)'],['More Than 75% (4 points)','أكثر من 75% (4 نقاط)']]],
   ];
   for(const [id,en,ar,options]of riskRows){F(id,en,ar,{wide:true});O(id,options.map(([en,ar],i)=>[String(i+1),en,ar]));}
-  F('risk_total','Result (Number of Points)=','النتيجة (عدد النقاط) =');
-  F('desired_funds','(funds / portfolios of:','(صناديق / محافظ:',{context:['the client desires to invest in:','يرغب العميل الاستثمار في']});F('risk_client_name','Client Name','اسم العميل');
+  F('risk_total','Result (Number of Points)=','النتيجة (عدد النقاط) =',{wide:true,paperNotes:[
+   ['No. Of Points between (1) and (6): Low to medium risks (recommends client to invest in the funds/ portfolio of Low risks)','عدد النقاط من (1) إلى (6): مخاطر منخفضة (ننصح العميل بالاستثمار في منتجات منخفضة المخاطر)'],
+   ['No. Of Points between (7) and (15): medium to high risks (recommends client to invest in the funds/ portfolio medium risks)','عدد النقاط من (7) إلى (15): مخاطر متوسطة إلى مرتفعة (ننصح العميل بالاستثمار في منتجات متوسطة المخاطر)'],
+   ['No. Of Points more than (15): high risks (recommends client to invest in the funds/ portfolio high risks)','عدد النقاط أكثر من (15): مخاطر مرتفعة (ننصح العميل بالاستثمار في منتجات عالية المخاطر)'],
+  ]});
+  F('desired_funds','(funds / portfolios of:','(صناديق / محافظ:',{context:['the client desires to invest in:','يرغب العميل الاستثمار في'],help:'Despite recommendation Itqan Capital',arHelp:'بالرغم من توصية إتقان كابيتال'});F('risk_client_name','Client Name','اسم العميل');
   if(corporate){
    S('company',d.title,d.ar);
    for(const row of [

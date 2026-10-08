@@ -26,7 +26,7 @@ export function portfolio(d,corporate=false){
  text(d,s,'other_currency','Specify other currencies','حدد العملات الأخرى',[241,corporate?162:147,134,16],{fontSize:9});
  choice(d,s,'horizon','Expected investment period','المدة المتوقعة للاستثمار',[['short','Less than 1 year','أقل من سنة'],['mid','1–5 years','من سنة إلى خمس سنوات'],['long','More than 5 years','أكثر من خمس سنوات']].map((a,i)=>o(...a,[266,corporate?217+i*22.1:203+i*18.45,10,10])));
  const types=[['deposits','Deposits / Murabaha','الودائع والمرابحات'],['debt','Debt instruments','أدوات الدين'],['equity','Equities','الأسهم'],['funds','Investment funds','صناديق الاستثمار'],['property','Real estate','العقارات'],['derivatives','Derivatives','المشتقات'],['alternative','Alternative investments','الاستثمارات البديلة']];
- for(const [key,x]of [['ideal',184],['current',310]])for(let i=0;i<types.length;i++){const [id,en,ar]=types[i];text(d,s,`${key}_${id}`,`${key==='ideal'?'Ideal':'Current'} portfolio: ${en} %`,`${key==='ideal'?'المحفظة المثالية':'المحفظة الحالية'}: ${ar} %`,[x,corporate?333+i*22.1:307+i*18.5,111,19],{numeric:true,total:key,align:'center',maxLength:6,fontSize:10});}
+ for(const [key,x]of [['ideal',184],['current',310]])for(let i=0;i<types.length;i++){const [id,en,ar]=types[i];text(d,s,`${key}_${id}`,`${key==='ideal'?'Ideal':'Current'} portfolio: ${en} %`,`${key==='ideal'?'المحفظة المثالية':'المحفظة الحالية'}: ${ar} %`,[x,corporate?333+i*22.1:307+i*18.5,111,19],{numeric:true,total:key,align:'center',fontSize:10});}
  if(!corporate)custodian(d,s,5,false);
 }
 export function custodian(d,s,page,corporate=false){

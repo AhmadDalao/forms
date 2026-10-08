@@ -2,6 +2,8 @@
 
 Run these commands from `source/`. Use disposable local data. The browser audits start their own PHP server, choose an available localhost port and create synthetic accounts under `tmp/`. They do not need the real admin password. Do not adapt them to write into production.
 
+For the 8 October KYC input and paper-copy regression, run `npm test`, `npm run build`, then `node scripts/kyc-input-audit.mjs`. It types beyond six characters, cycles all 28 percentage inputs through Latin decimals, Arabic decimals and a fitting text sample, reloads drafts, submits both KYC forms, and compares customer/management answers and downloaded PDF hashes. Text samples intentionally trigger the existing percentage warning; they are input-preservation tests, not valid portfolio allocations. It also checks the restored paper ID options and the printed risk guidance in English/Arabic at desktop/mobile sizes. The accompanying `tests/kyc-identity.test.mjs` covers shared-profile normalization, clearing and immutable revisions.
+
 ## Install test tools once
 
 ```sh

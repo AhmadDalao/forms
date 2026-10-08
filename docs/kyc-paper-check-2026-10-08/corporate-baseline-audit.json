@@ -1,0 +1,4828 @@
+{
+  "date": "2026-10-08",
+  "scope": "Read-only, field-by-field corporate supplied seven-page paper versus final composed current form and UI renderer; no application edits or submissions.",
+  "source": {
+    "path": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+    "sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+    "pages": 7
+  },
+  "activePublicPdf": {
+    "path": "public/pdfs/kyc-corporate.pdf",
+    "sha256": "47e887db96ffc9105984380fb3008efd5f99fa7251a318c2ab6031021240844b",
+    "note": "Supplied layout plus separately authorized national-address footer. This audit uses private supplied paper as question authority."
+  },
+  "snapshot": {
+    "phase": "pre_fix_baseline",
+    "originalSnapshotSha256": "e9310ca0b3cb4c2220293b5878ee8e940b21fcbe9fb1eb6e7c784c3aee7ac603",
+    "portableDefinition": "corporate-baseline-definition.json",
+    "composedFrom": "src/forms/index.js",
+    "note": "Current definitions have the corrections in corrections.json."
+  },
+  "method": {
+    "visuallyInspectedPages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "renderDpi": 144,
+    "additionalHighResolutionReview": "Page 7 Arabic question and static guidance; individual page 4 compared for document-specific wording.",
+    "rendererReviewed": "src/main.js and src/person-names.js",
+    "imagesIncluded": false
+  },
+  "summary": {
+    "composedFieldIds": 108,
+    "visibleControlsIncludingCalculatedTotal": 106,
+    "hiddenJoinedNameTargets": 2,
+    "uiOnlyNameParts": 8,
+    "paperMappedFieldIds": 100,
+    "calculatedTotals": 1,
+    "signatureSlots": 1,
+    "customerPaperAnswerUnitsIncludingTotalAndSignature": 103,
+    "intentionallyRetiredPaperInputs": 2,
+    "choiceGroupsInComposedSchema": 18,
+    "choiceOptionsInComposedSchema": 60,
+    "choiceOptionsShownForFreshForm": 59,
+    "missingCustomerQuestions": [],
+    "unsupportedCustomerQuestions": [],
+    "missingOrUnsupportedOptionsApartFromKnownFamilyRetirement": [],
+    "copyMismatches": 3,
+    "staffOnlyUnmappedAnswerUnits": 12
+  },
+  "sections": [
+    {
+      "page": 1,
+      "description": "Account purpose, company and registered address, statements",
+      "paperAnswerUnits": 24,
+      "mappedFields": 24,
+      "items": [
+        "Account purpose: New / Additional / Update",
+        "21 company, incorporation, address and business/contact lines",
+        "Statement timing: Upon Request / Monthly / Daily / Per Transaction",
+        "Delivery: Fax / Mail / SMS / E-mail"
+      ]
+    },
+    {
+      "page": 2,
+      "description": "Contact, banking, ownership",
+      "paperAnswerUnits": 15,
+      "mappedFields": 15,
+      "contactFieldIds": [
+        "contact_name",
+        "business_phone",
+        "email",
+        "mobile",
+        "contact_address"
+      ],
+      "bankFieldIds": [
+        "bank",
+        "bank_owner",
+        "bank_account",
+        "branch",
+        "bank_country",
+        "bank_currency"
+      ],
+      "generalFieldIds": [
+        "listed",
+        "owners",
+        "directors",
+        "financial_info"
+      ]
+    },
+    {
+      "page": 3,
+      "description": "Authorized person, correspondence address, custody",
+      "paperAnswerUnits": 27,
+      "mappedFields": 25,
+      "intentionallyRemoved": 2,
+      "identityFieldIds": [
+        "auth_name",
+        "auth_relationship",
+        "auth_nationality",
+        "auth_id_type",
+        "auth_id",
+        "auth_expiry"
+      ],
+      "addressContactFieldIds": [
+        "auth_address",
+        "auth_city",
+        "auth_district",
+        "auth_postal",
+        "auth_unit",
+        "auth_additional",
+        "auth_pob",
+        "auth_phone",
+        "auth_mobile",
+        "auth_email"
+      ],
+      "custodyFieldIds": [
+        "custodian_account",
+        "custodian_name",
+        "custodian_address",
+        "send_certificates",
+        "instructions_certificates",
+        "send_dividends",
+        "instructions_dividends",
+        "send_proceeds",
+        "instructions_proceeds"
+      ]
+    },
+    {
+      "page": 4,
+      "description": "Investment knowledge, risk appetite, objectives and restrictions",
+      "paperAnswerUnits": 11,
+      "mappedFields": 11,
+      "choiceOptionCounts": {
+        "experience": 3,
+        "risk_appetite": 3,
+        "objectives": 7
+      }
+    },
+    {
+      "page": 5,
+      "description": "Currency, horizon, ideal/current portfolio",
+      "paperAnswerUnits": 17,
+      "mappedFields": 17,
+      "currencyOptions": 2,
+      "horizonOptions": 3,
+      "portfolioRows": 7,
+      "portfolioColumns": 2,
+      "portfolioAnswerFields": 14
+    },
+    {
+      "page": 6,
+      "description": "Staff-only internal process",
+      "paperAnswerUnits": 12,
+      "mappedCustomerFields": 0,
+      "staffOnly": true
+    },
+    {
+      "page": 7,
+      "description": "Suitability, score, desired funds, client name and signature",
+      "paperAnswerUnits": 9,
+      "mappedFields": 8,
+      "mappedSignatureSlots": 1,
+      "riskQuestions": 5,
+      "riskOptionCounts": [
+        3,
+        4,
+        4,
+        4,
+        4
+      ],
+      "riskOptions": 19
+    }
+  ],
+  "issues": [
+    {
+      "id": "C-COPY-01",
+      "page": 4,
+      "field": "objectives",
+      "option": "income",
+      "severity": "minor_copy",
+      "paper": "Realization of Income",
+      "ui": "Realization Income",
+      "verdict": "wording_mismatch_same_option",
+      "action": "Restore the missing English word of in the composed option label.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json"
+      }
+    },
+    {
+      "id": "C-COPY-02",
+      "page": 4,
+      "field": "objectives",
+      "option": "balanced",
+      "severity": "minor_copy",
+      "paper": "متوازنة",
+      "ui": "موازنة",
+      "verdict": "wording_mismatch_same_option",
+      "action": "Use printed Arabic متوازنة for the Balanced option.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json"
+      }
+    },
+    {
+      "id": "C-COPY-03",
+      "page": 7,
+      "field": "risk_capital",
+      "severity": "minor_copy",
+      "paper": "5. ماهي نسبة رأس المال التي سوف تستعملها لهذا الاستثمار من إجمالي رأس المال (باستثناء العقارات والاستثمارات غير النقدية) ؟",
+      "ui": "5. كم أي نسبة رأس المال التي سوف تستعملها لهذا الاستثمار (من إجمالي رأس المال باستثناء العقارات والاستثمارات غير النقدية) ؟",
+      "verdict": "wording_mismatch_same_question",
+      "action": "Replace malformed كم أي نسبة with the printed ماهي نسبة and retain the source question meaning.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 7,
+        "baselineDefinition": "corporate-baseline-definition.json"
+      }
+    }
+  ],
+  "exceptions": [
+    {
+      "id": "authorized_issue_fields",
+      "verdict": "intentional",
+      "fields": [
+        "auth_issue_place",
+        "auth_issue_date"
+      ],
+      "authority": "Parent task explicitly identifies prior user-directed removal; src/forms/customer-workflow.js retiredIdentityFields."
+    },
+    {
+      "id": "expanded_names",
+      "verdict": "intentional",
+      "fields": [
+        "contact_name",
+        "auth_name"
+      ],
+      "authority": "Prior explicit expanded-name instruction; src/person-names.js expands to four inputs and joins print target."
+    },
+    {
+      "id": "family_id",
+      "verdict": "retired_option_pending_parent_confirmation_of_prior_authority",
+      "field": "auth_id_type",
+      "paperOptions": 4,
+      "freshOptions": 3,
+      "authorityEvidence": [
+        "src/main.js:225",
+        "tests/subscription.test.mjs:101"
+      ],
+      "action": "Do not add blindly: parent should retain the prior explicit retirement if confirmed."
+    },
+    {
+      "id": "fax_email",
+      "verdict": "not_applicable_to_corporate_authorized_contact",
+      "note": "Corporate paper already prints Email/E-mail in contacts and authorized address. Prior representative Fax→Email replacement belongs to individual KYC. Corporate statement-delivery Fax option is actually printed and retained."
+    }
+  ],
+  "sourceInconsistenciesRetained": [
+    {
+      "page": 1,
+      "field": "inc_country",
+      "note": "Paper English says Country of Incorporation while Arabic says دولة ممارسة النشاط; UI matches both source strings. Not an invented second question."
+    },
+    {
+      "page": 5,
+      "field": "currencies",
+      "note": "Paper English heading Preferred Investment Currency and Arabic ما الأصول الاستثمارية المفضلة للعميل؟ differ literally; UI follows source."
+    },
+    {
+      "page": 5,
+      "fieldIds": [
+        "ideal_debt",
+        "current_debt"
+      ],
+      "note": "Paper English says Debit Instruments; UI preserves that source spelling."
+    },
+    {
+      "page": 7,
+      "field": "risk_capital",
+      "note": "Paper choices skip exactly 25%: <25%,26–50%,51–75%,>75%. UI preserves source. Do not invent or alter ranges."
+    }
+  ],
+  "narrativeOnlyDifferences": [
+    {
+      "page": 7,
+      "field": "risk_total",
+      "paperText": [
+        "No. Of Points between (1) and (6): Low to medium risks (recommends client to invest in the funds/ portfolio of Low risks)",
+        "No. Of Points between (7) and (15): medium to high risks (recommends client to invest in the funds/ portfolio medium risks)",
+        "No. Of Points more than (15): high risks (recommends client to invest in the funds/ portfolio high risks)",
+        "Despite recommendation Itqan Capital"
+      ],
+      "verdict": "printed_guidance_not_repeated_in_editor",
+      "action": "If inline paper-content parity is intended, display the existing risk-band and recommendation text verbatim as static guidance, not new fields. Already visible in PDF preview."
+    }
+  ],
+  "paperToUiChecklist": [
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Investor Information (Corporate)",
+        "ar": "معلومات المستثمر (الشركات)"
+      },
+      "fieldIds": [
+        "account_type"
+      ],
+      "section": "company",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "new",
+          "label": "New Account",
+          "ar": "حساب جديد"
+        },
+        {
+          "value": "additional",
+          "label": "Additional account",
+          "ar": "حساب إضافي"
+        },
+        {
+          "value": "update",
+          "label": "Update Information",
+          "ar": "تحديث بيانات"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "new",
+          "label": "New Account",
+          "ar": "حساب جديد"
+        },
+        {
+          "value": "additional",
+          "label": "Additional account",
+          "ar": "حساب إضافي"
+        },
+        {
+          "value": "update",
+          "label": "Update Information",
+          "ar": "تحديث بيانات"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Company Name",
+        "ar": "الاسم"
+      },
+      "fieldIds": [
+        "company"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني"
+      },
+      "fieldIds": [
+        "legal_entity"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "The Unified Number",
+        "ar": "الرقم الموحد للمنشأة"
+      },
+      "fieldIds": [
+        "unified"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Commercial Registration Number (Or Similar)",
+        "ar": "رقم السجل التجاري (أو ما يماثله)"
+      },
+      "fieldIds": [
+        "cr"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Date of Incorporation or Commencement of Operation",
+        "ar": "تاريخ التأسيس أو ممارسة النشاط"
+      },
+      "fieldIds": [
+        "incorporation"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "date",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Date of Expiry",
+        "ar": "تاريخ الانتهاء"
+      },
+      "fieldIds": [
+        "expiry"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "date",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Registered Address",
+        "ar": "العنوان المسجل"
+      },
+      "fieldIds": [
+        "address"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Building No",
+        "ar": "رقم المبنى"
+      },
+      "fieldIds": [
+        "building"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Street Name",
+        "ar": "اسم الشارع"
+      },
+      "fieldIds": [
+        "street"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "District",
+        "ar": "الحي"
+      },
+      "fieldIds": [
+        "district"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "City",
+        "ar": "المدينة"
+      },
+      "fieldIds": [
+        "city"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Zip Code",
+        "ar": "الرمز البريدي"
+      },
+      "fieldIds": [
+        "postal"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Additional No",
+        "ar": "الرقم الإضافي"
+      },
+      "fieldIds": [
+        "additional"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Country of Registration",
+        "ar": "بلد التسجيل"
+      },
+      "fieldIds": [
+        "registration_country"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Country of Incorporation",
+        "ar": "دولة ممارسة النشاط"
+      },
+      "fieldIds": [
+        "inc_country"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Main Business",
+        "ar": "النشاط الرئيسي"
+      },
+      "fieldIds": [
+        "business"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Number Of Employee",
+        "ar": "عدد الموظفين"
+      },
+      "fieldIds": [
+        "employees"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Paid-Up Capital",
+        "ar": "رأس المال المدفوع"
+      },
+      "fieldIds": [
+        "capital"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Annual Turnover",
+        "ar": "حجم الأعمال السنوية"
+      },
+      "fieldIds": [
+        "turnover"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Phone (Including Ext.)",
+        "ar": "هاتف (بالإضافة للتحويلة)"
+      },
+      "fieldIds": [
+        "phone"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "tel",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Website Address (If any)",
+        "ar": "الموقع الإلكتروني (إن وجد)"
+      },
+      "fieldIds": [
+        "website"
+      ],
+      "section": "company",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Correspondence / Statement",
+        "ar": "الإشعارات وكشوف الحساب"
+      },
+      "fieldIds": [
+        "statement_frequency"
+      ],
+      "section": "company",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "request",
+          "label": "Upon Request",
+          "ar": "عند الطلب"
+        },
+        {
+          "value": "monthly",
+          "label": "Monthly",
+          "ar": "شهري"
+        },
+        {
+          "value": "daily",
+          "label": "Daily",
+          "ar": "يومي"
+        },
+        {
+          "value": "transaction",
+          "label": "Per Transaction",
+          "ar": "عند كل عملية"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "request",
+          "label": "Upon Request",
+          "ar": "عند الطلب"
+        },
+        {
+          "value": "monthly",
+          "label": "Monthly",
+          "ar": "شهري"
+        },
+        {
+          "value": "daily",
+          "label": "Daily",
+          "ar": "يومي"
+        },
+        {
+          "value": "transaction",
+          "label": "Per Transaction",
+          "ar": "عند كل عملية"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 1,
+      "paperLabel": {
+        "en": "Correspondence / Statement",
+        "ar": "الإشعارات وكشوف الحساب"
+      },
+      "fieldIds": [
+        "statement_delivery"
+      ],
+      "section": "company",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "fax",
+          "label": "Fax",
+          "ar": "فاكس"
+        },
+        {
+          "value": "mail",
+          "label": "Mail",
+          "ar": "بريد"
+        },
+        {
+          "value": "sms",
+          "label": "SMS",
+          "ar": "رسالة قصيرة"
+        },
+        {
+          "value": "email",
+          "label": "E-mail",
+          "ar": "البريد الإلكتروني"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "fax",
+          "label": "Fax",
+          "ar": "فاكس"
+        },
+        {
+          "value": "mail",
+          "label": "Mail",
+          "ar": "بريد"
+        },
+        {
+          "value": "sms",
+          "label": "SMS",
+          "ar": "رسالة قصيرة"
+        },
+        {
+          "value": "email",
+          "label": "E-mail",
+          "ar": "البريد الإلكتروني"
+        }
+      ],
+      "uiMode": "checkboxes",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 1,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Name of Contact",
+        "ar": "اسم ضابط الاتصال"
+      },
+      "fieldIds": [
+        "contact_name",
+        "contact_name_first",
+        "contact_name_second",
+        "contact_name_third",
+        "contact_name_last"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "four_name_parts_joined_to_printed_name",
+      "verdict": "intentional_name_expansion",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "note": "Authorized four-part name expansion; hidden target is derived and still printed."
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Business Phone",
+        "ar": "الهاتف"
+      },
+      "fieldIds": [
+        "business_phone"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "tel",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Email",
+        "ar": "البريد الإلكتروني"
+      },
+      "fieldIds": [
+        "email"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "email",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Mobile Number",
+        "ar": "الجوال"
+      },
+      "fieldIds": [
+        "mobile"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "tel",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Address for correspondence",
+        "ar": "عنوان المراسلة"
+      },
+      "fieldIds": [
+        "contact_address"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Bank Name",
+        "ar": "اسم البنك"
+      },
+      "fieldIds": [
+        "bank"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Account Owner Name",
+        "ar": "اسم مالك الحساب"
+      },
+      "fieldIds": [
+        "bank_owner"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Main Account",
+        "ar": "رقم الحساب الرئيسي"
+      },
+      "fieldIds": [
+        "bank_account"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Branch",
+        "ar": "الفرع"
+      },
+      "fieldIds": [
+        "branch"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Country",
+        "ar": "الدولة"
+      },
+      "fieldIds": [
+        "bank_country"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Currency",
+        "ar": "عملة الحساب"
+      },
+      "fieldIds": [
+        "bank_currency"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Is the Company a publicly listed in the Saudi Market ?",
+        "ar": "هل الشركة مدرجة في السوق السعودي؟"
+      },
+      "fieldIds": [
+        "listed"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم"
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم"
+        },
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Names Of Natural persons who own or control 25% or more of the shares",
+        "ar": "أسماء الأشخاص الطبيعيين المالكين أو المسيطرين على 25% أو أكثر من الحصص"
+      },
+      "fieldIds": [
+        "owners"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "free_text_area",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "textarea",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Name of all directors and senior executives",
+        "ar": "أسماء جميع المديرين وكبار الإداريين"
+      },
+      "fieldIds": [
+        "directors"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "free_text_area",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "textarea",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 2,
+      "paperLabel": {
+        "en": "Any other financial information on the client’s financial situation",
+        "ar": "أي معلومات مالية أخرى عن الوضع المالي للعميل"
+      },
+      "fieldIds": [
+        "financial_info"
+      ],
+      "section": "contacts",
+      "paperAnswerKind": "free_text_area",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "textarea",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 2,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Name of the authorized Person on the account",
+        "ar": "اسم المفوض على الحساب"
+      },
+      "fieldIds": [
+        "auth_name",
+        "auth_name_first",
+        "auth_name_second",
+        "auth_name_third",
+        "auth_name_last"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "four_name_parts_joined_to_printed_name",
+      "verdict": "intentional_name_expansion",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "note": "Authorized four-part name expansion; hidden target is derived and still printed."
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "His/her Relationship with the client/company",
+        "ar": "علاقته بالعميل/الشركة"
+      },
+      "fieldIds": [
+        "auth_relationship"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Nationality",
+        "ar": "الجنسية"
+      },
+      "fieldIds": [
+        "auth_nationality"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "ID Type",
+        "ar": "نوع الهوية"
+      },
+      "fieldIds": [
+        "auth_id_type"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "family",
+          "label": "Family ID",
+          "ar": "هوية عائلية"
+        },
+        {
+          "value": "national",
+          "label": "National ID",
+          "ar": "هوية وطنية"
+        },
+        {
+          "value": "passport",
+          "label": "Passport",
+          "ar": "جواز سفر"
+        },
+        {
+          "value": "residence",
+          "label": "Residence",
+          "ar": "إقامة"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "family",
+          "label": "Family ID",
+          "ar": "هوية عائلية"
+        },
+        {
+          "value": "national",
+          "label": "National ID",
+          "ar": "هوية وطنية"
+        },
+        {
+          "value": "passport",
+          "label": "Passport",
+          "ar": "جواز سفر"
+        },
+        {
+          "value": "residence",
+          "label": "Residence",
+          "ar": "إقامة"
+        }
+      ],
+      "uiMode": "select",
+      "verdict": "paper_option_retired_in_fresh_ui",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "freshUiOptions": [
+        "national",
+        "passport",
+        "residence"
+      ],
+      "legacyOnlyOption": "family",
+      "note": "src/main.js select rendering filters family unless value is already family. Schema retains four options so historical values remain available. Existing tests describe family IDs as retired; parent to confirm prior user authorization."
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "ID No",
+        "ar": "رقم الهوية"
+      },
+      "fieldIds": [
+        "auth_id"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Expiry Date",
+        "ar": "تاريخ الانتهاء"
+      },
+      "fieldIds": [
+        "auth_expiry"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "date",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Building No. & Street",
+        "ar": "رقم المبنى والشارع"
+      },
+      "fieldIds": [
+        "auth_address"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "City",
+        "ar": "المدينة"
+      },
+      "fieldIds": [
+        "auth_city"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "District",
+        "ar": "اسم الحي"
+      },
+      "fieldIds": [
+        "auth_district"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Zip Code",
+        "ar": "الرمز البريدي"
+      },
+      "fieldIds": [
+        "auth_postal"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Unit No",
+        "ar": "رقم الوحدة"
+      },
+      "fieldIds": [
+        "auth_unit"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Extended Code",
+        "ar": "الرقم الإضافي"
+      },
+      "fieldIds": [
+        "auth_additional"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "POB (For Client Outside KSA only)",
+        "ar": "صندوق البريدي (للعملاء خارج المملكة فقط)"
+      },
+      "fieldIds": [
+        "auth_pob"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Other Phone",
+        "ar": "هاتف آخر"
+      },
+      "fieldIds": [
+        "auth_phone"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "tel",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Mobile",
+        "ar": "الجوال"
+      },
+      "fieldIds": [
+        "auth_mobile"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "tel",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "E-mail",
+        "ar": "البريد الإلكتروني"
+      },
+      "fieldIds": [
+        "auth_email"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "email",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Account No",
+        "ar": "رقم الحساب"
+      },
+      "fieldIds": [
+        "custodian_account"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Custodian Name",
+        "ar": "اسم أمين الحفظ"
+      },
+      "fieldIds": [
+        "custodian_name"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Custodian Address",
+        "ar": "عنوان أمين الحفظ"
+      },
+      "fieldIds": [
+        "custodian_address"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Certificates",
+        "ar": "الشهادات"
+      },
+      "fieldIds": [
+        "send_certificates"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "client",
+          "label": "Customer",
+          "ar": "العميل"
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "client",
+          "label": "Customer",
+          "ar": "العميل"
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Other Parties: Specify any instructions issued by the customer regarding the party.",
+        "ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة"
+      },
+      "fieldIds": [
+        "instructions_certificates"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Dividends or any other income",
+        "ar": "حصص الأرباح أو أي دخل آخر"
+      },
+      "fieldIds": [
+        "send_dividends"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "client",
+          "label": "Customer",
+          "ar": "العميل"
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "client",
+          "label": "Customer",
+          "ar": "العميل"
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Other Parties: Specify any instructions issued by the customer regarding the party.",
+        "ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة"
+      },
+      "fieldIds": [
+        "instructions_dividends"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Sales proceed",
+        "ar": "حصيلة البيع"
+      },
+      "fieldIds": [
+        "send_proceeds"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "client",
+          "label": "Customer",
+          "ar": "العميل"
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "client",
+          "label": "Customer",
+          "ar": "العميل"
+        },
+        {
+          "value": "custodian",
+          "label": "Custodian",
+          "ar": "أمين الحفظ"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Other Parties: Specify any instructions issued by the customer regarding the party.",
+        "ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة"
+      },
+      "fieldIds": [
+        "instructions_proceeds"
+      ],
+      "section": "authorized",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "paperLabel": {
+        "en": "How do you describe your investment Knowledge and Experience?",
+        "ar": "كيف تصنف معرفتك وخبراتك الاستثمارية؟"
+      },
+      "fieldIds": [
+        "experience"
+      ],
+      "section": "investment",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "extensive",
+          "label": "Extensive",
+          "ar": "عالية"
+        },
+        {
+          "value": "good",
+          "label": "Good",
+          "ar": "متوسطة"
+        },
+        {
+          "value": "limited",
+          "label": "Limited",
+          "ar": "منخفضة"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "extensive",
+          "label": "Extensive",
+          "ar": "عالية"
+        },
+        {
+          "value": "good",
+          "label": "Good",
+          "ar": "متوسطة"
+        },
+        {
+          "value": "limited",
+          "label": "Limited",
+          "ar": "منخفضة"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "paperLabel": {
+        "en": "Number of Years of Investment in Securities",
+        "ar": "عدد سنوات الاستثمار في أسواق الأوراق المالية"
+      },
+      "fieldIds": [
+        "years_investing"
+      ],
+      "section": "investment",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "paperLabel": {
+        "en": "Products Previously Invested In",
+        "ar": "المنتجات التي سبق الاستثمار فيها"
+      },
+      "fieldIds": [
+        "previous_products"
+      ],
+      "section": "investment",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "paperLabel": {
+        "en": "Loan to Invested Money Ratio",
+        "ar": "نسبة القروض من الأموال المستثمرة"
+      },
+      "fieldIds": [
+        "loan_ratio"
+      ],
+      "section": "investment",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "paperLabel": {
+        "en": "Margin Transactions Over the Past Five Years",
+        "ar": "صفقات التمويل بالهامش خلال السنوات الخمس السابقة"
+      },
+      "fieldIds": [
+        "margin_transactions"
+      ],
+      "section": "investment",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "paperLabel": {
+        "en": "Securities Transactions Outside the Kingdom Over the Past Five Years",
+        "ar": "صفقات الأوراق المالية خارج المملكة خلال السنوات الخمس السابقة"
+      },
+      "fieldIds": [
+        "overseas_transactions"
+      ],
+      "section": "investment",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "paperLabel": {
+        "en": "If Securities Transactions Were Executed Outside the Kingdom Over the Past Five Years, Which Countries Were These Transactions Executed?",
+        "ar": "إذا كان قد تم تنفيذ صفقات أوراق مالية خارج المملكة خلال السنوات الخمس السابقة، ما هي الدول التي تم تنفيذ تلك الصفقات فيها؟"
+      },
+      "fieldIds": [
+        "overseas_countries"
+      ],
+      "section": "investment",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "paperLabel": {
+        "en": "Risk Appetite",
+        "ar": "قدرتك على تحمل المخاطر"
+      },
+      "fieldIds": [
+        "risk_appetite"
+      ],
+      "section": "investment",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "extensive",
+          "label": "Extensive",
+          "ar": "عالية"
+        },
+        {
+          "value": "good",
+          "label": "Good",
+          "ar": "متوسطة"
+        },
+        {
+          "value": "limited",
+          "label": "Limited",
+          "ar": "منخفضة"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "extensive",
+          "label": "Extensive",
+          "ar": "عالية"
+        },
+        {
+          "value": "good",
+          "label": "Good",
+          "ar": "متوسطة"
+        },
+        {
+          "value": "limited",
+          "label": "Limited",
+          "ar": "منخفضة"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "paperLabel": {
+        "en": "General Investment objectives",
+        "ar": "الأهداف الاستثمارية العامة"
+      },
+      "fieldIds": [
+        "objectives"
+      ],
+      "section": "investment",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "capital",
+          "label": "Protection of capital",
+          "ar": "حماية رأس المال"
+        },
+        {
+          "value": "income",
+          "label": "Realization of Income",
+          "ar": "تحقيق الدخل"
+        },
+        {
+          "value": "balanced",
+          "label": "Balanced",
+          "ar": "متوازنة"
+        },
+        {
+          "value": "growth",
+          "label": "Growth of Capital",
+          "ar": "نمو رأس المال"
+        },
+        {
+          "value": "retirement",
+          "label": "Create Savings for Retirement",
+          "ar": "تكوين مدخرات للتقاعد"
+        },
+        {
+          "value": "project",
+          "label": "Project Finance",
+          "ar": "تمويل مشروع"
+        },
+        {
+          "value": "asset",
+          "label": "Buying an asset",
+          "ar": "شراء أصل"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "capital",
+          "label": "Protection of capital",
+          "ar": "حماية رأس المال"
+        },
+        {
+          "value": "income",
+          "label": "Realization Income",
+          "ar": "تحقيق الدخل"
+        },
+        {
+          "value": "balanced",
+          "label": "Balanced",
+          "ar": "موازنة"
+        },
+        {
+          "value": "growth",
+          "label": "Growth of Capital",
+          "ar": "نمو رأس المال"
+        },
+        {
+          "value": "retirement",
+          "label": "Create Savings for Retirement",
+          "ar": "تكوين مدخرات للتقاعد"
+        },
+        {
+          "value": "project",
+          "label": "Project Finance",
+          "ar": "تمويل مشروع"
+        },
+        {
+          "value": "asset",
+          "label": "Buying an asset",
+          "ar": "شراء أصل"
+        }
+      ],
+      "uiMode": "checkboxes",
+      "verdict": "copy_mismatch",
+      "action": "C-COPY-01, C-COPY-02",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "paperLabel": {
+        "en": "Other (Please specify)",
+        "ar": "غيرها (يرجى التحديد)"
+      },
+      "fieldIds": [
+        "objectives_other"
+      ],
+      "section": "investment",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 4,
+      "paperLabel": {
+        "en": "Do You have any Investment restrictions?",
+        "ar": "هل لديك قيود استثمارية؟"
+      },
+      "fieldIds": [
+        "restrictions"
+      ],
+      "section": "investment",
+      "paperAnswerKind": "free_text_area",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "textarea",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 4,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Preferred Investment Currency",
+        "ar": "ما الأصول الاستثمارية المفضلة للعميل؟"
+      },
+      "fieldIds": [
+        "currencies"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "sar",
+          "label": "Assets in Saudi Riyal",
+          "ar": "أصول بالريال السعودي"
+        },
+        {
+          "value": "other",
+          "label": "Assets in Other Foreign Currencies",
+          "ar": "أصول بعملات أجنبية أخرى"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "sar",
+          "label": "Assets in Saudi Riyal",
+          "ar": "أصول بالريال السعودي"
+        },
+        {
+          "value": "other",
+          "label": "Assets in Other Foreign Currencies",
+          "ar": "أصول بعملات أجنبية أخرى"
+        }
+      ],
+      "uiMode": "checkboxes",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Please Specify Other Foreign Currencies",
+        "ar": "يرجى التحديد العملات الأجنبية"
+      },
+      "fieldIds": [
+        "other_currency"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "The Period during which the customer expects to recover the invested money:",
+        "ar": "المدة التي يتوقع العميل خلالها استرداد الأموال المستثمرة"
+      },
+      "fieldIds": [
+        "horizon"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "short",
+          "label": "Short Term (less than a year)",
+          "ar": "مدة قصيرة المدى (أقل من سنة)"
+        },
+        {
+          "value": "mid",
+          "label": "Mid Term (1 to 5 years)",
+          "ar": "مدة متوسطة المدى (من سنة إلى خمس سنوات)"
+        },
+        {
+          "value": "long",
+          "label": "Long Term (More Than 5 years)",
+          "ar": "مدة طويلة المدى (أكثر من خمس سنوات)"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "short",
+          "label": "Short Term (less than a year)",
+          "ar": "مدة قصيرة المدى (أقل من سنة)"
+        },
+        {
+          "value": "mid",
+          "label": "Mid Term (1 to 5 years)",
+          "ar": "مدة متوسطة المدى (من سنة إلى خمس سنوات)"
+        },
+        {
+          "value": "long",
+          "label": "Long Term (More Than 5 years)",
+          "ar": "مدة طويلة المدى (أكثر من خمس سنوات)"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Deposits/Murabah",
+        "ar": "ودائع ومرابحات"
+      },
+      "fieldIds": [
+        "ideal_deposits"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Debit Instruments",
+        "ar": "أدوات دين"
+      },
+      "fieldIds": [
+        "ideal_debt"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Equity",
+        "ar": "أسهم"
+      },
+      "fieldIds": [
+        "ideal_equity"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Investment Fund",
+        "ar": "صناديق استثمارية"
+      },
+      "fieldIds": [
+        "ideal_funds"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Real estate",
+        "ar": "عقارات"
+      },
+      "fieldIds": [
+        "ideal_property"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Derivatives contracts",
+        "ar": "عقود مشتقات"
+      },
+      "fieldIds": [
+        "ideal_derivatives"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Alternative Investments",
+        "ar": "استثمارات بديلة"
+      },
+      "fieldIds": [
+        "ideal_alternative"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Deposits/Murabah",
+        "ar": "ودائع ومرابحات"
+      },
+      "fieldIds": [
+        "current_deposits"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Debit Instruments",
+        "ar": "أدوات دين"
+      },
+      "fieldIds": [
+        "current_debt"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Equity",
+        "ar": "أسهم"
+      },
+      "fieldIds": [
+        "current_equity"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Investment Fund",
+        "ar": "صناديق استثمارية"
+      },
+      "fieldIds": [
+        "current_funds"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Real estate",
+        "ar": "عقارات"
+      },
+      "fieldIds": [
+        "current_property"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Derivatives contracts",
+        "ar": "عقود مشتقات"
+      },
+      "fieldIds": [
+        "current_derivatives"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 5,
+      "paperLabel": {
+        "en": "Alternative Investments",
+        "ar": "استثمارات بديلة"
+      },
+      "fieldIds": [
+        "current_alternative"
+      ],
+      "section": "portfolio",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 5,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "paperLabel": {
+        "en": "1. What is Your level of experience with investment products?",
+        "ar": "1. ما هو مدى خبرتك في مجال المنتجات الاستثمارية؟"
+      },
+      "fieldIds": [
+        "risk_experience"
+      ],
+      "section": "suitability",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "1",
+          "label": "No Investment experience (1 Point)",
+          "ar": "لا يوجد أي خبرة استثمارية (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Little Investment experience (2 Points)",
+          "ar": "خبرة استثمارية قليلة (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "High Investment experience (3 Points)",
+          "ar": "خبرة عالية في الاستثمار (3 نقاط)"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "1",
+          "label": "No Investment experience (1 Point)",
+          "ar": "لا يوجد أي خبرة استثمارية (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Little Investment experience (2 Points)",
+          "ar": "خبرة استثمارية قليلة (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "High Investment experience (3 Points)",
+          "ar": "خبرة عالية في الاستثمار (3 نقاط)"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 7,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "paperLabel": {
+        "en": "2. What is your age?",
+        "ar": "2. كم هو عمرك؟"
+      },
+      "fieldIds": [
+        "risk_age"
+      ],
+      "section": "suitability",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "1",
+          "label": "Over 65 (1 Point)",
+          "ar": "فوق 65 (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "between 51-65 (2 Points)",
+          "ar": "بين 51-65 (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "Between 35-50 (3 Points)",
+          "ar": "بين 35-50 (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "Younger Than 35 (4 Points)",
+          "ar": "أقل من 35 (4 نقاط)"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "1",
+          "label": "Over 65 (1 Point)",
+          "ar": "فوق 65 (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "between 51-65 (2 Points)",
+          "ar": "بين 51-65 (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "Between 35-50 (3 Points)",
+          "ar": "بين 35-50 (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "Younger Than 35 (4 Points)",
+          "ar": "أقل من 35 (4 نقاط)"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 7,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "paperLabel": {
+        "en": "3. What will be your reaction if your investment suddenly drops in value?",
+        "ar": "3. ماهي ردة فعلك إذا هبطت قيمة استثمارك فجأة؟"
+      },
+      "fieldIds": [
+        "risk_reaction"
+      ],
+      "section": "suitability",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "1",
+          "label": "Sell it to Prevent further Losses (1 Point)",
+          "ar": "بيعها لتفادي أي خسارة مستقبلية (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Partially sell it to prevent losses (2 Points)",
+          "ar": "بيع جزء منها لتفادي الخسائر (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "I would hold the investment (3 Points)",
+          "ar": "أحافظ عليها (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "Buy more if it was attractive at a higher price, it looks even better at its current price (4 Points)",
+          "ar": "شراء المزيد إذا كان الاستثمار مغري على الأسعار المرتفعة ويظهر بأنه أفضل على سعره الحالي (4 نقاط)"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "1",
+          "label": "Sell it to Prevent further Losses (1 Point)",
+          "ar": "بيعها لتفادي أي خسارة مستقبلية (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Partially sell it to prevent losses (2 Points)",
+          "ar": "بيع جزء منها لتفادي الخسائر (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "I would hold the investment (3 Points)",
+          "ar": "أحافظ عليها (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "Buy more if it was attractive at a higher price, it looks even better at its current price (4 Points)",
+          "ar": "شراء المزيد إذا كان الاستثمار مغري على الأسعار المرتفعة ويظهر بأنه أفضل على سعره الحالي (4 نقاط)"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 7,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "paperLabel": {
+        "en": "4. For how long do you think you are going to keep your investment ?",
+        "ar": "4. ما هي المدة التي ستبقى فيها على استثمارك؟"
+      },
+      "fieldIds": [
+        "risk_duration"
+      ],
+      "section": "suitability",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "1",
+          "label": "Less Than 1 Year (1 Point)",
+          "ar": "أقل من سنة (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Between 1 and 2 years (2 Points)",
+          "ar": "بين 1-2 سنة (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "Between 2 and 3 years (3 Points)",
+          "ar": "بين 2-3 سنوات (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "More Than 3 Years (4 Points)",
+          "ar": "أكثر من 3 سنوات (4 نقاط)"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "1",
+          "label": "Less Than 1 Year (1 Point)",
+          "ar": "أقل من سنة (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Between 1 and 2 years (2 Points)",
+          "ar": "بين 1-2 سنة (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "Between 2 and 3 years (3 Points)",
+          "ar": "بين 2-3 سنوات (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "More Than 3 Years (4 Points)",
+          "ar": "أكثر من 3 سنوات (4 نقاط)"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 7,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "paperLabel": {
+        "en": "5. What percentage of your total capital (excluding property and other non-financial investment) would you use for this investment?",
+        "ar": "5. ماهي نسبة رأس المال التي سوف تستعملها لهذا الاستثمار من إجمالي رأس المال (باستثناء العقارات والاستثمارات غير النقدية) ؟"
+      },
+      "fieldIds": [
+        "risk_capital"
+      ],
+      "section": "suitability",
+      "paperAnswerKind": "choice",
+      "paperOptions": [
+        {
+          "value": "1",
+          "label": "Less Than 25% (1 point)",
+          "ar": "أقل من 25% (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Between 26% and 50% (2 points)",
+          "ar": "بين 26% - 50% (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "Between 51% and 75% (3 points)",
+          "ar": "بين 51% - 75% (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "More Than 75% (4 points)",
+          "ar": "أكثر من 75% (4 نقاط)"
+        }
+      ],
+      "uiOptions": [
+        {
+          "value": "1",
+          "label": "Less Than 25% (1 point)",
+          "ar": "أقل من 25% (نقطة واحدة)"
+        },
+        {
+          "value": "2",
+          "label": "Between 26% and 50% (2 points)",
+          "ar": "بين 26% - 50% (نقطتان)"
+        },
+        {
+          "value": "3",
+          "label": "Between 51% and 75% (3 points)",
+          "ar": "بين 51% - 75% (3 نقاط)"
+        },
+        {
+          "value": "4",
+          "label": "More Than 75% (4 points)",
+          "ar": "أكثر من 75% (4 نقاط)"
+        }
+      ],
+      "uiMode": "radio",
+      "verdict": "copy_mismatch",
+      "action": "C-COPY-03",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 7,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "paperLabel": {
+        "en": "Result (Number of Points)=",
+        "ar": "النتيجة (عدد النقاط) ="
+      },
+      "fieldIds": [
+        "risk_total"
+      ],
+      "section": "suitability",
+      "paperAnswerKind": "points_total",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "calculated_read_only",
+      "verdict": "derived_from_printed_points",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 7,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "paperLabel": {
+        "en": "(funds / portfolios of:",
+        "ar": "(صناديق / محافظ:"
+      },
+      "fieldIds": [
+        "desired_funds"
+      ],
+      "section": "suitability",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 7,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "paperLabel": {
+        "en": "Client Name",
+        "ar": "اسم العميل"
+      },
+      "fieldIds": [
+        "risk_client_name"
+      ],
+      "section": "suitability",
+      "paperAnswerKind": "answer_line",
+      "paperOptions": [],
+      "uiOptions": [],
+      "uiMode": "text",
+      "verdict": "match",
+      "action": "Keep present question and source mapping.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 7,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Place of Issue",
+        "ar": "مكان الإصدار"
+      },
+      "fieldIds": [],
+      "formerFieldId": "auth_issue_place",
+      "verdict": "intentional_user_removal",
+      "action": "Keep omitted per prior explicit user instruction; preserve printed source blank.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 3,
+      "paperLabel": {
+        "en": "Date of Issue",
+        "ar": "تاريخ الإصدار"
+      },
+      "fieldIds": [],
+      "formerFieldId": "auth_issue_date",
+      "verdict": "intentional_user_removal",
+      "action": "Keep omitted per prior explicit user instruction; preserve printed source blank.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 3,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 7,
+      "paperLabel": {
+        "en": "Signature",
+        "ar": "التوقيع"
+      },
+      "fieldIds": [
+        "signature:client"
+      ],
+      "uiMode": "signature_slot",
+      "verdict": "match",
+      "action": "Keep client signature slot.",
+      "signature": {
+        "id": "client",
+        "label": "Client signature",
+        "ar": "توقيع العميل",
+        "page": 7,
+        "rect": [
+          58,
+          624,
+          241,
+          25
+        ],
+        "section": "suitability"
+      },
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 7,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      }
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Account Holder’s Full Name (First Name, Father’s Name, Surname)"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 1
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Signature of RM/CSR"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 2
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Customer CIF"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 3
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Review: Complete Document"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 4
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Review: Client Signature"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 5
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Establish Investment Account in The System"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 6
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Client Classification: An Institutional Client / A qualified Client / Retail Client"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 7
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Client Risk Rating: High / Medium / Low"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 8
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Senior Management Approval (If needed): Name"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 9
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Senior Management Approval (If needed): Position"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 10
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Senior Management Approval (If needed): Date"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 11
+    },
+    {
+      "page": 6,
+      "paperLabel": {
+        "en": "Senior Management Approval (If needed): Signature"
+      },
+      "fieldIds": [],
+      "verdict": "staff_only_not_in_customer_editor",
+      "action": "Do not add to customer questions; source explicitly assigns these to RM/CSR or internal staff.",
+      "evidence": {
+        "sourcePdf": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+        "page": 6,
+        "baselineDefinition": "corporate-baseline-definition.json",
+        "note": "Visual comparison at audit time; page image not packaged."
+      },
+      "staffItem": 12
+    }
+  ],
+  "uiToPaperChecklist": [
+    {
+      "id": "account_type",
+      "page": 1,
+      "uiLabel": {
+        "en": "Investor Information (Corporate)",
+        "ar": "معلومات المستثمر (الشركات)"
+      },
+      "paperChecklistFieldId": "account_type",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "company",
+      "page": 1,
+      "uiLabel": {
+        "en": "Company Name",
+        "ar": "الاسم"
+      },
+      "paperChecklistFieldId": "company",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "legal_entity",
+      "page": 1,
+      "uiLabel": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني"
+      },
+      "paperChecklistFieldId": "legal_entity",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "unified",
+      "page": 1,
+      "uiLabel": {
+        "en": "The Unified Number",
+        "ar": "الرقم الموحد للمنشأة"
+      },
+      "paperChecklistFieldId": "unified",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "cr",
+      "page": 1,
+      "uiLabel": {
+        "en": "Commercial Registration Number (Or Similar)",
+        "ar": "رقم السجل التجاري (أو ما يماثله)"
+      },
+      "paperChecklistFieldId": "cr",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "incorporation",
+      "page": 1,
+      "uiLabel": {
+        "en": "Date of Incorporation or Commencement of Operation",
+        "ar": "تاريخ التأسيس أو ممارسة النشاط"
+      },
+      "paperChecklistFieldId": "incorporation",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "expiry",
+      "page": 1,
+      "uiLabel": {
+        "en": "Date of Expiry",
+        "ar": "تاريخ الانتهاء"
+      },
+      "paperChecklistFieldId": "expiry",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "address",
+      "page": 1,
+      "uiLabel": {
+        "en": "Registered Address",
+        "ar": "العنوان المسجل"
+      },
+      "paperChecklistFieldId": "address",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "building",
+      "page": 1,
+      "uiLabel": {
+        "en": "Building No",
+        "ar": "رقم المبنى"
+      },
+      "paperChecklistFieldId": "building",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "street",
+      "page": 1,
+      "uiLabel": {
+        "en": "Street Name",
+        "ar": "اسم الشارع"
+      },
+      "paperChecklistFieldId": "street",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "district",
+      "page": 1,
+      "uiLabel": {
+        "en": "District",
+        "ar": "الحي"
+      },
+      "paperChecklistFieldId": "district",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "city",
+      "page": 1,
+      "uiLabel": {
+        "en": "City",
+        "ar": "المدينة"
+      },
+      "paperChecklistFieldId": "city",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "postal",
+      "page": 1,
+      "uiLabel": {
+        "en": "Zip Code",
+        "ar": "الرمز البريدي"
+      },
+      "paperChecklistFieldId": "postal",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "additional",
+      "page": 1,
+      "uiLabel": {
+        "en": "Additional No",
+        "ar": "الرقم الإضافي"
+      },
+      "paperChecklistFieldId": "additional",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "registration_country",
+      "page": 1,
+      "uiLabel": {
+        "en": "Country of Registration",
+        "ar": "بلد التسجيل"
+      },
+      "paperChecklistFieldId": "registration_country",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "inc_country",
+      "page": 1,
+      "uiLabel": {
+        "en": "Country of Incorporation",
+        "ar": "دولة ممارسة النشاط"
+      },
+      "paperChecklistFieldId": "inc_country",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "business",
+      "page": 1,
+      "uiLabel": {
+        "en": "Main Business",
+        "ar": "النشاط الرئيسي"
+      },
+      "paperChecklistFieldId": "business",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "employees",
+      "page": 1,
+      "uiLabel": {
+        "en": "Number Of Employee",
+        "ar": "عدد الموظفين"
+      },
+      "paperChecklistFieldId": "employees",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "capital",
+      "page": 1,
+      "uiLabel": {
+        "en": "Paid-Up Capital",
+        "ar": "رأس المال المدفوع"
+      },
+      "paperChecklistFieldId": "capital",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "turnover",
+      "page": 1,
+      "uiLabel": {
+        "en": "Annual Turnover",
+        "ar": "حجم الأعمال السنوية"
+      },
+      "paperChecklistFieldId": "turnover",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "phone",
+      "page": 1,
+      "uiLabel": {
+        "en": "Phone (Including Ext.)",
+        "ar": "هاتف (بالإضافة للتحويلة)"
+      },
+      "paperChecklistFieldId": "phone",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "website",
+      "page": 1,
+      "uiLabel": {
+        "en": "Website Address (If any)",
+        "ar": "الموقع الإلكتروني (إن وجد)"
+      },
+      "paperChecklistFieldId": "website",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "statement_frequency",
+      "page": 1,
+      "uiLabel": {
+        "en": "Correspondence / Statement",
+        "ar": "الإشعارات وكشوف الحساب"
+      },
+      "paperChecklistFieldId": "statement_frequency",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "statement_delivery",
+      "page": 1,
+      "uiLabel": {
+        "en": "Correspondence / Statement",
+        "ar": "الإشعارات وكشوف الحساب"
+      },
+      "paperChecklistFieldId": "statement_delivery",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "contact_name",
+      "page": 2,
+      "uiLabel": {
+        "en": "Name of Contact",
+        "ar": "اسم ضابط الاتصال"
+      },
+      "paperChecklistFieldId": "contact_name",
+      "verdict": "hidden_join_target",
+      "visible": false,
+      "issueIds": []
+    },
+    {
+      "id": "contact_name_first",
+      "page": 2,
+      "uiLabel": {
+        "en": "First name",
+        "ar": "الاسم الأول"
+      },
+      "paperChecklistFieldId": "contact_name",
+      "verdict": "intentional_name_part",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "contact_name_second",
+      "page": 2,
+      "uiLabel": {
+        "en": "Second name",
+        "ar": "الاسم الثاني"
+      },
+      "paperChecklistFieldId": "contact_name",
+      "verdict": "intentional_name_part",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "contact_name_third",
+      "page": 2,
+      "uiLabel": {
+        "en": "Third name (optional)",
+        "ar": "الاسم الثالث (اختياري)"
+      },
+      "paperChecklistFieldId": "contact_name",
+      "verdict": "intentional_name_part",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "contact_name_last",
+      "page": 2,
+      "uiLabel": {
+        "en": "Family name",
+        "ar": "اسم العائلة"
+      },
+      "paperChecklistFieldId": "contact_name",
+      "verdict": "intentional_name_part",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "business_phone",
+      "page": 2,
+      "uiLabel": {
+        "en": "Business Phone",
+        "ar": "الهاتف"
+      },
+      "paperChecklistFieldId": "business_phone",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "email",
+      "page": 2,
+      "uiLabel": {
+        "en": "Email",
+        "ar": "البريد الإلكتروني"
+      },
+      "paperChecklistFieldId": "email",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "mobile",
+      "page": 2,
+      "uiLabel": {
+        "en": "Mobile Number",
+        "ar": "الجوال"
+      },
+      "paperChecklistFieldId": "mobile",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "contact_address",
+      "page": 2,
+      "uiLabel": {
+        "en": "Address for correspondence",
+        "ar": "عنوان المراسلة"
+      },
+      "paperChecklistFieldId": "contact_address",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "bank",
+      "page": 2,
+      "uiLabel": {
+        "en": "Bank Name",
+        "ar": "اسم البنك"
+      },
+      "paperChecklistFieldId": "bank",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "bank_owner",
+      "page": 2,
+      "uiLabel": {
+        "en": "Account Owner Name",
+        "ar": "اسم مالك الحساب"
+      },
+      "paperChecklistFieldId": "bank_owner",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "bank_account",
+      "page": 2,
+      "uiLabel": {
+        "en": "Main Account",
+        "ar": "رقم الحساب الرئيسي"
+      },
+      "paperChecklistFieldId": "bank_account",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "branch",
+      "page": 2,
+      "uiLabel": {
+        "en": "Branch",
+        "ar": "الفرع"
+      },
+      "paperChecklistFieldId": "branch",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "bank_country",
+      "page": 2,
+      "uiLabel": {
+        "en": "Country",
+        "ar": "الدولة"
+      },
+      "paperChecklistFieldId": "bank_country",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "bank_currency",
+      "page": 2,
+      "uiLabel": {
+        "en": "Currency",
+        "ar": "عملة الحساب"
+      },
+      "paperChecklistFieldId": "bank_currency",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "listed",
+      "page": 2,
+      "uiLabel": {
+        "en": "Is the Company a publicly listed in the Saudi Market ?",
+        "ar": "هل الشركة مدرجة في السوق السعودي؟"
+      },
+      "paperChecklistFieldId": "listed",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "owners",
+      "page": 2,
+      "uiLabel": {
+        "en": "Names Of Natural persons who own or control 25% or more of the shares",
+        "ar": "أسماء الأشخاص الطبيعيين المالكين أو المسيطرين على 25% أو أكثر من الحصص"
+      },
+      "paperChecklistFieldId": "owners",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "directors",
+      "page": 2,
+      "uiLabel": {
+        "en": "Name of all directors and senior executives",
+        "ar": "أسماء جميع المديرين وكبار الإداريين"
+      },
+      "paperChecklistFieldId": "directors",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "financial_info",
+      "page": 2,
+      "uiLabel": {
+        "en": "Any other financial information on the client’s financial situation",
+        "ar": "أي معلومات مالية أخرى عن الوضع المالي للعميل"
+      },
+      "paperChecklistFieldId": "financial_info",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_name",
+      "page": 3,
+      "uiLabel": {
+        "en": "Name of the authorized Person on the account",
+        "ar": "اسم المفوض على الحساب"
+      },
+      "paperChecklistFieldId": "auth_name",
+      "verdict": "hidden_join_target",
+      "visible": false,
+      "issueIds": []
+    },
+    {
+      "id": "auth_name_first",
+      "page": 3,
+      "uiLabel": {
+        "en": "First name",
+        "ar": "الاسم الأول"
+      },
+      "paperChecklistFieldId": "auth_name",
+      "verdict": "intentional_name_part",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_name_second",
+      "page": 3,
+      "uiLabel": {
+        "en": "Second name",
+        "ar": "الاسم الثاني"
+      },
+      "paperChecklistFieldId": "auth_name",
+      "verdict": "intentional_name_part",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_name_third",
+      "page": 3,
+      "uiLabel": {
+        "en": "Third name (optional)",
+        "ar": "الاسم الثالث (اختياري)"
+      },
+      "paperChecklistFieldId": "auth_name",
+      "verdict": "intentional_name_part",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_name_last",
+      "page": 3,
+      "uiLabel": {
+        "en": "Family name",
+        "ar": "اسم العائلة"
+      },
+      "paperChecklistFieldId": "auth_name",
+      "verdict": "intentional_name_part",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_relationship",
+      "page": 3,
+      "uiLabel": {
+        "en": "His/her Relationship with the client/company",
+        "ar": "علاقته بالعميل/الشركة"
+      },
+      "paperChecklistFieldId": "auth_relationship",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_nationality",
+      "page": 3,
+      "uiLabel": {
+        "en": "Nationality",
+        "ar": "الجنسية"
+      },
+      "paperChecklistFieldId": "auth_nationality",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_id_type",
+      "page": 3,
+      "uiLabel": {
+        "en": "ID Type",
+        "ar": "نوع الهوية"
+      },
+      "paperChecklistFieldId": "auth_id_type",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_id",
+      "page": 3,
+      "uiLabel": {
+        "en": "ID No",
+        "ar": "رقم الهوية"
+      },
+      "paperChecklistFieldId": "auth_id",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_expiry",
+      "page": 3,
+      "uiLabel": {
+        "en": "Expiry Date",
+        "ar": "تاريخ الانتهاء"
+      },
+      "paperChecklistFieldId": "auth_expiry",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_address",
+      "page": 3,
+      "uiLabel": {
+        "en": "Building No. & Street",
+        "ar": "رقم المبنى والشارع"
+      },
+      "paperChecklistFieldId": "auth_address",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_city",
+      "page": 3,
+      "uiLabel": {
+        "en": "City",
+        "ar": "المدينة"
+      },
+      "paperChecklistFieldId": "auth_city",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_district",
+      "page": 3,
+      "uiLabel": {
+        "en": "District",
+        "ar": "اسم الحي"
+      },
+      "paperChecklistFieldId": "auth_district",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_postal",
+      "page": 3,
+      "uiLabel": {
+        "en": "Zip Code",
+        "ar": "الرمز البريدي"
+      },
+      "paperChecklistFieldId": "auth_postal",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_unit",
+      "page": 3,
+      "uiLabel": {
+        "en": "Unit No",
+        "ar": "رقم الوحدة"
+      },
+      "paperChecklistFieldId": "auth_unit",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_additional",
+      "page": 3,
+      "uiLabel": {
+        "en": "Extended Code",
+        "ar": "الرقم الإضافي"
+      },
+      "paperChecklistFieldId": "auth_additional",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_pob",
+      "page": 3,
+      "uiLabel": {
+        "en": "POB (For Client Outside KSA only)",
+        "ar": "صندوق البريدي (للعملاء خارج المملكة فقط)"
+      },
+      "paperChecklistFieldId": "auth_pob",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_phone",
+      "page": 3,
+      "uiLabel": {
+        "en": "Other Phone",
+        "ar": "هاتف آخر"
+      },
+      "paperChecklistFieldId": "auth_phone",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_mobile",
+      "page": 3,
+      "uiLabel": {
+        "en": "Mobile",
+        "ar": "الجوال"
+      },
+      "paperChecklistFieldId": "auth_mobile",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "auth_email",
+      "page": 3,
+      "uiLabel": {
+        "en": "E-mail",
+        "ar": "البريد الإلكتروني"
+      },
+      "paperChecklistFieldId": "auth_email",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "custodian_account",
+      "page": 3,
+      "uiLabel": {
+        "en": "Account No",
+        "ar": "رقم الحساب"
+      },
+      "paperChecklistFieldId": "custodian_account",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "custodian_name",
+      "page": 3,
+      "uiLabel": {
+        "en": "Custodian Name",
+        "ar": "اسم أمين الحفظ"
+      },
+      "paperChecklistFieldId": "custodian_name",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "custodian_address",
+      "page": 3,
+      "uiLabel": {
+        "en": "Custodian Address",
+        "ar": "عنوان أمين الحفظ"
+      },
+      "paperChecklistFieldId": "custodian_address",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "send_certificates",
+      "page": 3,
+      "uiLabel": {
+        "en": "Certificates",
+        "ar": "الشهادات"
+      },
+      "paperChecklistFieldId": "send_certificates",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "instructions_certificates",
+      "page": 3,
+      "uiLabel": {
+        "en": "Other Parties: Specify any instructions issued by the customer regarding the party.",
+        "ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة"
+      },
+      "paperChecklistFieldId": "instructions_certificates",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "send_dividends",
+      "page": 3,
+      "uiLabel": {
+        "en": "Dividends or any other income",
+        "ar": "حصص الأرباح أو أي دخل آخر"
+      },
+      "paperChecklistFieldId": "send_dividends",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "instructions_dividends",
+      "page": 3,
+      "uiLabel": {
+        "en": "Other Parties: Specify any instructions issued by the customer regarding the party.",
+        "ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة"
+      },
+      "paperChecklistFieldId": "instructions_dividends",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "send_proceeds",
+      "page": 3,
+      "uiLabel": {
+        "en": "Sales proceed",
+        "ar": "حصيلة البيع"
+      },
+      "paperChecklistFieldId": "send_proceeds",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "instructions_proceeds",
+      "page": 3,
+      "uiLabel": {
+        "en": "Other Parties: Specify any instructions issued by the customer regarding the party.",
+        "ar": "جهات أخرى: تحديد أي تعليمات صادرة عن العميل بشأن الجهة"
+      },
+      "paperChecklistFieldId": "instructions_proceeds",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "experience",
+      "page": 4,
+      "uiLabel": {
+        "en": "How do you describe your investment Knowledge and Experience?",
+        "ar": "كيف تصنف معرفتك وخبراتك الاستثمارية؟"
+      },
+      "paperChecklistFieldId": "experience",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "years_investing",
+      "page": 4,
+      "uiLabel": {
+        "en": "Number of Years of Investment in Securities",
+        "ar": "عدد سنوات الاستثمار في أسواق الأوراق المالية"
+      },
+      "paperChecklistFieldId": "years_investing",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "previous_products",
+      "page": 4,
+      "uiLabel": {
+        "en": "Products Previously Invested In",
+        "ar": "المنتجات التي سبق الاستثمار فيها"
+      },
+      "paperChecklistFieldId": "previous_products",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "loan_ratio",
+      "page": 4,
+      "uiLabel": {
+        "en": "Loan to Invested Money Ratio",
+        "ar": "نسبة القروض من الأموال المستثمرة"
+      },
+      "paperChecklistFieldId": "loan_ratio",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "margin_transactions",
+      "page": 4,
+      "uiLabel": {
+        "en": "Margin Transactions Over the Past Five Years",
+        "ar": "صفقات التمويل بالهامش خلال السنوات الخمس السابقة"
+      },
+      "paperChecklistFieldId": "margin_transactions",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "overseas_transactions",
+      "page": 4,
+      "uiLabel": {
+        "en": "Securities Transactions Outside the Kingdom Over the Past Five Years",
+        "ar": "صفقات الأوراق المالية خارج المملكة خلال السنوات الخمس السابقة"
+      },
+      "paperChecklistFieldId": "overseas_transactions",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "overseas_countries",
+      "page": 4,
+      "uiLabel": {
+        "en": "If Securities Transactions Were Executed Outside the Kingdom Over the Past Five Years, Which Countries Were These Transactions Executed?",
+        "ar": "إذا كان قد تم تنفيذ صفقات أوراق مالية خارج المملكة خلال السنوات الخمس السابقة، ما هي الدول التي تم تنفيذ تلك الصفقات فيها؟"
+      },
+      "paperChecklistFieldId": "overseas_countries",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "risk_appetite",
+      "page": 4,
+      "uiLabel": {
+        "en": "Risk Appetite",
+        "ar": "قدرتك على تحمل المخاطر"
+      },
+      "paperChecklistFieldId": "risk_appetite",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "objectives",
+      "page": 4,
+      "uiLabel": {
+        "en": "General Investment objectives",
+        "ar": "الأهداف الاستثمارية العامة"
+      },
+      "paperChecklistFieldId": "objectives",
+      "verdict": "source_question_copy_mismatch",
+      "visible": true,
+      "issueIds": [
+        "C-COPY-01",
+        "C-COPY-02"
+      ]
+    },
+    {
+      "id": "objectives_other",
+      "page": 4,
+      "uiLabel": {
+        "en": "Other (Please specify)",
+        "ar": "غيرها (يرجى التحديد)"
+      },
+      "paperChecklistFieldId": "objectives_other",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "restrictions",
+      "page": 4,
+      "uiLabel": {
+        "en": "Do You have any Investment restrictions?",
+        "ar": "هل لديك قيود استثمارية؟"
+      },
+      "paperChecklistFieldId": "restrictions",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "currencies",
+      "page": 5,
+      "uiLabel": {
+        "en": "Preferred Investment Currency",
+        "ar": "ما الأصول الاستثمارية المفضلة للعميل؟"
+      },
+      "paperChecklistFieldId": "currencies",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "other_currency",
+      "page": 5,
+      "uiLabel": {
+        "en": "Please Specify Other Foreign Currencies",
+        "ar": "يرجى التحديد العملات الأجنبية"
+      },
+      "paperChecklistFieldId": "other_currency",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "horizon",
+      "page": 5,
+      "uiLabel": {
+        "en": "The Period during which the customer expects to recover the invested money:",
+        "ar": "المدة التي يتوقع العميل خلالها استرداد الأموال المستثمرة"
+      },
+      "paperChecklistFieldId": "horizon",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "ideal_deposits",
+      "page": 5,
+      "uiLabel": {
+        "en": "Deposits/Murabah",
+        "ar": "ودائع ومرابحات"
+      },
+      "paperChecklistFieldId": "ideal_deposits",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "ideal_debt",
+      "page": 5,
+      "uiLabel": {
+        "en": "Debit Instruments",
+        "ar": "أدوات دين"
+      },
+      "paperChecklistFieldId": "ideal_debt",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "ideal_equity",
+      "page": 5,
+      "uiLabel": {
+        "en": "Equity",
+        "ar": "أسهم"
+      },
+      "paperChecklistFieldId": "ideal_equity",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "ideal_funds",
+      "page": 5,
+      "uiLabel": {
+        "en": "Investment Fund",
+        "ar": "صناديق استثمارية"
+      },
+      "paperChecklistFieldId": "ideal_funds",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "ideal_property",
+      "page": 5,
+      "uiLabel": {
+        "en": "Real estate",
+        "ar": "عقارات"
+      },
+      "paperChecklistFieldId": "ideal_property",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "ideal_derivatives",
+      "page": 5,
+      "uiLabel": {
+        "en": "Derivatives contracts",
+        "ar": "عقود مشتقات"
+      },
+      "paperChecklistFieldId": "ideal_derivatives",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "ideal_alternative",
+      "page": 5,
+      "uiLabel": {
+        "en": "Alternative Investments",
+        "ar": "استثمارات بديلة"
+      },
+      "paperChecklistFieldId": "ideal_alternative",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "current_deposits",
+      "page": 5,
+      "uiLabel": {
+        "en": "Deposits/Murabah",
+        "ar": "ودائع ومرابحات"
+      },
+      "paperChecklistFieldId": "current_deposits",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "current_debt",
+      "page": 5,
+      "uiLabel": {
+        "en": "Debit Instruments",
+        "ar": "أدوات دين"
+      },
+      "paperChecklistFieldId": "current_debt",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "current_equity",
+      "page": 5,
+      "uiLabel": {
+        "en": "Equity",
+        "ar": "أسهم"
+      },
+      "paperChecklistFieldId": "current_equity",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "current_funds",
+      "page": 5,
+      "uiLabel": {
+        "en": "Investment Fund",
+        "ar": "صناديق استثمارية"
+      },
+      "paperChecklistFieldId": "current_funds",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "current_property",
+      "page": 5,
+      "uiLabel": {
+        "en": "Real estate",
+        "ar": "عقارات"
+      },
+      "paperChecklistFieldId": "current_property",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "current_derivatives",
+      "page": 5,
+      "uiLabel": {
+        "en": "Derivatives contracts",
+        "ar": "عقود مشتقات"
+      },
+      "paperChecklistFieldId": "current_derivatives",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "current_alternative",
+      "page": 5,
+      "uiLabel": {
+        "en": "Alternative Investments",
+        "ar": "استثمارات بديلة"
+      },
+      "paperChecklistFieldId": "current_alternative",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "risk_experience",
+      "page": 7,
+      "uiLabel": {
+        "en": "1. What is Your level of experience with investment products?",
+        "ar": "1. ما هو مدى خبرتك في مجال المنتجات الاستثمارية؟"
+      },
+      "paperChecklistFieldId": "risk_experience",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "risk_age",
+      "page": 7,
+      "uiLabel": {
+        "en": "2. What is your age?",
+        "ar": "2. كم هو عمرك؟"
+      },
+      "paperChecklistFieldId": "risk_age",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "risk_reaction",
+      "page": 7,
+      "uiLabel": {
+        "en": "3. What will be your reaction if your investment suddenly drops in value?",
+        "ar": "3. ماهي ردة فعلك إذا هبطت قيمة استثمارك فجأة؟"
+      },
+      "paperChecklistFieldId": "risk_reaction",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "risk_duration",
+      "page": 7,
+      "uiLabel": {
+        "en": "4. For how long do you think you are going to keep your investment ?",
+        "ar": "4. ما هي المدة التي ستبقى فيها على استثمارك؟"
+      },
+      "paperChecklistFieldId": "risk_duration",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "risk_capital",
+      "page": 7,
+      "uiLabel": {
+        "en": "5. What percentage of your total capital (excluding property and other non-financial investment) would you use for this investment?",
+        "ar": "5. كم أي نسبة رأس المال التي سوف تستعملها لهذا الاستثمار (من إجمالي رأس المال باستثناء العقارات والاستثمارات غير النقدية) ؟"
+      },
+      "paperChecklistFieldId": "risk_capital",
+      "verdict": "source_question_copy_mismatch",
+      "visible": true,
+      "issueIds": [
+        "C-COPY-03"
+      ]
+    },
+    {
+      "id": "risk_total",
+      "page": 7,
+      "uiLabel": {
+        "en": "Result (Number of Points)=",
+        "ar": "النتيجة (عدد النقاط) ="
+      },
+      "paperChecklistFieldId": "risk_total",
+      "verdict": "calculated_paper_total",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "desired_funds",
+      "page": 7,
+      "uiLabel": {
+        "en": "(funds / portfolios of:",
+        "ar": "(صناديق / محافظ:"
+      },
+      "paperChecklistFieldId": "desired_funds",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    },
+    {
+      "id": "risk_client_name",
+      "page": 7,
+      "uiLabel": {
+        "en": "Client Name",
+        "ar": "اسم العميل"
+      },
+      "paperChecklistFieldId": "risk_client_name",
+      "verdict": "source_supported",
+      "visible": true,
+      "issueIds": []
+    }
+  ],
+  "limitations": [
+    "No live-site or browser interaction test in this bounded audit; actual option filtering was inspected directly in renderer code.",
+    "No numeric/maxLength behavior fix attempted; root owns that fix.",
+    "Staff-only page-6 workflow outside customer questionnaire scope."
+  ],
+  "phase": "pre_fix_baseline",
+  "status_notice": "Historical findings captured before the 2026-10-08 corrections. Read corrections.json and README.md for current disposition; do not treat baseline missing/hidden/cap statements as current behavior.",
+  "evidence_package": "Portable transcription and blank template definitions only. Render PNGs were reviewed locally and are not included. No customer answers or test results are included."
+}
