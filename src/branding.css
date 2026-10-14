@@ -67,3 +67,10 @@
  .management-header .management-navigation{order:1;flex-basis:100%}
  .management-header .site-header-actions{margin-inline-start:auto}
 }
+
+/* One approved address shared with the PDF footers, in normal page flow. */
+.site-footer{display:grid;grid-template-columns:minmax(180px,.45fr) minmax(0,1fr);align-items:start;gap:12px 28px;width:calc(100% - 48px);max-width:1192px;margin:32px auto 20px;padding:20px 24px;border-top:1px solid #e3dce9;color:#665a70;font-size:12px;line-height:1.8;text-align:start}
+.site-footer strong{color:#48235f;font-size:14px;font-weight:600}
+.site-footer address{margin:0;min-width:0;font:inherit;text-align:left;overflow-wrap:anywhere}
+.site-footer address span{display:block}
+@media(max-width:600px){.site-footer{width:calc(100% - 32px);grid-template-columns:1fr;margin-top:24px;padding:18px 12px;gap:10px}}

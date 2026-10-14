@@ -1,6 +1,22 @@
-# Handover verification — 8 October 2026
+# Handover verification — 14 October 2026
 
-## Current release — KYC input limits and source-copy corrections
+## Current release — visible national address
+
+A shared, responsive website footer now shows the owner-approved Itqan national address across authentication, forms, profile and management pages. The address comes from the same JSON used by the PDF builders. This update changes page presentation only.
+
+| Fresh check | Result |
+|---|---|
+| Full unit suite / build | 259 tests passed; zero failures/skips; production build passed |
+| Website footer | 64 views across 16 screens, English/Arabic, desktop/mobile; one complete footer per screen; correct English reading direction; no clipping, overflow or browser errors |
+| Visual website review | Ten footer screenshots inspected across forms, account and management page shells |
+| PDF footers | All 10 public PDF files / 50 pages checked for complete address, footer placement and old address; all 50 rendered footers inspected |
+| PDF/Word consistency | Twelve existing PDF output mirrors and five current Word sources match; no PDF asset edits were required |
+
+Evidence: `verification/website-address-2026-10-14/`. Current templates include nine application PDFs and one legacy compatibility PDF. Existing client uploads and historical submissions retain their saved bytes.
+
+## Previous verification — 8 October 2026
+
+### KYC input limits and source-copy corrections
 
 The screenshot exposed a six-character input cap that the earlier sample fills had not exercised. That cap is removed from all 28 KYC portfolio cells. Each column now explicitly says percentage; the existing 0–100 and total-100% warnings remain. The supplied seven-page templates, footer, field destinations and historical submissions are unchanged.
 

@@ -115,6 +115,10 @@ copy(ROOT / 'scripts/kyc-input-audit.mjs', package / 'source/scripts/kyc-input-a
 for file in (ROOT / 'docs/kyc-paper-check-2026-10-08').rglob('*'):
     if file.is_file():
         copy(file, package / 'verification/kyc-paper-check-2026-10-08' / file.relative_to(ROOT / 'docs/kyc-paper-check-2026-10-08'))
+copy(ROOT / 'scripts/website-address-audit.mjs', package / 'source/scripts/website-address-audit.mjs')
+for file in (ROOT / 'docs/website-address-2026-10-14').rglob('*'):
+    if file.is_file():
+        copy(file, package / 'verification/website-address-2026-10-14' / file.relative_to(ROOT / 'docs/website-address-2026-10-14'))
 for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verification.json',
              'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
              'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',

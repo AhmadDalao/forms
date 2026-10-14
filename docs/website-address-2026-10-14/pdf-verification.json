@@ -1,0 +1,340 @@
+{
+  "date": "2026-10-14",
+  "passed": true,
+  "scope": {
+    "public_pdf_files": 10,
+    "public_pdf_pages": 50,
+    "current_application_template_files": 9,
+    "current_application_template_pages": 49,
+    "legacy_compatibility_files": 1,
+    "legacy_compatibility_pages": 1,
+    "matching_output_mirrors": 12,
+    "current_word_sources_checked_by_verifier": 5
+  },
+  "canonical_address": {
+    "path": "scripts/pdf-design/national-address.json",
+    "version": "20261007-national-address",
+    "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor | 2505 - Al Zahra Dist | Unit No 7940 | Jeddah 23425-2753 | Kingdom of Saudi Arabia",
+    "sha256": "57a138fa7c961f3e600fbfe658ef8413a64f5e7a5b89da10e2ebd7b13fc42400"
+  },
+  "automated_checks": {
+    "command": "python3 scripts/verify-national-address.py tmp/pdfs/website-address-20261014/source-check.json",
+    "result": "pass",
+    "failures": [],
+    "coverage_matches_public_directory": true,
+    "full_normalized_address_present_on_every_page": true,
+    "address_in_bottom_ten_percent_on_every_page": true,
+    "footer_text_within_page_bounds": true,
+    "old_address_marker_matches_anywhere_in_public_pdf_text": [],
+    "old_markers_checked": [
+      "7855",
+      "2563",
+      "احمد العطاس",
+      "أحمد العطاس"
+    ]
+  },
+  "visual_checks": {
+    "result": "pass",
+    "renderer": "Poppler pdftoppm",
+    "dpi": 180,
+    "scope": "Bottom 115 points of every one of the 50 public PDF pages, rendered fresh and inspected on 10 contact sheets. Footer visibility only; not a new full-body or filled-answer audit.",
+    "complete_address_legible": true,
+    "address_clipping_detected": false,
+    "address_overlap_detected": false,
+    "old_address_visible": false,
+    "render_directory": "tmp/pdfs/website-address-20261014",
+    "manifest": "tmp/pdfs/website-address-20261014/render-manifest.json",
+    "contact_sheets": [
+      "footer-sheet-01.png",
+      "footer-sheet-02.png",
+      "footer-sheet-03.png",
+      "footer-sheet-04.png",
+      "footer-sheet-05.png",
+      "footer-sheet-06.png",
+      "footer-sheet-07.png",
+      "footer-sheet-08.png",
+      "footer-sheet-09.png",
+      "footer-sheet-10.png"
+    ]
+  },
+  "documents": [
+    {
+      "path": "public/pdfs/al-naeem-terms-consent.pdf",
+      "role": "current_application_template",
+      "pages": 1,
+      "sha256": "5b22452a0fdd909e682b61bc7a2e53e12532d28e100f22ad96c36f67fd2efd3d",
+      "full_address_on_every_page": true,
+      "visually_checked_pages": [
+        1
+      ],
+      "visual_result": "pass",
+      "contact_sheets": [
+        "footer-sheet-01.png"
+      ],
+      "mirrors": [
+        {
+          "path": "output/documents/al-naeem-terms-consent.pdf",
+          "sha256": "5b22452a0fdd909e682b61bc7a2e53e12532d28e100f22ad96c36f67fd2efd3d",
+          "identical": true
+        },
+        {
+          "path": "output/pdf/al-naeem-terms-consent.pdf",
+          "sha256": "5b22452a0fdd909e682b61bc7a2e53e12532d28e100f22ad96c36f67fd2efd3d",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "path": "public/pdfs/fatca-crs-corporate.pdf",
+      "role": "current_application_template",
+      "pages": 8,
+      "sha256": "5133c0ed41a290a468c35aafaf6baf9ec9b98415d1d6fa57b85dde159ce038e1",
+      "full_address_on_every_page": true,
+      "visually_checked_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "visual_result": "pass",
+      "contact_sheets": [
+        "footer-sheet-01.png",
+        "footer-sheet-02.png"
+      ],
+      "mirrors": [
+        {
+          "path": "output/documents/fatca-crs-corporate.pdf",
+          "sha256": "5133c0ed41a290a468c35aafaf6baf9ec9b98415d1d6fa57b85dde159ce038e1",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "path": "public/pdfs/fatca-crs-individual.pdf",
+      "role": "current_application_template",
+      "pages": 8,
+      "sha256": "4c860ccb85dd2949365d92de6794860bdcbb5dd53cd29d5c501c28d476a9b895",
+      "full_address_on_every_page": true,
+      "visually_checked_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "visual_result": "pass",
+      "contact_sheets": [
+        "footer-sheet-02.png",
+        "footer-sheet-03.png",
+        "footer-sheet-04.png"
+      ],
+      "mirrors": [
+        {
+          "path": "output/documents/fatca-crs-individual.pdf",
+          "sha256": "4c860ccb85dd2949365d92de6794860bdcbb5dd53cd29d5c501c28d476a9b895",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "path": "public/pdfs/kyc-corporate.pdf",
+      "role": "current_application_template",
+      "pages": 7,
+      "sha256": "47e887db96ffc9105984380fb3008efd5f99fa7251a318c2ab6031021240844b",
+      "full_address_on_every_page": true,
+      "visually_checked_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "visual_result": "pass",
+      "contact_sheets": [
+        "footer-sheet-04.png",
+        "footer-sheet-05.png"
+      ],
+      "mirrors": [
+        {
+          "path": "output/documents/kyc-corporate.pdf",
+          "sha256": "47e887db96ffc9105984380fb3008efd5f99fa7251a318c2ab6031021240844b",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "path": "public/pdfs/kyc-individual.pdf",
+      "role": "current_application_template",
+      "pages": 7,
+      "sha256": "2b3c814935ce6671c503e8887e0d496d60e81de37d3204a7fcad6ef33fefb3c9",
+      "full_address_on_every_page": true,
+      "visually_checked_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "visual_result": "pass",
+      "contact_sheets": [
+        "footer-sheet-05.png",
+        "footer-sheet-06.png",
+        "footer-sheet-07.png"
+      ],
+      "mirrors": [
+        {
+          "path": "output/documents/kyc-individual.pdf",
+          "sha256": "2b3c814935ce6671c503e8887e0d496d60e81de37d3204a7fcad6ef33fefb3c9",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "path": "public/pdfs/signature-form.pdf",
+      "role": "current_application_template",
+      "pages": 1,
+      "sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f",
+      "full_address_on_every_page": true,
+      "visually_checked_pages": [
+        1
+      ],
+      "visual_result": "pass",
+      "contact_sheets": [
+        "footer-sheet-07.png"
+      ],
+      "mirrors": [
+        {
+          "path": "output/documents/signature-form.pdf",
+          "sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "path": "public/pdfs/subscription-company.pdf",
+      "role": "current_application_template",
+      "pages": 2,
+      "sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86",
+      "full_address_on_every_page": true,
+      "visually_checked_pages": [
+        1,
+        2
+      ],
+      "visual_result": "pass",
+      "contact_sheets": [
+        "footer-sheet-07.png"
+      ],
+      "mirrors": [
+        {
+          "path": "output/documents/subscription-company.pdf",
+          "sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86",
+          "identical": true
+        },
+        {
+          "path": "output/pdf/subscription-company.pdf",
+          "sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "path": "public/pdfs/subscription-form.pdf",
+      "role": "legacy_public_compatibility_template",
+      "pages": 1,
+      "sha256": "5d85ee6922a6224ca85a6238955c4be8abf4f71ccb933e9aa2cce4de7c49f2bb",
+      "full_address_on_every_page": true,
+      "visually_checked_pages": [
+        1
+      ],
+      "visual_result": "pass",
+      "contact_sheets": [
+        "footer-sheet-07.png"
+      ],
+      "mirrors": []
+    },
+    {
+      "path": "public/pdfs/subscription-individual.pdf",
+      "role": "current_application_template",
+      "pages": 2,
+      "sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e",
+      "full_address_on_every_page": true,
+      "visually_checked_pages": [
+        1,
+        2
+      ],
+      "visual_result": "pass",
+      "contact_sheets": [
+        "footer-sheet-08.png"
+      ],
+      "mirrors": [
+        {
+          "path": "output/documents/subscription-individual.pdf",
+          "sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e",
+          "identical": true
+        },
+        {
+          "path": "output/pdf/subscription-individual.pdf",
+          "sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "path": "public/pdfs/terms-and-conditions.pdf",
+      "role": "current_application_template",
+      "pages": 13,
+      "sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15",
+      "full_address_on_every_page": true,
+      "visually_checked_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "visual_result": "pass",
+      "contact_sheets": [
+        "footer-sheet-08.png",
+        "footer-sheet-09.png",
+        "footer-sheet-10.png"
+      ],
+      "mirrors": [
+        {
+          "path": "output/documents/terms-and-conditions.pdf",
+          "sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15",
+          "identical": true
+        }
+      ]
+    }
+  ],
+  "preservation": {
+    "pdf_assets_changed": false,
+    "excluded_immutable_material": [
+      "reference/pdfs originals and supplied source PDFs",
+      "historical submitted PDF versions",
+      "client-uploaded PDFs",
+      "retired Word redesigns and historical test outputs"
+    ],
+    "reason": "This check covers every public application PDF, including the legacy subscription-form filename. Immutable records, uploads and source references are not current templates and were not rewritten."
+  },
+  "issues": []
+}

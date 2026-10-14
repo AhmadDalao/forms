@@ -4,6 +4,8 @@ Start with this picture: the browser is the form editor and PDF renderer; PHP is
 
 The paths below are relative to `source/` in the handover.
 
+The shared website footer lives in `src/branding.js` and is included by the forms, account/authentication and management page shells. Its address comes from `scripts/pdf-design/national-address.json`, the same approved text used by the PDF builders and verifier. Changing that JSON does not rewrite existing PDFs: rebuild the affected templates, then run the footer verifier before release. Submitted and archived PDFs retain their saved bytes.
+
 The 8 October KYC fix removes an arbitrary six-character cap from the 28 portfolio percentage inputs. PDF generation still checks the actual available space and reports overflow. Paper copy now includes the printed risk-score explanations. KYC ID dropdowns show their own printed options; Family ID stays represented as `Other` plus its existing exact label in the shared profile, so subscription dropdowns keep their separate choices. No database migration or PDF-template change is needed. The field-by-field source comparison is included under `verification/kyc-paper-check-2026-10-08/`.
 
 ## Read the project in this order

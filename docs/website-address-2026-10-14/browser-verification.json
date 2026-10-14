@@ -1,0 +1,1868 @@
+{
+  "createdAt": "2026-10-14T15:31:43.465Z",
+  "scope": "Isolated local build with synthetic accounts only",
+  "address": {
+    "version": "20261007-national-address",
+    "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor | 2505 - Al Zahra Dist | Unit No 7940 | Jeddah 23425-2753 | Kingdom of Saudi Arabia"
+  },
+  "build": {
+    "api/portal.php": "c1cb1092a2c9f8e3b05f624d107251be0153b8cd7427b60533f230af79fa55d4",
+    "api/portal-workflow.php": "e2251b5d8f040f5612afde05b58e0a8903ed41aa7a474b0a3f7aee8b18e3ce75",
+    "api/portal-reviews.php": "fd7fa91ff099c756e420483162edcdb59682a49d0ae0522484189b5cc1f577ce",
+    "api/portal-versions.php": "0eeca6d8159f2bf7b97698ce8a2e009f0715967ecf92164421accbf9345ca4fd",
+    "assets/access-DSNMeEip.js": "dfa8b5b8b22a197c90f27b5714238ed04c5a8c3739a86d665752c8ff1c67705c",
+    "assets/access-DpDQIypX.js": "7e0a6a86444a3e95f1d406bfe336eb7ef36480fe3959b6473052b5736105332a",
+    "assets/api-COrqlYNC.js": "57b71dcab56f6126dadccd1f3b300df38926fb5840991953061ceb8cc6f7f770",
+    "assets/arabic-600-DfnZHZ36.css": "4408887cf67093d248dd499577fd4ab9e76c70e453555c1dd6bdaf429834e467",
+    "assets/branding-BLKHg7s3.css": "436974b1e551f11758bc5350e20dab3cf5b27c99a02d0b8eccf4c1183de4119f",
+    "assets/branding-CdT6__ci.js": "35bb6e9099b7a2b755a2eec8a75bf1704614765724b5491106d3b69c9b43f25e",
+    "assets/catalogue-B3tlQG9w.js": "0dcecee31a507b72d6b650cdb58d989cffc6b7cefec66a5deed1861f5fbc527e",
+    "assets/catalogue-CR_2rN1N.js": "0e4fdba8269b33de65d9364cb945e118505cbf852136953ec6b460446d9f8074",
+    "assets/catalogue-DFXD2NrP.js": "02c01130b5d88b4f04592665c3395d8c60b4f243be2ae2ca4e727698a59ccb31",
+    "assets/catalogue-DlpGEFii.js": "089569cee1788b1927753e22b442560068797c454fae088d23353007000f9fe3",
+    "assets/es-DxWXVMsX.js": "884e9b58526ca894235cda27fe192373430507d5737106c1c8dfb114b3052c1c",
+    "assets/follow-up-DZfZoAjS.js": "3472128701af10cdc02f5e4025bc6c111be280ddcac48b963746d0bb174451a1",
+    "assets/forms-BlSfLtu4.js": "0f4760c6ed12a6fefce5645802eb845ac845b8b3926ebe1855b716623b312dbc",
+    "assets/forms-DTmRMldY.js": "a5d3db692a790b0dc6b65a431adb323daecb362854fa05496cf4e3a90600b04b",
+    "assets/index-DsMHLYQk.js": "2f9564cba5c707e2fad9ab976bf9c94623dac652dc92a96a6b5d2e579948f7cd",
+    "assets/latin-400-CkJXGLVG.css": "3df0f0359068fa8cd5a8af39c80c6d49e107f1fb918f3bf6f30fe4d3cb85b354",
+    "assets/main-B5LRbaKe.css": "e678a6b55c1fdda1185ae9ad65b1c46d3c31ed52128211280f036853f39eb76b",
+    "assets/main-B72gXKZ_.css": "da98c81084a3fcb19e1680a813e1820b5bbfb854355a1264494aa78af2c77f02",
+    "assets/main-D9KWTXw7.js": "2a627dee02a1616e451dbcf877d60d6c97773bada87242109cb98c3e1d6ba3dd",
+    "assets/main-DSfvzQTx.js": "fb1501d4e60849ac43e603cbd6ce1cc04a8d7ab258bc5f981938a52976f39dfd",
+    "assets/main-DbEK92ns.css": "dcb5eecc5b39ebbb83bbaef3c8590bedd81ab462a99335441b49d1af105de55a",
+    "assets/main-XOTBGgU8.js": "5b87e9876f5db99f5f4a76aaf8631f28bf29b369057881cb3c175ef0c33d9b2d",
+    "assets/notifications-sKJ57jDD.js": "eb568c02aa387512b382754c5f162a5d86fc63a029f96f71e0ef573b67807922",
+    "assets/passwords-CYgB0nvL.js": "2eecabfbd7f6ebc901bfca585841028477d1f3b2290af0486ea29dbce8940920",
+    "assets/pdf-CGE9QkSI.js": "d38e162c9b778533c2b1d3912ea5690b9336600c6e06d14740136a0ade1a68c2",
+    "assets/pdf-CS3FWNOH.js": "ecf0dc40c0e8cb8a52f7448570b66fe6ae9dfe89bc03b578f28cd58eaf876561",
+    "assets/pdf.worker.min-FoBnJSGj.js": "63b9c6ba8c0a3f245f23b068baab3e183833885db2db63896a03062e00bddad4",
+    "assets/preload-helper-uBIymjUX.js": "e1a22f3f73566f21ff932e058d32243e4a118f3491b91e96893aa5ab7eb49a00",
+    "assets/preview-BKta3n6W.js": "55d3cd5aafc37104a51d6998b7c922877059e78d3bfef8b481cf1a0424341cc6",
+    "assets/preview-D1wWfWPC.css": "341e01a8ea1d5d7c480cc52ee831cfc6efeb23fe7d7ca8dd940f9dc5748b456c",
+    "assets/preview-DOWE8_uk.js": "95d0bd769a5cef9d05d052ae1c264451802e91f520536861ca7bef4d68f691b0",
+    "assets/review-BsWU0vV6.css": "b01a50ce61b8fa71d34c5d0d0e16c294bc8af589ed31ffbe89c12477a103cc1e",
+    "assets/review-FFU8meSH.js": "f2a0f797a9516ad7644d4468988f201433f19502562afcaf49af409e24441d33",
+    "assets/routes-VETtnQjc.js": "6c3436c95c68b54206953e92017d9a0edb4c1fdcb4823b5c27e236c2b02232fb",
+    "assets/shared-fields-BIjnn-K_.js": "fa117c73c38442b5f4b49ae25038b666ba840b075d4623eb6947271eeea81695",
+    "assets/sign-submission-CkT-yXjv.css": "a363bf49da4e0d94271455cbbeb52b4069d2a1630490dddee417c0554d6703be",
+    "assets/sign-submission-poI_CobF.js": "16cf0756bf643f5abdc7f7ff4238058aca1443ffb06586f73ed7574c30bde9a3",
+    "assets/signatures-DQQVjmg0.js": "1de4326a39e3a9b7cf3c89940f6a28da837966c5090f90fad5335df01650516e",
+    "assets/submitted-details-CqHm4K2h.js": "245442959648e07b7679fe0791bd033b2d9c4b8f85061a9dd40c4383c58c283f",
+    "assets/upload-CRFqZBVt.js": "b388a5e5a5ed71642f3d87005f5ee273958ec12b5c963b24153f50ea8407467d",
+    "assets/upload-GSQUzoUT.js": "84e40e6694db9be74b29a338ccfd2d9d3b5098ddd85d9d89cdaa39b4cb5c70d2",
+    "assets/upload-e-06JlEl.css": "b8c8d9adff65faaeb9f450f63a60596b47402375e9d35cd256904ff9ecb8525f"
+  },
+  "checks": [
+    {
+      "screen": "login",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/login-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "login",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/login-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "login",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/login-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "login",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/login-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "register",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/register-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "register",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/register-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "register",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/register-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "register",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/register-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "management-login",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/management-login-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "management-login",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/management-login-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "management-login",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/management-login-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "management-login",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/management-login-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-catalogue",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-catalogue-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-catalogue",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-catalogue-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-catalogue",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-catalogue-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-catalogue",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-catalogue-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-subscription-editor",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-subscription-editor-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-subscription-editor",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-subscription-editor-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-subscription-editor",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-subscription-editor-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-subscription-editor",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-subscription-editor-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-subscription-review",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-subscription-review-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-subscription-review",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-subscription-review-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-subscription-review",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-subscription-review-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-subscription-review",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-subscription-review-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-kyc-editor",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-kyc-editor-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-kyc-editor",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-kyc-editor-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-kyc-editor",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-kyc-editor-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-kyc-editor",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-kyc-editor-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-profile",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-profile-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-profile",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-profile-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-profile",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-profile-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "individual-profile",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/individual-profile-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-catalogue",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-catalogue-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-catalogue",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-catalogue-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-catalogue",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-catalogue-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-catalogue",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-catalogue-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-subscription-editor",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-subscription-editor-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-subscription-editor",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-subscription-editor-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-subscription-editor",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-subscription-editor-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-subscription-editor",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-subscription-editor-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-subscription-review",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-subscription-review-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-subscription-review",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-subscription-review-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-subscription-review",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-subscription-review-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-subscription-review",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-subscription-review-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-kyc-editor",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-kyc-editor-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-kyc-editor",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-kyc-editor-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-kyc-editor",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-kyc-editor-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-kyc-editor",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-kyc-editor-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-profile",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-profile-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-profile",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-profile-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-profile",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-profile-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "corporate-profile",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/corporate-profile-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-dashboard",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-dashboard-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-dashboard",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-dashboard-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-dashboard",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-dashboard-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-dashboard",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-dashboard-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-individual-client",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-individual-client-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-individual-client",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-individual-client-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-individual-client",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-individual-client-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-individual-client",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-individual-client-ar-390.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-corporate-client",
+      "language": "en",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-corporate-client-en-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-corporate-client",
+      "language": "en",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "Itqan Capital · National address",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-corporate-client-en-390.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-corporate-client",
+      "language": "ar",
+      "width": 1440,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-corporate-client-ar-1440.png",
+      "issues": []
+    },
+    {
+      "screen": "admin-corporate-client",
+      "language": "ar",
+      "width": 390,
+      "footerCount": 1,
+      "heading": "العنوان الوطني لإتقان كابيتال",
+      "addressLanguage": "en",
+      "addressDirection": "ltr",
+      "computedDirection": "ltr",
+      "lines": [
+        {
+          "text": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor",
+          "clipped": false
+        },
+        {
+          "text": "2505 - Al Zahra Dist · Unit No 7940",
+          "clipped": false
+        },
+        {
+          "text": "Jeddah 23425-2753 · Kingdom of Saudi Arabia",
+          "clipped": false
+        }
+      ],
+      "footerOutsideViewport": false,
+      "horizontalOverflow": false,
+      "screenshot": "tmp/workflow-toggle-1791991901496-42b393/website-address/admin-corporate-client-ar-390.png",
+      "issues": []
+    }
+  ],
+  "browserErrors": [],
+  "passed": true,
+  "visualInspection": {
+    "passed": true,
+    "screenshots": [
+      "login-en-1440.png",
+      "register-ar-390.png",
+      "individual-catalogue-en-390.png",
+      "individual-subscription-review-ar-1440.png",
+      "corporate-kyc-editor-ar-390.png",
+      "corporate-profile-en-1440.png",
+      "management-login-ar-390.png",
+      "admin-dashboard-en-1440.png",
+      "admin-individual-client-ar-390.png",
+      "admin-corporate-client-en-390.png"
+    ],
+    "findings": "Complete canonical address is readable across all three shared page shells. English address remains left-to-right beside Arabic headings. Desktop uses two columns; mobile wraps naturally with no clipped text or overlap."
+  }
+}

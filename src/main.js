@@ -6,7 +6,7 @@ import '@fontsource/noto-sans-arabic/arabic-400.css';
 import '@fontsource/noto-sans-arabic/arabic-600.css';
 import '@fontsource/noto-sans-arabic/latin-400.css';
 import './style.css';
-import {siteHeader} from './branding.js';
+import {siteHeader,siteFooter} from './branding.js';
 import {endpoint,authChanged,authChangeKey,api as portalApi,errorText as portalError,setLanguage as setPortalLanguage,language as portalLanguage} from './portal/api.js';
 import {followUpMarkup,bindFollowUps} from './portal/follow-up.js';
 import {clientReviewBadge,signatureBadge} from './portal/review.js';
@@ -121,7 +121,7 @@ function bindClearChoices(){document.querySelectorAll('[data-clear]').forEach(bu
 function accountLink(){const next=audience==='individual'?'individuals':audience==='corporate'?'companies':null;return `<a class="site-header-link client-account-link" href="${appRoot}${client.user?'account/':'login/?'+new URLSearchParams({...(next?{next,resume:'1'}:{}),lang})}">${client.user?t('Profile','الملف الشخصي'):t('Sign in / Register','دخول / إنشاء حساب')}</a>`;}
 function header(){return siteHeader({lang,className:'header branded-header',brandHref:appRoot,homeAction:true,actions:`${accountLink()}${client.user?notificationBell(lang):''}<button type="button" class="site-header-language" id="language" lang="${lang==='en'?'ar':'en'}">${lang==='en'?'العربية':'English'}</button>${client.user?`<button type="button" class="site-header-signout" id="form-logout">${t('Sign out','تسجيل الخروج')}</button>`:''}`});}
 function saveLabel(){return drafts.available?'':t('Not saved — browser storage is unavailable','لم يتم الحفظ — تخزين المتصفح غير متاح');}
-function footer(){return sharedStatusHTML();}
+function footer(){return sharedStatusHTML()+siteFooter(lang);}
 function storageStatus(){document.querySelectorAll('[data-save-status]').forEach(el=>{el.textContent=saveLabel();el.classList.toggle('save-failed',!drafts.available);});const note=document.querySelector('[data-storage-note]');if(note){const wrapper=document.createElement('div');wrapper.innerHTML=footer();note.textContent=wrapper.querySelector('[data-storage-note]').textContent;}sharedStatus();}
 function saveDraft(editedField=null){if(subscriptionEditor){subscriptionEditor.save(editedField);return;}if(current){drafts.save(current.id,values,step,signatures,editedField);values={...drafts.get(current.id).values};if(editedField)syncFormDetails();}storageStatus();updateSectionProgress();}
 function blankLink(d,classes='button secondary'){return `<a class="${classes}" data-blank="${d.id}" href="${templateUrl(d)}" download="${d.id}-blank.pdf">${icon('download',16)}${t('Download blank','تنزيل النموذج الفارغ')}</a>`;}
