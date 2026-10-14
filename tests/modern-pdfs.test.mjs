@@ -95,8 +95,8 @@ test('restored T&C keeps the approved footer-updated PDF and original field/sign
  const {createHash}=await import('node:crypto');
  const doc=docs.find(d=>d.id==='terms-and-conditions'),old=original.find(d=>d.id===doc.id);
  assert.equal(createHash('sha256').update(readFileSync('reference/pdfs/terms-and-conditions.pdf')).digest('hex'),'8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106');
- assert.equal(createHash('sha256').update(readFileSync('public/pdfs/terms-and-conditions.pdf')).digest('hex'),'f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15');
- assert.equal(doc.pages,13);assert.equal(doc.pdfVersion,'20261007-national-address');assert.equal(layouts[doc.id],undefined);
+ assert.equal(createHash('sha256').update(readFileSync('public/pdfs/terms-and-conditions.pdf')).digest('hex'),'7998def88757a5786685e7e8bcc0de9a4c73127a8477b859793bdd4ab6b331e5');
+ assert.equal(doc.pages,13);assert.equal(doc.pdfVersion,'20261014-riyadh-address');assert.equal(layouts[doc.id],undefined);
  assert.deepEqual(doc.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field),old.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field));assert.deepEqual(signatureSlots(doc),old.signatureSlots);
  assert.deepEqual(doc.fields.filter(f=>f.type==='date').map(f=>f.page),[11,13]);
  assert.ok(doc.fields.filter(f=>f.type==='date').every(f=>f.defaultToday&&f.dateParts.length===3));
@@ -106,8 +106,8 @@ test('restored signature form keeps the approved footer update, one-page fields 
  const {createHash}=await import('node:crypto');
  const doc=docs.find(d=>d.id==='signature-form'),old=original.find(d=>d.id===doc.id);
  assert.equal(createHash('sha256').update(readFileSync('reference/pdfs/signature-form.pdf')).digest('hex'),'9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0');
- assert.equal(createHash('sha256').update(readFileSync('public/pdfs/signature-form.pdf')).digest('hex'),'9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f');
- assert.equal(doc.pages,1);assert.equal(doc.pdfVersion,'20261007-national-address');assert.equal(layouts[doc.id],undefined);
+ assert.equal(createHash('sha256').update(readFileSync('public/pdfs/signature-form.pdf')).digest('hex'),'8e405aa5ee0ed93e9a05b99b0abf105695e7d733453b83e4fa8184254183c08c');
+ assert.equal(doc.pages,1);assert.equal(doc.pdfVersion,'20261014-riyadh-address');assert.equal(layouts[doc.id],undefined);
  assert.deepEqual(doc.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field),old.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field));assert.deepEqual(signatureSlots(doc),old.signatureSlots);
 });
 
@@ -148,7 +148,7 @@ test('restored KYC templates use seven Letter pages and preserve original, moder
  for(const id of ['kyc-individual','kyc-corporate']){
   assert.equal(createHash('sha256').update(readFileSync(`reference/pdfs/supplied-20261007/${id}.pdf`)).digest('hex'),suppliedHashes[id]);
   const doc=docs.find(d=>d.id===id);
-  assert.equal(doc.pages,7);assert.equal(doc.pdfVersion,'20261007-original-kyc');assert.equal(layouts[id],undefined);
+  assert.equal(doc.pages,7);assert.equal(doc.pdfVersion,'20261014-riyadh-address');assert.equal(layouts[id],undefined);
   assert.deepEqual(doc.pageSizes,Array.from({length:7},()=>[612,792]));
   const retired=JSON.parse(readFileSync(`reference/documents/archived/${id}-modern-layout.json`));
   const restored={pages:doc.pages,pdfVersion:doc.pdfVersion,pageSizes:doc.pageSizes,signatureSlots:signatureSlots(doc)};

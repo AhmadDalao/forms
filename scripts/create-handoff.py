@@ -60,7 +60,7 @@ for folder in ['src', 'public', 'tests', 'reference/pdfs', 'reference/documents'
             continue
         copy(file, package / 'source' / rel)
 scripts = ['build-folders.mjs', 'management-defaults.mjs', 'management-router.php', 'protected-router.php',
-           'rebuild-subscription.py', 'update-original-footers.py', 'verify-national-address.py',
+           'rebuild-subscription.py', 'update-original-footers.py', 'update-generated-address.py', 'verify-national-address.py',
            'management-init.php', 'management-superadmin-init.php', 'installation-init.php', 'backup-installation.php',
            'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'current-pdf-audit.mjs',
            'current-pdf-audit-verify.py', 'verify-pdf-overlap.py', 'preview-font-audit.mjs', 'preview-direction-audit.mjs',
@@ -118,6 +118,9 @@ for file in (ROOT / 'docs/kyc-paper-check-2026-10-08').rglob('*'):
 copy(ROOT / 'scripts/website-address-audit.mjs', package / 'source/scripts/website-address-audit.mjs')
 for name in ['website-settings-api-audit.mjs', 'website-settings-audit.mjs']:
     copy(ROOT / 'scripts' / name, package / 'source/scripts' / name)
+for file in (ROOT / 'docs/riyadh-address-2026-10-14').rglob('*'):
+    if file.is_file():
+        copy(file, package / 'verification/riyadh-address-2026-10-14' / file.relative_to(ROOT / 'docs/riyadh-address-2026-10-14'))
 for file in (ROOT / 'docs/website-settings-2026-10-14').rglob('*'):
     if file.is_file():
         copy(file, package / 'verification/website-settings-2026-10-14' / file.relative_to(ROOT / 'docs/website-settings-2026-10-14'))
@@ -152,7 +155,7 @@ assert not list((restored / 'management/uploads').glob('*'))
 assert not (restored / 'management/state.json').exists()
 shutil.rmtree(restored)
 copy(bootstrap, package / 'private-bootstrap.zip')
-snapshot['application_release'] = release_date + ' original seven-page KYC PDFs with approved national-address footer, superadmin-editable website address, five current Word sources, dedicated submission settings and schema 8'
+snapshot['application_release'] = release_date + ' original seven-page KYC PDFs with owner-supplied Riyadh national-address footer on all templates, superadmin-editable website address, five current Word sources, dedicated submission settings and schema 8'
 snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
 (package / ('verification/bootstrap-verification-' + release_date + '.json')).write_text(json.dumps({

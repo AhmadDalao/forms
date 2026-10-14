@@ -71,7 +71,7 @@ def update_national_address(doc):
     """Keep the owner's address in every footer without changing form content."""
     for section in doc.sections:
         paragraphs=section.footer.paragraphs
-        p=next((p for p in paragraphs if ('7855' in p.text and '2563' in p.text) or 'Prince Naif Branch' in p.text),None)
+        p=next((p for p in paragraphs if ('7855' in p.text and '2563' in p.text) or 'Prince Naif Branch' in p.text or p.text==NATIONAL_ADDRESS['text'] or (p.text.count(' | ')==4 and p.text.endswith('Kingdom of Saudi Arabia'))),None)
         if p is None:
             p=section.footer.add_paragraph()
             paragraphs[-1]._p.addprevious(p._p)

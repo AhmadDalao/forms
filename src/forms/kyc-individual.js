@@ -1,7 +1,7 @@
 import {document,section,text,choice,option as o} from '../schema.js';
 import {accountType,correspondence,investment,portfolio,risk} from './kyc-shared.js';
 const d=document('kyc-individual','Individual KYC','اعرف عميلك — أفراد','individual','Personal, financial and investment information.','البيانات الشخصية والمالية والاستثمارية.',7,[3,7]);
-d.pdfVersion='20261007-original-kyc';
+d.pdfVersion='20261014-riyadh-address';
 d.pageSizes=Array.from({length:7},()=>[612,792]);
 let s=section(d,'identity','Personal details','البيانات الشخصية',1);
 accountType(d,s);

@@ -1,0 +1,732 @@
+{
+  "canonical": {
+    "version": "20261014-riyadh-address",
+    "text": "7762 King Fahd Branch Road | 4162 Al Malqa District | Muath Tower | Riyadh 13521 | Kingdom of Saudi Arabia"
+  },
+  "font": "LiberationSans-Regular.ttf",
+  "pdfs": [
+    {
+      "name": "subscription-individual",
+      "beforeSha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e",
+      "afterSha256": "7ed37e382d5f037f8b21648632bd84833b3893768d4759922bd5aa188fc49a63",
+      "pages": [
+        {
+          "page": 1,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 5655,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            110.80000305175781,
+            800.0182495117188,
+            547.2431030273438,
+            807.2722778320312
+          ]
+        },
+        {
+          "page": 2,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 5655,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            110.80000305175781,
+            800.0182495117188,
+            547.2431030273438,
+            807.2722778320312
+          ]
+        }
+      ],
+      "operations": [
+        {
+          "page": 1,
+          "removedTextObjectInOriginalStream": 2,
+          "font": "LiberationSans",
+          "size": 6.5,
+          "baseline": 805.9007568359375,
+          "align": "right"
+        },
+        {
+          "page": 2,
+          "removedTextObjectInOriginalStream": 148,
+          "font": "LiberationSans",
+          "size": 6.5,
+          "baseline": 805.9007568359375,
+          "align": "right"
+        }
+      ]
+    },
+    {
+      "name": "subscription-company",
+      "beforeSha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86",
+      "afterSha256": "9114db5fa14438f6aa08ef0e29eec79d0e57f9ed9e091e537ff32dbbf8ca50e0",
+      "pages": [
+        {
+          "page": 1,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 5655,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            110.80000305175781,
+            800.0182495117188,
+            547.2431030273438,
+            807.2722778320312
+          ]
+        },
+        {
+          "page": 2,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 5655,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            110.80000305175781,
+            800.0182495117188,
+            547.2431030273438,
+            807.2722778320312
+          ]
+        }
+      ],
+      "operations": [
+        {
+          "page": 1,
+          "removedTextObjectInOriginalStream": 2,
+          "font": "LiberationSans",
+          "size": 6.5,
+          "baseline": 805.9007568359375,
+          "align": "right"
+        },
+        {
+          "page": 2,
+          "removedTextObjectInOriginalStream": 153,
+          "font": "LiberationSans",
+          "size": 6.5,
+          "baseline": 805.9007568359375,
+          "align": "right"
+        }
+      ]
+    },
+    {
+      "name": "al-naeem-terms-consent",
+      "beforeSha256": "5b22452a0fdd909e682b61bc7a2e53e12532d28e100f22ad96c36f67fd2efd3d",
+      "afterSha256": "b5ab2c9a488e071efd637728e84e098578956c39f312b612531ae05a0c359ac5",
+      "pages": [
+        {
+          "page": 1,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        }
+      ],
+      "operations": [
+        {
+          "page": 1,
+          "removedTextObjectInOriginalStream": 2,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        }
+      ]
+    },
+    {
+      "name": "fatca-crs-individual",
+      "beforeSha256": "4c860ccb85dd2949365d92de6794860bdcbb5dd53cd29d5c501c28d476a9b895",
+      "afterSha256": "bb6e25d301c02753a8600d58973f931253e80dcc678a83a2a43e3c4307d4000d",
+      "pages": [
+        {
+          "page": 1,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 2,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 3,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 4,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 5,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 6,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 7,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 8,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        }
+      ],
+      "operations": [
+        {
+          "page": 1,
+          "removedTextObjectInOriginalStream": 2,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 2,
+          "removedTextObjectInOriginalStream": 147,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 3,
+          "removedTextObjectInOriginalStream": 281,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 4,
+          "removedTextObjectInOriginalStream": 381,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 5,
+          "removedTextObjectInOriginalStream": 464,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 6,
+          "removedTextObjectInOriginalStream": 520,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 7,
+          "removedTextObjectInOriginalStream": 611,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 8,
+          "removedTextObjectInOriginalStream": 680,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        }
+      ]
+    },
+    {
+      "name": "fatca-crs-corporate",
+      "beforeSha256": "5133c0ed41a290a468c35aafaf6baf9ec9b98415d1d6fa57b85dde159ce038e1",
+      "afterSha256": "aac5ed5c5bc698480e0660157a878e45a8340839e3fc37dead4e18c01ddadd62",
+      "pages": [
+        {
+          "page": 1,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 2,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 3,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 4,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 5,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 6,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 7,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        },
+        {
+          "page": 8,
+          "size": [
+            0.0,
+            0.0,
+            595.303955078125,
+            841.8897705078125
+          ],
+          "changedPixels": 6851,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            62.650001525878906,
+            808.5657348632812,
+            532.2095336914062,
+            816.3777465820312
+          ]
+        }
+      ],
+      "operations": [
+        {
+          "page": 1,
+          "removedTextObjectInOriginalStream": 2,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 2,
+          "removedTextObjectInOriginalStream": 92,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 3,
+          "removedTextObjectInOriginalStream": 163,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 4,
+          "removedTextObjectInOriginalStream": 237,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 5,
+          "removedTextObjectInOriginalStream": 319,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 6,
+          "removedTextObjectInOriginalStream": 404,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 7,
+          "removedTextObjectInOriginalStream": 489,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        },
+        {
+          "page": 8,
+          "removedTextObjectInOriginalStream": 563,
+          "font": "LiberationSans",
+          "size": 7.0,
+          "baseline": 814.9007568359375,
+          "align": "center"
+        }
+      ]
+    },
+    {
+      "name": "subscription-form",
+      "beforeSha256": "5d85ee6922a6224ca85a6238955c4be8abf4f71ccb933e9aa2cce4de7c49f2bb",
+      "afterSha256": "7aff5020a73e4ed44e5dbd9cb2d878df3fc7dddb8e29b5f46da0000c050804f4",
+      "legacyReferencePreserved": true,
+      "pages": [
+        {
+          "page": 1,
+          "size": [
+            0.0,
+            0.0,
+            596.0,
+            842.0
+          ],
+          "changedPixels": 4448,
+          "outsideAddressChangedPixels": 0,
+          "bodyPixelsIdentical": true,
+          "nonAddressFooterPixelsIdentical": true,
+          "addressBounds": [
+            156.0,
+            815.0,
+            355.0,
+            838.0
+          ]
+        }
+      ]
+    }
+  ],
+  "words": [
+    {
+      "name": "subscription-individual",
+      "beforeSha256": "e7adbe6ebc2af5bcfc08f102d4a7ac3a1148ab8aaa11b2769691493d06ef55eb",
+      "afterSha256": "cdc9dcf94403fbf8948feb252c547d716741a726b467a34e4f0342f4b686d3f1",
+      "changedThisRun": [
+        "word/footer1.xml"
+      ],
+      "changedZipEntries": [
+        "word/footer1.xml"
+      ],
+      "allOtherEntriesByteIdentical": true,
+      "footerOnlyExactTextReplacement": true
+    },
+    {
+      "name": "subscription-company",
+      "beforeSha256": "40bf90f3e2e9446357f012cbc01e34268137e088cc99a6ce7a8aca810504b67a",
+      "afterSha256": "6130960f0b8d3399e8f0816900e23a000474a76efee4e60df997d7fa88f1bad6",
+      "changedThisRun": [
+        "word/footer1.xml"
+      ],
+      "changedZipEntries": [
+        "word/footer1.xml"
+      ],
+      "allOtherEntriesByteIdentical": true,
+      "footerOnlyExactTextReplacement": true
+    },
+    {
+      "name": "al-naeem-terms-consent",
+      "beforeSha256": "2e03b58257c9bccd25678b6880ae32dafdc9726d8744e0b0bf1631732ed6011b",
+      "afterSha256": "95a7407388b37e2aed512ec0339c4a66b864d2672daff4acf62c44cda375003d",
+      "changedThisRun": [
+        "word/footer1.xml"
+      ],
+      "changedZipEntries": [
+        "word/footer1.xml"
+      ],
+      "allOtherEntriesByteIdentical": true,
+      "footerOnlyExactTextReplacement": true
+    },
+    {
+      "name": "fatca-crs-individual",
+      "beforeSha256": "3ab86b20d9fcb9b77b5f56174947bd65d339de158b3845aabad7945af3ed4242",
+      "afterSha256": "2fad04a35a02464611637ce77c8f1a55419015e1ebfcb6d90e41f8497a2e913c",
+      "changedThisRun": [
+        "word/footer1.xml"
+      ],
+      "changedZipEntries": [
+        "word/footer1.xml"
+      ],
+      "allOtherEntriesByteIdentical": true,
+      "footerOnlyExactTextReplacement": true
+    },
+    {
+      "name": "fatca-crs-corporate",
+      "beforeSha256": "2480cee36fabb50c6329243b34ba1359b6743fe9270af10626fb8e8153319785",
+      "afterSha256": "232702390ae71a087f308a32ca598c840ed666e84063b3e4dae53ed0f32f6447",
+      "changedThisRun": [
+        "word/footer1.xml"
+      ],
+      "changedZipEntries": [
+        "word/footer1.xml"
+      ],
+      "allOtherEntriesByteIdentical": true,
+      "footerOnlyExactTextReplacement": true
+    }
+  ],
+  "mirrors": [
+    "output/documents/subscription-individual.pdf",
+    "output/pdf/subscription-individual.pdf",
+    "output/documents/subscription-company.pdf",
+    "output/pdf/subscription-company.pdf",
+    "output/documents/al-naeem-terms-consent.pdf",
+    "output/pdf/al-naeem-terms-consent.pdf",
+    "output/documents/fatca-crs-individual.pdf",
+    "output/documents/fatca-crs-corporate.pdf"
+  ],
+  "summary": {
+    "pdfs": 6,
+    "pages": 22,
+    "words": 5,
+    "outsideAddressChangedPixels": 0,
+    "allNonFooterWordEntriesByteIdentical": true
+  }
+}

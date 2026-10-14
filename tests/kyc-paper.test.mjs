@@ -34,7 +34,7 @@ for(const audience of ['individual','corporate']){
   assert.match(field('risk_capital').ar,/5\. ماهي نسبة رأس المال/);
   assert.equal(field('objectives').options.find(o=>o.value==='balanced').ar,'متوازنة');
   assert.equal(field('objectives').options.find(o=>o.value==='income').label,audience==='corporate'?'Realization of Income':'Realization Income');
-  assert.equal(doc.pages,7);assert.equal(doc.pdfVersion,'20261007-original-kyc');
+  assert.equal(doc.pages,7);assert.equal(doc.pdfVersion,'20261014-riyadh-address');
  });
 }
 test('printed digit-box limits remain separate from the removed arbitrary percentage limit',()=>{

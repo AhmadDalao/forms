@@ -1,0 +1,1977 @@
+{
+  "canonical_address": {
+    "version": "20261014-riyadh-address",
+    "text": "7762 King Fahd Branch Road | 4162 Al Malqa District | Muath Tower | Riyadh 13521 | Kingdom of Saudi Arabia"
+  },
+  "scope": "Four original PDF designs; address-only rebuild from immutable sources. Current-before versus new output compared separately from immutable-original versus new output.",
+  "files": 4,
+  "pages": 28,
+  "comparison_dpi": 144,
+  "documents": [
+    {
+      "document": "kyc-individual",
+      "pages": 7,
+      "source": "reference/pdfs/supplied-20261007/kyc-individual.pdf",
+      "source_sha256": "79beab46fbc249f91d8d6945b5ac84b950bbd32f7e26eb82577b1c581f1f483e",
+      "source_unchanged_from_git": true,
+      "before_sha256": "2b3c814935ce6671c503e8887e0d496d60e81de37d3204a7fcad6ef33fefb3c9",
+      "after_sha256": "e680252089506a9439caf8c659a00d9c2c36fcb4bb6e49b399bb616f78ce7a2e",
+      "definition_unchanged_except_pdf_version": true,
+      "mirrors": [
+        "output/documents/kyc-individual.pdf"
+      ],
+      "page_checks": [
+        {
+          "page": 1,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            149.92832946777344,
+            770.0299682617188,
+            319.9004211425781,
+            783.7869262695312
+          ],
+          "footer_edit": {
+            "page": 1,
+            "text_redaction": [
+              150.0,
+              765.8265869140625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              135.18297722999085,
+              770.0224520222524,
+              334.6456707217169,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-individual-p01-footer.png",
+          "full_page_render": "kyc-individual-p01-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 2,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            156.66448974609375,
+            769.803466796875,
+            326.6366271972656,
+            783.5604248046875
+          ],
+          "footer_edit": {
+            "page": 2,
+            "text_redaction": [
+              150.0,
+              765.8265869140625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              138.9514849507217,
+              769.7959677021155,
+              344.34949336040665,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-individual-p02-footer.png",
+          "full_page_render": "kyc-individual-p02-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 3,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 3,
+            "max_channel_difference": 40,
+            "bounds_pixels": [
+              793,
+              305,
+              796,
+              306
+            ]
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            145.50462341308594,
+            771.5401000976562,
+            353.8997802734375,
+            785.2970581054688
+          ],
+          "footer_edit": {
+            "page": 3,
+            "text_redaction": [
+              150.0,
+              765.8265869140625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              142.8663815978571,
+              771.5325872871313,
+              356.53787158848826,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-individual-p03-footer.png",
+          "full_page_render": "kyc-individual-p03-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 4,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            158.12066650390625,
+            771.5401000976562,
+            328.0928039550781,
+            785.2970581054688
+          ],
+          "footer_edit": {
+            "page": 4,
+            "text_redaction": [
+              150.0,
+              765.8265869140625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              137.43999930307376,
+              771.5325872871313,
+              348.7733340657913,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-individual-p04-footer.png",
+          "full_page_render": "kyc-individual-p04-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 5,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.01400756835938,
+            765.8341064453125,
+            334.98614501953125,
+            779.591064453125
+          ],
+          "footer_edit": {
+            "page": 5,
+            "text_redaction": [
+              150.0,
+              765.8265869140625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              150.0,
+              765.8265869140625,
+              350.0,
+              792.0
+            ],
+            "raster_address_replaced": false
+          },
+          "footer_render": "kyc-individual-p05-footer.png",
+          "full_page_render": "kyc-individual-p05-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 6,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            138.40020751953125,
+            769.2533569335938,
+            346.7953796386719,
+            783.0103149414062
+          ],
+          "footer_edit": {
+            "page": 6,
+            "text_redaction": [
+              150.0,
+              765.8265869140625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              134.23318237953998,
+              769.2458544098929,
+              350.96224452755973,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-individual-p06-footer.png",
+          "full_page_render": "kyc-individual-p06-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 7,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            146.41952514648438,
+            770.9468383789062,
+            354.814697265625,
+            784.7037963867188
+          ],
+          "footer_edit": {
+            "page": 7,
+            "text_redaction": [
+              150.0,
+              765.8265869140625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              144.05106445745372,
+              770.9393152815572,
+              357.18297906519393,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-individual-p07-footer.png",
+          "full_page_render": "kyc-individual-p07-after.png",
+          "visually_inspected_footer": true
+        }
+      ],
+      "jbig2_or_ccitt_streams": 0
+    },
+    {
+      "document": "kyc-corporate",
+      "pages": 7,
+      "source": "reference/pdfs/supplied-20261007/kyc-corporate.pdf",
+      "source_sha256": "9411391263310da2a9f090734c9a9e1b6a8d5ecf4ab1536da28f3652f5185276",
+      "source_unchanged_from_git": true,
+      "before_sha256": "47e887db96ffc9105984380fb3008efd5f99fa7251a318c2ab6031021240844b",
+      "after_sha256": "b36b5a11865d026a1f6c74d906b83e7e9098ed1dd57b2c43e9ab77ba2177f5e3",
+      "definition_unchanged_except_pdf_version": true,
+      "mirrors": [
+        "output/documents/kyc-corporate.pdf"
+      ],
+      "page_checks": [
+        {
+          "page": 1,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            138.18548583984375,
+            770.6502075195312,
+            346.58062744140625,
+            784.4071655273438
+          ],
+          "footer_edit": {
+            "page": 1,
+            "text_redaction": [
+              150.0,
+              765.4453002929688,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              133.38893598191282,
+              770.6426981379477,
+              351.3770211740588,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-corporate-p01-footer.png",
+          "full_page_render": "kyc-corporate-p01-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 2,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            138.18548583984375,
+            771.5401000976562,
+            346.58062744140625,
+            785.2970581054688
+          ],
+          "footer_edit": {
+            "page": 2,
+            "text_redaction": [
+              150.0,
+              765.4666015625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              133.38893598191282,
+              771.5325872871313,
+              351.3770211740588,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-corporate-p02-footer.png",
+          "full_page_render": "kyc-corporate-p02-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 3,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            138.18548583984375,
+            770.6502075195312,
+            346.58062744140625,
+            784.4071655273438
+          ],
+          "footer_edit": {
+            "page": 3,
+            "text_redaction": [
+              150.0,
+              765.4666015625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              133.38893598191282,
+              770.6426981379477,
+              351.3770211740588,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-corporate-p03-footer.png",
+          "full_page_render": "kyc-corporate-p03-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 4,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            138.18548583984375,
+            770.9468383789062,
+            346.58062744140625,
+            784.7037963867188
+          ],
+          "footer_edit": {
+            "page": 4,
+            "text_redaction": [
+              150.0,
+              765.4666015625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              133.38893598191282,
+              770.9393152815572,
+              351.3770211740588,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-corporate-p04-footer.png",
+          "full_page_render": "kyc-corporate-p04-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 5,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            137.88050842285156,
+            770.9468383789062,
+            346.2756652832031,
+            784.7037963867188
+          ],
+          "footer_edit": {
+            "page": 5,
+            "text_redaction": [
+              150.0,
+              765.4666015625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              132.99404274149146,
+              770.9393152815572,
+              351.16198591813975,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-corporate-p05-footer.png",
+          "full_page_render": "kyc-corporate-p05-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 6,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            138.49041748046875,
+            770.9468383789062,
+            346.8855895996094,
+            784.7037963867188
+          ],
+          "footer_edit": {
+            "page": 6,
+            "text_redaction": [
+              150.0,
+              765.4666015625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              133.78381840049798,
+              770.9393152815572,
+              351.59202273799457,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-corporate-p06-footer.png",
+          "full_page_render": "kyc-corporate-p06-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 7,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 751.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            137.88050842285156,
+            770.9468383789062,
+            346.2756652832031,
+            784.7037963867188
+          ],
+          "footer_edit": {
+            "page": 7,
+            "text_redaction": [
+              150.0,
+              765.4666015625,
+              350.0,
+              792.0
+            ],
+            "new_address_area": [
+              132.99404274149146,
+              770.9393152815572,
+              351.16198591813975,
+              792.0
+            ],
+            "raster_address_replaced": true
+          },
+          "footer_render": "kyc-corporate-p07-footer.png",
+          "full_page_render": "kyc-corporate-p07-after.png",
+          "visually_inspected_footer": true
+        }
+      ],
+      "jbig2_or_ccitt_streams": 0
+    },
+    {
+      "document": "signature-form",
+      "pages": 1,
+      "source": "reference/pdfs/signature-form.pdf",
+      "source_sha256": "9e318786ea04e80c9eac40c6c729369077782d15e4404d6a6f78298b550b92e0",
+      "source_unchanged_from_git": true,
+      "before_sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f",
+      "after_sha256": "8e405aa5ee0ed93e9a05b99b0abf105695e7d733453b83e4fa8184254183c08c",
+      "definition_unchanged_except_pdf_version": true,
+      "mirrors": [
+        "output/documents/signature-form.pdf"
+      ],
+      "page_checks": [
+        {
+          "page": 1,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            595.4400024414062,
+            841.6799926757812
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 800.5,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            157.28799438476562,
+            805.5279541015625,
+            342.7118835449219,
+            822.27197265625
+          ],
+          "footer_edit": {
+            "page": 1,
+            "text_redaction": [
+              150.0,
+              804.9779541015625,
+              350.0,
+              832.9779541015625
+            ],
+            "new_address_area": [
+              150.0,
+              804.9779541015625,
+              350.0,
+              832.9779541015625
+            ]
+          },
+          "footer_render": "signature-form-p01-footer.png",
+          "full_page_render": "signature-form-p01-after.png",
+          "visually_inspected_footer": true
+        }
+      ],
+      "jbig2_or_ccitt_streams": 0
+    },
+    {
+      "document": "terms-and-conditions",
+      "pages": 13,
+      "source": "reference/pdfs/terms-and-conditions.pdf",
+      "source_sha256": "8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106",
+      "source_unchanged_from_git": true,
+      "before_sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15",
+      "after_sha256": "7998def88757a5786685e7e8bcc0de9a4c73127a8477b859793bdd4ab6b331e5",
+      "definition_unchanged_except_pdf_version": true,
+      "mirrors": [
+        "output/documents/terms-and-conditions.pdf"
+      ],
+      "page_checks": [
+        {
+          "page": 1,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            751.6239624023438,
+            350.9618835449219,
+            768.3679809570312
+          ],
+          "footer_edit": {
+            "page": 1,
+            "text_redaction": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ],
+            "new_address_area": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ]
+          },
+          "footer_render": "terms-and-conditions-p01-footer.png",
+          "full_page_render": "terms-and-conditions-p01-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 2,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.5,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            752.343994140625,
+            350.9618835449219,
+            769.0880126953125
+          ],
+          "footer_edit": {
+            "page": 2,
+            "text_redaction": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ],
+            "new_address_area": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ]
+          },
+          "footer_render": "terms-and-conditions-p02-footer.png",
+          "full_page_render": "terms-and-conditions-p02-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 3,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            751.6239624023438,
+            350.9618835449219,
+            768.3679809570312
+          ],
+          "footer_edit": {
+            "page": 3,
+            "text_redaction": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ],
+            "new_address_area": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ]
+          },
+          "footer_render": "terms-and-conditions-p03-footer.png",
+          "full_page_render": "terms-and-conditions-p03-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 4,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.5,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            752.343994140625,
+            350.9618835449219,
+            769.0880126953125
+          ],
+          "footer_edit": {
+            "page": 4,
+            "text_redaction": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ],
+            "new_address_area": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ]
+          },
+          "footer_render": "terms-and-conditions-p04-footer.png",
+          "full_page_render": "terms-and-conditions-p04-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 5,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            751.6239624023438,
+            350.9618835449219,
+            768.3679809570312
+          ],
+          "footer_edit": {
+            "page": 5,
+            "text_redaction": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ],
+            "new_address_area": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ]
+          },
+          "footer_render": "terms-and-conditions-p05-footer.png",
+          "full_page_render": "terms-and-conditions-p05-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 6,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.5,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            752.343994140625,
+            350.9618835449219,
+            769.0880126953125
+          ],
+          "footer_edit": {
+            "page": 6,
+            "text_redaction": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ],
+            "new_address_area": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ]
+          },
+          "footer_render": "terms-and-conditions-p06-footer.png",
+          "full_page_render": "terms-and-conditions-p06-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 7,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            751.6239624023438,
+            350.9618835449219,
+            768.3679809570312
+          ],
+          "footer_edit": {
+            "page": 7,
+            "text_redaction": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ],
+            "new_address_area": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ]
+          },
+          "footer_render": "terms-and-conditions-p07-footer.png",
+          "full_page_render": "terms-and-conditions-p07-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 8,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.5,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            752.343994140625,
+            350.9618835449219,
+            769.0880126953125
+          ],
+          "footer_edit": {
+            "page": 8,
+            "text_redaction": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ],
+            "new_address_area": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ]
+          },
+          "footer_render": "terms-and-conditions-p08-footer.png",
+          "full_page_render": "terms-and-conditions-p08-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 9,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            751.6239624023438,
+            350.9618835449219,
+            768.3679809570312
+          ],
+          "footer_edit": {
+            "page": 9,
+            "text_redaction": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ],
+            "new_address_area": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ]
+          },
+          "footer_render": "terms-and-conditions-p09-footer.png",
+          "full_page_render": "terms-and-conditions-p09-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 10,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.5,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            752.343994140625,
+            350.9618835449219,
+            769.0880126953125
+          ],
+          "footer_edit": {
+            "page": 10,
+            "text_redaction": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ],
+            "new_address_area": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ]
+          },
+          "footer_render": "terms-and-conditions-p10-footer.png",
+          "full_page_render": "terms-and-conditions-p10-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 11,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            751.6239624023438,
+            350.9618835449219,
+            768.3679809570312
+          ],
+          "footer_edit": {
+            "page": 11,
+            "text_redaction": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ],
+            "new_address_area": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ]
+          },
+          "footer_render": "terms-and-conditions-p11-footer.png",
+          "full_page_render": "terms-and-conditions-p11-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 12,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.5,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            752.343994140625,
+            350.9618835449219,
+            769.0880126953125
+          ],
+          "footer_edit": {
+            "page": 12,
+            "text_redaction": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ],
+            "new_address_area": [
+              158.25,
+              751.793994140625,
+              358.25,
+              779.793994140625
+            ]
+          },
+          "footer_render": "terms-and-conditions-p12-footer.png",
+          "full_page_render": "terms-and-conditions-p12-after.png",
+          "visually_inspected_footer": true
+        },
+        {
+          "page": 13,
+          "dimensions_pt": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "dimensions_unchanged": true,
+          "body_cutoff_y_pt": 750.0,
+          "current_before_vs_after": {
+            "mupdf_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "mupdf_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_body": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            },
+            "poppler_outside_address": {
+              "changed_pixels": 0,
+              "max_channel_difference": 0,
+              "bounds_pixels": null
+            }
+          },
+          "immutable_source_vs_after_mupdf_body": {
+            "changed_pixels": 0,
+            "max_channel_difference": 0,
+            "bounds_pixels": null
+          },
+          "body_words_and_order_unchanged": true,
+          "word_bbox_max_delta_pt": 0.0,
+          "exact_normalized_address_count": 1,
+          "obsolete_address_markers": [],
+          "address_bounds_pt": [
+            165.53799438476562,
+            751.6239624023438,
+            350.9618835449219,
+            768.3679809570312
+          ],
+          "footer_edit": {
+            "page": 13,
+            "text_redaction": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ],
+            "new_address_area": [
+              158.25,
+              751.0739624023438,
+              358.25,
+              779.0739624023438
+            ]
+          },
+          "footer_render": "terms-and-conditions-p13-footer.png",
+          "full_page_render": "terms-and-conditions-p13-after.png",
+          "visually_inspected_footer": true
+        }
+      ],
+      "jbig2_or_ccitt_streams": 0
+    }
+  ],
+  "failures": [],
+  "footer_sheets": [
+    "footer-sheet-01.png",
+    "footer-sheet-02.png",
+    "footer-sheet-03.png",
+    "footer-sheet-04.png",
+    "footer-sheet-05.png",
+    "footer-sheet-06.png"
+  ],
+  "visual_review_pending": false,
+  "automated_passed": true,
+  "visual_review": {
+    "passed": true,
+    "coverage": "All28 footer crops inspected on6 contact sheets at180dpi. Complete Riyadh address legible, no clipping, overlap, obsolete address or damaged separator/contact/legal column. Full body preservation separately verified pixel-for-pixel by two engines.",
+    "footer_pages": 28,
+    "renderer": "Poppler pdftoppm",
+    "dpi": 180,
+    "render_directory": "tmp/pdfs/riyadh-address-originals"
+  },
+  "summary": {
+    "current_before_vs_after_body_changed_pixels": 0,
+    "current_before_vs_after_outside_address_changed_pixels": 0,
+    "engines": [
+      "MuPDF144dpi",
+      "Poppler144dpi"
+    ],
+    "new_address_exactly_once_pages": 28,
+    "page_dimensions_unchanged_pages": 28,
+    "definitions_changed_except_pdf_version": false,
+    "old_address_marker_matches": 0,
+    "jbig2_or_ccitt_streams": 0,
+    "immutable_source_body_note": "All original bodies match at144dpi except3 antialias pixels on KYC-individual page3 (maximum channel delta40; bounds[793,305,796,306]). These same3 pixels existed in the previous published PDF: current-before versus new is pixel-identical outside the address in both engines."
+  },
+  "passed": true
+}

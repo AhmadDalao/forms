@@ -1,0 +1,67 @@
+{
+  "pdfFooterPagesInspected": 22,
+  "pdfContactSheets": [
+    "footer-contact-sheet-1.png",
+    "footer-contact-sheet-2.png",
+    "footer-contact-sheet-3.png"
+  ],
+  "wordFullPagesInspected": 21,
+  "wordPageCounts": [
+    {
+      "name": "al-naeem-terms-consent",
+      "pages": 1,
+      "allPagesHaveCanonicalAddress": true
+    },
+    {
+      "name": "fatca-crs-corporate",
+      "pages": 8,
+      "allPagesHaveCanonicalAddress": true
+    },
+    {
+      "name": "fatca-crs-individual",
+      "pages": 8,
+      "allPagesHaveCanonicalAddress": true
+    },
+    {
+      "name": "subscription-company",
+      "pages": 2,
+      "allPagesHaveCanonicalAddress": true
+    },
+    {
+      "name": "subscription-individual",
+      "pages": 2,
+      "allPagesHaveCanonicalAddress": true
+    }
+  ],
+  "wordFullPageContactSheets": [
+    "word/al-naeem-terms-consent-sheet-1.png",
+    "word/fatca-crs-corporate-sheet-1.png",
+    "word/fatca-crs-corporate-sheet-2.png",
+    "word/fatca-crs-corporate-sheet-3.png",
+    "word/fatca-crs-corporate-sheet-4.png",
+    "word/fatca-crs-individual-sheet-1.png",
+    "word/fatca-crs-individual-sheet-2.png",
+    "word/fatca-crs-individual-sheet-3.png",
+    "word/fatca-crs-individual-sheet-4.png",
+    "word/subscription-company-sheet-1.png",
+    "word/subscription-individual-sheet-1.png"
+  ],
+  "wordFooterContactSheets": [
+    "word/footer-contact-sheet-1.png",
+    "word/footer-contact-sheet-2.png",
+    "word/footer-contact-sheet-3.png"
+  ],
+  "findings": [],
+  "conclusion": "Canonical Riyadh address is visible and fits on every footer, with no address clipping or overlap. Existing page numbers, legal/contact footer content and body remain unchanged. All 21 Word rendered pages and all 22 authoritative PDF footer crops were visually inspected.",
+  "mirrorsByteIdenticalToPublic": [
+    "output/documents/subscription-individual.pdf",
+    "output/pdf/subscription-individual.pdf",
+    "output/documents/subscription-company.pdf",
+    "output/pdf/subscription-company.pdf",
+    "output/documents/al-naeem-terms-consent.pdf",
+    "output/pdf/al-naeem-terms-consent.pdf",
+    "output/documents/fatca-crs-individual.pdf",
+    "output/documents/fatca-crs-corporate.pdf"
+  ],
+  "idempotenceEvidence": "idempotence.json"
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "name": "al-naeem-terms-consent",
+    "pages": 1,
+    "allPagesHaveCanonicalAddress": true
+  },
+  {
+    "name": "fatca-crs-corporate",
+    "pages": 8,
+    "allPagesHaveCanonicalAddress": true
+  },
+  {
+    "name": "fatca-crs-individual",
+    "pages": 8,
+    "allPagesHaveCanonicalAddress": true
+  },
+  {
+    "name": "subscription-company",
+    "pages": 2,
+    "allPagesHaveCanonicalAddress": true
+  },
+  {
+    "name": "subscription-individual",
+    "pages": 2,
+    "allPagesHaveCanonicalAddress": true
+  }
+]

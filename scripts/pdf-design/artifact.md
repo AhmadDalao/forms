@@ -118,3 +118,17 @@ the new address. Retired KYC Word files are excluded from current verification
 and handover. Preserve all body pixels, page sizes, fields and signature maps.
 All-form checks are recorded separately in
 `docs/all-forms-address-verification-2026-10-07.json`.
+
+## Riyadh address — 14 October 2026
+
+The visible footer of `reference/pdfs/supplied-20261014/national-address-source.pdf`
+now supplies the address in `national-address.json`. Its hidden text still names
+Jeddah; do not use that text layer as the address source. Every current PDF footer
+and the five current Word footers use Riyadh, with no body/map changes.
+
+For future address-only edits, `scripts/update-generated-address.py` replaces the
+isolated address text objects in the five generated PDFs and matching Word XML,
+and refreshes the legacy one-page subscription. Use `update-original-footers.py`
+for the four original-style PDFs. A full Word rebuild is unnecessary. Bump all
+current template versions and keep historical layout snapshots untouched.
+Evidence: `docs/riyadh-address-2026-10-14/`.

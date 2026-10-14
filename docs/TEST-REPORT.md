@@ -1,6 +1,21 @@
 # Handover verification — 14 October 2026
 
-## Current release — superadmin-editable website address
+## Current release — Riyadh national address
+
+The visible address in the owner-supplied `ItqanSubscriptionFormV3.11-1.pdf` now appears on the website and all current PDF templates: **7762 King Fahd Branch Road | 4162 Al Malqa District | Muath Tower | Riyadh 13521 | Kingdom of Saudi Arabia**. The source has obsolete hidden Jeddah text; the visible footer was checked independently and corroborated against Itqan’s Saudi Exchange factsheet.
+
+| Fresh check | Result |
+|---|---|
+| Full unit suite / build | 265 passed; zero failures/skips; production build passed |
+| Template coverage | All ten public PDFs / 50 pages and five current Word sources contain the complete Riyadh address |
+| Preservation | Zero pixel changes outside address regions on all 50 pages; all non-footer Word ZIP entries byte-identical; full form definitions unchanged apart from current PDF URLs/versions |
+| Visual review | All 50 PDF footer crops and 21 rendered Word pages checked; no address clipping or overlap |
+| Website | 64 English/Arabic desktop/mobile footer views across 16 screens passed; no browser errors |
+| Filled PDFs | 114 samples / 661 pages across nine forms, including five complete fills each; 419 fields, 227 choices and 17 signature slots covered; zero generation, geometry, ink-placement, transparency or clipping failures; Riyadh footer verified on every page |
+
+The footer updaters preserve the supplied KYC, signature and T&C bodies. Current template versions are `20261014-riyadh-address`; historical signing layouts and submitted PDFs are retained. Existing website-address editing remains superadmin-only. Evidence: `verification/riyadh-address-2026-10-14/`. Earlier dated system test results below remain historical baselines.
+
+## Earlier same-day release — superadmin-editable website address
 
 The superadmin can edit the national address from **Website settings**. Existing session responses deliver the public address to the website; no extra startup request was added. PDF templates and historical submissions are unchanged. The setting has its own revision in private management storage and is preserved by installation backups.
 

@@ -23,11 +23,12 @@ for name in documents:
                 report['failures'].append([name, number, 'missing full national address'])
             paper = geometry.pages[number - 1]
             footer = paper.crop((0, paper.height * .9, paper.width, paper.height))
-            # The supplied one-page subscription footer has tightly spaced lines.
-            text = footer.extract_text(y_tolerance=1) or ''
-            if not all(word in text for word in ['Prince', 'Naif', 'Branch', '7940', '2505']):
+            # Preserve each footer column's text order: the contact/legal columns
+            # share baselines with address lines in the supplied originals.
+            text = footer.extract_text(y_tolerance=1, use_text_flow=True) or ''
+            if normalize(ADDRESS['text']) not in normalize(text):
                 report['failures'].append([name, number, 'address not in bottom footer'])
-            if '7855' in text or '2563' in text:
+            if any(old in text for old in ['7855', '2563', 'Prince Naif', '7940', '2505', 'Al Zahraa', 'Jeddah']):
                 report['failures'].append([name, number, 'old national address remains'])
             if any(c['x0'] < 0 or c['x1'] > paper.width + .5 or c['bottom'] > paper.height + .5
                    for c in footer.chars if c['text'].strip()):

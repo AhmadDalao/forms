@@ -1,0 +1,60 @@
+{
+  "version": "20261014-riyadh-address",
+  "address": "7762 King Fahd Branch Road | 4162 Al Malqa District | Muath Tower | Riyadh 13521 | Kingdom of Saudi Arabia",
+  "documents": {
+    "subscription-individual": {
+      "pages": 2,
+      "word_source": true,
+      "sha256": "7ed37e382d5f037f8b21648632bd84833b3893768d4759922bd5aa188fc49a63"
+    },
+    "subscription-company": {
+      "pages": 2,
+      "word_source": true,
+      "sha256": "9114db5fa14438f6aa08ef0e29eec79d0e57f9ed9e091e537ff32dbbf8ca50e0"
+    },
+    "kyc-individual": {
+      "pages": 7,
+      "word_source": false,
+      "sha256": "e680252089506a9439caf8c659a00d9c2c36fcb4bb6e49b399bb616f78ce7a2e"
+    },
+    "kyc-corporate": {
+      "pages": 7,
+      "word_source": false,
+      "sha256": "b36b5a11865d026a1f6c74d906b83e7e9098ed1dd57b2c43e9ab77ba2177f5e3"
+    },
+    "signature-form": {
+      "pages": 1,
+      "word_source": false,
+      "sha256": "8e405aa5ee0ed93e9a05b99b0abf105695e7d733453b83e4fa8184254183c08c"
+    },
+    "al-naeem-terms-consent": {
+      "pages": 1,
+      "word_source": true,
+      "sha256": "b5ab2c9a488e071efd637728e84e098578956c39f312b612531ae05a0c359ac5"
+    },
+    "fatca-crs-individual": {
+      "pages": 8,
+      "word_source": true,
+      "sha256": "bb6e25d301c02753a8600d58973f931253e80dcc678a83a2a43e3c4307d4000d"
+    },
+    "fatca-crs-corporate": {
+      "pages": 8,
+      "word_source": true,
+      "sha256": "aac5ed5c5bc698480e0660157a878e45a8340839e3fc37dead4e18c01ddadd62"
+    },
+    "terms-and-conditions": {
+      "pages": 13,
+      "word_source": false,
+      "sha256": "7998def88757a5786685e7e8bcc0de9a4c73127a8477b859793bdd4ab6b331e5"
+    },
+    "subscription-form": {
+      "pages": 1,
+      "word_source": false,
+      "sha256": "7aff5020a73e4ed44e5dbd9cb2d878df3fc7dddb8e29b5f46da0000c050804f4"
+    }
+  },
+  "failures": [],
+  "pages": 50,
+  "word_sources": 5,
+  "passed": true
+}

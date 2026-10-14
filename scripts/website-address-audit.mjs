@@ -7,7 +7,7 @@ import {fixture} from './workflow-harness.mjs';
 
 const address=JSON.parse(await fs.readFile('scripts/pdf-design/national-address.json','utf8'));
 const f=await fixture(),out=path.join(f.out,'website-address');
-const reportPath=path.resolve('docs/website-address-2026-10-14/browser-verification.json');
+const reportPath=path.resolve(process.env.QA_REPORT||'docs/website-address-2026-10-14/browser-verification.json');
 await fs.mkdir(out,{recursive:true});await fs.mkdir(path.dirname(reportPath),{recursive:true});
 const browser=await chromium.launch({channel:'chrome',headless:true});
 const report={createdAt:new Date().toISOString(),scope:'Isolated local build with synthetic accounts only',address,build:f.baseline.build,checks:[],browserErrors:[],passed:false};

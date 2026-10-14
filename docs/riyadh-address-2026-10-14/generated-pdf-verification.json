@@ -1,0 +1,784 @@
+{
+  "createdAt": "2026-10-14T16:49:44.037177+00:00",
+  "scope": "Isolated local synthetic browser PDF generation through current source renderer, current public PDF templates, and private fixture PHP calculator. No customer or production data.",
+  "address": {
+    "version": "20261014-riyadh-address",
+    "text": "7762 King Fahd Branch Road | 4162 Al Malqa District | Muath Tower | Riyadh 13521 | Kingdom of Saudi Arabia"
+  },
+  "evidenceDirectory": "tmp/pdfs/riyadh-address-audit",
+  "commands": [
+    "QA_OUT=tmp/pdfs/riyadh-address-audit node scripts/current-pdf-audit.mjs",
+    "PYTHONPATH=tmp/pdf-footer-deps /Users/ahmaddalao/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 scripts/current-pdf-audit-verify.py tmp/pdfs/riyadh-address-audit"
+  ],
+  "harnessSetup": "Audit harness explicitly loads production Noto Sans Arabic regular Arabic/Latin font CSS before generating samples.",
+  "summary": {
+    "documentTypes": 9,
+    "completeFills": 45,
+    "mappedFields": 419,
+    "choiceOptions": 227,
+    "signatureSlots": 17,
+    "pdfs": 114,
+    "pages": 661,
+    "text_rectangles": 2168,
+    "choice_rectangles": 1008,
+    "signature_rectangles": 34,
+    "transparent_images": 7346,
+    "unchanged_pages": 310,
+    "canonicalFooterPages": 661
+  },
+  "generation": {
+    "records": 114,
+    "browserErrors": [],
+    "failed": []
+  },
+  "renderVerification": {
+    "counts": {
+      "pdfs": 114,
+      "pages": 661,
+      "text_rectangles": 2168,
+      "choice_rectangles": 1008,
+      "signature_rectangles": 34,
+      "transparent_images": 7346,
+      "unchanged_pages": 310
+    },
+    "coverage": {
+      "signature-form": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 6,
+        "covered_choice_options": 6,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "al-naeem-terms-consent": {
+        "mapped_fields": 2,
+        "covered_fields": 2,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 8,
+        "complete_success": 5
+      },
+      "subscription-form": {
+        "mapped_fields": 29,
+        "covered_fields": 29,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 13,
+        "complete_success": 5
+      },
+      "subscription-company": {
+        "mapped_fields": 30,
+        "covered_fields": 30,
+        "uncovered_fields": [],
+        "choice_options": 0,
+        "covered_choice_options": 0,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 11,
+        "complete_success": 5
+      },
+      "terms-and-conditions": {
+        "mapped_fields": 10,
+        "covered_fields": 10,
+        "uncovered_fields": [],
+        "choice_options": 4,
+        "covered_choice_options": 4,
+        "uncovered_choices": [],
+        "signature_slots": 6,
+        "covered_signatures": 6,
+        "samples": 10,
+        "complete_success": 5
+      },
+      "fatca-crs-individual": {
+        "mapped_fields": 57,
+        "covered_fields": 57,
+        "uncovered_fields": [],
+        "choice_options": 16,
+        "covered_choice_options": 16,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 12,
+        "complete_success": 5
+      },
+      "fatca-crs-corporate": {
+        "mapped_fields": 76,
+        "covered_fields": 76,
+        "uncovered_fields": [],
+        "choice_options": 19,
+        "covered_choice_options": 19,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 19,
+        "complete_success": 5
+      },
+      "kyc-individual": {
+        "mapped_fields": 105,
+        "covered_fields": 105,
+        "uncovered_fields": [],
+        "choice_options": 122,
+        "covered_choice_options": 122,
+        "uncovered_choices": [],
+        "signature_slots": 2,
+        "covered_signatures": 2,
+        "samples": 16,
+        "complete_success": 5
+      },
+      "kyc-corporate": {
+        "mapped_fields": 100,
+        "covered_fields": 100,
+        "uncovered_fields": [],
+        "choice_options": 60,
+        "covered_choice_options": 60,
+        "uncovered_choices": [],
+        "signature_slots": 1,
+        "covered_signatures": 1,
+        "samples": 15,
+        "complete_success": 5
+      }
+    },
+    "failures": [],
+    "visual_pages": [
+      [
+        "signature-form",
+        "english-long",
+        1,
+        "signature-form-english-long-p1.png"
+      ],
+      [
+        "signature-form",
+        "arabic-long",
+        1,
+        "signature-form-arabic-long-p1.png"
+      ],
+      [
+        "al-naeem-terms-consent",
+        "english-long",
+        1,
+        "al-naeem-terms-consent-english-long-p1.png"
+      ],
+      [
+        "al-naeem-terms-consent",
+        "arabic-long",
+        1,
+        "al-naeem-terms-consent-arabic-long-p1.png"
+      ],
+      [
+        "subscription-form",
+        "english-long",
+        1,
+        "subscription-form-english-long-p1.png"
+      ],
+      [
+        "subscription-form",
+        "english-long",
+        2,
+        "subscription-form-english-long-p2.png"
+      ],
+      [
+        "subscription-form",
+        "arabic-long",
+        1,
+        "subscription-form-arabic-long-p1.png"
+      ],
+      [
+        "subscription-form",
+        "arabic-long",
+        2,
+        "subscription-form-arabic-long-p2.png"
+      ],
+      [
+        "subscription-company",
+        "english-long",
+        1,
+        "subscription-company-english-long-p1.png"
+      ],
+      [
+        "subscription-company",
+        "english-long",
+        2,
+        "subscription-company-english-long-p2.png"
+      ],
+      [
+        "subscription-company",
+        "arabic-long",
+        1,
+        "subscription-company-arabic-long-p1.png"
+      ],
+      [
+        "subscription-company",
+        "arabic-long",
+        2,
+        "subscription-company-arabic-long-p2.png"
+      ],
+      [
+        "terms-and-conditions",
+        "english-long",
+        11,
+        "terms-and-conditions-english-long-p11.png"
+      ],
+      [
+        "terms-and-conditions",
+        "english-long",
+        13,
+        "terms-and-conditions-english-long-p13.png"
+      ],
+      [
+        "terms-and-conditions",
+        "arabic-long",
+        11,
+        "terms-and-conditions-arabic-long-p11.png"
+      ],
+      [
+        "terms-and-conditions",
+        "arabic-long",
+        13,
+        "terms-and-conditions-arabic-long-p13.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        1,
+        "fatca-crs-individual-english-long-p1.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        2,
+        "fatca-crs-individual-english-long-p2.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        3,
+        "fatca-crs-individual-english-long-p3.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        4,
+        "fatca-crs-individual-english-long-p4.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        5,
+        "fatca-crs-individual-english-long-p5.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "english-long",
+        6,
+        "fatca-crs-individual-english-long-p6.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        1,
+        "fatca-crs-individual-arabic-long-p1.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        2,
+        "fatca-crs-individual-arabic-long-p2.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        3,
+        "fatca-crs-individual-arabic-long-p3.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        4,
+        "fatca-crs-individual-arabic-long-p4.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        5,
+        "fatca-crs-individual-arabic-long-p5.png"
+      ],
+      [
+        "fatca-crs-individual",
+        "arabic-long",
+        6,
+        "fatca-crs-individual-arabic-long-p6.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        1,
+        "fatca-crs-corporate-english-long-p1.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        2,
+        "fatca-crs-corporate-english-long-p2.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        3,
+        "fatca-crs-corporate-english-long-p3.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        4,
+        "fatca-crs-corporate-english-long-p4.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        5,
+        "fatca-crs-corporate-english-long-p5.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        6,
+        "fatca-crs-corporate-english-long-p6.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "english-long",
+        7,
+        "fatca-crs-corporate-english-long-p7.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        1,
+        "fatca-crs-corporate-arabic-long-p1.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        2,
+        "fatca-crs-corporate-arabic-long-p2.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        3,
+        "fatca-crs-corporate-arabic-long-p3.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        4,
+        "fatca-crs-corporate-arabic-long-p4.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        5,
+        "fatca-crs-corporate-arabic-long-p5.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        6,
+        "fatca-crs-corporate-arabic-long-p6.png"
+      ],
+      [
+        "fatca-crs-corporate",
+        "arabic-long",
+        7,
+        "fatca-crs-corporate-arabic-long-p7.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        1,
+        "kyc-individual-english-long-p1.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        2,
+        "kyc-individual-english-long-p2.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        3,
+        "kyc-individual-english-long-p3.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        4,
+        "kyc-individual-english-long-p4.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        5,
+        "kyc-individual-english-long-p5.png"
+      ],
+      [
+        "kyc-individual",
+        "english-long",
+        7,
+        "kyc-individual-english-long-p7.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        1,
+        "kyc-individual-arabic-long-p1.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        2,
+        "kyc-individual-arabic-long-p2.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        3,
+        "kyc-individual-arabic-long-p3.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        4,
+        "kyc-individual-arabic-long-p4.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        5,
+        "kyc-individual-arabic-long-p5.png"
+      ],
+      [
+        "kyc-individual",
+        "arabic-long",
+        7,
+        "kyc-individual-arabic-long-p7.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        1,
+        "kyc-corporate-english-long-p1.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        2,
+        "kyc-corporate-english-long-p2.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        3,
+        "kyc-corporate-english-long-p3.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        4,
+        "kyc-corporate-english-long-p4.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        5,
+        "kyc-corporate-english-long-p5.png"
+      ],
+      [
+        "kyc-corporate",
+        "english-long",
+        7,
+        "kyc-corporate-english-long-p7.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        1,
+        "kyc-corporate-arabic-long-p1.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        2,
+        "kyc-corporate-arabic-long-p2.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        3,
+        "kyc-corporate-arabic-long-p3.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        4,
+        "kyc-corporate-arabic-long-p4.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        5,
+        "kyc-corporate-arabic-long-p5.png"
+      ],
+      [
+        "kyc-corporate",
+        "arabic-long",
+        7,
+        "kyc-corporate-arabic-long-p7.png"
+      ]
+    ],
+    "contact_sheets": [
+      "contact-01.png",
+      "contact-02.png",
+      "contact-03.png",
+      "contact-04.png",
+      "contact-05.png",
+      "contact-06.png",
+      "contact-07.png",
+      "contact-08.png",
+      "contact-09.png",
+      "contact-10.png",
+      "contact-11.png",
+      "contact-12.png",
+      "contact-13.png",
+      "contact-14.png",
+      "contact-15.png",
+      "contact-16.png",
+      "contact-17.png"
+    ]
+  },
+  "footerVerification": {
+    "address": {
+      "version": "20261014-riyadh-address",
+      "text": "7762 King Fahd Branch Road | 4162 Al Malqa District | Muath Tower | Riyadh 13521 | Kingdom of Saudi Arabia"
+    },
+    "scope": "All successfully generated samples, every page; text extracted from bottom 65 PDF points with normalized whitespace. Old-address search restricted to the footer to avoid synthetic customer answers.",
+    "counts": {
+      "pdfs": 114,
+      "pages": 661,
+      "canonicalFooterPages": 661
+    },
+    "documents": {
+      "signature-form": {
+        "pdfs": 10,
+        "pages": 10,
+        "canonicalFooterPages": 10
+      },
+      "al-naeem-terms-consent": {
+        "pdfs": 8,
+        "pages": 8,
+        "canonicalFooterPages": 8
+      },
+      "subscription-form": {
+        "pdfs": 13,
+        "pages": 26,
+        "canonicalFooterPages": 26
+      },
+      "subscription-company": {
+        "pdfs": 11,
+        "pages": 22,
+        "canonicalFooterPages": 22
+      },
+      "terms-and-conditions": {
+        "pdfs": 10,
+        "pages": 130,
+        "canonicalFooterPages": 130
+      },
+      "fatca-crs-individual": {
+        "pdfs": 12,
+        "pages": 96,
+        "canonicalFooterPages": 96
+      },
+      "fatca-crs-corporate": {
+        "pdfs": 19,
+        "pages": 152,
+        "canonicalFooterPages": 152
+      },
+      "kyc-individual": {
+        "pdfs": 16,
+        "pages": 112,
+        "canonicalFooterPages": 112
+      },
+      "kyc-corporate": {
+        "pdfs": 15,
+        "pages": 105,
+        "canonicalFooterPages": 105
+      }
+    },
+    "failures": [],
+    "sha256": {
+      "signature-form-english.pdf": "a614b283caafd780f711d5b1bd97bab441686373a8ec409b6c3498cd8b3e0049",
+      "signature-form-arabic.pdf": "25c18056e346e96193a0852b20a686b197d58794205cb0471688498e3bccf2fd",
+      "signature-form-english-long.pdf": "85efba2e779832cba590631cd90de91c7d1d2e01382410abf6c2e4c556b875c7",
+      "signature-form-arabic-long.pdf": "2efab864588cbb0c137e0a8834cba34e4ec32b43ad2409222e15be2669688bcd",
+      "signature-form-mixed.pdf": "7e61e6e965bcfc9d9e070b2c446c98ee3e63a30ec0e5909b08d8abe76e341810",
+      "signature-form-blank.pdf": "bd7b9ee6e93cc5901dce8e8a7429e9010c5ccb3d2fba53e1b52b28d03e2383c5",
+      "signature-form-partial.pdf": "019ad3646f53b503854c3cd747549bb606b172a656516ffd8e98135b62752137",
+      "signature-form-shared.pdf": "36e87efc19ec01976806869095c7d82fb59f79accf0006b9d3baf01ff013f531",
+      "signature-form-options-0.pdf": "85d21f1cdbfdc020cb597b49d6d2c1ec61453eaa152b42d5f17ecfc4f6db4bd1",
+      "signature-form-options-1.pdf": "cdca98685fa881f218e293508357a7421b7594cf904cd9719c245b9c2c082415",
+      "al-naeem-terms-consent-english.pdf": "e3de7649e00ad47c2ec856d0e27c1d770c2919cbe61870eae2523d7264d73c36",
+      "al-naeem-terms-consent-arabic.pdf": "d0e1464cb6ee80c1c1e740281083f54545bc9fbec38248665d19387f50901500",
+      "al-naeem-terms-consent-english-long.pdf": "9b4594a158f927d5b7cf3275eb70f3c854333fde8f494ecddcc6fd282d421bce",
+      "al-naeem-terms-consent-arabic-long.pdf": "af9470affd5e9f94096c5dd2a3943430f4db15a93694ba8d7ed04f5ff179e567",
+      "al-naeem-terms-consent-mixed.pdf": "90dcb14f5135532605dc47173ef422999564c63ec45d39a98de7258764ecb906",
+      "al-naeem-terms-consent-blank.pdf": "f1cb531967fa5060e100c48c957cfe2847a4f93d347f398358db48a6f03ccaeb",
+      "al-naeem-terms-consent-partial.pdf": "a57c1cfff9dd5e130c4296c80cceedbc69e8aefc42f58ff3aa0704ab8e17a611",
+      "al-naeem-terms-consent-shared.pdf": "ccc8d4c75e4f8ce9bc39933d3da64a89050275a06abfb43aa195af7830032f05",
+      "subscription-form-english.pdf": "d7b8aba914c5cf06bbd671742160a703ce4835f86f5d0a9860bc46c6bb2667dd",
+      "subscription-form-arabic.pdf": "5e23a45c7c839075e60c25da25e8cba75f3d92e16615536d91e2bf903f2df265",
+      "subscription-form-english-long.pdf": "280436b2be7e5a3628e6b1e482d15332cf92bb757717b4b3c0da1fad5c07905b",
+      "subscription-form-arabic-long.pdf": "d4867a4f883377dace5cde2ac8c3216eb7cbeb1ed063ccfaa359c29803c8feda",
+      "subscription-form-mixed.pdf": "31e11a4665aa4970954e219f6be3c2f6169564d37d97e1b74eda88b6547f308e",
+      "subscription-form-blank.pdf": "c209e2b1bc76c4f2981c58d26df385a297266ece5f710a0908551e3b4ea3b964",
+      "subscription-form-partial.pdf": "e42cc7a1d658cfb95d3de6789b00a52f743e6da3471fce0cd4b66ac321609f73",
+      "subscription-form-shared.pdf": "a7fb887c22157a3ff5c4d58e01105f8aec16ab532cc6aa9e8896da2f6e61d100",
+      "subscription-form-options-0.pdf": "210eafb227b13da25ccb9f304c86588b8056189d74a4ba7db38cf377a3c42a0e",
+      "subscription-form-options-1.pdf": "3ed57e70c4dd3fce9858c4a88f8d8d3c6188a86e99aa395661c99c9786d7cbbd",
+      "subscription-form-options-2.pdf": "ba7eb64b5da4dbc47370bc23d998febd9c00276d0435e69625b630d133df303a",
+      "subscription-form-options-3.pdf": "2abee9ccbb1f90debb4d46e284a3dcb7975c74b8c5c1b929657d594a41b05e8d",
+      "subscription-form-options-4.pdf": "2fdd33362444fff3ed27035c5802071e8e9fbe7b8952231fac61dbab29a86e59",
+      "subscription-company-english.pdf": "33561bae634dce8724df7c6532dca3f2418b069d21e21bed46800c142a7054cb",
+      "subscription-company-arabic.pdf": "d0901f5b83c737ff674af7b80c6d0435e20cc71bac3b6243c803086679212135",
+      "subscription-company-english-long.pdf": "f7d924bf08138d95c885f553f8ddee63b01978f19ce135c82e54086076d45863",
+      "subscription-company-arabic-long.pdf": "1eadf0169b745b08265f42605671728531ca52b769cf56b335f7bd25a58c75ac",
+      "subscription-company-mixed.pdf": "c7d0816c48ce6eae446c6880f46028e484b6b717f742ca3562e00861cc2c57e4",
+      "subscription-company-blank.pdf": "71af1e7625c0bfc6d01a99aeeb3ce70216adf3b3ce603b3e627c8e5d48303d78",
+      "subscription-company-partial.pdf": "a1a7530fcb3643cd19edbc88fb688bc15778ae8ee66ed74d65479df2128385a1",
+      "subscription-company-shared.pdf": "3b5e59753f55ab20517c6a206b2728efd97fb3cf4ff95515cac5c4e5de83c8bc",
+      "subscription-company-options-0.pdf": "914169c082a13fdc140235bd8aae3bc4b5f6f82f6e10d5c71d2f3b3092b2f2bc",
+      "subscription-company-options-1.pdf": "1d64d14e5a19d6719eff258a9e032ad6ae434a3ec1a28f12ccb0a07c601489ce",
+      "subscription-company-options-2.pdf": "05bb690693800cea9e0886750c8e8dcef6181a4c45854420b58f1fbd91b46ab1",
+      "terms-and-conditions-english.pdf": "05c9a8d8cb8eecbccb67ea3525d32e258d618aa3c56f01ade12a3a253bd3aeeb",
+      "terms-and-conditions-arabic.pdf": "dcd37628e362d6590372eec031759e7de2422a98ae40577ea525c6a297620516",
+      "terms-and-conditions-english-long.pdf": "cbd865599599b5d2ae79e6812a429bae7847cc16f5f7844640a82950b521de17",
+      "terms-and-conditions-arabic-long.pdf": "b0631a8da08a2cdc138952ab2ed7b09ab251f203e58e779969e2e476db4df1d0",
+      "terms-and-conditions-mixed.pdf": "2a5764d7582c01b9195170c130607e7025fe384960e5d51e660bf10b0470a6c8",
+      "terms-and-conditions-blank.pdf": "4c24c232fc3dda5eb1353ffba1500831f923d06f65b51edda4dd445fea567450",
+      "terms-and-conditions-partial.pdf": "8b2b48ee824f431f6d62da8b5cf397623317c9b84978988525b0331fb926bb1b",
+      "terms-and-conditions-shared.pdf": "d2d0040dfd755311dd3270f768111120a9a76686bf83f9e43b1597fb5d118abc",
+      "terms-and-conditions-options-0.pdf": "9d56921deb16af459fd3475dee6d4428713931b8a3f6d3b943571a6f6374fb53",
+      "terms-and-conditions-options-1.pdf": "526693f08364f1e37e3e62087f2abcc940d6284d28f6b7c87af82be318cb559c",
+      "fatca-crs-individual-english.pdf": "225aa59df0a0545994eb7abebea85a6612aa32d6990b4e2db45acbc6bf93a4b6",
+      "fatca-crs-individual-arabic.pdf": "cf766113a7ef8289aac21254178729a77208118db6ba1fefd6dbccfc9fbf6ab4",
+      "fatca-crs-individual-english-long.pdf": "2970b617eafd6efe7d3a43a44bb8fbfc08d460581e46d394f3d3f07138650801",
+      "fatca-crs-individual-arabic-long.pdf": "a790fd7b4ddf68d01016a19a950f4808e4b9019fd1a2d446b687e8ef7ba52e78",
+      "fatca-crs-individual-mixed.pdf": "38f2e7cb6b8d714436d462237e5292c7d842e4edba932de1edf16c382c1a858d",
+      "fatca-crs-individual-blank.pdf": "779e22930087a5a7046bfc382655cbb017654711a10b04a451c09e0fd2f1a5dc",
+      "fatca-crs-individual-partial.pdf": "bfc4175104c6a097c144aa9cac33d9ca8bc4226a3eace21c936d0623ef7c7644",
+      "fatca-crs-individual-shared.pdf": "5238cc44b5543bd8243febeef08343381a7f31f162f5c76573fea26535a90536",
+      "fatca-crs-individual-options-0.pdf": "b791fec6d9028859edaff573f378464215fff3effc53dd8443db778f517e0cf6",
+      "fatca-crs-individual-options-1.pdf": "2b9908468c47284e6d291a489749e46606b32578e916bb5a7564244f7a0f096f",
+      "fatca-crs-individual-options-2.pdf": "4c69b951ac69c23b2fadb0d540a5f36d604f544e1504c80edc7d49e23051966e",
+      "fatca-crs-individual-options-3.pdf": "1fbd8c7fec1bb9aa8e761eeaee403ec215fe6b53819d3354610acc2e268d78a4",
+      "fatca-crs-corporate-english.pdf": "f5c7420157e32c9098f23824766cdb9ed637b6e53a155d6b8268e8f38be44246",
+      "fatca-crs-corporate-arabic.pdf": "eee0df208fdb65c9c99728e2b9d0ac2abf694f1dc15acd140a3ca5b4624f5693",
+      "fatca-crs-corporate-english-long.pdf": "a3bdb55cb2477270e3e9438a0ffadb1233d257fcf970c547a84daa01786a7acd",
+      "fatca-crs-corporate-arabic-long.pdf": "cc13a3c223031963a8d095f0436d98d30415a4879ba00d59ba0aa2012020dca1",
+      "fatca-crs-corporate-mixed.pdf": "ffa454af5d42c3e310064a69b9d52d44d9e0f927364645ae9f64053ea7ee17f0",
+      "fatca-crs-corporate-blank.pdf": "a5fda055502d35ca9bd2b21936ce967efa4a4a19683878bbcb48b52e52c25a49",
+      "fatca-crs-corporate-partial.pdf": "67ce3989c2b6515a15a1c630e3209c570a82a96b8f9c2832f78c393a6486aea6",
+      "fatca-crs-corporate-shared.pdf": "9fc697561c97b922b2282c73847caa90640eccb76a6a2abbf2365ed7a547c0a4",
+      "fatca-crs-corporate-options-0.pdf": "183bcacccac1aa8e787801b626c101d6edaa3504e71a6c1995365d41e7f98616",
+      "fatca-crs-corporate-options-1.pdf": "56f664ef0aa2ca9661db723e60d9cb7aeedf71ec942372477724e370e98066db",
+      "fatca-crs-corporate-options-2.pdf": "4c999e1ce47260913f26d65b9524fe1fe3b1ab2603be854314312cfe57236e6f",
+      "fatca-crs-corporate-options-3.pdf": "7b6782e3fc0b58bae7684157a81adc0a78dbd2b60f7671a981c602c6ea24b0e2",
+      "fatca-crs-corporate-options-4.pdf": "c9fe6b4f3fc1f5a48674ce3819ab779c1d235301b0f03602bffe71be31be6ce3",
+      "fatca-crs-corporate-options-5.pdf": "949ef4a9ad47071cce2777d0586e420a4bac1cae141f805f5a5f20a3074f9ef6",
+      "fatca-crs-corporate-options-6.pdf": "f1a44dd56b9fa380f1a1857ec77392c2568f637a23f44b73830946943adcf9c5",
+      "fatca-crs-corporate-options-7.pdf": "abb1ce6f5d21fce28516fae0e0f888ce06f4ba273c2fc970ed5d78b7a1bd85a3",
+      "fatca-crs-corporate-options-8.pdf": "d9b32aaac99f91a47e8b275696997699525be4f14d703c4a6b8dc7f878d2de36",
+      "fatca-crs-corporate-options-9.pdf": "b3e04a9c222b4a5a01790f1889a880f0095b5d639ed1934f9a9a6ffe613255a4",
+      "fatca-crs-corporate-options-10.pdf": "4b28bebfd70a489fdb3181b615cc3806a505401dd892241aed23bff27a6e9fa2",
+      "kyc-individual-english.pdf": "5717aab55900c521bfeba7fbd560fd5869e24e6f07884e0bcd2634cbd734a921",
+      "kyc-individual-arabic.pdf": "a7f490284832d2fd3a31995e06cea7fce5a4594214f30f12977a422a2a31c0af",
+      "kyc-individual-english-long.pdf": "90f7a893dbda3e825578b79b2fbe611346eef82417cc32038c865f7e2ea5497d",
+      "kyc-individual-arabic-long.pdf": "c505119e555beaba31278b17d8f1ca3086a9343bc3dc9319eb45141a9b948aba",
+      "kyc-individual-mixed.pdf": "95fa3b36dbc17a5566d8472850361baa1cdec414bb90faa54989b4640b518b98",
+      "kyc-individual-blank.pdf": "7a1cf3287274647ecd62e3264c21f5056350f5725cbef9107aa2b1fa5efc53ef",
+      "kyc-individual-partial.pdf": "ab6ed635559082557290692016430fdc6361bb66473ed839bf8b297294d9ce73",
+      "kyc-individual-shared.pdf": "db417590445929734d6f324f2aaff5b53d63a72e994c3ef51d7c9d6c05ee48f8",
+      "kyc-individual-options-0.pdf": "40845f5e55eb1e276dca4f29bc233294dd7a0d7240c95f60ba29507c31ad68fa",
+      "kyc-individual-options-1.pdf": "743a33cdb50fcbc8152f1d25158692e69dd98dff446b0d6800ba6545e8fb4314",
+      "kyc-individual-options-2.pdf": "a906d9c1d9e84fb51045f166e8267f2e5dc73f2f0e98e6d7695bcf4b8aa35bc3",
+      "kyc-individual-options-3.pdf": "67e9294742db083985559b4e6a36359077260cff31dfff2b9f412b76ecbe3220",
+      "kyc-individual-options-4.pdf": "bae004bf7ebd4db43d1dd8fcf1940b6ec6d3709b8e86b0fe3ac4c9114ee814cb",
+      "kyc-individual-options-5.pdf": "f995c4ad9765c50246020dda8b2bdc3aef7c7d1c72ceb256df994f6d40a4103b",
+      "kyc-individual-options-6.pdf": "a1c9c46f9fecdd5f84e38313394862e931724a77dcc8ea2cae2b677f46c99627",
+      "kyc-individual-options-7.pdf": "42855d3d1cae326765debc014e4b50e7bd55a0379417ec2a55bdf4a54a6936ad",
+      "kyc-corporate-english.pdf": "0c15484f3db792cf5c2980a335c84db661adf485503b2c2a66fe5b9cb73a9723",
+      "kyc-corporate-arabic.pdf": "abe22ce8363da7d0012a0a717175a72108a2d0078e251337f92766fa57101479",
+      "kyc-corporate-english-long.pdf": "f7832f5b274f23858bb516d499cd21f5d9462f9a5ea47f5ffdfc841662d86c5b",
+      "kyc-corporate-arabic-long.pdf": "ace5cb31fc16d1709eb982b1505670ca4c4de880714c63e7e075a51a35b8c892",
+      "kyc-corporate-mixed.pdf": "360ef20a50dacb09b66d913dc56f7724314bedaf2587180c664b69fe88e8906c",
+      "kyc-corporate-blank.pdf": "9fb34116cf2b295cb46a03f1bd878714cffff36e97c15dcdc5b929e3a9e938cf",
+      "kyc-corporate-partial.pdf": "1f822acd4f7b2b1fd7f427600d05e900d0f5ce4d5677a41ddea287579f43944c",
+      "kyc-corporate-shared.pdf": "0b61a06d610ec0515c40a18883f404cd036e4eab86edd1c5554c83aefa3d6bab",
+      "kyc-corporate-options-0.pdf": "8b3450b7b807bc9e404ec453e473fddd726f74658b7a496a964da795bf8baf92",
+      "kyc-corporate-options-1.pdf": "0e493a53341f17b698fae8256afbc42c2b94cccfe13457e26bfa1c08c2a13e44",
+      "kyc-corporate-options-2.pdf": "201c04f4a1e9fe05d96c052c32dd14b0a82bcda4b898eeaaaa4a26057024c5db",
+      "kyc-corporate-options-3.pdf": "b63ec8c65b34e04d2867b08732c41d77fa4be8f799236be1b22ea0902a2a9eaf",
+      "kyc-corporate-options-4.pdf": "b6b09c7245fe2e909e0793bba29532a836d9c87ed074b48ef7895d8ff79b1b40",
+      "kyc-corporate-options-5.pdf": "d02921fa02dc28e4a823321c0bc569956038725a674bbcfab1e0bc4d769573a7",
+      "kyc-corporate-options-6.pdf": "fbf51ca2f0c58257dca669dff699bf34a66ded16b95a30a1ea0a24259295990d"
+    },
+    "passed": true
+  },
+  "templateSha256": {
+    "signature-form": "8e405aa5ee0ed93e9a05b99b0abf105695e7d733453b83e4fa8184254183c08c",
+    "al-naeem-terms-consent": "b5ab2c9a488e071efd637728e84e098578956c39f312b612531ae05a0c359ac5",
+    "subscription-form": "7ed37e382d5f037f8b21648632bd84833b3893768d4759922bd5aa188fc49a63",
+    "subscription-company": "9114db5fa14438f6aa08ef0e29eec79d0e57f9ed9e091e537ff32dbbf8ca50e0",
+    "terms-and-conditions": "7998def88757a5786685e7e8bcc0de9a4c73127a8477b859793bdd4ab6b331e5",
+    "fatca-crs-individual": "bb6e25d301c02753a8600d58973f931253e80dcc678a83a2a43e3c4307d4000d",
+    "fatca-crs-corporate": "aac5ed5c5bc698480e0660157a878e45a8340839e3fc37dead4e18c01ddadd62",
+    "kyc-individual": "e680252089506a9439caf8c659a00d9c2c36fcb4bb6e49b399bb616f78ce7a2e",
+    "kyc-corporate": "b36b5a11865d026a1f6c74d906b83e7e9098ed1dd57b2c43e9ab77ba2177f5e3"
+  },
+  "schemaSha256": "f74de2e9c2c8d06b212272c57bc788dd9781be9ae67b6baeedf68a984aab7fa7",
+  "visualInspection": {
+    "fullPagesInspected": [
+      "signature-form-arabic-long-p1.png",
+      "al-naeem-terms-consent-arabic-long-p1.png",
+      "subscription-form-arabic-long-p1.png",
+      "subscription-company-arabic-long-p1.png",
+      "terms-and-conditions-arabic-long-p13.png",
+      "fatca-crs-individual-arabic-long-p1.png",
+      "fatca-crs-corporate-arabic-long-p1.png",
+      "kyc-individual-arabic-long-p1.png",
+      "kyc-corporate-arabic-long-p1.png"
+    ],
+    "footerContactSheet": "generated-footer-contact.png",
+    "footerCropsInspected": 16,
+    "result": "Inspected one populated Arabic-long page for each of the nine document types and first/last-page footer crops from every type. Canonical address readable and complete; no new footer clipping or overlap observed. Full-page samples show answer ink and signatures in their expected fields."
+  },
+  "limitations": [
+    "Automated rendering checks cover every generated page; human visual review samples nine populated full pages and 16 footer crops.",
+    "This verifies current local generation and local built website UI. Hosted release verification is separate.",
+    "Renderer audit verifies placement and paper preservation; it does not validate the business meaning of intentionally synthetic answers."
+  ],
+  "passed": true
+}

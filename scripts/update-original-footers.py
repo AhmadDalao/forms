@@ -116,7 +116,7 @@ def update_form(name):
     for folder in folders:
         (ROOT / folder).mkdir(parents=True, exist_ok=True)
         (ROOT / folder / f'{name}.pdf').write_bytes(payload)
-    return {'name': name, 'version': '20261007-original-kyc' if is_kyc else ADDRESS['version'],
+    return {'name': name, 'version': ADDRESS['version'],
             'pages': len(fitz.open(stream=payload)), 'source': str(source), 'edits': edits}
 
 

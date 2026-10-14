@@ -1,10 +1,16 @@
 # Al Naeem Real Estate Fund — start here
 
-This fresh-install handover was updated on 14 October 2026 for the superadmin-editable website address. It includes the original seven-page KYC templates, current field fixes, schema 8 and optional reviews, off by default. The handover contains the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
+This fresh-install handover was updated on 14 October 2026 for the owner-supplied Riyadh address on the website and every current PDF. It includes the original seven-page KYC templates, current field fixes, schema 8 and optional reviews, off by default. The handover contains the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
 
 Only upload the contents of `website/` to the public website folder. Keep this ZIP and everything else private.
 
-## 14 October — editable website address
+## 14 October — Riyadh address
+
+7762 King Fahd Branch Road | 4162 Al Malqa District | Muath Tower | Riyadh 13521 | Kingdom of Saudi Arabia
+
+The visible footer of the owner-supplied subscription PDF is the address authority. Its hidden text contains an obsolete Jeddah address and must not be copied. All ten public PDFs (50 pages), five current Word sources and the website default now use Riyadh. Only address areas changed; body designs and field/signature mappings are preserved. Evidence: `verification/riyadh-address-2026-10-14/`.
+
+## Earlier same-day release — editable website address
 
 The superadmin can edit the national address from **Management → Website settings**. It appears in the footer throughout the website, including sign-in and registration. The setting is private, persistent and included in backups; fresh installs show the approved default. Other roles cannot change it. PDF addresses are maintained separately, and existing submissions retain their saved bytes. See `verification/website-settings-2026-10-14/` for the 265-test suite result and the focused browser/API checks, including conflicting edits and retry handling.
 
@@ -12,7 +18,7 @@ The superadmin can edit the national address from **Management → Website setti
 
 All nine current form templates use the new Itqan national address: individual/company subscription, individual/company KYC, signature, consent, individual/company FATCA/CRS, and terms and conditions. The public legacy one-page subscription PDF also receives the address. Five editable Word sources match their PDFs. KYC now uses the owner's supplied seven-page PDFs; signature and terms also retain their original body designs. These four templates have no matching current Word source. Their address footer is updated, and saved submission bytes remain unchanged.
 
-The address is maintained in `source/scripts/pdf-design/national-address.json`. The owner confirmed **Prince Naif Branch** and subsequently requested the original KYC PDF designs in place of their modern Word redesigns. `source/scripts/pdf-design/template-sources.json` identifies current sources; retired KYC Word/layout files are historical references and must never regenerate the current PDFs. Earlier address-only reports describe the pre-restoration templates.
+The address is maintained in `source/scripts/pdf-design/national-address.json`. The earlier Jeddah address is superseded by the Riyadh address above. The owner requested the original KYC PDF designs in place of their modern Word redesigns. `source/scripts/pdf-design/template-sources.json` identifies current sources; retired KYC Word/layout files are historical references and must never regenerate the current PDFs. Earlier address-only reports describe the pre-restoration templates.
 
 The restored-KYC release passed 242 unit tests, 114 generated PDFs / 661 pages, 147 browser page/direction checks and 45 isolated workflow checks. All 14 blank KYC pages and 28 long English/Arabic filled pages were inspected, including fresh renders after spacing corrections. Current evidence is `verification/kyc-original-restoration-2026-10-07.json`; see TEST-REPORT.md for the scope and limits.
 

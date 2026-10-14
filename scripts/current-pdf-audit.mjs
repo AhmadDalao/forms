@@ -58,7 +58,7 @@ function answer(field,sample,index){
 }
 try{
  await page.route(base,route=>route.fulfill({contentType:'text/html',body:'<!doctype html><html><body>PDF audit</body></html>'}));
- await page.goto(base);await page.evaluate(async()=>{window.qa={...(await import('/src/pdf.js')),docs:(await import('/src/forms/index.js')).docs,names:await import('/src/person-names.js'),sub:await import('/src/subscription/model.js')};await document.fonts.ready;});
+ await page.goto(base);await page.evaluate(async()=>{await Promise.all([import('/node_modules/@fontsource/noto-sans-arabic/arabic-400.css'),import('/node_modules/@fontsource/noto-sans-arabic/latin-400.css')]);window.qa={...(await import('/src/pdf.js')),docs:(await import('/src/forms/index.js')).docs,names:await import('/src/person-names.js'),sub:await import('/src/subscription/model.js')};await document.fonts.load('10px "Noto Sans Arabic"','العربية English');await document.fonts.ready;});
  const signature='data:image/png;base64,'+(await fs.readFile('tests/fixtures/signature.png')).toString('base64');
  await fs.writeFile(out+'/schema.json',JSON.stringify(docs.filter(doc=>!selected||selected.includes(doc.id)).map(doc=>({...doc,signatureSlots:signatureSlots(doc)})),null,2));
  for(const doc of docs.filter(d=>!selected||selected.includes(d.id))){

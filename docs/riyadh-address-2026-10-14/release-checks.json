@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "unitTests": {
+    "passed": 265,
+    "failed": 0,
+    "skipped": 0
+  },
+  "build": "passed",
+  "definitionCount": 9,
+  "definitionsBefore": "833ec69869b92011fea97d0ff51a1f24d807b1e96ae8f2bfccd5d2f625f67d03",
+  "definitionsAfter": "833ec69869b92011fea97d0ff51a1f24d807b1e96ae8f2bfccd5d2f625f67d03",
+  "comparison": "All form semantics, fields, labels, choices, geometry, signatures and sharing rules; only PDF version/URL excluded",
+  "currentVersions": [
+    {
+      "id": "signature-form",
+      "pdfVersion": "20261014-riyadh-address"
+    },
+    {
+      "id": "al-naeem-terms-consent",
+      "pdfVersion": "20261014-riyadh-address"
+    },
+    {
+      "id": "subscription-form",
+      "pdfVersion": "20261014-riyadh-address"
+    },
+    {
+      "id": "subscription-company",
+      "pdfVersion": "20261014-riyadh-address"
+    },
+    {
+      "id": "terms-and-conditions",
+      "pdfVersion": "20261014-riyadh-address"
+    },
+    {
+      "id": "fatca-crs-individual",
+      "pdfVersion": "20261014-riyadh-address"
+    },
+    {
+      "id": "fatca-crs-corporate",
+      "pdfVersion": "20261014-riyadh-address"
+    },
+    {
+      "id": "kyc-individual",
+      "pdfVersion": "20261014-riyadh-address"
+    },
+    {
+      "id": "kyc-corporate",
+      "pdfVersion": "20261014-riyadh-address"
+    }
+  ],
+  "historicalSnapshots": "No source/layout or database rewrite"
+}

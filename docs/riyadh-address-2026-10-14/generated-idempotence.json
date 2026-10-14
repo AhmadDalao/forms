@@ -1,0 +1,16 @@
+{
+  "all11DeliverablesByteIdenticalOnSecondRun": true,
+  "sha256": {
+    "public/pdfs/subscription-individual.pdf": "7ed37e382d5f037f8b21648632bd84833b3893768d4759922bd5aa188fc49a63",
+    "public/pdfs/subscription-company.pdf": "9114db5fa14438f6aa08ef0e29eec79d0e57f9ed9e091e537ff32dbbf8ca50e0",
+    "public/pdfs/al-naeem-terms-consent.pdf": "b5ab2c9a488e071efd637728e84e098578956c39f312b612531ae05a0c359ac5",
+    "public/pdfs/fatca-crs-individual.pdf": "bb6e25d301c02753a8600d58973f931253e80dcc678a83a2a43e3c4307d4000d",
+    "public/pdfs/fatca-crs-corporate.pdf": "aac5ed5c5bc698480e0660157a878e45a8340839e3fc37dead4e18c01ddadd62",
+    "public/pdfs/subscription-form.pdf": "7aff5020a73e4ed44e5dbd9cb2d878df3fc7dddb8e29b5f46da0000c050804f4",
+    "output/documents/subscription-individual.docx": "cdc9dcf94403fbf8948feb252c547d716741a726b467a34e4f0342f4b686d3f1",
+    "output/documents/subscription-company.docx": "6130960f0b8d3399e8f0816900e23a000474a76efee4e60df997d7fa88f1bad6",
+    "output/documents/al-naeem-terms-consent.docx": "95a7407388b37e2aed512ec0339c4a66b864d2672daff4acf62c44cda375003d",
+    "output/documents/fatca-crs-individual.docx": "2fad04a35a02464611637ce77c8f1a55419015e1ebfcb6d90e41f8497a2e913c",
+    "output/documents/fatca-crs-corporate.docx": "232702390ae71a087f308a32ca598c840ed666e84063b3e4dae53ed0f32f6447"
+  }
+}
