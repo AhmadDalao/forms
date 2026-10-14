@@ -12,8 +12,9 @@ The visible address in the owner-supplied `ItqanSubscriptionFormV3.11-1.pdf` now
 | Visual review | All 50 PDF footer crops and 21 rendered Word pages checked; no address clipping or overlap |
 | Website | 64 English/Arabic desktop/mobile footer views across 16 screens passed; no browser errors |
 | Filled PDFs | 114 samples / 661 pages across nine forms, including five complete fills each; 419 fields, 227 choices and 17 signature slots covered; zero generation, geometry, ink-placement, transparency or clipping failures; Riyadh footer verified on every page |
+| Live release | All ten hosted PDFs and new browser assets match the verified build; Riyadh footer visible in both languages; superadmin address page and management PDF preview work; client/submission counts, workflow settings and a sampled submitted PDF hash unchanged |
 
-The footer updaters preserve the supplied KYC, signature and T&C bodies. Current template versions are `20261014-riyadh-address`; historical signing layouts and submitted PDFs are retained. Existing website-address editing remains superadmin-only. Evidence: `verification/riyadh-address-2026-10-14/`. Earlier dated system test results below remain historical baselines.
+The footer updaters preserve the supplied KYC, signature and T&C bodies. Current template versions are `20261014-riyadh-address`; historical signing layouts and submitted PDFs are retained. Existing website-address editing remains superadmin-only. Published to Hostinger from `91765bb1ce89f8cf3add1758174563666dc2809f`, with all 21 replaced public files backed up and private storage preserved. Review remains off. Evidence: `verification/riyadh-address-2026-10-14/`. Earlier dated system test results below remain historical baselines.
 
 ## Earlier same-day release — superadmin-editable website address
 
