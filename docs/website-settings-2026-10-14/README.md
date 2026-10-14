@@ -12,5 +12,9 @@ Verification files:
 - `default-footer-verification.json`: 64 unchanged-default footer checks across the existing common page shells.
 - `api-verification.json`: role/CSRF/method checks, validation, no-op retries, independent revisions, restart and private backup/restore.
 - `pdf-address-verification.json`: the approved address remains on all 10 public PDFs / 50 pages and five current Word sources.
+- `unit-build.json`: complete unit-suite and production-build results.
+- `live-verification.json`: hosted settings page and public footers, unchanged production counts/workflow/PDF bytes, matching published assets and working management PDF preview.
 
 The complete unit suite passed 265 tests with no failures or skips, and the production build passed. Representative mobile settings, Arabic conflict handling and footer screenshots were visually inspected. These checks use isolated synthetic data; production verification reads the current address without changing it.
+
+Published to Hostinger from `513e12bab88a0755b790477e15d953f7ac838484`. Ten overwritten public files were backed up before replacement; 21 new files were added and 76 were already identical. Private storage and credentials were preserved. The live superadmin settings page and anonymous address responses passed, along with desktop/mobile sizing, both-language footers and the existing management preview. The approved default address is still active.

@@ -12,6 +12,7 @@ The superadmin can edit the national address from **Website settings**. Existing
 | Permissions and saves | Superadmin-only endpoint, CSRF/POST, validation, conflicting edits, lost-response retries and independent catalogue/settings revisions passed |
 | Persistence | Server restart and private backup/restore retain the saved address and metadata |
 | PDF integrity | All 10 public PDFs / 50 pages and five current Word sources still contain the approved address; PDF assets unchanged |
+| Live release | Superadmin settings page, anonymous footer data, both-language public footers and management PDF preview passed; hosted assets match; production counts, workflow and sampled submitted PDF bytes unchanged |
 
 Evidence: `verification/website-settings-2026-10-14/`. Browser edits use synthetic isolated fixtures. Live checks do not replace the production address.
 
