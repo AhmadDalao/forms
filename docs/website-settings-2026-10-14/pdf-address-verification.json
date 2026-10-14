@@ -1,0 +1,60 @@
+{
+  "version": "20261007-national-address",
+  "address": "Al Zahraa District - Prince Naif Branch - Al Saha Square, 1st Floor | 2505 - Al Zahra Dist | Unit No 7940 | Jeddah 23425-2753 | Kingdom of Saudi Arabia",
+  "documents": {
+    "subscription-individual": {
+      "pages": 2,
+      "word_source": true,
+      "sha256": "ce5886b02e03f273f1507d80ca54786b5123d3ecd9155d9a3f4ad3f353f6563e"
+    },
+    "subscription-company": {
+      "pages": 2,
+      "word_source": true,
+      "sha256": "050875471f45c9a29fe1ab08dcd37426f2237aa1a6149c87dc9864ad7fbf6b86"
+    },
+    "kyc-individual": {
+      "pages": 7,
+      "word_source": false,
+      "sha256": "2b3c814935ce6671c503e8887e0d496d60e81de37d3204a7fcad6ef33fefb3c9"
+    },
+    "kyc-corporate": {
+      "pages": 7,
+      "word_source": false,
+      "sha256": "47e887db96ffc9105984380fb3008efd5f99fa7251a318c2ab6031021240844b"
+    },
+    "signature-form": {
+      "pages": 1,
+      "word_source": false,
+      "sha256": "9b9306cbe69bd3e18b04458ac9a2b6768ff63c7224b0f174f51468fba949ab0f"
+    },
+    "al-naeem-terms-consent": {
+      "pages": 1,
+      "word_source": true,
+      "sha256": "5b22452a0fdd909e682b61bc7a2e53e12532d28e100f22ad96c36f67fd2efd3d"
+    },
+    "fatca-crs-individual": {
+      "pages": 8,
+      "word_source": true,
+      "sha256": "4c860ccb85dd2949365d92de6794860bdcbb5dd53cd29d5c501c28d476a9b895"
+    },
+    "fatca-crs-corporate": {
+      "pages": 8,
+      "word_source": true,
+      "sha256": "5133c0ed41a290a468c35aafaf6baf9ec9b98415d1d6fa57b85dde159ce038e1"
+    },
+    "terms-and-conditions": {
+      "pages": 13,
+      "word_source": false,
+      "sha256": "f756a1dc5a44fe320c1ce160f963d301430b05350e3f51efcd15dc57eab1cd15"
+    },
+    "subscription-form": {
+      "pages": 1,
+      "word_source": false,
+      "sha256": "5d85ee6922a6224ca85a6238955c4be8abf4f71ccb933e9aa2cce4de7c49f2bb"
+    }
+  },
+  "failures": [],
+  "pages": 50,
+  "word_sources": 5,
+  "passed": true
+}

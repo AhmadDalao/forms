@@ -1,5 +1,6 @@
 import {session,language,errorText} from './api.js';
 import {appRoot,audience,accountFolder,canUseAudience} from '../routes.js';
+import {receiveWebsiteSettings} from '../website-settings.js';
 
 export let formSession;
 export async function allowFormPage(){
@@ -8,6 +9,7 @@ export async function allowFormPage(){
   if(!formSession.user||(audience&&!canUseAudience(formSession.user,audience))){
    const response=await fetch(appRoot+'api/management.php?action=session',{cache:'no-store'});
    const management=response.ok?await response.json():null;
+   if(management?.website)receiveWebsiteSettings(management.website);
    if(management?.authenticated){formSession={...formSession,user:null,management:true};if(!audience){location.replace(appRoot+'management/');return false;}return true;}
    if(!formSession.user){location.replace(appRoot+'login/?lang='+language());return false;}
   }
@@ -32,6 +34,7 @@ export async function checkAccountAccess(){
  try{
   if(formSession?.management){
    const response=await fetch(appRoot+'api/management.php?action=session',{cache:'no-store'}),fresh=response.ok?await response.json():null;
+   if(fresh?.website)receiveWebsiteSettings(fresh.website);
    if(!fresh?.authenticated)location.reload();return;
   }
   const fresh=await session();if(fresh.user?.id!==formSession?.user?.id||fresh.user?.account_type!==formSession?.user?.account_type)location.reload();else formSession=fresh;

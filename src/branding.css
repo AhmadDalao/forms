@@ -73,4 +73,5 @@
 .site-footer strong{color:#48235f;font-size:14px;font-weight:600}
 .site-footer address{margin:0;min-width:0;font:inherit;text-align:left;overflow-wrap:anywhere}
 .site-footer address span{display:block}
+.site-footer address[lang="ar"]{text-align:right}
 @media(max-width:600px){.site-footer{width:calc(100% - 32px);grid-template-columns:1fr;margin-top:24px;padding:18px 12px;gap:10px}}

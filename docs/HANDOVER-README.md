@@ -1,8 +1,12 @@
 # Al Naeem Real Estate Fund — start here
 
-This fresh-install handover documentation was updated on 7 October 2026 for the national-address footer update across all current forms. The previous tested baseline is 30 September 2026: larger, single-line client names in Received applications, schema 8 and optional reviews, off by default. The handover contains the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
+This fresh-install handover was updated on 14 October 2026 for the superadmin-editable website address. It includes the original seven-page KYC templates, current field fixes, schema 8 and optional reviews, off by default. The handover contains the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
 
 Only upload the contents of `website/` to the public website folder. Keep this ZIP and everything else private.
+
+## 14 October — editable website address
+
+The superadmin can edit the national address from **Management → Website settings**. It appears in the footer throughout the website, including sign-in and registration. The setting is private, persistent and included in backups; fresh installs show the approved default. Other roles cannot change it. PDF addresses are maintained separately, and existing submissions retain their saved bytes. See `verification/website-settings-2026-10-14/` for the 265-test suite result and the focused browser/API checks, including conflicting edits and retry handling.
 
 ## 7 October — national address on every form
 

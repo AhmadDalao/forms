@@ -116,6 +116,11 @@ for file in (ROOT / 'docs/kyc-paper-check-2026-10-08').rglob('*'):
     if file.is_file():
         copy(file, package / 'verification/kyc-paper-check-2026-10-08' / file.relative_to(ROOT / 'docs/kyc-paper-check-2026-10-08'))
 copy(ROOT / 'scripts/website-address-audit.mjs', package / 'source/scripts/website-address-audit.mjs')
+for name in ['website-settings-api-audit.mjs', 'website-settings-audit.mjs']:
+    copy(ROOT / 'scripts' / name, package / 'source/scripts' / name)
+for file in (ROOT / 'docs/website-settings-2026-10-14').rglob('*'):
+    if file.is_file():
+        copy(file, package / 'verification/website-settings-2026-10-14' / file.relative_to(ROOT / 'docs/website-settings-2026-10-14'))
 for file in (ROOT / 'docs/website-address-2026-10-14').rglob('*'):
     if file.is_file():
         copy(file, package / 'verification/website-address-2026-10-14' / file.relative_to(ROOT / 'docs/website-address-2026-10-14'))
@@ -147,7 +152,7 @@ assert not list((restored / 'management/uploads').glob('*'))
 assert not (restored / 'management/state.json').exists()
 shutil.rmtree(restored)
 copy(bootstrap, package / 'private-bootstrap.zip')
-snapshot['application_release'] = release_date + ' original seven-page KYC PDFs with approved national-address footer, five current Word sources, submit-only client display, dedicated submission settings and schema 8'
+snapshot['application_release'] = release_date + ' original seven-page KYC PDFs with approved national-address footer, superadmin-editable website address, five current Word sources, dedicated submission settings and schema 8'
 snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
 (package / ('verification/bootstrap-verification-' + release_date + '.json')).write_text(json.dumps({

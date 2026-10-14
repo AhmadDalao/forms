@@ -15,6 +15,7 @@ require_once __DIR__.'/portal-answers.php';
 require_once __DIR__.'/portal-shared.php';
 require_once __DIR__.'/management-auth.php';
 require_once __DIR__.'/session-scope.php';
+require_once __DIR__.'/website-settings.php';
 function reply(array $data, int $status=200): never { global $workflowReady; if(!empty($workflowReady)&&!isset($data['workflow']))$data['workflow']=workflowSettings(); http_response_code($status); echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR); exit; }
 function reject(string $code,int $status=400): never { reply(['error'=>$code],$status); }
 function body(): array {
@@ -144,7 +145,7 @@ try {
     if(in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='POST')reject('method',405);
     if(!in_array($action,$mutations,true)&&$_SERVER['REQUEST_METHOD']!=='GET')reject('method',405);
     $now=gmdate('Y-m-d\TH:i:s\Z');$ip=$_SERVER['REMOTE_ADDR']??'local';
-    if($action==='session')reply(['user'=>($u=currentUser(false,true))?userView($u):null,'csrf'=>$_SESSION['csrf']]);
+    if($action==='session')reply(['user'=>($u=currentUser(false,true))?userView($u):null,'csrf'=>$_SESSION['csrf'],'website'=>websitePublicSettings($managementDir)]);
     if($action==='register'){
         rate('register:'.$ip,10,3600);$b=body();$first=textValue($b['first_name']??'',79);$last=textValue($b['last_name']??'',79);
         if($first===''||$last==='')reject('registration_name_invalid');$name=$first.' '.$last;

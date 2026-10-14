@@ -168,7 +168,7 @@ try:
     upload('.htaccess', files['.htaccess'])
     # Existing API entrypoints may still be serving requests during this upload.
     # Publish the workflow dependency before the version/review helpers use it.
-    dependencies = ['api/portal-workflow.php', 'api/portal-versions.php', 'api/portal-reviews.php', 'api/portal-database.php']
+    dependencies = ['api/national-address.json', 'api/website-settings.php', 'api/portal-workflow.php', 'api/portal-versions.php', 'api/portal-reviews.php', 'api/portal-database.php']
     for dependency in dependencies:
         upload(dependency, files[dependency])
     # Immutable assets and PHP dependencies precede the new HTML entrypoints.

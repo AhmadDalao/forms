@@ -1,4 +1,6 @@
 import {showAdministrators} from './accounts.js';
+import {showWebsiteSettings} from './website.js';
+import {receiveWebsiteSettings} from '../website-settings.js';
 import {bellIcon} from '../portal/notification-bell.js';
 import '@fontsource/inter/latin-400.css';
 import '@fontsource/inter/latin-500.css';
@@ -21,13 +23,15 @@ const canManageAdmins=()=>managementSession?.authenticated===true&&managementSes
 const canManageDocuments=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.manage_documents===true;
 const canChangeAccountType=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.change_account_type===true;
 const canManageWorkflow=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin'&&managementSession.permissions?.manage_workflow===true;
+const canManageWebsite=()=>managementSession?.authenticated===true&&managementSession.role==='superadmin';
+let websitePage=null;
 let workflowBusy=false,workflowRequest=null,workflowError=null,workflowDraft=null,workflowSaved=false;
 let csrf='',state=null,dirty=false,editing=null,pageNumber=1,selected=null,pdf=null,drawType=null,serial=Date.now(),sampled=new Set(),renderEpoch=0;
 const endpoint=action=>`${appRoot}api/management.php?action=${action}`;
 async function api(action,body){
- if(!['session','login','logout'].includes(action)&&!canManageDocuments())throw Error(t('Document management is available to the superadmin only.','إدارة المستندات متاحة للمشرف الرئيسي فقط.'));
+ if(['website_settings','website_settings_save'].includes(action)?!canManageWebsite():!['session','login','logout'].includes(action)&&!canManageDocuments())throw Error(t('This setting is available to the superadmin only.','هذا الإعداد متاح للمشرف الرئيسي فقط.'));
  const multipart=body instanceof FormData,response=await fetch(endpoint(action),{method:body?'POST':'GET',credentials:'same-origin',cache:'no-store',headers:body?{'X-CSRF-Token':csrf,...(multipart?{}:{'Content-Type':'application/json'})}:{},body:body?(multipart?body:JSON.stringify(body)):undefined});
- const data=await response.json();if(!response.ok)throw Object.assign(Error(data.error||t('Could not complete the request.','تعذّر إكمال الطلب.')),{status:response.status});return data;
+ const data=await response.json();if(!response.ok)throw Object.assign(Error(data.error||t('Could not complete the request.','تعذّر إكمال الطلب.')),{status:response.status});if(data.website)receiveWebsiteSettings(data.website);return data;
 }
 function notice(message,error=false){const node=(error&&document.querySelector('.modal[open] [data-dialog-notice]'))||document.querySelector('#notice');if(!node)return;node.textContent=message;node.className=error?'error':'';node.scrollIntoView({block:'nearest'});}
 function handleError(error){
@@ -39,12 +43,12 @@ function bind(selector,event,handler){document.querySelectorAll(selector).forEac
 function changed(){dirty=true;sampled.clear();const reviewButton=document.querySelector('#review-document');if(reviewButton)reviewButton.disabled=true;const sampleStatus=document.querySelector('#sample-status');if(sampleStatus)sampleStatus.textContent='Layout changed — regenerate both samples.';if(editing)editing.reviewed=false;document.querySelector('#draft-status').textContent='Unsaved changes';}
 function shell(content,{view='documents'}={}){
  activeView=view;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
- const signedIn=managementSession?.authenticated===true,items=[['overview','Dashboard','لوحة التحكم','data-overview id="client-dashboard"'],['reviews','Received applications','الطلبات المستلمة','data-reviews'],['users','Clients','العملاء','data-users'],...(canManageDocuments()?[['documents','Documents','المستندات','data-documents']]:[]),...(canManageAdmins()?[['admins','Administrators','حسابات الإدارة','data-admins']]:[]),...(canManageWorkflow()?[['workflow','Submission settings','إعدادات الإرسال','data-workflow']]:[])];
+ const signedIn=managementSession?.authenticated===true,items=[['overview','Dashboard','لوحة التحكم','data-overview id="client-dashboard"'],['reviews','Received applications','الطلبات المستلمة','data-reviews'],['users','Clients','العملاء','data-users'],...(canManageDocuments()?[['documents','Documents','المستندات','data-documents']]:[]),...(canManageAdmins()?[['admins','Administrators','حسابات الإدارة','data-admins']]:[]),...(canManageWorkflow()?[['workflow','Submission settings','إعدادات الإرسال','data-workflow']]:[]),...(canManageWebsite()?[['website','Website settings','إعدادات الموقع','data-website']]:[])];
  const navigation=signedIn?`<nav class="site-header-navigation management-navigation" aria-label="${t('Management navigation','التنقل في الإدارة')}">${items.map(([id,en,ar,attrs])=>`<button type="button" data-management-view="${id}" ${attrs} ${view===id?'aria-current="page"':''}>${t(en,ar)}</button>`).join('')}</nav>`:'';
  const actions=`${signedIn?`<button type="button" class="notification-bell" id="management-notifications" aria-label="${t('Latest received applications','أحدث الطلبات المستلمة')}" title="${t('Latest received applications','أحدث الطلبات المستلمة')}">${bellIcon}</button>`:''}<button type="button" class="site-header-language" data-admin-language lang="${lang==='ar'?'en':'ar'}">${t('العربية','English')}</button>${signedIn?`<button type="button" class="site-header-signout" id="logout">${t('Sign out','تسجيل الخروج')}</button>`:''}`;
  app.innerHTML=siteHeader({lang,className:'management-header',navigation,actions})+`<div id="notice" role="status"></div>${content}`+siteFooter(lang);
- bind('[data-management-view]','click',async(ev,button)=>{if(dirty)await saveDraft();if(button.dataset.managementView==='documents')await openDocuments();else if(button.dataset.managementView==='admins')await openAdmins();else if(button.dataset.managementView==='workflow')await openWorkflow();else await showDashboard(button.dataset.managementView);});
- bind('[data-admin-language]','click',async()=>{lang=lang==='ar'?'en':'ar';setLanguage(lang);if(!signedIn){showLogin();return;}if(activeView==='documents'){if(editing)await editor();else home();}else if(activeView==='admins')await openAdmins();else if(activeView==='workflow')renderWorkflowPage();else await dashboard.refresh();});
+ bind('[data-management-view]','click',async(ev,button)=>{if(dirty)await saveDraft();if(button.dataset.managementView==='documents')await openDocuments();else if(button.dataset.managementView==='admins')await openAdmins();else if(button.dataset.managementView==='workflow')await openWorkflow();else if(button.dataset.managementView==='website')await openWebsite();else await showDashboard(button.dataset.managementView);});
+ bind('[data-admin-language]','click',async()=>{lang=lang==='ar'?'en':'ar';setLanguage(lang);if(!signedIn){showLogin();return;}if(activeView==='documents'){if(editing)await editor();else home();}else if(activeView==='admins')await openAdmins();else if(activeView==='workflow')renderWorkflowPage();else if(activeView==='website')websitePage?.render();else await dashboard.refresh();});
  bind('#workflow-settings-form','submit',updateReviewWorkflow);
  bind('[name=review_enabled]','change',event=>{workflowDraft=event.target.value==='true';workflowSaved=false;workflowError=null;renderWorkflowState();});
  renderWorkflowState();
@@ -97,6 +101,12 @@ function showLogin(){navigationRevision++;dashboard?.cancel();shell(`<main class
 async function start(){managementSession=await api('session');csrf=managementSession.csrf;if(!managementSession.configured){shell(`<main class="panel login"><h1>${t('Management setup','إعداد الإدارة')}</h1><p>${t('Management access has not been configured.','لم يتم إعداد حساب الإدارة بعد.')}</p></main>`,{view:'overview'});return;}if(managementSession.authenticated){await showDashboard();return;}showLogin();}
 async function showDashboard(view='overview'){navigationRevision++;dashboard??=createClientDashboard({shell,token:()=>csrf,language:()=>lang,canChangeAccountType,workflow:()=>managementWorkflow,onWorkflowChanged:receiveManagementWorkflow,onError:handleError});await dashboard[view]();}
 async function openAdmins(){if(!canManageAdmins())return;const revision=++navigationRevision;dashboard?.cancel();await showAdministrators({lang,shell,api,onError:handleError,notice,isCurrent:()=>revision===navigationRevision});}
+async function openWebsite(){
+ if(!canManageWebsite())return;
+ const revision=++navigationRevision;dashboard?.cancel();websitePage=null;
+ shell(`<main class="client-management" aria-busy="true"><p role="status">${t('Loading website settings…','جارٍ تحميل إعدادات الموقع…')}</p></main>`,{view:'website'});
+ websitePage=await showWebsiteSettings({language:()=>lang,shell,api,onError:handleError,isCurrent:()=>revision===navigationRevision});
+}
 async function openDocuments(){
  if(!canManageDocuments())return;const revision=++navigationRevision;dashboard?.cancel();
  shell(`<main class="shell" aria-busy="true"><p role="status">${t('Loading documents…','جارٍ تحميل المستندات…')}</p></main>`,{view:'documents'});

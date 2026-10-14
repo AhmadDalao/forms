@@ -1,6 +1,21 @@
 # Handover verification — 14 October 2026
 
-## Current release — visible national address
+## Current release — superadmin-editable website address
+
+The superadmin can edit the national address from **Website settings**. Existing session responses deliver the public address to the website; no extra startup request was added. PDF templates and historical submissions are unchanged. The setting has its own revision in private management storage and is preserved by installation backups.
+
+| Fresh check | Result |
+|---|---|
+| Full unit suite / build | 265 tests passed; zero failures/skips; production build passed |
+| Edited website address | 8 workflow checks and 56 English/Arabic desktop/mobile footer views; zero browser errors |
+| Default footer regression | 64 views across 16 screens; existing three-line layout retained |
+| Permissions and saves | Superadmin-only endpoint, CSRF/POST, validation, conflicting edits, lost-response retries and independent catalogue/settings revisions passed |
+| Persistence | Server restart and private backup/restore retain the saved address and metadata |
+| PDF integrity | All 10 public PDFs / 50 pages and five current Word sources still contain the approved address; PDF assets unchanged |
+
+Evidence: `verification/website-settings-2026-10-14/`. Browser edits use synthetic isolated fixtures. Live checks do not replace the production address.
+
+## Earlier same-day verification — visible national address
 
 A shared, responsive website footer now shows the owner-approved Itqan national address across authentication, forms, profile and management pages. The address comes from the same JSON used by the PDF builders. This update changes page presentation only.
 

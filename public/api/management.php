@@ -10,6 +10,7 @@ require_once __DIR__.'/management-accounts.php';
 require_once __DIR__.'/session-scope.php';
 require_once __DIR__.'/form-access.php';
 require_once __DIR__.'/document-catalogue.php';
+require_once __DIR__.'/website-settings.php';
 $dataDir = getenv('FORMS_DATA_DIR') ?: __DIR__ . '/../_private/management';
 function respond(array $value, int $code = 200): never { http_response_code($code); echo json_encode($value, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR); exit; }
 function fail(string $message, int $code = 400): never { respond(['error'=>$message],$code); }
@@ -37,7 +38,7 @@ function requireDocumentManager(): void {global $dataDir;if(!managementCanManage
 function sessionResponse(): array {
     global $dataDir;$identity=managementIdentity($dataDir);
     return ['authenticated'=>$identity!==null,'configured'=>count(managementAccounts($dataDir))>0,'csrf'=>$_SESSION['csrf'],
-        'username'=>$identity['username']??null,'role'=>$identity['role']??null,'permissions'=>managementPermissions($dataDir)];
+        'username'=>$identity['username']??null,'role'=>$identity['role']??null,'permissions'=>managementPermissions($dataDir),'website'=>websitePublicSettings($dataDir)];
 }
 function csrf(): void {if(!hash_equals($_SESSION['csrf']??'',$_SERVER['HTTP_X_CSRF_TOKEN']??'')||empty($_SESSION['csrf']))fail('Refresh the page and try again.',403);}
 function expected(array $state,array $body): void {if(($body['revision']??-1)!==$state['revision'])fail('Another window changed this draft. Reload before saving.',409);}
@@ -146,6 +147,14 @@ try {
     }
     requireOwner();
     if($action==='logout'){if($_SERVER['REQUEST_METHOD']!=='POST')fail('POST required.',405);$_SESSION=[];session_destroy();respond(['ok'=>true]);}
+    if(in_array($action,['website_settings','website_settings_save'],true)){
+        $identity=managementIdentity($dataDir);
+        if($identity['role']!=='superadmin')fail('website_settings_forbidden',403);
+        if($_SERVER['REQUEST_METHOD']!==($action==='website_settings'?'GET':'POST'))fail('Method not allowed.',405);
+        try{
+            respond(['website'=>$action==='website_settings'?websiteSettings($dataDir):saveWebsiteSettings($dataDir,input(),$identity['username'])]);
+        }catch(DomainException $error){fail($error->getMessage(),$error->getMessage()==='website_settings_conflict'?409:400);}
+    }
     if($action==='export_backup'){
         if(!managementPermissions($dataDir)['manage_admins'])fail('superadmin_required',403);
         if($_SERVER['REQUEST_METHOD']!=='POST')fail('POST required.',405);

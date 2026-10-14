@@ -22,7 +22,7 @@ private/
     pdfs/<submission-id>.pdf
   management/
     administrators.sqlite
-    state.json                 When catalogue state has been saved
+    state.json                 Saved catalogue and website-address settings
     uploads/                   Custom blank templates, if any
     username.php               Legacy admin username, if configured
     password.php               Guarded legacy password hash, if configured
@@ -53,6 +53,8 @@ Relationships and invariants:
 - `(user_id, request_key)` prevents duplicate submissions during retries. Version uniqueness and current-version indexes protect replacement behavior.
 - Editing shared account details does not rewrite a submitted/archived version's answer snapshot or PDF.
 - An uploaded PDF is identified as an upload; it does not imply the application extracted or verified all of its text/signatures.
+
+The editable website address is stored at `website` inside `management/state.json`, with its own revision, update time and editor. It does not change the catalogue revision or the client database schema. Back up the whole private installation to preserve it. Missing website settings use the approved default; the fresh bootstrap intentionally contains no saved address override.
 
 ## `management/administrators.sqlite`
 

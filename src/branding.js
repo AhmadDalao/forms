@@ -1,5 +1,5 @@
 import {appRoot} from './routes.js';
-import nationalAddress from '../scripts/pdf-design/national-address.json' with {type:'json'};
+import {websiteAddress,addressLanguage} from './website-settings.js';
 import './branding.css';
 // Original embedded artwork from the owner's presentation, with no redrawing.
 export function brandLockup(lang='ar'){
@@ -13,7 +13,6 @@ export function siteHeader({lang='en',className='',brandHref=null,homeAction=fal
 }
 
 export function siteFooter(lang='en'){
- const parts=nationalAddress.text.split(' | '),escape=value=>value.replace(/[&<>]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[char]));
- const lines=[parts[0],parts.slice(1,3).join(' · '),parts.slice(3).join(' · ')];
- return `<footer class="site-footer" dir="${lang==='ar'?'rtl':'ltr'}"><strong>${lang==='ar'?'العنوان الوطني لإتقان كابيتال':'Itqan Capital · National address'}</strong><address lang="en" dir="ltr">${lines.map(line=>`<span>${escape(line)}</span>`).join('')}</address></footer>`;
+ const address=websiteAddress(),addressLang=addressLanguage(address),escape=value=>value.replace(/[&<>]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[char]));
+ return `<footer class="site-footer" dir="${lang==='ar'?'rtl':'ltr'}"><strong>${lang==='ar'?'العنوان الوطني لإتقان كابيتال':'Itqan Capital · National address'}</strong><address lang="${addressLang}" dir="${addressLang==='ar'?'auto':'ltr'}">${address.split('\n').map(line=>`<span dir="auto">${escape(line)}</span>`).join('')}</address></footer>`;
 }

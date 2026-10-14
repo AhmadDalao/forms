@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-14",
+  "scope": "Isolated synthetic accounts and private storage; no production changes",
+  "checks": [
+    "Guest/client/admin cannot edit; only server-authenticated superadmin can read private settings; writes enforce POST and CSRF",
+    "First save persists normalized address + revision metadata without changing catalogue, workflow or PDF; public sessions expose address only",
+    "Lost-response retry is a byte-preserving no-op; stale competing save and malformed input cannot overwrite settings",
+    "Website and catalogue revisions remain independent across both save paths and server restart",
+    "Real private backup and restore preserve state bytes, website metadata, all database tables, workflow, shared profile, current/archived submissions and both PDF files"
+  ],
+  "passed": true,
+  "build_sha256": {
+    "api/management.php": "6f691846dbbcff944f5a6404102d26a8298e79c469da687d4f8bdae1a59f8956",
+    "api/portal.php": "cd25adc28d73e40a31649c451dbd10ee7b0758473b6ae41a1e85cc3c8b7be7e2",
+    "api/website-settings.php": "03322a5308147dbc584246ba2a56bdc72a5d9ce5764195983a9c8f48e02a2423",
+    "api/national-address.json": "57a138fa7c961f3e600fbfe658ef8413a64f5e7a5b89da10e2ebd7b13fc42400",
+    "scripts/backup-installation.php": "ff1b0eed567c42d4f1c98db04de11c36ba0852a5e859849eb264bac014a9ceac",
+    "scripts/restore-installation.php": "3cf33373cc23566e904483e35699c7c0c7f4c6fa2a453f908826cb9cf616c3b1",
+    "public/api/installation-backup.php": "84f4dc66d6e13da7d58e11181d0d86c6d219fe1a6d186a9984eb1dbe8cb28633"
+  },
+  "backup_restore": {
+    "passed": true,
+    "backup_command": "php scripts/backup-installation.php MANAGEMENT_DIRECTORY PORTAL_DIRECTORY DESTINATION.zip",
+    "restore_command": "php scripts/restore-installation.php PRIVATE-MIGRATION.zip NEW_PRIVATE_DIRECTORY",
+    "state_sha256": "6c1825d467895841d662f22a183277d2b1bced1f113460dab036b2e0d1018bb1",
+    "restored_state_sha256": "6c1825d467895841d662f22a183277d2b1bced1f113460dab036b2e0d1018bb1",
+    "state_byte_equal": true,
+    "website_metadata_equal": true,
+    "website_revision": 2,
+    "database": {
+      "schema_version": 8,
+      "integrity": "ok",
+      "foreign_keys": [],
+      "counts": {
+        "audit": 0,
+        "client_shared_profiles": 1,
+        "rates": 2,
+        "sqlite_sequence": 2,
+        "submission_reviews": 0,
+        "submissions": 2,
+        "users": 1,
+        "workflow_setting_events": 1,
+        "workflow_settings": 1
+      },
+      "logical_sha256": "0e9d4bed8c5e80b51bbe72dc8897e5aa23bd6a883c7fc6cbe7e1e557289e960e",
+      "archived_versions": 1
+    },
+    "workflow_settings_equal": true,
+    "submission_pdf_files_equal": 2,
+    "source_state_unchanged": true,
+    "source_database_unchanged": true,
+    "private_paths_and_records_omitted": true
+  }
+}

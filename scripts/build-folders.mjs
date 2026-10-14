@@ -24,3 +24,6 @@ for(const folder of ['individuals','companies','management','login','register','
 await fs.rm('dist/.vite',{recursive:true});
 
 await import('./management-defaults.mjs');
+// One maintained default for PDF tooling and the editable website footer.
+await fs.copyFile('scripts/pdf-design/national-address.json','public/api/national-address.json');
+await fs.copyFile('scripts/pdf-design/national-address.json','dist/api/national-address.json');

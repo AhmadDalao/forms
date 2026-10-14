@@ -1,5 +1,6 @@
 import {appRoot,draftStoragePrefix,portalStoragePrefix} from '../routes.js';
 import {receiveWorkflow} from './workflow.js';
+import {receiveWebsiteSettings} from '../website-settings.js';
 export const authChangeKey=portalStoragePrefix+'auth-change';
 export const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let csrf='';
@@ -10,6 +11,7 @@ export async function api(action,body,{token=csrf,params={},keepalive=false}={})
  let data;try{data=await response.json();}catch{throw Error('connection_failed');}
  if(data.workflow)receiveWorkflow(data.workflow);
  if(!response.ok)throw Object.assign(Error(data.error||'server_error'),{status:response.status});
+ if(data.website)receiveWebsiteSettings(data.website);
  if(data.csrf)csrf=data.csrf;return data;
 }
 export const session=()=>api('session');

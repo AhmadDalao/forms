@@ -16,6 +16,8 @@ This package starts a new installation with the supplied admin and superadmin ac
 
 Keep room for future uploads and backups. Each saved version may have a PDF up to 20 MB, and previous versions remain stored.
 
+The superadmin can change the public national-address footer from **Management → Website settings**. Ordinary admins cannot edit it. The setting is kept in private management storage and is included in installation backups. Fresh installs show the approved Itqan address. This controls the website footer only; changing printed PDF addresses requires a separate template update.
+
 ## Install on the new domain
 
 1. Configure the domain and HTTPS using DOMAIN-SETUP.md. Keep the new site restricted until acceptance checks pass.
