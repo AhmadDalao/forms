@@ -11,6 +11,7 @@ A shared, responsive website footer now shows the owner-approved Itqan national 
 | Visual website review | Ten footer screenshots inspected across forms, account and management page shells |
 | PDF footers | All 10 public PDF files / 50 pages checked for complete address, footer placement and old address; all 50 rendered footers inspected |
 | PDF/Word consistency | Twelve existing PDF output mirrors and five current Word sources match; no PDF asset edits were required |
+| Live release | Footer visible in both languages on public authentication and management pages; hosted PDFs/assets match; stored PDF bytes, client/submission counts and workflow settings unchanged |
 
 Evidence: `verification/website-address-2026-10-14/`. Current templates include nine application PDFs and one legacy compatibility PDF. Existing client uploads and historical submissions retain their saved bytes.
 
