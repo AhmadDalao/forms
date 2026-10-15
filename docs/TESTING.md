@@ -12,6 +12,7 @@ After building, run the focused browser audit and historical regressions:
 node --test tests/historical-signing.test.mjs tests/legacy-terms-details.test.mjs
 QA_OUT=tmp/approved-terms-browser node scripts/approved-terms-audit.mjs
 node scripts/historical-terms-browser-audit.mjs
+node scripts/terms-preview-race-audit.mjs
 ```
 
 The browser script covers both audiences in Chrome, Firefox and WebKit, English/Arabic at desktop/mobile widths, all 38 preview pages, the new declaration controls, unsigned submission, electronic signing, confirmed PDF replacement, saved answers and previous PDF bytes. It writes `report.json` and screenshots under `QA_OUT`; `QA_ENGINES=chrome` is a scoped diagnostic, not the full release run. The historical tests use isolated fixtures for old 13-page, retired 24-page and current layouts, including unsigned status and signature-policy validation. Legacy detail tests verify captured-definition precedence and fallback labels without mutating answers.

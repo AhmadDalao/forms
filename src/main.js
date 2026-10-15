@@ -95,9 +95,11 @@ function sharedStatus(){
 function sharedProfileChanged(){
  if(subscriptionEditor){subscriptionEditor.refresh();sharedStatus();return;}
  if(current){
-  const wasReview=review;
-  clearDownload();pdfBytes=null;errors=[];review=false;generation++;paintVersion++;
-  if(pdf){pdf.loadingTask.destroy();pdf=null;}
+  const wasReview=review,showingOriginal=!review&&current.sections[step].documentOnly;
+  clearDownload();pdfBytes=null;errors=[];review=false;
+  // Shared answers cannot change the original document. Keep its pending load
+  // and page rendering alive when delayed account synchronization completes.
+  if(!showingOriginal){generation++;paintVersion++;if(pdf){pdf.loadingTask.destroy();pdf=null;}}
   values={...drafts.get(current.id).values};signatures={...drafts.get(current.id).signatures};
   if(wasReview){renderEditor();}
   else{updateVisibleAnswers();updateSectionProgress();}

@@ -1,5 +1,9 @@
 # A developer's guide to the code
 
+## Same-day preview correction
+
+The final frontend also fixes a delayed-account-sync race that could leave the original 38-page preview blank. Original document rendering survives shared-data updates; filled reviews still invalidate when answers change. The PDF and backend are unchanged. Reproduction and pixel-based verification are in `verification/terms-preview-fix-2026-10-15/`. The refreshed handover directory is `output/developer-handoff-2026-10-15-preview-fix`.
+
 Start with this picture: the browser is the form editor and PDF renderer; PHP is the account, access and storage layer. Vite builds static assets. PHP serves the APIs and protected routes. SQLite stores records, while PDFs are separate private files. There is no framework server, MySQL dependency, background worker or external form service hidden behind the UI.
 
 The paths below are relative to `source/` in the handover.

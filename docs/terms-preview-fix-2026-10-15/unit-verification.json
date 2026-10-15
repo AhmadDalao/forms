@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "tests": 276,
+  "failures": 0,
+  "skipped": 0,
+  "command": "npm test",
+  "build": "npm run build passed",
+  "pdf_assets_changed": false,
+  "backend_changed": false
+}

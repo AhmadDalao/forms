@@ -15,6 +15,14 @@ let browser,page;
 async function pages(){
  assert.equal(await page.locator('[data-full-page]').count(),38);
  await page.waitForFunction(()=>[...document.querySelectorAll('[data-full-page]')].every(c=>c.width>300&&c.height>300),null,{timeout:90000});
+ const blank=await page.locator('[data-full-page]').evaluateAll(canvases=>canvases.filter(canvas=>{
+  const sample=document.createElement('canvas');sample.width=sample.height=48;const context=sample.getContext('2d');
+  context.drawImage(canvas,0,0,canvas.width,canvas.height*.95,0,0,48,48);
+  const pixels=context.getImageData(0,0,48,48).data;let ink=0;
+  for(let i=0;i<pixels.length;i+=4)if(pixels[i+3]>200&&(pixels[i]<245||pixels[i+1]<245||pixels[i+2]<245))ink++;
+  return ink<4;
+ }).map(canvas=>Number(canvas.dataset.fullPage)));
+ assert.deepEqual(blank,[],'Every preview page must contain visible body content');
 }
 async function fit(label){
  for(const width of [1440,390]){

@@ -1,5 +1,9 @@
 # Handover verification — 15 October 2026
 
+## Same-day preview correction
+
+The final frontend also fixes a delayed-account-sync race that could leave the original 38-page preview blank. Original document rendering survives shared-data updates; filled reviews still invalidate when answers change. The PDF and backend are unchanged. Reproduction and pixel-based verification are in `verification/terms-preview-fix-2026-10-15/`. The refreshed handover directory is `output/developer-handoff-2026-10-15-preview-fix`.
+
 ## Current release — approved 38-page fund terms
 
 The current T&C template is the owner's approved fund document, version `20261015-approved-terms`: 38 physical pages, comprising eight introductory pages and 30 numbered pages. Its investor name, date and single `investor` signature print on physical page 38. The supplied body is retained with the Riyadh footer added. KYC, signature, the other templates and the website address are unchanged. The current public assets total ten PDFs / 75 pages; five matching Word sources remain current.

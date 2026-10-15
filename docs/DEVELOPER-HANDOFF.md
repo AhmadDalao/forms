@@ -1,5 +1,9 @@
 # Installing the forms portal
 
+## Same-day preview correction
+
+The final frontend also fixes a delayed-account-sync race that could leave the original 38-page preview blank. Original document rendering survives shared-data updates; filled reviews still invalidate when answers change. The PDF and backend are unchanged. Reproduction and pixel-based verification are in `verification/terms-preview-fix-2026-10-15/`. The refreshed handover directory is `output/developer-handoff-2026-10-15-preview-fix`.
+
 This package is for a new installation with the supplied admin and superadmin accounts. It does not migrate clients or submissions from the current site. The 15 October 2026 release replaces the current terms with the owner's approved 38-page fund document; it keeps the supplied seven-page KYC designs, website address and schema 8.
 
 ## Release status — 15 October 2026

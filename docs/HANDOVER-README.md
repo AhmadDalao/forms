@@ -1,5 +1,9 @@
 # Al Naeem Real Estate Fund — start here
 
+## Same-day preview correction
+
+The final frontend also fixes a delayed-account-sync race that could leave the original 38-page preview blank. Original document rendering survives shared-data updates; filled reviews still invalidate when answers change. The PDF and backend are unchanged. Reproduction and pixel-based verification are in `verification/terms-preview-fix-2026-10-15/`. The refreshed handover directory is `output/developer-handoff-2026-10-15-preview-fix`.
+
 This fresh-install handover documentation was updated on 15 October 2026 for the owner's approved 38-page fund terms. It retains the original seven-page KYC templates, Riyadh address, current field fixes, schema 8 and optional reviews, off by default. The package contains the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes, with **no clients, shared client profiles, submitted forms or archived submissions**. Packaging validates every file and restores the clean schema-8 bootstrap; see MANIFEST.json and `verification/bootstrap-verification-2026-10-15.json`.
 
 Only upload the contents of `website/` to the public website folder. Keep this ZIP and everything else private.
