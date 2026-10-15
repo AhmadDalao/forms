@@ -2603,5 +2603,16 @@
   ],
   "errors": [],
   "passed": true,
-  "templateUnchanged": true
+  "templateUnchanged": true,
+  "visualInspection": {
+    "thumbnailSheetsReviewed": 8,
+    "pageThumbnailsReviewed": 304,
+    "allPagesContainVisibleBodyContent": true,
+    "blankPages": 0,
+    "missingFilledDeclarationInk": 0
+  },
+  "limits": [
+    "Mobile uses browser device emulation on this Mac, not physical iPhone/Android hardware.",
+    "Canvas storage is approximately992MiB per complete38-page view atDPR2; no memory failure or page crash reproduced in the four sequential cases."
+  ]
 }

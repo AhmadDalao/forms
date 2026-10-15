@@ -1,0 +1,9 @@
+{
+  "command": "npm test",
+  "tests": 276,
+  "passed": 276,
+  "failures": 0,
+  "skipped": 0,
+  "build": "npm run build passed",
+  "note": "The restricted run could not bind the isolated localhost signing fixture; the complete run with local-server permission passed."
+}

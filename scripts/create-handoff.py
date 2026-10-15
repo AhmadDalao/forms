@@ -62,7 +62,7 @@ for folder in ['src', 'public', 'tests', 'reference/pdfs', 'reference/documents'
 scripts = ['build-folders.mjs', 'management-defaults.mjs', 'management-router.php', 'protected-router.php',
            'rebuild-subscription.py', 'update-original-footers.py', 'update-generated-address.py', 'verify-national-address.py',
            'management-init.php', 'management-superadmin-init.php', 'installation-init.php', 'backup-installation.php',
-           'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'approved-terms-audit.mjs', 'historical-terms-browser-audit.mjs', 'terms-preview-race-audit.mjs', 'current-pdf-audit.mjs',
+           'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'approved-terms-audit.mjs', 'historical-terms-browser-audit.mjs', 'terms-preview-race-audit.mjs', 'hidden-consent-audit.mjs', 'current-pdf-audit.mjs',
            'current-pdf-audit-verify.py', 'verify-pdf-overlap.py', 'preview-font-audit.mjs', 'preview-direction-audit.mjs',
            'client-corrections-audit.mjs', 'direct-intake-audit.mjs', 'form-access-audit.mjs', 'management-views-audit.mjs',
            'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'admin-presentation-audit.mjs', 'loading-audit.mjs', 'customer-workflow-audit.mjs', 'notifications-audit.mjs', 'catalogue-layout-audit.mjs', 'client-preview-audit.mjs', 'staff-name-audit.mjs', 'review-navigation-audit.mjs', 'optional-review-audit.mjs', 'optional-review-actions-audit.mjs', 'submit-only-client-audit.mjs', 'shared-profiles-audit.mjs']
@@ -132,6 +132,9 @@ for file in (ROOT / 'docs/website-address-2026-10-14').rglob('*'):
 for file in (ROOT / 'docs/approved-terms-2026-10-15').rglob('*'):
     if file.is_file():
         copy(file, package / 'verification/approved-terms-2026-10-15' / file.relative_to(ROOT / 'docs/approved-terms-2026-10-15'))
+for file in (ROOT / 'docs/hidden-consent-2026-10-15').rglob('*'):
+    if file.is_file():
+        copy(file, package / 'verification/hidden-consent-2026-10-15' / file.relative_to(ROOT / 'docs/hidden-consent-2026-10-15'))
 for file in (ROOT / 'docs/terms-preview-fix-2026-10-15').rglob('*'):
     if file.is_file():
         copy(file, package / 'verification/terms-preview-fix-2026-10-15' / file.relative_to(ROOT / 'docs/terms-preview-fix-2026-10-15'))
@@ -163,7 +166,7 @@ assert not list((restored / 'management/uploads').glob('*'))
 assert not (restored / 'management/state.json').exists()
 shutil.rmtree(restored)
 copy(bootstrap, package / 'private-bootstrap.zip')
-snapshot['application_release'] = release_date + ' original-preview synchronization fix, approved 38-page fund terms (20261015-approved-terms), preserved historical 13/24-page signing, original seven-page KYC PDFs, Riyadh national-address footer, superadmin-editable website address, nine application PDFs plus legacy subscription (75 public pages), five current Word sources and schema 8'
+snapshot['application_release'] = release_date + ' five customer forms with standalone consent hidden, original-preview synchronization fix, approved 38-page fund terms (20261015-approved-terms), preserved historical 13/24-page signing, original seven-page KYC PDFs, Riyadh national-address footer, superadmin-editable website address, nine application PDFs plus legacy subscription (75 public pages), five current Word sources and schema 8'
 snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
 (package / ('verification/bootstrap-verification-' + release_date + '.json')).write_text(json.dumps({

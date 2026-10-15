@@ -12,3 +12,7 @@ const names={
 };
 export function applyCatalogueNames(docs){for(const doc of docs){const [number,title,ar]=names[doc.id];Object.assign(doc,{number,sourceTitle:doc.title,sourceAr:doc.ar,title,ar});}}
 export const catalogueFor=(docs,audience,cards=null)=>(cards||docs).filter(doc=>visibleIn(doc,audience)).sort((a,b)=>(a.order?.[audience]??a.number)-(b.order?.[audience]??b.number)).map((d,i)=>cards?{...d,number:i+1}:d);
+// Keep the standalone consent definition for saved records and management.
+// Only an explicitly selected existing submission can offer it for replacement.
+export const customerCatalogueFor=(docs,audience,cards=null,existingDocumentId=null)=>catalogueFor(docs,audience,cards)
+ .filter(doc=>doc.id!=='al-naeem-terms-consent'||doc.id===existingDocumentId).map((doc,i)=>({...doc,number:i+1}));

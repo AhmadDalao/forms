@@ -4,7 +4,7 @@ import {workflowState} from './workflow.js';
 import './upload.css';
 export async function uploadCompleted({documentId,lang='ar',onSaved=()=>{}}){
  const replacement=null,t=(en,ar)=>lang==='ar'?ar:en;let user;
- const {docs}=await import('../forms/index.js'),{loadCatalogue}=await import('../management/catalogue.js'),{catalogueFor}=await import('../catalogue.js');
+ const {docs}=await import('../forms/index.js'),{loadCatalogue}=await import('../management/catalogue.js'),{customerCatalogueFor}=await import('../catalogue.js');
  const [catalogue,{submissions,user:freshUser}]=await Promise.all([loadCatalogue(docs),api('submissions')]);
  user=freshUser;if(!user)throw Error('login_required');const initialWorkflow={...workflowState()},accountId=user.id;if(replacement&&!canUseAudience(user,replacement.audience))throw Error('account_type_restricted');
  let requiresReview=false;
@@ -20,7 +20,10 @@ export async function uploadCompleted({documentId,lang='ar',onSaved=()=>{}}){
   form.querySelector('button.primary').textContent=requiresReview?t('Submit signed PDF','إرسال ملف PDF الموقّع'):t('Submit form','إرسال النموذج');
   dialog.querySelector('[data-version-note]').textContent=current?t(`This updates your submitted form.`,`سيتم تحديث نموذجك المرسل.`):t('Your first version of this document will be saved.','ستُحفظ النسخة الأولى من هذا المستند.');
  };
- const fill=()=>{form.elements.document.innerHTML=catalogueFor(catalogue.docs,form.elements.audience.value,catalogue.cards).map(d=>`<option value="${e(d.id)}">${d.number}. ${e(t(d.title,d.ar))}</option>`).join('');note();};
+ const fill=()=>{
+  const audience=form.elements.audience.value,existing=submissions.find(s=>s.doc_id===documentId&&s.audience===audience&&!s.archived_at);
+  form.elements.document.innerHTML=customerCatalogueFor(catalogue.docs,audience,catalogue.cards,existing?.doc_id).map(d=>`<option value="${e(d.id)}">${d.number}. ${e(t(d.title,d.ar))}</option>`).join('');note();
+ };
  if(replacement)form.elements.audience.value=replacement.audience;
  fill();
  if(replacement||documentId){

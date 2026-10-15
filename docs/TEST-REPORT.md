@@ -1,5 +1,9 @@
 # Handover verification — 15 October 2026
 
+## Latest update — five customer forms
+
+The separate Terms and Conditions Consent Form (previously card4) is hidden from both customer catalogues and new-upload choices. The five remaining cards are numbered1–5; the complete38-page terms still support reading, signing and submission. Existing consent PDFs, history, management access and notification signing/replacement flows are retained. No PDF, backend, review-mode or signature requirement changed. Evidence: `verification/hidden-consent-2026-10-15/`. Latest handover: `output/developer-handoff-2026-10-15-hidden-consent`.
+
 ## Same-day preview correction
 
 The final frontend also fixes a delayed-account-sync race that could leave the original 38-page preview blank. Original document rendering survives shared-data updates; filled reviews still invalidate when answers change. The PDF and backend are unchanged. Reproduction and pixel-based verification are in `verification/terms-preview-fix-2026-10-15/`. The refreshed handover directory is `output/developer-handoff-2026-10-15-preview-fix`. All 276 unit tests and the build passed. Delayed-response tests passed in Chrome/Firefox/WebKit for both audiences (12 original-preview cases), with two additional filled-review invalidation checks. Four DPR2 desktop/mobile checks passed in Chrome/WebKit. Live hosted assets passed both original and filled previews for both audiences after deployment; production counts and workflow were unchanged. See `live-after.json`, `retina-verification.json` and `release-verification.json` in that evidence folder.

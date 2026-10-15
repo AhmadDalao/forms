@@ -1,0 +1,424 @@
+{
+  "created_at": "2026-10-15T16:59:23.216Z",
+  "scope": "Customer-only consent visibility and preserved historical follow-ups on isolated built application",
+  "checks": [
+    "chrome/individual: five cards numbered 1–5, responsive AR/EN, hidden generic upload and fresh explicit upload unavailable",
+    "chrome/individual: saved consent notification preview, electronic signature and signed replacement work; three versions, original PDF and management access preserved",
+    "chrome/corporate: five cards numbered 1–5, responsive AR/EN, hidden generic upload and fresh explicit upload unavailable",
+    "chrome/corporate: saved consent notification preview, electronic signature and signed replacement work; three versions, original PDF and management access preserved",
+    "firefox/individual: five cards numbered 1–5, responsive AR/EN, hidden generic upload and fresh explicit upload unavailable",
+    "firefox/individual: saved consent notification preview, electronic signature and signed replacement work; three versions, original PDF and management access preserved",
+    "firefox/corporate: five cards numbered 1–5, responsive AR/EN, hidden generic upload and fresh explicit upload unavailable",
+    "firefox/corporate: saved consent notification preview, electronic signature and signed replacement work; three versions, original PDF and management access preserved",
+    "webkit/individual: five cards numbered 1–5, responsive AR/EN, hidden generic upload and fresh explicit upload unavailable",
+    "webkit/individual: saved consent notification preview, electronic signature and signed replacement work; three versions, original PDF and management access preserved",
+    "webkit/corporate: five cards numbered 1–5, responsive AR/EN, hidden generic upload and fresh explicit upload unavailable",
+    "webkit/corporate: saved consent notification preview, electronic signature and signed replacement work; three versions, original PDF and management access preserved"
+  ],
+  "catalogue": [
+    {
+      "engine": "chrome",
+      "audience": "individual",
+      "language": "en",
+      "width": 1366,
+      "cards": [
+        {
+          "id": "subscription-form",
+          "number": 1
+        },
+        {
+          "id": "kyc-individual",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-individual",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 2
+    },
+    {
+      "engine": "chrome",
+      "audience": "individual",
+      "language": "ar",
+      "width": 390,
+      "cards": [
+        {
+          "id": "subscription-form",
+          "number": 1
+        },
+        {
+          "id": "kyc-individual",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-individual",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 1
+    },
+    {
+      "engine": "chrome",
+      "audience": "corporate",
+      "language": "en",
+      "width": 1366,
+      "cards": [
+        {
+          "id": "subscription-company",
+          "number": 1
+        },
+        {
+          "id": "kyc-corporate",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-corporate",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 2
+    },
+    {
+      "engine": "chrome",
+      "audience": "corporate",
+      "language": "ar",
+      "width": 390,
+      "cards": [
+        {
+          "id": "subscription-company",
+          "number": 1
+        },
+        {
+          "id": "kyc-corporate",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-corporate",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 1
+    },
+    {
+      "engine": "firefox",
+      "audience": "individual",
+      "language": "en",
+      "width": 1366,
+      "cards": [
+        {
+          "id": "subscription-form",
+          "number": 1
+        },
+        {
+          "id": "kyc-individual",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-individual",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 2
+    },
+    {
+      "engine": "firefox",
+      "audience": "individual",
+      "language": "ar",
+      "width": 390,
+      "cards": [
+        {
+          "id": "subscription-form",
+          "number": 1
+        },
+        {
+          "id": "kyc-individual",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-individual",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 1
+    },
+    {
+      "engine": "firefox",
+      "audience": "corporate",
+      "language": "en",
+      "width": 1366,
+      "cards": [
+        {
+          "id": "subscription-company",
+          "number": 1
+        },
+        {
+          "id": "kyc-corporate",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-corporate",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 2
+    },
+    {
+      "engine": "firefox",
+      "audience": "corporate",
+      "language": "ar",
+      "width": 390,
+      "cards": [
+        {
+          "id": "subscription-company",
+          "number": 1
+        },
+        {
+          "id": "kyc-corporate",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-corporate",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 1
+    },
+    {
+      "engine": "webkit",
+      "audience": "individual",
+      "language": "en",
+      "width": 1366,
+      "cards": [
+        {
+          "id": "subscription-form",
+          "number": 1
+        },
+        {
+          "id": "kyc-individual",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-individual",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 2
+    },
+    {
+      "engine": "webkit",
+      "audience": "individual",
+      "language": "ar",
+      "width": 390,
+      "cards": [
+        {
+          "id": "subscription-form",
+          "number": 1
+        },
+        {
+          "id": "kyc-individual",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-individual",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 1
+    },
+    {
+      "engine": "webkit",
+      "audience": "corporate",
+      "language": "en",
+      "width": 1366,
+      "cards": [
+        {
+          "id": "subscription-company",
+          "number": 1
+        },
+        {
+          "id": "kyc-corporate",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-corporate",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 2
+    },
+    {
+      "engine": "webkit",
+      "audience": "corporate",
+      "language": "ar",
+      "width": 390,
+      "cards": [
+        {
+          "id": "subscription-company",
+          "number": 1
+        },
+        {
+          "id": "kyc-corporate",
+          "number": 2
+        },
+        {
+          "id": "signature-form",
+          "number": 3
+        },
+        {
+          "id": "fatca-crs-corporate",
+          "number": 4
+        },
+        {
+          "id": "terms-and-conditions",
+          "number": 5
+        }
+      ],
+      "columns": 1
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "build": {
+    "head": "e359ed1fd3e8b182e0294179b942ac2a210a3784",
+    "created": "2026-10-15T16:59:23.278Z",
+    "build": {
+      "api/portal.php": "6780a5d4ed5477d212c19edc54b7bddab78bc3dd2dfbc2fcf1d15273f0ce2310",
+      "api/portal-workflow.php": "e2251b5d8f040f5612afde05b58e0a8903ed41aa7a474b0a3f7aee8b18e3ce75",
+      "api/portal-reviews.php": "fd7fa91ff099c756e420483162edcdb59682a49d0ae0522484189b5cc1f577ce",
+      "api/portal-versions.php": "b4d96da8ff44c36e9c4947f17166574faa68e0a7a6fc6ef643a36bc632ab545e",
+      "assets/access-B-8Qdkfj.js": "a67f95ca89a5bf9e52e80cf67c36cf2ebdf22b83b50bcc34004df1e34b1e34a6",
+      "assets/access-BpF596-9.js": "91b6f41d7b0c311738c20dc256cc715eaf7a9fe172b3b9cfa22a55ac4015c5b2",
+      "assets/api-CkCh39h_.js": "04c2e3a07f6a22f188370f8dd347931ae96d8ede4a5f03d778afde4141b2cb3a",
+      "assets/arabic-600-DfnZHZ36.css": "4408887cf67093d248dd499577fd4ab9e76c70e453555c1dd6bdaf429834e467",
+      "assets/branding-hgzoBk4x.css": "8779a250c57c91d109d00ca76ed0218e9bab61aa55d94fd909df0640931215c3",
+      "assets/branding-iwTZYYDr.js": "78d326ed27f0a175d2eab359bc8d57fcf5c541d65d7a88f86ee64218c76891da",
+      "assets/catalogue-C0XjYXq0.js": "4b00fb92bddb21f1dd259d55e45cf62de1d9130ea0a408b32a94d152b6bc3c29",
+      "assets/catalogue-CR_2rN1N.js": "0e4fdba8269b33de65d9364cb945e118505cbf852136953ec6b460446d9f8074",
+      "assets/catalogue-DHwkIXMS.js": "7b28703e2cf054693c3dada5378930785728e679d04505fe4c3e3c4ca5fd3ef9",
+      "assets/catalogue-DlpGEFii.js": "089569cee1788b1927753e22b442560068797c454fae088d23353007000f9fe3",
+      "assets/es-DxWXVMsX.js": "884e9b58526ca894235cda27fe192373430507d5737106c1c8dfb114b3052c1c",
+      "assets/follow-up-8WcYaN5t.js": "bfcba4f8d000783b166af235347a695e6026ebf3957b3fd3a9b36930ebf3735d",
+      "assets/forms-DGI8Q3qz.js": "dd8639ab227546612821dbd267646fdab46714bc38365a0a56fc391ef429c391",
+      "assets/forms-DtKeFhEK.js": "0d6184dfbada08b10d691dd5346536bc9d90122fac67b31f731a560eb06042ef",
+      "assets/index-eAHh4vFP.js": "e719b3fb49bbef4c449dffc13b0d89f9c8d44cd8d73a11d2f02884599a075b3b",
+      "assets/latin-400-CkJXGLVG.css": "3df0f0359068fa8cd5a8af39c80c6d49e107f1fb918f3bf6f30fe4d3cb85b354",
+      "assets/main-B5LRbaKe.css": "e678a6b55c1fdda1185ae9ad65b1c46d3c31ed52128211280f036853f39eb76b",
+      "assets/main-B72gXKZ_.css": "da98c81084a3fcb19e1680a813e1820b5bbfb854355a1264494aa78af2c77f02",
+      "assets/main-BN8rV0-x.js": "7cd300b663e153b5e68e7e519df9c8d98a9e12ccd4620f2f840e3d8ad1ad6492",
+      "assets/main-C-UVlqBc.js": "19e29fe9e953b7fd1283045acd1f3feef3d497e9cca20007946b38559fc6a42e",
+      "assets/main-C7lElsmD.js": "25c1f9e72ca6f88c60144284363a4d6de669901511d77442dd52660d77fbcb22",
+      "assets/main-CyZlsIq7.css": "bf755541e35f4700ce7a5eb1e0c2f6ee7109682d95e6340febd8ecb0c828865f",
+      "assets/notifications-Jg0DbNzY.js": "029f8307594649fae22ab8c26a70be625046fe4f3ddbee421f361df7cad5d0de",
+      "assets/passwords-CYgB0nvL.js": "2eecabfbd7f6ebc901bfca585841028477d1f3b2290af0486ea29dbce8940920",
+      "assets/pdf-BTQ-JFcR.js": "ec1a89ac8576817f5573981b23337edafb6d8a6d94a5b612133077eee546cbeb",
+      "assets/pdf-CGE9QkSI.js": "d38e162c9b778533c2b1d3912ea5690b9336600c6e06d14740136a0ade1a68c2",
+      "assets/pdf.worker.min-FoBnJSGj.js": "63b9c6ba8c0a3f245f23b068baab3e183833885db2db63896a03062e00bddad4",
+      "assets/preload-helper-uBIymjUX.js": "e1a22f3f73566f21ff932e058d32243e4a118f3491b91e96893aa5ab7eb49a00",
+      "assets/preview-B-o9Yb8k.js": "6083fe932fa2dbd644338cffbf3adbdcc1e021460c3f8335517fa78cda9476a6",
+      "assets/preview-DSDGycu3.css": "d7142f2ca9f6727c2080704f02d776bb0b4c40ae8d409291820a8c9ab9bf5648",
+      "assets/preview-Dox_Tjs3.css": "6093a52bc64db81f616f02beebf60807ff071da1e5503a9b034389b0b9dbecd1",
+      "assets/preview-YdsjWATN.js": "6ac444a29797fc4e814c7c8b71436d800c41a8e5a3060bbeafe424565f86de03",
+      "assets/review-BsWU0vV6.css": "b01a50ce61b8fa71d34c5d0d0e16c294bc8af589ed31ffbe89c12477a103cc1e",
+      "assets/review-CiuHn4YV.js": "18f5ea3ae55301dd8646b9c740824d9677fd6bef22f841a115cd9f217ba9b721",
+      "assets/routes-VETtnQjc.js": "6c3436c95c68b54206953e92017d9a0edb4c1fdcb4823b5c27e236c2b02232fb",
+      "assets/shared-fields-CkiyVfpC.js": "3b74fb15e2597b4adde047065e35872b078aa47130d75c40e573b89801d93ae0",
+      "assets/sign-submission-BlDaM0DA.js": "024e643a241946b6dd3f1a6a77b9b08fefa78088edaf6887522f9d63eb374f86",
+      "assets/sign-submission-CkT-yXjv.css": "a363bf49da4e0d94271455cbbeb52b4069d2a1630490dddee417c0554d6703be",
+      "assets/signatures-ChzR5Ee_.js": "80b7c799893a93e88749bcc5e41ed391b2dc166887e194504201fc5796870944",
+      "assets/submitted-details-CaJ6_wPC.js": "1623cede2218598abe48cfc7e4a6860a20f53f98b0bb45598bc4d5aab53d2f60",
+      "assets/upload-BQLx9h1q.js": "a8b7f060e910ccee053c468810bf1446da8ec5f296afc144a7c69b87f0a27ea3",
+      "assets/upload-ClKFYf2a.js": "e6aead157e6f5c752db3871ebfc176d3ee9315f267942c7f9588c678f82e2df0",
+      "assets/upload-e-06JlEl.css": "b8c8d9adff65faaeb9f450f63a60596b47402375e9d35cd256904ff9ecb8525f"
+    }
+  },
+  "template_sha256": "b5ab2c9a488e071efd637728e84e098578956c39f312b612531ae05a0c359ac5"
+}
