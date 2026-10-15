@@ -1,0 +1,243 @@
+{
+  "stage": "before",
+  "scope": "Live HTML/JS/PDF assets with browser-only synthetic client responses; no client or submission writes",
+  "cases": [
+    {
+      "audience": "individual",
+      "phase": "original",
+      "pages": [
+        {
+          "page": 1,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 2,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 3,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 4,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 5,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 6,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 7,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 8,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 9,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 10,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 11,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 12,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 13,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 14,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 15,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 16,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 17,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 18,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 19,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 20,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 21,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 22,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 23,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 24,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 25,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 26,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 27,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 28,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 29,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 30,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 31,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 32,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 33,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 34,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 35,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 36,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 37,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        },
+        {
+          "page": 38,
+          "width": 300,
+          "height": 150,
+          "ink": 0
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "production_counts_and_workflow_unchanged": true
+}

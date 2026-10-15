@@ -10,7 +10,7 @@ This package is for a new installation with the supplied admin and superadmin ac
 
 The terms cache version is `20261015-approved-terms`: eight introductory pages followed by 30 numbered pages. The investor name, date and investor signature print on physical page 38. The supplied body is preserved; the Riyadh address is added in the footer. The other current PDFs and five Word sources are unchanged. There are nine application templates plus the legacy one-page subscription PDF: ten public PDFs / 75 pages.
 
-Saved 13-page and retired 24-page terms retain their own answers, PDFs and signing layouts. Their signatures must never be transferred to the new legal document. All 276 tests pass. PDF preservation, field fit, three-browser workflows and live Hostinger checks passed. The deployed application commit is `f4d6eb285edfcdde4b8146e909da55b0a37c81e8`. See `TEST-REPORT.md` and `verification/approved-terms-2026-10-15/`. The handover output is `output/developer-handoff-2026-10-15-approved-terms`.
+Saved 13-page and retired 24-page terms retain their own answers, PDFs and signing layouts. Their signatures must never be transferred to the new legal document. All 276 tests pass. PDF preservation, field fit, three-browser workflows and live Hostinger checks passed. The deployed application commit, including the preview fix, is `035cb95783d1555aec6e48158401ddd533cb743b`. See `TEST-REPORT.md` and `verification/approved-terms-2026-10-15/`. The handover output is `output/developer-handoff-2026-10-15-preview-fix`.
 
 ## Hosting requirements
 

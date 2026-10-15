@@ -2,7 +2,7 @@
 
 ## Same-day preview correction
 
-The final frontend also fixes a delayed-account-sync race that could leave the original 38-page preview blank. Original document rendering survives shared-data updates; filled reviews still invalidate when answers change. The PDF and backend are unchanged. Reproduction and pixel-based verification are in `verification/terms-preview-fix-2026-10-15/`. The refreshed handover directory is `output/developer-handoff-2026-10-15-preview-fix`.
+The final frontend also fixes a delayed-account-sync race that could leave the original 38-page preview blank. Original document rendering survives shared-data updates; filled reviews still invalidate when answers change. The PDF and backend are unchanged. Reproduction and pixel-based verification are in `verification/terms-preview-fix-2026-10-15/`. The refreshed handover directory is `output/developer-handoff-2026-10-15-preview-fix`. All 276 unit tests and the build passed. Delayed-response tests passed in Chrome/Firefox/WebKit for both audiences (12 original-preview cases), with two additional filled-review invalidation checks. Four DPR2 desktop/mobile checks passed in Chrome/WebKit. Live hosted assets passed both original and filled previews for both audiences after deployment; production counts and workflow were unchanged. See `live-after.json`, `retina-verification.json` and `release-verification.json` in that evidence folder.
 
 ## Current release — approved 38-page fund terms
 
@@ -17,7 +17,7 @@ The current T&C template is the owner's approved fund document, version `2026101
 | Historical signing dialog | Actual Chrome EN desktop / AR mobile: existing signature retained, only missing slot added, earlier PDF hash unchanged; all 13 before/after pages compared |
 | National address | All ten current PDF assets / 75 pages and five Word sources verified |
 | Live deployment | Published from `f4d6eb285edfcdde4b8146e909da55b0a37c81e8`; all ten hosted PDFs and new browser assets match the verified build; current catalogue advertises 38 pages; management preview passes; counts, review settings and sampled prior PDF bytes unchanged |
-| Fresh handover | `output/developer-handoff-2026-10-15-approved-terms`; packaging restores and checks the zero-client schema-8 bootstrap with admin/superadmin hashes, records all file hashes, and checks ZIP integrity |
+| Fresh handover | `output/developer-handoff-2026-10-15-preview-fix`; packaging restores and checks the zero-client schema-8 bootstrap with admin/superadmin hashes, records all file hashes, and checks ZIP integrity |
 
 The packaging script includes `scripts/approved-terms-audit.mjs`, the complete dated evidence folder, and the supplied/archived reference files. The package records its own source commit and per-file hashes; the full ZIP verification is recorded beside the archive. Earlier sections below are dated historical results, not fresh checks of the new legal document.
 
