@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-15",
+  "scope": "Historical signing compatibility for the supplied 38-page terms replacement; isolated synthetic accounts only.",
+  "changedFiles": [
+    "public/api/portal-versions.php",
+    "public/api/portal.php",
+    "src/portal/sign-submission.js",
+    "tests/historical-signing.test.mjs"
+  ],
+  "fileSha256": {
+    "public/api/portal-versions.php": "27dd01e12789ad17b2fdace40c87f175b731edec2085e42308fbcbdc1ea6b6fe",
+    "public/api/portal.php": "e1f47f93d3d9d2e1b11624682797b6fb636cfc98c7aa4133803a01c1afa66313",
+    "src/portal/sign-submission.js": "57a35dd8248556c32a7125e56dc1d550dad6cdbd18195cc2d87f9370bc0cc23a",
+    "tests/historical-signing.test.mjs": "d618a0e7e3efecfcbb208dd9d1f256e3e48183295071bec7332137adb6d91e42"
+  },
+  "api": {
+    "field": "signing.use_saved_pdf",
+    "meaning": "True for uploads or a saved/legacy layout with different page count, PDF version, page sizes or signature positions/policy; current matching online layouts keep the editor."
+  },
+  "verification": {
+    "command": "node --test tests/historical-signing.test.mjs tests/portal-signature-status.test.mjs tests/portal-signatures.test.mjs",
+    "tests": 13,
+    "passed": 13,
+    "failed": 0,
+    "phpSyntaxFiles": [
+      "public/api/portal-versions.php",
+      "public/api/portal.php"
+    ],
+    "httpFixtureCases": [
+      "legacy 13-page without pdf_layout",
+      "saved 13-page partial signature remains unsigned",
+      "retired 24-page including conditional additional signer and signature-required enforcement",
+      "uploaded 13-page PDF overlay",
+      "synthetic 38-page current online template"
+    ],
+    "sourcePdfAndAnswerSnapshotsUnchanged": true,
+    "currentOnlySignatureRejectedForHistoricalLayout": true,
+    "historicalPoliciesRetained": true,
+    "currentTemplateEvidence": "The focused test uses a synthetic 38-page PDF and investor slot to isolate compatibility; final supplied-PDF visual/coordinate audit is separate.",
+    "productionMutations": false
+  },
+  "remainingIntegrationChecklist": [
+    {
+      "files": [
+        "src/forms/terms.js",
+        "src/signatures.js",
+        "src/forms/paper-copy.js",
+        "src/forms/customer-workflow.js"
+      ],
+      "action": "Replace current 13-page questions/options and six signature identities with only verified source fields and new investor slot; update overrides that assume old field/section IDs."
+    },
+    {
+      "files": [
+        "src/person-names.js",
+        "src/shared-fields.js",
+        "src/drafts.js"
+      ],
+      "action": "Map the new investor name by audience; use new signature/date IDs and avoid silently carrying old acceptance signatures or dates to new legal terms. Existing draft cleaning is ID-based, not version-based."
+    },
+    {
+      "files": [
+        "src/catalogue.js",
+        "src/management/catalogue.js",
+        "public/api/document-catalogue.php"
+      ],
+      "action": "Replace old account/telephone/fax description and address persisted descriptions; preserve intentional owner custom titles/order."
+    },
+    {
+      "files": [
+        "scripts/update-original-footers.py"
+      ],
+      "action": "Prevent old source reference/pdfs/terms-and-conditions.pdf from reinstalling 13 pages when footer tools run."
+    },
+    {
+      "files": [
+        "public/api/portal-details.php",
+        "src/portal/submitted-details.js"
+      ],
+      "action": "Consider a trusted legacy definition fallback for old snapshots lacking captured labels/sections; raw old answer IDs otherwise remain visible but use current definitions."
+    },
+    {
+      "files": [
+        "scripts/management-defaults.mjs",
+        "scripts/pdf-design/legacy-signing-layouts.json",
+        "reference/documents/archived/terms-modern-layout.json"
+      ],
+      "action": "Build fresh defaults with new PDF version; retain old13 legacy layout and archived24 layout untouched. Existing version gate rejects stale online submit templates."
+    }
+  ],
+  "historicalSources": [
+    "reference/documents/archived/terms-13-page-schema.json",
+    "reference/pdfs/archived/terms-13-page-riyadh-20261014.pdf",
+    "reference/documents/archived/terms-modern-layout.json",
+    "reference/documents/archived/terms-and-conditions-modern-20260928.pdf"
+  ]
+}

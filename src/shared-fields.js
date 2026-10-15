@@ -123,7 +123,7 @@ export function sharedRules(doc,values={},profile={},audience=doc.group){
    bind('id_type',type,{keys:[type,detail,'name_language'],read:()=>idLabel(p[type],self?preferred==='ar':/\p{Script=Arabic}/u.test(p.auth_name||''),p[detail]),write:value=>value===''?{[type]:'',[detail]:''}:idValue(value)?{[type]:idValue(value),[detail]:''}:{[type]:'other',[detail]:value}});
   }else for(const id of ['signer_name','id_number','id_type'])composite(id,[],()=> '');
  }
- if(doc.id==='terms-and-conditions')for(const id of ['terms_name_0','authorization_name_0']){if(individual)name(id);else company(id);}
+ if(doc.id==='terms-and-conditions'){if(individual)name('investor_name');else company('investor_name');}
  if(doc.id==='al-naeem-terms-consent'){if(individual)name('investor_name');else company('investor_name');}
  if(doc.id==='kyc-individual'){
   name('name');name('risk_client_name');same(['title','gender','dob','nationality','id_type','id_other','id_number','phone','mobile','email']);

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Replace only the legacy address in restored original PDF designs.
+"""Update only the national-address footer in owner-supplied PDF designs.
 
 Requires PyMuPDF. Inputs in reference/pdfs remain immutable. Address wording is
 shared with the modern templates in pdf-design/national-address.json.
@@ -15,6 +15,24 @@ ADDRESS = json.loads((ROOT / 'scripts/pdf-design/national-address.json').read_te
 FORMS = ('signature-form', 'terms-and-conditions')
 KYC_FORMS = ('kyc-individual', 'kyc-corporate')
 FONT_SIZE = 6
+APPROVED_TERMS_VERSION = '20261015-approved-terms'
+
+
+def add_approved_terms_footer(page):
+    """Keep the approved 38-page terms intact, adding text below its artwork."""
+    if page.rotation or abs(page.rect.width - 595.32) > .02 or abs(page.rect.height - 841.92) > .02:
+        raise ValueError('Unrecognized approved terms page size or rotation')
+    area = fitz.Rect(42, 822, page.rect.width - 42, page.rect.height)
+    if page.get_text(clip=area).strip():
+        raise ValueError(f'Approved terms footer band contains text: page {page.number + 1}')
+    font_size = 6.5
+    width = fitz.get_text_length(ADDRESS['text'], fontname='helv', fontsize=font_size)
+    if width > area.width:
+        raise ValueError('Address does not fit the approved terms one-line footer')
+    page.insert_text(((page.rect.width - width) / 2, 833), ADDRESS['text'],
+                     fontname='helv', fontsize=font_size, color=(.2, .2, .25))
+    return {'page': page.number + 1, 'new_address_area': list(area),
+            'baseline': 833, 'font_size': font_size, 'original_content_removed': False}
 
 
 def wrap_address(text, width, font_size=FONT_SIZE):
@@ -82,10 +100,18 @@ def replace_kyc_footer(page, old):
 
 def update_form(name):
     is_kyc = name in KYC_FORMS
-    source = ROOT / ('reference/pdfs/supplied-20261007' if is_kyc else 'reference/pdfs') / f'{name}.pdf'
+    is_approved_terms = name == 'terms-and-conditions'
+    source_folder = ('reference/pdfs/supplied-20261015' if is_approved_terms else
+                     'reference/pdfs/supplied-20261007' if is_kyc else 'reference/pdfs')
+    source = ROOT / source_folder / f'{name}.pdf'
     doc = fitz.open(source)
+    if is_approved_terms and len(doc) != 38:
+        raise ValueError('The approved terms source must contain all 38 pages')
     edits = []
     for page in doc:
+        if is_approved_terms:
+            edits.append(add_approved_terms_footer(page))
+            continue
         old = page.search_for('7855')
         if len(old) != 1 or old[0].y0 < page.rect.height - 50:
             raise ValueError(f'Unrecognized original footer: {name}, page {page.number + 1}')
@@ -107,16 +133,17 @@ def update_form(name):
             width = fitz.get_text_length(line, fontname='helv', fontsize=FONT_SIZE)
             page.insert_text((area.x0 + (area.width - width) / 2, top + 7 + row * 8.5),
                              line, fontname='helv', fontsize=FONT_SIZE, color=(0, 0, 0))
-    # A complete rewrite drops obsolete objects and redacted text/image bytes.
+    # Rebuild from the immutable source; no current or archived submission is read.
     payload = doc.tobytes(garbage=4, deflate=True)
     doc.close()
     folders = ['public/pdfs', 'output/documents']
-    if is_kyc and (ROOT / 'output/pdf' / f'{name}.pdf').exists():
+    if (ROOT / 'output/pdf' / f'{name}.pdf').exists():
         folders.append('output/pdf')
     for folder in folders:
         (ROOT / folder).mkdir(parents=True, exist_ok=True)
         (ROOT / folder / f'{name}.pdf').write_bytes(payload)
-    return {'name': name, 'version': ADDRESS['version'],
+    return {'name': name, 'version': APPROVED_TERMS_VERSION if is_approved_terms else ADDRESS['version'],
+            'address_version': ADDRESS['version'],
             'pages': len(fitz.open(stream=payload)), 'source': str(source), 'edits': edits}
 
 

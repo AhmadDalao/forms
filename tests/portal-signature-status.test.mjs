@@ -38,7 +38,7 @@ test('signature status distinguishes electronic, missing, claimed uploads and un
 });
 
 test('frozen signature policy and conditional signers determine status, while legacy manual subscriptions stay unsigned',()=>{
- const terms=document('terms-and-conditions'),subscription=document('subscription-form');
+ const terms=JSON.parse(readFileSync('reference/documents/archived/terms-13-page-schema.json')),current=document('terms-and-conditions'),subscription=document('subscription-form');
  const cases=[
   {definition:terms,submission:{...base,signatures:{terms_0:image,authorization_0:image}}},
   {definition:terms,submission:{...base,answers:{terms_name_1:'Second signer'},signatures:{terms_0:image,authorization_0:image}}},
@@ -47,8 +47,10 @@ test('frozen signature policy and conditional signers determine status, while le
   {definition:subscription,submission:{...base,answers:{signature_mode:'electronic'},signatures:{applicant:image}}},
   {definition:{pages:1,signatureSlots:[{id:'new_slot',page:1,rect:[1,1,20,10]}]},submission:{...base,profile:{signature_submission_policy:{signatureSlots:[{id:'original_slot'}]}},signatures:{original_slot:image}}},
   {definition:null,submission:{...base,profile:{signature_submission_policy:{signatureSlots:[{id:'original_slot'}]}},signatures:{original_slot:image}}},
+  {definition:current,submission:{...base,profile:{pdf_layout:current},signatures:{investor:image}}},
+  {definition:current,submission:{...base,profile:{pdf_layout:current},signatures:{terms_0:image,authorization_0:image}}},
  ];
- assert.deepEqual(evaluate(cases).map(result=>result.state.signature_state),['electronic','unsigned','electronic','unsigned','electronic','electronic','electronic']);
+ assert.deepEqual(evaluate(cases).map(result=>result.state.signature_state),['electronic','unsigned','electronic','unsigned','electronic','electronic','electronic','electronic','unsigned']);
 });
 
 test('signing capability exposes only configured safe positions and blocks missing layouts, downloads and repeat upload overlays',()=>{

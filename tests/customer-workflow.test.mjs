@@ -18,8 +18,9 @@ test('new signature choices are empty; saved explicit choices and images remain'
  for(const d of docs.filter(d=>d.workflow==='subscription'))assert.equal(normalizeSubscription(d,{}).signature_mode,'');
 });
 test('terms start with a read-only original-document step and declaration follows signer role',()=>{
- assert.deepEqual(doc('terms-and-conditions').sections.map(s=>s.id),['document','terms','authorization']);
+ assert.deepEqual(doc('terms-and-conditions').sections.map(s=>s.id),['document','declaration']);
  assert.equal(doc('terms-and-conditions').sections[0].documentOnly,true);
+ assert.equal(doc('terms-and-conditions').sections[1].page,38);
  const fatca=doc('fatca-crs-individual');assert.equal(fatca.sections.at(-1).id,'signatory');assert.equal(fatca.sections.at(-1).fields[0].id,'capacity');
 });
 test('fillable consent reuses only the matching audience name and supports its own signature',()=>{

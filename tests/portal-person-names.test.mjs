@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {mkdtempSync,rmSync} from 'node:fs';
+import {mkdtempSync,readFileSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {resolve,join} from 'node:path';
 import {docs} from '../src/forms/index.js';
@@ -116,9 +116,9 @@ test('current snapshots capture visible name parts and hidden PDF name targets f
  }
 });
 
-test('a supplemental signer entered through name parts still requires the existing customer signature slot',()=>{
+test('archived terms and current supplemental signers entered through name parts require their existing signature slot',()=>{
  for(const [id,target,slot,audience]of [['terms-and-conditions','terms_name_1','terms_1','individual'],['kyc-individual','representative_name','representative','individual'],['fatca-crs-corporate','signer_1_name','signatory_1','corporate']]){
-  const d=definition(id),parts=d.fields.find(f=>f.id===target).join;
+  const d=id==='terms-and-conditions'?JSON.parse(readFileSync('reference/documents/archived/terms-13-page-schema.json')):definition(id),parts=d.fields.find(f=>f.id===target).join;
   assert.ok(php('requiredSignatures',{doc:d,audience,values:{[parts[0]]:'Additional signer'}}).includes(slot),id+' must not bypass signature policy with UI-only parts');
   assert.equal(php('requiredSignatures',{doc:d,audience,values:{[target]:'Old name',...Object.fromEntries(parts.map(part=>[part,'']))}}).includes(slot),false,id+' clearing the name parts also clears its derived signature requirement');
  }

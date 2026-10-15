@@ -1,5 +1,7 @@
 # Verification — 2026-09-16
 
+> Historical project record. Current installation and template details are in DEVELOPER-HANDOFF.md; the 15 October 2026 release uses the complete 38-page approved fund terms.
+
 ## Build and application
 
 - `npm test`: 11 tests passed for draft recovery/clearing, unconditional paper fields, all three US TIN lines, leading-zero identifiers and document/page mappings.

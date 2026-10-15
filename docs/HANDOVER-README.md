@@ -1,20 +1,26 @@
 # Al Naeem Real Estate Fund — start here
 
-This fresh-install handover was updated on 14 October 2026 for the owner-supplied Riyadh address on the website and every current PDF. It includes the original seven-page KYC templates, current field fixes, schema 8 and optional reviews, off by default. The handover contains the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes. It contains **no clients, shared client profiles, submitted forms or archived submissions**.
+This fresh-install handover documentation was updated on 15 October 2026 for the owner's approved 38-page fund terms. It retains the original seven-page KYC templates, Riyadh address, current field fixes, schema 8 and optional reviews, off by default. The package is designed to contain the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes, with **no clients, shared client profiles, submitted forms or archived submissions**. Final package creation and verification are pending.
 
 Only upload the contents of `website/` to the public website folder. Keep this ZIP and everything else private.
 
-## 14 October — Riyadh address
+## 15 October — approved fund terms
+
+The current T&C PDF contains all 38 supplied pages: eight introductory pages and 30 numbered pages. Investor name, date and one investor signature appear on physical page 38. Its version is `20261015-approved-terms`. Only the Riyadh address footer is added to the supplied body; KYC, signature and the website address are unchanged. The ten public PDF files now total 75 pages; the five current Word sources are unchanged.
+
+Saved 13-page and retired 24-page terms remain readable and signable using their own definitions and PDFs. Old signatures are not consent to the new document. The current unit suite has 274 passing tests; final PDF/browser evidence, commit, deployment and fresh handover verification are pending. See `verification/approved-terms-2026-10-15/` and TEST-REPORT.md. The planned output is `output/developer-handoff-2026-10-15-approved-terms`.
+
+## Historical release — 14 October, Riyadh address
 
 7762 King Fahd Branch Road | 4162 Al Malqa District | Muath Tower | Riyadh 13521 | Kingdom of Saudi Arabia
 
 The visible footer of the owner-supplied subscription PDF is the address authority. Its hidden text contains an obsolete Jeddah address and must not be copied. All ten public PDFs (50 pages), five current Word sources and the website default now use Riyadh. Only address areas changed; body designs and field/signature mappings are preserved. Evidence: `verification/riyadh-address-2026-10-14/`.
 
-## Earlier same-day release — editable website address
+## Historical release — 14 October, editable website address
 
 The superadmin can edit the national address from **Management → Website settings**. It appears in the footer throughout the website, including sign-in and registration. The setting is private, persistent and included in backups; fresh installs show the approved default. Other roles cannot change it. PDF addresses are maintained separately, and existing submissions retain their saved bytes. See `verification/website-settings-2026-10-14/` for the 265-test suite result and the focused browser/API checks, including conflicting edits and retry handling.
 
-## 7 October — national address on every form
+## Historical release — 7 October, national address on every form
 
 All nine current form templates use the new Itqan national address: individual/company subscription, individual/company KYC, signature, consent, individual/company FATCA/CRS, and terms and conditions. The public legacy one-page subscription PDF also receives the address. Five editable Word sources match their PDFs. KYC now uses the owner's supplied seven-page PDFs; signature and terms also retain their original body designs. These four templates have no matching current Word source. Their address footer is updated, and saved submission bytes remain unchanged.
 
@@ -55,4 +61,4 @@ The application uses PHP and SQLite. There is no MySQL setup, Node production se
 
 Get management passwords from the owner privately. The bundle contains hashes, not plaintext passwords. This is not a publicly distributable starter kit with universal default credentials.
 
-The 7 October national-address refresh is documented separately from the earlier September full-system evidence. The new hosting environment also needs its own acceptance check, especially private-path protection, PHP settings, HTTPS and the CDN security challenge described in PERFORMANCE.md.
+Each dated release has separate evidence; earlier results do not verify the new 38-page terms. The new hosting environment also needs its own acceptance check, especially private-path protection, PHP settings, HTTPS and the CDN security challenge described in PERFORMANCE.md.

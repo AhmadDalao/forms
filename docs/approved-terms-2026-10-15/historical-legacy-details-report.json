@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-15",
+  "scope": "Read-only display fallback for historical T&C submissions",
+  "files": {
+    "src/portal/submitted-details.js": {
+      "sha256": "a84825cb3f67ef507a03bbfb41ef2d085d27bc29988e9b5839de639a7a1befdf",
+      "bytes": 9073
+    },
+    "src/portal/legacy-terms-definitions.js": {
+      "sha256": "a9bedfe89e183e65a77e3ac8a418b08e3d84804063aab3b52dc544b06f04f378",
+      "bytes": 3305
+    },
+    "tests/legacy-terms-details.test.mjs": {
+      "sha256": "bba51cf2458cb919af2ed2f223f8d3370ee0f893a14f4117f0e85612e7651331",
+      "bytes": 6167
+    }
+  },
+  "source": "reference/documents/archived/terms-13-page-schema.json",
+  "sourceProjectionVerifiedExact": true,
+  "legacyPages": [
+    13,
+    24
+  ],
+  "capturedDefinitionsAlwaysTakePrecedence": true,
+  "serverGeneratedFallbacksRecognizedBy": "profile.definition_fallback",
+  "detection": [
+    "saved 13/24-page pdf_layout",
+    "old answer IDs",
+    "old signature image IDs",
+    "old signature policy IDs"
+  ],
+  "explicitOtherPageLayoutTakesPrecedence": true,
+  "storedAnswersOrProfilesMutated": false,
+  "tests": {
+    "command": "node --test tests/legacy-terms-details.test.mjs tests/submission-details.test.mjs",
+    "passed": 11,
+    "failed": 0
+  },
+  "coverage": [
+    "English/Arabic labels and options",
+    "no current investor/date placeholders for old terms",
+    "current or other document layouts unchanged",
+    "partial captured definition preservation",
+    "individual/company separation",
+    "HTML escaping",
+    "uploaded PDF-only details"
+  ]
+}

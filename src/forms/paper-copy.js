@@ -19,12 +19,6 @@ export function applyPaperCopy(docs){
  G('client',['','', 'date client_number client_name account_number']);
  G('signatory',['','', 'signer_role signer_name id_number id_type signing_mode signing_limits']);
 
- d=D('terms-and-conditions');Object.assign(d,{title:'General Terms and Conditions',ar:'شروط وأحكام عامة'});
- F('terms_consent','Do you confirm your desire not to receive any confirmations or account statements except on request basis?','هل تؤكد عدم رغبتك في استلام أي مراسلات أو إشعارات أو كشوف الحساب إلا عند الطلب؟');
- F('authorization_consent','Do you confirm your request and consent to Receive required services via Telephone & Fax','هل تؤكد رغبتك في الحصول على خدمة التعامل عن طريق الهاتف والفاكس؟');
- S('terms','General Terms and Conditions','شروط وأحكام عامة');S('authorization','Authorization Via Tel & Fax','تفويض قبول التعليمات بالهاتف والفاكس');
- for(const prefix of ['terms','authorization'])for(let i=0;i<3;i++)F(`${prefix}_name_${i}`,prefix==='terms'?'Client Name':'Customer Name','اسم العميل',{context:[`Row ${i+1}`,`الصف ${i+1}`]});
-
  for(const corporate of [false,true]){
   d=D(corporate?'kyc-corporate':'kyc-individual');
   Object.assign(d,{title:corporate?'Investor Information (Corporate)':'Investor Information (Individuals)',ar:corporate?'معلومات المستثمر (الشركات)':'معلومات المستثمر (أفراد)'});

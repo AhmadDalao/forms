@@ -1,6 +1,6 @@
 # Document authoring policy
 
-## Current sources — 7 October 2026
+## Current sources — 15 October 2026
 
 `template-sources.json` lists the current Word documents, modern generator targets
 and supplied PDF templates. It is shared by the generator, installer, verifier
@@ -10,7 +10,8 @@ and handover packager.
   individual/company FATCA/CRS.
 - Individual/company KYC use the owner's supplied **seven-page PDFs**, with only
   the approved national-address footer updated. There is no matching current
-  KYC Word source. Signature and T&C also use supplied PDF bodies.
+  KYC Word source. Signature uses its supplied one-page PDF; T&C uses the
+  approved 38-page fund PDF. Neither has a matching current Word source.
 - `build.py` generates only consent and the two FATCA/CRS forms. KYC targets are
   rejected. `install.py` and `verify.py` ignore retired KYC/signature/T&C output,
   including stale directories in `tmp/modern-pdfs/`.
@@ -27,6 +28,30 @@ and handover packager.
 The September design notes and early October verification below describe the
 earlier modern family. Their KYC page counts and Word-source claims are historical
 and are superseded by the seven-page original-PDF policy above.
+
+## Approved fund terms — 15 October 2026
+
+The immutable source is `reference/pdfs/supplied-20261015/terms-and-conditions.pdf`.
+Keep all 38 physical pages: eight introductory pages followed by 30 numbered
+pages, ending with the investor declaration. The current version is
+`20261015-approved-terms`. `scripts/update-original-footers.py terms-and-conditions`
+adds the approved Riyadh address beneath the supplied artwork, without changing
+the body. This is a supplied PDF, not a Word redesign.
+
+The only printed customer fields are `investor_name` and `date`, with signature
+slot `investor`, on physical page 38. The document-version blank on page 4 is not
+a customer input. Do not carry the retired account-terms questions, choices or
+signature IDs into the new legal document. Individual name parts join into the
+name destination; company names stay separate from authorized-person names.
+
+The preceding 13-page schema/PDF and retired 24-page layout remain frozen under
+`reference/`. Historical signing uses its saved PDF and trusted layout; captured
+details take precedence over legacy display fallbacks. Never migrate an old
+signature to the new terms or rewrite stored submission bytes. The separate
+consent form, original KYC/signature PDFs, five Word sources and website address
+are unchanged. Current public assets total ten PDFs / 75 pages. Verification
+for this replacement belongs in `docs/approved-terms-2026-10-15/`; final release
+evidence and handover verification are pending.
 
 ## Reference and preservation contract
 
@@ -54,12 +79,16 @@ KYC, Terms & Conditions and the signature form are excluded from this redesign a
 - Permit additional pages instead of shrinking long text into the old boxes.
 - Preserve the English-only corporate FATCA source language; do not invent
   Arabic legal translations. Existing website labels remain unchanged.
-- Preserve all customer field IDs, shared-data meanings and signature IDs.
-  Generate new coordinates from marker copies, never estimate them by eye.
+- Preserve customer field IDs, shared-data meanings and signature IDs when
+  editing the same document. The approved terms replacement above intentionally
+  uses new IDs; freeze old definitions for historical submissions. Generate new
+  Word coordinates from marker copies, never estimate them by eye.
 - Keep current and archived submitted PDF bytes untouched. Refilled or newly
   submitted versions use the new templates and get their own immutable file.
-- Consent is fillable online in its existing signing areas. Its editable source retains the full supplied
-  declaration, investor signing area and named officials; page 38 stays removed.
+- The separate consent form is fillable online in its existing signing areas.
+  Its editable source retains the supplied declaration, investor signing area
+  and named officials; its earlier page-38 exclusion remains unchanged. This
+  does not exclude page 38 from the newly supplied full terms document.
 
 ## Verification gates
 

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "tests": 274,
+  "failures": 0,
+  "skipped": 0,
+  "command": "npm test",
+  "build": "npm run build passed",
+  "scope": "Full unit suite, including isolated historical signing API checks"
+}

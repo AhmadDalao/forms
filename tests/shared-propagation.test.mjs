@@ -21,13 +21,13 @@ function expected(p,audience){
  const address=full(['building','street','district','city','postal','additional','country'].map(key=>p[key]));
  const out={
   'signature-form':{client_name:name,client_number:p.client_number,account_number:p.account_number,signer_name:signer,id_number:audience==='individual'?p.id_number:p.auth_id,id_type:audience==='individual'?p.id_other:p.auth_id_other},
-  'terms-and-conditions':{terms_name_0:name,authorization_name_0:name},
+  'terms-and-conditions':{investor_name:name},
  };
  const split=(doc,prefix,values)=>['first','second','third','last'].forEach((key,i)=>out[doc][prefix+'_'+key]=values[i]||'');
  if(audience==='individual'){
   out['subscription-form']={client_account:p.account_number,title:p.title,first_name:ar[0],second_name:ar[1],third_name:ar[2],family_name:ar[3],nationality:p.nationality,id_type:p.id_type,id_other:p.id_other,id_number:p.id_number,english_name:full(en),phone:p.phone,mobile:p.mobile,...Object.fromEntries(['short_address','building','street','additional','district','postal','city','email','country'].map(key=>[key,p[key]]))};
   split('subscription-form','en',en);split('signature-form','client_name',parts);split('signature-form','signer_name',parts);
-  for(const prefix of ['terms_name_0','authorization_name_0'])split('terms-and-conditions',prefix,parts);
+  split('terms-and-conditions','investor_name',parts);
   out['kyc-individual']={name_1:full(parts.slice(0,2)),name_2:full(parts.slice(2)),risk_client_name:name,title:p.title,gender:p.gender,dob:p.dob,nationality:p.nationality,id_type:p.id_type,id_other:p.id_other,id_number:p.id_number,phone:p.phone,mobile:p.mobile,email:p.email,building:p.building,street:p.street,postal:p.postal,country:p.country,city:full([p.city,p.district]),postal_additional:p.additional};
   split('kyc-individual','name',parts);split('kyc-individual','risk_client_name',parts);
   out['fatca-crs-individual']={title:'other',gender:p.gender,dob:p.dob,signer_en:full(en),signer_ar:full(ar)};
@@ -58,7 +58,7 @@ for(const audience of ['individual','corporate'])for(const language of ['en','ar
  for(const [docId,values]of Object.entries(wanted))for(const [id,value]of Object.entries(values))assert.equal(reopened.get(docId).values[id]||'',value||'',`Reload ${docId}/${id}`);
  const subscription=docs.find(d=>d.id===(audience==='individual'?'subscription-form':'subscription-company'));
  const sub=normalizeSubscription(subscription,store.get(subscription.id).values);assert.equal(sub.applicant_name,audience==='individual'?full(personParts(p,'ar')):full(personParts(p,'auth')));
- for(const [docId,ids]of Object.entries(audience==='individual'?{'kyc-individual':['representative_name','rep_id','rep_phone','rep_fax','employer_phone','bank','iban'],'fatca-crs-individual':['outside_city','tax_tin_0','staff_employee_id','staff_cif','staff_account_holder','staff_account_holder_first','staff_account_holder_second','staff_account_holder_third','staff_account_holder_last'],'terms-and-conditions':['terms_name_1','terms_name_2','authorization_name_1','authorization_name_2']}:{'kyc-corporate':['contact_name','bank_owner','bank_account','auth_phone','auth_mobile','auth_email','auth_city','auth_nationality','registration_country'],'fatca-crs-corporate':['person_0_name','person_0_tin','signer_1_name','inc_city','us_tin'],'terms-and-conditions':['terms_name_1','terms_name_2','authorization_name_1','authorization_name_2']}))for(const id of ids)assert.ok(!store.get(docId).values[id],`Unrelated recipient must stay empty: ${docId}/${id}`);
+ for(const [docId,ids]of Object.entries(audience==='individual'?{'kyc-individual':['representative_name','rep_id','rep_phone','rep_fax','employer_phone','bank','iban'],'fatca-crs-individual':['outside_city','tax_tin_0','staff_employee_id','staff_cif','staff_account_holder','staff_account_holder_first','staff_account_holder_second','staff_account_holder_third','staff_account_holder_last'],'terms-and-conditions':['terms_name_0','terms_name_1','terms_name_2','authorization_name_0','authorization_name_1','authorization_name_2']}:{'kyc-corporate':['contact_name','bank_owner','bank_account','auth_phone','auth_mobile','auth_email','auth_city','auth_nationality','registration_country'],'fatca-crs-corporate':['person_0_name','person_0_tin','signer_1_name','inc_city','us_tin'],'terms-and-conditions':['terms_name_0','terms_name_1','terms_name_2','authorization_name_0','authorization_name_1','authorization_name_2']}))for(const id of ids)assert.ok(!store.get(docId).values[id],`Unrelated recipient must stay empty: ${docId}/${id}`);
  const opposite=createDraftStore(docs,()=>storage,audience==='individual'?'corporate':'individual','qa-semantic-owner'),other=createDraftStore(docs,()=>storage,audience,'qa-other-owner');assert.deepEqual(opposite.profile,{});assert.deepEqual(other.profile,{});
 });
 test('semantic audit fixtures cover every currently exposed shared field',()=>{

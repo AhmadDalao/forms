@@ -4,6 +4,8 @@ import fs from 'node:fs/promises';
 import {spawnSync} from 'node:child_process';
 import {chromium,firefox,webkit} from 'playwright';
 import {fixture} from './workflow-harness.mjs';
+import {docs} from '../src/forms/index.js';
+const termsPages=docs.find(doc=>doc.id==='terms-and-conditions').pages;
 const f=await fixture({protectedRoutes:true}),report={checks:[],errors:[]};let browser,page;
 const pass=s=>{report.checks.push(s);console.log('PASS '+s);};
 const ready=()=>page.waitForFunction(()=>document.querySelector('.portal-preview [data-preview-status]')?.textContent==='');
@@ -35,8 +37,8 @@ try{
     assert.deepEqual(pdfRequests,[current.id],'old notification must fetch only the current PDF');
     if(engine==='webkit')await page.screenshot({path:f.out+'/'+audience+'-'+lang+'-'+width+'.png'});
     await page.keyboard.press('Escape');assert.equal(await page.locator('.notification-dialog[open]').count(),1);assert.equal(await trigger.evaluate(n=>n===document.activeElement),true);
-    await page.locator('[data-notification-preview="'+long.id+'"]').click();await checkPreview(width,13);await page.locator('.portal-preview [data-close]').click();await page.locator('.notification-dialog [data-close]').click();
-    pass(engine+' '+audience+' '+lang+' '+width+': latest PDF from old notification, no archive/version/download controls, all 13 pages and return to notifications');
+    await page.locator('[data-notification-preview="'+long.id+'"]').click();await checkPreview(width,termsPages);await page.locator('.portal-preview [data-close]').click();await page.locator('.notification-dialog [data-close]').click();
+    pass(engine+' '+audience+' '+lang+' '+width+': latest PDF from old notification, no archive/version/download controls, all '+termsPages+' terms pages and return to notifications');
    }
    assert.deepEqual((await f.call(ctx,'portal','detail',{params:{id:old.id}})).submission,original);
    if(engine==='chrome'&&audience==='individual'){

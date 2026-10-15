@@ -2,6 +2,7 @@ import {chromium} from 'playwright';
 import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {PDFDocument} from 'pdf-lib';
+import {docs} from '../src/forms/index.js';
 const out=process.env.QA_OUT||'tmp/management-real-files',base=process.env.QA_BASE||'http://127.0.0.1:4175';
 await fs.mkdir(out,{recursive:true});
 const browser=await chromium.launch({channel:'chrome'}),page=await browser.newPage();
@@ -17,6 +18,15 @@ const rows=[];try{
  assert.equal(detected.fields.find(f=>f.label==='Client Name')?.type,'text');assert.equal(detected.fields.find(f=>f.label==='Date:')?.type,'date');
  assert.equal(detected.fields.find(f=>f.label==='Signature form name')?.type,'text');assert.equal(detected.detected,4);
  await fs.writeFile(out+'/signature-name-date-fixture.json',JSON.stringify(detected,null,2));
+ // Keep the prior real-paper column/classification regression on its immutable
+ // source after the current terms are replaced by the approved fund document.
+ const archived=await page.evaluate(async bytes=>{const {inspectPDF}=await import('/src/management/importer.js');return inspectPDF(new File([new Uint8Array(bytes)],'archived-terms-13-page.pdf',{type:'application/pdf'}));},Array.from(await fs.readFile('reference/pdfs/archived/terms-13-page-riyadh-20261014.pdf')));
+ assert.equal(archived.pages,13);
+ assert.equal(archived.signatures.filter(s=>s.page===11).length,2,'Printed signature column must prepare signature uploads');
+ const archivedNames=archived.fields.filter(f=>f.page===11&&f.rect[0]>300);assert.equal(archivedNames.length,2);assert.ok(archivedNames.every(f=>f.type==='text'&&f.ar.includes('اسم')),'Neighboring names must remain text');
+ assert.equal(archived.fields.find(f=>f.page===13&&f.rect[0]>300&&f.rect[1]<380)?.ar,'اسم العميل','A neighboring signature label must not replace the customer name');
+ assert.ok(archived.fields.some(f=>f.page===11&&f.type==='date'),'Keep the date suggestion');
+ await fs.writeFile(out+'/archived-terms-import.json',JSON.stringify(archived,null,2));
  for(const file of (await fs.readdir('public/pdfs')).filter(f=>f.endsWith('.pdf')).sort()){
   const result=await page.evaluate(async file=>{
    const {inspectPDF}=await import('/src/management/importer.js');
@@ -40,10 +50,11 @@ const rows=[];try{
    return {file,pages:imported.pages,detected:imported.detected,signatures:imported.signatures,suggested:imported.suggested,importedWidgets:imported.importedWidgets,fields,pageSizes:imported.pageSizes,overlaps,checked,oversizedBlocked,samples};
   },file);
   if(file==='terms-and-conditions.pdf'){
-   assert.equal(result.signatures.filter(s=>s.page===11).length,2,'Printed signature column must prepare signature uploads');
-   const names=result.fields.filter(f=>f.page===11&&f.rect[0]>300);assert.equal(names.length,2);assert.ok(names.every(f=>f.type==='text'&&f.ar.includes('اسم')),'Neighboring names must remain text');
-   assert.equal(result.fields.find(f=>f.page===13&&f.rect[0]>300&&f.rect[1]<380)?.ar,'اسم العميل','A neighboring signature label must not replace the customer name');
-   assert.ok(result.fields.some(f=>f.page===11&&f.type==='date'),'Keep the date suggestion');
+   const terms=docs.find(doc=>doc.id==='terms-and-conditions');
+   assert.equal(result.pages,terms.pages);assert.deepEqual(result.pageSizes,terms.pageSizes);
+   assert.equal(result.signatures.length,1);assert.equal(result.signatures[0].page,38);assert.match(result.signatures[0].ar,/التوقيع/);
+   // The importer only suggests blank lines; the approved built-in separately
+   // maps its investor name/date boxes, which have no detectable blank lines.
   }
   if(file==='al-naeem-terms-consent.pdf'){assert.equal(result.signatures.length,1);assert.match(result.signatures[0].ar,/التوقيع/);assert.equal(result.fields[0].type,'date');}
   for(const sample of result.samples||[])if(sample.pdf){sample.output=file.replace('.pdf','')+'-'+sample.name+'.pdf';await fs.writeFile(out+'/'+sample.output,Buffer.from(sample.pdf,'base64'));delete sample.pdf;}

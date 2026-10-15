@@ -1,0 +1,951 @@
+{
+  "source": "reference/pdfs/supplied-20261015/terms-and-conditions.pdf",
+  "sha256": "130e5f7fc906a52b5371a74ed0e256527fa490f13334bff8a6641758cf08dcd1",
+  "page_count": 38,
+  "page_size_points": [
+    595.32,
+    841.92
+  ],
+  "all_rotations_zero": true,
+  "acroform_field_count": 0,
+  "structure": {
+    "frontmatter_pages": [
+      1,
+      8
+    ],
+    "terms_and_final_declaration_pages": [
+      9,
+      38
+    ],
+    "numbered_terms_pages": [
+      9,
+      37
+    ],
+    "investor_declaration_page": 38,
+    "separate_appendices": false,
+    "explanation": "Eight preliminary pages precede thirty pages of terms and the final declaration. Pages31–38 are continued main terms and declaration, not eight appendices."
+  },
+  "sections": [
+    {
+      "number": 1,
+      "label_ar": "اسم الصندوق ونوعه",
+      "starts_page": 9
+    },
+    {
+      "number": 2,
+      "label_ar": "عنوان المقر الرئيس لمدير الصندوق",
+      "starts_page": 9
+    },
+    {
+      "number": 3,
+      "label_ar": "مدة الصندوق",
+      "starts_page": 9
+    },
+    {
+      "number": 4,
+      "label_ar": "أهداف الصندوق",
+      "starts_page": 9
+    },
+    {
+      "number": 5,
+      "label_ar": "غرض الصندوق وأهدافه، وبيان سياسة توزيع الأرباح على مالكي الوحدات",
+      "starts_page": 9
+    },
+    {
+      "number": 6,
+      "label_ar": "ملخص للاستراتيجيات التي سيتبعها الصندوق لتحقيق أهدافه",
+      "starts_page": 9
+    },
+    {
+      "number": 7,
+      "label_ar": "مخاطر الاستثمار في الصندوق",
+      "starts_page": 11
+    },
+    {
+      "number": 8,
+      "label_ar": "الاشتراك",
+      "starts_page": 16
+    },
+    {
+      "number": 9,
+      "label_ar": "تداول وحدات الصندوق",
+      "starts_page": 17
+    },
+    {
+      "number": 10,
+      "label_ar": "إنهاء وتصفية الصندوق",
+      "starts_page": 19
+    },
+    {
+      "number": 11,
+      "label_ar": "الرسوم ومقابل الخدمات والعمولات والأتعاب",
+      "starts_page": 20
+    },
+    {
+      "number": 12,
+      "label_ar": "أصول الصندوق",
+      "starts_page": 21
+    },
+    {
+      "number": 13,
+      "label_ar": "مجلس إدارة الصندوق",
+      "starts_page": 22
+    },
+    {
+      "number": 14,
+      "label_ar": "مدير الصندوق",
+      "starts_page": 26
+    },
+    {
+      "number": 15,
+      "label_ar": "مشغل الصندوق",
+      "starts_page": 28
+    },
+    {
+      "number": 16,
+      "label_ar": "أمين الحفظ",
+      "starts_page": 28
+    },
+    {
+      "number": 17,
+      "label_ar": "المطور",
+      "starts_page": 29
+    },
+    {
+      "number": 18,
+      "label_ar": "المكتب الهندسي",
+      "starts_page": 29
+    },
+    {
+      "number": 19,
+      "label_ar": "مراجع الحسابات",
+      "starts_page": 30
+    },
+    {
+      "number": 20,
+      "label_ar": "القوائم المالية",
+      "starts_page": 31
+    },
+    {
+      "number": 21,
+      "label_ar": "تعارض المصالح",
+      "starts_page": 31
+    },
+    {
+      "number": 22,
+      "label_ar": "تقديم التقارير إلى مالكي الوحدات",
+      "starts_page": 32
+    },
+    {
+      "number": 23,
+      "label_ar": "اجتماعات مالكي الوحدات",
+      "starts_page": 32
+    },
+    {
+      "number": 24,
+      "label_ar": "قائمة بحقوق مالكي الوحدات",
+      "starts_page": 33
+    },
+    {
+      "number": 25,
+      "label_ar": "مسؤولية مالكي الوحدات",
+      "starts_page": 33
+    },
+    {
+      "number": 26,
+      "label_ar": "معلومات أخرى",
+      "starts_page": 33
+    },
+    {
+      "number": 27,
+      "label_ar": "متطلبات المعلومات الإضافية للأنواع المعينة من الصناديق",
+      "starts_page": 34
+    },
+    {
+      "number": 28,
+      "label_ar": "لجنة الرقابة الشرعية",
+      "starts_page": 35
+    },
+    {
+      "number": 29,
+      "label_ar": "خصائص الوحدات",
+      "starts_page": 37
+    },
+    {
+      "number": 30,
+      "label_ar": "تعديل شروط وأحكام الصندوق",
+      "starts_page": 37
+    },
+    {
+      "number": 31,
+      "label_ar": "النظام المطبق",
+      "starts_page": 37
+    }
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [],
+      "notes": "Cover, fund parties/logos, issue/update dates and two existing staff signatures.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 2,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [],
+      "notes": "Table of contents with 31 numbered sections.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 3,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [],
+      "notes": "Important investor notice.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 4,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [],
+      "notes": "Important investor notice continued; blank document copy/version number.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 5,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [],
+      "notes": "Glossary.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 6,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [],
+      "notes": "Glossary continued.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 7,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [],
+      "notes": "Glossary continued.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 8,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [],
+      "notes": "Glossary continued.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 9,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 10,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        6
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 11,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        7
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 12,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        7
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 13,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        7
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 14,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        7
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 15,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        7
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 16,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        8
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 17,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        9
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 18,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        9
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 19,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        10
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 20,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        11
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 21,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        12
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 22,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        13
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 23,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        13
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 24,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        13
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 25,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        13
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 26,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        14
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 27,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        14
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 28,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        15,
+        16
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 29,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        17,
+        18
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 30,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        19
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 31,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        20,
+        21
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 32,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        22,
+        23
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 33,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        24,
+        25,
+        26
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 34,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        27
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 35,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        28
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 36,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        28
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 37,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [
+        29,
+        30,
+        31
+      ],
+      "notes": "Printed terms; no investor entry area.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    },
+    {
+      "page": 38,
+      "size": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ],
+      "rotation": 0,
+      "widgets": 0,
+      "section_numbers": [],
+      "notes": "Unit holder declaration; investor name/signature/date; two existing staff signatures.",
+      "visual_inspected": true,
+      "national_address_in_footer": false
+    }
+  ],
+  "investor_fields": [
+    {
+      "proposed_id": "investor_name",
+      "label_ar": "الاسم",
+      "page": 38,
+      "printed_line_xyxy": [
+        257.21,
+        212.66,
+        495.22,
+        213.14
+      ],
+      "safe_rect_xywh": [
+        259.21,
+        188.28,
+        234.01,
+        22.38
+      ],
+      "type": "text"
+    },
+    {
+      "proposed_id": "investor_signature",
+      "label_ar": "التوقيع",
+      "page": 38,
+      "printed_line_xyxy": [
+        257.21,
+        241.46,
+        495.22,
+        241.94
+      ],
+      "safe_rect_xywh": [
+        259.21,
+        215.14,
+        234.01,
+        24.32
+      ],
+      "type": "signature_image"
+    },
+    {
+      "proposed_id": "investor_date",
+      "label_ar": "التاريخ",
+      "page": 38,
+      "printed_line_xyxy": [
+        257.21,
+        270.26,
+        495.22,
+        270.74
+      ],
+      "safe_rect_xywh": [
+        259.21,
+        246.94,
+        234.01,
+        21.32
+      ],
+      "type": "date"
+    }
+  ],
+  "declaration_ar": "إقرار من مالكي الوحدات: لقد قمت / قمنا بقراءة الشروط والأحكام والملاحق الخاصة بالصندوق وفهم ما جاء فيها والموافقة عليها، كما جرى الحصول على نسخة منها بعد التوقيع عليها. وإثباتًا لما تقدم، قام المستثمر بالتوقيع على هذه الشروط والأحكام الخاصة بالصندوق في التاريخ والسنة المذكورين أدناه.",
+  "excluded_from_customer_inputs": [
+    {
+      "page": 4,
+      "label_ar": "النسخة رقم",
+      "printed_area_xyxy": [
+        359.71,
+        573.25,
+        518.94,
+        587.41
+      ],
+      "reason": "Document copy/version number; not an investor question."
+    },
+    {
+      "pages": [
+        1,
+        38
+      ],
+      "label_ar": "مسؤول المطابقة والالتزام؛ العضو المنتدب والرئيس التنفيذي",
+      "reason": "Already printed staff names and blue signature images; preserve and never expose as customer inputs."
+    },
+    {
+      "pages": [
+        24,
+        25
+      ],
+      "reason": "Prefilled checkmarks/crosses in board membership disclosure table; not blank choices."
+    }
+  ],
+  "checkbox_count": 0,
+  "footer": {
+    "status": "No national address in any source footer. Riyadh address already appears in the body on pages 9, 26, 28 and 34. Other parties and Jeddah project addresses are body content and must remain unchanged.",
+    "existing_footer_image_bounds_p2_to_p38": [
+      37.5,
+      792.551,
+      567.44,
+      819.751
+    ],
+    "proposed_clear_content_band_xyxy": [
+      42,
+      822,
+      553.32,
+      841.92
+    ],
+    "proposed_baseline_y": 833,
+    "proposed_font_size": 6.5,
+    "cover_note": "Cover background artwork extends across the page; this band has no body text or signatures. Add text transparently without an opaque rectangle. Lowest cover body text bottom is y768.52."
+  },
+  "inspection": {
+    "all_38_source_pages_visually_inspected": true,
+    "renderer": "Poppler pdftoppm, scale-to 1400px",
+    "scratch_evidence_directory": "tmp/pdfs/terms-supplied-20261015",
+    "contact_sheets": [
+      "sheet-01.png",
+      "sheet-02.png",
+      "sheet-03.png",
+      "sheet-04.png",
+      "sheet-05.png",
+      "sheet-06.png",
+      "sheet-07.png",
+      "sheet-08.png",
+      "sheet-09.png",
+      "sheet-10.png"
+    ]
+  },
+  "mutations": "Source analysis was read-only; current template subsequently updated only with the footer as recorded in source-preservation.json.",
+  "original_filename": "T&C صندوق النعيم العقاري 261006 approved.pdf"
+}

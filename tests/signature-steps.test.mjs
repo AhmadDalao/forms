@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {docs} from '../src/forms/index.js';
 import {signatureSlots,sectionSignatureSlots} from '../src/signatures.js';
 import {runtimeDocument} from '../src/management/catalogue.js';
@@ -11,7 +12,7 @@ function storage(){const data=new Map();return {getItem:k=>data.get(k)||null,set
 test('every existing signature belongs to exactly one relevant signing step',()=>{
  const expected={
   'signature-form':{specimen:'signatory'},
-  'terms-and-conditions':{terms_0:'terms',terms_1:'terms',terms_2:'terms',authorization_0:'authorization',authorization_1:'authorization',authorization_2:'authorization'},
+  'terms-and-conditions':{investor:'declaration'},
   'fatca-crs-individual':{signatory:'signatory',relationship_manager:'staff'},
   'fatca-crs-corporate':{signatory_0:'signatories',signatory_1:'signatories'},
   'kyc-individual':{representative:'disclosures',client:'suitability'},
@@ -19,8 +20,11 @@ test('every existing signature belongs to exactly one relevant signing step',()=
  };
  for(const [id,mapping] of Object.entries(expected)){
   const doc=docs.find(d=>d.id===id);
+  assert.deepEqual(signatureSlots(doc).map(s=>s.id),Object.keys(mapping),id);
   for(const slot of signatureSlots(doc))assert.deepEqual(doc.sections.filter(s=>sectionSignatureSlots(doc,s).some(x=>x.id===slot.id)).map(s=>s.id),[mapping[slot.id]],id+' '+slot.id);
  }
+ const archived=JSON.parse(readFileSync('reference/documents/archived/terms-13-page-schema.json'));
+ for(const slot of signatureSlots(archived))assert.deepEqual(archived.sections.filter(s=>sectionSignatureSlots(archived,s).some(x=>x.id===slot.id)).map(s=>s.id),[slot.id.startsWith('terms_')?'terms':'authorization']);
  const custom=runtimeDocument({id:'custom-signing',pages:2,fields:[],signatures:[{id:'signer',page:2,rect:[20,20,50,20]}]});
  assert.deepEqual(custom.sections.map(s=>s.id),['page_2']);
  assert.equal(sectionSignatureSlots(custom,custom.sections[0])[0].id,'signer');

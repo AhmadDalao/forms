@@ -33,6 +33,9 @@ test('shared client-name groups are individual-only and leave corporate entity c
    const input={[target.id]:'Example Company',...Object.fromEntries(group.partIds.map((id,i)=>[id,String(i)]))};assert.deepEqual(normalizePersonNames(doc,input,{audience:'corporate'}),input);
   }
  }
+ const terms=get(fresh(),'terms-and-conditions');
+ assert.deepEqual(terms.personNameGroups.map(g=>g.id),['investor_name']);
+ assert.deepEqual(terms.personNameGroups[0].partIds,['investor_name_first','investor_name_second','investor_name_third','investor_name_last']);
 });
 test('only the audited person fields receive groups; company names, lists and existing structured identities stay intact',()=>{
  const documents=fresh(),excluded={

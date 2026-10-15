@@ -1,0 +1,168 @@
+{
+  "counts": {
+    "pdfs": 8,
+    "pages": 304,
+    "text_rectangles": 12,
+    "choice_rectangles": 0,
+    "signature_rectangles": 2,
+    "transparent_images": 14,
+    "unchanged_pages": 297
+  },
+  "coverage": {
+    "terms-and-conditions": {
+      "mapped_fields": 2,
+      "covered_fields": 2,
+      "uncovered_fields": [],
+      "choice_options": 0,
+      "covered_choice_options": 0,
+      "uncovered_choices": [],
+      "signature_slots": 1,
+      "covered_signatures": 1,
+      "samples": 8,
+      "complete_success": 5
+    }
+  },
+  "failures": [],
+  "visual_pages": [
+    [
+      "terms-and-conditions",
+      "english-long",
+      38,
+      "samples/terms-and-conditions-english-long-final-p38.png"
+    ],
+    [
+      "terms-and-conditions",
+      "arabic-long",
+      38,
+      "samples/terms-and-conditions-arabic-long-final-p38.png"
+    ],
+    [
+      "terms-and-conditions",
+      "mixed",
+      38,
+      "samples/terms-and-conditions-mixed-fields.png"
+    ],
+    [
+      "terms-and-conditions",
+      "blank",
+      38,
+      "samples/terms-and-conditions-blank-fields.png"
+    ],
+    [
+      "terms-and-conditions",
+      "arabic",
+      38,
+      "samples/terms-and-conditions-arabic-fields.png"
+    ]
+  ],
+  "contact_sheets": [],
+  "pdf_version": "20261015-approved-terms",
+  "template_sha256": "a82426fbebedc4a72eddffcbc4b216febc7520b9231b85eb44a7ab4200f4f31f",
+  "schema_sha256": "cfe58c2476e4d0c2db5f2b6cd0833899e70f8230d14447f258b59df299bdb3e6",
+  "fixture_data": "Synthetic audit data only; no client records or private production storage used.",
+  "generation": {
+    "sample_count": 8,
+    "browser_errors": [],
+    "failed": []
+  },
+  "sample_files": [
+    {
+      "sample": "english",
+      "file": "terms-and-conditions-english.pdf",
+      "sha256": "234410a3674dafa0f5e822cf280067653863191d59bd6cadeb5c8fe12f6afd82",
+      "signatures": []
+    },
+    {
+      "sample": "arabic",
+      "file": "terms-and-conditions-arabic.pdf",
+      "sha256": "f26f6e9dea84a6c1a51851974101d90851e23c48f069a4100b75fd4753bf78e9",
+      "signatures": [
+        "investor"
+      ]
+    },
+    {
+      "sample": "english-long",
+      "file": "terms-and-conditions-english-long.pdf",
+      "sha256": "86dbf05c4ea19869acd51293711ad1b6f1713823ce74d3a59fa4483dbbcb4bf9",
+      "signatures": []
+    },
+    {
+      "sample": "arabic-long",
+      "file": "terms-and-conditions-arabic-long.pdf",
+      "sha256": "317c146aa8fd306fb3af1efe51c7e4dcabac4625c0675e5b37d817ec8c61e73c",
+      "signatures": [
+        "investor"
+      ]
+    },
+    {
+      "sample": "mixed",
+      "file": "terms-and-conditions-mixed.pdf",
+      "sha256": "a33e6ecf308ef62abbdf06a04887e3cbfcdeaa96fc03de7b06cb95ff6281ead9",
+      "signatures": []
+    },
+    {
+      "sample": "blank",
+      "file": "terms-and-conditions-blank.pdf",
+      "sha256": "89bdf090a65a06d3130145e7a78914b1437737d2a56ec067c34f19d60018f75a",
+      "signatures": []
+    },
+    {
+      "sample": "partial",
+      "file": "terms-and-conditions-partial.pdf",
+      "sha256": "35a2346b6ec072a5debf7ed00e11f2376a1d1f8975cec393a25ae2ddee080697",
+      "signatures": []
+    },
+    {
+      "sample": "shared",
+      "file": "terms-and-conditions-shared.pdf",
+      "sha256": "96f972e53cac5a830486a816748bb97a7dc9fb17ee19e9b898d3d5395061e264",
+      "signatures": []
+    }
+  ],
+  "manual_visual_review": {
+    "renderer": "Poppler, scale-to 2000px",
+    "pages": [
+      {
+        "sample": "english-long",
+        "page": 38,
+        "crop": "samples/terms-and-conditions-english-long-fields.png",
+        "verdict": "pass",
+        "observations": "Name, date and optional investor signature stay within their printed rows; no text clipping or line/label collision. Existing staff signatures and footer are unchanged.",
+        "full_page": "samples/terms-and-conditions-english-long-final-p38.png"
+      },
+      {
+        "sample": "arabic-long",
+        "page": 38,
+        "crop": "samples/terms-and-conditions-arabic-long-fields.png",
+        "verdict": "pass",
+        "observations": "Name, date and optional investor signature stay within their printed rows; no text clipping or line/label collision. Existing staff signatures and footer are unchanged.",
+        "full_page": "samples/terms-and-conditions-arabic-long-final-p38.png"
+      },
+      {
+        "sample": "mixed",
+        "page": 38,
+        "crop": "samples/terms-and-conditions-mixed-fields.png",
+        "verdict": "pass",
+        "observations": "Name, date and optional investor signature stay within their printed rows; no text clipping or line/label collision. Existing staff signatures and footer are unchanged.",
+        "fixture_note": "The existing mixed fixture omits the third name; its resulting name is Latin-only (Omar Ali Al Ali), so this is not a mixed-script-name test."
+      },
+      {
+        "sample": "blank",
+        "page": 38,
+        "crop": "samples/terms-and-conditions-blank-fields.png",
+        "verdict": "pass",
+        "observations": "All investor entries and investor signature row remain blank; printed declaration, staff signatures and footer stay intact."
+      },
+      {
+        "sample": "arabic",
+        "page": 38,
+        "crop": "samples/terms-and-conditions-arabic-fields.png",
+        "verdict": "pass",
+        "observations": "Name, date and optional investor signature stay within their printed rows; no text clipping or line/label collision. Existing staff signatures and footer are unchanged."
+      }
+    ],
+    "clipping_or_collision_count": 0
+  },
+  "passed": true,
+  "scratch_evidence_directory": "tmp/pdfs/approved-terms-20261015"
+}

@@ -34,14 +34,24 @@ for(const [name,engine]of [['chrome',chromium],['firefox',firefox],['webkit',web
    for(const id of ids){
     const doc=docs.find(d=>d.id===id);await page.locator(`[data-doc="${id}"]`).click();
     const expectedName=folder==='individuals'?'Ahmad Ali Dalao':'Example Trading';
-    const key=id==='signature-form'?'client_name':id==='terms-and-conditions'?'terms_name_0':id==='kyc-individual'?'name_1':id==='kyc-corporate'?'company':id==='fatca-crs-corporate'?'legal_name':'en_first';
-    assert.equal(await(await answer(doc,key)).inputValue(),id==='fatca-crs-individual'?'Ahmad':expectedName);
+    const key=id==='signature-form'?'client_name':id==='terms-and-conditions'?'investor_name':id==='kyc-individual'?'name_1':id==='kyc-corporate'?'company':id==='fatca-crs-corporate'?'legal_name':'en_first';
+    let value;
+    if(id==='terms-and-conditions'&&folder==='individuals'){
+     await answer(doc,'investor_name_first');
+     const parts=[];for(const part of ['first','second','third','last'])parts.push(await page.locator(`[name="investor_name_${part}"]`).inputValue());
+     value=parts.filter(Boolean).join(' ');
+    }else value=await(await answer(doc,key)).inputValue();
+    assert.equal(value,id==='fatca-crs-individual'?'Ahmad':expectedName);
     if(id==='signature-form'){
      await page.locator('[data-step="1"]').click();assert.equal(await page.locator('[name="signer_name"]').inputValue(),'');
      await page.locator(`[name="signer_role"][value="${folder==='individuals'?'client':'authorized'}"]`).check();
      assert.equal(await page.locator('[name="signer_name"]').inputValue(),folder==='individuals'?expectedName:'Company Signer');
     }
-    if(id==='terms-and-conditions'){assert.equal(await page.locator('[name="terms_name_1"]').inputValue(),'');assert.equal(await(await answer(doc,'authorization_name_0')).inputValue(),expectedName);}
+    if(id==='terms-and-conditions'){
+     assert.equal(await page.locator('[name^="terms_name_"],[name^="authorization_name_"]').count(),0,'Retired signer rows must not appear in current fund terms');
+     assert.equal(await page.locator('[data-signature-slot="investor"]').count(),1);
+     if(folder==='companies')assert.equal(await page.locator('[name^="investor_name_"]').count(),0,'Company name stays a single entity field');
+    }
     if(id==='fatca-crs-individual'){
      assert.equal(await(await answer(doc,'ar_first')).inputValue(),'أحمد');assert.equal(await page.locator('[name="mail_city"]').inputValue(),'Riyadh');assert.equal(await page.locator('[name="sa_city"]').inputValue(),'Riyadh');assert.equal(await page.locator('[name="outside_city"]').inputValue(),'');
      await page.locator('[data-step="3"]').click();await page.locator('[name="capacity"][value="holder"]').check();assert.equal(await page.locator('[name="signer_ar"]').inputValue(),'أحمد علي دلاو');

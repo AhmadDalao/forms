@@ -62,7 +62,7 @@ for folder in ['src', 'public', 'tests', 'reference/pdfs', 'reference/documents'
 scripts = ['build-folders.mjs', 'management-defaults.mjs', 'management-router.php', 'protected-router.php',
            'rebuild-subscription.py', 'update-original-footers.py', 'update-generated-address.py', 'verify-national-address.py',
            'management-init.php', 'management-superadmin-init.php', 'installation-init.php', 'backup-installation.php',
-           'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'current-pdf-audit.mjs',
+           'restore-installation.php', 'export-private-migration.mjs', 'workflow-harness.mjs', 'admin-handoff-audit.mjs', 'approved-terms-audit.mjs', 'historical-terms-browser-audit.mjs', 'current-pdf-audit.mjs',
            'current-pdf-audit-verify.py', 'verify-pdf-overlap.py', 'preview-font-audit.mjs', 'preview-direction-audit.mjs',
            'client-corrections-audit.mjs', 'direct-intake-audit.mjs', 'form-access-audit.mjs', 'management-views-audit.mjs',
            'management-navigation-audit.mjs', 'catalogue-workflow-audit.mjs', 'admin-presentation-audit.mjs', 'loading-audit.mjs', 'customer-workflow-audit.mjs', 'notifications-audit.mjs', 'catalogue-layout-audit.mjs', 'client-preview-audit.mjs', 'staff-name-audit.mjs', 'review-navigation-audit.mjs', 'optional-review-audit.mjs', 'optional-review-actions-audit.mjs', 'submit-only-client-audit.mjs', 'shared-profiles-audit.mjs']
@@ -88,7 +88,9 @@ copy(ROOT / 'scripts/pdf-design/template-sources.json', package / 'editable-docu
 This folder contains nine current PDF templates and five matching Word sources:
 individual/company subscription, consent, and individual/company FATCA/CRS.
 
-Individual/company KYC are the supplied seven-page PDFs with the approved national-address footer. Signature and terms also retain their supplied PDF bodies. These four PDFs have no matching current Word source. Do not regenerate them from retired modern Word documents.
+Individual/company KYC are the supplied seven-page PDFs with the approved national-address footer. Signature retains its supplied one-page body. Terms uses the approved 38-page fund PDF, version `20261015-approved-terms`, with investor name, date and the investor signature on physical page 38. These four PDFs have no matching current Word source. Do not regenerate them from retired modern Word documents.
+
+The public website also includes the legacy one-page subscription compatibility PDF: ten public PDFs / 75 pages in total. The separate consent form and five Word sources are unchanged by the terms replacement. Saved 13-page and retired 24-page terms use their frozen historical definitions and PDFs, not the current page-38 signature layout.
 
 The preserved inputs and authoring tools are under `../source/reference/` and `../source/scripts/`. See `../source/scripts/pdf-design/artifact.md` and `template-sources.json` for the current source policy. Files under `reference/documents/archived/` are historical evidence only; their page counts and mappings are not current templates.
 ''')
@@ -127,6 +129,9 @@ for file in (ROOT / 'docs/website-settings-2026-10-14').rglob('*'):
 for file in (ROOT / 'docs/website-address-2026-10-14').rglob('*'):
     if file.is_file():
         copy(file, package / 'verification/website-address-2026-10-14' / file.relative_to(ROOT / 'docs/website-address-2026-10-14'))
+for file in (ROOT / 'docs/approved-terms-2026-10-15').rglob('*'):
+    if file.is_file():
+        copy(file, package / 'verification/approved-terms-2026-10-15' / file.relative_to(ROOT / 'docs/approved-terms-2026-10-15'))
 for name in ['customer-workflow-release-2026-09-28.md', 'customer-workflow-verification.json',
              'current-documents-2026-09-28.md', 'current-documents-verification.json', 'current-documents-live-verification.json',
              'roomy-cards-2026-09-28.md', 'roomy-cards-verification.json', 'roomy-cards-live-verification.json',
@@ -155,7 +160,7 @@ assert not list((restored / 'management/uploads').glob('*'))
 assert not (restored / 'management/state.json').exists()
 shutil.rmtree(restored)
 copy(bootstrap, package / 'private-bootstrap.zip')
-snapshot['application_release'] = release_date + ' original seven-page KYC PDFs with owner-supplied Riyadh national-address footer on all templates, superadmin-editable website address, five current Word sources, dedicated submission settings and schema 8'
+snapshot['application_release'] = release_date + ' approved 38-page fund terms (20261015-approved-terms), preserved historical 13/24-page signing, original seven-page KYC PDFs, Riyadh national-address footer, superadmin-editable website address, nine application PDFs plus legacy subscription (75 public pages), five current Word sources and schema 8'
 snapshot['application_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (package / 'SNAPSHOT.json').write_text(json.dumps(snapshot, indent=2) + '\n')
 (package / ('verification/bootstrap-verification-' + release_date + '.json')).write_text(json.dumps({

@@ -20,7 +20,7 @@ const base=(process.env.SITE_URL||'http://127.0.0.1:8196/').replace(/\/?$/,'/');
 const storagePrefix=storagePrefixFor(new URL(base).pathname,'itqan.forms.v1.');
 const mapping={
  'signature-form':{specimen:'signatory'},
- 'terms-and-conditions':Object.fromEntries(['terms','authorization'].flatMap(s=>[0,1,2].map(i=>[`${s}_${i}`,s]))),
+ 'terms-and-conditions':{investor:'declaration'},
  'fatca-crs-individual':{signatory:'signatory',relationship_manager:'staff'},
  'fatca-crs-corporate':{signatory_0:'signatories',signatory_1:'signatories'},
  'kyc-individual':{representative:'disclosures',client:'suitability'},

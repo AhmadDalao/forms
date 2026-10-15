@@ -22,7 +22,7 @@ const definitions={
  'signature-form':[one('client_name',{audience:'individual'}),one('signer_name')],
  'subscription-form':[one('english_name',{prefix:'en',language:'en'}),one('applicant_name')],
  'subscription-company':[one('auth_name'),one('applicant_name')],
- 'terms-and-conditions':['terms','authorization'].flatMap(prefix=>Array.from({length:3},(_,i)=>one(`${prefix}_name_${i}`,{audience:'individual'}))),
+ 'terms-and-conditions':[one('investor_name',{audience:'individual'})],
  'fatca-crs-individual':[one('signer_ar',{language:'ar'}),one('signer_en',{language:'en'}),one('staff_account_holder')],
  'fatca-crs-corporate':[...Array.from({length:5},(_,i)=>one(`person_${i}_name`)),one('signer_0_name'),one('signer_1_name')],
  'kyc-individual':[{id:'name',targets:['name_1','name_2'],prefix:'name',split:true},one('representative_name'),one('risk_client_name')],

@@ -8,6 +8,7 @@ import {signatureSlots,submissionSigningState} from '../src/signatures.js';
 
 const image='data:image/png;base64,'+readFileSync(new URL('./fixtures/signature.png',import.meta.url)).toString('base64');
 const document=id=>({...docs.find(doc=>doc.id===id),signatureSlots:signatureSlots(docs.find(doc=>doc.id===id))});
+const archivedTerms=JSON.parse(readFileSync('reference/documents/archived/terms-13-page-schema.json'));
 function validate(doc,{images={},answers={},modes={}}={}){
  const result=spawnSync('php',['-r',`
   require $argv[1];
@@ -23,7 +24,7 @@ const required={error:'signature_required',status:422};
 test('every online built-in requires its customer signature and accepts complete electronic images',()=>{
  const expected={
   'subscription-form':['applicant'],'subscription-company':['applicant'],
-  'signature-form':['specimen'],'terms-and-conditions':['terms_0','authorization_0'],
+  'signature-form':['specimen'],'terms-and-conditions':['investor'],
   'fatca-crs-individual':['signatory'],'fatca-crs-corporate':['signatory_0'],
   'kyc-individual':['client'],'kyc-corporate':['client'],
  };
@@ -40,7 +41,7 @@ test('every online built-in requires its customer signature and accepts complete
  }
 });
 
-test('additional named signers and representatives require their own electronic image',()=>{
+test('archived additional terms signers and current representatives require their own electronic image',()=>{
  for(const [id,slot,fields,base] of [
   ['terms-and-conditions','terms_1',['terms_name_1'],{terms_0:image,authorization_0:image}],
   ['terms-and-conditions','terms_2',['terms_name_2'],{terms_0:image,authorization_0:image}],
@@ -49,7 +50,7 @@ test('additional named signers and representatives require their own electronic 
   ['fatca-crs-corporate','signatory_1',['signer_1_name','signer_1_capacity'],{signatory_0:image}],
   ['kyc-individual','representative',['representative_name','rep_id','rep_type','rep_expiry','rep_phone','rep_email'],{client:image}],
  ]){
-  const doc=document(id);
+  const doc=id==='terms-and-conditions'?archivedTerms:document(id);
   for(const field of fields){
    assert.deepEqual(validate(doc,{images:base,answers:{[field]:' '},modes:{[slot]:'manual'}}),{images:base},id+' unused '+field);
    assert.deepEqual(validate(doc,{images:base,answers:{[field]:'Named participant'}}),required,id+' '+field);

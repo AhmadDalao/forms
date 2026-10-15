@@ -1,0 +1,37 @@
+{
+  "created_at": "2026-10-15T15:55:37.328782+00:00",
+  "scope": "Historical saved-PDF partial-signature preservation; synthetic isolated fixtures only",
+  "files": {
+    "public/api/portal.php": "6780a5d4ed5477d212c19edc54b7bddab78bc3dd2dfbc2fcf1d15273f0ce2310",
+    "public/api/portal-versions.php": "b4d96da8ff44c36e9c4947f17166574faa68e0a7a6fc6ef643a36bc632ab545e",
+    "src/portal/sign-submission.js": "38f9e2306af848474d30f5394ea9204088dfb895353eea1f800af4a42b86722f",
+    "tests/historical-signing.test.mjs": "84cc1dd3c1790405211ca07b4602d36662f3a0d3c67bfecfbd345b748b28208f"
+  },
+  "behavior": [
+    "Signing capability exposes existingSignatureIds for trusted online images only",
+    "Existing slots remain read-only; frontend preview and request contain newly supplied images only",
+    "Server rejects existing-slot replacements, validates new and combined images, and merges server-stored images for completeness",
+    "Manual subscription images and uploaded-PDF images are not incorrectly retained",
+    "Partial 13-page online PDF receives missing primary/conditional signatures, becomes electronic, and preserves previous PDF bytes and answers"
+  ],
+  "verification": {
+    "historical_tests": {
+      "command": "node --test tests/historical-signing.test.mjs",
+      "passed": 4,
+      "failed": 0,
+      "localhost_permission": "Initial sandbox EPERM; authorized localhost rerun passed"
+    },
+    "signature_policy_status_tests": {
+      "files": [
+        "tests/portal-signatures.test.mjs",
+        "tests/portal-signature-status.test.mjs"
+      ],
+      "passed": 10,
+      "failed": 0
+    },
+    "php_js_syntax": "passed",
+    "diff_check": "passed",
+    "historical_frontend_browser_run": "Passed on the rebuilt release; see historical-browser-verification.json"
+  },
+  "production_mutations": false
+}

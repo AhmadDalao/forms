@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
+import {readFileSync} from 'node:fs';
 import {docs} from '../src/forms/index.js';
 import {defaultDates,today} from '../src/dates.js';
 import {createDraftStore} from '../src/drafts.js';
@@ -10,10 +11,11 @@ const storage=()=>{
  return {getItem:k=>m.get(k)??null,setItem:(k,v)=>m.set(k,v),removeItem:k=>m.delete(k),m};
 };
 const terms=docs.find(d=>d.id==='terms-and-conditions');
+const archivedTerms=JSON.parse(readFileSync('reference/documents/archived/terms-13-page-schema.json'));
 const completionDates={
  'signature-form':['date'],
  'al-naeem-terms-consent':['date'],
- 'terms-and-conditions':['terms_date','authorization_date'],
+ 'terms-and-conditions':['date'],
  'fatca-crs-individual':['date'],
  'fatca-crs-corporate':['date'],
 };
@@ -43,7 +45,7 @@ test('opening a form initializes and persists its dates without creating drafts 
   assert.equal(disk.m.size,0);
   for(const doc of docs)assert.equal(store.has(doc.id),false,doc.id);
   assert.equal(store.initializeDates(terms.id),true);
-  assert.deepEqual(store.get(terms.id).values,{terms_date:today(),authorization_date:today()});
+  assert.deepEqual(store.get(terms.id).values,{date:today()});
   assert.equal(store.has(terms.id),true);
   assert.equal(store.has('signature-form'),false);
   assert.equal(disk.m.size,1);
@@ -55,60 +57,66 @@ test('opening a form initializes and persists its dates without creating drafts 
 });
 
 test('chosen dates and explicit blanks survive initialization, edits, and reopening',()=>{
- const record={values:{terms_date:'2025-04-08',authorization_date:''},overrides:[]};
- assert.deepEqual(defaultDates(terms,record,'2026-09-19'),record.values);
- assert.deepEqual(record.values,{terms_date:'2025-04-08',authorization_date:''});
- const disk=storage(),store=createDraftStore(docs,()=>disk,'individual');
- store.initializeDates(terms.id);
- store.save(terms.id,{terms_date:'2025-04-08',authorization_date:''},1,{},'authorization_date');
- const reopened=createDraftStore(docs,()=>disk,'individual');
- assert.ok(reopened.get(terms.id).overrides.includes('authorization_date'));
- reopened.initializeDates(terms.id);
- assert.equal(reopened.get(terms.id).values.terms_date,'2025-04-08');
- assert.equal(reopened.get(terms.id).values.authorization_date,undefined);
- assert.equal(reopened.get(terms.id).step,1);
+ for(const value of ['2025-04-08','']){
+  const record={values:{date:value},overrides:[]};
+  assert.deepEqual(defaultDates(terms,record,'2026-09-19'),record.values);
+  assert.deepEqual(record.values,{date:value});
+  const disk=storage(),store=createDraftStore(docs,()=>disk,'individual');
+  store.initializeDates(terms.id);
+  store.save(terms.id,{date:value},1,{},'date');
+  const reopened=createDraftStore(docs,()=>disk,'individual');
+  assert.ok(reopened.get(terms.id).overrides.includes('date'));
+  reopened.initializeDates(terms.id);
+  assert.equal(reopened.get(terms.id).values.date,value||undefined);
+  assert.equal(reopened.get(terms.id).step,1);
+ }
 });
 
 test('clearing a form removes dates and opening it again starts with today',()=>{
  const disk=storage(),store=createDraftStore(docs,()=>disk,'individual');
- store.save(terms.id,{terms_date:'2025-04-08',authorization_date:''},1,{},'authorization_date');
+ store.save(terms.id,{date:'2025-04-08'},1,{},'date');
  store.clear(terms.id);
  assert.equal(store.has(terms.id),false);
  const reopened=createDraftStore(docs,()=>disk,'individual');
  assert.equal(reopened.has(terms.id),false);
  reopened.initializeDates(terms.id);
- assert.deepEqual(reopened.get(terms.id).values,{terms_date:today(),authorization_date:today()});
+ assert.deepEqual(reopened.get(terms.id).values,{date:today()});
  reopened.clearAll();
  assert.equal(createDraftStore(docs,()=>disk,'individual').has(terms.id),false);
 });
 
-test('opening submitted revisions never changes historical dates or fills their blank dates',()=>{
- const disk=storage(),revisionId='a'.repeat(32),store=createDraftStore(docs,()=>disk,'individual','customer',revisionId);
- const snapshot={id:revisionId,current_id:revisionId,version:1,answers:{terms_date:'2024-02-07'},signatures:{},profile:{}};
- const original=structuredClone(snapshot);
- store.loadSubmission(terms.id,snapshot);
- const record=structuredClone(store.get(terms.id)),saved=disk.getItem(store.prefix+terms.id);
- store.initializeDates(terms.id);
- assert.deepEqual(store.get(terms.id),record);
- assert.equal(disk.getItem(store.prefix+terms.id),saved);
- assert.deepEqual(snapshot,original);
- const reopened=createDraftStore(docs,()=>disk,'individual','customer',revisionId);
- reopened.initializeDates(terms.id);
- assert.equal(reopened.get(terms.id).values.terms_date,'2024-02-07');
- assert.equal(reopened.get(terms.id).values.authorization_date,undefined);
- assert.deepEqual(defaultDates(terms,{values:{},revision:{sourceId:revisionId}},'2026-09-19'),{});
+test('opening current and archived submitted revisions never changes historical dates or fills blank dates',()=>{
+ for(const definition of [terms,archivedTerms]){
+  const historicalDocs=docs.map(doc=>doc.id===terms.id?definition:doc);
+  const dateIds=definition.fields.filter(field=>field.defaultToday).map(field=>field.id);
+  const disk=storage(),revisionId='a'.repeat(32),store=createDraftStore(historicalDocs,()=>disk,'individual','customer',revisionId);
+  const snapshot={id:revisionId,current_id:revisionId,version:1,answers:{[dateIds[0]]:'2024-02-07'},signatures:{},profile:{}};
+  const original=structuredClone(snapshot);
+  store.loadSubmission(terms.id,snapshot);
+  const record=structuredClone(store.get(terms.id)),saved=disk.getItem(store.prefix+terms.id);
+  store.initializeDates(terms.id);
+  assert.deepEqual(store.get(terms.id),record);
+  assert.equal(disk.getItem(store.prefix+terms.id),saved);
+  assert.deepEqual(snapshot,original);
+  const reopened=createDraftStore(historicalDocs,()=>disk,'individual','customer',revisionId);
+  reopened.initializeDates(terms.id);
+  assert.equal(reopened.get(terms.id).values[dateIds[0]],'2024-02-07');
+  for(const id of dateIds.slice(1))assert.equal(reopened.get(terms.id).values[id],undefined);
+  assert.deepEqual(defaultDates(definition,{values:{},revision:{sourceId:revisionId}},'2026-09-19'),{});
+ }
+ assert.deepEqual(defaultDates(archivedTerms,{values:{}},'2026-09-19'),{terms_date:'2026-09-19',authorization_date:'2026-09-19'});
 });
 
 test('individual and company copies of shared forms keep independent dates',()=>{
  const disk=storage(),individual=createDraftStore(docs,()=>disk,'individual'),company=createDraftStore(docs,()=>disk,'corporate');
- company.save(terms.id,{terms_date:'2023-01-02',authorization_date:'2023-01-03'},1);
+ company.save(terms.id,{date:'2023-01-02'},1);
  const savedCompany=disk.getItem(company.prefix+terms.id);
  individual.initializeDates(terms.id);
- assert.deepEqual(individual.get(terms.id).values,{terms_date:today(),authorization_date:today()});
+ assert.deepEqual(individual.get(terms.id).values,{date:today()});
  assert.equal(disk.getItem(company.prefix+terms.id),savedCompany);
  company.initializeDates(terms.id);
  individual.clear(terms.id);
- assert.deepEqual(createDraftStore(docs,()=>disk,'corporate').get(terms.id).values,{terms_date:'2023-01-02',authorization_date:'2023-01-03'});
+ assert.deepEqual(createDraftStore(docs,()=>disk,'corporate').get(terms.id).values,{date:'2023-01-02'});
  assert.equal(individual.initializeDates('fatca-crs-corporate'),false);
  assert.equal(company.initializeDates('fatca-crs-individual'),false);
 });

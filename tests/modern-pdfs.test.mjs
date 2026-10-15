@@ -9,6 +9,7 @@ import {docs} from '../src/forms/index.js';
 import {signatureSlots} from '../src/signatures.js';
 import {submissionDetailsModel} from '../src/portal/submitted-details.js';
 const original=JSON.parse(readFileSync('reference/documents/form-schema-20260927.json'));
+const archivedTerms=JSON.parse(readFileSync('reference/documents/archived/terms-13-page-schema.json'));
 // Explicit input cleanup and source-verified KYC copy corrections are allowed;
 // the historical snapshot itself remains unchanged.
 for(const doc of original){
@@ -45,9 +46,9 @@ test('stale browser templates cannot submit answers onto a replaced PDF layout',
  assert.deepEqual(JSON.parse(r.stdout),[['template_changed',409],['template_changed',409],'allowed','allowed','allowed']);
 });
 
-test('modern PDF design preserves every customer field, option, calculation and signature identity',()=>{
+test('modern PDF design and the archived terms schema preserve every original customer field, option, calculation and signature identity',()=>{
  for(const old of original){
-  const doc=docs.find(d=>d.id===old.id);assert.ok(doc);
+  const doc=old.id==='terms-and-conditions'?archivedTerms:docs.find(d=>d.id===old.id);assert.ok(doc);
   assert.deepEqual(doc.fields.map(semantic),old.fields.map(semantic),old.id);
   for(const field of old.fields){
    const current=doc.fields.find(f=>f.id===field.id);
@@ -91,15 +92,33 @@ test('old PDFs use frozen signing positions and new snapshots use their own posi
  assert.equal(model.shared.flatMap(g=>g.fields).some(f=>f.id==='pdf_layout'),false);
 });
 
-test('restored T&C keeps the approved footer-updated PDF and original field/signature geometry',async()=>{
- const {createHash}=await import('node:crypto');
- const doc=docs.find(d=>d.id==='terms-and-conditions'),old=original.find(d=>d.id===doc.id);
- assert.equal(createHash('sha256').update(readFileSync('reference/pdfs/terms-and-conditions.pdf')).digest('hex'),'8bdd17efdfa24c71ed0e667c9bb142cbe68d77085ef7ab82386d3bd0b3433106');
- assert.equal(createHash('sha256').update(readFileSync('public/pdfs/terms-and-conditions.pdf')).digest('hex'),'7998def88757a5786685e7e8bcc0de9a4c73127a8477b859793bdd4ab6b331e5');
- assert.equal(doc.pages,13);assert.equal(doc.pdfVersion,'20261014-riyadh-address');assert.equal(layouts[doc.id],undefined);
- assert.deepEqual(doc.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field),old.fields.map(({identityRow,compactChoices,control,dropdownOptions,...field})=>field));assert.deepEqual(signatureSlots(doc),old.signatureSlots);
- assert.deepEqual(doc.fields.filter(f=>f.type==='date').map(f=>f.page),[11,13]);
- assert.ok(doc.fields.filter(f=>f.type==='date').every(f=>f.defaultToday&&f.dateParts.length===3));
+test('approved fund terms preserve all 38 supplied pages outside the address footer and expose only their investor declaration',async()=>{
+ const {getDocument}=await import('pdfjs-dist/legacy/build/pdf.mjs');
+ const doc=docs.find(d=>d.id==='terms-and-conditions'),sourcePath='reference/pdfs/supplied-20261015/terms-and-conditions.pdf';
+ assert.equal(createHash('sha256').update(readFileSync(sourcePath)).digest('hex'),'130e5f7fc906a52b5371a74ed0e256527fa490f13334bff8a6641758cf08dcd1');
+ assert.equal(createHash('sha256').update(readFileSync('reference/pdfs/archived/terms-13-page-riyadh-20261014.pdf')).digest('hex'),'7998def88757a5786685e7e8bcc0de9a4c73127a8477b859793bdd4ab6b331e5');
+ assert.equal(doc.pages,38);assert.equal(doc.pdfVersion,'20261015-approved-terms');assert.equal(layouts[doc.id],undefined);
+ assert.deepEqual(doc.pageSizes,Array.from({length:38},()=>[595.32,841.92]));
+ assert.deepEqual(doc.sections.map(s=>s.id),['document','declaration']);assert.equal(doc.sections[0].documentOnly,true);
+ assert.deepEqual(doc.fields.filter(f=>!f.uiOnly).map(f=>f.id),['investor_name','date']);
+ assert.ok(doc.fields.every(f=>f.page===38));assert.equal(doc.fields.find(f=>f.id==='date').defaultToday,true);
+ assert.deepEqual(signatureSlots(doc).map(({id,section,page,rect})=>({id,section,page,rect})),[{id:'investor',section:'declaration',page:38,rect:[259.21,215.14,234.01,24.32]}]);
+ const loading=[sourcePath,'public/pdfs/terms-and-conditions.pdf'].map(file=>getDocument({data:new Uint8Array(readFileSync(file)),verbosity:0}));
+ const [source,published]=await Promise.all(loading.map(task=>task.promise));
+ const address=JSON.parse(readFileSync('scripts/pdf-design/national-address.json')).text;
+ try{
+  assert.equal(source.numPages,38);assert.equal(published.numPages,38);
+  for(let page=1;page<=38;page++){
+   const [before,after]=await Promise.all([source.getPage(page),published.getPage(page)]);
+   assert.deepEqual(after.view,before.view,'page '+page+' size');
+   const [originalText,currentText]=await Promise.all([before.getTextContent(),after.getTextContent()]);
+   const footerLimit=after.view[3]-822;
+   const body=items=>items.filter(item=>item.str&&item.transform[5]>footerLimit).map(item=>({text:item.str,transform:item.transform.map(n=>Math.round(n*1000)/1000)}));
+   assert.deepEqual(body(currentText.items),body(originalText.items),'page '+page+' body text and placement');
+   const footer=currentText.items.filter(item=>item.str&&item.transform[5]<=footerLimit).map(item=>item.str).join(' ').replace(/\s+/g,' ').trim();
+   assert.equal(footer.split(address).length-1,1,'page '+page+' canonical address');
+  }
+ }finally{await Promise.all(loading.map(task=>task.destroy()));}
 });
 
 test('restored signature form keeps the approved footer update, one-page fields and specimen signature area',async()=>{
@@ -127,20 +146,21 @@ test('original, retired modern and restored signature forms retain immutable sig
  assert.deepEqual(results.map(r=>r[0].expectedPages),[1,2,1]);
 });
 
-test('original, retired modern and restored T&C submissions retain their own signing geometry',()=>{
+test('original, retired modern, archived 13-page and current 38-page T&C submissions retain their own signing geometry',()=>{
  const doc=docs.find(d=>d.id==='terms-and-conditions');
  const retired=JSON.parse(readFileSync('reference/documents/archived/terms-modern-layout.json'));
- const restored={pages:doc.pages,pdfVersion:doc.pdfVersion,signatureSlots:signatureSlots(doc)};
+ const restored={pages:archivedTerms.pages,pdfVersion:archivedTerms.pdfVersion,signatureSlots:archivedTerms.signatureSlots};
+ const approved={pages:doc.pages,pdfVersion:doc.pdfVersion,pageSizes:doc.pageSizes,signatureSlots:signatureSlots(doc)};
  const source={id:'a'.repeat(32),sha256:'b'.repeat(64),profile:{},answers:{},source:'online'};
- const cases=[source,...[retired,restored].map(pdf_layout=>({...source,profile:{pdf_layout}}))];
+ const cases=[source,...[retired,restored,approved].map(pdf_layout=>({...source,profile:{pdf_layout}}))];
  const r=spawnSync('php',['-r',`require 'public/api/portal-versions.php';$p=json_decode(stream_get_contents(STDIN),true);$out=[];foreach($p['cases'] as $s){$before=$s;$out[]=[submissionSigningCapability($s,$p['doc']),$before===$s];}echo json_encode($out);`],{input:JSON.stringify({doc:{...doc,legacyPdfLayout:legacy[doc.id]},cases}),encoding:'utf8'});
  assert.equal(r.status,0,r.stderr);const results=JSON.parse(r.stdout);
- for(const [i,layout] of [legacy[doc.id],retired,restored].entries()){
+ for(const [i,layout] of [legacy[doc.id],retired,restored,approved].entries()){
   assert.equal(results[i][0].expectedPages,layout.pages);
   assert.deepEqual(results[i][0].signatureSlots,layout.signatureSlots.map(({section,...slot})=>slot));
   assert.equal(results[i][1],true);
  }
- assert.deepEqual(results.map(r=>r[0].expectedPages),[13,24,13]);
+ assert.deepEqual(results.map(r=>r[0].expectedPages),[13,24,13,38]);
 });
 
 test('restored KYC templates use seven Letter pages and preserve original, modern and restored signing snapshots',()=>{

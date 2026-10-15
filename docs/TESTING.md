@@ -2,6 +2,22 @@
 
 Run these commands from `source/`. Use disposable local data. The browser audits start their own PHP server, choose an available localhost port and create synthetic accounts under `tmp/`. They do not need the real admin password. Do not adapt them to write into production.
 
+## Approved fund terms — 15 October 2026
+
+The current terms version is `20261015-approved-terms`, with 38 physical pages (eight introductory plus 30 numbered). The complete document must appear before the declaration; only investor name, date and the `investor` signature print on physical page 38. Individual name-part inputs and company names must remain separate. There are ten current public PDF assets / 75 pages, including the legacy subscription file, and five current Word sources.
+
+After building, run the focused browser audit and historical regressions:
+
+```sh
+node --test tests/historical-signing.test.mjs tests/legacy-terms-details.test.mjs
+QA_OUT=tmp/approved-terms-browser node scripts/approved-terms-audit.mjs
+node scripts/historical-terms-browser-audit.mjs
+```
+
+The browser script covers both audiences in Chrome, Firefox and WebKit, English/Arabic at desktop/mobile widths, all 38 preview pages, the new declaration controls, unsigned submission, electronic signing, confirmed PDF replacement, saved answers and previous PDF bytes. It writes `report.json` and screenshots under `QA_OUT`; `QA_ENGINES=chrome` is a scoped diagnostic, not the full release run. The historical tests use isolated fixtures for old 13-page, retired 24-page and current layouts, including unsigned status and signature-policy validation. Legacy detail tests verify captured-definition precedence and fallback labels without mutating answers.
+
+Compare all 38 blank pages against `reference/pdfs/supplied-20261015/terms-and-conditions.pdf`; only the added Riyadh footer may differ. Check filled page 38 with long Arabic/English names, dates and signatures, then run the generation, geometry, ink and workflow checks below. Verify stale template submissions are rejected, old drafts never attach old signature IDs to the new terms, management descriptions do not retain the retired telephone/fax default, and historical 13-/24-page PDFs still sign at their saved coordinates. New source fields must not appear as unanswered questions in old submission details. Dated results belong in `verification/approved-terms-2026-10-15/`; final release evidence is still pending.
+
 For the national-address footer, build first, then run `node scripts/website-address-audit.mjs` for the fresh-install default across common page shells in English/Arabic at desktop/mobile widths. Run `node scripts/website-settings-api-audit.mjs` and `node scripts/website-settings-audit.mjs` for superadmin editing, permissions, CSRF, revisions, retries, persistence, backup/restore and safe display of edited text. These use isolated fixtures, not production clients. `npm test` includes the settings storage/normalization/concurrency regressions.
 
 Run `python3 scripts/verify-national-address.py tmp/national-address-report.json` to check every public PDF page and current Word source; also inspect rendered footers for legibility after PDF edits. Both initial website and PDF addresses use `scripts/pdf-design/national-address.json`. A saved website override intentionally does not change PDF templates or historical files.
@@ -23,7 +39,7 @@ The address source is `scripts/pdf-design/national-address.json`. For address-on
 
 For intentional body/layout edits, rebuild subscriptions with `python3 scripts/rebuild-subscription.py`; this writes Word/PDF files and recalculates their answer maps. The script uses LibreOffice on `PATH` (or its standard macOS installation), or an explicit `DOCX_RENDERER=/path/to/render_docx.py`. A custom renderer runs with the current Python; set `DOCX_PYTHON=/path/to/python3` to use another environment. The modern document builder also accepts `DOCX_RENDERER` and otherwise uses LibreOffice plus Poppler.
 
-The subscription builder reuses the Bahij font embedded in `reference/documents/subscription-style.docx`; `SUBSCRIPTION_ARABIC_FONT=/path/to/BahijTheSansArabic-Plain.ttf` overrides it. Install Arial for document rendering and set `SUBSCRIPTION_ARIAL_FONT=/path/to/Arial.ttf` if it is outside the usual macOS or Linux locations. Keep the approved fonts available to LibreOffice. Re-rendered files and recalculated maps require the PDF checks below and visual review before publication; changing renderer or fonts can change layout. `python3 scripts/update-original-footers.py` separately updates the original-style KYC, signature and terms footers with PyMuPDF. To update only the supplied KYC files, run `python3 scripts/update-original-footers.py kyc-individual kyc-corporate`. The immutable KYC inputs are in `reference/pdfs/supplied-20261007/`; both are seven-page Letter PDFs. Do not regenerate them from the retired Word redesigns. The source policy in `scripts/pdf-design/template-sources.json` lists the five current Word documents.
+The subscription builder reuses the Bahij font embedded in `reference/documents/subscription-style.docx`; `SUBSCRIPTION_ARABIC_FONT=/path/to/BahijTheSansArabic-Plain.ttf` overrides it. Install Arial for document rendering and set `SUBSCRIPTION_ARIAL_FONT=/path/to/Arial.ttf` if it is outside the usual macOS or Linux locations. Keep the approved fonts available to LibreOffice. Re-rendered files and recalculated maps require the PDF checks below and visual review before publication; changing renderer or fonts can change layout. `python3 scripts/update-original-footers.py` separately updates the original-style KYC, signature and terms footers with PyMuPDF. To update only the supplied KYC files, run `python3 scripts/update-original-footers.py kyc-individual kyc-corporate`. The immutable KYC inputs are in `reference/pdfs/supplied-20261007/`; both are seven-page Letter PDFs. The current 38-page terms input is `reference/pdfs/supplied-20261015/terms-and-conditions.pdf`; `python3 scripts/update-original-footers.py terms-and-conditions` adds its footer below the supplied artwork. Never rebuild a current supplied PDF from retired Word designs. The source policy in `scripts/pdf-design/template-sources.json` lists the five current Word documents.
 
 ## First pass
 
@@ -114,7 +130,7 @@ Record the domain, date, browser, result and evidence for each row. Delete only 
 
 ## What a passing report means
 
-TEST-REPORT.md separates the 8 October KYC input/content checks, 7 October PDF/address checks and September workflow evidence. A passing local run is not proof of destination-host permissions, email/SMS delivery (the app has no such provider), a real signature's authenticity or legal compliance. Keep that distinction in the developer sign-off.
+TEST-REPORT.md separates the 15 October approved-terms checks from the 14 October address/settings, 8 October KYC, 7 October PDF/address and September workflow evidence. A passing local run is not proof of destination-host permissions, email/SMS delivery (the app has no such provider), a real signature's authenticity or legal compliance. Keep that distinction in the developer sign-off.
 
 ## Submission settings page
 

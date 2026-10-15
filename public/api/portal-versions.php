@@ -58,6 +58,26 @@ function requiredSubmissionSignatureSlots(array $def,array $answers): array {
 function signatureSubmissionPolicy(array $def): array {
     return ['workflow'=>$def['workflow']??null,'signatureSlots'=>array_map(fn($slot)=>array_intersect_key($slot,array_flip(['id','requiredForSubmission','requireWhenFields'])),$def['signatureSlots']??$def['signatures']??[])];
 }
+function submissionSigningDefinition(array $submission,?array $definition): ?array {
+    $profile=$submission['profile']??[];if(is_string($profile))$profile=json_decode($profile,true)??[];
+    // Both geometry and signature identities come from the server-owned snapshot.
+    $layout=$profile['pdf_layout']??$definition['legacyPdfLayout']??$definition;
+    if(!$layout)return null;
+    $policy=$profile['signature_submission_policy']??null;
+    return [...$layout,'workflow'=>$policy!==null?($policy['workflow']??null):($definition['workflow']??null)];
+}
+function submissionExistingSignatureImages(array $submission,array $definition): array {
+    // Online PDFs already contain these images. Preserve them, never overlay them again.
+    if(($submission['source']??'online')!=='online')return [];
+    $profile=$submission['profile']??[];$answers=$submission['answers']??[];$images=$submission['signatures']??[];
+    if(is_string($profile))$profile=json_decode($profile,true)??[];
+    if(is_string($answers))$answers=json_decode($answers,true)??[];
+    if(is_string($images))$images=json_decode($images,true)??[];
+    if(!is_array($images))return [];
+    if(($definition['workflow']??'')==='subscription'&&!isset($profile['electronic_signature'])&&($answers['signature_mode']??'')!=='electronic')return [];
+    $ids=array_column($definition['signatureSlots']??$definition['signatures']??[],'id');
+    return array_filter(array_intersect_key($images,array_flip($ids)),fn($image)=>is_string($image)&&str_starts_with($image,'data:image/png;base64,'));
+}
 function submissionSignatureState(array $submission,?array $definition=null): array {
     $requested=($submission['review_status']??'')==='signature_required';
     $profile=$submission['profile']??[];$images=$submission['signatures']??null;$answers=$submission['answers']??[];
@@ -68,7 +88,7 @@ function submissionSignatureState(array $submission,?array $definition=null): ar
     if(($submission['source']??'online')==='upload'&&!$electronicOverlay)$state=($profile['signed_confirmed']??false)===true?'uploaded':'unknown';
     elseif($images===null)$state='unknown';
     else{
-        $policy=$profile['signature_submission_policy']??$definition;
+        $policy=$profile['signature_submission_policy']??submissionSigningDefinition($submission,$definition);
         if(!$policy)$state=$images?'unknown':'unsigned';
         else{
             $required=requiredSubmissionSignatureSlots($policy,$answers);$state=$required?'electronic':'unsigned';
@@ -83,7 +103,7 @@ function submissionSigningCapability(array $submission,?array $definition): arra
     // A stored PDF never moves when the active Word template is redesigned.
     // Old built-ins use their frozen original layout; new versions carry their
     // server-owned layout snapshot. This fallback does not rewrite history.
-    $layout=$profile['pdf_layout']??$definition['legacyPdfLayout']??$definition;
+    $layout=submissionSigningDefinition($submission,$definition);
     $pages=$layout['pages']??null;$slots=$layout['signatureSlots']??$layout['signatures']??[];
     $safe=$definition!==null&&empty($definition['downloadOnly'])&&is_int($pages)&&$pages>0&&$slots!==[];
     if(($submission['source']??'online')==='upload'&&isset($profile['electronic_signature']))$safe=false;
@@ -98,9 +118,15 @@ function submissionSigningCapability(array $submission,?array $definition): arra
     $answers=$submission['answers']??[];if(is_string($answers))$answers=json_decode($answers,true)??[];
     $required=$layout?array_column(requiredSubmissionSignatureSlots($layout,$answers),'id'):[];
     $safe=$safe&&$required!==[];
+    $positions=fn($items)=>array_map(fn($slot)=>array_intersect_key($slot,array_flip(['id','page','rect','requiredForSubmission','requireWhenFields'])),$items);
+    $current=$definition!==null&&$pages===($definition['pages']??null)
+        &&($layout['pdfVersion']??null)===($definition['pdfVersion']??null)
+        &&($layout['pageSizes']??null)===($definition['pageSizes']??null)
+        &&$positions($slots)===$positions($definition['signatureSlots']??$definition['signatures']??[]);
     return ['sourceId'=>$submission['id'],'sourceSha256'=>$submission['sha256'],'expectedCurrent'=>$submission['id'],
         'expectedPages'=>$pages,'signatureSlots'=>$safe?array_values(array_map(fn($slot)=>array_intersect_key($slot,array_flip(['id','label','ar','page','rect','requiredForSubmission','requireWhenFields'])),$slots)):[],
-        'requiredSignatureIds'=>$safe?$required:[],'can_sign_electronically'=>$safe];
+        'requiredSignatureIds'=>$safe?$required:[],'existingSignatureIds'=>$safe?array_keys(submissionExistingSignatureImages($submission,$layout)):[],'can_sign_electronically'=>$safe,
+        'use_saved_pdf'=>($submission['source']??'online')!=='online'||!$current];
 }
 function requireOnlineSignatures(array $def,array $images,array $answers,mixed $modes): void {
     if(!is_array($modes)||count($modes)>20)reject('signature_invalid');

@@ -10,5 +10,5 @@ const names={
  'fatca-crs-corporate':[5,'International Tax Transparency - Self-Certification and Declaration Form (FATCA & CRS)','نموذج الشفافية الضريبية الدولية - نموذج إقرار ذاتي (FATCA وCRS)'],
  'terms-and-conditions':[6,'Terms and Conditions for Al Naeem Real Estate Fund','الشروط و الأحكام لصندوق النعيم العقاري'],
 };
-export function applyCatalogueNames(docs){for(const doc of docs){const [number,title,ar]=names[doc.id];Object.assign(doc,{number,sourceTitle:doc.title,sourceAr:doc.ar,title,ar});if(doc.id==='terms-and-conditions')Object.assign(doc,{description:'Current PDF: Itqan’s general account terms and telephone / fax instructions.',arDescription:'الملف الحالي: شروط إتقان العامة للحساب وتعليمات الهاتف والفاكس.'});}}
+export function applyCatalogueNames(docs){for(const doc of docs){const [number,title,ar]=names[doc.id];Object.assign(doc,{number,sourceTitle:doc.title,sourceAr:doc.ar,title,ar});}}
 export const catalogueFor=(docs,audience,cards=null)=>(cards||docs).filter(doc=>visibleIn(doc,audience)).sort((a,b)=>(a.order?.[audience]??a.number)-(b.order?.[audience]??b.number)).map((d,i)=>cards?{...d,number:i+1}:d);

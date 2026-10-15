@@ -48,8 +48,8 @@ try{
     assert.equal(await page.locator('[data-signature-mode]:checked').count(),0);
    }
    await page.locator('#back-home').click();await page.locator('[data-doc="terms-and-conditions"]').click();await page.locator('[data-step="0"]').click();
-   assert.equal(await page.locator('[data-full-page]').count(),13);await page.waitForFunction(()=>[...document.querySelectorAll('[data-full-page]')].every(c=>c.width>300),{timeout:60000});
-   assert.equal(await page.locator('.section-tab').count(),4);assert.match(await page.locator('[data-step="1"]').innerText(),/Acceptance|قبول/);
+   assert.equal(await page.locator('[data-full-page]').count(),docs.find(d=>d.id==='terms-and-conditions').pages);await page.waitForFunction(()=>[...document.querySelectorAll('[data-full-page]')].every(c=>c.width>300),{timeout:60000});
+   assert.equal(await page.locator('.section-tab').count(),3);assert.match(await page.locator('[data-step="1"]').innerText(),/Investor declaration|إقرار/);
    await page.locator('#next').click();assert.equal(await page.locator('[data-signature-mode]:checked').count(),0);
    await page.locator('#back-home').click();
   }

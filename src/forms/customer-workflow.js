@@ -39,8 +39,7 @@ export function applyCustomerWorkflow(docs){
   }
   if(doc.id==='signature-form')doc.fields.find(f=>f.id==='signer_role').compactChoices=true;
   if(doc.id==='terms-and-conditions'){
-   Object.assign(doc.sections.find(s=>s.id==='terms'),{title:'Acceptance of terms and conditions',ar:'قبول الشروط والأحكام'});
-   doc.sections.unshift({id:'document',title:'General terms and conditions document',ar:'وثيقة الشروط والأحكام العامة',page:1,fields:[],documentOnly:true});
+   doc.sections.unshift({id:'document',title:'Fund terms and conditions document',ar:'وثيقة الشروط والأحكام العامة',page:1,fields:[],documentOnly:true});
   }
  }
 }

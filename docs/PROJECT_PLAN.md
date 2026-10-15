@@ -1,5 +1,7 @@
 # Forms: choose, fill, download, sign
 
+> Historical project record. Current installation and template details are in DEVELOPER-HANDOFF.md; the 15 October 2026 release uses the complete 38-page approved fund terms.
+
 Planning date: 2026-09-16. Status: implemented and deployed to https://forms.ahmaddalao.com/ via verified FTPS. See VERIFICATION.md and deployment-manifest.json.
 
 ## Product decision

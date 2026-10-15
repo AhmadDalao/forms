@@ -12,10 +12,10 @@ const name=(store,id,prefix,values)=>parts.forEach((part,i)=>change(store,id,pre
 for(const language of ['en','ar'])for(const source of ['subscription-form','kyc-individual','signature-form','terms-and-conditions','fatca-crs-individual'])test(`primary name entered in ${source}/${language} fills every matching form with four exact parts`,()=>{
  const storage=disk(),store=create(storage),values=language==='ar'?['عبد الرحمن','محمد','','آل غامدي']:['Abdul Rahman','Mohammed','','Al Ghamdi'];
  if(source==='subscription-form')for(const [i,field]of (language==='ar'?['first_name','second_name','third_name','family_name']:parts.map(p=>'en_'+p)).entries())change(store,source,field,values[i]);
- else name(store,source,source==='kyc-individual'?'name':source==='signature-form'?'client_name':source==='terms-and-conditions'?'terms_name_0':language,values);
+ else name(store,source,source==='kyc-individual'?'name':source==='signature-form'?'client_name':source==='terms-and-conditions'?'investor_name':language,values);
  for(const [i,part]of parts.entries())assert.equal(store.profile[language+'_'+part],values[i]);
  const full=values.filter(Boolean).join(' ');
- for(const [id,field]of [['signature-form','client_name'],['terms-and-conditions','terms_name_0'],['terms-and-conditions','authorization_name_0'],['kyc-individual','risk_client_name']])assert.equal(store.get(id).values[field],full,id+'/'+field);
+ for(const [id,field]of [['signature-form','client_name'],['terms-and-conditions','investor_name'],['kyc-individual','risk_client_name']])assert.equal(store.get(id).values[field],full,id+'/'+field);
  assert.equal(store.get('kyc-individual').values.name_1,values.slice(0,2).join(' '));
  assert.equal(store.get('kyc-individual').values.name_2,values[3]);
  for(const [i,field]of (language==='ar'?['first_name','second_name','third_name','family_name']:parts.map(p=>'en_'+p)).entries())assert.equal(store.get('subscription-form').values[field],values[i]);
@@ -55,7 +55,7 @@ test('common contact and identity edits propagate both ways, including clearing,
 
 test('company legal names, registration and primary signatory link without populating controllers or private bank details',()=>{
  const storage=disk(),s=create(storage,'corporate');
- change(s,'fatca-crs-corporate','legal_name','Test Company');assert.equal(s.get('subscription-company').values.english_name,'Test Company');assert.equal(s.get('kyc-corporate').values.company,'Test Company');assert.equal(s.get('signature-form').values.client_name,'Test Company');
+ change(s,'fatca-crs-corporate','legal_name','Test Company');assert.equal(s.get('subscription-company').values.english_name,'Test Company');assert.equal(s.get('kyc-corporate').values.company,'Test Company');assert.equal(s.get('signature-form').values.client_name,'Test Company');assert.equal(s.get('terms-and-conditions').values.investor_name,'Test Company');
  change(s,'kyc-corporate','cr','CR000333');assert.equal(s.profile.company_id_number,'CR000333');assert.equal(s.get('subscription-company').values.company_id_number,'CR000333');
  name(s,'kyc-corporate','auth_name',['Abdul Rahman','Ali','','Al Ghamdi']);
  assert.equal(s.profile.auth_first,'Abdul Rahman');assert.equal(s.get('subscription-company').values.auth_name,'Abdul Rahman Ali Al Ghamdi');assert.equal(s.get('fatca-crs-corporate').values.signer_0_name,'Abdul Rahman Ali Al Ghamdi');

@@ -300,18 +300,24 @@ try {
         $workflow=requestedWorkflow($meta);
         $doc=findDefinition($s['doc_id'],$s['audience'],true);
         if(!submissionSigningCapability($s,$doc)['can_sign_electronically'])reject('electronic_signing_unavailable',422);
+        $signingDefinition=submissionSigningDefinition($s,$doc);
         $answers=json_decode($s['answers'],true);$profile=json_decode($s['profile'],true);
-        $signingAnswers=$answers;if(($doc['workflow']??'')==='subscription')$signingAnswers['signature_mode']='electronic';
-        $signatures=cleanSignatureImages($doc,$meta['signatures']??[],$signingAnswers);
+        $signingAnswers=$answers;if(($signingDefinition['workflow']??'')==='subscription')$signingAnswers['signature_mode']='electronic';
+        $signatures=cleanSignatureImages($signingDefinition,$meta['signatures']??[],$signingAnswers);
         if(!$signatures)reject('signature_image_required',422);
-        $s['signature_complete']=onlineSignaturesComplete($doc,$signatures,$signingAnswers,[]);
+        $existing=submissionExistingSignatureImages($s,$signingDefinition);
+        // A saved PDF cannot remove an embedded signature. Only missing slots
+        // may be overlaid; existing images remain server-owned metadata.
+        if(array_intersect_key($signatures,$existing))reject('signature_invalid',422);
+        $signatures=cleanSignatureImages($signingDefinition,[...$existing,...$signatures],$signingAnswers);
+        $s['signature_complete']=onlineSignaturesComplete($signingDefinition,$signatures,$signingAnswers,[]);
         $f=submittedPdf();
         // The browser overlays these images on the authenticated original PDF;
         // retain its snapshot and provenance, including PDF-only upload source.
-        if(($doc['workflow']??'')==='subscription'&&$s['source']==='online')$answers['signature_mode']='electronic';
+        if(($signingDefinition['workflow']??'')==='subscription'&&$s['source']==='online')$answers['signature_mode']='electronic';
         $profile['submission_mode']='direct';$profile['review_required']=false;$s['workflow_revision']=$workflow['revision'];
         $profile['electronic_signature']=['source_id'=>$s['id'],'source_sha256'=>$s['sha256']];
-        $profile['signature_submission_policy']=signatureSubmissionPolicy($doc);
+        $profile['signature_submission_policy']=signatureSubmissionPolicy($signingDefinition);
         $s['answers']=json_encode($answers,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);$s['profile']=json_encode($profile,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
         $s['signatures']=json_encode((object)$signatures,JSON_THROW_ON_ERROR);$s['request_key']=$key;$s['edited_from']=$s['id'];$s['restored_from']=null;
         $result=saveVersion($s,$f['tmp_name'],$expected,null,true);reply($result,empty($result['duplicate'])?201:200);

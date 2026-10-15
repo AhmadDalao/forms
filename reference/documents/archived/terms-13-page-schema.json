@@ -1,0 +1,1572 @@
+{
+  "id": "terms-and-conditions",
+  "title": "Terms and Conditions for Al Naeem Real Estate Fund",
+  "ar": "الشروط و الأحكام لصندوق النعيم العقاري",
+  "group": "shared",
+  "description": "Current PDF: Itqan’s general account terms and telephone / fax instructions.",
+  "arDescription": "الملف الحالي: شروط إتقان العامة للحساب وتعليمات الهاتف والفاكس.",
+  "pages": 13,
+  "signing": [
+    11,
+    13
+  ],
+  "sections": [
+    {
+      "id": "document",
+      "title": "General terms and conditions document",
+      "ar": "وثيقة الشروط والأحكام العامة",
+      "page": 1,
+      "fields": [],
+      "documentOnly": true
+    },
+    {
+      "id": "terms",
+      "title": "Acceptance of terms and conditions",
+      "ar": "قبول الشروط والأحكام",
+      "page": 11,
+      "note": "Read the original terms before making your choices. Signature images are optional.",
+      "arNote": "اقرأ الشروط الأصلية قبل اختيار إجابتك. إضافة صور التوقيع اختيارية.",
+      "fields": [
+        {
+          "id": "terms_consent",
+          "label": "Do you confirm your desire not to receive any confirmations or account statements except on request basis?",
+          "ar": "هل تؤكد عدم رغبتك في استلام أي مراسلات أو إشعارات أو كشوف الحساب إلا عند الطلب؟",
+          "type": "choice",
+          "page": 11,
+          "rect": null,
+          "fontSize": 10,
+          "options": [
+            {
+              "value": "no",
+              "label": "No",
+              "ar": "لا",
+              "rect": [
+                274.8,
+                84.4,
+                6.4,
+                6.4
+              ],
+              "extraRects": []
+            },
+            {
+              "value": "yes",
+              "label": "Yes",
+              "ar": "نعم",
+              "rect": [
+                310.8,
+                84.4,
+                6.4,
+                6.4
+              ],
+              "extraRects": []
+            }
+          ]
+        },
+        {
+          "id": "terms_name_0",
+          "label": "Client Name",
+          "ar": "اسم العميل",
+          "type": "text",
+          "page": 11,
+          "rect": [
+            322,
+            134,
+            205,
+            31
+          ],
+          "fontSize": 10,
+          "context": [
+            "Row 1",
+            "الصف 1"
+          ],
+          "join": [
+            "terms_name_0_first",
+            "terms_name_0_second",
+            "terms_name_0_third",
+            "terms_name_0_last"
+          ],
+          "personNameDerived": true,
+          "personNameGroup": "terms_name_0",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_0_first",
+          "label": "First name",
+          "ar": "الاسم الأول",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_0",
+          "personNamePart": "first",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_0_second",
+          "label": "Second name",
+          "ar": "الاسم الثاني",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_0",
+          "personNamePart": "second",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_0_third",
+          "label": "Third name (optional)",
+          "ar": "الاسم الثالث (اختياري)",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_0",
+          "personNamePart": "third",
+          "optional": true,
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_0_last",
+          "label": "Family name",
+          "ar": "اسم العائلة",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_0",
+          "personNamePart": "last",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_1",
+          "label": "Client Name",
+          "ar": "اسم العميل",
+          "type": "text",
+          "page": 11,
+          "rect": [
+            322,
+            170.8,
+            205,
+            31
+          ],
+          "fontSize": 10,
+          "context": [
+            "Row 2",
+            "الصف 2"
+          ],
+          "join": [
+            "terms_name_1_first",
+            "terms_name_1_second",
+            "terms_name_1_third",
+            "terms_name_1_last"
+          ],
+          "personNameDerived": true,
+          "personNameGroup": "terms_name_1",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_1_first",
+          "label": "First name",
+          "ar": "الاسم الأول",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_1",
+          "personNamePart": "first",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_1_second",
+          "label": "Second name",
+          "ar": "الاسم الثاني",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_1",
+          "personNamePart": "second",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_1_third",
+          "label": "Third name (optional)",
+          "ar": "الاسم الثالث (اختياري)",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_1",
+          "personNamePart": "third",
+          "optional": true,
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_1_last",
+          "label": "Family name",
+          "ar": "اسم العائلة",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_1",
+          "personNamePart": "last",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_2",
+          "label": "Client Name",
+          "ar": "اسم العميل",
+          "type": "text",
+          "page": 11,
+          "rect": [
+            322,
+            207.6,
+            205,
+            31
+          ],
+          "fontSize": 10,
+          "context": [
+            "Row 3",
+            "الصف 3"
+          ],
+          "join": [
+            "terms_name_2_first",
+            "terms_name_2_second",
+            "terms_name_2_third",
+            "terms_name_2_last"
+          ],
+          "personNameDerived": true,
+          "personNameGroup": "terms_name_2",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_2_first",
+          "label": "First name",
+          "ar": "الاسم الأول",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_2",
+          "personNamePart": "first",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_2_second",
+          "label": "Second name",
+          "ar": "الاسم الثاني",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_2",
+          "personNamePart": "second",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_2_third",
+          "label": "Third name (optional)",
+          "ar": "الاسم الثالث (اختياري)",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_2",
+          "personNamePart": "third",
+          "optional": true,
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_name_2_last",
+          "label": "Family name",
+          "ar": "اسم العائلة",
+          "type": "text",
+          "page": 11,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "terms_name_2",
+          "personNamePart": "last",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "terms_date",
+          "label": "Date",
+          "ar": "التاريخ",
+          "type": "date",
+          "page": 11,
+          "rect": [
+            267,
+            263.5,
+            78,
+            18
+          ],
+          "fontSize": 7,
+          "defaultToday": true,
+          "dateParts": [
+            [
+              267,
+              264,
+              20,
+              16
+            ],
+            [
+              292,
+              264,
+              27,
+              16
+            ],
+            [
+              326,
+              264,
+              20,
+              16
+            ]
+          ],
+          "minFontSize": 6
+        }
+      ]
+    },
+    {
+      "id": "authorization",
+      "title": "Authorization Via Tel & Fax",
+      "ar": "تفويض قبول التعليمات بالهاتف والفاكس",
+      "page": 13,
+      "note": "Read the original terms before making your choices. Signature images are optional.",
+      "arNote": "اقرأ الشروط الأصلية قبل اختيار إجابتك. إضافة صور التوقيع اختيارية.",
+      "fields": [
+        {
+          "id": "authorization_consent",
+          "label": "Do you confirm your request and consent to Receive required services via Telephone & Fax",
+          "ar": "هل تؤكد رغبتك في الحصول على خدمة التعامل عن طريق الهاتف والفاكس؟",
+          "type": "choice",
+          "page": 13,
+          "rect": null,
+          "fontSize": 10,
+          "options": [
+            {
+              "value": "no",
+              "label": "No",
+              "ar": "لا",
+              "rect": [
+                274.8,
+                281.8,
+                6.4,
+                6.4
+              ],
+              "extraRects": []
+            },
+            {
+              "value": "yes",
+              "label": "Yes",
+              "ar": "نعم",
+              "rect": [
+                310.8,
+                281.8,
+                6.4,
+                6.4
+              ],
+              "extraRects": []
+            }
+          ]
+        },
+        {
+          "id": "authorization_name_0",
+          "label": "Customer Name",
+          "ar": "اسم العميل",
+          "type": "text",
+          "page": 13,
+          "rect": [
+            322,
+            326.5,
+            205,
+            31
+          ],
+          "fontSize": 10,
+          "context": [
+            "Row 1",
+            "الصف 1"
+          ],
+          "join": [
+            "authorization_name_0_first",
+            "authorization_name_0_second",
+            "authorization_name_0_third",
+            "authorization_name_0_last"
+          ],
+          "personNameDerived": true,
+          "personNameGroup": "authorization_name_0",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_0_first",
+          "label": "First name",
+          "ar": "الاسم الأول",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_0",
+          "personNamePart": "first",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_0_second",
+          "label": "Second name",
+          "ar": "الاسم الثاني",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_0",
+          "personNamePart": "second",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_0_third",
+          "label": "Third name (optional)",
+          "ar": "الاسم الثالث (اختياري)",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_0",
+          "personNamePart": "third",
+          "optional": true,
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_0_last",
+          "label": "Family name",
+          "ar": "اسم العائلة",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_0",
+          "personNamePart": "last",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_1",
+          "label": "Customer Name",
+          "ar": "اسم العميل",
+          "type": "text",
+          "page": 13,
+          "rect": [
+            322,
+            363.3,
+            205,
+            31
+          ],
+          "fontSize": 10,
+          "context": [
+            "Row 2",
+            "الصف 2"
+          ],
+          "join": [
+            "authorization_name_1_first",
+            "authorization_name_1_second",
+            "authorization_name_1_third",
+            "authorization_name_1_last"
+          ],
+          "personNameDerived": true,
+          "personNameGroup": "authorization_name_1",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_1_first",
+          "label": "First name",
+          "ar": "الاسم الأول",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_1",
+          "personNamePart": "first",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_1_second",
+          "label": "Second name",
+          "ar": "الاسم الثاني",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_1",
+          "personNamePart": "second",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_1_third",
+          "label": "Third name (optional)",
+          "ar": "الاسم الثالث (اختياري)",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_1",
+          "personNamePart": "third",
+          "optional": true,
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_1_last",
+          "label": "Family name",
+          "ar": "اسم العائلة",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_1",
+          "personNamePart": "last",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_2",
+          "label": "Customer Name",
+          "ar": "اسم العميل",
+          "type": "text",
+          "page": 13,
+          "rect": [
+            322,
+            400.1,
+            205,
+            31
+          ],
+          "fontSize": 10,
+          "context": [
+            "Row 3",
+            "الصف 3"
+          ],
+          "join": [
+            "authorization_name_2_first",
+            "authorization_name_2_second",
+            "authorization_name_2_third",
+            "authorization_name_2_last"
+          ],
+          "personNameDerived": true,
+          "personNameGroup": "authorization_name_2",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_2_first",
+          "label": "First name",
+          "ar": "الاسم الأول",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_2",
+          "personNamePart": "first",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_2_second",
+          "label": "Second name",
+          "ar": "الاسم الثاني",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_2",
+          "personNamePart": "second",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_2_third",
+          "label": "Third name (optional)",
+          "ar": "الاسم الثالث (اختياري)",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_2",
+          "personNamePart": "third",
+          "optional": true,
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_name_2_last",
+          "label": "Family name",
+          "ar": "اسم العائلة",
+          "type": "text",
+          "page": 13,
+          "rect": null,
+          "uiOnly": true,
+          "direction": "auto",
+          "personNameGroup": "authorization_name_2",
+          "personNamePart": "last",
+          "joinAudience": "individual"
+        },
+        {
+          "id": "authorization_date",
+          "label": "Date",
+          "ar": "التاريخ",
+          "type": "date",
+          "page": 13,
+          "rect": [
+            267,
+            456,
+            78,
+            18
+          ],
+          "fontSize": 7,
+          "defaultToday": true,
+          "dateParts": [
+            [
+              267,
+              456.5,
+              20,
+              16
+            ],
+            [
+              292,
+              456.5,
+              27,
+              16
+            ],
+            [
+              326,
+              456.5,
+              20,
+              16
+            ]
+          ],
+          "minFontSize": 6
+        }
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "id": "terms_consent",
+      "label": "Do you confirm your desire not to receive any confirmations or account statements except on request basis?",
+      "ar": "هل تؤكد عدم رغبتك في استلام أي مراسلات أو إشعارات أو كشوف الحساب إلا عند الطلب؟",
+      "type": "choice",
+      "page": 11,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا",
+          "rect": [
+            274.8,
+            84.4,
+            6.4,
+            6.4
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم",
+          "rect": [
+            310.8,
+            84.4,
+            6.4,
+            6.4
+          ],
+          "extraRects": []
+        }
+      ]
+    },
+    {
+      "id": "terms_name_0",
+      "label": "Client Name",
+      "ar": "اسم العميل",
+      "type": "text",
+      "page": 11,
+      "rect": [
+        322,
+        134,
+        205,
+        31
+      ],
+      "fontSize": 10,
+      "context": [
+        "Row 1",
+        "الصف 1"
+      ],
+      "join": [
+        "terms_name_0_first",
+        "terms_name_0_second",
+        "terms_name_0_third",
+        "terms_name_0_last"
+      ],
+      "personNameDerived": true,
+      "personNameGroup": "terms_name_0",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_0_first",
+      "label": "First name",
+      "ar": "الاسم الأول",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_0",
+      "personNamePart": "first",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_0_second",
+      "label": "Second name",
+      "ar": "الاسم الثاني",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_0",
+      "personNamePart": "second",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_0_third",
+      "label": "Third name (optional)",
+      "ar": "الاسم الثالث (اختياري)",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_0",
+      "personNamePart": "third",
+      "optional": true,
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_0_last",
+      "label": "Family name",
+      "ar": "اسم العائلة",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_0",
+      "personNamePart": "last",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_1",
+      "label": "Client Name",
+      "ar": "اسم العميل",
+      "type": "text",
+      "page": 11,
+      "rect": [
+        322,
+        170.8,
+        205,
+        31
+      ],
+      "fontSize": 10,
+      "context": [
+        "Row 2",
+        "الصف 2"
+      ],
+      "join": [
+        "terms_name_1_first",
+        "terms_name_1_second",
+        "terms_name_1_third",
+        "terms_name_1_last"
+      ],
+      "personNameDerived": true,
+      "personNameGroup": "terms_name_1",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_1_first",
+      "label": "First name",
+      "ar": "الاسم الأول",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_1",
+      "personNamePart": "first",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_1_second",
+      "label": "Second name",
+      "ar": "الاسم الثاني",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_1",
+      "personNamePart": "second",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_1_third",
+      "label": "Third name (optional)",
+      "ar": "الاسم الثالث (اختياري)",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_1",
+      "personNamePart": "third",
+      "optional": true,
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_1_last",
+      "label": "Family name",
+      "ar": "اسم العائلة",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_1",
+      "personNamePart": "last",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_2",
+      "label": "Client Name",
+      "ar": "اسم العميل",
+      "type": "text",
+      "page": 11,
+      "rect": [
+        322,
+        207.6,
+        205,
+        31
+      ],
+      "fontSize": 10,
+      "context": [
+        "Row 3",
+        "الصف 3"
+      ],
+      "join": [
+        "terms_name_2_first",
+        "terms_name_2_second",
+        "terms_name_2_third",
+        "terms_name_2_last"
+      ],
+      "personNameDerived": true,
+      "personNameGroup": "terms_name_2",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_2_first",
+      "label": "First name",
+      "ar": "الاسم الأول",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_2",
+      "personNamePart": "first",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_2_second",
+      "label": "Second name",
+      "ar": "الاسم الثاني",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_2",
+      "personNamePart": "second",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_2_third",
+      "label": "Third name (optional)",
+      "ar": "الاسم الثالث (اختياري)",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_2",
+      "personNamePart": "third",
+      "optional": true,
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_name_2_last",
+      "label": "Family name",
+      "ar": "اسم العائلة",
+      "type": "text",
+      "page": 11,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "terms_name_2",
+      "personNamePart": "last",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "terms_date",
+      "label": "Date",
+      "ar": "التاريخ",
+      "type": "date",
+      "page": 11,
+      "rect": [
+        267,
+        263.5,
+        78,
+        18
+      ],
+      "fontSize": 7,
+      "defaultToday": true,
+      "dateParts": [
+        [
+          267,
+          264,
+          20,
+          16
+        ],
+        [
+          292,
+          264,
+          27,
+          16
+        ],
+        [
+          326,
+          264,
+          20,
+          16
+        ]
+      ],
+      "minFontSize": 6
+    },
+    {
+      "id": "authorization_consent",
+      "label": "Do you confirm your request and consent to Receive required services via Telephone & Fax",
+      "ar": "هل تؤكد رغبتك في الحصول على خدمة التعامل عن طريق الهاتف والفاكس؟",
+      "type": "choice",
+      "page": 13,
+      "rect": null,
+      "fontSize": 10,
+      "options": [
+        {
+          "value": "no",
+          "label": "No",
+          "ar": "لا",
+          "rect": [
+            274.8,
+            281.8,
+            6.4,
+            6.4
+          ],
+          "extraRects": []
+        },
+        {
+          "value": "yes",
+          "label": "Yes",
+          "ar": "نعم",
+          "rect": [
+            310.8,
+            281.8,
+            6.4,
+            6.4
+          ],
+          "extraRects": []
+        }
+      ]
+    },
+    {
+      "id": "authorization_name_0",
+      "label": "Customer Name",
+      "ar": "اسم العميل",
+      "type": "text",
+      "page": 13,
+      "rect": [
+        322,
+        326.5,
+        205,
+        31
+      ],
+      "fontSize": 10,
+      "context": [
+        "Row 1",
+        "الصف 1"
+      ],
+      "join": [
+        "authorization_name_0_first",
+        "authorization_name_0_second",
+        "authorization_name_0_third",
+        "authorization_name_0_last"
+      ],
+      "personNameDerived": true,
+      "personNameGroup": "authorization_name_0",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_0_first",
+      "label": "First name",
+      "ar": "الاسم الأول",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_0",
+      "personNamePart": "first",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_0_second",
+      "label": "Second name",
+      "ar": "الاسم الثاني",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_0",
+      "personNamePart": "second",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_0_third",
+      "label": "Third name (optional)",
+      "ar": "الاسم الثالث (اختياري)",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_0",
+      "personNamePart": "third",
+      "optional": true,
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_0_last",
+      "label": "Family name",
+      "ar": "اسم العائلة",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_0",
+      "personNamePart": "last",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_1",
+      "label": "Customer Name",
+      "ar": "اسم العميل",
+      "type": "text",
+      "page": 13,
+      "rect": [
+        322,
+        363.3,
+        205,
+        31
+      ],
+      "fontSize": 10,
+      "context": [
+        "Row 2",
+        "الصف 2"
+      ],
+      "join": [
+        "authorization_name_1_first",
+        "authorization_name_1_second",
+        "authorization_name_1_third",
+        "authorization_name_1_last"
+      ],
+      "personNameDerived": true,
+      "personNameGroup": "authorization_name_1",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_1_first",
+      "label": "First name",
+      "ar": "الاسم الأول",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_1",
+      "personNamePart": "first",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_1_second",
+      "label": "Second name",
+      "ar": "الاسم الثاني",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_1",
+      "personNamePart": "second",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_1_third",
+      "label": "Third name (optional)",
+      "ar": "الاسم الثالث (اختياري)",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_1",
+      "personNamePart": "third",
+      "optional": true,
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_1_last",
+      "label": "Family name",
+      "ar": "اسم العائلة",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_1",
+      "personNamePart": "last",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_2",
+      "label": "Customer Name",
+      "ar": "اسم العميل",
+      "type": "text",
+      "page": 13,
+      "rect": [
+        322,
+        400.1,
+        205,
+        31
+      ],
+      "fontSize": 10,
+      "context": [
+        "Row 3",
+        "الصف 3"
+      ],
+      "join": [
+        "authorization_name_2_first",
+        "authorization_name_2_second",
+        "authorization_name_2_third",
+        "authorization_name_2_last"
+      ],
+      "personNameDerived": true,
+      "personNameGroup": "authorization_name_2",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_2_first",
+      "label": "First name",
+      "ar": "الاسم الأول",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_2",
+      "personNamePart": "first",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_2_second",
+      "label": "Second name",
+      "ar": "الاسم الثاني",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_2",
+      "personNamePart": "second",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_2_third",
+      "label": "Third name (optional)",
+      "ar": "الاسم الثالث (اختياري)",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_2",
+      "personNamePart": "third",
+      "optional": true,
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_name_2_last",
+      "label": "Family name",
+      "ar": "اسم العائلة",
+      "type": "text",
+      "page": 13,
+      "rect": null,
+      "uiOnly": true,
+      "direction": "auto",
+      "personNameGroup": "authorization_name_2",
+      "personNamePart": "last",
+      "joinAudience": "individual"
+    },
+    {
+      "id": "authorization_date",
+      "label": "Date",
+      "ar": "التاريخ",
+      "type": "date",
+      "page": 13,
+      "rect": [
+        267,
+        456,
+        78,
+        18
+      ],
+      "fontSize": 7,
+      "defaultToday": true,
+      "dateParts": [
+        [
+          267,
+          456.5,
+          20,
+          16
+        ],
+        [
+          292,
+          456.5,
+          27,
+          16
+        ],
+        [
+          326,
+          456.5,
+          20,
+          16
+        ]
+      ],
+      "minFontSize": 6
+    }
+  ],
+  "pdfVersion": "20261014-riyadh-address",
+  "identityRows": [],
+  "personNameGroups": [
+    {
+      "id": "terms_name_0",
+      "targets": [
+        {
+          "id": "terms_name_0",
+          "join": [
+            "terms_name_0_first",
+            "terms_name_0_second",
+            "terms_name_0_third",
+            "terms_name_0_last"
+          ]
+        }
+      ],
+      "partIds": [
+        "terms_name_0_first",
+        "terms_name_0_second",
+        "terms_name_0_third",
+        "terms_name_0_last"
+      ],
+      "label": "Client Name",
+      "ar": "اسم العميل",
+      "language": "auto",
+      "required": false,
+      "optional": false,
+      "audience": "individual",
+      "context": [
+        "Row 1",
+        "الصف 1"
+      ]
+    },
+    {
+      "id": "terms_name_1",
+      "targets": [
+        {
+          "id": "terms_name_1",
+          "join": [
+            "terms_name_1_first",
+            "terms_name_1_second",
+            "terms_name_1_third",
+            "terms_name_1_last"
+          ]
+        }
+      ],
+      "partIds": [
+        "terms_name_1_first",
+        "terms_name_1_second",
+        "terms_name_1_third",
+        "terms_name_1_last"
+      ],
+      "label": "Client Name",
+      "ar": "اسم العميل",
+      "language": "auto",
+      "required": false,
+      "optional": false,
+      "audience": "individual",
+      "context": [
+        "Row 2",
+        "الصف 2"
+      ]
+    },
+    {
+      "id": "terms_name_2",
+      "targets": [
+        {
+          "id": "terms_name_2",
+          "join": [
+            "terms_name_2_first",
+            "terms_name_2_second",
+            "terms_name_2_third",
+            "terms_name_2_last"
+          ]
+        }
+      ],
+      "partIds": [
+        "terms_name_2_first",
+        "terms_name_2_second",
+        "terms_name_2_third",
+        "terms_name_2_last"
+      ],
+      "label": "Client Name",
+      "ar": "اسم العميل",
+      "language": "auto",
+      "required": false,
+      "optional": false,
+      "audience": "individual",
+      "context": [
+        "Row 3",
+        "الصف 3"
+      ]
+    },
+    {
+      "id": "authorization_name_0",
+      "targets": [
+        {
+          "id": "authorization_name_0",
+          "join": [
+            "authorization_name_0_first",
+            "authorization_name_0_second",
+            "authorization_name_0_third",
+            "authorization_name_0_last"
+          ]
+        }
+      ],
+      "partIds": [
+        "authorization_name_0_first",
+        "authorization_name_0_second",
+        "authorization_name_0_third",
+        "authorization_name_0_last"
+      ],
+      "label": "Customer Name",
+      "ar": "اسم العميل",
+      "language": "auto",
+      "required": false,
+      "optional": false,
+      "audience": "individual",
+      "context": [
+        "Row 1",
+        "الصف 1"
+      ]
+    },
+    {
+      "id": "authorization_name_1",
+      "targets": [
+        {
+          "id": "authorization_name_1",
+          "join": [
+            "authorization_name_1_first",
+            "authorization_name_1_second",
+            "authorization_name_1_third",
+            "authorization_name_1_last"
+          ]
+        }
+      ],
+      "partIds": [
+        "authorization_name_1_first",
+        "authorization_name_1_second",
+        "authorization_name_1_third",
+        "authorization_name_1_last"
+      ],
+      "label": "Customer Name",
+      "ar": "اسم العميل",
+      "language": "auto",
+      "required": false,
+      "optional": false,
+      "audience": "individual",
+      "context": [
+        "Row 2",
+        "الصف 2"
+      ]
+    },
+    {
+      "id": "authorization_name_2",
+      "targets": [
+        {
+          "id": "authorization_name_2",
+          "join": [
+            "authorization_name_2_first",
+            "authorization_name_2_second",
+            "authorization_name_2_third",
+            "authorization_name_2_last"
+          ]
+        }
+      ],
+      "partIds": [
+        "authorization_name_2_first",
+        "authorization_name_2_second",
+        "authorization_name_2_third",
+        "authorization_name_2_last"
+      ],
+      "label": "Customer Name",
+      "ar": "اسم العميل",
+      "language": "auto",
+      "required": false,
+      "optional": false,
+      "audience": "individual",
+      "context": [
+        "Row 3",
+        "الصف 3"
+      ]
+    }
+  ],
+  "number": 6,
+  "sourceTitle": "General Terms and Conditions",
+  "sourceAr": "شروط وأحكام عامة",
+  "signatureSlots": [
+    {
+      "id": "terms_0",
+      "label": "Account terms — signer 1",
+      "ar": "شروط الحساب — الموقع 1",
+      "page": 11,
+      "rect": [
+        84,
+        135,
+        206,
+        28
+      ],
+      "section": "terms"
+    },
+    {
+      "id": "terms_1",
+      "label": "Account terms — signer 2",
+      "ar": "شروط الحساب — الموقع 2",
+      "page": 11,
+      "rect": [
+        84,
+        171.5,
+        206,
+        28
+      ],
+      "section": "terms",
+      "requiredForSubmission": false,
+      "requireWhenFields": [
+        "terms_name_1"
+      ]
+    },
+    {
+      "id": "terms_2",
+      "label": "Account terms — signer 3",
+      "ar": "شروط الحساب — الموقع 3",
+      "page": 11,
+      "rect": [
+        84,
+        208,
+        206,
+        28
+      ],
+      "section": "terms",
+      "requiredForSubmission": false,
+      "requireWhenFields": [
+        "terms_name_2"
+      ]
+    },
+    {
+      "id": "authorization_0",
+      "label": "Telephone / fax authorization — signer 1",
+      "ar": "تفويض الهاتف والفاكس — الموقع 1",
+      "page": 13,
+      "rect": [
+        84,
+        327.6,
+        206,
+        28
+      ],
+      "section": "authorization"
+    },
+    {
+      "id": "authorization_1",
+      "label": "Telephone / fax authorization — signer 2",
+      "ar": "تفويض الهاتف والفاكس — الموقع 2",
+      "page": 13,
+      "rect": [
+        84,
+        364.1,
+        206,
+        28
+      ],
+      "section": "authorization",
+      "requiredForSubmission": false,
+      "requireWhenFields": [
+        "authorization_name_1"
+      ]
+    },
+    {
+      "id": "authorization_2",
+      "label": "Telephone / fax authorization — signer 3",
+      "ar": "تفويض الهاتف والفاكس — الموقع 3",
+      "page": 13,
+      "rect": [
+        84,
+        400.6,
+        206,
+        28
+      ],
+      "section": "authorization",
+      "requiredForSubmission": false,
+      "requireWhenFields": [
+        "authorization_name_2"
+      ]
+    }
+  ]
+}

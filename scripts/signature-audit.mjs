@@ -127,22 +127,23 @@ try{
   await page.locator('#back-home').click();
   console.log('PASS',doc.id,sample,slots.length,'signature boxes');
  }
- // One target only on a multi-person document, mirrored tabs and mobile Arabic.
- await openDocument(page,base,'terms-and-conditions');
- const terms=docs.find(d=>d.id==='terms-and-conditions'),target=signatureSlots(terms)[4];currentDoc=terms;
+ // Current terms have one investor; retain signer-isolation coverage on the
+ // corporate FATCA form, which still has two independent customer signers.
+ const multiple=docs.find(d=>d.id==='fatca-crs-corporate'),target=signatureSlots(multiple).find(s=>s.id==='signatory_1');currentDoc=multiple;
+ await openDocument(page,base,multiple.id);
  await upload(target,fixturePaths[1]);
  await review();
- assert.equal(await page.locator('#page-label').innerText(),'13 / 13');
- const single=await page.evaluate(()=>JSON.parse(localStorage.getItem('itqan.forms.v1.individual.terms-and-conditions')).signatures);
+ assert.equal(await page.locator('[data-full-page]').count(),multiple.pages);
+ const single=await page.evaluate(id=>JSON.parse(localStorage.getItem('itqan.forms.v1.corporate.'+id)).signatures,multiple.id);
  assert.deepEqual(Object.keys(single),[target.id]);
- await download('#download',`${out}/terms-single-slot.pdf`);
+ await download('#download',`${out}/fatca-corporate-single-slot.pdf`);
  await page.setViewportSize({width:390,height:844});await page.locator('#language').click();await page.locator('#loading').waitFor({state:'hidden'});
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
  await page.screenshot({path:`${out}/mobile-ar-signature-preview.png`,fullPage:true});
- const second=await context.newPage();await second.goto(catalogueUrl(base));await second.locator('[data-signature-slot="authorization_1"] img').waitFor();
+ const second=await context.newPage();await second.goto(catalogueUrl(base,multiple.id));await second.locator(`[data-signature-slot="${target.id}"] img`).waitFor();
  await page.locator('#back-home').click();await page.locator('#clear-all').click();await page.locator('#clear-all-confirm').click();
  await second.waitForFunction(()=>document.querySelectorAll('[data-signature-slot] img').length===0);await second.close();
- assert.equal(await page.evaluate(()=>Object.entries(localStorage).filter(([k])=>k.startsWith('itqan.forms.v1.individual.')&&!k.endsWith('preferences')).some(([,raw])=>{const value=JSON.parse(raw);return Object.keys(value?.values||{}).length||Object.keys(value?.signatures||{}).length;})),false);
+ assert.equal(await page.evaluate(()=>Object.entries(localStorage).filter(([k])=>k.startsWith('itqan.forms.v1.corporate.')&&!k.endsWith('preferences')).some(([,raw])=>{const value=JSON.parse(raw);return Object.keys(value?.values||{}).length||Object.keys(value?.signatures||{}).length;})),false);
  assert.deepEqual(errors,[]);assert.deepEqual(sent,[]);
  await fs.writeFile(`${out}/signature-audit.json`,JSON.stringify({site:base,engine,records},null,2));
  console.log(`PASS: ${records.length} signed/unsigned comparisons, single-slot placement, mobile Arabic, clear-all/tabs and no form/image transmission`);

@@ -62,8 +62,9 @@ test('shared details populate corresponding individual forms but leave other peo
  const d=make(storage(),'individual');d.setShared(person);
  assert.equal(d.get('signature-form').values.client_name,'Ahmad Ali Dalao');
  assert.equal(d.get('signature-form').values.signer_name,undefined);
- assert.equal(d.get('terms-and-conditions').values.terms_name_0,'Ahmad Ali Dalao');
- assert.equal(d.get('terms-and-conditions').values.authorization_name_0,'Ahmad Ali Dalao');
+ assert.equal(d.get('terms-and-conditions').values.investor_name,'Ahmad Ali Dalao');
+ assert.equal(d.get('terms-and-conditions').values.terms_name_0,undefined);
+ assert.equal(d.get('terms-and-conditions').values.authorization_name_0,undefined);
  assert.equal(d.get('terms-and-conditions').values.terms_name_1,undefined);
  assert.equal(d.get('kyc-individual').values.phone,'001234567');
  assert.equal(d.get('kyc-individual').values.risk_client_name,'Ahmad Ali Dalao');
@@ -75,6 +76,7 @@ test('shared details populate corresponding individual forms but leave other peo
 test('individual/company shared documents, preferences, signatures and clear-all are isolated',()=>{
  const disk=storage(),i=make(disk,'individual'),c=make(disk,'corporate');
  i.setShared(person);c.setShared({company_name:'Example Company',phone:'920000001',auth_name:'Company Signer'});
+ assert.equal(c.get('terms-and-conditions').values.investor_name,'Example Company');assert.equal(c.get('terms-and-conditions').values.investor_name_first,undefined);
  assert.equal(c.get('signature-form').values.client_name,'Example Company');assert.equal(i.get('signature-form').values.client_name,'Ahmad Ali Dalao');
  assert.equal(i.get('kyc-corporate').values.company,undefined);assert.equal(c.get('kyc-individual').values.phone,undefined);
  assert.equal(c.get('fatca-crs-corporate').values.signer_0_name,'Company Signer');assert.equal(c.get('fatca-crs-corporate').values.person_0_name,undefined);
@@ -91,12 +93,12 @@ test('shared updates propagate and explicit common blanks persist until the next
  assert.equal(d.profile.en_first,'Different');assert.equal(d.profile.phone,'');
  assert.ok(!make(disk,'individual').get('subscription-form').values.phone);
  d.setShared({...person,en_first:'Omar',phone:'9988'});
- assert.equal(d.get('signature-form').values.client_name,'Omar Ali Dalao');assert.equal(d.get('kyc-individual').values.phone,'9988');assert.equal(d.get('terms-and-conditions').values.terms_name_0,'Omar Ali Dalao');
+ assert.equal(d.get('signature-form').values.client_name,'Omar Ali Dalao');assert.equal(d.get('kyc-individual').values.phone,'9988');assert.equal(d.get('terms-and-conditions').values.investor_name,'Omar Ali Dalao');
  const reopened=make(disk,'individual');assert.equal(reopened.get('signature-form').values.client_name,'Omar Ali Dalao');assert.equal(reopened.get('kyc-individual').values.phone,'9988');
  reopened.useShared('signature-form','client_name');assert.equal(reopened.get('signature-form').values.client_name,'Omar Ali Dalao');
- reopened.clear('terms-and-conditions');assert.equal(make(disk,'individual').get('terms-and-conditions').values.terms_name_0,undefined);
- reopened.fillSharedBlanks('terms-and-conditions');assert.equal(reopened.get('terms-and-conditions').values.terms_name_0,'Omar Ali Dalao');
- reopened.setShared({});assert.ok(!reopened.get('terms-and-conditions').values.terms_name_0);assert.ok(!reopened.get('signature-form').values.client_name);
+ reopened.clear('terms-and-conditions');assert.equal(make(disk,'individual').get('terms-and-conditions').values.investor_name,undefined);
+ reopened.fillSharedBlanks('terms-and-conditions');assert.equal(reopened.get('terms-and-conditions').values.investor_name,'Omar Ali Dalao');
+ reopened.setShared({});assert.ok(!reopened.get('terms-and-conditions').values.investor_name);assert.ok(!reopened.get('signature-form').values.client_name);
 });
 test('switching signatory role removes only auto-copied personal details',()=>{
  const d=make(storage(),'individual');d.setShared(person);

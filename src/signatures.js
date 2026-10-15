@@ -6,13 +6,7 @@ const slot = (id, label, ar, page, rect, section, submission={}) => ({ id, label
 const slots = {
   'subscription-form': [slot('applicant','Applicant signature','توقيع مقدم الطلب',1,[117,574,104,10]),...['manager','entered','approved'].map((id,i)=>slot('staff_'+id,['A/C manager signature','Entered by signature','Reviewer / approver signature'][i],['توقيع مدير الحساب','توقيع مدخل الطلب','توقيع المراجع والمعتمد'][i],1,[101,647.2+i*14.4,116,10],undefined,{requiredForSubmission:false}))],
   'signature-form': [slot('specimen', 'Specimen signature', 'نموذج التوقيع', 1, [55, 267, 232, 249], 'signatory')],
-  'terms-and-conditions': [11, 13].flatMap(page => [0, 1, 2].map(i => slot(
-    `${page === 11 ? 'terms' : 'authorization'}_${i}`,
-    `${page === 11 ? 'Account terms' : 'Telephone / fax authorization'} — signer ${i + 1}`,
-    `${page === 11 ? 'شروط الحساب' : 'تفويض الهاتف والفاكس'} — الموقع ${i + 1}`,
-    page, [84, (page === 11 ? 135 : 327.6) + i * 36.5, 206, 28], page === 11 ? 'terms' : 'authorization',
-    i ? {requiredForSubmission:false,requireWhenFields:[`${page===11?'terms':'authorization'}_name_${i}`]} : {},
-  ))),
+  'terms-and-conditions': [slot('investor','Investor signature','توقيع المستثمر',38,[259.21,215.14,234.01,24.32],'declaration')],
   'fatca-crs-individual': [
     slot('signatory', 'Signatory signature', 'توقيع الموقع', 2, [47, 633, 276, 57], 'signatory'),
     slot('relationship_manager', 'Relationship Manager / Customer Service Representative signature', 'توقيع مدير العلاقة / ممثل خدمة العملاء', 3, [266, 128, 205, 24], 'staff', {requiredForSubmission:false}),

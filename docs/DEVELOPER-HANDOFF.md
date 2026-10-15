@@ -1,6 +1,12 @@
 # Installing the forms portal
 
-This package starts a new installation with the supplied admin and superadmin accounts. It does not migrate clients or submissions from the current site. The public application is unchanged from the latest delivered release; this handover consolidates the documentation and includes fresh verification.
+This package is for a new installation with the supplied admin and superadmin accounts. It does not migrate clients or submissions from the current site. The 15 October 2026 release replaces the current terms with the owner's approved 38-page fund document; it keeps the supplied seven-page KYC designs, website address and schema 8.
+
+## Release status — 15 October 2026
+
+The terms cache version is `20261015-approved-terms`: eight introductory pages followed by 30 numbered pages. The investor name, date and investor signature print on physical page 38. The supplied body is preserved; the Riyadh address is added in the footer. The other current PDFs and five Word sources are unchanged. There are nine application templates plus the legacy one-page subscription PDF: ten public PDFs / 75 pages.
+
+Saved 13-page and retired 24-page terms retain their own answers, PDFs and signing layouts. Their signatures must never be transferred to the new legal document. The current unit result is 274 passing tests; final release evidence, Git commit, deployment and package verification are pending. See `TEST-REPORT.md` and `verification/approved-terms-2026-10-15/`. The planned handover output is `output/developer-handoff-2026-10-15-approved-terms`.
 
 ## Hosting requirements
 
@@ -69,7 +75,7 @@ This local initialization creates empty databases, not the included management a
 
 ## Maintain the document templates
 
-`editable-documents/` contains nine current PDFs and five matching Word sources: individual/company subscription, consent, and individual/company FATCA/CRS. Individual/company KYC use the supplied seven-page PDFs with the approved national-address footer; signature and T&C also retain their supplied PDF bodies. These four templates have no matching current Word source.
+`editable-documents/` contains nine current PDFs and five matching Word sources: individual/company subscription, consent, and individual/company FATCA/CRS. Individual/company KYC use the supplied seven-page PDFs, signature uses the supplied one-page PDF, and T&C uses the approved 38-page PDF, each with the approved national-address footer. These four templates have no matching current Word source. The legacy subscription compatibility PDF is also included under `website/pdfs/`.
 
 `scripts/pdf-design/template-sources.json` defines this source policy. The modern Word generator, installer and verifier accept only consent and the two FATCA/CRS forms. The subscription builder remains separate. Rebuild original-PDF footers with `scripts/update-original-footers.py`, preserving the supplied inputs under `reference/`. `npm run build` copies reviewed public PDF assets; it does not recreate them from Word.
 
@@ -80,7 +86,8 @@ Do not regenerate KYC from old files left in `output/documents/` or `tmp/modern-
 - Visitors must sign in. Clients land on the individual or company forms catalogue matching their account.
 - The catalogue has two roomy columns on desktop and one on phones. Each card provides blank download, filled download and filled-PDF upload. Current filled files can also be downloaded as a ZIP.
 - Profile is for account details and passwords. `/my-applications/` remains a legacy alias.
-- All nine templates are editable online. Consent has its own editor. Individual/company KYC retain their supplied seven-page designs; T&C and signature retain their original 13-page and one-page designs. Their national-address footer is updated without a Word redesign.
+- All nine templates are editable online. Consent has its own editor. Individual/company KYC retain their supplied seven-page designs; signature retains its one-page design. T&C shows the complete approved 38-page document before the declaration and final review. Its two printed fields are `investor_name` and `date`, with signature slot `investor` on page 38. Individual names use the existing name-part inputs; company names remain company names.
+- Historical terms signing uses the saved PDF and trusted saved layout when it differs from the current template. Old captured definitions take precedence in management details; older records without them use frozen legacy labels. New terms drafts do not reuse old account-terms signature IDs.
 - Final review shows the generated PDF, then one Submit form action. Unsigned initial forms are accepted. They become Received by default, or Under review when the superadmin selects Under review on the dedicated Submission settings page. Submit only hides review counters on Dashboard and Received applications. Existing open cases remain accessible and continue after review is turned off. Signature status is separate; uploaded replacements remain identifiable as uploads. See REVIEW-WORKFLOW.md.
 - Management reviews a client's documents from Current documents → Preview & details. Categorized answers start collapsed. The separate details card and shared-profile display were removed; stored data was preserved.
 - Client notification previews open the latest saved PDF and do not show archive labels or duplicate downloads. Management keeps version history.

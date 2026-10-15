@@ -1,6 +1,23 @@
-# Handover verification — 14 October 2026
+# Handover verification — 15 October 2026
 
-## Current release — Riyadh national address
+## Current release — approved 38-page fund terms
+
+The current T&C template is the owner's approved fund document, version `20261015-approved-terms`: 38 physical pages, comprising eight introductory pages and 30 numbered pages. Its investor name, date and single `investor` signature print on physical page 38. The supplied body is retained with the Riyadh footer added. KYC, signature, the other templates and the website address are unchanged. The current public assets total ten PDFs / 75 pages; five matching Word sources remain current.
+
+| Check or delivery stage | Status |
+|---|---|
+| Unit suite | 274 passed; zero failures or skips; production build passed |
+| Historical compatibility | Dedicated regressions cover 13-/24-page signing, unsigned state, saved-layout slot validation and old submission-detail labels; captured definitions and stored answers/PDFs are preserved |
+| PDF preservation and field fit | All 38 supplied pages preserved outside the footer; 8 generated PDFs / 304 pages passed; no clipping or overlap |
+| Browser workflows | Chrome, Firefox and WebKit: both audiences, EN/AR desktop/mobile, all 38 preview pages and unsigned submissions; Chrome additionally verified electronic signatures, PDF replacements and management answers |
+| Historical signing dialog | Actual Chrome EN desktop / AR mobile: existing signature retained, only missing slot added, earlier PDF hash unchanged; all 13 before/after pages compared |
+| National address | All ten current PDF assets / 75 pages and five Word sources verified |
+| Git release commit and deployment | Pending; no live verification claimed for this release |
+| Fresh handover | Pending creation and verification at `output/developer-handoff-2026-10-15-approved-terms` |
+
+The packaging script includes `scripts/approved-terms-audit.mjs`, the complete dated evidence folder, and the supplied/archived reference files. These packaging changes do not themselves verify or create a delivery. Earlier sections below are dated historical results, not fresh checks of the new legal document.
+
+## Previous release — 14 October 2026, Riyadh national address
 
 The visible address in the owner-supplied `ItqanSubscriptionFormV3.11-1.pdf` now appears on the website and all current PDF templates: **7762 King Fahd Branch Road | 4162 Al Malqa District | Muath Tower | Riyadh 13521 | Kingdom of Saudi Arabia**. The source has obsolete hidden Jeddah text; the visible footer was checked independently and corroborated against Itqan’s Saudi Exchange factsheet.
 
