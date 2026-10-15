@@ -1,0 +1,26 @@
+{
+  "stage": "after",
+  "passed": true,
+  "checks": [
+    "Workflow settings and client/submission counts unchanged",
+    "subscription-individual: authenticated hosted template matches verified local PDF",
+    "subscription-company: authenticated hosted template matches verified local PDF",
+    "subscription-form: authenticated hosted template matches verified local PDF",
+    "kyc-individual: authenticated hosted template matches verified local PDF",
+    "kyc-corporate: authenticated hosted template matches verified local PDF",
+    "signature-form: authenticated hosted template matches verified local PDF",
+    "al-naeem-terms-consent: authenticated hosted template matches verified local PDF",
+    "fatca-crs-individual: authenticated hosted template matches verified local PDF",
+    "fatca-crs-corporate: authenticated hosted template matches verified local PDF",
+    "terms-and-conditions: authenticated hosted template matches verified local PDF",
+    "Existing submitted PDF bytes unchanged",
+    "New hosted browser assets match the tested build",
+    "Live catalogue serves approved 38-page terms; both seven-page KYC templates remain unchanged",
+    "Live superadmin settings endpoint returns approved Riyadh address; anonymous sessions expose only public address; anonymous edit page endpoint is denied",
+    "Live superadmin Website settings page opens with saved address and no desktop/mobile overflow",
+    "Live management profile and stored PDF preview open successfully",
+    "Complete national address visible on live sign-in, registration and management pages in both languages"
+  ],
+  "errors": [],
+  "source_commit": "f4d6eb285edfcdde4b8146e909da55b0a37c81e8"
+}

@@ -21,12 +21,12 @@ Historical signing resolves the trusted saved layout and overlays the saved PDF 
 
 ## Verification status
 
-All 274 unit tests pass. Source preservation, 8 filled PDFs / 304 pages, three-browser current workflows, responsive historical signing, and the address on all 75 public PDF pages have passed. Reports and synthetic visual evidence are included here. Production deployment and final package verification are recorded separately when completed.
+All 276 unit tests pass. Source preservation, 8 filled PDFs / 304 pages, three-browser current workflows, responsive historical signing, and the address on all 75 public PDF pages have passed. Reports and synthetic visual evidence are included here. Live deployment also passed; see live-verification.json and release-verification.json.
 
 Repeatable commands and acceptance scope are in `docs/TESTING.md`. The focused `scripts/approved-terms-audit.mjs` uses synthetic isolated fixtures, previews all 38 pages in three browsers and exercises unsigned submission, signing, replacement and saved-version preservation. Screenshots written under `tmp/` are local audit artifacts unless explicitly included in a release evidence file; this README does not imply they are packaged.
 
 ## Handover
 
-The planned output is `output/developer-handoff-2026-10-15-approved-terms`. `scripts/create-handoff.py` includes the focused audit script, this entire folder under `verification/approved-terms-2026-10-15/`, and supplied/archived sources through its existing reference-tree copy. The package contains nine current PDFs and five current Word sources in `editable-documents/`; the tenth compatibility PDF is in the public website assets.
+The output is `output/developer-handoff-2026-10-15-approved-terms`. `scripts/create-handoff.py` includes the focused audit script, this entire folder under `verification/approved-terms-2026-10-15/`, and supplied/archived sources through its existing reference-tree copy. The package contains nine current PDFs and five current Word sources in `editable-documents/`; the tenth compatibility PDF is in the public website assets.
 
-Final Git commit, deployment and package generation/checksums are pending. The fresh bootstrap must still pass the existing zero-client, schema-8 and private-data checks. Dated reports from earlier releases remain historical and do not verify this replacement.
+The deployed application commit is `f4d6eb285edfcdde4b8146e909da55b0a37c81e8`. All 14 overwritten public files were backed up; private storage, review-off setting and production counts stayed unchanged. The packager restores and verifies the zero-client schema-8 bootstrap and writes file hashes and ZIP integrity evidence. Dated reports from earlier releases remain historical and do not verify this replacement.

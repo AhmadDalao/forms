@@ -6,16 +6,16 @@ The current T&C template is the owner's approved fund document, version `2026101
 
 | Check or delivery stage | Status |
 |---|---|
-| Unit suite | 274 passed; zero failures or skips; production build passed |
+| Unit suite | 276 passed; zero failures or skips; production build passed |
 | Historical compatibility | Dedicated regressions cover 13-/24-page signing, unsigned state, saved-layout slot validation and old submission-detail labels; captured definitions and stored answers/PDFs are preserved |
 | PDF preservation and field fit | All 38 supplied pages preserved outside the footer; 8 generated PDFs / 304 pages passed; no clipping or overlap |
 | Browser workflows | Chrome, Firefox and WebKit: both audiences, EN/AR desktop/mobile, all 38 preview pages and unsigned submissions; Chrome additionally verified electronic signatures, PDF replacements and management answers |
 | Historical signing dialog | Actual Chrome EN desktop / AR mobile: existing signature retained, only missing slot added, earlier PDF hash unchanged; all 13 before/after pages compared |
 | National address | All ten current PDF assets / 75 pages and five Word sources verified |
-| Git release commit and deployment | Pending; no live verification claimed for this release |
-| Fresh handover | Pending creation and verification at `output/developer-handoff-2026-10-15-approved-terms` |
+| Live deployment | Published from `f4d6eb285edfcdde4b8146e909da55b0a37c81e8`; all ten hosted PDFs and new browser assets match the verified build; current catalogue advertises 38 pages; management preview passes; counts, review settings and sampled prior PDF bytes unchanged |
+| Fresh handover | `output/developer-handoff-2026-10-15-approved-terms`; packaging restores and checks the zero-client schema-8 bootstrap with admin/superadmin hashes, records all file hashes, and checks ZIP integrity |
 
-The packaging script includes `scripts/approved-terms-audit.mjs`, the complete dated evidence folder, and the supplied/archived reference files. These packaging changes do not themselves verify or create a delivery. Earlier sections below are dated historical results, not fresh checks of the new legal document.
+The packaging script includes `scripts/approved-terms-audit.mjs`, the complete dated evidence folder, and the supplied/archived reference files. The package records its own source commit and per-file hashes; the full ZIP verification is recorded beside the archive. Earlier sections below are dated historical results, not fresh checks of the new legal document.
 
 ## Previous release — 14 October 2026, Riyadh national address
 

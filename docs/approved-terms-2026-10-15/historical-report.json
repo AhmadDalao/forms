@@ -39,7 +39,14 @@
     "currentTemplateEvidence": "The focused test uses a synthetic 38-page PDF and investor slot to isolate compatibility; final supplied-PDF visual/coordinate audit is separate.",
     "productionMutations": false
   },
-  "remainingIntegrationChecklist": [
+  "historicalSources": [
+    "reference/documents/archived/terms-13-page-schema.json",
+    "reference/pdfs/archived/terms-13-page-riyadh-20261014.pdf",
+    "reference/documents/archived/terms-modern-layout.json",
+    "reference/documents/archived/terms-and-conditions-modern-20260928.pdf"
+  ],
+  "stage": "Initial integration checkpoint; final compatibility and browser results are in historical-partial-signature-preservation.json and historical-browser-verification.json.",
+  "resolvedIntegrationChecklist": [
     {
       "files": [
         "src/forms/terms.js",
@@ -47,7 +54,8 @@
         "src/forms/paper-copy.js",
         "src/forms/customer-workflow.js"
       ],
-      "action": "Replace current 13-page questions/options and six signature identities with only verified source fields and new investor slot; update overrides that assume old field/section IDs."
+      "action": "Replace current 13-page questions/options and six signature identities with only verified source fields and new investor slot; update overrides that assume old field/section IDs.",
+      "status": "completed in this release"
     },
     {
       "files": [
@@ -55,7 +63,8 @@
         "src/shared-fields.js",
         "src/drafts.js"
       ],
-      "action": "Map the new investor name by audience; use new signature/date IDs and avoid silently carrying old acceptance signatures or dates to new legal terms. Existing draft cleaning is ID-based, not version-based."
+      "action": "Map the new investor name by audience; use new signature/date IDs and avoid silently carrying old acceptance signatures or dates to new legal terms. Existing draft cleaning is ID-based, not version-based.",
+      "status": "completed in this release"
     },
     {
       "files": [
@@ -63,20 +72,23 @@
         "src/management/catalogue.js",
         "public/api/document-catalogue.php"
       ],
-      "action": "Replace old account/telephone/fax description and address persisted descriptions; preserve intentional owner custom titles/order."
+      "action": "Replace old account/telephone/fax description and address persisted descriptions; preserve intentional owner custom titles/order.",
+      "status": "completed in this release"
     },
     {
       "files": [
         "scripts/update-original-footers.py"
       ],
-      "action": "Prevent old source reference/pdfs/terms-and-conditions.pdf from reinstalling 13 pages when footer tools run."
+      "action": "Prevent old source reference/pdfs/terms-and-conditions.pdf from reinstalling 13 pages when footer tools run.",
+      "status": "completed in this release"
     },
     {
       "files": [
         "public/api/portal-details.php",
         "src/portal/submitted-details.js"
       ],
-      "action": "Consider a trusted legacy definition fallback for old snapshots lacking captured labels/sections; raw old answer IDs otherwise remain visible but use current definitions."
+      "action": "Consider a trusted legacy definition fallback for old snapshots lacking captured labels/sections; raw old answer IDs otherwise remain visible but use current definitions.",
+      "status": "completed in this release"
     },
     {
       "files": [
@@ -84,13 +96,8 @@
         "scripts/pdf-design/legacy-signing-layouts.json",
         "reference/documents/archived/terms-modern-layout.json"
       ],
-      "action": "Build fresh defaults with new PDF version; retain old13 legacy layout and archived24 layout untouched. Existing version gate rejects stale online submit templates."
+      "action": "Build fresh defaults with new PDF version; retain old13 legacy layout and archived24 layout untouched. Existing version gate rejects stale online submit templates.",
+      "status": "completed in this release"
     }
-  ],
-  "historicalSources": [
-    "reference/documents/archived/terms-13-page-schema.json",
-    "reference/pdfs/archived/terms-13-page-riyadh-20261014.pdf",
-    "reference/documents/archived/terms-modern-layout.json",
-    "reference/documents/archived/terms-and-conditions-modern-20260928.pdf"
   ]
 }

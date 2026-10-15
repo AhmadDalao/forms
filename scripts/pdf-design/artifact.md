@@ -50,8 +50,9 @@ details take precedence over legacy display fallbacks. Never migrate an old
 signature to the new terms or rewrite stored submission bytes. The separate
 consent form, original KYC/signature PDFs, five Word sources and website address
 are unchanged. Current public assets total ten PDFs / 75 pages. Verification
-for this replacement belongs in `docs/approved-terms-2026-10-15/`; final release
-evidence and handover verification are pending.
+for this replacement is in `docs/approved-terms-2026-10-15/`, including source,
+filled-PDF, browser and live checks. Packaging verifies the clean database and
+file manifest separately.
 
 ## Reference and preservation contract
 

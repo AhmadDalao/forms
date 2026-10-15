@@ -1,6 +1,6 @@
 # Al Naeem Real Estate Fund — start here
 
-This fresh-install handover documentation was updated on 15 October 2026 for the owner's approved 38-page fund terms. It retains the original seven-page KYC templates, Riyadh address, current field fixes, schema 8 and optional reviews, off by default. The package is designed to contain the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes, with **no clients, shared client profiles, submitted forms or archived submissions**. Final package creation and verification are pending.
+This fresh-install handover documentation was updated on 15 October 2026 for the owner's approved 38-page fund terms. It retains the original seven-page KYC templates, Riyadh address, current field fixes, schema 8 and optional reviews, off by default. The package contains the website, its source, tests, PDF templates and a private bootstrap with the existing **admin** and **superadmin** password hashes, with **no clients, shared client profiles, submitted forms or archived submissions**. Packaging validates every file and restores the clean schema-8 bootstrap; see MANIFEST.json and `verification/bootstrap-verification-2026-10-15.json`.
 
 Only upload the contents of `website/` to the public website folder. Keep this ZIP and everything else private.
 
@@ -8,7 +8,7 @@ Only upload the contents of `website/` to the public website folder. Keep this Z
 
 The current T&C PDF contains all 38 supplied pages: eight introductory pages and 30 numbered pages. Investor name, date and one investor signature appear on physical page 38. Its version is `20261015-approved-terms`. Only the Riyadh address footer is added to the supplied body; KYC, signature and the website address are unchanged. The ten public PDF files now total 75 pages; the five current Word sources are unchanged.
 
-Saved 13-page and retired 24-page terms remain readable and signable using their own definitions and PDFs. Old signatures are not consent to the new document. The current unit suite has 274 passing tests; final PDF/browser evidence, commit, deployment and fresh handover verification are pending. See `verification/approved-terms-2026-10-15/` and TEST-REPORT.md. The planned output is `output/developer-handoff-2026-10-15-approved-terms`.
+Saved 13-page and retired 24-page terms remain readable and signable using their own definitions and PDFs. Old signatures are not consent to the new document. All 276 tests pass, with completed PDF, browser and live deployment verification. See `verification/approved-terms-2026-10-15/` and TEST-REPORT.md. The output is `output/developer-handoff-2026-10-15-approved-terms`.
 
 ## Historical release — 14 October, Riyadh address
 

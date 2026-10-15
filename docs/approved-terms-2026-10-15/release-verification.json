@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "application_commit": "f4d6eb285edfcdde4b8146e909da55b0a37c81e8",
+  "deployed_at_utc": "20261015T160337Z",
+  "url": "https://forms.ahmaddalao.com/",
+  "public_files": 108,
+  "created_files": 22,
+  "replaced_files_backed_up": 14,
+  "unchanged_files": 72,
+  "private_storage_preserved": true,
+  "review_remains_off": true,
+  "production_counts_unchanged": true,
+  "sampled_prior_pdf_hash_unchanged": true,
+  "pdf_version": "20261015-approved-terms",
+  "current_terms_pages": 38,
+  "unit_tests": 276,
+  "handover_directory": "output/developer-handoff-2026-10-15-approved-terms",
+  "package_evidence": "The delivered MANIFEST.json and bootstrap-verification-2026-10-15.json record packaged files and clean schema-8 bootstrap; package-verification.json sits beside the ZIP."
+}
