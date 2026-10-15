@@ -2,7 +2,7 @@
 
 ## Latest update — five customer forms
 
-The separate Terms and Conditions Consent Form (previously card4) is hidden from both customer catalogues and new-upload choices. The five remaining cards are numbered1–5; the complete38-page terms still support reading, signing and submission. Existing consent PDFs, history, management access and notification signing/replacement flows are retained. No PDF, backend, review-mode or signature requirement changed. Evidence: `verification/hidden-consent-2026-10-15/`. Latest handover: `output/developer-handoff-2026-10-15-hidden-consent`.
+The separate Terms and Conditions Consent Form (previously card 4) is hidden from both customer catalogues and new-upload choices. The five remaining cards are numbered 1–5; the complete 38-page terms still support reading, signing and submission. Existing consent PDFs, history, management access and notification signing/replacement flows are retained. No PDF, backend, review-mode or signature requirement changed. Evidence: `verification/hidden-consent-2026-10-15/`. Latest handover: `output/developer-handoff-2026-10-15-hidden-consent`.
 
 ## Same-day preview correction
 

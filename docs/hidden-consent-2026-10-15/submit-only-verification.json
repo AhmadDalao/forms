@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "Signing-details network failure displays an upload fallback without a JavaScript exception",
+    "chrome / individual: five cards; hidden saved consent retains notification signing/upload follow-ups; off shows receipt/signature status only; on restores decisions; live mode changes update open views; all six stored decisions/answers/PDFs preserved",
+    "chrome / corporate: five cards; hidden saved consent retains notification signing/upload follow-ups; off shows receipt/signature status only; on restores decisions; live mode changes update open views; all six stored decisions/answers/PDFs preserved",
+    "firefox / individual: five cards; hidden saved consent retains notification signing/upload follow-ups; off shows receipt/signature status only; on restores decisions; live mode changes update open views; all six stored decisions/answers/PDFs preserved",
+    "firefox / corporate: five cards; hidden saved consent retains notification signing/upload follow-ups; off shows receipt/signature status only; on restores decisions; live mode changes update open views; all six stored decisions/answers/PDFs preserved",
+    "webkit / individual: five cards; hidden saved consent retains notification signing/upload follow-ups; off shows receipt/signature status only; on restores decisions; live mode changes update open views; all six stored decisions/answers/PDFs preserved",
+    "webkit / corporate: five cards; hidden saved consent retains notification signing/upload follow-ups; off shows receipt/signature status only; on restores decisions; live mode changes update open views; all six stored decisions/answers/PDFs preserved"
+  ],
+  "errors": [],
+  "passed": true
+}

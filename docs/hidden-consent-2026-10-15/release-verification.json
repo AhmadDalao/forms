@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "application_commit": "e0477176d400644ecc47a0c895bed5ef08aabf5d",
+  "uploaded_at_utc": "20261015T170130Z",
+  "static_only": true,
+  "created": [
+    "assets/branding-iwTZYYDr.js",
+    "assets/catalogue-C0XjYXq0.js",
+    "assets/catalogue-DHwkIXMS.js",
+    "assets/follow-up-8WcYaN5t.js",
+    "assets/forms-DGI8Q3qz.js",
+    "assets/forms-DtKeFhEK.js",
+    "assets/index-eAHh4vFP.js",
+    "assets/main-BN8rV0-x.js",
+    "assets/main-C-UVlqBc.js",
+    "assets/main-C7lElsmD.js",
+    "assets/notifications-Jg0DbNzY.js",
+    "assets/preview-B-o9Yb8k.js",
+    "assets/preview-YdsjWATN.js",
+    "assets/shared-fields-CkiyVfpC.js",
+    "assets/submitted-details-CaJ6_wPC.js",
+    "assets/upload-BQLx9h1q.js",
+    "assets/upload-ClKFYf2a.js"
+  ],
+  "replaced": [
+    "account/index.html",
+    "companies/index.html",
+    "individuals/index.html",
+    "login/index.html",
+    "management/index.html",
+    "my-applications/index.html",
+    "register/index.html",
+    "index.html"
+  ],
+  "public_files_backed_up": true,
+  "backend_and_pdf_assets_unchanged": true,
+  "private_storage_preserved": true,
+  "live_cases": 8,
+  "unit_tests": 276,
+  "historical_consent_retained": true
+}

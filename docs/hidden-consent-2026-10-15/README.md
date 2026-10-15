@@ -9,3 +9,7 @@ An explicit upload target can reinclude the hidden form only when the account ha
 Run `npm test`, `npm run build` and `node scripts/hidden-consent-audit.mjs`. The isolated browser audit covers both audiences, Arabic/English, desktop/mobile, Chrome/Firefox/WebKit, hidden fresh-upload choices, and existing notification preview, electronic signing, PDF replacement and immutable history.
 
 Fresh handover: `output/developer-handoff-2026-10-15-hidden-consent`. Public templates still include the retained consent PDF for compatibility. The fresh bootstrap still contains only admin/superadmin credentials, schema8 and review off, with no clients or submitted forms.
+
+The maintained customer-workflow audit passed nine checks, including current terms submission/replacement and preservation of the earlier PDF bytes. The submit-only client audit passed seven checks across all three engines, retaining hidden consent follow-ups and six stored records. The catalogue-layout script was updated and syntax-checked; its full separate sweep was not rerun because the focused visibility audit already checks the changed layout.
+
+Production deployed from `e0477176d400644ecc47a0c895bed5ef08aabf5d` at `20261015T170130Z`. Eight live Arabic/English desktop/mobile views passed using actual hosted assets with browser-only synthetic customer replies. The hidden consent template still matches its original bytes; production counts and workflow are unchanged. All overwritten public files were backed up; only static assets and HTML were published.

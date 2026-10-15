@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "individual/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+    "individual/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+    "individual: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+    "Individual FATCA: role first, all four choices on one desktop row, account-holder names prefill",
+    "individual: fillable T&C, electronic preview/submission, card statuses/download, signed upload replacement, byte-identical archive, ZIP, notifications and profile save",
+    "corporate/ar: all form headers keep two downloads, no duplicate preview, desktop/mobile fit and every generic final review renders all pages",
+    "corporate/en: all form headers keep two downloads, no duplicate preview, desktop/mobile fit",
+    "corporate: bilingual desktop/mobile catalogue, identity row order, no retired fields, T&C first step and unset signing choices",
+    "corporate: fillable T&C, electronic preview/submission, card statuses/download, signed upload replacement, byte-identical archive, ZIP, notifications and profile save"
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -1,0 +1,130 @@
+{
+  "scope": "Live hosted assets; browser-only synthetic client replies; no customer/submission writes",
+  "cases": [
+    {
+      "audience": "individual",
+      "lang": "en",
+      "width": 1440,
+      "cards": [
+        "subscription-form",
+        "kyc-individual",
+        "signature-form",
+        "fatca-crs-individual",
+        "terms-and-conditions"
+      ],
+      "numbering": "1–5",
+      "hidden_in_upload": true,
+      "no_overflow": true
+    },
+    {
+      "audience": "individual",
+      "lang": "en",
+      "width": 390,
+      "cards": [
+        "subscription-form",
+        "kyc-individual",
+        "signature-form",
+        "fatca-crs-individual",
+        "terms-and-conditions"
+      ],
+      "numbering": "1–5",
+      "hidden_in_upload": true,
+      "no_overflow": true
+    },
+    {
+      "audience": "individual",
+      "lang": "ar",
+      "width": 1440,
+      "cards": [
+        "subscription-form",
+        "kyc-individual",
+        "signature-form",
+        "fatca-crs-individual",
+        "terms-and-conditions"
+      ],
+      "numbering": "1–5",
+      "hidden_in_upload": true,
+      "no_overflow": true
+    },
+    {
+      "audience": "individual",
+      "lang": "ar",
+      "width": 390,
+      "cards": [
+        "subscription-form",
+        "kyc-individual",
+        "signature-form",
+        "fatca-crs-individual",
+        "terms-and-conditions"
+      ],
+      "numbering": "1–5",
+      "hidden_in_upload": true,
+      "no_overflow": true
+    },
+    {
+      "audience": "corporate",
+      "lang": "en",
+      "width": 1440,
+      "cards": [
+        "subscription-company",
+        "kyc-corporate",
+        "signature-form",
+        "fatca-crs-corporate",
+        "terms-and-conditions"
+      ],
+      "numbering": "1–5",
+      "hidden_in_upload": true,
+      "no_overflow": true
+    },
+    {
+      "audience": "corporate",
+      "lang": "en",
+      "width": 390,
+      "cards": [
+        "subscription-company",
+        "kyc-corporate",
+        "signature-form",
+        "fatca-crs-corporate",
+        "terms-and-conditions"
+      ],
+      "numbering": "1–5",
+      "hidden_in_upload": true,
+      "no_overflow": true
+    },
+    {
+      "audience": "corporate",
+      "lang": "ar",
+      "width": 1440,
+      "cards": [
+        "subscription-company",
+        "kyc-corporate",
+        "signature-form",
+        "fatca-crs-corporate",
+        "terms-and-conditions"
+      ],
+      "numbering": "1–5",
+      "hidden_in_upload": true,
+      "no_overflow": true
+    },
+    {
+      "audience": "corporate",
+      "lang": "ar",
+      "width": 390,
+      "cards": [
+        "subscription-company",
+        "kyc-corporate",
+        "signature-form",
+        "fatca-crs-corporate",
+        "terms-and-conditions"
+      ],
+      "numbering": "1–5",
+      "hidden_in_upload": true,
+      "no_overflow": true
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "application_commit": "e0477176d400644ecc47a0c895bed5ef08aabf5d",
+  "production_counts_and_workflow_unchanged": true,
+  "legacy_consent_pdf_unchanged": true
+}

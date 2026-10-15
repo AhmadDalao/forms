@@ -22,7 +22,7 @@ async function measure(label){
  assert.ok(m.scrollWidth<=m.width+1,label+' horizontal overflow');
  assert.equal(m.titleLines,1,label+' fund name stays on one line');
  assert.ok(m.titleLeft>=0&&m.titleRight<=m.width,label+' fund name fully visible');
- if(m.cards.length){assert.equal(m.cards.length,6);assert.equal(m.columns,m.width<=600?1:2,label+' card columns');assert.equal(m.rows,m.width<=600?6:3,label+' card rows');}
+ if(m.cards.length){assert.equal(m.cards.length,5);assert.equal(m.columns,m.width<=600?1:2,label+' card columns');assert.equal(m.rows,m.width<=600?5:3,label+' card rows');}
 }
 try{
  for(const [engine,type,launch] of [['chrome',chromium,{channel:'chrome'}],['firefox',firefox,{}],['webkit',webkit,{}]]){
@@ -31,7 +31,7 @@ try{
    const ctx=await browser.newContext(),user=await f.client(ctx,audience),folder=audience==='corporate'?'companies':'individuals';
    page=await ctx.newPage();page.on('pageerror',e=>report.errors.push(e.message));page.setDefaultTimeout(20000);
    await page.goto(f.base+'/'+folder+'/?lang=en');await page.locator('[data-card]').first().waitFor();
-   const ids=await page.locator('[data-card]').evaluateAll(xs=>xs.map(x=>x.dataset.card));assert.equal(ids.length,6);
+   const ids=await page.locator('[data-card]').evaluateAll(xs=>xs.map(x=>x.dataset.card));assert.deepEqual(ids,audience==='individual'?['subscription-form','kyc-individual','signature-form','fatca-crs-individual','terms-and-conditions']:['subscription-company','kyc-corporate','signature-form','fatca-crs-corporate','terms-and-conditions']);
    await page.setViewportSize({width:1280,height:720});await measure(engine+' '+audience+' fresh');
    const workflowRevision=(await f.call(ctx,'portal','session')).workflow.revision;
    for(const document of ids){
@@ -40,7 +40,7 @@ try{
    }
    for(const lang of ['en','ar']){
     await page.goto(f.base+'/'+folder+'/?lang='+lang);await page.locator('[data-download-all]').waitFor();
-    assert.equal(await page.locator('[data-filled]').count(),6);assert.equal(await page.locator('[data-upload]').count(),6);assert.equal(await page.locator('.card-status .review-badge').count(),6);
+    assert.equal(await page.locator('[data-filled]').count(),5);assert.equal(await page.locator('[data-upload]').count(),5);assert.equal(await page.locator('.card-status .review-badge').count(),5);
     for(const state of ['electronic','unsigned','uploaded'])assert.ok(await page.locator('.card-status [data-signature-state="'+state+'"]').count(),state+' status fixture');
     for(const [width,height] of [[1100,900],[1280,720],[1366,768],[1440,900]]){
      await page.setViewportSize({width,height});await measure(engine+' '+audience+' '+lang+' desktop');
@@ -52,13 +52,13 @@ try{
      if(engine==='chrome'&&width===390){await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:f.out+'/'+audience+'-'+lang+'-mobile.png'});}
     }
     await page.setViewportSize({width:1366,height:768});await page.evaluate(()=>scrollTo(0,0));
-    await page.locator('[data-upload]').first().click();await page.locator('.portal-upload').waitFor();await page.locator('.portal-upload [data-close]').click();
+    await page.locator('[data-upload]').first().click();await page.locator('.portal-upload').waitFor();assert.equal(await page.locator('.portal-upload option').count(),5);assert.equal(await page.locator('.portal-upload option[value="al-naeem-terms-consent"]').count(),0);await page.locator('.portal-upload [data-close]').click();
     const blank=await ctx.request.get(new URL(await page.locator('[data-blank]').first().getAttribute('href'),f.base).href);assert.equal(blank.status(),200);
     const filled=await ctx.request.get(new URL(await page.locator('[data-filled]').first().getAttribute('href'),f.base).href);assert.equal(filled.status(),200);
     const zip=await ctx.request.get(new URL(await page.locator('[data-download-all]').getAttribute('href'),f.base).href);assert.equal(zip.status(),200);
     // Uploaded forms open the editor without a submitted-online revision redirect.
     await page.locator('[data-doc="'+ids[1]+'"]').click();await page.locator('#back-home').waitFor();await page.locator('#back-home').click();await page.locator('[data-card]').first().waitFor();
-    pass(engine+' '+audience+' '+lang+': two-column desktop cards, single-line fund name, responsive layout and card actions');
+    pass(engine+' '+audience+' '+lang+': five customer cards and upload choices, two-column desktop layout, single-line fund name, responsive layout and card actions');
    }
    await ctx.close();
   }
